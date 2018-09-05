@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "778360628670",
+    "firebase_url": "https://test-hona.firebaseio.com",
+    "project_id": "test-hona",
+    "storage_bucket": "test-hona.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778360628670:android:ff193c32299c3841",
+        "android_client_info": {
+          "package_name": "com.hotelnow2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778360628670-na60b67537fn99h7n3o1smcl7qq3b8v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUA11wSIN_prYJ1KzcS2cYTv-qfTRk7C4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
