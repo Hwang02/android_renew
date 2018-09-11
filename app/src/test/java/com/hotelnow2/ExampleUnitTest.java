@@ -1,4 +1,4 @@
-package com.hotelnow2;
+package com.hotelnow;
 
 import org.junit.Test;
 

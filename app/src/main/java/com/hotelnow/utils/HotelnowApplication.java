@@ -1,18 +1,16 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.hotelnow2.R;
 import com.kakao.auth.KakaoSDK;
 import com.tune.Tune;
 
 import java.net.CookieHandler;
 import java.net.CookiePolicy;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 import android.support.multidex.MultiDexApplication;
 
 /**

@@ -1,4 +1,4 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,8 +10,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
-import com.hotelnow2.R;
-import com.hotelnow2.activity.ActLoading;
+import com.hotelnow.R;
+import com.hotelnow.activity.ActLoading;
 
 /**
  * Created by idhwang on 2018. 9. 4..

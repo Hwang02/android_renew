@@ -1,4 +1,4 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,7 +23,6 @@ import android.util.TypedValue;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,8 +34,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.hotelnow2.R;
-import com.hotelnow2.activity.ActLoading;
+import com.hotelnow.activity.ActLoading;
 import com.kakao.kakaolink.KakaoLink;
 import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
 import com.kakao.util.KakaoParameterException;

@@ -1,9 +1,8 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.hotelnow.system.HotelnowApplication;
 import com.tune.Tune;
 import com.tune.TuneEvent;
 import com.tune.TuneEventItem;

@@ -1,4 +1,4 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

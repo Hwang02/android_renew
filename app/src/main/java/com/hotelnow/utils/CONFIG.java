@@ -1,8 +1,8 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import android.location.Location;
 
-import com.hotelnow2.BuildConfig;
+import com.hotelnow.BuildConfig;
 
 import org.json.JSONObject;
 

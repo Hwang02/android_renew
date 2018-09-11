@@ -1,11 +1,11 @@
-package com.hotelnow2.utils;
+package com.hotelnow.utils;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 
-import com.hotelnow2.BuildConfig;
+import com.hotelnow.BuildConfig;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;

@@ -1,4 +1,4 @@
-package com.hotelnow2;
+package com.hotelnow;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.hotelnow2", appContext.getPackageName());
+        assertEquals("com.hotelnow", appContext.getPackageName());
     }
 }
