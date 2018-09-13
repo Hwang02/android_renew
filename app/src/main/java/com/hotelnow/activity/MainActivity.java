@@ -1,43 +1,38 @@
 package com.hotelnow.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.hotelnow.R;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.hotelnow.databinding.ActivityMainBinding;
+import com.hotelnow.fragment.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private TabLayout tabLayout;
+    private ActivityMainBinding mbinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        BottomNavigationViewEx bnve = (BottomNavigationViewEx) findViewById(R.id.navigation);
-        bnve.enableAnimation(false);
-        bnve.enableShiftingMode(false);
-        bnve.enableItemShiftingMode(false);
+        // 하단 탭 버튼 동작 제거
+        mbinding.navigation.enableAnimation(false);
+        mbinding.navigation.enableShiftingMode(false);
+        mbinding.navigation.enableItemShiftingMode(false);
 
-        tabLayout=(TabLayout)findViewById(R.id.tab_layout);
+        // 홈 상단 탭
+        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("Tab 1"));
+        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("Tab 2"));
+        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("Tab 3"));
 
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
-    }
+        //상단 toolbar
+        mbinding.layoutSearch.txtSearch.setText("dkdkdkdkdkdkdkdkk");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.screen_container, new HomeFragment(), "home")
+                .commitAllowingStateLoss();
     }
 }
