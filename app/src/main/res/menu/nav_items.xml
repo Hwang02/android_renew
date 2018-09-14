@@ -2,12 +2,20 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:icon="@drawable/ico_bnb_home"
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ico_bnb_home"
         android:title="홈" />
-    <item android:title="관심상품"
+    <item
+        android:id="@+id/fav"
+        android:title="관심상품"
         android:icon="@drawable/ico_bnb_favorite"/>
-    <item android:title="예약내역"
+    <item
+        android:id="@+id/reserv"
+        android:title="예약내역"
         android:icon="@drawable/ico_bnb_rsvlist"/>
-    <item android:title="내정보"
+    <item
+        android:id="@+id/mypage"
+        android:title="내정보"
         android:icon="@drawable/ico_bnb_mypage"/>
 </menu>

@@ -10,7 +10,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         tools:context="com.hotelnow.activity.MainActivity">
 
 
@@ -20,18 +20,18 @@
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.v7.widget.Toolbar
+            <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/darkBlue"
                 app:layout_scrollFlags="scroll|enterAlways" >
 
-            <include
-                android:id="@+id/layout_search"
-                layout="@layout/layout_search_header" />
+                <include
+                    android:id="@+id/layout_search"
+                    layout="@layout/layout_search_header" />
 
-            </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
 
 
             <android.support.design.widget.TabLayout
@@ -43,19 +43,20 @@
 
         </android.support.design.widget.AppBarLayout>
 
+
         <FrameLayout
             android:id="@+id/screen_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="bottom|end"
-            app:layout_behavior="com.hotelnow.utils.QuickReturnFooterBehavior"
-            app:menu="@menu/nav_items" />
+            app:menu="@menu/nav_items"
+            app:layout_behavior="com.hotelnow.utils.BottomNavigationBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

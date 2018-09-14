@@ -367,7 +367,6 @@ public class Util {
             diff = endDate.getTime() - beginDate.getTime();
             diffDays = diff / (24 * 60 * 60 * 1000);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

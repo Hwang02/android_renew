@@ -3,15 +3,27 @@ package com.hotelnow.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.fragment.home.HomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
     private ActivityMainBinding mbinding;
+    private FragmentTransaction transaction;
+    private final int FAVPAGE = 1;
+    private final int RESERVPAGE = 2;
+    private final int MYPAGE = 3;
+    private final int SELECTPAGE = 4;
+    private final int HOTELPAGE = 5;
+    private final int LEISUREPAGE = 6;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +46,122 @@ public class MainActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .replace(R.id.screen_container, new HomeFragment(), "home")
                 .commitAllowingStateLoss();
+
+        //상단 탭 화면 이동
+        mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:{ // 추천
+                        Log.e("xxxxx","111111");
+                        setTapMove(SELECTPAGE);
+                        break;
+                    }
+                    case 1:{ // 호텔
+                        Log.e("xxxxx","222222");
+                        setTapMove(HOTELPAGE);
+                        break;
+                    }
+                    case 2:{ // 엑티비티
+                        Log.e("xxxxx","33333");
+                        setTapMove(LEISUREPAGE);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //하단 탭 화면 이동
+        mbinding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                switch (item.getItemId()){
+                    case R.id.home:{
+                        Log.e("xxxxx","555555");
+                        //홈은 다른곳 이동시 값 저장 필요
+                        int mPosition = 0;
+                        if(mbinding.tabLayout.getSelectedTabPosition() == 0){
+                            mPosition = SELECTPAGE;
+                        }
+                        else if(mbinding.tabLayout.getSelectedTabPosition() == 1){
+                            mPosition = SELECTPAGE;
+                        }
+                        else if(mbinding.tabLayout.getSelectedTabPosition() == 2){
+                            mPosition = SELECTPAGE;
+                        }
+                        setTapMove(mPosition);
+                        break;
+                    }
+                    case R.id.fav:{
+                        Log.e("xxxxx","666666");
+                        setTapMove(FAVPAGE);
+                        break;
+                    }
+                    case R.id.reserv:{
+                        Log.e("xxxxx","77777");
+                        setTapMove(RESERVPAGE);
+                        break;
+                    }
+                    case R.id.mypage:{
+                        Log.e("xxxxx","888888");
+                        setTapMove(MYPAGE);
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        mbinding.navigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                //재선택시 동작 없음.
+            }
+        });
+
+        setTapMove(SELECTPAGE);
+    }
+
+    public void setTapMove(int mPosition){
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.fadein, R.anim.fadeout);
+        switch (mPosition){
+            case SELECTPAGE:{
+
+                break;
+            }
+            case FAVPAGE:{
+
+                break;
+            }
+            case RESERVPAGE:{
+
+                break;
+            }
+            case MYPAGE:{
+
+                break;
+            }
+            case HOTELPAGE:{
+
+                break;
+            }
+            case LEISUREPAGE:{
+
+                break;
+            }
+            
+        }
     }
 }

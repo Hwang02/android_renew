@@ -1,15 +1,13 @@
-package com.hotelnow.fragment.home;
+package com.hotelnow.fragment.favorite;
 
 import android.app.Fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MainAdapter;
@@ -17,13 +15,10 @@ import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
-import com.hotelnow.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
-public class HomeFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
     private FragmentHomeBinding mHomeBinding;
     private ArrayList<Object> objects = new ArrayList<>();
