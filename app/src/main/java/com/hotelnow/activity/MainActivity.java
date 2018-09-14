@@ -9,10 +9,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
+import com.hotelnow.fragment.favorite.FavoriteFragment;
 import com.hotelnow.fragment.home.HomeFragment;
+import com.hotelnow.fragment.hotel.HotelFragment;
+import com.hotelnow.fragment.leisure.LeisureFragment;
+import com.hotelnow.fragment.mypage.MypageFragment;
+import com.hotelnow.fragment.reservation.ReservationFragment;
 
 public class MainActivity extends FragmentActivity {
     private ActivityMainBinding mbinding;
@@ -42,10 +48,6 @@ public class MainActivity extends FragmentActivity {
 
         //상단 toolbar
         mbinding.layoutSearch.txtSearch.setText("dkdkdkdkdkdkdkdkk");
-
-        getFragmentManager().beginTransaction()
-                .replace(R.id.screen_container, new HomeFragment(), "home")
-                .commitAllowingStateLoss();
 
         //상단 탭 화면 이동
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -95,27 +97,31 @@ public class MainActivity extends FragmentActivity {
                             mPosition = SELECTPAGE;
                         }
                         else if(mbinding.tabLayout.getSelectedTabPosition() == 1){
-                            mPosition = SELECTPAGE;
+                            mPosition = HOTELPAGE;
                         }
                         else if(mbinding.tabLayout.getSelectedTabPosition() == 2){
-                            mPosition = SELECTPAGE;
+                            mPosition = LEISUREPAGE;
                         }
                         setTapMove(mPosition);
+                        mbinding.tabLayout.setVisibility(View.VISIBLE);
                         break;
                     }
                     case R.id.fav:{
                         Log.e("xxxxx","666666");
                         setTapMove(FAVPAGE);
+                        mbinding.tabLayout.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.reserv:{
                         Log.e("xxxxx","77777");
                         setTapMove(RESERVPAGE);
+                        mbinding.tabLayout.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.mypage:{
                         Log.e("xxxxx","888888");
                         setTapMove(MYPAGE);
+                        mbinding.tabLayout.setVisibility(View.GONE);
                         break;
                     }
                 }
@@ -138,30 +144,60 @@ public class MainActivity extends FragmentActivity {
         transaction.setCustomAnimations(R.anim.fadein, R.anim.fadeout);
         switch (mPosition){
             case SELECTPAGE:{
-
+                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
+                    transaction.replace(R.id.screen_container, new HomeFragment(), "SELECTPAGE").commitAllowingStateLoss();
+                }
+                else{
+                    transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                }
                 break;
             }
             case FAVPAGE:{
-
+                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
+                    transaction.replace(R.id.screen_container, new FavoriteFragment(), "FAVPAGE").commitAllowingStateLoss();
+                }
+                else{
+                    transaction.show(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                }
                 break;
             }
             case RESERVPAGE:{
-
+                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
+                    transaction.replace(R.id.screen_container, new ReservationFragment(), "RESERVPAGE").commitAllowingStateLoss();
+                }
+                else{
+                    transaction.show(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                }
                 break;
             }
             case MYPAGE:{
-
+                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") == null) {
+                    transaction.replace(R.id.screen_container, new MypageFragment(), "MYPAGE").commitAllowingStateLoss();
+                }
+                else{
+                    transaction.show(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                }
                 break;
             }
             case HOTELPAGE:{
-
+                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
+                    transaction.replace(R.id.screen_container, new HotelFragment(), "HOTELPAGE").commitAllowingStateLoss();
+                }
+                else{
+                    transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                }
                 break;
             }
             case LEISUREPAGE:{
-
+                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
+                    transaction.replace(R.id.screen_container, new LeisureFragment(), "LEISUREPAGE").commitAllowingStateLoss();
+                }
+                else{
+                    transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                }
                 break;
             }
-            
+
         }
     }
 }
