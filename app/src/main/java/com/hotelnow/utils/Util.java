@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.hotelnow.R;
 import com.hotelnow.activity.ActLoading;
 import com.kakao.kakaolink.KakaoLink;
 import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
@@ -714,13 +716,6 @@ public class Util {
 //        CONFIG.mticket_Page = 1;
 //    }
 
-//    public static void setStatusColor(Activity activity) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.header_dark));
-//        }
-//    }
-
 //    private static String getDefaultCheckinout(){
 //        Date dateObj = new Date();
 //        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -749,6 +744,13 @@ public class Util {
 //
 //        return formatterdt.format(startCal.getTime())+","+formatterdt.format(endCal.getTime());
 //    }
+
+    public static void setStatusColor(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.header_dark));
+        }
+    }
 
     //하단 버튼 유무
     public static boolean hasNavBar(Context context) {

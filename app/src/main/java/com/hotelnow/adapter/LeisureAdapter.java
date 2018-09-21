@@ -5,36 +5,43 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
-import com.hotelnow.utils.ViewPagerCustom;
 import com.hotelnow.utils.RecyclerItemClickListener;
+import com.hotelnow.utils.ViewPagerCustom;
 
 import java.util.ArrayList;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.hotelnow.fragment.home.HomeFragment.getBannerData;
-import static com.hotelnow.fragment.home.HomeFragment.getHorizontalData;
-import static com.hotelnow.fragment.home.HomeFragment.getVerticalData;
 
-public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<Object> items;
-    private final int VERTICAL = 3;
-    private final int HORIZONTAL = 2;
-    private final int BANNER =1;
+    private LeisureFragment mHf;
+    private final int BANNER =1; // viewpager
+    private final int KEYWORD = 2; // 키워드 horizontal
+    private final int RECENT = 3; // 최근 본 horizontal
+    private final int BANNER_MINI = 4; // viewpager
+    private final int HOTDEAL_HOTEL = 5; // 호텔 핫딜 horizontal
+    private final int HOTDEAL_ACTIVITY = 6; // 엑티비티 핫딜 horizontal
+    private final int PROMOTION = 7; // 변경되는 프로모션 horizontal
+    private final int SPECIAL = 8; // 변경되는 프로모션 vertical
 
-    public MainAdapter(Context context, ArrayList<Object> items) {
+
+
+    public LeisureAdapter(Context context, LeisureFragment hf, ArrayList<Object> items) {
         this.context = context;
         this.items = items;
+        this.mHf = hf;
     }
 
     @Override
@@ -43,20 +50,25 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View view;
         RecyclerView.ViewHolder holder;
         switch (viewType) {
-            case VERTICAL:
-                view = inflater.inflate(R.layout.vertical, parent, false);
+            case SPECIAL:
+                view = inflater.inflate(R.layout.layout_vertical, parent, false);
                 holder = new VerticalViewHolder(view);
                 break;
-            case HORIZONTAL:
-                view = inflater.inflate(R.layout.horizontal, parent, false);
+            case KEYWORD:
+            case RECENT:
+            case HOTDEAL_HOTEL:
+            case HOTDEAL_ACTIVITY:
+            case PROMOTION:
+                view = inflater.inflate(R.layout.layout_horizontal, parent, false);
                 holder = new HorizontalViewHolder(view);
                 break;
             case BANNER:
+            case BANNER_MINI:
                 view = inflater.inflate(R.layout.layout_banner, parent, false);
                 holder = new BannerViewHolder(view);
                 break;
             default:
-                view = inflater.inflate(R.layout.horizontal, parent, false);
+                view = inflater.inflate(R.layout.layout_horizontal, parent, false);
                 holder = new HorizontalViewHolder(view);
                 break;
         }
@@ -65,38 +77,34 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder.getItemViewType() == BANNER) {
-            BannerView((BannerViewHolder) holder);
+        if (holder.getItemViewType() == BANNER || holder.getItemViewType() == BANNER_MINI) {
+            BannerView((BannerViewHolder) holder, holder.getItemViewType());
         }
-        else if (holder.getItemViewType() == HORIZONTAL) {
-            horizontalView((HorizontalViewHolder) holder);
+        else if (holder.getItemViewType() == KEYWORD || holder.getItemViewType() == RECENT || holder.getItemViewType() == HOTDEAL_HOTEL
+                || holder.getItemViewType() == HOTDEAL_ACTIVITY || holder.getItemViewType() == PROMOTION) {
+            horizontalView((HorizontalViewHolder) holder, holder.getItemViewType());
         }
-        else if (holder.getItemViewType() == VERTICAL) {
-            verticalView((VerticalViewHolder) holder);
+        else if (holder.getItemViewType() == SPECIAL) {
+            verticalView((VerticalViewHolder) holder, holder.getItemViewType());
         }
     }
 
-    private void verticalView(VerticalViewHolder holder) {
-
-        VerticalAdapter adapter = new VerticalAdapter(getVerticalData());
+    private void verticalView(VerticalViewHolder holder, int type) {
+        VerticalAdapter adapter = new VerticalAdapter(mHf.getVerticalData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(adapter);
     }
 
 
-    private void horizontalView(HorizontalViewHolder holder) {
-        HorizontalAdapter adapter = new HorizontalAdapter(getHorizontalData());
+    private void horizontalView(HorizontalViewHolder holder, int type) {
+        HorizontalAdapter adapter = new HorizontalAdapter(mHf.getHorizontalData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(adapter);
     }
 
-    private void BannerView(final BannerViewHolder holder) {
-//        HorizontalAdapter adapter = new HorizontalAdapter(getHorizontalData());
-
-        BannerPagerAdapter adapter = new BannerPagerAdapter(context, getBannerData());
+    private void BannerView(final BannerViewHolder holder, int type) {
+        BannerPagerAdapter adapter = new BannerPagerAdapter(context, mHf.getBannerData());
         holder.autoViewPager.setAdapter(adapter); //Auto Viewpager에 Adapter 장착
-//        holder.autoViewPager.setInterval(2000); // 페이지 넘어갈 시간 간격 설정
-//        holder.autoViewPager.startAutoScroll(); //Auto Scroll 시작
         holder.autoViewPager.setCurrentItem(getBannerData().size() * 10);
         holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -116,11 +124,22 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         if (items.get(position) instanceof SingleVertical)
-            return VERTICAL;
+            return SPECIAL;
         if (items.get(position) instanceof SingleHorizontal)
-            return HORIZONTAL;
+            return KEYWORD;
+        if (items.get(position) instanceof SingleHorizontal)
+            return RECENT;
+        if (items.get(position) instanceof SingleHorizontal)
+            return HOTDEAL_HOTEL;
+        if (items.get(position) instanceof SingleHorizontal)
+            return HOTDEAL_ACTIVITY;
+        if (items.get(position) instanceof SingleHorizontal)
+            return PROMOTION;
         if (items.get(position) instanceof Banner)
             return BANNER;
+        if (items.get(position) instanceof Banner)
+            return BANNER_MINI;
+
         return -1;
     }
 

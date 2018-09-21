@@ -3,4 +3,7 @@
 
     <string name="facebook_app_id" translatable="false">752568681483147</string>
     <string name="facebook_app_namespace" translatable="false">hotelnow_app</string>
+    <string name="more_txt" translatable="false">전체보기</string>
+
+
 </resources>

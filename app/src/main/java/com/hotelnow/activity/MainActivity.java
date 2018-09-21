@@ -7,10 +7,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
@@ -19,6 +17,8 @@ import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.mypage.MypageFragment;
 import com.hotelnow.fragment.reservation.ReservationFragment;
+import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
 
 public class MainActivity extends FragmentActivity {
     private ActivityMainBinding mbinding;
@@ -34,6 +34,9 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Util.setStatusColor(this);
+
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         // 하단 탭 버튼 동작 제거
@@ -42,12 +45,12 @@ public class MainActivity extends FragmentActivity {
         mbinding.navigation.enableItemShiftingMode(false);
 
         // 홈 상단 탭
-        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("Tab 1"));
-        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("Tab 2"));
-        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("Tab 3"));
+        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("추천"));
+        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("숙소"));
+        mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("액티비티"));
 
         //상단 toolbar
-        mbinding.layoutSearch.txtSearch.setText("dkdkdkdkdkdkdkdkk");
+//        mbinding.layoutSearch.txtSearch.setText("dkdkdkdkdkdkdkdkk");
 
         //상단 탭 화면 이동
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -55,17 +58,17 @@ public class MainActivity extends FragmentActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:{ // 추천
-                        Log.e("xxxxx","111111");
+                        LogUtil.e("xxxxx","111111");
                         setTapMove(SELECTPAGE);
                         break;
                     }
                     case 1:{ // 호텔
-                        Log.e("xxxxx","222222");
+                        LogUtil.e("xxxxx","222222");
                         setTapMove(HOTELPAGE);
                         break;
                     }
                     case 2:{ // 엑티비티
-                        Log.e("xxxxx","33333");
+                        LogUtil.e("xxxxx","33333");
                         setTapMove(LEISUREPAGE);
                         break;
                     }
@@ -90,7 +93,7 @@ public class MainActivity extends FragmentActivity {
                 item.setChecked(true);
                 switch (item.getItemId()){
                     case R.id.home:{
-                        Log.e("xxxxx","555555");
+                        LogUtil.e("xxxxx","555555");
                         //홈은 다른곳 이동시 값 저장 필요
                         int mPosition = 0;
                         if(mbinding.tabLayout.getSelectedTabPosition() == 0){
@@ -107,19 +110,19 @@ public class MainActivity extends FragmentActivity {
                         break;
                     }
                     case R.id.fav:{
-                        Log.e("xxxxx","666666");
+                        LogUtil.e("xxxxx","666666");
                         setTapMove(FAVPAGE);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.reserv:{
-                        Log.e("xxxxx","77777");
+                        LogUtil.e("xxxxx","77777");
                         setTapMove(RESERVPAGE);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.mypage:{
-                        Log.e("xxxxx","888888");
+                        LogUtil.e("xxxxx","888888");
                         setTapMove(MYPAGE);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         break;
@@ -145,7 +148,7 @@ public class MainActivity extends FragmentActivity {
         switch (mPosition){
             case SELECTPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
-                    transaction.replace(R.id.screen_container, new HomeFragment(), "SELECTPAGE").commitAllowingStateLoss();
+                    transaction.replace(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE").commitAllowingStateLoss();
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -154,7 +157,7 @@ public class MainActivity extends FragmentActivity {
             }
             case FAVPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
-                    transaction.replace(R.id.screen_container, new FavoriteFragment(), "FAVPAGE").commitAllowingStateLoss();
+                    transaction.replace(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE").commitAllowingStateLoss();
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
@@ -163,7 +166,7 @@ public class MainActivity extends FragmentActivity {
             }
             case RESERVPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
-                    transaction.replace(R.id.screen_container, new ReservationFragment(), "RESERVPAGE").commitAllowingStateLoss();
+                    transaction.replace(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE").commitAllowingStateLoss();
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
@@ -172,7 +175,7 @@ public class MainActivity extends FragmentActivity {
             }
             case MYPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("MYPAGE") == null) {
-                    transaction.replace(R.id.screen_container, new MypageFragment(), "MYPAGE").commitAllowingStateLoss();
+                    transaction.replace(mbinding.screenContainer.getId(), new MypageFragment(), "MYPAGE").commitAllowingStateLoss();
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
@@ -181,7 +184,7 @@ public class MainActivity extends FragmentActivity {
             }
             case HOTELPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
-                    transaction.replace(R.id.screen_container, new HotelFragment(), "HOTELPAGE").commitAllowingStateLoss();
+                    transaction.replace(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE").commitAllowingStateLoss();
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
@@ -190,7 +193,7 @@ public class MainActivity extends FragmentActivity {
             }
             case LEISUREPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
-                    transaction.replace(R.id.screen_container, new LeisureFragment(), "LEISUREPAGE").commitAllowingStateLoss();
+                    transaction.replace(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE").commitAllowingStateLoss();
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));

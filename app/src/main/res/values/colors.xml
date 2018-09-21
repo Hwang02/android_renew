@@ -5,6 +5,16 @@
     <color name="colorActionMode">#353C50</color>
     <color name="colorAccent">#F8A018</color>
     <color name="background">#FAFAFA</color>
+    <color name="header_dark">#380f69</color>
+    <color name="purple">#4d267f</color>
+    <color name="blacktxt">#222222</color>
+    <color name="graytxt">#999999</color>
+    <color name="purpletxt">#4d267f</color>
+    <color name="white">#ffffff</color>
+    <color name="unselecttab">#999999</color>
+    <color name="selecttab">#4d267f</color>
+    <color name="bg_background">#dedee3</color>
+
 
 
 <!--테스트-->

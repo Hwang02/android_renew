@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.MainAdapter;
+import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
@@ -32,7 +32,7 @@ public class FavoriteFragment extends Fragment {
         mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View inflate = mHomeBinding.getRoot();
 
-        MainAdapter adapter = new MainAdapter(getActivity(), getObject());
+        FavoriteAdapter adapter = new FavoriteAdapter(getActivity(), FavoriteFragment.this, getObject());
         mHomeBinding.recyclerView.setAdapter(adapter);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

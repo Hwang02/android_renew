@@ -5,23 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.MainAdapter;
+import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
-import com.hotelnow.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HomeFragment extends Fragment {
 
@@ -37,10 +32,10 @@ public class HomeFragment extends Fragment {
         mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View inflate = mHomeBinding.getRoot();
 
-        MainAdapter adapter = new MainAdapter(getActivity(), getObject());
+        HomeAdapter adapter = new HomeAdapter(getActivity(), HomeFragment.this, getObject());
         mHomeBinding.recyclerView.setAdapter(adapter);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        mHomeBinding.recyclerView.invalidate();
         return inflate;
     }
 
