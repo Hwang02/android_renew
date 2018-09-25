@@ -25,16 +25,14 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_single_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recent_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.description.setText(data.get(position).getDesc());
-        holder.title.setText(data.get(position).getTitle());
-        holder.pubDate.setText(data.get(position).getPubDate());
+        holder.keyword.setText(data.get(position).getTitle());
         holder.image.setImageResource(data.get(position).getImages());
     }
 
@@ -44,15 +42,13 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description, pubDate;
+        TextView keyword;
         ImageView image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.description);
-            pubDate = (TextView) itemView.findViewById(R.id.published_date);
-            image = (ImageView) itemView.findViewById(R.id.image_view);
+            keyword = (TextView) itemView.findViewById(R.id.tv_keyword);
+            image = (ImageView) itemView.findViewById(R.id.iv_image);
         }
     }
 }

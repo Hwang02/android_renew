@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -119,6 +120,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void horizontalView(HorizontalViewHolder holder, int type) {
         HorizontalAdapter adapter = new HorizontalAdapter(mHf.getHorizontalData());
+        GridLayoutManager manager = new GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false);
+//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                return (3 - position % 3);
+//            }
+//        });
+        holder.recyclerView.setLayoutManager(manager);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(adapter);
     }

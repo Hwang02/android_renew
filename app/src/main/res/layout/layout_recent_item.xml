@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="290dp"
+    android:layout_height="180dp"
+    android:layout_marginRight="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="290dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="290dp"
+            android:layout_height="150dp"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="25dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="13dp"
+                android:scaleType="fitXY"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="25dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="15dp"
+                android:scaleType="fitXY"/>
+
+        </LinearLayout>
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/ico_favorite_enabled"
+            android:layout_alignParentRight="true"
+            android:layout_margin="6dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_keyword"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="8dp"
+        android:textSize="12dp"
+        android:background="@color/white"
+        android:textColor="@color/blacktxt"
+        tools:text="서울" />
+</LinearLayout>

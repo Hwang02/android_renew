@@ -63,6 +63,9 @@ public class HomeFragment extends Fragment {
         singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
         singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
         singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
+        singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
+        singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
+        singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
         return singleHorizontals;
     }
 
