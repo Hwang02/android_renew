@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android_renew.iml" filepath="$PROJECT_DIR$/android_renew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calendar_lib/calendar_lib.iml" filepath="$PROJECT_DIR$/calendar_lib/calendar_lib.iml" />
     </modules>
   </component>
 </project>

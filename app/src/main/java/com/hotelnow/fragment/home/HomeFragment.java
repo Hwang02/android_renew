@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.home;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.Banner;
@@ -36,6 +38,14 @@ public class HomeFragment extends Fragment {
         mHomeBinding.recyclerView.setAdapter(adapter);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHomeBinding.recyclerView.invalidate();
+        mHomeBinding.btTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                startActivity(intent);
+
+            }
+        });
         return inflate;
     }
 

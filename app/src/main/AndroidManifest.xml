@@ -28,6 +28,7 @@
 
         <activity android:name="com.hotelnow.activity.MainActivity"
             android:theme="@style/AppTheme.TransNav"/>
+        <activity android:name=".activity.CalendarActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">
