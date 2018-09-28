@@ -37,12 +37,22 @@ public class CalendarCellView extends FrameLayout {
           R.attr.tsquare_state_deactivated
   };
 
+  private static final int[] STATE_SUN = {
+          R.attr.tsquare_state_sun
+  };
+
+  private static final int[] STATE_SAT = {
+          R.attr.tsquare_state_sat
+  };
+
   private boolean isSelectable = false;
   private boolean isCurrentMonth = false;
   private boolean isToday = false;
   private boolean isHighlighted = false;
   private boolean isAvailable = false;
   private boolean isDeactivated = false;
+  private boolean isSun = false;
+  private boolean isSat = false;
   private RangeState rangeState = RangeState.NONE;
   private TextView dayOfMonthTextView;
 
@@ -100,6 +110,20 @@ public class CalendarCellView extends FrameLayout {
     }
   }
 
+  public void setSat(boolean isSat) {
+    if (this.isSat != isSat) {
+      this.isSat = isSat;
+      refreshDrawableState();
+    }
+  }
+
+  public void setSun(boolean isSun) {
+    if (this.isSun != isSun) {
+      this.isSun = isSun;
+      refreshDrawableState();
+    }
+  }
+
   public boolean isCurrentMonth() {
     return isCurrentMonth;
   }
@@ -116,13 +140,21 @@ public class CalendarCellView extends FrameLayout {
     return isHighlighted;
   }
 
+  public boolean isSun() {
+    return isSun;
+  }
+
+  public boolean isSat() {
+    return isSat;
+  }
+
   public RangeState getRangeState() {
     return rangeState;
   }
 
   @Override
   protected int[] onCreateDrawableState(int extraSpace) {
-    final int[] drawableState = super.onCreateDrawableState(extraSpace + 5);
+    final int[] drawableState = super.onCreateDrawableState(extraSpace + 7);
 
     if (isSelectable) {
       mergeDrawableStates(drawableState, STATE_SELECTABLE);
@@ -146,6 +178,14 @@ public class CalendarCellView extends FrameLayout {
 
     if(isDeactivated){
       mergeDrawableStates(drawableState, STATE_DEACTIVATED);
+    }
+
+    if(isSat){
+      mergeDrawableStates(drawableState, STATE_SAT);
+    }
+
+    if(isSun){
+      mergeDrawableStates(drawableState, STATE_SUN);
     }
 
     if (rangeState == RangeState.FIRST) {

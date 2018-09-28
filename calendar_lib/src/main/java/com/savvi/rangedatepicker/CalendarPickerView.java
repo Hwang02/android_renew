@@ -9,6 +9,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -486,7 +487,7 @@ public class CalendarPickerView extends ListView {
       Date clickedDate = cell.getDate();
 
 // 하이라이트일때 checkout 인 경우 표시 필요 주석
-//      if(highlightedCells.contains(cell)){
+//     if(highlightedCells.contains(cell)){
 //        return;
 //      }
 
@@ -833,6 +834,18 @@ public class CalendarPickerView extends ListView {
         boolean isToday = sameDate(cal, today);
         boolean isHighlighted = containsDate(highlightedCals, cal);
         int value = cal.get(DAY_OF_MONTH);
+        int dayNum = cal.get(Calendar.DAY_OF_WEEK);
+
+        boolean isSun = false;
+        boolean isSat = false;
+        if(dayNum == 1){
+          isSun = true;
+          Log.e("xxxxx",isSun+"issun");
+        }
+        else if(dayNum == 7){
+          isSat = true;
+          Log.e("xxxxxxxxxxx",isSat+"issat");
+        }
 
         RangeState rangeState = RangeState.NONE;
         if (selectedCals.size() > 1) {
@@ -847,7 +860,7 @@ public class CalendarPickerView extends ListView {
 
         weekCells.add(
             new MonthCellDescriptor(date, isCurrentMonth, isSelectable, isSelected, isToday,
-                isHighlighted, value, rangeState));
+                isHighlighted, value, rangeState, isSun, isSat));
         cal.add(DATE, 1);
       }
     }

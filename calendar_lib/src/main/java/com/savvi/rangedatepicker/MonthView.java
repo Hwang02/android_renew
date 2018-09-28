@@ -2,6 +2,7 @@
 package com.savvi.rangedatepicker;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -142,7 +143,8 @@ public class MonthView extends LinearLayout {
                 cellView.setHighlighted(cell.isHighlighted());
                 cellView.setRangeUnavailable(cell.isUnavailable());
                 cellView.setDeactivated(true);
-
+                cellView.setSat(cell.isSat());
+                cellView.setSun(cell.isSun());
             }
             else
             {
@@ -155,6 +157,9 @@ public class MonthView extends LinearLayout {
                 cellView.setHighlighted(cell.isHighlighted());
                 cellView.setRangeUnavailable(cell.isUnavailable());
                 cellView.setDeactivated(false);
+
+                cellView.setSat(cell.isSat());
+                cellView.setSun(cell.isSun());
             }
 
 

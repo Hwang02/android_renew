@@ -20,5 +20,7 @@
     <attr name="tsquare_state_highlighted" format="boolean" />
     <attr name="tsquare_state_unavailable" format="boolean" />
     <attr name="tsquare_state_deactivated" format="boolean" />
+    <attr name="tsquare_state_sun" format="boolean" />
+    <attr name="tsquare_state_sat" format="boolean" />
   </declare-styleable>
 </resources>

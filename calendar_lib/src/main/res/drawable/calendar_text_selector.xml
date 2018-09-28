@@ -8,5 +8,7 @@
   <item app:tsquare_state_highlighted="true" android:color="@color/calendar_text_highlighted" />
   <item app:tsquare_state_today="true" android:color="@color/calendar_active_month_bg"/>
   <item app:tsquare_state_selectable="false" android:color="@color/calendar_text_unselected" />
+  <item app:tsquare_state_sun="true" app:tsquare_state_highlighted="false" android:color="#d21e1e" />
+  <item app:tsquare_state_sat="true" app:tsquare_state_highlighted="false" android:color="#135eb4" />
   <item android:color="@color/calendar_text_active"/>
 </selector>
