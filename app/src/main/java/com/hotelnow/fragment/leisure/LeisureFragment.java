@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.HomeAdapter;
-import com.hotelnow.adapter.LeisureAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
+import com.hotelnow.databinding.FragmentLeisureBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 
 public class LeisureFragment extends Fragment {
 
-    private FragmentHomeBinding mHomeBinding;
+    private FragmentLeisureBinding mLeisureBinding;
     private ArrayList<Object> objects = new ArrayList<>();
 
     @Nullable
@@ -30,12 +29,12 @@ public class LeisureFragment extends Fragment {
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
 
-        mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View inflate = mHomeBinding.getRoot();
+        mLeisureBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_leisure, container, false);
+        View inflate = mLeisureBinding.getRoot();
 
-        LeisureAdapter adapter = new LeisureAdapter(getActivity(), LeisureFragment.this, getObject());
-        mHomeBinding.recyclerView.setAdapter(adapter);
-        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        LeisureAdapter adapter = new LeisureAdapter(getActivity(), LeisureFragment.this, getObject());
+//        mHomeBinding.recyclerView.setAdapter(adapter);
+//        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return inflate;
     }

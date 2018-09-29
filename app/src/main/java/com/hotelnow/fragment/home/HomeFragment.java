@@ -9,21 +9,31 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.Banner;
-import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
+import com.hotelnow.fragment.model.StayHotDealItem;
+import com.hotelnow.utils.Api;
+import com.hotelnow.utils.CONFIG;
+import com.squareup.okhttp.Response;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mHomeBinding;
-    private ArrayList<Object> objects = new ArrayList<>();
+    private List<Object> objects = null;
+    public static ArrayList<StayHotDealItem> mStayItem = new ArrayList<>();
+    private HomeAdapter adapter;
 
     @Nullable
     @Override
@@ -34,26 +44,117 @@ public class HomeFragment extends Fragment {
         mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View inflate = mHomeBinding.getRoot();
 
-        HomeAdapter adapter = new HomeAdapter(getActivity(), HomeFragment.this, getObject());
-        mHomeBinding.recyclerView.setAdapter(adapter);
+        return inflate;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        objects = new ArrayList<>();
+        adapter = new HomeAdapter(getActivity(), HomeFragment.this, objects);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mHomeBinding.recyclerView.invalidate();
+        mHomeBinding.recyclerView.setAdapter(adapter);
+
         mHomeBinding.btTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CalendarActivity.class);
                 startActivity(intent);
-
             }
         });
-        return inflate;
+
+        getObject();
     }
 
-    private ArrayList<Object> getObject() {
-        objects.add(getBannerData().get(0));
-        objects.add(getHorizontalData().get(0));
-        objects.add(getVerticalData().get(0));
-        return objects;
+    private void getObject() {
+//        String url = CONFIG.mainHome;
+        String url = CONFIG.mainListUrl_v2+"/1/20";
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(obj.has("promotion_banners")){
+
+                    }
+                    if(obj.has("popular_keywords")){
+
+                    }
+                    if(obj.has("event_banners")){
+
+                    }
+                    if(obj.has("stay_hot_deals")){
+                        JSONArray mStay = new JSONArray(obj.getJSONArray("stay_hot_deals").toString());
+//                        hotel_id, name, category, landscape, street1, latitude, longuitude, privateDealYN, sale_price, sale_rate, items_quantity, special_msg, grade_score
+                        for(int i = 0; i < mStay.length(); i++){
+                            mStayItem.add(new StayHotDealItem(
+                                    mStay.getJSONObject(i).getString("hotel_id"),
+                                    mStay.getJSONObject(i).getString("name"),
+                                    mStay.getJSONObject(i).getString("category"),
+                                    mStay.getJSONObject(i).getString("landscape"),
+                                    mStay.getJSONObject(i).getString("street1"),
+                                    mStay.getJSONObject(i).getString("latitude"),
+                                    mStay.getJSONObject(i).getString("longuitude"),
+                                    mStay.getJSONObject(i).getString("privateDealYN"),
+                                    mStay.getJSONObject(i).getString("sale_price"),
+                                    mStay.getJSONObject(i).getString("sale_rate"),
+                                    mStay.getJSONObject(i).getString("items_quantity"),
+                                    mStay.getJSONObject(i).getString("special_msg"),
+                                    mStay.getJSONObject(i).getString("grade_score")
+                            ));
+                        }
+                        objects.add(mStayItem);
+                    }
+                    if(obj.has("data")){
+                        JSONArray mStay = new JSONArray(obj.getJSONArray("data").toString());
+//                        hotel_id, name, category, landscape, street1, latitude, longuitude, privateDealYN, sale_price, sale_rate, items_quantity, special_msg, grade_score
+                        for(int i = 0; i < mStay.length(); i++){
+                            mStayItem.add(new StayHotDealItem(
+                                    mStay.getJSONObject(i).getString("hotel_id"),
+                                    mStay.getJSONObject(i).getString("name"),
+                                    mStay.getJSONObject(i).getString("category"),
+                                    mStay.getJSONObject(i).getString("landscape"),
+                                    mStay.getJSONObject(i).getString("street1"),
+                                    mStay.getJSONObject(i).getString("latitude"),
+                                    mStay.getJSONObject(i).getString("longuitude"),
+                                    mStay.getJSONObject(i).getString("privateDealYN"),
+                                    mStay.getJSONObject(i).getString("sale_price"),
+                                    mStay.getJSONObject(i).getString("sale_rate"),
+                                    mStay.getJSONObject(i).getString("items_quantity"),
+                                    mStay.getJSONObject(i).getString("special_msg"),
+                                    mStay.getJSONObject(i).getString("grade_score")
+                            ));
+                        }
+                        objects.add(mStayItem.get(0));
+//                        objects.add(getVerticalData());
+                    }
+                    if(obj.has("activity_hot_deals")){
+//                        objects.add(getVerticalData());
+                    }
+                    if(obj.has("theme_show")){
+//                        objects.add(getVerticalData());
+                    }
+                    if(obj.has("theme_lists")){
+//                        objects.add(getVerticalData());
+                    }
+                    adapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     //test용 데이터
@@ -68,15 +169,16 @@ public class HomeFragment extends Fragment {
         return singleVerticals;
     }
 
-    public static ArrayList<SingleHorizontal> getHorizontalData() {
-        ArrayList<SingleHorizontal> singleHorizontals = new ArrayList<>();
-        singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
-        return singleHorizontals;
+    public static ArrayList<StayHotDealItem> getStayHotelData() {
+//        ArrayList<SingleHorizontal> singleHorizontals = new ArrayList<>();
+//        singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
+//        singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
+//        singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
+//        singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
+//        singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
+//        singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
+
+        return mStayItem;
     }
 
     public static ArrayList<Banner> getBannerData() {

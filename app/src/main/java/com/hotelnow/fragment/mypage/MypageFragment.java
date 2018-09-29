@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.hotelnow.R;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
+import com.hotelnow.databinding.FragmentMypageBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 public class MypageFragment extends Fragment {
 
-    private FragmentHomeBinding mHomeBinding;
+    private FragmentMypageBinding mMypageBinding;
     private ArrayList<Object> objects = new ArrayList<>();
 
     @Nullable
@@ -29,8 +30,8 @@ public class MypageFragment extends Fragment {
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
 
-        mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View inflate = mHomeBinding.getRoot();
+        mMypageBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_mypage, container, false);
+        View inflate = mMypageBinding.getRoot();
 
 //        HomeAdapter adapter = new HomeAdapter(getActivity(), getObject());
 //        mHomeBinding.recyclerView.setAdapter(adapter);

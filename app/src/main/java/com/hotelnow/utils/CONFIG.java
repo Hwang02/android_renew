@@ -127,6 +127,9 @@ public class CONFIG {
     public final static String newrelicKey = "AAb598d6751668162b9954ab68b628a549d1b3d0e7";	//	newrelic 키
     public final static String kimgisaKey = "c1be8498949d40bdb9b9fa38acd54737";				//	카카오내비 키
 
+    //v3
+    public final static String mainHome = domain+"/main";                                   // 메인 홈
+
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";
     public final static String crash_log = domain+"/crash/android";

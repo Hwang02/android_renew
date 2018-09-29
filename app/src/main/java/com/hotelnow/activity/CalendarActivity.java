@@ -47,8 +47,8 @@ public class CalendarActivity extends Activity{
 //        list.add(6);
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        String strdate = "2018-09-28";
-        String strdate2 = "2018-09-29";
+        String strdate = "2018-09-30";
+        String strdate2 = "2018-10-01";
         Date newdate = null;
         Date newdate2 = null;
         try {
@@ -72,12 +72,12 @@ public class CalendarActivity extends Activity{
             @Override
             public void onDateSelected(Date date) {
                 Log.d("list",  date.toString());
-                if (calendar.getSelectedDates().size() == 1) {
-
-                }
-                else {
-                    calendar.clearSelectedDates();
-                }
+//                if (calendar.getSelectedDates().size() == 1) {
+//
+//                }
+//                else {
+//                    calendar.clearSelectedDates();
+//                }
             }
 
             @Override

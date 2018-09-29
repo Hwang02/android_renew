@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.FavoriteAdapter;
+import com.hotelnow.databinding.FragmentFavoriteBinding;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class FavoriteFragment extends Fragment {
 
-    private FragmentHomeBinding mHomeBinding;
+    private FragmentFavoriteBinding mFavoriteBinding;
     private ArrayList<Object> objects = new ArrayList<>();
 
     @Nullable
@@ -29,12 +29,12 @@ public class FavoriteFragment extends Fragment {
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
 
-        mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View inflate = mHomeBinding.getRoot();
+        mFavoriteBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
+        View inflate = mFavoriteBinding.getRoot();
 
-        FavoriteAdapter adapter = new FavoriteAdapter(getActivity(), FavoriteFragment.this, getObject());
-        mHomeBinding.recyclerView.setAdapter(adapter);
-        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        FavoriteAdapter adapter = new FavoriteAdapter(getActivity(), FavoriteFragment.this, getObject());
+//        mHomeBinding.recyclerView.setAdapter(adapter);
+//        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return inflate;
     }

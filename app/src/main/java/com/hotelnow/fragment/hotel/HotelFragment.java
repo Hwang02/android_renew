@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.hotelnow.R;
-import com.hotelnow.adapter.HomeAdapter;
-import com.hotelnow.adapter.HotelAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
+import com.hotelnow.databinding.FragmentHotelBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 
 public class HotelFragment extends Fragment {
 
-    private FragmentHomeBinding mHomeBinding;
+    private FragmentHotelBinding mHotelBinding;
     private ArrayList<Object> objects = new ArrayList<>();
 
     @Nullable
@@ -28,12 +27,12 @@ public class HotelFragment extends Fragment {
                              @Nullable final ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
 
-        mHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View inflate = mHomeBinding.getRoot();
+        mHotelBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_hotel, container, false);
+        View inflate = mHotelBinding.getRoot();
 
-        HotelAdapter adapter = new HotelAdapter(getActivity(), HotelFragment.this, getObject());
-        mHomeBinding.recyclerView.setAdapter(adapter);
-        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        HotelAdapter adapter = new HotelAdapter(getActivity(), HotelFragment.this, getObject());
+//        mHomeBinding.recyclerView.setAdapter(adapter);
+//        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return inflate;
     }

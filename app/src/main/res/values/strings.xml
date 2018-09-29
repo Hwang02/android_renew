@@ -5,5 +5,26 @@
     <string name="facebook_app_namespace" translatable="false">hotelnow_app</string>
     <string name="more_txt" translatable="false">전체보기</string>
 
+    <!-- error msg -->
+    <string name="error_need_login">로그인 후 이용 가능합니다.</string>
+    <string name="error_try_again">정보를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_product_info">상품 정보를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_booking_info">예약 정보를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_theme_info">테마 리스트를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_booking_fail">예약을 완료하지 못했습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_event_apply">이벤트 정보를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_member_join">가입 처리가 완료되지 않았습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_event_complete">이벤트 응모 처리가 완료되지 않았습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_connect_problem">접속이 원활하지 않습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_no_product">판매 종료된 상품입니다. 상품 리스트를 새로고침 합니다.</string>
+    <string name="error_hotel_location">호텔 위치를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_ticket_location">티캣 위치를 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_near_hotel_location">일시적으로 주변 호텔을 확인 할 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_capcha_img">캡챠 이미지를 읽어올 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_reserve_money">적립금 정보를 읽어올 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_coupon_money">쿠폰 정보를 읽어올 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="error_review_regist">리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="booking_hide_success">예약내역을 삭제하였습니다.</string>
+    <!-- // error msg -->
 
 </resources>

@@ -2,11 +2,11 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="horizontal"
-            type="com.hotelnow.fragment.home.HomeFragment" />
-    </data>
+    <!--<data>-->
+        <!--<variable-->
+            <!--name="horizontal"-->
+            <!--type="com.hotelnow.fragment.home.HomeFragment" />-->
+    <!--</data>-->
 
     <LinearLayout
         android:orientation="vertical"

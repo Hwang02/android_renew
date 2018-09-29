@@ -95,7 +95,7 @@ public class MainActivity extends FragmentActivity {
                     case R.id.home:{
                         LogUtil.e("xxxxx","555555");
                         //홈은 다른곳 이동시 값 저장 필요
-                        int mPosition = 0;
+                        int mPosition = 4;
                         if(mbinding.tabLayout.getSelectedTabPosition() == 0){
                             mPosition = SELECTPAGE;
                         }
@@ -148,56 +148,158 @@ public class MainActivity extends FragmentActivity {
         switch (mPosition){
             case SELECTPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
-                    transaction.replace(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE").commitAllowingStateLoss();
+                    transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
+
+                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                }
+                transaction.commitAllowingStateLoss();
                 break;
             }
             case FAVPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
-                    transaction.replace(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE").commitAllowingStateLoss();
+                    transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                 }
+
+                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                }
+                transaction.commitAllowingStateLoss();
                 break;
             }
             case RESERVPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
-                    transaction.replace(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE").commitAllowingStateLoss();
+                    transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                 }
+
+                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                }
+                transaction.commitAllowingStateLoss();
                 break;
             }
             case MYPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("MYPAGE") == null) {
-                    transaction.replace(mbinding.screenContainer.getId(), new MypageFragment(), "MYPAGE").commitAllowingStateLoss();
+                    transaction.add(mbinding.screenContainer.getId(), new MypageFragment(), "MYPAGE");
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                 }
+
+                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                }
+                transaction.commitAllowingStateLoss();
                 break;
             }
             case HOTELPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
-                    transaction.replace(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE").commitAllowingStateLoss();
+                    transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
                 }
+
+                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                }
+                transaction.commitAllowingStateLoss();
                 break;
             }
             case LEISUREPAGE:{
                 if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
-                    transaction.replace(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE").commitAllowingStateLoss();
+                    transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
                 }
                 else{
                     transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
                 }
+
+                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                }
+                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                }
+                transaction.commitAllowingStateLoss();
                 break;
             }
 

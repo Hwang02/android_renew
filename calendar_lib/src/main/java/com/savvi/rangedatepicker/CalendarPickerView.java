@@ -840,11 +840,11 @@ public class CalendarPickerView extends ListView {
         boolean isSat = false;
         if(dayNum == 1){
           isSun = true;
-          Log.e("xxxxx",isSun+"issun");
+//          Log.e("xxxxx",isSun+"issun");
         }
         else if(dayNum == 7){
           isSat = true;
-          Log.e("xxxxxxxxxxx",isSat+"issat");
+//          Log.e("xxxxxxxxxxx",isSat+"issat");
         }
 
         RangeState rangeState = RangeState.NONE;
