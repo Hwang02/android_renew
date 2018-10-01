@@ -33,8 +33,8 @@ android {
         local {
             // 빌드시 local ip 를 가져오는 로직 문제가 있어서 일단, 주석처리
             //def localhost = Inet4Address.getLocalHost().getHostAddress();
-            def localhost = '192.168.219.140';
-//            def localhost = '192.168.4.119';
+//            def localhost = '192.168.219.140';
+            def localhost = '192.168.4.119';
             resValue("string", "app_name", "호텔나우-local");
             resValue("string", "google_map_key", "AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc");
             resValue("string", "facebook_provider", "com.facebook.app.NativeAppCallContentProvider640301742734227");

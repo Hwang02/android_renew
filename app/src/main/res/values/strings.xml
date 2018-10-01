@@ -4,6 +4,7 @@
     <string name="facebook_app_id" translatable="false">752568681483147</string>
     <string name="facebook_app_namespace" translatable="false">hotelnow_app</string>
     <string name="more_txt" translatable="false">전체보기</string>
+    <string name="theme_more_txt" translatable="false">기획전 상품 더보기</string>
 
     <!-- error msg -->
     <string name="error_need_login">로그인 후 이용 가능합니다.</string>
@@ -27,4 +28,20 @@
     <string name="booking_hide_success">예약내역을 삭제하였습니다.</string>
     <!-- // error msg -->
 
+    <!-- title -->
+    <string name="banner">베너</string>
+    <string name="small_banner">작은배너</string>
+    <string name="keyword">요즘 뜨는 키워드</string>
+    <string name="recent">최근 본 상품</string>
+    <string name="hotdeal_hotel">숙소 단독 핫딜</string>
+    <string name="hotdeal_activity">액티비티 단독 핫딜</string>
+    <string name="promotion">제목 받아서</string>
+    <string name="theme_special">특별한 여행 제안</string>
+    <!-- end title -->
+
+    <string name="companyinfo_txt1">봉봉랩(주)  |  대표자 김가영  |  대표번호 : 1670-6864\n\n주소: 서울시 강남구 테헤란로 108길 42 (대치동, 엠디엠타워)\n사업자 번호 : 215-87-4279454\n\n통신판매업신고 : 제2017-서울강남-00156호\n\n제휴문의 : cs@hotelnow.co.kr</string>
+    <string name="term_title">이용약관</string>
+    <string name="term_txt1">서비스 이용약관</string>
+    <string name="term_txt2">개인정보처리방침</string>
+    <string name="term_txt3">위치기반 서비스 이용약관</string>
 </resources>

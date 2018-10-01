@@ -47,8 +47,8 @@ public class CalendarActivity extends Activity{
 //        list.add(6);
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        String strdate = "2018-09-30";
-        String strdate2 = "2018-10-01";
+        String strdate = "2018-10-20";
+        String strdate2 = "2018-10-21";
         Date newdate = null;
         Date newdate2 = null;
         try {

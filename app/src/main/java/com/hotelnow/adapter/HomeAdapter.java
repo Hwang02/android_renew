@@ -1,22 +1,31 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.SingleVertical;
+import com.hotelnow.fragment.model.ActivityHotDealItem;
+import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
+import com.hotelnow.fragment.model.ThemeItem;
+import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.hotelnow.utils.RecyclerItemClickListener;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -25,6 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Object> items;
     private HomeFragment mHf;
     private LayoutInflater inflater;
+    private final int FOOTER = 0; // 하단
     private final int BANNER =1; // viewpager
     private final int KEYWORD = 2; // 키워드 horizontal
     private final int RECENT = 3; // 최근 본 horizontal
@@ -71,14 +81,17 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder = new HorizontalViewHolder(view, HOTDEAL_ACTIVITY);
                 break;
             case PROMOTION:
-                view = inflater.inflate(R.layout.layout_horizontal, parent, false);
-                holder = new HorizontalViewHolder(view, PROMOTION);
+                view = inflater.inflate(R.layout.layout_theme_horizontal, parent, false);
+                holder = new HorizontalThemeViewHolder(view, PROMOTION);
                 break;
             case SPECIAL:
                 view = inflater.inflate(R.layout.layout_vertical, parent, false);
                 holder = new VerticalViewHolder(view, SPECIAL);
                 break;
-
+            case FOOTER:
+                view = inflater.inflate(R.layout.layout_vertical, parent, false);
+                holder = new FooterViewHolder(view, FOOTER);
+                break;
             default:
                 view = inflater.inflate(R.layout.layout_horizontal, parent, false);
                 holder = new HorizontalViewHolder(view, RECENT);
@@ -89,27 +102,70 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder.getItemViewType() == BANNER || holder.getItemViewType() == BANNER_MINI) {
-            BannerView((BannerViewHolder) holder, holder.getItemViewType());
-        }
-        else if (holder.getItemViewType() == KEYWORD || holder.getItemViewType() == RECENT || holder.getItemViewType() == HOTDEAL_HOTEL
-                || holder.getItemViewType() == HOTDEAL_ACTIVITY || holder.getItemViewType() == PROMOTION) {
-            horizontalView((HorizontalViewHolder) holder, holder.getItemViewType());
-        }
-        else if (holder.getItemViewType() == SPECIAL) {
-            verticalView((VerticalViewHolder) holder, holder.getItemViewType());
+        switch (holder.getItemViewType()) {
+            case BANNER:
+                BannerView((BannerViewHolder) holder, holder.getItemViewType());
+                break;
+            case BANNER_MINI:
+                BannerView((BannerViewHolder) holder, holder.getItemViewType());
+                break;
+            case KEYWORD:
+                break;
+            case RECENT:
+                break;
+            case HOTDEAL_HOTEL:
+                setHotelHotDealView((HorizontalViewHolder) holder, holder.getItemViewType());
+                break;
+            case HOTDEAL_ACTIVITY:
+                setActivityHotDealView((HorizontalViewHolder) holder, holder.getItemViewType());
+                break;
+            case PROMOTION:
+                setThemeView((HorizontalThemeViewHolder) holder, holder.getItemViewType());
+                break;
+            case SPECIAL:
+                setThemeSpecialView((VerticalViewHolder) holder, holder.getItemViewType());
+                break;
+            case FOOTER:
+                setBottomView((FooterViewHolder) holder, holder.getItemViewType());
+                break;
+
         }
     }
 
-    private void verticalView(VerticalViewHolder holder, int type) {
-        VerticalAdapter adapter = new VerticalAdapter(mHf.getVerticalData());
+//    private void verticalView(VerticalViewHolder holder, int type) {
+//        VerticalAdapter adapter = new VerticalAdapter(mHf.getVerticalData());
+//        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//        holder.recyclerView.setAdapter(adapter);
+//    }
+
+    private void setBottomView(FooterViewHolder holder, int type){
+        FooterAdapter adapter = new FooterAdapter(mHf.getDefaultItem(), mHf.getRecyclerView());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(adapter);
     }
 
+    private void setThemeSpecialView(VerticalViewHolder holder, int type) {
+        ThemeSpecialAdapter adapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData());
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerView.setAdapter(adapter);
+    }
 
-    private void horizontalView(HorizontalViewHolder holder, int type) {
-        HotelHotDealAdapter adapter = new HotelHotDealAdapter(mHf.getStayHotelData());
+    private void setThemeView(HorizontalThemeViewHolder holder, int type) {
+        ThemeAdapter adapter = new ThemeAdapter(mHf.getThemeData());
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(adapter);
+
+    }
+
+    private void setHotelHotDealView(HorizontalViewHolder holder, int type) {
+        HotelHotDealAdapter adapter = new HotelHotDealAdapter(mHf.getHotelData());
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(adapter);
+
+    }
+
+    private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
+        ActivityHotDealAdapter adapter = new ActivityHotDealAdapter(mHf.getActivityData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         holder.recyclerView.setAdapter(adapter);
     }
@@ -142,7 +198,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
 //        if (items.get(position) instanceof Banner)
 //            return BANNER;
-        if (items.get(position) instanceof SingleVertical)
+        if (items.get(position) instanceof ThemeSpecialItem)
             return SPECIAL;
 //        if (items.get(position) instanceof SingleHorizontal)
 //            return KEYWORD;
@@ -150,10 +206,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //            return RECENT;
         if (items.get(position) instanceof StayHotDealItem)
             return HOTDEAL_HOTEL;
-//        if (items.get(position) instanceof SingleHorizontal)
-//            return HOTDEAL_ACTIVITY;
-//        if (items.get(position) instanceof SingleHorizontal)
-//            return PROMOTION;
+        if (items.get(position) instanceof ActivityHotDealItem)
+            return HOTDEAL_ACTIVITY;
+        if (items.get(position) instanceof DefaultItem)
+            return FOOTER;
+        if (items.get(position) instanceof ThemeItem)
+            return PROMOTION;
 //        if (items.get(position) instanceof Banner)
 //            return BANNER_MINI;
 
@@ -185,6 +243,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onItemClick(View view, int position) {
                     Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
+                    context.startActivity(intent);
                 }
 
                 @Override
@@ -193,6 +254,51 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
 
             }));
+        }
+    }
+
+    public class HorizontalThemeViewHolder extends RecyclerView.ViewHolder {
+
+        RecyclerView recyclerView;
+        TextView mTitle;
+
+        HorizontalThemeViewHolder(View itemView, int page) {
+            super(itemView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
+            mTitle = (TextView) itemView.findViewById(R.id.title);
+
+            setTitle(mTitle, page);
+
+            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onLongItemClick(View view, int position) {
+
+                }
+
+            }));
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        RecyclerView recyclerView;
+        TextView mTitle;
+        TextView mMoreView;
+
+        FooterViewHolder(View itemView, int page) {
+            super(itemView);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
+            mTitle = (TextView) itemView.findViewById(R.id.title);
+            mMoreView = (TextView) itemView.findViewById(R.id.all_view);
+
+            mTitle.setVisibility(View.GONE);
+            mMoreView.setVisibility(View.GONE);
+
         }
     }
 
@@ -208,10 +314,24 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class VerticalViewHolder extends RecyclerView.ViewHolder {
         RecyclerView recyclerView;
+        TextView mTitle;
+        TextView mMoreView;
 
         VerticalViewHolder(View itemView, int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
+            mTitle = (TextView) itemView.findViewById(R.id.title);
+            mMoreView = (TextView) itemView.findViewById(R.id.all_view);
+
+            setTitle(mTitle, page);
+
+            mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
             recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
@@ -242,10 +362,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     title.setText("최근 본 상품");
                     break;
                 case HOTDEAL_HOTEL:
-                    title.setText("숙소 단독 핫딜");
+                    SpannableStringBuilder builder = new SpannableStringBuilder(context.getResources().getText(R.string.hotdeal_hotel));
+                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.purple)), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    title.append(builder);
                     break;
                 case HOTDEAL_ACTIVITY:
-                    title.setText("액티비티 단독 핫딜");
+                    SpannableStringBuilder builder2 = new SpannableStringBuilder(context.getResources().getText(R.string.hotdeal_activity));
+                    builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.activitytxt)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    title.append(builder2);
                     break;
                 case PROMOTION:
                     title.setText("제목 받아서");

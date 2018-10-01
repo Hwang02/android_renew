@@ -13,6 +13,12 @@
     <color name="unselecttab">#999999</color>
     <color name="bg_background">#dedee3</color>
     <color name="purple_19">#194d267f</color>
+    <color name="textbar">#d8d8d8</color>
+    <color name="board_line">#e1e1e1</color>
+    <color name="activitytxt">#ff6427</color>
+    <color name="footerview">#f7f7fa</color>
+    <color name="termtext">#666666</color>
+    <color name="back_line">#f0f0f5</color>
 
 
 <!--테스트-->

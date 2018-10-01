@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <Button
+        android:id="@+id/bt_top"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/btn_screenup"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/footerview"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="12dp"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/img_hotelnow_bi"/>
+
+                <ImageView
+                    android:id="@+id/lv_more"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/btn_detail_open_grey"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"/>
+
+                <TextView
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/lv_more"
+                    android:textSize="9dp"
+                    android:padding="2dp"
+                    android:textColor="@color/graytxt"
+                    android:layout_centerVertical="true"
+                    android:text="사업자 정보"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_companyinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="11dp"
+                android:textColor="@color/graytxt"
+                android:text="@string/companyinfo_txt1"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/term1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_title"
+                    android:textSize="11dp"
+                    android:padding="2dp"
+                    android:layout_marginRight="7dp"
+                    android:textColor="@color/termtext"/>
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_background"
+                    android:layout_marginRight="7dp" />
+
+                <TextView
+                    android:id="@+id/term2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_txt2"
+                    android:textSize="11dp"
+                    android:padding="2dp"
+                    android:layout_marginRight="7dp"
+                    android:textColor="@color/termtext"/>
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_background"
+                    android:layout_marginRight="7dp" />
+
+                <TextView
+                    android:id="@+id/term3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/term_txt3"
+                    android:textSize="11dp"
+                    android:padding="2dp"
+                    android:layout_marginRight="7dp"
+                    android:textColor="@color/termtext"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:visibility="invisible"></LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
