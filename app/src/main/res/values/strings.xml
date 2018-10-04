@@ -26,6 +26,7 @@
     <string name="error_coupon_money">쿠폰 정보를 읽어올 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="error_review_regist">리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="booking_hide_success">예약내역을 삭제하였습니다.</string>
+    <string name="not_recent_search">최근 검색내역이 없습니다.</string>
     <!-- // error msg -->
 
     <!-- title -->
@@ -44,4 +45,11 @@
     <string name="term_txt1">서비스 이용약관</string>
     <string name="term_txt2">개인정보처리방침</string>
     <string name="term_txt3">위치기반 서비스 이용약관</string>
+    <string name="search_hint">검색어를 입력해주세요</string>
+    <string name="search_location_go">내 주변 바로보기</string>
+    <string name="search_recent_title">최근 검색어</string>
+    <string name="search_popular_title">인기 여행지</string>
+    <string name="search_hotel_activity">추천 숙소 \u0026 액티비티</string>
+    <string name="all_clear">전체 삭제</string>
+
 </resources>

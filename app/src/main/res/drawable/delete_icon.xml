@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:drawable="@drawable/ico_delete_txt"
+        android:width="14dp"
+        android:height="14dp"
+        android:right="9dp"/>
+
+</layer-list >

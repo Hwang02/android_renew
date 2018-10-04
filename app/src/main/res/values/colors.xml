@@ -19,6 +19,8 @@
     <color name="footerview">#f7f7fa</color>
     <color name="termtext">#666666</color>
     <color name="back_line">#f0f0f5</color>
+    <color name="gray_line">#a4a4b0</color>
+    <color name="star_txt">#adadad</color>
 
 
 <!--테스트-->

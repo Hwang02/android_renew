@@ -18,7 +18,6 @@ import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.DefaultItem;
-import com.hotelnow.fragment.model.SingleVertical;
 import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;

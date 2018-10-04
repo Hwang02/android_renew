@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
+import com.hotelnow.utils.DbOpenHelper;
+
 import java.util.ArrayList;
 
 public class ActLoading extends Activity {
@@ -17,6 +19,10 @@ public class ActLoading extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+
+        DbOpenHelper dbHelper = new DbOpenHelper(this);
+        dbHelper.open();
+        dbHelper.close();
 
         //권한 예제
 //   권한 후 동작 진행

@@ -1,5 +1,6 @@
 package com.hotelnow.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,6 +49,14 @@ public class MainActivity extends FragmentActivity {
         mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("추천"));
         mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("숙소"));
         mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("액티비티"));
+
+        mbinding.layoutSearch.searchMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //상단 toolbar
 //        mbinding.layoutSearch.txtSearch.setText("dkdkdkdkdkdkdkdkk");

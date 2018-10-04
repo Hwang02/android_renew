@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailHotelActivity;
+import com.hotelnow.activity.SearchActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.DefaultItem;
@@ -131,12 +132,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
     }
-
-//    private void verticalView(VerticalViewHolder holder, int type) {
-//        VerticalAdapter adapter = new VerticalAdapter(mHf.getVerticalData());
-//        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//        holder.recyclerView.setAdapter(adapter);
-//    }
 
     private void setBottomView(FooterViewHolder holder, int type){
         FooterAdapter adapter = new FooterAdapter(mHf.getDefaultItem(), mHf.getRecyclerView());
