@@ -11,19 +11,19 @@ public class DataBases {
         public static final String _TABLENAME = "hcity";
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("
-                        +_ID+" integer primary key autoincrement, "
                         +city_ko+" text not null , "
                         +city_code+" text not null );";
     }
 
     // 호텔 서브시티
     public static final class SubCity_CreateDB implements BaseColumns {
+        public static final String city_code = "city_code";
         public static final String subcity_ko = "subcity_ko";
         public static final String subcity_code = "subcity_code";
         public static final String _TABLENAME = "hsubcity";
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("
-                        +_ID+" integer primary key autoincrement, "
+                        +city_code+" text not null , "
                         +subcity_ko+" text not null , "
                         +subcity_code+" text not null );";
     }
@@ -35,7 +35,6 @@ public class DataBases {
         public static final String _TABLENAME = "qcity";
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("
-                        +_ID+" integer primary key autoincrement, "
                         +qcity_ko+" text not null , "
                         +qcity_id+" text not null );";
     }
@@ -47,7 +46,6 @@ public class DataBases {
         public static final String _TABLENAME = "qcategory";
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("
-                        +_ID+" integer primary key autoincrement, "
                         +qcategory_ko+" text not null , "
                         +qcategory_id+" text not null );";
     }
@@ -77,7 +75,6 @@ public class DataBases {
         public static final String _TABLENAME = "recent_city";
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("
-                        +_ID+" integer primary key autoincrement, "
                         +sel_city_id+" text not null , "
                         +sel_city_ko+" text not null , "
                         +sel_subcity_id+" text , "

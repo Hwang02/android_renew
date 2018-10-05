@@ -1,235 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/search_box"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/footerview">
+        android:layout_height="@dimen/dimen_title"
+        android:background="@color/white"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/Theme.AppCompat.NoActionBar">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="30dp">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/search_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:textColor="@color/purple"
-                android:layout_alignParentRight="true"
-                android:imeOptions="actionDone"
-                android:text="취소"
-                android:visibility="gone"/>
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/text_box_underline_selector"
-                android:paddingBottom="20dp"
-                android:maxLength="20"
-                android:singleLine="true"
-                android:gravity="center_vertical"
-                android:inputType="textNoSuggestions|text"
-                android:textSize="15dp"
-                android:hint="검색어를 입력해주세요"
-                android:textColor="@color/purple"
-                android:layout_marginRight="10dp"
-                android:drawableLeft="@drawable/search_icon"
-                android:drawableRight="@drawable/delete_icon"
-                android:layout_toLeftOf="@id/search_cancel"/>
-
-            <LinearLayout
-                android:id="@+id/lv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="18dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp"
-                android:layout_below="@id/et_search">
+            <RelativeLayout
+                android:id="@+id/title_back"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/ico_location_here" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_location_go"
-                    android:textColor="@color/purple"
-                    android:layout_marginLeft="6dp"
-                    android:textSize="13dp"/>
-            </LinearLayout>
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ico_titbar_back" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_search_word"
+                android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="16dp"
-                android:layout_below="@id/et_search"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
                 android:singleLine="true"
-                android:text=""
-                android:textColor="@color/termtext"
-                android:layout_marginLeft="6dp"
-                android:visibility="gone"
-                android:textSize="13dp"/>
+                android:textColor="@color/purple"
+                android:textSize="16dp"
+                android:text="@string/area_title"/>
         </RelativeLayout>
-    </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_location"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/footerview">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ico_location_here" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_location_go"
+            android:textColor="@color/purple"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="20dp"
+            android:textSize="13dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/back_line"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:orientation="horizontal">
+        
+        <ListView
+            android:id="@+id/select_view"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:divider="#00000000"
+            android:background="@color/back_line"
+            android:choiceMode="singleChoice" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/search_box"
             android:background="@color/white">
-            <RelativeLayout
+
+            <include layout="@layout/layout_recent_noarea"
+                android:id="@+id/layout_noarea"/>
+
+            <ListView
+                android:id="@+id/result_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="26dp">
-    <!--최근 감섹아 -->
-                <LinearLayout
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/recent_clear"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="11dp"
-                            android:textColor="@color/gray_line"
-                            android:text="@string/all_clear"/>
-
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:scaleType="fitXY"
-                            android:background="@drawable/ico_delete_txt"/>
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/recent_clear_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/bg_background"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_recent_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_recent_title"
-                    android:textColor="@color/blacktxt"
-                    android:textSize="14dp"/>
-
-                <LinearLayout
-                    android:id="@+id/recent_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_recent_title"
-                    android:orientation="vertical"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp" >
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/underline"
-                    android:layout_below="@id/recent_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/back_line"/>
-    <!--최근 감섹아 end-->
-
-    <!--인기 여행지-->
-                <TextView
-                    android:id="@+id/tv_popular_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:text="@string/search_popular_title"
-                    android:textColor="@color/blacktxt"
-                    android:textSize="14dp"
-                    android:layout_below="@id/underline"/>
-
-                <LinearLayout
-                    android:id="@+id/ll_popular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@id/tv_popular_title"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp" >
-
-                    <com.hotelnow.utils.FlowLayout
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/popular_keyword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        app:elementSpacing="10dp"
-                        app:flowDirection="leftToRight"
-                        app:lineSpacing="10dp"
-                        app:paddingStart="20dp"
-                        app:paddingEnd="20dp"/>
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/underline2"
-                    android:layout_below="@id/ll_popular"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/back_line"/>
-    <!--인기 여행지 end-->
-
-    <!--추천숙소 액티비티 -->
-                <TextView
-                    android:id="@+id/tv_hq_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:text="@string/search_hotel_activity"
-                    android:textColor="@color/blacktxt"
-                    android:textSize="14dp"
-                    android:layout_below="@id/underline2"/>
-
-                <LinearLayout
-                    android:id="@+id/hq_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@id/tv_hq_title"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp" >
-                </LinearLayout>
-
-            </RelativeLayout>
-    <!--추천숙소 액티비티 end-->
+                android:layout_height="match_parent"
+                android:divider="#00000000"
+                android:visibility="gone"
+                android:background="@color/white" />
         </RelativeLayout>
-    </ScrollView>
+
+    </LinearLayout>
+
 </LinearLayout>

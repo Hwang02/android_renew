@@ -136,7 +136,7 @@ public class SearchActivity extends Activity{
         tv_search_word.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHelper.insertKeywordArea(et_search.getText().toString());
+                dbHelper.insertKeyword(et_search.getText().toString());
                 mSearchList.clear();
                 getRecentData();
             }
@@ -189,7 +189,7 @@ public class SearchActivity extends Activity{
                 @Override
                 public void onClick(View v) {
                     // keyword 검색으로 검색 리스트로 이동
-                    dbHelper.insertKeywordArea(tmpCat.get((int)v.getTag()));
+                    dbHelper.insertKeyword(tmpCat.get((int)v.getTag()));
                     mSearchList.clear();
                     getRecentData();
                 }

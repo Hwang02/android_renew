@@ -31,6 +31,8 @@
         <activity android:name=".activity.CalendarActivity" />
         <activity android:name=".activity.DetailHotelActivity" />
         <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.AreaHotelActivity" />
+        <activity android:name=".activity.MapHotelActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

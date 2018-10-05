@@ -126,6 +126,19 @@ public class CONFIG {
     public final static String csPhoneNum = "1670-6864";     								//	cs 전화번호
     public final static String newrelicKey = "AAb598d6751668162b9954ab68b628a549d1b3d0e7";	//	newrelic 키
     public final static String kimgisaKey = "c1be8498949d40bdb9b9fa38acd54737";				//	카카오내비 키
+    public static String PrivateUrl = "";                                                   // 프라이빗딜 url
+    public static Date svr_date = null;													    // 서버시간
+    public static String operation_time = "오전 09:00 ~ 익일 02:00";
+    public static String open_sell_time = "7";												// 상품판매 시작시간
+    public static String special_text = "";                                                 //단발성 이벤트 문구
+    public static String special_theme_id = "";                                             //단발성 이벤트 테마 아이디
+    public static String search_bg_text = "";                                               //단발성 이벤트 검색 힌트문구
+    public static String special_text_q = "";                                                 //단발성 이벤트 문구
+    public static String special_theme_id_q = "";                                             //단발성 이벤트 테마 아이디
+    public static String search_bg_text_q = "";                                               //단발성 이벤트 검색 힌트문구
+    public static String signupimgURL = null;                                               //  회원가입 이미지
+    public static int maxDate = 181;                                                        //  달력최대일수
+    public static String sign_pro_img = null;                                               // 프로모션 이미지
 
     //v3
     public final static String mainHome = domain+"/main";                                   // 메인 홈

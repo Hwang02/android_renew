@@ -40,6 +40,18 @@
     <string name="theme_special">특별한 여행 제안</string>
     <!-- end title -->
 
+    <!-- ActLoading -->
+    <string name="ask_write_review">호텔나우 앱의 리뷰를 작성하러 가시겠습니까?</string>
+    <string name="ask_new_version1">호텔나우 새 버전이 나왔습니다.\n구글 플레이로 이동합니다.</string>
+    <string name="ask_new_version2">호텔나우 새 버전이 나왔습니다.\n업데이트를 하시겠습니까?</string>
+    <string name="ask_new_version3">더욱 편리한 사용을 위해 새 버전을 출시했습니다.\n지금 업데이트 하세요!</string>
+    <string name="ask_use_location">주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.</string>
+    <string name="need_login_go_main">로그아웃 상태이므로 평가를 완료할 수 없습니다.\n리스트로 이동합니다.</string>
+    <string name="alert_notice_update">업데이트 알림</string>
+    <string name="alert_close">닫기</string>
+    <string name="alert_notice">알림</string>
+    <!-- end ActLogin -->
+
     <string name="companyinfo_txt1">봉봉랩(주)  |  대표자 김가영  |  대표번호 : 1670-6864\n\n주소: 서울시 강남구 테헤란로 108길 42 (대치동, 엠디엠타워)\n사업자 번호 : 215-87-4279454\n\n통신판매업신고 : 제2017-서울강남-00156호\n\n제휴문의 : cs@hotelnow.co.kr</string>
     <string name="term_title">이용약관</string>
     <string name="term_txt1">서비스 이용약관</string>
@@ -51,5 +63,8 @@
     <string name="search_popular_title">인기 여행지</string>
     <string name="search_hotel_activity">추천 숙소 \u0026 액티비티</string>
     <string name="all_clear">전체 삭제</string>
-
+    <string name="area_title">지역선택</string>
+    <string name="alert_confrim">확인</string>
+    <string name="area_not_select">원하시는 지역을 선택해주세요</string>
+    <string name="area_one_month">최근 1개월간 조회한 지역</string>
 </resources>
