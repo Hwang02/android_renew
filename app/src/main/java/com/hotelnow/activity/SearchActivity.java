@@ -13,12 +13,14 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -76,6 +78,20 @@ public class SearchActivity extends Activity{
                 getRecentData();
             }
         });
+
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+              @Override
+              public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                  if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                      dbHelper.insertKeyword(et_search.getText().toString());
+                      mSearchList.clear();
+                      getRecentData();
+
+                      // 리스트 화면 이동
+                  }
+                  return false;
+              }
+          });
 
         et_search.addTextChangedListener(new TextWatcher() {
             @Override

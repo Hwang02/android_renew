@@ -67,4 +67,5 @@
     <string name="alert_confrim">확인</string>
     <string name="area_not_select">원하시는 지역을 선택해주세요</string>
     <string name="area_one_month">최근 1개월간 조회한 지역</string>
+    <string name="re_search">재검색</string>
 </resources>

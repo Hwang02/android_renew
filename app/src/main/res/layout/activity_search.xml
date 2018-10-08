@@ -43,6 +43,7 @@
                 android:hint="검색어를 입력해주세요"
                 android:textColor="@color/purple"
                 android:layout_marginRight="10dp"
+                android:imeOptions="actionSearch"
                 android:drawableLeft="@drawable/search_icon"
                 android:drawableRight="@drawable/delete_icon"
                 android:layout_toLeftOf="@id/search_cancel"/>

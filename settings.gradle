@@ -1,1 +1,1 @@
-include ':app',":calendar_lib"
+include ':app',":calendar_lib",':map_lib'
