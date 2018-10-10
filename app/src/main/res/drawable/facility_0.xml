@@ -1,0 +1,17 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@drawable/facility_parking_on">
+        <shape android:shape="rectangle">
+            <size android:width="20dp" android:height="20dp" />
+        </shape>
+    </item>
+    <item android:state_selected="true" android:drawable="@drawable/facility_parking_on">
+        <shape android:shape="rectangle">
+            <size android:width="20dp" android:height="20dp" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/facility_parking_off">
+        <shape android:shape="rectangle">
+            <size android:width="20dp" android:height="20dp" />
+        </shape>
+    </item>
+</selector>

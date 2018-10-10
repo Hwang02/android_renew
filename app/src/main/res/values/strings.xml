@@ -68,4 +68,13 @@
     <string name="area_not_select">원하시는 지역을 선택해주세요</string>
     <string name="area_one_month">최근 1개월간 조회한 지역</string>
     <string name="re_search">재검색</string>
+    <string name="filter_title">필터 \u0026 정렬</string>
+    <string name="filter_sub_title1">정렬</string>
+    <string name="filter_sub_title2">호텔 등급 및 그 외 유형</string>
+    <string name="filter_sub_title3">투숙 인원</string>
+    <string name="filter_sub_title4">객실 가격 선택</string>
+    <string name="filter_sub_title5">리뷰 평점</string>
+    <string name="filter_sub_title6">객실 부대 시설</string>
+    <string name="filter_activity_sub_title">액티비티 테마</string>
+
 </resources>

@@ -1,0 +1,104 @@
+<!-- ?xml version="1.0" encoding="utf-8"? -->
+<resources>
+
+    <string-array name="phone_prefix">
+        <item>010</item>
+        <item>011</item>
+        <item>016</item>
+        <item>017</item>
+        <item>018</item>
+        <item>019</item>
+    </string-array>
+
+    <string-array name="list_orderby">
+        <item>추천순</item>
+        <item>거리순</item>
+        <item>평점순</item>
+        <item>낮은 가격순</item>
+        <item>높은 가격순</item>
+    </string-array>
+    <string-array name="category_text">
+        <item>특1급</item>
+        <item>특2급</item>
+        <item>1급</item>
+        <item>2급</item>
+        <item>3급</item>
+        <item>가족호텔</item>
+        <item>비지니스</item>
+        <item>부티크</item>
+        <item>리조트/콘도</item>
+        <item>펜션</item>
+        <item>레지던스</item>
+        <item>게스트하우스</item>
+        <item>모텔</item>
+    </string-array>
+
+    <string-array name="use_person">
+        <item>1인</item>
+        <item>2인</item>
+        <item>3~4인</item>
+        <item>5인 이상</item>
+    </string-array>
+
+    <string-array name="review_rate">
+        <item>2 이상</item>
+        <item>3 이상</item>
+        <item>4 이상</item>
+        <item>5 이상</item>
+    </string-array>
+
+    <string-array name="category_code">
+        <item>s1</item>
+        <item>s2</item>
+        <item>r1</item>
+        <item>r2</item>
+        <item>r3</item>
+        <item>family</item>
+        <item>bussiness</item>
+        <item>boutique</item>
+        <item>resort,condo</item>
+        <item>pension</item>
+        <item>residence</item>
+        <item>guest</item>
+        <item>motel</item>
+    </string-array>
+
+    <string-array name="facility_text">
+        <item>주차</item>
+        <item>wifi</item>
+        <item>24시간</item>
+        <item>수화물보관</item>
+        <item>조식</item>
+        <item>연회장</item>
+        <item>어메니티</item>
+        <item>비지니스</item>
+        <item>피트니스</item>
+        <item>마사지</item>
+        <item>사우나</item>
+        <item>야외수영</item>
+        <item>실내수영</item>
+        <item>레스토랑</item>
+        <item>부페</item>
+        <item>바</item>
+        <item>커피숍</item>
+        <item>무료세탁</item>
+        <item>유료세탁</item>
+        <item>노트북</item>
+        <item>객실금연</item>
+        <item>흡연구역</item>
+        <item>테라스</item>
+        <item>공항셔틀</item>
+        <item>주방</item>
+        <item>바베큐</item>
+        <item>동물입실</item>
+        <item>노래방</item>
+        <item>자전거</item>
+        <item>공용주방</item>
+        <item>공용거실</item>
+        <item>운동장</item>
+        <item>PC</item>
+        <item>셀프바</item>
+        <item>바다전망</item>
+    </string-array>
+
+</resources>

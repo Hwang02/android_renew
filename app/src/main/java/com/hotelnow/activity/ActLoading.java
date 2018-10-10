@@ -147,14 +147,26 @@ public class ActLoading extends Activity {
                     }
 
                     //티켓 카테고리
-//                    if(data.has("q_category")){
-//                        Util.setPreferenceValues(_preferences,"q_category", data.getJSONArray("q_category").toString());
-//                    }
+                    if(data.has("q_category")){
+                        dbHelper.deleteActivityTheme();
+                        for(int i =0; i<data.getJSONArray("q_category").length(); i++) {
+                            dbHelper.insertActivityTheme(
+                                    data.getJSONArray("q_category").getJSONObject(i).getString("name"),
+                                    data.getJSONArray("q_category").getJSONObject(i).getString("id")
+                            );
+                        }
+                    }
 
                     //티켓 지역
-//                    if(data.has("q_city")) {
-//                        Util.setPreferenceValues(_preferences,"q_city", data.getJSONArray("q_city").toString());
-//                    }
+                    if(data.has("q_city")) {
+                        dbHelper.deleteActivityCity();
+                        for(int i =0; i<data.getJSONArray("q_city").length(); i++) {
+                            dbHelper.insertActivityCity(
+                                    data.getJSONArray("q_city").getJSONObject(i).getString("name"),
+                                    data.getJSONArray("q_city").getJSONObject(i).getString("id")
+                            );
+                        }
+                    }
 
                     //프라이빗딜 url
                     if(data.has("privatedeal_web_url")){

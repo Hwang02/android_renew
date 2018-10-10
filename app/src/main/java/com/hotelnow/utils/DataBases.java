@@ -30,7 +30,7 @@ public class DataBases {
 
     // 액티비티 시티
     public static final class qCity_CreateDB implements BaseColumns {
-        public static final String qcity_ko = "keyword";
+        public static final String qcity_ko = "qcity_ko";
         public static final String qcity_id = "qcity_id";
         public static final String _TABLENAME = "qcity";
         public static final String _CREATE =

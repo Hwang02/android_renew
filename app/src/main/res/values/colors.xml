@@ -23,6 +23,7 @@
     <color name="star_txt">#adadad</color>
     <color name="area_result_txt">#8a8a8a</color>
     <color name="redtext">#fa3336</color>
+    <color name="unselect_bar">#dfdfe4</color>
 
 
 <!--테스트-->

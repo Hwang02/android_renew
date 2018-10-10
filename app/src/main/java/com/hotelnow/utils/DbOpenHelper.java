@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.fragment.model.CityItem;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.fragment.model.RecentCityItem;
@@ -195,6 +196,68 @@ public class DbOpenHelper {
     }
 
     /**
+     * 액티비티 지역 - INSERT
+     *
+     * @param city_ko 지역명
+     * @param city_code 지역코드
+     * @return
+     */
+    public void insertActivityCity(String city_ko, String city_code) {
+        open();
+        ContentValues val = new ContentValues();
+        val.put("qcity_ko", city_ko);
+        val.put("qcity_id", city_code);
+
+        mDB.insert(DataBases.qCity_CreateDB._TABLENAME, null, val);
+        close();
+    }
+
+    /**
+     * 액티비티 지역 - DELETE
+     *
+     * @return
+     */
+    public void deleteActivityCity() {
+        open();
+
+        mDB.delete(DataBases.qCity_CreateDB._TABLENAME,null, null);
+
+        close();
+    }
+
+    /**
+     * 액티비티 지역 리스트 - SELECT ALL
+     *
+     * @return
+     */
+    public List<CityItem> selectAllActivityCity() {
+        open();
+        List<CityItem> items = new ArrayList<CityItem>();
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.qCity_CreateDB._TABLENAME, new String[] { "qcity_ko", "qcity_id" }, null, null, null, null, null);
+
+            if(cur.moveToFirst()) {
+                do {
+                    items.add(new CityItem(
+                            cur.getString(cur.getColumnIndex("qcity_ko")),
+                            cur.getString(cur.getColumnIndex("qcity_id"))
+                    ));
+                }
+                while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+        finally {
+            if(cur != null) {
+                cur.close();
+            }
+            close();
+        }
+        return items;
+    }
+
+    /**
      * 지역서브 - DELETE
      *
      * @return
@@ -256,6 +319,68 @@ public class DbOpenHelper {
         val.put("subcity_code", subcity_code);
 
         mDB.insert(DataBases.SubCity_CreateDB._TABLENAME, null, val);
+        close();
+    }
+
+    /**
+     * 액티비티 테마 - DELETE
+     *
+     * @return
+     */
+    public void deleteActivityTheme() {
+        open();
+
+        mDB.delete(DataBases.qCategory_CreateDB._TABLENAME,null, null);
+
+        close();
+    }
+
+    /**
+     * 액티비티 테마 리스트 - SELECT ALL
+     *
+     * @return
+     */
+    public List<ActivityThemeItem> selectAllActivityTheme() {
+        open();
+        List<ActivityThemeItem> items = new ArrayList<ActivityThemeItem>();
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.qCategory_CreateDB._TABLENAME, new String[] { "qcategory_ko", "qcategory_id" }, null, null, null, null, null);
+
+            if(cur.moveToFirst()) {
+                do {
+                    items.add(new ActivityThemeItem(
+                            cur.getString(cur.getColumnIndex("qcategory_ko")),
+                            cur.getString(cur.getColumnIndex("qcategory_id"))
+                    ));
+                }
+                while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+        finally {
+            if(cur != null) {
+                cur.close();
+            }
+            close();
+        }
+        return items;
+    }
+
+    /**
+     * 액티비티 테마 - INSERT
+     *
+     * @param qcategory_ko 액티비티명
+     * @param qcategory_id 액티비티코드
+     * @return
+     */
+    public void insertActivityTheme(String qcategory_ko, String qcategory_id) {
+        open();
+        ContentValues val = new ContentValues();
+        val.put("qcategory_ko", qcategory_ko);
+        val.put("qcategory_id", qcategory_id);
+
+        mDB.insert(DataBases.qCategory_CreateDB._TABLENAME, null, val);
         close();
     }
 

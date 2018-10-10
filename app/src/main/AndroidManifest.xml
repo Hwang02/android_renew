@@ -33,6 +33,10 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.AreaHotelActivity" />
         <activity android:name=".activity.MapHotelActivity" />
+        <activity android:name=".activity.FilterHotelActivity" />
+        <activity android:name=".activity.FilterActivityActivity" />
+        <activity android:name=".activity.AreaActivityActivity" />
+        <activity android:name=".activity.MapAcvitityActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">
