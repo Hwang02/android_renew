@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_room_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textSize="16dp"
+        android:textColor="@color/blacktxt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentLeft="true"
+        tools:text="[Grourmet City PKG] 슈페리어 더블 + FB 3만원권" />
+
+    <TextView
+        android:id="@+id/tv_room_sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:textColor="@color/purple"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/tv_room_title"
+        tools:text="객실 예약 시 FB 3만원권 1매 증정!" />
+
+    <RelativeLayout
+        android:id="@+id/rl_room_info"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/tv_room_sub_title"
+        android:layout_marginTop="11dp">
+
+        <ImageView
+            android:id="@+id/img_room"
+            android:layout_width="134dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:background="@color/purple"/>
+        
+        <ImageView
+            android:id="@+id/img_room_private"
+            android:layout_width="53dp"
+            android:layout_height="19dp"
+            android:background="@drawable/tag_privatedeal_s"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="6dp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_room_detail_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img_room"
+            android:layout_marginLeft="17dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/ico_room_bed"/>
+
+                <TextView
+                    android:id="@+id/tv_detail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/termtext"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="12dp"
+                    tools:text="27m² / 더블 침대 2개"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/ico_room_people"/>
+
+                <TextView
+                    android:id="@+id/tv_detail2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/termtext"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="12dp"
+                    tools:text="기준 2인, 최대 2인"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/ico_room_time"/>
+
+                <TextView
+                    android:id="@+id/tv_detail3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="@color/termtext"
+                    android:textSize="12dp"
+                    tools:text="체크인 14:00, 체크아웃 12:00"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_detail_per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/redtext"
+                    android:textSize="12dp"
+                    tools:text="48%↓"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_room_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="16dp"
+                        tools:text="205,700"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="12dp"
+                        android:text="원"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_reservation_btn"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/rl_room_info"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_private"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/privateview"
+            android:textSize="14dp"
+            android:text="@string/btn_private"
+            android:gravity="center"
+            android:background="@drawable/private_round"/>
+
+        <TextView
+            android:id="@+id/btn_reservation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/purple"
+            android:textSize="14dp"
+            android:layout_marginLeft="5dp"
+            android:text="@string/btn_reservation"
+            android:gravity="center"
+            android:background="@drawable/reservation_round"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_more"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center_vertical"
+        android:layout_below="@id/ll_reservation_btn"
+        android:background="@color/footerview">
+        
+        <ImageView
+            android:id="@+id/icon_more"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_detail_open"/>
+
+        <TextView
+            android:id="@+id/room_detail_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/icon_more"
+            android:textColor="@color/detail_more_color"
+            android:layout_marginRight="3dp"
+            android:textSize="12dp"
+            android:text="@string/btn_more2"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/more_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_more"
+        android:visibility="gone"
+        android:background="@color/footerview">
+
+        <HorizontalScrollView
+            android:id="@+id/hscroll_img"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_marginLeft="20dp">
+
+            <LinearLayout
+                android:id="@+id/more_img_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <com.luseen.autolinklibrary.AutoLinkTextView
+            android:id="@+id/tv_room_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/hscroll_img"
+            android:textSize="13dp"
+            android:textColor="@color/termtext"/>
+
+        <LinearLayout
+            android:id="@+id/btn_more_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_below="@id/tv_room_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"
+                android:textSize="12dp"
+                android:text="@string/btn_close"/>
+
+            <ImageView
+                android:id="@+id/more_icon"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_detail_close"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:background="@color/purple"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="1dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="17dp"
+            android:layout_below="@id/btn_more_close"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/more_view">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/btn_more_close"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/back_line"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/btn_more_close"/>
+    </LinearLayout>
+</RelativeLayout>

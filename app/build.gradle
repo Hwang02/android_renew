@@ -48,6 +48,7 @@ android {
             buildConfigField("String", "googleProjectid", "\"791335258451\"")
             buildConfigField("String", "kcpCardDomain", "\"http://54.178.165.97:8009/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://www.hotelnow.co.kr/ko\"")
+            buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
         }
         sync {
             resValue("string", "app_name", "호텔나우-sync");
@@ -63,6 +64,7 @@ android {
             buildConfigField("String", "googleProjectid", "\"791335258451\"")
             buildConfigField("String", "kcpCardDomain", "\"http://13.114.248.114:8009/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://dev.www.hotelnow.co.kr/ko\"")
+            buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
         }
 
         production {
@@ -79,6 +81,7 @@ android {
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
             buildConfigField("String", "kcpCardDomain", "\"http://54.178.161.178:8009/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://www.hotelnow.co.kr/ko\"")
+            buildConfigField("String", "google_map_key2", "\"AIzaSyDtgyy2TXgeIH3CrPh_C-R2Cv2aLteK_ME\"")
         }
     }
     dexOptions {
@@ -121,6 +124,7 @@ dependencies {
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.github.armcha:AutoLinkTextView:0.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

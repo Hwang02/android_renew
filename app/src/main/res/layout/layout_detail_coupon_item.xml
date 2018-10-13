@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:layout_marginTop="12dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/icon_coupon"
+        android:layout_width="40dp"
+        android:layout_height="18dp"
+        android:background="@drawable/ico_coupon"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"/>
+
+    <ImageView
+        android:id="@+id/icon_download"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:background="@drawable/ico_download"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/tv_coupon_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textSize="13dp"
+        android:layout_toLeftOf="@id/icon_download"
+        android:layout_centerVertical="true"
+        tools:text="20,000원"
+        android:textStyle="bold"
+        android:textColor="@color/redtext"/>
+
+    <TextView
+        android:id="@+id/tv_coupon_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toLeftOf="@id/tv_coupon_price"
+        android:layout_centerVertical="true"
+        android:textSize="13dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_toRightOf="@id/icon_coupon"
+        tools:text="즉시할인 선착순 1만원 할인 쿠폰 제공"
+        android:textColor="@color/blacktxt"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_background"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

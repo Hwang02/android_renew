@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="28dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="14dp"
+        android:textColor="@color/blacktxt"
+        android:text="@string/detail_address_title"/>
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="12dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/termtext"
+        tools:text="서울특별시 용산구 한강로3가 40-969"/>
+
+    <ImageView
+        android:id="@+id/map_img"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/placeholder"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_address_copy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="14dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/ico_map_copytxt"/>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/termtext"
+                android:text="@string/detail_address_copy"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/bg_background"/>
+
+        <LinearLayout
+            android:id="@+id/btn_address_near"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/ico_location"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/termtext"
+                android:text="@string/detail_address_near"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_background"/>
+</LinearLayout>

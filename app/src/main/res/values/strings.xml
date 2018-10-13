@@ -76,5 +76,24 @@
     <string name="filter_sub_title5">리뷰 평점</string>
     <string name="filter_sub_title6">객실 부대 시설</string>
     <string name="filter_activity_sub_title">액티비티 테마</string>
-
+    <string name="detail_private_title">프라이빗딜</string>
+    <string name="detail_hotdeal_title">단독핫딜</string>
+    <string name="detail_add_title">추가적립</string>
+    <string name="detail_checkin_title">체크인</string>
+    <string name="detail_checkout_title">체크아웃</string>
+    <string name="review_title">리뷰</string>
+    <string name="special_title">/ 호텔나우만의 특별한 혜택 /</string>
+    <string name="btn_private">가격 제안</string>
+    <string name="btn_reservation">예약하기</string>
+    <string name="btn_more">상세 정보 닫기</string>
+    <string name="btn_more2">상세 정보 보기</string>
+    <string name="btn_close">닫기</string>
+    <string name="recommend_title">추천이유</string>
+    <string name="more_title">더보기</string>
+    <string name="more_close_title">접기</string>
+    <string name="detail_facility_title">편의시설 및 서비스</string>
+    <string name="detail_address_title">주소 및 위치</string>
+    <string name="detail_address_copy">주소복사</string>
+    <string name="detail_address_near">주변호텔보기</string>
+    <string name="detail_room_select">객실 선택하기</string>
 </resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/btn_show_room"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:orientation="horizontal"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="25dp"
+    android:gravity="center"
+    android:background="@drawable/private_round"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="@drawable/ico_room_total"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/tv_total_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_marginLeft="6dp"
+        android:textColor="@color/privateview"
+        tools:text="총 10개의 객실 전체보기"/>
+</LinearLayout>

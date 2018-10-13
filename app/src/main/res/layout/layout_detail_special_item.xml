@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="12dp"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="@drawable/ico_benefit_bullet"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/tv_special_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="13dp"
+        tools:text="즉시할인 선착순 1만원 할인 쿠폰 제공"
+        android:textColor="@color/purple"/>
+</LinearLayout>

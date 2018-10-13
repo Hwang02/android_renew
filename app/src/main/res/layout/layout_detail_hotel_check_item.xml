@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="25dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_hotel_check_titile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@color/blacktxt"
+        tools:text="확인사항"/>
+
+    <TextView
+        android:id="@+id/tv_hotel_check_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:textColor="@color/termtext"
+        tools:text="ㆍ 체크인 15:00 이후, 체크아웃 12:00 이전
+ㆍ 부모동반 아동 투숙 가능(만 16세 이하 2인 무료)
+ㆍ 인원 추가시 1인 33,000원(엑스트라 베드 불포함)
+ㆍ 침구 추가 24,200원(덮는 이불만 제공)
+ㆍ 엑스트라 베드 추가 44,000원(호텔 사전문의)
+ㆍ Bath Amenity 구비(칫솔,치약 유료)
+ㆍ 공항셔틀: 6030 공항 리무진 버스
+ㆍ 디파짓 제도(현금 및 카드)
+ㆍ 무료 주차
+ㆍ 무료 Wi-Fi
+ㆍ 모든 추가비용 현장결제"/>
+
+</LinearLayout>

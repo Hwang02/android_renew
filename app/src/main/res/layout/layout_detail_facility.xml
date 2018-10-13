@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="28dp"
+    android:layout_marginBottom="29dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blacktxt"
+        android:textSize="14dp"
+        android:text="@string/detail_facility_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="17dp"
+        android:orientation="vertical">
+
+        <com.hotelnow.utils.FlowLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            app:elementSpacing="10dp"
+            app:flowDirection="leftToRight"
+            app:lineSpacing="10dp"
+            app:paddingStart="15dp"
+            app:paddingEnd="15dp"/>
+    </LinearLayout>
+</LinearLayout>

@@ -585,6 +585,19 @@ public class Util {
         return "";
     }
 
+    public static String getCategory(Context mContext, String val) {
+        String[] categorycodearr = mContext.getResources().getStringArray(R.array.category_code);
+        String[] categorytextarr = mContext.getResources().getStringArray(R.array.category_text);
+        int position = 0;
+        for(int i=0; i<categorycodearr.length; i++){
+            if(categorycodearr[i].equals(val)){
+                position = i;
+                break;
+            }
+        }
+        return categorytextarr[position];
+    }
+
     // 검색조건 초기화
 //    public static boolean hasSearch(){
 //        String mCheckinout[] = null;
@@ -749,6 +762,13 @@ public class Util {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.header_dark));
+        }
+    }
+
+    public static void setStatusTransColor(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            activity.getWindow().setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
         }
     }
 

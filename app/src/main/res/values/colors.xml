@@ -24,7 +24,30 @@
     <color name="area_result_txt">#8a8a8a</color>
     <color name="redtext">#fa3336</color>
     <color name="unselect_bar">#dfdfe4</color>
+    <color name="addview">#22b9bb</color>
+    <color name="privateview">#bf2f68</color>
+    <color name="hotdealview">#fa3336</color>
+    <color name="special">#f8f5fc</color>
+    <color name="shadows_color">#14000000</color>
+    <color name="detail_more_color">#7e7e89</color>
+    <color name="blur_color">#00f7f7fa</color>
+    <color name="coupon_dis">#bbbbbb</color>
 
+    <!--등급-->
+    <color name="s1">#5c3599</color>
+    <color name="s2">#5c3599</color>
+    <color name="r1">#003f87</color>
+    <color name="r2">#00386b</color>
+    <color name="r3">#002d47</color>
+    <color name="boutique">#b82a67</color>
+    <color name="motel">#4f745f</color>
+    <color name="bussiness">#1a600c</color>
+    <color name="residence">#a9853d</color>
+    <color name="resort">#117396</color>
+    <color name="family">#00607c</color>
+    <color name="pension">#2e688f</color>
+    <color name="condo">#5b6152</color>
+    <color name="guest">#e16715</color>
 
 <!--테스트-->
     <color name = "darkBlue">#110f63</color>
