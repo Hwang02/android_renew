@@ -96,4 +96,35 @@
     <string name="detail_address_copy">주소복사</string>
     <string name="detail_address_near">주변호텔보기</string>
     <string name="detail_room_select">객실 선택하기</string>
+    <string name="calendar_complate">선택 완료</string>
+    <string name="reservation_title">예약하기</string>
+    <string name="reservation_user_info_title">예약자 정보</string>
+    <string name="reservation_user_discount_title">할인정보</string>
+    <string name="reservation_user_price_title">가격정보</string>
+    <string name="reservation_pay_title">결제방식</string>
+    <string name="reservation_private">프라이빗딜 특별할인</string>
+    <string name="reservation_point">적립금</string>
+    <string name="reservation_coupon">쿠폰사용</string>
+    <string name="reservation_point_total"><u>전액사용</u></string>
+    <string name="reservation_point_total_cancel"><u>전액취소</u></string>
+    <string name="reservation_price">정상가</string>
+    <string name="reservation_discount_price">할인금액</string>
+    <string name="reservation_sale_price">총 결제금액</string>
+    <string name="reservation_sale_price_info">* 세금 및 봉사료가 모두 포함된 금액입니다</string>
+    <string name="name">이름</string>
+    <string name="contects">연락처</string>
+    <string name="email">이메일</string>
+    <string name="paytype0">간편결제</string>
+    <string name="paytype0_info_title">간편결제란?</string>
+    <string name="paytype0_info_message">최초 1회 카드 등록 후 결제하시면 이후 구매부터는\n 서명 한번으로 편하게 결제하실 수 있는 결제수단입니다\n\n 내정보에서 카드를 등록하여 사용하세요</string>
+    <string name="paytype3_info_message">법인, 일반 카드 결제 가능 (해외카드 제외)</string>
+    <string name="paytype1">신용카드</string>
+    <string name="paytype2">휴대폰결제</string>
+    <string name="paytype3">ARS 결제</string>
+    <string name="paytype4">가상계좌</string>
+    <string name="paytype5">PAYCO</string>
+    <string name="fee_title">주의사항 및 취소규정</string>
+    <string name="caution_agreement_checkbox">주의사항 및 개인정보 제3자 제공 동의</string>
+    <string name="caution_agreement_view"><u>내용보기</u></string>
+
 </resources>

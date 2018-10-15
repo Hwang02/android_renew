@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_marginTop="14dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/footerview"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:text="@string/reservation_user_discount_title"
+            android:textSize="14dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/purple" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_private"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_private"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/privateview"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/private_discount"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:maxLength="10"
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:singleLine="true"
+            android:background="@drawable/style_edittext_private_border"
+            android:textColor="@color/privateview"
+            android:textSize="14dp"
+            tools:text="김나우"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_point"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/blacktxt"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/point_discount"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:maxLength="10"
+            android:inputType="number"
+            android:paddingLeft="5dp"
+            android:paddingRight="8dp"
+            android:singleLine="true"
+            android:background="@drawable/style_edittext_private_border"
+            android:textColor="@color/blacktxt"
+            android:textColorHint="@color/coupon_dis"
+            android:hint="최소 1,000원부터 사용 가능"
+            android:drawablePadding="8dp"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:id="@+id/btn_point_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="13dp"
+            android:layout_centerInParent="true"
+            android:text="@string/reservation_point_total"
+            android:textColor="@color/purple"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_coupon"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/blacktxt"
+            android:textSize="14dp" />
+
+        <Spinner
+            android:id="@+id/coupon_use"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/selectbox"
+            android:gravity="right|center_vertical"
+            android:spinnerMode="dialog" />
+    </LinearLayout>
+
+</LinearLayout>

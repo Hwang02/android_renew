@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:textColor="@color/blacktxt"
+        android:textSize="17dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="left|center"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="노보텔 앰배서더 서울 용산"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layerType="software"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/drawable_dash_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_room_info"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/tv_room_sub_title"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/img_room"
+            android:layout_width="134dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:background="@color/purple"/>
+
+        <RelativeLayout
+            android:id="@+id/ll_room_detail_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/img_room"
+            android:layout_marginLeft="17dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_detail_per"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/redtext"
+                    android:textSize="12dp"
+                    tools:text="48%↓"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_room_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="16dp"
+                        tools:text="205,700"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="12dp"
+                        android:text="원"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:layout_above="@id/rl_price">
+
+                <TextView
+                    android:id="@+id/tv_detail3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="15dp"
+                    tools:text="[OWN Your Shilla Stay Returns]스탠다드 트윈+곰인형 1개"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/back_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="36dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="7dp"
+            android:layout_height="19dp"
+            android:text="-"
+            android:layout_centerInParent="true"
+            android:textColor="@color/blacktxt"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/tv_center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/detail_checkin_title"
+                android:textColor="@color/star_txt"
+                android:textSize="13dp"/>
+
+            <TextView
+                android:id="@+id/tv_checkin_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="2018년 8월 31일(금)"
+                android:textColor="@color/blacktxt"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_checkin_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="14:00"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/tv_center"
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/detail_checkout_title"
+                android:textColor="@color/star_txt"
+                android:textSize="13dp"/>
+
+            <TextView
+                android:id="@+id/tv_checkout_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="2018년 9월 01일(토)"
+                android:textColor="@color/blacktxt"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/tv_checkout_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="12:00"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

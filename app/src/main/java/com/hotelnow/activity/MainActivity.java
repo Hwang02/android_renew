@@ -53,7 +53,7 @@ public class MainActivity extends FragmentActivity {
         mbinding.layoutSearch.searchMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DetailHotelActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReservationActivity.class);
                 startActivity(intent);
             }
         });

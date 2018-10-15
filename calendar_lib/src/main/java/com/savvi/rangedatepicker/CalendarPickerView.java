@@ -144,6 +144,8 @@ public class CalendarPickerView extends ListView {
       init(new Date(), nextYear.getTime()) //
           .withSelectedDate(new Date());
     }
+    setClipToPadding(false);
+    setOverScrollMode(OVER_SCROLL_NEVER);
   }
 
   /**

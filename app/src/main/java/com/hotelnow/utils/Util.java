@@ -356,7 +356,7 @@ public class Util {
 
     // 날짜 차 계산
     public static long diffOfDate(String begin, String end) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",Locale.KOREAN);
 
         Date beginDate;
         Date endDate;

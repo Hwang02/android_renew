@@ -131,6 +131,7 @@
                         android:layout_toRightOf="@id/btn_back"
                         android:layout_toLeftOf="@id/btn_share"
                         android:singleLine="true"
+                        android:textSize="16dp"
                         android:maxLines="1"
                         android:gravity="center"
                         android:ellipsize="end"

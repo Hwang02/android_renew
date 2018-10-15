@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/footerview"
+        android:orientation="vertical">
+    
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:text="@string/reservation_user_info_title"
+            android:textSize="14dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/purple" />
+
+    </LinearLayout>
+
+    <!-- 이름, 연락처 비회원 및 인증 안한회원-->
+
+    <LinearLayout
+        android:id="@+id/layout_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="12dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight=".2"
+                android:text="@string/name"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight=".6"
+                android:layout_gravity="right|center_vertical"
+                android:maxLength="10"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:background="@drawable/style_edittext_gray_border_gray_bg"
+                android:textColor="@color/termtext"
+                android:textSize="14dp"
+                tools:text="김나우"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_useremail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight=".2"
+                android:text="@string/email"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/useremail"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight=".6"
+                android:layout_gravity="right|center_vertical"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:background="@drawable/style_edittext_gray_border_gray_bg"
+                android:textColor="@color/termtext"
+                android:textSize="15dp"
+                android:inputType="textEmailAddress"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:layout_gravity="left|center_vertical"
+                android:text="@string/contects"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:layout_gravity="right|center_vertical"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/pnum1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight=".34"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:textColor="@color/termtext"
+                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:spinnerMode="dropdown" />
+
+                <EditText
+                    android:id="@+id/pnum2"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight=".33"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/termtext"
+                    android:textSize="14dp"
+                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:nextFocusDown="@+id/pnum3"
+                    tools:text="6210"/>
+
+                <EditText
+                    android:id="@+id/pnum3"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight=".33"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/termtext"
+                    android:textSize="14dp"
+                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:nextFocusDown="@+id/useremail"
+                    tools:text="6210"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 이름, 연락처 비회원 및 인증 안한회원-->
+
+    <!-- 전화번호 인증-->
+    <LinearLayout
+        android:id="@+id/layout_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/ll_auth_num"
+                android:layout_width="126dp"
+                android:layout_height="38dp"
+                android:layout_centerInParent="true">
+                <EditText
+                    android:id="@+id/auth_string"
+                    android:layout_width="126dp"
+                    android:layout_height="38dp"
+                    android:hint="인증번호 입력"
+                    android:textColorHint="#808080"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:paddingLeft="3dp"
+                    android:textSize="12dp"
+                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:textColor="@color/coupon_dis"/>
+
+                <TextView
+                    android:id="@+id/auth_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:singleLine="true"
+                    android:text="( 3:00 )"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:textColor="#FF0000"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/btn_auth"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="인증번호 발송"
+                android:layout_toLeftOf="@id/ll_auth_num"
+                android:gravity="center"
+                android:padding="3dp"
+                android:textSize="14dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/purple"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/auth_ok"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="인증하기"
+                android:layout_toRightOf="@id/ll_auth_num"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:padding="3dp"
+                android:textSize="14dp"
+                android:background="@drawable/style_edittext_gray_border"
+                android:textColor="@color/coupon_dis"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/remain_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="right"
+            android:layout_marginTop="9dp"
+            android:visibility="visible"
+            android:textSize="12dp"
+            android:text="인증번호가 발송되었습니다 ( 남은횟수 4회 )"
+            android:textColor="@color/purple" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="7dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/back_line"/>
+
+        <CheckBox
+            android:id="@+id/other_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:text="다른 사람이 방문할 경우"
+            android:textColor="@color/termtext"
+            android:paddingLeft="12dp"
+            android:layout_marginTop="14dp"
+            android:button="@drawable/checkbox_icon"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_orther_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="15dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight=".2"
+                android:text="방문자명"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/other_username"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight=".6"
+                android:layout_gravity="right|center_vertical"
+                android:maxLength="10"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:background="@drawable/style_edittext_gray_border"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".2"
+                android:layout_gravity="left|center_vertical"
+                android:text="@string/contects"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".6"
+                android:layout_gravity="right|center_vertical"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/other_pnum1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight=".34"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:textColor="@color/blacktxt"
+                    android:background="@drawable/style_edittext_gray_border"
+                    android:spinnerMode="dropdown" />
+
+                <EditText
+                    android:id="@+id/other_pnum2"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight=".33"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="14dp"
+                    android:background="@drawable/style_edittext_gray_border"
+                    android:nextFocusDown="@+id/pnum3" />
+
+                <EditText
+                    android:id="@+id/other_pnum3"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight=".33"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="14dp"
+                    android:background="@drawable/style_edittext_gray_border"
+                    android:nextFocusDown="@+id/useremail"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

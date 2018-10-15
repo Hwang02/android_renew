@@ -32,6 +32,11 @@
     <color name="detail_more_color">#7e7e89</color>
     <color name="blur_color">#00f7f7fa</color>
     <color name="coupon_dis">#bbbbbb</color>
+    <color name="black_two">#99000000</color>
+    <color name="red_yoil">#d21e1e</color>
+    <color name="blue_yoil">#135eb4</color>
+    <color name="edit_back">#f6f6f6</color>
+    <color name="private_discount">#1aBF2F68</color>
 
     <!--등급-->
     <color name="s1">#5c3599</color>

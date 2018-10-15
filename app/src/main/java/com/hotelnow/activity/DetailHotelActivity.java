@@ -68,7 +68,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private String ec_date, ee_date, main_photo = "", hid, pid, evt;
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5, map_img;
     private LinearLayout btn_more_review, coupon_list, room_list, btn_show_room,
-            btn_more_view;
+            btn_more_view, bt_checkinout;
     private RelativeLayout rl_tv;
     private int isAcoupon[];
     private String mCouponId[];
@@ -98,36 +98,38 @@ public class DetailHotelActivity extends AppCompatActivity {
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
 
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = true;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    ((TextView)toolbar.findViewById(R.id.tv_title_bar)).setText(hotel_name);
-                    ((TextView)toolbar.findViewById(R.id.tv_title_bar)).setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
-                    findViewById(R.id.btn_share).setVisibility(View.GONE);
-                    // 찜상품이면 빨강색으로 변경
-                    findViewById(R.id.icon_zzim).setBackgroundResource(R.drawable.ico_titbar_favorite);
-                    findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
-                    toolbar.setBackgroundResource(R.color.white);
-//                    setSupportActionBar(toolbar);
-                    isShow = true;
-                } else if(isShow) {
-                    ((TextView)toolbar.findViewById(R.id.tv_title_bar)).setText("");
-                    findViewById(R.id.btn_share).setVisibility(View.VISIBLE);
-                    // 찜상품이면 빨강색으로 변경
-                    findViewById(R.id.icon_zzim).setBackgroundResource(R.drawable.ico_titbarw_favorite);
-                    findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
-                    toolbar.setBackgroundResource(android.R.color.transparent);
-//                    setSupportActionBar(toolbar);
-                    isShow = false;
-                }
-            }
-        });
+           boolean isShow = true;
+           int scrollRange = -1;
+           @Override
+           public void onOffsetChanged(final AppBarLayout appBarLayout, final int verticalOffset) {
+               app_bar.post(new Runnable() {
+                   @Override
+                   public void run() {
+                       if (scrollRange == -1) {
+                           scrollRange = appBarLayout.getTotalScrollRange();
+                       }
+                       if (scrollRange + verticalOffset == 0) {
+                           ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText(hotel_name);
+                           ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
+                           findViewById(R.id.btn_share).setVisibility(View.GONE);
+                           // 찜상품이면 빨강색으로 변경
+                           findViewById(R.id.icon_zzim).setBackgroundResource(R.drawable.ico_titbar_favorite);
+                           findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
+                           toolbar.setBackgroundResource(R.color.white);
+                           isShow = true;
+                       } else if (isShow) {
+                           ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText("");
+                           findViewById(R.id.btn_share).setVisibility(View.VISIBLE);
+                           // 찜상품이면 빨강색으로 변경
+                           findViewById(R.id.icon_zzim).setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                           findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
+                           toolbar.setBackgroundResource(android.R.color.transparent);
+                           isShow = false;
+                       }
+                   }
+               });
+           }
+       });
 
         Intent intent = getIntent();
         hid = intent.getStringExtra("hid");
@@ -197,6 +199,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                     mViewPager = (ToughViewPager) findViewById(R.id.img_pager);
                     m_countView = (TextView) findViewById(R.id.page);
                     m_img_title = (TextView) findViewById(R.id.img_title);
+                    bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
+
 
                     // 호텔 이미지
                     landscapeImgs = new String[photos.length()];
@@ -213,10 +217,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     showPager();
 
                     // 카테고리
-                    Resources resources = getResources();
-                    int color = resources.getIdentifier(hotel_data.getString("category"), "color", (String) getPackageName());
                     tv_category.setText(Util.getCategory(DetailHotelActivity.this, hotel_data.getString("category")));
-                    tv_category.setTextColor(color);
 
                     hotel_name = hotel_data.getString("name");
                     tv_hotelname.setText(hotel_name);
@@ -253,6 +254,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                     // 체크인 체크아웃
                     tv_checkin.setText(ec_date);
                     tv_checkout.setText(ee_date);
+                    bt_checkinout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DetailHotelActivity.this, CalendarActivity.class);
+                            startActivityForResult(intent, 1);
+                        }
+                    });
 
                     // 룸정보
                     setRoom(room_data);

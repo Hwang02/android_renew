@@ -28,7 +28,7 @@
 
         <activity android:name="com.hotelnow.activity.MainActivity"
             android:theme="@style/AppTheme.TransNav"/>
-        <activity android:name=".activity.CalendarActivity" />
+        <activity android:name=".activity.CalendarActivity" android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".activity.DetailHotelActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.AreaHotelActivity" />
@@ -37,6 +37,7 @@
         <activity android:name=".activity.FilterActivityActivity" />
         <activity android:name=".activity.AreaActivityActivity" />
         <activity android:name=".activity.MapAcvitityActivity" />
+        <activity android:name=".activity.ReservationActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">
