@@ -49,6 +49,7 @@ import org.json.JSONObject;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -291,61 +292,132 @@ public class Util {
         return nf.format(num);
     }
 
-    public static String todayFormat(){
-        String mDay = "";
-        try {
-            Date today;
-            Calendar todayCal = Calendar.getInstance();
-            todayCal.setTime(new Date());
-            today = todayCal.getTime();
-            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-            mDay = df.format(today);
-        } catch (Exception e){}
+    public static ArrayList<String> setCheckinout() {
+        ArrayList<String> mIndout = new ArrayList<>();
+        Date dateObj = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatterdt = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
 
-        return mDay;
+        // 서버타임있는지 확인하고 없으면 설정
+        if(CONFIG.svr_date == null) {
+            long time = System.currentTimeMillis();
+            CONFIG.svr_date = new Date(time);
+        }
+
+        // 현재 시간 object 설정
+        try {
+            dateObj = CONFIG.svr_date;
+        } catch(Exception e){}
+
+        Calendar startCal = Calendar.getInstance();
+        Calendar endCal = Calendar.getInstance();
+
+        startCal.setTime(dateObj);
+        endCal.setTime(dateObj);
+        endCal.add(Calendar.DATE, 1);
+
+        if(CurHourFormat.format(dateObj).equals("00") || CurHourFormat.format(dateObj).equals("01")){
+            startCal.add(Calendar.DATE, -1);
+            endCal.add(Calendar.DATE, -1);
+        }
+        mIndout.add(formatterdt.format(startCal.getTime()));
+        mIndout.add(formatterdt.format(endCal.getTime()));
+
+        return mIndout;
     }
 
-    public static String todayFormat2(){
-        String mDay = "";
-        try {
-            Date today;
-            Calendar todayCal = Calendar.getInstance();
-            todayCal.setTime(new Date());
-            today = todayCal.getTime();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy년MM월dd일");
-            mDay = df.format(today);
-        } catch (Exception e){}
-
-        return mDay;
-    }
-
-    // 요일 날짜포멧
-    public static String weekdayFormat(String dt) {
+    public static String formatchange(String dt){
         String wdt = "";
-
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN);
+            SimpleDateFormat formatter2 = new SimpleDateFormat("MM월dd일(EEE)", Locale.KOREAN);
             Date to = formatter.parse(dt);
-            wdt = transFormat.format(to);
+            wdt = formatter2.format(to);
         } catch (Exception e){}
 
         return wdt;
     }
 
-    // 요일 날짜포멧
-    public static String weekdayFormatMd(String dt) {
+    public static String formatchange2(String dt){
         String wdt = "";
-
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat transFormat = new SimpleDateFormat("MM/dd", Locale.KOREAN);
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy.MM.dd(EEE)", Locale.KOREAN);
             Date to = formatter.parse(dt);
-            wdt = transFormat.format(to);
+            wdt = formatter2.format(to);
         } catch (Exception e){}
 
         return wdt;
     }
+
+    public static String formatchange3(String dt){
+        String wdt = "";
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd(EEE)", Locale.KOREAN);
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+            Date to = formatter.parse(dt);
+            wdt = formatter2.format(to);
+        } catch (Exception e){}
+
+        return wdt;
+    }
+
+//    public static String todayFormat(){
+//        String mDay = "";
+//        try {
+//            Date today;
+//            Calendar todayCal = Calendar.getInstance();
+//            todayCal.setTime(new Date());
+//            today = todayCal.getTime();
+//            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+//            mDay = df.format(today);
+//        } catch (Exception e){}
+//
+//        return mDay;
+//    }
+//
+//    public static String todayFormat2(){
+//        String mDay = "";
+//        try {
+//            Date today;
+//            Calendar todayCal = Calendar.getInstance();
+//            todayCal.setTime(new Date());
+//            today = todayCal.getTime();
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy년MM월dd일");
+//            mDay = df.format(today);
+//        } catch (Exception e){}
+//
+//        return mDay;
+//    }
+//
+//    // 요일 날짜포멧
+//    public static String weekdayFormat(String dt) {
+//        String wdt = "";
+//
+//        try {
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN);
+//            Date to = formatter.parse(dt);
+//            wdt = transFormat.format(to);
+//        } catch (Exception e){}
+//
+//        return wdt;
+//    }
+//
+//    // 요일 날짜포멧
+//    public static String weekdayFormatMd(String dt) {
+//        String wdt = "";
+//
+//        try {
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//            SimpleDateFormat transFormat = new SimpleDateFormat("MM/dd", Locale.KOREAN);
+//            Date to = formatter.parse(dt);
+//            wdt = transFormat.format(to);
+//        } catch (Exception e){}
+//
+//        return wdt;
+//    }
 
 
     // 디바이스 너비

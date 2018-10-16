@@ -1,6 +1,7 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -69,8 +70,18 @@ public class CalendarActivity extends Activity{
 //        list.add(6);
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        String strdate = "2018-10-20";
-        String strdate2 = "2018-10-21";
+        Intent intent = getIntent();
+
+        String strdate = intent.getStringExtra("ec_date");
+        String strdate2 = intent.getStringExtra("ee_date");
+        if(strdate == null || strdate2 == null){
+            strdate = Util.setCheckinout().get(0);
+            strdate2 = Util.setCheckinout().get(1);
+        }
+        checkin_date.setText(Util.formatchange2(strdate));
+        checkout_date.setText(Util.formatchange2(strdate2));
+        check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", ""))+"박");
+
         Date newdate = null;
         Date newdate2 = null;
         try {
@@ -96,20 +107,33 @@ public class CalendarActivity extends Activity{
             public void onDateSelected(Date date) {
                 Log.d("list",  date.toString());
                 if (calendar.getSelectedDates().size() == 1) {
-                    selected_checkout_date = null;
-                    selected_checkin_date = formatter.format(date);
-                    fir_cancelday = date;
-                    checkout_date.setText("날짜 선택하기");
-                    checkin_date.setText(selected_checkin_date);
-                    check_inout_count.setText("0박");
+                    if(selected_checkin_date == null) {
+                        selected_checkout_date = null;
+                        selected_checkin_date = formatter.format(date);
+                        fir_cancelday = date;
+                        checkout_date.setText("날짜 선택하기");
+                        checkin_date.setText(selected_checkin_date);
+                        check_inout_count.setText("0박");
+                        btn_complate.setBackgroundResource(R.color.board_line);
+                        btn_complate.setClickable(false);
+                    }
+                    else{
+                        select_cnt = calendar.getSelectedDates().size();
+                        selected_checkout_date = formatter.format(date);
+                        checkout_date.setText(selected_checkout_date);
+                        check_inout_count.setText(select_cnt + "박");
+                        btn_complate.setBackgroundResource(R.color.purple);
+                        btn_complate.setClickable(true);
+                    }
                 }
                 else if(calendar.getSelectedDates().size() > 1) {
-                    int sel_count = calendar.getSelectedDates().size() - 1;
+//                    int sel_count = calendar.getSelectedDates().size()-1;
                     int sel_unday = 0;
                     String sel_start_day = formatter2.format(calendar.getSelectedDates().get(0));
-                    String sel_end_day = formatter2.format(calendar.getSelectedDates().get(sel_count));
+                    String sel_end_day = formatter2.format(date);
                     Date nextday = null;
-                    for (int i = 0; i < Util.diffOfDate(sel_start_day.replace(".", ""), sel_end_day.replace(".", "")); i++) {
+                    long diffofday = Util.diffOfDate(sel_start_day.replace(".", ""), sel_end_day.replace(".", ""));
+                    for (int i = 0; i < diffofday; i++) {
                         try {
                             nextday = getAfterDate(sel_start_day, i);
                         } catch (Exception e) {
@@ -134,14 +158,17 @@ public class CalendarActivity extends Activity{
 
                     if (sel_unday == 0) {
                         select_cnt = calendar.getSelectedDates().size() - 1;
-                        date = calendar.getSelectedDates().get(select_cnt);
                         selected_checkout_date = formatter.format(date);
                         checkout_date.setText(selected_checkout_date);
-                        check_inout_count.setText(select_cnt + "박");
+                        check_inout_count.setText(diffofday + "박");
+                        btn_complate.setBackgroundResource(R.color.purple);
+                        btn_complate.setClickable(true);
                     } else {
                         checkin_date.setText("날짜 선택하기");
                         checkout_date.setText("날짜 선택하기");
                         check_inout_count.setText("0박");
+                        btn_complate.setBackgroundResource(R.color.board_line);
+                        btn_complate.setClickable(false);
                     }
                 }
                 else {
@@ -150,12 +177,17 @@ public class CalendarActivity extends Activity{
                     checkin_date.setText("날짜 선택하기");
                     checkout_date.setText("날짜 선택하기");
                     check_inout_count.setText("0박");
+                    btn_complate.setBackgroundResource(R.color.board_line);
+                    btn_complate.setClickable(false);
                 }
             }
 
             @Override
             public void onDateUnselected(Date date) {
-
+                selected_checkin_date = null;
+                selected_checkout_date = null;
+                btn_complate.setBackgroundResource(R.color.board_line);
+                btn_complate.setClickable(false);
             }
         });
 
@@ -166,10 +198,15 @@ public class CalendarActivity extends Activity{
             }
         });
 
+        btn_complate.setClickable(false);
         btn_complate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if()
+                Intent intent = new Intent();
+                intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
+                intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
+                setResult(80, intent);
+                finish();
             }
         });
     }

@@ -17,12 +17,19 @@ import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.Banner;
+import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
+import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.RecentItem;
+import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
+import com.hotelnow.fragment.model.SubBannerItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +48,13 @@ public class HomeFragment extends Fragment {
     public ArrayList<ThemeSpecialItem> mThemeSItem = new ArrayList<>();
     public ArrayList<ThemeItem> mThemeItem = new ArrayList<>();
     public ArrayList<DefaultItem> mDefaultItem = new ArrayList<>();
+    public ArrayList<BannerItem> mPbanerItem = new ArrayList<>();
+    public ArrayList<SubBannerItem> mEbanerItem = new ArrayList<>();
+    public ArrayList<KeyWordItem> mKeywordItem = new ArrayList<>();
+    public List<RecentItem> mRecentItem = new ArrayList<>();
+    public ArrayList<RecentListItem> mRecentListItem = new ArrayList<>();
     private HomeAdapter adapter;
+    private DbOpenHelper dbHelper;
 
     @Nullable
     @Override
@@ -59,20 +72,85 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        dbHelper = new DbOpenHelper(getActivity());
         objects = new ArrayList<>();
-        adapter = new HomeAdapter(getActivity(), HomeFragment.this, objects);
+        adapter = new HomeAdapter(getActivity(), HomeFragment.this, objects, dbHelper);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHomeBinding.recyclerView.setAdapter(adapter);
 
-        mHomeBinding.btTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                startActivity(intent);
-            }
-        });
+        getRecentData(true);
 
-        getObject();
+    }
+
+    public void getRecentData(final boolean isStart){
+        String url = CONFIG.mainRecent;
+        //최근 본 상품
+        mRecentItem = dbHelper.selectAllRecentItem();
+        try {
+            JSONArray jArray = new JSONArray();//배열
+            for (int i = 0; i < mRecentItem.size(); i++) {
+                String option = "1";
+                if(mRecentItem.get(i).getSel_option().equals("H")){
+                    option = "1";
+                }
+                else{
+                    option = "2";
+                }
+                JSONObject sObject = new JSONObject();//배열 내에 들어갈 json
+                sObject.put("flag", option);
+                sObject.put("id", mRecentItem.get(i).getSel_id());
+                jArray.put(sObject);
+            }
+
+            LogUtil.e("JSON Test", jArray.toString());
+
+            JSONObject params = new JSONObject();
+            params.put("recent_items", jArray.toString());
+            Api.post(url, params.toString(), new Api.HttpCallback() {
+
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("true")) {
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(obj.has("recent_items")){
+                            mRecentListItem.clear();
+                            JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
+                            for(int i = 0; i < p_recent.length(); i++){
+                                mRecentListItem.add(new RecentListItem(
+                                        p_recent.getJSONObject(i).getString("flag"),
+                                        p_recent.getJSONObject(i).getString("id"),
+                                        p_recent.getJSONObject(i).getString("name"),
+                                        p_recent.getJSONObject(i).getString("now"),
+                                        p_recent.getJSONObject(i).getString("view_yn"),
+                                        p_recent.getJSONObject(i).getString("img_url")
+                                ));
+                            }
+                        }
+                        if(isStart) {
+                            // 리스트 호출
+                            getObject();
+                        }
+                        else{
+                            adapter.notifyDataSetChanged();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getObject() {
@@ -94,56 +172,103 @@ public class HomeFragment extends Fragment {
                     }
 
                     if(obj.has("promotion_banners")){
-
+                        JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
+                        for(int i = 0; i < p_banner.length(); i++){
+                            mPbanerItem.add(new BannerItem(
+                                    p_banner.getJSONObject(i).getString("id"),
+                                    p_banner.getJSONObject(i).getString("order"),
+                                    p_banner.getJSONObject(i).getString("category"),
+                                    p_banner.getJSONObject(i).getString("image"),
+                                    p_banner.getJSONObject(i).getString("keyword"),
+                                    p_banner.getJSONObject(i).getString("type"),
+                                    p_banner.getJSONObject(i).getString("evt_type"),
+                                    p_banner.getJSONObject(i).getString("event_id"),
+                                    p_banner.getJSONObject(i).has("link") ? p_banner.getJSONObject(i).getString("link") : ""
+                            ));
+                        }
+                        objects.add(mPbanerItem.get(0));
                     }
                     if(obj.has("popular_keywords")){
-
+                        JSONArray mKeyword = new JSONArray(obj.getJSONArray("popular_keywords").toString());
+                        for(int i = 0; i < mKeyword.length(); i++){
+                            mKeywordItem.add(new KeyWordItem(
+                                    mKeyword.getJSONObject(i).getString("id"),
+                                    mKeyword.getJSONObject(i).getString("order"),
+                                    mKeyword.getJSONObject(i).getString("category"),
+                                    mKeyword.getJSONObject(i).getString("image"),
+                                    mKeyword.getJSONObject(i).getString("keyword"),
+                                    mKeyword.getJSONObject(i).getString("type"),
+                                    mKeyword.getJSONObject(i).getString("evt_type"),
+                                    mKeyword.getJSONObject(i).getString("event_id"),
+                                    mKeyword.getJSONObject(i).has("link") ? mKeyword.getJSONObject(i).getString("link") : ""
+                            ));
+                        }
+                        objects.add(mKeywordItem.get(0));
+                    }
+                    if(mRecentListItem.size()>0){
+                        objects.add(mRecentListItem.get(0));
                     }
                     if(obj.has("event_banners")){
-
+                        JSONArray e_banner = new JSONArray(obj.getJSONArray("event_banners").toString());
+                        for(int i = 0; i < e_banner.length(); i++){
+                            mEbanerItem.add(new SubBannerItem(
+                                    e_banner.getJSONObject(i).getString("id"),
+                                    e_banner.getJSONObject(i).getString("order"),
+                                    e_banner.getJSONObject(i).getString("category"),
+                                    e_banner.getJSONObject(i).getString("image"),
+                                    e_banner.getJSONObject(i).getString("keyword"),
+                                    e_banner.getJSONObject(i).getString("type"),
+                                    e_banner.getJSONObject(i).getString("evt_type"),
+                                    e_banner.getJSONObject(i).getString("event_id"),
+                                    e_banner.getJSONObject(i).has("link") ? e_banner.getJSONObject(i).getString("link") : ""
+                            ));
+                        }
+                        objects.add(mEbanerItem.get(0));
                     }
                     if(obj.has("stay_hot_deals")){
-                        JSONArray mStay = new JSONArray(obj.getJSONArray("stay_hot_deals").toString());
-                        for(int i = 0; i < mStay.length(); i++){
-                            mHotelItem.add(new StayHotDealItem(
-                                    mStay.getJSONObject(i).getString("hotel_id"),
-                                    mStay.getJSONObject(i).getString("name"),
-                                    mStay.getJSONObject(i).getString("category"),
-                                    mStay.getJSONObject(i).getString("landscape"),
-                                    mStay.getJSONObject(i).getString("street1"),
-                                    mStay.getJSONObject(i).getString("latitude"),
-                                    mStay.getJSONObject(i).getString("longuitude"),
-                                    mStay.getJSONObject(i).getString("privateDealYN"),
-                                    mStay.getJSONObject(i).getString("sale_price"),
-                                    mStay.getJSONObject(i).getString("sale_rate"),
-                                    mStay.getJSONObject(i).getString("items_quantity"),
-                                    mStay.getJSONObject(i).getString("special_msg"),
-                                    mStay.getJSONObject(i).getString("grade_score")
-                            ));
+                        JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
+                        if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
+                            for (int i = 0; i < mStay.length(); i++) {
+                                mHotelItem.add(new StayHotDealItem(
+                                        mStay.getJSONObject(i).getString("id"),
+                                        mStay.getJSONObject(i).getString("name"),
+                                        mStay.getJSONObject(i).getString("category_code"),
+                                        mStay.getJSONObject(i).getString("category"),
+                                        mStay.getJSONObject(i).getString("landscape"),
+                                        mStay.getJSONObject(i).getString("special_msg"),
+                                        mStay.getJSONObject(i).getString("review_score"),
+                                        mStay.getJSONObject(i).getString("grade_score"),
+                                        mStay.getJSONObject(i).getString("sale_price"),
+                                        mStay.getJSONObject(i).getString("normal_price"),
+                                        mStay.getJSONObject(i).getString("sale_rate"),
+                                        mStay.getJSONObject(i).getString("items_quantity")
+                                ));
+                            }
+                            objects.add(mHotelItem.get(0));
                         }
-                        objects.add(mHotelItem.get(0));
                     }
                     if(obj.has("activity_hot_deals")){
-                        JSONArray mActivity = new JSONArray(obj.getJSONArray("activity_hot_deals").toString());
-                        for(int i = 0; i < mActivity.length(); i++){
-                            mActivityItem.add(new ActivityHotDealItem(
-                                    mActivity.getJSONObject(i).getString("deal_id"),
-                                    mActivity.getJSONObject(i).getString("name"),
-                                    mActivity.getJSONObject(i).getString("normal_price"),
-                                    mActivity.getJSONObject(i).getString("sale_price"),
-                                    mActivity.getJSONObject(i).getString("sale_rate"),
-                                    mActivity.getJSONObject(i).getString("latitude"),
-                                    mActivity.getJSONObject(i).getString("longitude"),
-                                    mActivity.getJSONObject(i).getString("benefit_text"),
-                                    mActivity.getJSONObject(i).getString("img_url"),
-                                    mActivity.getJSONObject(i).getString("location"),
-                                    mActivity.getJSONObject(i).getString("category"),
-                                    mActivity.getJSONObject(i).getString("distance_real"),
-                                    mActivity.getJSONObject(i).getString("coupon_count")
-                            ));
+                        JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
+                        if(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").length()>0) {
+                            for (int i = 0; i < mActivity.length(); i++) {
+                                mActivityItem.add(new ActivityHotDealItem(
+                                        mActivity.getJSONObject(i).getString("id"),
+                                        mActivity.getJSONObject(i).getString("name"),
+                                        mActivity.getJSONObject(i).getString("sale_price"),
+                                        mActivity.getJSONObject(i).getString("sale_rate"),
+                                        mActivity.getJSONObject(i).getString("latitude"),
+                                        mActivity.getJSONObject(i).getString("longitude"),
+                                        mActivity.getJSONObject(i).getString("benefit_text"),
+                                        mActivity.getJSONObject(i).getString("img_url"),
+                                        mActivity.getJSONObject(i).getString("location"),
+                                        mActivity.getJSONObject(i).getString("category_code"),
+                                        mActivity.getJSONObject(i).getString("category"),
+                                        mActivity.getJSONObject(i).getString("review_score"),
+                                        mActivity.getJSONObject(i).getString("grade_score")
+                                ));
+                            }
+                            objects.add(mActivityItem.get(0));
                         }
-                        objects.add(mActivityItem.get(0));
-
                     }
                     if(obj.has("theme_show")){
                         JSONObject mTheme_show = obj.getJSONObject("theme_show");
@@ -201,20 +326,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    //test용 데이터
-//    public static ArrayList<SingleVertical> getVerticalData() {
-//        ArrayList<SingleVertical> singleVerticals = new ArrayList<>();
-//        singleVerticals.add(new SingleVertical("Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", R.drawable.charlie));
-//        singleVerticals.add(new SingleVertical("Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", R.drawable.mrbean));
-//        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-//        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-//        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-//        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-//        return singleVerticals;
-//    }
-
     public ArrayList<StayHotDealItem> getHotelData() {
         return mHotelItem;
+    }
+
+    public ArrayList<SubBannerItem> getEbannerData() {
+        return mEbanerItem;
     }
 
     public ArrayList<ActivityHotDealItem> getActivityData() {
@@ -233,13 +350,16 @@ public class HomeFragment extends Fragment {
         return mDefaultItem;
     }
 
-    public static ArrayList<Banner> getBannerData() {
-        ArrayList<Banner> data = new ArrayList<>(); //이미지 url를 저장하는 arraylist
-        data.add(new Banner("https://upload.wikimedia.org/wikipedia/en/thumb/2/24/SpongeBob_SquarePants_logo.svg/1200px-SpongeBob_SquarePants_logo.svg.png"));
-        data.add(new Banner("http://nick.mtvnimages.com/nick/promos-thumbs/videos/spongebob-squarepants/rainbow-meme-video/spongebob-rainbow-meme-video-16x9.jpg?quality=0.60"));
-        data.add(new Banner("http://nick.mtvnimages.com/nick/video/images/nick/sb-053-16x9.jpg?maxdimension=&quality=0.60"));
-        data.add(new Banner("https://www.gannett-cdn.com/-mm-/60f7e37cc9fdd931c890c156949aafce3b65fd8c/c=243-0-1437-898&r=x408&c=540x405/local/-/media/2017/03/14/USATODAY/USATODAY/636250854246773757-XXX-IMG-WTW-SPONGEBOB01-0105-1-1-NC9J38E8.JPG"));
-        return data;
+    public ArrayList<BannerItem> getPbannerData() {
+        return mPbanerItem;
+    }
+
+    public ArrayList<KeyWordItem> getKeywordData() {
+        return mKeywordItem;
+    }
+
+    public ArrayList<RecentListItem> getRecentListItem() {
+        return mRecentListItem;
     }
 
     public RecyclerView getRecyclerView(){
@@ -256,4 +376,12 @@ public class HomeFragment extends Fragment {
         super.onStop();
 
     }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == 80){
+//
+//        }
+//    }
 }

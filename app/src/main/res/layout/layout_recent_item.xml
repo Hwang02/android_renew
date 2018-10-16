@@ -3,6 +3,7 @@
     android:layout_width="290dp"
     android:layout_height="180dp"
     android:layout_marginRight="10dp"
+    android:layout_marginBottom="23dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
@@ -52,9 +53,9 @@
         android:id="@+id/tv_keyword"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="left|center_vertical"
+        android:gravity="left|bottom"
         android:paddingLeft="8dp"
-        android:textSize="12dp"
+        android:textSize="15dp"
         android:background="@color/white"
         android:textColor="@color/blacktxt"
         tools:text="서울" />

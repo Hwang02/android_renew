@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:layout_marginRight="28dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="19dp">
@@ -165,18 +165,19 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="7dp"
-                android:background="@color/back_line"/>
-
             <LinearLayout
+                android:id="@+id/view_detail_special"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/special">
+                android:background="@color/special"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="@color/back_line"/>
 
                 <include
-                    android:id="@+id/view_detail_special"
                     layout="@layout/layout_detail_special" />
 
             </LinearLayout>

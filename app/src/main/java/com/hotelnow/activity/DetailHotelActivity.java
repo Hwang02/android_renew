@@ -5,11 +5,13 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -76,6 +78,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private String captions[];
     private AutoLinkTextView tv_recommend;
     private String[] facility;
+    private String image_arr[];
     private FlowLayout filter;
     private String mAddress, hotel_name;
     private Toolbar toolbar;
@@ -87,6 +90,8 @@ public class DetailHotelActivity extends AppCompatActivity {
     public static int markNowPosition = 0;
     private static int markPrevPosition = 0;
     private MyPagerAdapter mPagerAdapter;
+    private SharedPreferences _preferences;
+    private String cookie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +99,17 @@ public class DetailHotelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_detail);
 
         Util.setStatusTransColor(this);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
 
+        _preferences = PreferenceManager.getDefaultSharedPreferences(DetailHotelActivity.this);
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finished();
+            }
+        });
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
            boolean isShow = true;
            int scrollRange = -1;
@@ -135,11 +148,11 @@ public class DetailHotelActivity extends AppCompatActivity {
         hid = intent.getStringExtra("hid");
         pid = intent.getStringExtra("pid");
         evt = intent.getStringExtra("evt");
-        // text dode
-        hid = "15744";
 
-        ec_date = "2018-10-11";
-        ee_date = "2018-10-12";
+        cookie = _preferences.getString("userid", null);
+
+        ec_date = Util.setCheckinout().get(0);
+        ee_date = Util.setCheckinout().get(1);
 
         setDetailView();
 
@@ -148,8 +161,8 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void setDetailView(){
 //        API GET url : http://dev.api.hotelnow.co.kr/product_detail_v2/15744?pid=null&evt=N&user_id=null&ec_date=2018-10-11&ee_date=2018-10-12&consecutive=Y
-//        String url = CONFIG.detailUrl + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
-        String url = CONFIG.detailUrl + "/15744" + "?pid=null" + "&evt=N"+ "&user_id=null";
+        String url = CONFIG.detailUrl + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
+//        String url = CONFIG.detailUrl + "/15744" + "?pid=null" + "&evt=N"+ "&user_id=null";
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";
         }
@@ -188,7 +201,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_checkin = (TextView) findViewById(R.id.tv_checkin);
                     tv_checkout = (TextView) findViewById(R.id.tv_checkout);
                     room_list = (LinearLayout) findViewById(R.id.room_list);
-                    btn_show_room = (LinearLayout) findViewById(R.id.room_list);
+                    btn_show_room = (LinearLayout) findViewById(R.id.btn_show_room);
                     tv_total_count = (TextView) findViewById(R.id.tv_total_count);
                     tv_recommend = (AutoLinkTextView) findViewById(R.id.tv_recommend);
                     btn_more_view = (LinearLayout) findViewById(R.id.btn_more_view);
@@ -236,7 +249,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     //스페셜 메시지
                     if(hotel_data.has("special_msg")){
-                        if(!TextUtils.isEmpty(hotel_data.getString("special_msg"))) {
+                        if(!TextUtils.isEmpty(hotel_data.getString("special_msg")) && !hotel_data.getString("special_msg").equals("null")) {
                             findViewById(R.id.view_detail_special).setVisibility(View.VISIBLE);
                             tv_special_title.setText(hotel_data.getString("special_msg"));
                         }
@@ -252,13 +265,15 @@ public class DetailHotelActivity extends AppCompatActivity {
                     setCoupon();
 
                     // 체크인 체크아웃
-                    tv_checkin.setText(ec_date);
-                    tv_checkout.setText(ee_date);
+                    tv_checkin.setText(Util.formatchange(ec_date));
+                    tv_checkout.setText(Util.formatchange(ee_date));
                     bt_checkinout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(DetailHotelActivity.this, CalendarActivity.class);
-                            startActivityForResult(intent, 1);
+                            intent.putExtra("ec_date", ec_date);
+                            intent.putExtra("ee_date", ee_date);
+                            startActivityForResult(intent, 80);
                         }
                     });
 
@@ -351,6 +366,13 @@ public class DetailHotelActivity extends AppCompatActivity {
         FIRST_PAGE = PAGES * LOOPS / 2;
 
         try {
+            if(captions.length>0) {
+                if (TextUtils.isEmpty(captions[0])) {
+                    m_img_title.setVisibility(View.GONE);
+                } else {
+                    m_img_title.setVisibility(View.VISIBLE);
+                }
+            }
             mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), landscapeImgs, captions);
             mViewPager.setAdapter(mPagerAdapter);
             mViewPager.addOnPageChangeListener(mPagerAdapter);
@@ -363,8 +385,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                         nowPosition = position;
                         markNowPosition = position % PAGES;
 
-                        m_countView.setText(markNowPosition+1+"/"+landscapeImgs.length);
+                        m_countView.setText(markNowPosition+1+"/"+landscapeImgs.length+" + ");
                         m_img_title.setText(captions[markNowPosition]);
+                        if (TextUtils.isEmpty(captions[markNowPosition])){
+                            m_img_title.setVisibility(View.GONE);
+                        }
+                        else{
+                            m_img_title.setVisibility(View.VISIBLE);
+                        }
                         markPrevPosition = markNowPosition;
                     } catch (Exception e) {
                         Util.doRestart(getApplicationContext());
@@ -477,11 +505,11 @@ public class DetailHotelActivity extends AppCompatActivity {
 
             if(rdata.length() <= 4){
                 for_cnt = rdata.length();
-                tv_total_count.setVisibility(View.GONE);
+                btn_show_room.setVisibility(View.GONE);
             }
             else {
                 for_cnt = 4;
-                tv_total_count.setVisibility(View.VISIBLE);
+                btn_show_room.setVisibility(View.VISIBLE);
             }
 
             for (int i = 0; i < for_cnt; i++) {
@@ -496,6 +524,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 RelativeLayout btn_more = (RelativeLayout)view_room.findViewById(R.id.btn_more);
                 AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
                 LinearLayout btn_more_close = (LinearLayout)view_room.findViewById(R.id.btn_more_close);
+                LinearLayout more_img_list = (LinearLayout)view_room.findViewById(R.id.more_img_list);
 
 
                 tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
@@ -506,6 +535,22 @@ public class DetailHotelActivity extends AppCompatActivity {
                 }
                 else {
                     tv_room_sub_title.setVisibility(View.GONE);
+                }
+
+                if(rdata.getJSONObject(i).getJSONArray("img").length() != 0) {
+                    image_arr = new String[rdata.getJSONObject(i).getJSONArray("img").length()];
+                    for(int j = 0; j<image_arr.length; j++){
+                        image_arr[j] = rdata.getJSONObject(i).getJSONArray("img").getJSONObject(j).getString("room_img");
+                    }
+                    Ion.with(img_room).load(image_arr[0]);
+                }
+
+                more_img_list.removeAllViews();
+                for(int j=0; j<image_arr.length;j++){
+                    View view_img = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_room_img_item, null);
+                    ImageView image_container = view_img.findViewById(R.id.image_container);
+                    Ion.with(image_container).load(image_arr[j]);
+                    more_img_list.addView(view_img);
                 }
 
                 tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"");
@@ -569,8 +614,8 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     private void setCoupon() {
-//        Api.get(CONFIG.couponUrl+"/"+hid, new Api.HttpCallback() {
-        Api.get(CONFIG.couponUrl+"/15744", new Api.HttpCallback() {
+        Api.get(CONFIG.couponUrl+"/"+hid, new Api.HttpCallback() {
+//        Api.get(CONFIG.couponUrl+"/15744", new Api.HttpCallback() {
 
             @Override
             public void onFailure(Response response, Exception throwable) {
@@ -801,6 +846,27 @@ public class DetailHotelActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finished();
+        super.onBackPressed();
+    }
+
+    public void finished(){
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 80){
+            ec_date = data.getStringExtra("ec_date");
+            ee_date = data.getStringExtra("ee_date");
+            setDetailView();
         }
     }
 }

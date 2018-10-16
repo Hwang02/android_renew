@@ -142,6 +142,7 @@ public class CONFIG {
 
     //v3
     public final static String mainHome = domain+"/main";                                   // 메인 홈
+    public final static String mainRecent = domain+"/recent/check";                         // 최근 본 상품
 
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";

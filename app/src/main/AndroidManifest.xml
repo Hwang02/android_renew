@@ -38,6 +38,7 @@
         <activity android:name=".activity.AreaActivityActivity" />
         <activity android:name=".activity.MapAcvitityActivity" />
         <activity android:name=".activity.ReservationActivity" />
+        <activity android:name=".activity.PaymentActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

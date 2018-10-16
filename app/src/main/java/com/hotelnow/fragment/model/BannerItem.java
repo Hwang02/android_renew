@@ -1,16 +1,22 @@
 package com.hotelnow.fragment.model;
 
-public class KeyWordItem {
+
+
+public class BannerItem {
 
     private String id, order, category, image, keyword, type, evt_type, event_id,  link;
 
-    public KeyWordItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link) {
+    public BannerItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link) {
         this.id = id;
         this.order = order;
         this.category = category;
         this.image = image;
         this.keyword = keyword;
+        this.type = type;
+        this.evt_type = evt_type;
+        this.event_id = event_id;
         this.link = link;
+
     }
 
     public String getId() {

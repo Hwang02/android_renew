@@ -11,19 +11,23 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailHotelActivity;
-import com.hotelnow.activity.SearchActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
+import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
+import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
+import com.hotelnow.fragment.model.SubBannerItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.hotelnow.utils.RecyclerItemClickListener;
 
@@ -44,12 +48,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int HOTDEAL_ACTIVITY = 6; // 엑티비티 핫딜 horizontal
     private final int PROMOTION = 7; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 8; // 변경되는 프로모션 vertical
+    private DbOpenHelper dbHelper;
+    private RecentAdapter recentAdapter;
 
-    public HomeAdapter(Context context, HomeFragment hf, List<Object> items) {
+    public HomeAdapter(Context context, HomeFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
         this.items = items;
         this.mHf = hf;
         inflater = LayoutInflater.from(context);
+        this.dbHelper = dbHelper;
     }
 
     @Override
@@ -62,7 +69,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder = new BannerViewHolder(view, BANNER);
                 break;
             case BANNER_MINI:
-                view = inflater.inflate(R.layout.layout_banner, parent, false);
+                view = inflater.inflate(R.layout.layout_subbanner, parent, false);
                 holder = new BannerViewHolder(view, BANNER_MINI);
                 break;
             case KEYWORD:
@@ -108,11 +115,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 BannerView((BannerViewHolder) holder, holder.getItemViewType());
                 break;
             case BANNER_MINI:
-                BannerView((BannerViewHolder) holder, holder.getItemViewType());
+                BannerSubView((BannerViewHolder) holder, holder.getItemViewType());
                 break;
             case KEYWORD:
+                setKeyWordView((HorizontalViewHolder) holder, holder.getItemViewType());
                 break;
             case RECENT:
+                setRecentView((HorizontalViewHolder) holder, holder.getItemViewType());
                 break;
             case HOTDEAL_HOTEL:
                 setHotelHotDealView((HorizontalViewHolder) holder, holder.getItemViewType());
@@ -131,6 +140,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
 
         }
+    }
+
+    private void setRecentView(HorizontalViewHolder holder, int type){
+        recentAdapter = new RecentAdapter(mHf.getRecentListItem());
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(recentAdapter);
     }
 
     private void setBottomView(FooterViewHolder holder, int type){
@@ -159,6 +174,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
+    private void setKeyWordView(HorizontalViewHolder holder, int type) {
+        KeyWordAdapter adapter = new KeyWordAdapter(mHf.getKeywordData(), context);
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(adapter);
+        holder.recyclerView.setBackgroundResource(R.color.footerview);
+        holder.main_view.setBackgroundResource(R.color.footerview);
+
+    }
+
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
         ActivityHotDealAdapter adapter = new ActivityHotDealAdapter(mHf.getActivityData());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -166,9 +190,21 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        BannerPagerAdapter adapter = new BannerPagerAdapter(context, mHf.getBannerData());
+        BannerPagerAdapter adapter = new BannerPagerAdapter(context, mHf.getPbannerData());
         holder.autoViewPager.setAdapter(adapter); //Auto Viewpager에 Adapter 장착
-        holder.autoViewPager.setCurrentItem(mHf.getBannerData().size() * 10);
+        holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+        holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        });
+    }
+
+    private void BannerSubView(final BannerViewHolder holder, int type) {
+        SubBannerPagerAdapter adapter = new SubBannerPagerAdapter(context, mHf.getEbannerData());
+        holder.autoViewPager.setAdapter(adapter); //Auto Viewpager에 Adapter 장착
+        holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
         holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -191,14 +227,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-//        if (items.get(position) instanceof Banner)
-//            return BANNER;
+        if (items.get(position) instanceof BannerItem)
+            return BANNER;
         if (items.get(position) instanceof ThemeSpecialItem)
             return SPECIAL;
-//        if (items.get(position) instanceof SingleHorizontal)
-//            return KEYWORD;
-//        if (items.get(position) instanceof SingleHorizontal)
-//            return RECENT;
+        if (items.get(position) instanceof KeyWordItem)
+            return KEYWORD;
+        if (items.get(position) instanceof RecentListItem)
+            return RECENT;
         if (items.get(position) instanceof StayHotDealItem)
             return HOTDEAL_HOTEL;
         if (items.get(position) instanceof ActivityHotDealItem)
@@ -207,8 +243,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return FOOTER;
         if (items.get(position) instanceof ThemeItem)
             return PROMOTION;
-//        if (items.get(position) instanceof Banner)
-//            return BANNER_MINI;
+        if (items.get(position) instanceof SubBannerItem)
+            return BANNER_MINI;
 
         return -1;
     }
@@ -218,12 +254,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RecyclerView recyclerView;
         TextView mTitle;
         TextView mMoreView;
+        LinearLayout main_view;
 
-        HorizontalViewHolder(View itemView, int page) {
+        HorizontalViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mMoreView = (TextView) itemView.findViewById(R.id.all_view);
+            main_view = (LinearLayout) itemView.findViewById(R.id.main_view);
 
             setTitle(mTitle, page);
 
@@ -237,10 +275,17 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
+                    if(page == HOTDEAL_HOTEL)
+                    {
+                        dbHelper.insertRecentItem(mHf.getHotelData().get(position).getId(), "H");
+                        mHf.getRecentData(false);
+                        recentAdapter.notifyDataSetChanged();
 
-                    Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
-                    context.startActivity(intent);
+                        Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
+                        intent.putExtra("hid", mHf.getHotelData().get(position).getId());
+                        mHf.startActivity(intent);
+                    }
+                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -257,7 +302,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RecyclerView recyclerView;
         TextView mTitle;
 
-        HorizontalThemeViewHolder(View itemView, int page) {
+        HorizontalThemeViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
@@ -267,6 +312,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
+
                     Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
                 }
 

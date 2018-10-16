@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.BannerItem;
+import com.hotelnow.fragment.model.SubBannerItem;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class BannerPagerAdapter extends PagerAdapter {
+public class SubBannerPagerAdapter extends PagerAdapter {
     private Context context;
-    private ArrayList<BannerItem> data;
+    private ArrayList<SubBannerItem> data;
 
-    public BannerPagerAdapter(Context context, ArrayList<BannerItem> data) {
+    public SubBannerPagerAdapter(Context context, ArrayList<SubBannerItem> data) {
         this.context = context;
         this.data = data;
     }
@@ -28,7 +28,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
         //뷰페이지 슬라이딩 할 레이아웃 인플레이션
         int realPos = position % data.size();
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_banner_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_subbanner_item, parent, false);
         ImageView image_container = (ImageView) v.findViewById(R.id.image_container);
         Ion.with(image_container).load(data.get(realPos).getImage());
         parent.addView(v);

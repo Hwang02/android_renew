@@ -50,6 +50,8 @@
     <string name="alert_notice_update">업데이트 알림</string>
     <string name="alert_close">닫기</string>
     <string name="alert_notice">알림</string>
+    <string name="alert_yes">예</string>
+    <string name="alert_no">아니오</string>
     <!-- end ActLogin -->
 
     <string name="companyinfo_txt1">봉봉랩(주)  |  대표자 김가영  |  대표번호 : 1670-6864\n\n주소: 서울시 강남구 테헤란로 108길 42 (대치동, 엠디엠타워)\n사업자 번호 : 215-87-4279454\n\n통신판매업신고 : 제2017-서울강남-00156호\n\n제휴문의 : cs@hotelnow.co.kr</string>

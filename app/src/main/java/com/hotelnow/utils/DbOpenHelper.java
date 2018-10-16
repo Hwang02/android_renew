@@ -11,6 +11,8 @@ import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.fragment.model.CityItem;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.fragment.model.RecentCityItem;
+import com.hotelnow.fragment.model.RecentItem;
+import com.hotelnow.fragment.model.SearchKeyWordItem;
 import com.hotelnow.fragment.model.SubCityItem;
 
 import java.util.ArrayList;
@@ -89,16 +91,16 @@ public class DbOpenHelper {
      *
      * @return
      */
-    public List<KeyWordItem> selectAllKeyword() {
+    public List<SearchKeyWordItem> selectAllKeyword() {
         open();
-        List<KeyWordItem> items = new ArrayList<KeyWordItem>();
+        List<SearchKeyWordItem> items = new ArrayList<SearchKeyWordItem>();
         Cursor cur = null;
         try {
             cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword" }, null, null, null, null, _ID+" desc");
 
             if(cur.moveToFirst()) {
                 do {
-                    items.add(new KeyWordItem(
+                    items.add(new SearchKeyWordItem(
                             cur.getInt(cur.getColumnIndex(_ID)),
                             cur.getString(cur.getColumnIndex("keyword"))
                     ));
@@ -437,6 +439,74 @@ public class DbOpenHelper {
                             cur.getString(cur.getColumnIndex("sel_city_ko")),
                             cur.getString(cur.getColumnIndex("sel_subcity_id")),
                             cur.getString(cur.getColumnIndex("sel_subcity_ko")),
+                            cur.getString(cur.getColumnIndex("sel_option"))
+                    ));
+                }
+                while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+        finally {
+            if(cur != null) {
+                cur.close();
+            }
+            close();
+        }
+        return items;
+    }
+
+    /**
+     * 최근 본 상품 선택 - INSERT
+     *
+     * @param sel_id 선택한 id
+     * @param sel_option 호텔인지 H 액티비티인지 A
+     * @return
+     */
+    public void insertRecentItem(String sel_id, String sel_option) {
+        open();
+        ContentValues val = new ContentValues();
+        val.put("sel_id", sel_id);
+        val.put("sel_option", sel_option);
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "created_date" }, null, null, null, null, "created_date desc");
+            if(cur.getCount()==10){
+                String sql = "DELETE FROM "+ DataBases.RecentList_CreateDB._TABLENAME+" WHERE created_date = "
+                        + "(select MIN(created_date) from "+DataBases.RecentCity_CreateDB._TABLENAME+ " )";
+                mDB.execSQL(sql);
+            }
+
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id" }, "sel_id = '" + sel_id + "'", null, null, null, "created_date desc");
+            if(cur.moveToFirst()) {
+                do {
+                    String sql = "DELETE FROM " + DataBases.RecentList_CreateDB._TABLENAME + " WHERE " +  "sel_id = '" + sel_id + "'";
+                    mDB.execSQL(sql);
+                }while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+
+        mDB.insert(DataBases.RecentList_CreateDB._TABLENAME, null, val);
+        close();
+    }
+
+    /**
+     * 최근 본 상품 리스트 - SELECT ALL
+     *
+     * @return
+     */
+    public List<RecentItem> selectAllRecentItem() {
+        open();
+        List<RecentItem> items = new ArrayList<RecentItem>();
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id", "sel_option"}, null,
+                    null, null, null, "created_date desc");
+
+            if(cur.moveToFirst()) {
+                do {
+                    items.add(new RecentItem(
+                            cur.getString(cur.getColumnIndex("sel_id")),
                             cur.getString(cur.getColumnIndex("sel_option"))
                     ));
                 }

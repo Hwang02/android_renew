@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.SearchKeyWordItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
@@ -43,7 +44,7 @@ public class SearchActivity extends Activity{
     private EditText et_search;
     private TextView tv_search_word, tv_popular_title, search_cancel;
     private LinearLayout lv_location, recent_clear, recent_list, ll_popular, hq_list;
-    private List<KeyWordItem> mSearchList;
+    private List<SearchKeyWordItem> mSearchList;
     private DbOpenHelper dbHelper;
     private View recent_clear_line;
     private FlowLayout popular_keyword;

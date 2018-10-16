@@ -1,12 +1,11 @@
 package com.hotelnow.fragment.model;
 
 public class ActivityHotDealItem {
-    private String deal_id, name, normal_price, sale_price, sale_rate, latitude, longitude, benefit_text, img_url, location, category, distance_real, coupon_count;
+    private String id, name, sale_price, sale_rate, latitude, longitude, benefit_text, img_url, location, category_code, category, review_score, grade_score;
 
-    public ActivityHotDealItem(String deal_id, String name, String normal_price, String sale_price, String sale_rate, String latitude, String longitude, String benefit_text, String img_url, String location, String category, String distance_real, String coupon_count) {
-        this.deal_id = deal_id;
+    public ActivityHotDealItem(String id, String name, String sale_price, String sale_rate, String latitude, String longitude, String benefit_text, String img_url, String location, String category_code, String category, String review_score, String grade_score) {
+        this.id = id;
         this.name = name;
-        this.normal_price = normal_price;
         this.sale_price = sale_price;
         this.sale_rate = sale_rate;
         this.latitude = latitude;
@@ -14,17 +13,18 @@ public class ActivityHotDealItem {
         this.benefit_text = benefit_text;
         this.img_url = img_url;
         this.location = location;
+        this.category_code = category_code;
         this.category = category;
-        this.distance_real = distance_real;
-        this.coupon_count = coupon_count;
+        this.review_score = review_score;
+        this.grade_score = grade_score;
     }
 
-    public String getDeal_id() {
-        return deal_id;
+    public String getId() {
+        return id;
     }
 
-    public void setDeal_id(String deal_id) {
-        this.deal_id = deal_id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,14 +33,6 @@ public class ActivityHotDealItem {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getNormal_price() {
-        return normal_price;
-    }
-
-    public void setNormal_price(String normal_price) {
-        this.normal_price = normal_price;
     }
 
     public String getSale_price() {
@@ -99,6 +91,14 @@ public class ActivityHotDealItem {
         this.location = location;
     }
 
+    public String getCategory_code() {
+        return category_code;
+    }
+
+    public void setCategory_code(String category_code) {
+        this.category_code = category_code;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -107,19 +107,19 @@ public class ActivityHotDealItem {
         this.category = category;
     }
 
-    public String getDistance_real() {
-        return distance_real;
+    public String getReview_score() {
+        return review_score;
     }
 
-    public void setDistance_real(String distance_real) {
-        this.distance_real = distance_real;
+    public void setReview_score(String review_score) {
+        this.review_score = review_score;
     }
 
-    public String getCoupon_count() {
-        return coupon_count;
+    public String getGrade_score() {
+        return grade_score;
     }
 
-    public void setCoupon_count(String coupon_count) {
-        this.coupon_count = coupon_count;
+    public void setGrade_score(String grade_score) {
+        this.grade_score = grade_score;
     }
 }
