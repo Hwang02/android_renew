@@ -54,6 +54,13 @@
     <string name="alert_no">아니오</string>
     <!-- end ActLogin -->
 
+    <!-- ActMap -->
+    <string name="cant_use_map">지도를 사용할 수 없습니다.</string>
+    <string name="booking_kimkisa_ask">카카오내비로 길안내를 받으시겠습니까?</string>
+
+    <!-- ActLogin -->
+    <string name="not_support_device">지도보기를 지원하지 않는 기기입니다.</string>
+
     <string name="companyinfo_txt1">봉봉랩(주)  |  대표자 김가영  |  대표번호 : 1670-6864\n\n주소: 서울시 강남구 테헤란로 108길 42 (대치동, 엠디엠타워)\n사업자 번호 : 215-87-4279454\n\n통신판매업신고 : 제2017-서울강남-00156호\n\n제휴문의 : cs@hotelnow.co.kr</string>
     <string name="term_title">이용약관</string>
     <string name="term_txt1">서비스 이용약관</string>
@@ -64,6 +71,8 @@
     <string name="search_recent_title">최근 검색어</string>
     <string name="search_popular_title">인기 여행지</string>
     <string name="search_hotel_activity">추천 숙소 \u0026 액티비티</string>
+    <string name="search_hotel">숙소</string>
+    <string name="search_activity">액티비티</string>
     <string name="all_clear">전체 삭제</string>
     <string name="area_title">지역선택</string>
     <string name="alert_confrim">확인</string>
@@ -128,5 +137,7 @@
     <string name="fee_title">주의사항 및 취소규정</string>
     <string name="caution_agreement_checkbox">주의사항 및 개인정보 제3자 제공 동의</string>
     <string name="caution_agreement_view"><u>내용보기</u></string>
+    <string name="map_detail"><u>호텔상세보기</u></string>
+
 
 </resources>

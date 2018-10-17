@@ -86,11 +86,13 @@ public class DataBases {
     // 최근 검색어
     public static final class Keyword_CreateDB implements BaseColumns {
         public static final String keyword = "keyword";
+        public static final String keyid = "keyid";
         public static final String created_date = "created_date";
         public static final String _TABLENAME = "search_recent";
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("
                         +_ID+" integer primary key autoincrement, "
+                        +keyid+" text not null , "
                         +keyword+" text not null , "
                         +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
     }

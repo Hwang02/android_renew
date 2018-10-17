@@ -10,6 +10,9 @@ public class KeyWordItem {
         this.category = category;
         this.image = image;
         this.keyword = keyword;
+        this.type = type;
+        this.evt_type = evt_type;
+        this.event_id = event_id;
         this.link = link;
     }
 

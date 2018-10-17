@@ -57,7 +57,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -92,6 +94,9 @@ public class DetailHotelActivity extends AppCompatActivity {
     private MyPagerAdapter mPagerAdapter;
     private SharedPreferences _preferences;
     private String cookie;
+    private String[] selectList;
+    private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+    private String lodge_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,9 +165,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     private void setDetailView(){
-//        API GET url : http://dev.api.hotelnow.co.kr/product_detail_v2/15744?pid=null&evt=N&user_id=null&ec_date=2018-10-11&ee_date=2018-10-12&consecutive=Y
-        String url = CONFIG.detailUrl + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
-//        String url = CONFIG.detailUrl + "/15744" + "?pid=null" + "&evt=N"+ "&user_id=null";
+        String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";
         }
@@ -187,6 +190,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                     final JSONArray room_data = obj.getJSONArray("room_types");
                     final JSONArray photos = hotel_data.getJSONArray("photos");
                     final JSONObject review_data = obj.getJSONObject("review_info");
+                    final JSONArray avail_dates = obj.getJSONArray("avail_dates");
+                    final JSONArray instant_coupons = obj.getJSONArray("instant_coupons");
 
                     tv_category = (TextView) findViewById(R.id.tv_category);
                     tv_hotelname = (TextView) findViewById(R.id.tv_hotelname);
@@ -215,6 +220,17 @@ public class DetailHotelActivity extends AppCompatActivity {
                     bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
 
 
+                    // 선택 될 날짜
+                    ec_date = avail_dates.get(0).toString();
+                    ee_date = avail_dates.get(1).toString();
+
+                    selectList = new String[avail_dates.length()];
+                    for(int i =0; i<avail_dates.length(); i++){
+                        selectList[i] = avail_dates.get(i).toString();
+                    }
+
+                    lodge_type = hotel_data.getString("lodge_type");
+
                     // 호텔 이미지
                     landscapeImgs = new String[photos.length()];
                     captions = new String[photos.length()];
@@ -234,13 +250,13 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     hotel_name = hotel_data.getString("name");
                     tv_hotelname.setText(hotel_name);
-                    tv_minprice.setText(Util.numberFormat(205700));
+                    tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
 
                     //원 금액
-                    tv_maxprice.setText(Util.numberFormat(220000));
+                    tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price")));
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-                    tv_per.setText("48");
+                    tv_per.setText(hotel_data.getString("sale_rate"));
 
                     //평점
                     tv_review_rate.setText(review_data.getDouble("avg")+"");
@@ -262,7 +278,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                     }
 
                     // 쿠폰
-                    setCoupon();
+                    if(instant_coupons.length()>0) {
+                        setCoupon(instant_coupons);
+                    }
 
                     // 체크인 체크아웃
                     tv_checkin.setText(Util.formatchange(ec_date));
@@ -273,6 +291,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                             Intent intent = new Intent(DetailHotelActivity.this, CalendarActivity.class);
                             intent.putExtra("ec_date", ec_date);
                             intent.putExtra("ee_date", ee_date);
+                            intent.putExtra("selectList", selectList);
+                            intent.putExtra("lodge_type", lodge_type);
                             startActivityForResult(intent, 80);
                         }
                     });
@@ -283,7 +303,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     // 추천이유
                     if(hotel_data.has("notes_array")){
                         for(int i=0; i<hotel_data.getJSONArray("notes_array").length(); i++){
-                            if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천 이유")) {
+                            if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
                                 String s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
                                         .replace("\r\n","")
                                         .replace("</span>","");
@@ -349,6 +369,19 @@ public class DetailHotelActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // 주변보기
+                            Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
+                            intent.putExtra("from", "pdetail");
+                            intent.putExtra("hid", hid);
+                            intent.putExtra("ec_date", ec_date);
+                            intent.putExtra("ee_date", ee_date);
+                            startActivityForResult(intent, 81); // 81 지도보기
+                        }
+                    });
+
+                    findViewById(R.id.btn_kakao).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Util.kakaoYelloId2(DetailHotelActivity.this);
                         }
                     });
                 }
@@ -525,7 +558,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                 AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
                 LinearLayout btn_more_close = (LinearLayout)view_room.findViewById(R.id.btn_more_close);
                 LinearLayout more_img_list = (LinearLayout)view_room.findViewById(R.id.more_img_list);
-
+                TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
+                TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
+                TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
 
                 tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
 
@@ -555,6 +590,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                 tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"");
 
+                tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_price")+"%↓");
                 tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")));
                 String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n","<br>").replace("•","ㆍ ");
 
@@ -567,9 +603,31 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                 tv_room_info.setText(text);
 
+                if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
+                    btn_private.setVisibility(View.VISIBLE);
+                }
+                if(rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                    btn_private.setVisibility(View.GONE);
+                }
+                else {
+                    btn_private.setVisibility(View.GONE);
+                }
+
                 view_room.setTag(i);
                 btn_more.setTag(i);
                 btn_more_close.setTag(i);
+                btn_private.setTag(i);
+                btn_reservation.setTag(i);
+
+                btn_reservation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(DetailHotelActivity.this, ReservationActivity.class);
+                        intent.putExtra("ec_date", ec_date);
+                        intent.putExtra("ee_date", ee_date);
+                        startActivity(intent);
+                    }
+                });
 
                 btn_more_close.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -613,74 +671,55 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     }
 
-    private void setCoupon() {
-        Api.get(CONFIG.couponUrl+"/"+hid, new Api.HttpCallback() {
-//        Api.get(CONFIG.couponUrl+"/15744", new Api.HttpCallback() {
+    private void setCoupon(final JSONArray cdata) {
+        try{
+            coupon_list.removeAllViews();
+            isAcoupon = new int[cdata.length()];
+            mCouponId = new String[cdata.length()];
 
-            @Override
-            public void onFailure(Response response, Exception throwable) {
-                Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(Map<String, String> headers, String body) {
-                try {
-                    JSONObject obj = new JSONObject(body);
-
-                    if (!obj.getString("result").equals("success")) {
-                        Toast.makeText(DetailHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    final JSONArray cdata = obj.getJSONArray("data");
-                    coupon_list.removeAllViews();
-                    isAcoupon = new int[cdata.length()];
-                    mCouponId = new String[cdata.length()];
-
-                    for (int i = 0; i < cdata.length(); i++) {
-                        View view_coupon = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_coupon_item, null);
-                        TextView tv_coupon_price = (TextView) view_coupon.findViewById(R.id.tv_coupon_price);
-                        TextView tv_coupon_title = (TextView) view_coupon.findViewById(R.id.tv_coupon_title);
-                        ImageView icon_coupon = (ImageView) view_coupon.findViewById(R.id.icon_coupon);
-                        ImageView icon_download = (ImageView) view_coupon.findViewById(R.id.icon_download);
-                        tv_coupon_title.setText(cdata.getJSONObject(i).getString("promotion_name"));
-                        tv_coupon_price.setText(Util.numberFormat(cdata.getJSONObject(i).getInt("promotion_price"))+"원");
-                        if(cdata.getJSONObject(i).getInt("mycoupon_cnt") == 0){
-                            //사용가능
-                            tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.redtext));
-                            tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.blacktxt));
-                            icon_coupon.setBackgroundResource(R.drawable.ico_coupon);
-                            icon_download.setBackgroundResource(R.drawable.ico_download);
-                        }
-                        else {
-                            //불가능
-                            tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
-                            tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
-                            icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
-                            icon_download.setBackgroundResource(R.drawable.ico_download_dis);
-                        }
-                        view_coupon.setTag(i);
-                        isAcoupon[i] = cdata.getJSONObject(i).getInt("mycoupon_cnt");
-                        mCouponId[i] = cdata.getJSONObject(i).getString("promotion_code");
-                        view_coupon.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                LogUtil.e("xxxx", v.getTag()+"");
-                                setCouponDown((int)v.getTag());
-                            }
-                        });
-                        view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this,54)));
-                        coupon_list.addView(view_coupon);
-                    }
+            for (int i = 0; i < cdata.length(); i++) {
+                View view_coupon = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_coupon_item, null);
+                TextView tv_coupon_price = (TextView) view_coupon.findViewById(R.id.tv_coupon_price);
+                TextView tv_coupon_title = (TextView) view_coupon.findViewById(R.id.tv_coupon_title);
+                ImageView icon_coupon = (ImageView) view_coupon.findViewById(R.id.icon_coupon);
+                ImageView icon_download = (ImageView) view_coupon.findViewById(R.id.icon_download);
+                tv_coupon_title.setText(cdata.getJSONObject(i).getString("name"));
+                tv_coupon_price.setText(cdata.getJSONObject(i).getString("coupon_price"));
+                if(cdata.getJSONObject(i).getInt("mycoupon_cnt") == 0){
+                    //사용가능
+                    tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.redtext));
+                    tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.blacktxt));
+                    icon_coupon.setBackgroundResource(R.drawable.ico_coupon);
+                    icon_download.setBackgroundResource(R.drawable.ico_download);
                 }
-                catch (Exception e) {
-                    e.getStackTrace();
-                    Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                else {
+                    //불가능
+                    tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
+                    tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
+                    icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
+                    icon_download.setBackgroundResource(R.drawable.ico_download_dis);
                 }
+                view_coupon.setTag(i);
+                isAcoupon[i] = cdata.getJSONObject(i).getInt("mycoupon_cnt");
+                mCouponId[i] = cdata.getJSONObject(i).getString("code");
+                view_coupon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LogUtil.e("xxxx", v.getTag()+"");
+                        setCouponDown((int)v.getTag(), cdata);
+                    }
+                });
+                view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this,54)));
+                coupon_list.addView(view_coupon);
             }
-        });
+        }
+        catch (Exception e) {
+            e.getStackTrace();
+            Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void setCouponDown(final int position){
+    private void setCouponDown(final int position, final JSONArray cdata){
 
         JSONObject params = new JSONObject();
         try {
@@ -704,8 +743,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         return;
                     }
 
-                    setCoupon();
-//                    showCouponDialog(obj.getString("msg"));
+                    setCoupon(cdata);
                 } catch (Exception e) {
                     Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
@@ -863,7 +901,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 80){
+        if(resultCode == 80 && requestCode == 80){
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             setDetailView();

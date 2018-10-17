@@ -68,10 +68,11 @@ public class DbOpenHelper {
      * @param keyword
      * @return
      */
-    public void insertKeyword(String keyword) {
+    public void insertKeyword(String keyword, String keyid) {
         open();
         ContentValues val = new ContentValues();
         val.put("keyword", keyword);
+        val.put("keyid", keyid);
         Cursor cur = null;
         try {
             cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword" }, null, null, null, null, _ID+" desc");
@@ -96,7 +97,7 @@ public class DbOpenHelper {
         List<SearchKeyWordItem> items = new ArrayList<SearchKeyWordItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword" }, null, null, null, null, _ID+" desc");
+            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword", "keyid" }, null, null, null, null, _ID+" desc");
 
             if(cur.moveToFirst()) {
                 do {

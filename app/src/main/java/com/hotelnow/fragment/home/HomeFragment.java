@@ -86,70 +86,74 @@ public class HomeFragment extends Fragment {
         String url = CONFIG.mainRecent;
         //최근 본 상품
         mRecentItem = dbHelper.selectAllRecentItem();
-        try {
-            JSONArray jArray = new JSONArray();//배열
-            for (int i = 0; i < mRecentItem.size(); i++) {
-                String option = "1";
-                if(mRecentItem.get(i).getSel_option().equals("H")){
-                    option = "1";
-                }
-                else{
-                    option = "2";
-                }
-                JSONObject sObject = new JSONObject();//배열 내에 들어갈 json
-                sObject.put("flag", option);
-                sObject.put("id", mRecentItem.get(i).getSel_id());
-                jArray.put(sObject);
-            }
-
-            LogUtil.e("JSON Test", jArray.toString());
-
-            JSONObject params = new JSONObject();
-            params.put("recent_items", jArray.toString());
-            Api.post(url, params.toString(), new Api.HttpCallback() {
-
-                @Override
-                public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onSuccess(Map<String, String> headers, String body) {
-                    try {
-                        JSONObject obj = new JSONObject(body);
-                        if (!obj.has("result") || !obj.getString("result").equals("true")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        if(obj.has("recent_items")){
-                            mRecentListItem.clear();
-                            JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
-                            for(int i = 0; i < p_recent.length(); i++){
-                                mRecentListItem.add(new RecentListItem(
-                                        p_recent.getJSONObject(i).getString("flag"),
-                                        p_recent.getJSONObject(i).getString("id"),
-                                        p_recent.getJSONObject(i).getString("name"),
-                                        p_recent.getJSONObject(i).getString("now"),
-                                        p_recent.getJSONObject(i).getString("view_yn"),
-                                        p_recent.getJSONObject(i).getString("img_url")
-                                ));
-                            }
-                        }
-                        if(isStart) {
-                            // 리스트 호출
-                            getObject();
-                        }
-                        else{
-                            adapter.notifyDataSetChanged();
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        if (mRecentItem.size() > 0) {
+            try {
+                JSONArray jArray = new JSONArray();//배열
+                for (int i = 0; i < mRecentItem.size(); i++) {
+                    String option = "1";
+                    if (mRecentItem.get(i).getSel_option().equals("H")) {
+                        option = "1";
+                    } else {
+                        option = "2";
                     }
+                    JSONObject sObject = new JSONObject();//배열 내에 들어갈 json
+                    sObject.put("flag", option);
+                    sObject.put("id", mRecentItem.get(i).getSel_id());
+                    jArray.put(sObject);
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
+
+                LogUtil.e("JSON Test", jArray.toString());
+                JSONObject params = new JSONObject();
+                params.put("recent_items", jArray.toString());
+
+                Api.post(url, params.toString(), new Api.HttpCallback() {
+
+                    @Override
+                    public void onFailure(Response response, Exception throwable) {
+                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String body) {
+                        try {
+                            JSONObject obj = new JSONObject(body);
+                            if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if (obj.has("recent_items")) {
+                                mRecentListItem.clear();
+                                JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
+                                for (int i = 0; i < p_recent.length(); i++) {
+                                    mRecentListItem.add(new RecentListItem(
+                                            p_recent.getJSONObject(i).getString("flag"),
+                                            p_recent.getJSONObject(i).getString("id"),
+                                            p_recent.getJSONObject(i).getString("name"),
+                                            p_recent.getJSONObject(i).getString("now"),
+                                            p_recent.getJSONObject(i).getString("view_yn"),
+                                            p_recent.getJSONObject(i).getString("img_url")
+                                    ));
+                                }
+                            }
+                            if (isStart) {
+                                // 리스트 호출
+                                objects.clear();
+                                getObject();
+                            }
+//                            else {
+//                                adapter.notifyDataSetChanged();
+//                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        } else{
+            getObject();
         }
     }
 
@@ -173,6 +177,7 @@ public class HomeFragment extends Fragment {
 
                     if(obj.has("promotion_banners")){
                         JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
+                        mPbanerItem.clear();
                         for(int i = 0; i < p_banner.length(); i++){
                             mPbanerItem.add(new BannerItem(
                                     p_banner.getJSONObject(i).getString("id"),
@@ -190,6 +195,7 @@ public class HomeFragment extends Fragment {
                     }
                     if(obj.has("popular_keywords")){
                         JSONArray mKeyword = new JSONArray(obj.getJSONArray("popular_keywords").toString());
+                        mKeywordItem.clear();
                         for(int i = 0; i < mKeyword.length(); i++){
                             mKeywordItem.add(new KeyWordItem(
                                     mKeyword.getJSONObject(i).getString("id"),
@@ -210,6 +216,7 @@ public class HomeFragment extends Fragment {
                     }
                     if(obj.has("event_banners")){
                         JSONArray e_banner = new JSONArray(obj.getJSONArray("event_banners").toString());
+                        mEbanerItem.clear();
                         for(int i = 0; i < e_banner.length(); i++){
                             mEbanerItem.add(new SubBannerItem(
                                     e_banner.getJSONObject(i).getString("id"),
@@ -227,6 +234,7 @@ public class HomeFragment extends Fragment {
                     }
                     if(obj.has("stay_hot_deals")){
                         JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
+                        mHotelItem.clear();
                         if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
                             for (int i = 0; i < mStay.length(); i++) {
                                 mHotelItem.add(new StayHotDealItem(
@@ -249,6 +257,7 @@ public class HomeFragment extends Fragment {
                     }
                     if(obj.has("activity_hot_deals")){
                         JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
+                        mActivityItem.clear();
                         if(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").length()>0) {
                             for (int i = 0; i < mActivity.length(); i++) {
                                 mActivityItem.add(new ActivityHotDealItem(
@@ -281,7 +290,7 @@ public class HomeFragment extends Fragment {
                         mTheme.getString("subject");
                         mTheme.getString("detail");
                         mTheme.getString("notice");
-
+                        mThemeItem.clear();
                         for(int i = 0; i < mItems.length(); i++){
                             mThemeItem.add(new ThemeItem(
                                     mItems.getJSONObject(i).getString("id"),
@@ -297,6 +306,7 @@ public class HomeFragment extends Fragment {
                     }
                     if(obj.has("theme_lists")){
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
+                        mThemeSItem.clear();
                         for(int i = 0; i < mThemeS.length(); i++){
                             mThemeSItem.add(new ThemeSpecialItem(
                                     mThemeS.getJSONObject(i).getString("id"),
@@ -313,7 +323,7 @@ public class HomeFragment extends Fragment {
                         }
                         objects.add(mThemeSItem.get(0));
                     }
-
+                    mDefaultItem.clear();
                     mDefaultItem.add(new DefaultItem("bottom"));
                     objects.add(mDefaultItem.get(0));
 

@@ -143,6 +143,9 @@ public class CONFIG {
     //v3
     public final static String mainHome = domain+"/main";                                   // 메인 홈
     public final static String mainRecent = domain+"/recent/check";                         // 최근 본 상품
+    public final static String hotel_detail = domain+"/product";                            // 호텔상세
+    public final static String search_before = domain+"/search/keyword/before";             // 검색 진입시
+    public final static String search_auto = domain+"/search/keyword?query=";               // 자동완성
 
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";

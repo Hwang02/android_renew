@@ -39,6 +39,7 @@
         <activity android:name=".activity.MapAcvitityActivity" />
         <activity android:name=".activity.ReservationActivity" />
         <activity android:name=".activity.PaymentActivity" />
+        <activity android:name=".activity.MapActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

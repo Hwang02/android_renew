@@ -3,7 +3,6 @@ package com.hotelnow.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -22,33 +21,46 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.SearchAutoitem;
 import com.hotelnow.fragment.model.SearchKeyWordItem;
+import com.hotelnow.utils.Api;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class SearchActivity extends Activity{
     private EditText et_search;
     private TextView tv_search_word, tv_popular_title, search_cancel;
-    private LinearLayout lv_location, recent_clear, recent_list, ll_popular, hq_list;
+    private LinearLayout lv_location, recent_clear, recent_list, ll_popular, hq_list, hotel_list, activity_list;
     private List<SearchKeyWordItem> mSearchList;
     private DbOpenHelper dbHelper;
-    private View recent_clear_line;
+    private View recent_clear_line, underline3;
     private FlowLayout popular_keyword;
-    List<String> tmpCat = new ArrayList<>();
+    private List<KeyWordItem> mKeywordList = new ArrayList<>();
+    private List<KeyWordItem> mHotelActivity = new ArrayList<>();
+    private List<SearchAutoitem> mHotelAuto = new ArrayList<>();
+    private List<SearchAutoitem> mActivityAuto = new ArrayList<>();
+
+    private RelativeLayout ll_before, ll_result;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +79,13 @@ public class SearchActivity extends Activity{
         search_cancel = (TextView) findViewById(R.id.search_cancel);
         popular_keyword = (FlowLayout) findViewById(R.id.popular_keyword);
         hq_list = (LinearLayout) findViewById(R.id.hq_list);
+        //결과 화면
+        ll_before = (RelativeLayout) findViewById(R.id.ll_before);
+        ll_result = (RelativeLayout) findViewById(R.id.ll_result);
+        hotel_list = (LinearLayout) findViewById(R.id.hotel_list);
+        activity_list = (LinearLayout) findViewById(R.id.activity_list);
 
+        //결과 화면
         dbHelper = new DbOpenHelper(this);
         getRecentData();
 
@@ -84,7 +102,7 @@ public class SearchActivity extends Activity{
               @Override
               public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                   if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                      dbHelper.insertKeyword(et_search.getText().toString());
+                      dbHelper.insertKeyword(et_search.getText().toString(), "x");
                       mSearchList.clear();
                       getRecentData();
 
@@ -108,15 +126,22 @@ public class SearchActivity extends Activity{
                     builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     tv_search_word.append(builder);
                     tv_search_word.setVisibility(View.VISIBLE);
+                    ll_result.setVisibility(View.VISIBLE);
                     lv_location.setVisibility(View.GONE);
                     ll_popular.setVisibility(View.GONE);
                     tv_popular_title.setVisibility(View.GONE);
+                    ll_before.setVisibility(View.GONE);
+
+                    setResultData();
+
                 }
                 else if(s.length()==0){
                     tv_search_word.setVisibility(View.GONE);
+                    ll_result.setVisibility(View.GONE);
                     lv_location.setVisibility(View.VISIBLE);
                     ll_popular.setVisibility(View.VISIBLE);
                     tv_popular_title.setVisibility(View.VISIBLE);
+                    ll_before.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -153,7 +178,7 @@ public class SearchActivity extends Activity{
         tv_search_word.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbHelper.insertKeyword(et_search.getText().toString());
+                dbHelper.insertKeyword(et_search.getText().toString(),"x");
                 mSearchList.clear();
                 getRecentData();
             }
@@ -176,13 +201,161 @@ public class SearchActivity extends Activity{
         });
 
         //인기 여행지 하드코딩 데이터
-        tmpCat.add("인기여행지");
-        tmpCat.add("여의도 불꽅놀이");
-        tmpCat.add("경복궁 한복투어");
-        tmpCat.add("전주 식도락여행");
-        tmpCat.add("가족여행");
-        tmpCat.add("포항해맞이");
-        setCategory();
+        setData();
+//        setCategory();
+    }
+
+    private void setResultData(){
+        String url = CONFIG.search_auto+et_search.getText().toString();
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(SearchActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    final JSONObject search_results = obj.getJSONObject("search_results");
+                    final JSONArray hotel = search_results.getJSONArray("hotel");
+                    final JSONArray activity = search_results.getJSONArray("activity");
+
+                    mHotelAuto.clear();
+                    mActivityAuto.clear();
+
+                    //호텔 리스트
+                    for(int i=0; i<hotel.length(); i++){
+                        mHotelAuto.add(new SearchAutoitem(
+                                hotel.getJSONObject(i).getString("flag"),
+                                hotel.getJSONObject(i).getString("id"),
+                                hotel.getJSONObject(i).getString("name"),
+                                hotel.getJSONObject(i).getString("city"),
+                                hotel.getJSONObject(i).getString("sub_city")
+                        ));
+                    }
+
+                    //액티비티 리스트
+                    for(int i=0; i<activity.length(); i++){
+                        mActivityAuto.add(new SearchAutoitem(
+                                activity.getJSONObject(i).getString("flag"),
+                                activity.getJSONObject(i).getString("id"),
+                                activity.getJSONObject(i).getString("name"),
+                                activity.getJSONObject(i).getString("city"),
+                                activity.getJSONObject(i).getString("sub_city")
+                        ));
+                    }
+
+                    setAutoH();
+                    setAutoA();
+
+                } catch (Exception e) {
+                    Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setAutoH(){
+        hotel_list.removeAllViews();
+        for(int i =0; i<mHotelAuto.size(); i++) {
+            View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
+            TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+            ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
+
+            if(mHotelAuto.get(i).getFlag().equals("region_hotel")){
+                ico_item.setBackgroundResource(R.drawable.ico_search_location);
+            }
+            else{
+                ico_item.setBackgroundResource(R.drawable.ico_search_hotel);
+            }
+
+            tv_recent_txt.setText(mHotelAuto.get(i).getName());
+            hotel_list.addView(view);
+        }
+    }
+
+    private void setAutoA(){
+        activity_list.removeAllViews();
+        for(int i =0; i<mActivityAuto.size(); i++) {
+            View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
+            TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+            ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
+
+            if(mActivityAuto.get(i).getFlag().equals("region_activity")){
+                ico_item.setBackgroundResource(R.drawable.ico_search_location);
+            }
+            else{
+                ico_item.setBackgroundResource(R.drawable.ico_search_activity);
+            }
+
+
+            tv_recent_txt.setText(mActivityAuto.get(i).getName());
+            activity_list.addView(view);
+        }
+    }
+
+    private void setData(){
+        Api.get(CONFIG.search_before, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(SearchActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    final JSONArray popular_keywords = obj.getJSONArray("popular_keywords");
+                    final JSONArray popular_products = obj.getJSONArray("popular_products");
+
+                    for(int i = 0; i < popular_keywords.length(); i++){
+                        mKeywordList.add(new KeyWordItem(
+                                popular_keywords.getJSONObject(i).getString("id"),
+                                popular_keywords.getJSONObject(i).getString("order"),
+                                popular_keywords.getJSONObject(i).getString("category"),
+                                popular_keywords.getJSONObject(i).getString("image"),
+                                popular_keywords.getJSONObject(i).getString("keyword"),
+                                popular_keywords.getJSONObject(i).getString("type"),
+                                popular_keywords.getJSONObject(i).getString("evt_type"),
+                                popular_keywords.getJSONObject(i).getString("event_id"),
+                                popular_keywords.getJSONObject(i).has("link") ? popular_keywords.getJSONObject(i).getString("link") : ""
+                        ));
+                    }
+
+                    for(int j = 0; j < popular_products.length(); j++){
+                        mHotelActivity.add(new KeyWordItem(
+                                popular_products.getJSONObject(j).getString("id"),
+                                popular_products.getJSONObject(j).getString("order"),
+                                popular_products.getJSONObject(j).getString("category"),
+                                popular_products.getJSONObject(j).getString("image"),
+                                popular_products.getJSONObject(j).getString("keyword"),
+                                popular_products.getJSONObject(j).getString("type"),
+                                popular_products.getJSONObject(j).getString("evt_type"),
+                                popular_products.getJSONObject(j).getString("event_id"),
+                                popular_products.getJSONObject(j).has("link") ? popular_products.getJSONObject(j).getString("link") : ""
+                        ));
+                    }
+                    // 키워드
+                    setCategory();
+                    // 추천
+                    getHotelActivity();
+                } catch (Exception e) {
+                    e.getStackTrace();
+                    Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setCategory(){
@@ -190,11 +363,11 @@ public class SearchActivity extends Activity{
                 new int[][]{ new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
                 new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
 
-        for(int i=0;i<tmpCat.size();i++){
+        for(int i=0;i<mKeywordList.size();i++){
             TextView tv = new TextView(this);
             tv.setId(i);
             tv.setTag(i);
-            tv.setText(tmpCat.get(i));
+            tv.setText(mKeywordList.get(i).getLink());
             tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             tv.setTextColor(getResources().getColor(R.color.termtext));
@@ -206,7 +379,7 @@ public class SearchActivity extends Activity{
                 @Override
                 public void onClick(View v) {
                     // keyword 검색으로 검색 리스트로 이동
-                    dbHelper.insertKeyword(tmpCat.get((int)v.getTag()));
+                    dbHelper.insertKeyword(mKeywordList.get((int)v.getTag()).getKeyword(), mKeywordList.get((int)v.getTag()).getId());
                     mSearchList.clear();
                     getRecentData();
                 }
@@ -300,14 +473,25 @@ public class SearchActivity extends Activity{
 
     public void getHotelActivity(){
         hq_list.removeAllViews();
-        View view_ha = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_hotel_activity_item, null);
-        TextView item_star_txt = (TextView) findViewById(R.id.item_star_txt);
-        TextView tv_popular_txt = (TextView) findViewById(R.id.tv_popular_txt);
-        TextView tv_select_id = (TextView) findViewById(R.id.tv_select_id);
-        ImageView ico_popular = (ImageView) findViewById(R.id.ico_popular);
+        for (int i=0; i<mHotelActivity.size(); i++) {
+            View view_ha = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_hotel_activity_item, null);
+            TextView item_star_txt = (TextView) view_ha.findViewById(R.id.item_star_txt);
+            TextView tv_popular_txt = (TextView) view_ha.findViewById(R.id.tv_popular_txt);
+            TextView tv_select_id = (TextView) view_ha.findViewById(R.id.tv_select_id);
+            ImageView ico_popular = (ImageView) view_ha.findViewById(R.id.ico_popular);
 
-        //ico_search_hotel, ico_search_activity 둘중하나로...
+            //ico_search_hotel, ico_search_activity 둘중하나로...
 
-        hq_list.addView(view_ha);
+            if(mHotelActivity.get(i).getCategory().equals("popular_product_stay")){
+                ico_popular.setBackgroundResource(R.drawable.ico_search_hotel);
+            }
+            else{
+                ico_popular.setBackgroundResource(R.drawable.ico_search_activity);
+            }
+
+            item_star_txt.setText("");
+            tv_popular_txt.setText(mHotelActivity.get(i).getKeyword());
+            hq_list.addView(view_ha);
+        }
     }
 }

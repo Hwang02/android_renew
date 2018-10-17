@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;
 import com.savvi.rangedatepicker.CalendarPickerView;
 
@@ -20,25 +21,28 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CalendarActivity extends Activity{
 
     private CalendarPickerView calendar;
     private Button btn_complate;
-    private ArrayList<Date> selList = new ArrayList<>();
     private ArrayList<Date> arrayList = new ArrayList<>();
-    private ArrayList<Date> unList = new ArrayList<>();
+    private String[] selectList;
     private ArrayList<Date> not_dates = new ArrayList<Date>();
     private ImageView btn_back;
     private String selected_checkin_date = null, selected_checkout_date = null;
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd(EEE)", Locale.KOREAN);
     private SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREAN);
+    private SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
     private TextView checkin_date, checkout_date, check_inout_count;
     private Date fir_cancelday = null;
     private int select_cnt = 1;
+    private String lodge_type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,27 +57,33 @@ public class CalendarActivity extends Activity{
         btn_complate = (Button) findViewById(R.id.btn_complate);
 
         final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.DAY_OF_MONTH, 180);
+        nextYear.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
 
         final Calendar lastYear = Calendar.getInstance();
         lastYear.add(Calendar.YEAR, 0);
 
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-//        calendar.
-//        button = (Button) findViewById(R.id.get_selected_dates);
-        ArrayList<Integer> list = new ArrayList<>();
-//        list.add(1);
-//        list.add(2);
-//        list.add(3);
-//        list.add(4);
-//        list.add(5);
-//        list.add(6);
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         Intent intent = getIntent();
 
         String strdate = intent.getStringExtra("ec_date");
         String strdate2 = intent.getStringExtra("ee_date");
+        selectList = intent.getStringArrayExtra("selectList");
+        lodge_type = intent.getStringExtra("lodge_type");
+
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.setTime(new Date());
+        end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
+
+//        선택안되는 날
+        for(Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()){
+            if (Arrays.asList(selectList).contains(formatter3.format(date)) == false) {
+                not_dates.add(date);
+            }
+        }
+
         if(strdate == null || strdate2 == null){
             strdate = Util.setCheckinout().get(0);
             strdate2 = Util.setCheckinout().get(1);
@@ -89,17 +99,14 @@ public class CalendarActivity extends Activity{
             newdate2 = dateformat.parse(strdate2);
             arrayList.add(newdate);
             arrayList.add(newdate2);
-            unList.add(newdate2);
-            not_dates.add(newdate2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("YYYY년 MM월", Locale.getDefault()))
                 .inMode(CalendarPickerView.SelectionMode.RANGE)
                 .withSelectedDates(arrayList)
-                .withHighlightedDate(newdate2);
-//                .withDeactivateDates(list);
-//              .withHighlightedDates(arrayList);
+                .withHighlightedDates(not_dates);
 
 
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
@@ -150,11 +157,11 @@ public class CalendarActivity extends Activity{
                             break;
                     }
 
-//                    if (!lodge_type.equals("Y") && calendar.getSelectedDates().size() > 2) {
-//                        calendar.clearSelectedDates();
-//                        Toast.makeText(getApplication(), "연박을 할 수 없는 상품입니다.", Toast.LENGTH_SHORT).show();
-//                        sel_unday = 1;
-//                    }
+                    if (!lodge_type.equals("Y") && calendar.getSelectedDates().size() > 2) {
+                        calendar.clearSelectedDates();
+                        Toast.makeText(getApplication(), "연박을 할 수 없는 상품입니다.", Toast.LENGTH_SHORT).show();
+                        sel_unday = 1;
+                    }
 
                     if (sel_unday == 0) {
                         select_cnt = calendar.getSelectedDates().size() - 1;

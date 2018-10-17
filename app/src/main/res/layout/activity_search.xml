@@ -99,6 +99,7 @@
             android:layout_below="@id/search_box"
             android:background="@color/white">
             <RelativeLayout
+                android:id="@+id/ll_before"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -228,9 +229,67 @@
                     android:layout_marginTop="21dp"
                     android:layout_marginBottom="27dp" >
                 </LinearLayout>
-
+                <!--추천숙소 액티비티 end-->
             </RelativeLayout>
-    <!--추천숙소 액티비티 end-->
+
+            <RelativeLayout
+                android:id="@+id/ll_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/ll_before"
+                android:layout_marginTop="26dp">
+                <!--호텔 리스트 -->
+                <TextView
+                    android:id="@+id/tv_hotel_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/search_hotel"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:id="@+id/hotel_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@id/tv_hotel_title"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="27dp">
+                </LinearLayout>
+                <!--호텔 리스트 end-->
+                <View
+                    android:id="@+id/underline3"
+                    android:layout_below="@id/hotel_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/back_line"
+                    android:visibility="gone"/>
+
+                <!--호텔 리스트 -->
+                <TextView
+                    android:id="@+id/tv_activity_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/search_activity"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="14dp"
+                    android:layout_below="@id/underline3" />
+
+                <LinearLayout
+                    android:id="@+id/activity_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@id/tv_activity_title"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginBottom="27dp">
+                </LinearLayout>
+                <!--호텔 리스트 end-->
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

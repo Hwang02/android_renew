@@ -277,13 +277,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onItemClick(View view, int position) {
                     if(page == HOTDEAL_HOTEL)
                     {
-                        dbHelper.insertRecentItem(mHf.getHotelData().get(position).getId(), "H");
-                        mHf.getRecentData(false);
-                        recentAdapter.notifyDataSetChanged();
-
                         Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
                         intent.putExtra("hid", mHf.getHotelData().get(position).getId());
                         mHf.startActivity(intent);
+
+                        dbHelper.insertRecentItem(mHf.getHotelData().get(position).getId(), "H");
+                        if(mHf.getRecentListItem().size()>0) {
+                            mHf.getRecentData(false);
+                            recentAdapter.notifyDataSetChanged();
+                        }
+                        else{
+                            mHf.getRecentData(true);
+                        }
                     }
                     Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
                 }

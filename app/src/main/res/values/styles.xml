@@ -44,4 +44,14 @@
         <item name="android:layout_marginRight">16dp</item>
     </style>
 
+    <style name="iconGenTextMain">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="iconGenText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
 </resources>
