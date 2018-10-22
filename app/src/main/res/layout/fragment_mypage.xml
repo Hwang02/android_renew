@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
 		<variable
@@ -6,19 +7,63 @@
 			type="com.hotelnow.fragment.mypage.MypageFragment" />
 	</data>
 
-<LinearLayout
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
-	<Button
-		android:id="@+id/bt_test"
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="match_parent"
+		android:background="@color/white"
+		android:orientation="vertical">
 
-	<android.support.v7.widget.RecyclerView
-		android:id = "@+id/recycler_view"
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		android:clipToPadding = "false" />
-</LinearLayout>
+		<TextView
+			android:id="@+id/tv_title_hotel"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:singleLine="true"
+			android:maxLines="1"
+			android:textSize="16dp"
+			android:textColor="@color/purple"
+			android:gravity="center"
+			android:ellipsize="end"
+			android:text="@string/mypage_title" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/bg_background" />
+
+
+		<android.support.v4.widget.NestedScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+
+				<include android:id="@+id/not_join"
+					layout="@layout/layout_mypage_not_join" />
+
+				<include android:id="@+id/join"
+					layout="@layout/layout_mypage_join" />
+
+				<include android:id="@+id/center"
+					layout="@layout/layout_mypage_center" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:background="@color/bg_background"/>
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="7dp"
+					android:background="@color/back_line"/>
+				<include android:id="@+id/footer"
+					layout="@layout/layout_mypage_footer" />
+
+			</LinearLayout>
+
+		</android.support.v4.widget.NestedScrollView>
+	</LinearLayout>
+
 </layout>

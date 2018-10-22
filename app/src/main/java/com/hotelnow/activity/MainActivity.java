@@ -65,6 +65,7 @@ public class MainActivity extends FragmentActivity {
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                mbinding.toolbar.setVisibility(View.VISIBLE);
                 switch (tab.getPosition()){
                     case 0:{ // 추천
                         LogUtil.e("xxxxx","111111");
@@ -102,6 +103,7 @@ public class MainActivity extends FragmentActivity {
                 item.setChecked(true);
                 switch (item.getItemId()){
                     case R.id.home:{
+                        mbinding.toolbar.setVisibility(View.VISIBLE);
                         LogUtil.e("xxxxx","555555");
                         //홈은 다른곳 이동시 값 저장 필요
                         int mPosition = 4;
@@ -122,18 +124,21 @@ public class MainActivity extends FragmentActivity {
                         LogUtil.e("xxxxx","666666");
                         setTapMove(FAVPAGE);
                         mbinding.tabLayout.setVisibility(View.GONE);
+                        mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.reserv:{
                         LogUtil.e("xxxxx","77777");
                         setTapMove(RESERVPAGE);
                         mbinding.tabLayout.setVisibility(View.GONE);
+                        mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.mypage:{
                         LogUtil.e("xxxxx","888888");
                         setTapMove(MYPAGE);
                         mbinding.tabLayout.setVisibility(View.GONE);
+                        mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                 }

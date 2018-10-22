@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="18dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ico_titbar_back"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/btn_back"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:textColor="@color/purple"
+            android:gravity="left|center"
+            android:ellipsize="end"
+            android:text="@string/card_manager" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"
+            android:layout_below="@id/tv_title_hotel"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lv_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:divider="@color/white"
+            android:listSelector="@android:color/transparent"
+            tools:listitem="@layout/layout_my_coupon_item"></ListView>
+    </RelativeLayout>
+
+</RelativeLayout>

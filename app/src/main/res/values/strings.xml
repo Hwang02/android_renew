@@ -52,6 +52,7 @@
     <string name="alert_notice">알림</string>
     <string name="alert_yes">예</string>
     <string name="alert_no">아니오</string>
+    <string name="wanna_logout">로그아웃 하시겠습니까?</string>
     <!-- end ActLogin -->
 
     <!-- ActMap -->
@@ -100,6 +101,9 @@
     <string name="btn_more2">상세 정보 보기</string>
     <string name="btn_close">닫기</string>
     <string name="recommend_title">추천이유</string>
+    <string name="recommend_input_title">추천인 코드 입력</string>
+    <string name="signup_success">회원가입이 완료되었습니다.</string>
+    <string name="recommend_hint">추천인 코드를 입력해주세요.</string>
     <string name="more_title">더보기</string>
     <string name="more_close_title">접기</string>
     <string name="detail_facility_title">편의시설 및 서비스</string>
@@ -138,6 +142,94 @@
     <string name="caution_agreement_checkbox">주의사항 및 개인정보 제3자 제공 동의</string>
     <string name="caution_agreement_view"><u>내용보기</u></string>
     <string name="map_detail"><u>호텔상세보기</u></string>
+    <string name="signup_recommend_success">회원가입 및 적립금 지급이 완료되었습니다.</string>
+
+    <string name="mypage_title">내정보</string>
+    <string name="mypage_not_join">아직 회원이 아니신가요?</string>
+    <string name="mypage_not_join2">회원가입하시고, 호텔나우만의 특별한 혜택을 누리세요!</string>
+    <string name="mypage_not_sub_join">숙소 전상품 구매시 적립금 0.5% 제공</string>
+    <string name="mypage_not_sub_join2">최대 10만원 상당의 즉시 할인 쿠폰</string>
+    <string name="mypage_not_sub_join3">나만의 가격을 제안하는 프라이빗 딜 찬스</string>
+    <string name="mypage_join">회원가입</string>
+    <string name="mypage_login">로그인</string>
+    <string name="cs_title">고객지원</string>
+    <string name="cs_txt1">공지사항</string>
+    <string name="cs_txt2">이메일로 의견보내기</string>
+    <string name="cs_txt3">고객센터</string>
+    <string name="cs_txt4"><u>카카오톡 문의</u></string>
+    <string name="cs_txt5"><u>전화 문의</u></string>
+    <string name="cs_faq">자주 하는 질문</string>
+    <string name="service_txt2">알림메시지 받기</string>
+    <string name="service_txt3">공지 / 예약내역 / 이벤트 / 특가 소식 등 알림 메시지를 통해 전달해드립니다</string>
+    <string name="appinfo_txt1">앱 버전 정보</string>
+    <string name="notice">공지사항</string>
+    <string name="no_email_program">email을 전송 할 수 있는 프로그램이 없습니다.</string>
+    <string name="wanna_call_hotelnow">궁금하신 사항을 호텔나우와 상담하세요.</string>
+    <string name="wanna_kakao_hotelnow">궁금하신 사항을 카카오톡으로 상담하세요.</string>
+    <string name="alert_connect">연결하기</string>
+    <string name="logout"><u>로그아웃</u></string>
+    <string name="disable_money">소멸 예정</string>
+    <string name="disable_coupon">마감 임박</string>
+    <string name="coupon">쿠폰</string>
+    <string name="card">결제카드</string>
+    <string name="card_manager">결제카드 관리</string>
+    <string name="save_title">적립금 내역</string>
+    <string name="save_subtitle">적립금 적립 / 사용 내역</string>
+    <string name="coupon_title">쿠폰함</string>
+    <string name="coupon_savecoupon">보유중인 쿠폰</string>
+    <string name="card_save">등록된 결제카드</string>
+    <string name="coupon_subtitle">쿠폰등록</string>
+    <string name="coupon_subtitle2">내 쿠폰 리스트</string>
+    <string name="card_subtitle">결제카드 등록</string>
+    <string name="card_submassege">자주 사용하시는 카드를 최초 1회 등록 하시면, 서명 한번으로 편하게 결제 하실 수 있는 결제 수단입니다.</string>
+    <string name="card_subtitle2">내 결제카드 리스트</string>
+    <string name="save_money_my_title">나의 적립금</string>
+    <string name="save_money_disable_money">14일 이내 소멸 예정</string>
+    <string name="save_money_list_info">적립금의 유효기간은 지급일로부터 1년이며, 만료시 자동소멸 됩니다.\n-  최소 1,000원부터 사용 가능, 사용금액 제한 없음</string>
+    <string name="coupon_list_info">쿠폰별 유효기간이 설정되며, 기간 만료시 사용이 불가합니다.\n- 최소 결제 금액, 프로모션 해당 상품은 쿠폰별 상이\n- 쿠폰을 포함하여 결제시 쿠폰 반환이 불가할 수 있음</string>
+    <string name="card_list_info">자주 사용하시는 카드를 최초 1회 등록 하시면, 서명 한번으로 편하게 결제하실 수 있는 결제 수단입니다.</string>
+    <string name="coupon_hint">쿠폰명을 입력하세요.</string>
+    <string name="coupon_regist">등록</string>
+    <string name="login_title">로그인</string>
+    <string name="login_email">이메일 주소</string>
+    <string name="login_pw">비밀번호</string>
+    <string name="login_sns">SNS계정으로 로그인</string>
+    <string name="login_kakao">카카오</string>
+    <string name="login_facebook">페이스북</string>
+    <string name="login_not_user"><u>비회원 예약하기 ></u></string>
+    <string name="login_find_pass"><u>비밀번호 찾기</u></string>
+    <string name="login_find_pass2">비밀번호 찾기</string>
+    <string name="login_join">회원가입</string>
+    <string name="join_send">인증번호 발송</string>
+    <string name="message_show"><u>내용보기</u></string>
+    <string name="reservemoney_status_reserve">적립</string>
+    <string name="reservemoney_status_use">사용</string>
+    <string name="reservemoney_status_withdraw">회수</string>
 
 
+    <!-- Member Join Validator -->
+    <string name="validator_name_length">2글자 이상의 이름을 입력해 주세요.</string>
+    <string name="validator_name_emoji">이름에 특수문자를 입력할 수 없습니다.</string>
+    <string name="validator_account_name_length">2글자 이상의 입금자 이름을 입력해 주세요.</string>
+    <string name="validator_auth">휴대폰 인증이 필요합니다.</string>
+    <string name="validator_pnum">전화번호를 입력해 주세요.</string>
+    <string name="validator_email">이메일을 입력해주세요.</string>
+    <string name="validator_email_invalid">이메일이 형식에 맞지 않습니다.</string>
+    <string name="validator_password">비밀번호를 입력해 주세요.</string>
+    <string name="validator_password_length">4~20자 길이의 비밀번호를 입력해 주세요.</string>
+    <string name="validator_capcha">이미지 문자를 입력해주세요.</string>
+    <string name="validator_tel_agreement">휴대폰 인증을 완료해 주세요.</string>
+    <string name="validator_age_agreement">만 14세 이상인지 확인해 주세요.</string>
+    <string name="validator_service_agreement">서비스 이용약관에 동의해 주세요.</string>
+    <string name="validator_userinfo_agreement">개인정보취급방침에 동의해 주세요.</string>
+    <string name="validator_location_agreement">위치기반서비스 이용약관에 동의해 주세요.</string>
+    <string name="validator_user_not_match">이메일 또는 비밀번호가 일치하지 않습니다.</string>
+    <string name="validator_user_birth">생년월일을 선택하세요.</string>
+    <string name="validator_user_gender">성별을 선택하세요.</string>
+    <string name="validator_recommend_fail">적립금 지급에 실패하였습니다. 고객센터로 문의바랍니다.</string>
+    <!-- Member Join Validator -->
+
+    <!-- ActLogin -->
+    <string name="login_loading">로그인 중&#8230;</string>
+    <string name="login_complete">로그인 되었습니다.</string>
 </resources>

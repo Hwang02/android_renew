@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="18dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ico_titbar_back"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_title_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/btn_back"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:textColor="@color/purple"
+            android:gravity="left|center"
+            android:ellipsize="end"
+            android:text="@string/mypage_join" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"
+            android:layout_below="@id/tv_title_hotel"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:hint="@string/email"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColorHint="@color/coupon_dis"
+                android:inputType="textEmailAddress"
+                android:maxLength="50"
+                android:textSize="15dp"
+                android:layout_marginTop="14dp"
+                android:singleLine="true"
+                android:theme="@style/EditTheme"
+                android:textColor="@color/blacktxt"/>
+
+            <EditText
+                android:id="@+id/passwd"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:hint="@string/login_pw"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="15dp"
+                android:textColorHint="@color/coupon_dis"
+                android:inputType="textPassword"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:theme="@style/EditTheme"
+                android:textColor="@color/blacktxt"/>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:hint="@string/name"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="15dp"
+                android:textColorHint="@color/coupon_dis"
+                android:maxLength="8"
+                android:singleLine="true"
+                android:theme="@style/EditTheme"
+                android:textColor="@color/blacktxt"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/phone_num_1"
+                    android:layout_width="50dp"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:background="@drawable/selectbox2"
+                    android:spinnerMode="dropdown" />
+
+                <EditText
+                    android:id="@+id/phone_num_2"
+                    android:layout_width="50dp"
+                    android:layout_height="46dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:theme="@style/EditTheme"
+                    android:inputType="number"
+                    android:textSize="15dp"
+                    android:hint="1234"
+                    android:textColorHint="@color/coupon_dis"
+                    android:nextFocusDown="@+id/phone_num_3"
+                    android:background="@drawable/style_bordcolor_status"
+                    android:maxLength="4"
+                    android:textColor="@color/blacktxt"/>
+
+                <EditText
+                    android:id="@+id/phone_num_3"
+                    android:layout_width="50dp"
+                    android:layout_height="46dp"
+                    android:layout_gravity="center_vertical"
+                    android:theme="@style/EditTheme"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:inputType="number"
+                    android:nextFocusDown="@+id/auth_string"
+                    android:background="@drawable/style_bordcolor_status"
+                    android:maxLength="4"
+                    android:hint="5678"
+                    android:textColorHint="@color/coupon_dis"
+                    android:textColor="@color/blacktxt"/>
+                
+                <Button
+                    android:id="@+id/btn_auth"
+                    android:layout_width="50dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="3dp"
+                    android:textColor="@color/white"
+                    android:background="@color/board_line"
+                    android:text="@string/join_send"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/auth_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/remain_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:textSize="12dp"
+                    android:layout_marginTop="20dp"
+                    tools:text="인증번호가 발송되었습니다 (남은횟수 4회)"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <RelativeLayout
+                        android:id="@+id/ll_auth_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:layout_toLeftOf="@id/auth_ok"
+                        android:layout_centerInParent="true">
+
+                        <EditText
+                            android:id="@+id/auth_string"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:hint="인증번호 입력"
+                            android:textColorHint="@color/coupon_dis"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:singleLine="true"
+                            android:paddingLeft="3dp"
+                            android:textSize="13dp"
+                            android:background="@drawable/style_edittext_gray_border_gray_bg"
+                            android:textColor="@color/blacktxt"/>
+
+                        <TextView
+                            android:id="@+id/auth_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentRight="true"
+                            android:singleLine="true"
+                            android:text="( 3:00 )"
+                            android:gravity="center"
+                            android:visibility="visible"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/style_edittext_gray_border_gray_bg"
+                            android:textColor="#FF0000"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/auth_ok"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:layout_alignParentRight="true"
+                        android:text="인증하기"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:padding="3dp"
+                        android:textSize="14dp"
+                        android:background="@drawable/style_edittext_gray_border"
+                        android:textColor="@color/coupon_dis"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/all_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="전체동의"
+                android:textColor="@color/blacktxt"
+                android:paddingLeft="12dp"
+                android:layout_marginTop="30dp"
+                android:button="@drawable/checkbox_icon"
+                android:textSize="14dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/bg_background"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:background="@color/footerview">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="16dp">
+                    <CheckBox
+                        android:id="@+id/agree_checkbox0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="12dp"
+                        android:text="만 14세 이상 확인"
+                        android:textSize="13dp"
+                        android:textColor="@color/blacktxt"
+                        android:button="@drawable/checkbox_icon" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="16dp">
+
+                    <CheckBox
+                        android:id="@+id/agree_checkbox1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="12dp"
+                        android:textSize="13dp"
+                        android:text="서비스 이용약관 동의"
+                        android:textColor="@color/blacktxt"
+                        android:button="@drawable/checkbox_icon" />
+
+                    <TextView
+                        android:id="@+id/show_agreement1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:text="@string/message_show"
+                        android:textColor="@color/graytxt"
+                        android:textSize="12dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="16dp">
+                    <CheckBox
+                        android:id="@+id/agree_checkbox2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="12dp"
+                        android:textSize="13dp"
+                        android:text="개인정보 취급방침 동의"
+                        android:textColor="@color/blacktxt"
+                        android:button="@drawable/checkbox_icon" />
+
+                    <TextView
+                        android:id="@+id/show_agreement2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:text="@string/message_show"
+                        android:textColor="@color/graytxt"
+                        android:textSize="12dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="16dp">
+                    <CheckBox
+                        android:id="@+id/agree_checkbox3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:paddingLeft="12dp"
+                        android:textSize="13dp"
+                        android:text="위치기반 서비스 이용약관 동의"
+                        android:textColor="@color/blacktxt"
+                        android:button="@drawable/checkbox_icon"/>
+
+                    <TextView
+                        android:id="@+id/show_agreement3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:text="@string/message_show"
+                        android:textColor="@color/graytxt"
+                        android:textSize="12dp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="회원가입"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:background="@drawable/purple_round"
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"/>
+        <Button
+            android:id="@+id/btn_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/purple_round"
+            android:textSize="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+        </LinearLayout>
+</RelativeLayout>

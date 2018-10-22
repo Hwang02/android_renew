@@ -1,0 +1,302 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="mypage"
+            type="com.hotelnow.fragment.mypage.MypageFragment" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical">
+
+
+        <!-- 고객지원 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:textSize="14dp"
+            android:paddingLeft="20dp"
+            android:text="@string/cs_title"
+            android:gravity="center_vertical"
+            android:textColor="@color/purple"
+            android:background="@color/footerview"/>
+
+        <RelativeLayout
+            android:id="@+id/btn_notice"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 공지사항 -->
+            <ImageView
+                android:id="@+id/ico_noti"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ico_my_notice"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ico_noti"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:textSize="15dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/cs_txt1"/>
+
+            <ImageView
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:background="@drawable/ico_more_color"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:id="@+id/btn_faq"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 공지사항 -->
+            <ImageView
+                android:id="@+id/ico_faq"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ico_my_qna"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ico_faq"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:textSize="15dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/cs_faq"/>
+
+            <ImageView
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:background="@drawable/ico_more_color"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:id="@+id/btn_email"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 이메일로 의견보내기 -->
+            <ImageView
+                android:id="@+id/ico_email"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="left"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ico_my_email"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ico_email"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:textSize="15dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/cs_txt2"/>
+
+            <ImageView
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:background="@drawable/ico_more_color"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 고객센터 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:textSize="15dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/cs_txt3"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="23dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center|center_horizontal">
+
+                <TextView
+                    android:id="@+id/cs_kakao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textSize="13dp"
+                    android:text="@string/cs_txt4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:textColor="@color/bg_background"
+                    android:text="|"
+                    android:textSize="10dp"/>
+
+                <TextView
+                    android:id="@+id/cs_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textSize="13dp"
+                    android:text="@string/cs_txt5"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/info_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_marginTop="17dp"
+                android:textColor="@color/graytxt"
+                android:layout_marginBottom="17dp"
+                android:layout_alignParentBottom="true"
+                tools:text="운영시간 09:00 - 익일 03:00"/>
+        </RelativeLayout>
+        <!-- 고객지원 -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 고객센터 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:textSize="15dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/service_txt2"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="17dp"
+                android:layout_alignParentRight="true"
+                android:gravity="center|center_horizontal">
+
+                <CheckBox
+                    android:id="@+id/accept_push"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:background="@drawable/push_checkbox_icon"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:textColor="@color/graytxt"
+                android:layout_marginBottom="17dp"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentBottom="true"
+                android:text="@string/service_txt3"/>
+        </RelativeLayout>
+        <!-- 고객지원 -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 사용중인 앱 버전 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="16dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/appinfo_txt1"/>
+
+            <TextView
+                android:id="@+id/txt_ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="13dp"
+                android:textColor="@color/blacktxt"
+                tools:text="1.64"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

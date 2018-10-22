@@ -57,8 +57,8 @@ public class ActLoading extends Activity {
             public void onPermissionGranted() {
                 Toast.makeText(ActLoading.this, "권한 허가", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(ActLoading.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ActLoading.this, MainActivity.class);
+//                startActivity(intent);
 
                 Util.setPreferenceValues(_preferences, "flag_use_location", true);
             }
@@ -67,8 +67,8 @@ public class ActLoading extends Activity {
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 Toast.makeText(ActLoading.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(ActLoading.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ActLoading.this, MainActivity.class);
+//                startActivity(intent);
 
                 Util.setPreferenceValues(_preferences, "flag_use_location", false);
             }

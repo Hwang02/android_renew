@@ -39,19 +39,19 @@
             android:gravity="left|center"
             android:ellipsize="end"
             android:text="@string/reservation_title"
-            android:layout_toLeftOf="@id/btn_share"/>
+            android:layout_toLeftOf="@id/kimgisa"/>
 
         <LinearLayout
             android:id="@+id/kimgisa"
-            android:layout_width="24dp"
+            android:layout_width="28dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="12dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@drawable/ico_titbar_knavi"
                 android:layout_gravity="center"/>
         </LinearLayout>
