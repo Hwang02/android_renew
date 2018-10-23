@@ -54,10 +54,10 @@ public class LoginActivity extends Activity{
     private CallbackManager callbackManager;
     private Session	mKakaoSession;
     private EditText email, passwd;
-    private String from = "", pid = "";
+    private String pid = "", page ="";
     private LinearLayout btn_facebook, btn_kakao;
-    private String sdate;
-    private String edate;
+    private String ec_date;
+    private String ee_date;
     private String tname;
     private boolean isHotel;
     private ProgressDialog dialog;
@@ -76,20 +76,19 @@ public class LoginActivity extends Activity{
 
         email = (EditText)findViewById(R.id.email);
         passwd = (EditText)findViewById(R.id.password);
+        TextView btn_nocookie = (TextView) findViewById(R.id.btn_nocookie);
 
         Intent intent = getIntent();
-        from = intent.getStringExtra("from") != null? intent.getStringExtra("from"):"";
         pid = intent.getStringExtra("pid") != null? intent.getStringExtra("pid"):"";
-        TextView btn_nocookie = (TextView) findViewById(R.id.btn_nocookie);
+        page = intent.getStringExtra("page") != null? intent.getStringExtra("page"):"";
+
 
         btn_facebook = (LinearLayout) findViewById(R.id.btn_facebook);
         btn_kakao = (LinearLayout) findViewById(R.id.btn_kakao);
 
-        sdate = intent.getStringExtra("sdate");
-        edate = intent.getStringExtra("edate");
+        ec_date = intent.getStringExtra("ec_date");
+        ee_date = intent.getStringExtra("ee_date");
         tname = intent.getStringExtra("tname");
-        isHotel = intent.getBooleanExtra("isHotel", true);
-//        sel_items = (ArrayList<TicketSelEntry>)intent.getSerializableExtra("sel_list");
 
         // 회원가입
         Button btn_join = (Button)findViewById(R.id.btn_join);
@@ -103,7 +102,9 @@ public class LoginActivity extends Activity{
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                intent.putExtra("from", from);
+                intent.putExtra("page", page);
+                intent.putExtra("ec_date", ec_date);
+                intent.putExtra("ee_date", ee_date);
                 intent.putExtra("pid", pid);
                 startActivityForResult(intent,90);
             }
@@ -209,8 +210,18 @@ public class LoginActivity extends Activity{
                             final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                            setResult(90, new Intent());
-                            finish();
+                            if(page.equals("detailH")){
+                                Intent intent = new Intent(LoginActivity.this, ReservationActivity.class);
+                                intent.putExtra("ec_date", ec_date);
+                                intent.putExtra("ee_date", ee_date);
+                                intent.putExtra("pid", pid);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else {
+                                setResult(90, new Intent());
+                                finish();
+                            }
 
                         } catch (Exception e) {
                             Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -368,7 +379,7 @@ public class LoginActivity extends Activity{
                     if(obj.getString("result").equals("nouser")) {
                         Session.getCurrentSession().close();
                         Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                        intent.putExtra("from", from);
+                        intent.putExtra("page", page);
                         intent.putExtra("pid", pid);
                         intent.putExtra("snsid", snsid);
                         intent.putExtra("utype", utype);
@@ -412,8 +423,18 @@ public class LoginActivity extends Activity{
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                    setResult(90, new Intent());
-                    finish();
+                    if(page.equals("detailH")){
+                        Intent intent = new Intent(LoginActivity.this, ReservationActivity.class);
+                        intent.putExtra("ec_date", ec_date);
+                        intent.putExtra("ee_date", ee_date);
+                        intent.putExtra("pid", pid);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        setResult(90, new Intent());
+                        finish();
+                    }
 
 
                 } catch (Exception e) {

@@ -1,0 +1,39 @@
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/consecutive_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/footerview"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:textColor="@color/termtext"
+        android:text="1.13(수)"
+        style="@android:style/TextAppearance.Small"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="66,900원"
+        android:textColor="@color/termtext"
+        style="@android:style/TextAppearance.Small"/>
+
+    <TextView
+        android:id="@+id/breakfast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="불포함"
+        android:textColor="@color/termtext"
+        style="@android:style/TextAppearance.Small"/>
+</TableRow>

@@ -75,9 +75,9 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/tv_point_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reservation_point"
             android:layout_weight="1"
             android:gravity="left"
             android:textColor="@color/blacktxt"
@@ -94,12 +94,12 @@
             android:paddingLeft="5dp"
             android:paddingRight="8dp"
             android:singleLine="true"
-            android:background="@drawable/style_edittext_private_border"
+            android:background="@drawable/style_edittext_gray_border"
             android:textColor="@color/blacktxt"
             android:textColorHint="@color/coupon_dis"
             android:hint="최소 1,000원부터 사용 가능"
             android:drawablePadding="8dp"
-            android:textSize="13dp" />
+            android:textSize="12dp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -133,9 +133,9 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/tv_coupon_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reservation_coupon"
             android:layout_weight="1"
             android:gravity="left"
             android:textColor="@color/blacktxt"

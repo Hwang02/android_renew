@@ -6,6 +6,7 @@
     android:orientation="vertical">
     
     <TextView
+        android:id="@+id/tv_hotel_name"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:textColor="@color/blacktxt"
@@ -144,7 +145,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="@string/detail_checkin_title"
+                android:text="@string/detail_checkin_title"
                 android:textColor="@color/star_txt"
                 android:textSize="13dp"/>
 
@@ -176,7 +177,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="@string/detail_checkout_title"
+                android:text="@string/detail_checkout_title"
                 android:textColor="@color/star_txt"
                 android:textSize="13dp"/>
 

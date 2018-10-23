@@ -143,7 +143,7 @@
     <string name="caution_agreement_view"><u>내용보기</u></string>
     <string name="map_detail"><u>호텔상세보기</u></string>
     <string name="signup_recommend_success">회원가입 및 적립금 지급이 완료되었습니다.</string>
-
+    <string name="reservation_ok">결제하기</string>
     <string name="mypage_title">내정보</string>
     <string name="mypage_not_join">아직 회원이 아니신가요?</string>
     <string name="mypage_not_join2">회원가입하시고, 호텔나우만의 특별한 혜택을 누리세요!</string>
@@ -198,6 +198,8 @@
     <string name="login_facebook">페이스북</string>
     <string name="login_not_user"><u>비회원 예약하기 ></u></string>
     <string name="login_find_pass"><u>비밀번호 찾기</u></string>
+    <string name="phone_change"><u>변경하기</u></string>
+    <string name="phone_cancel"><u>취소하기</u></string>
     <string name="login_find_pass2">비밀번호 찾기</string>
     <string name="login_join">회원가입</string>
     <string name="join_send">인증번호 발송</string>
@@ -205,6 +207,23 @@
     <string name="reservemoney_status_reserve">적립</string>
     <string name="reservemoney_status_use">사용</string>
     <string name="reservemoney_status_withdraw">회수</string>
+    <string name="event_need_login">이벤트 응모를 위해 로그인이 필요합니다.</string>
+    <string name="sell_complete">판매 완료</string>
+
+    <string name="year_month_day_weekday_format3">MM월 dd일 (E)</string>
+
+    <!-- ActFreePromotion -->
+    <string name="event_apply_alert">호텔나우에 대한 리뷰를 작성하시면 응모가 완료됩니다. 이미 리뷰를 작성하셨다면 응모하기를 눌러주세요.</string>
+    <string name="event_apply_toast">호텔나우에 대한 리뷰를 작성하신 후 응모하기 버튼을 누르시면 응모가 완료됩니다.</string>
+    <string name="event_apply_complete">이미 "%1$s" 무료 숙박 이벤트에 응모하셨습니다.</string>
+    <string name="event_apply_complete2">이벤트 응모가 완료되었습니다.</string>
+    <string name="event_apply_complete3">쿠폰을 발급 받았습니다.</string>
+    <string name="event_apply_complete_review">회원가입이 완료되었습니다. 구글 플레이에 호텔나우 리뷰를 적어주시면 응모가 완료됩니다.</string>
+    <string name="alert_review">리뷰쓰기</string>
+    <string name="alert_review_title">리뷰가 등록되었습니다</string>
+    <string name="alert_review_message">고객님의 리뷰와 함께 친구들에게 호텔을 추천해보세요!\n좋은 일이 생기실거에요.</string>
+    <string name="alert_ticket_review_message">고객님의 리뷰와 함께 친구들에게 액티비티를 추천해보세요!\n좋은 일이 생기실거에요.</string>
+    <string name="alert_event">응모하기</string>
 
 
     <!-- Member Join Validator -->

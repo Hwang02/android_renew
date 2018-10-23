@@ -29,12 +29,15 @@
 
     </LinearLayout>
 
-    <TextView
+    <com.luseen.autolinklibrary.AutoLinkTextView
         android:id="@+id/fee_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/termtext"
         android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="19dp"
         android:text=" "/>
 
 </LinearLayout>

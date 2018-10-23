@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.detail.HotelImageFragment;
 import com.hotelnow.fragment.model.FacilitySelItem;
 import com.hotelnow.utils.Api;
@@ -69,7 +71,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private TextView m_countView, m_img_title,tv_category, tv_hotelname,
             tv_minprice, tv_maxprice, tv_per, tv_review_rate, review_message,
             tv_review_count, tv_special_title, tv_checkin, tv_checkout, tv_total_count, tv_address;
-    private String ec_date, ee_date, main_photo = "", hid, pid, evt;
+    private String ec_date =null, ee_date =null, main_photo = "", hid, pid, evt;
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5, map_img;
     private LinearLayout btn_more_review, coupon_list, room_list, btn_show_room,
             btn_more_view, bt_checkinout;
@@ -221,9 +223,10 @@ public class DetailHotelActivity extends AppCompatActivity {
 
 
                     // 선택 될 날짜
-                    ec_date = avail_dates.get(0).toString();
-                    ee_date = avail_dates.get(1).toString();
-
+                    if(ec_date == null && ee_date==null) {
+                        ec_date = avail_dates.get(0).toString();
+                        ee_date = avail_dates.get(1).toString();
+                    }
                     selectList = new String[avail_dates.length()];
                     for(int i =0; i<avail_dates.length(); i++){
                         selectList[i] = avail_dates.get(i).toString();
@@ -348,7 +351,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     setFacility(sel_FacilityList, false);
 
                     // 주소
-                    String mapStr = "http://maps.googleapis.com/maps/api/staticmap?center="+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
+                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
                             "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
                             "&scale=2&sensor=false&language=ko&size=360x220&zoom=15"+"&key="+ BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
@@ -387,6 +390,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 }
                 catch (Exception e) {
                     e.getStackTrace();
+                    LogUtil.e("xxxxx", e.getMessage());
                     Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -561,7 +565,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                 TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
                 TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
                 TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
+                final TextView pid = (TextView)view_room.findViewById(R.id.pid);
 
+                pid.setText(rdata.getJSONObject(i).getString("product_id"));
                 tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
 
                 if(!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
@@ -606,13 +612,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                 if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
                     btn_private.setVisibility(View.VISIBLE);
                 }
-                if(rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
                     btn_private.setVisibility(View.GONE);
                 }
                 else {
                     btn_private.setVisibility(View.VISIBLE);
                 }
 
+                pid.setTag(i);
                 view_room.setTag(i);
                 btn_more.setTag(i);
                 btn_more_close.setTag(i);
@@ -622,9 +629,20 @@ public class DetailHotelActivity extends AppCompatActivity {
                 btn_reservation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (cookie == null) {
+                            Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
+                            intent.putExtra("ec_date", ec_date);
+                            intent.putExtra("ee_date", ee_date);
+                            intent.putExtra("pid", pid.getText());
+                            intent.putExtra("page", "detailH");
+                            startActivityForResult(intent,90);
+                            return;
+                        }
+
                         Intent intent = new Intent(DetailHotelActivity.this, ReservationActivity.class);
                         intent.putExtra("ec_date", ec_date);
                         intent.putExtra("ee_date", ee_date);
+                        intent.putExtra("pid", pid.getText());
                         startActivity(intent);
                     }
                 });
@@ -666,6 +684,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             e.getStackTrace();
+            LogUtil.e("xxxxx", e.getMessage());
             Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
         }
 
@@ -905,6 +924,9 @@ public class DetailHotelActivity extends AppCompatActivity {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             setDetailView();
+        }
+        else if(resultCode == 90 && requestCode == 90) {
+            cookie = _preferences.getString("userid", null);
         }
     }
 }

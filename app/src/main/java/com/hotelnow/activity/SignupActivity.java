@@ -51,8 +51,6 @@ public class SignupActivity extends Activity {
     private final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
     private String is_auth = "N";
     private String phone_number, snsid, utype, emailval;
-    private String issued_coupon ="";
-    private String issued_coupon_msg ="";
     private EditText codeInput;
     private TextView codeResult;
     private LinearLayout auth_layout;
@@ -480,9 +478,6 @@ public class SignupActivity extends Activity {
                             String username = new String(Base64.decode(info.getString("name"), 0));
                             String phone = new String(Base64.decode(info.getString("phone"), 0));
                             String userid = info.getString("id");
-
-                            issued_coupon = obj.getString("issued_coupon");
-                            issued_coupon_msg = obj.getString("issued_coupon_msg");
 
                             int reserve_money = info.getInt("reserve_money");
 
