@@ -53,6 +53,7 @@
     <string name="alert_yes">예</string>
     <string name="alert_no">아니오</string>
     <string name="wanna_logout">로그아웃 하시겠습니까?</string>
+    <string name="need_caution_agree">주의사항 및 개인정보 제3자 제공 동의는 필수항목입니다.</string>
     <!-- end ActLogin -->
 
     <!-- ActMap -->
@@ -131,8 +132,8 @@
     <string name="email">이메일</string>
     <string name="paytype0">간편결제</string>
     <string name="paytype0_info_title">간편결제란?</string>
-    <string name="paytype0_info_message">최초 1회 카드 등록 후 결제하시면 이후 구매부터는\n 서명 한번으로 편하게 결제하실 수 있는 결제수단입니다\n\n 내정보에서 카드를 등록하여 사용하세요</string>
-    <string name="paytype3_info_message">법인, 일반 카드 결제 가능 (해외카드 제외)</string>
+    <string name="paytype0_info_message"><font fgcolor="#4d267f">최초 1회 카드 등록</font> 후 결제하시면 이후 구매부터는 서명 한번으로 편하게 결제하실 수 있는 결제수단입니다\n\n 내정보에서 카드를 등록하여 사용하세요</string>
+    <string name="paytype3_info_message">법인, 일반 카드 결제 가능 <font fgcolor="#4d267f">(해외카드 제외)</font></string>
     <string name="paytype1">신용카드</string>
     <string name="paytype2">휴대폰결제</string>
     <string name="paytype3">ARS 결제</string>
@@ -197,6 +198,7 @@
     <string name="login_kakao">카카오</string>
     <string name="login_facebook">페이스북</string>
     <string name="login_not_user"><u>비회원 예약하기 ></u></string>
+    <string name="login_user_search"><u>비회원 조회하기 ></u></string>
     <string name="login_find_pass"><u>비밀번호 찾기</u></string>
     <string name="phone_change"><u>변경하기</u></string>
     <string name="phone_cancel"><u>취소하기</u></string>

@@ -48,6 +48,7 @@
             android:background="@drawable/style_edittext_gray_border">
             
             <ImageView
+                android:id="@+id/img_paytype0"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
@@ -55,6 +56,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tv_paytype0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype0"
@@ -68,6 +70,7 @@
                 android:layout_height="18dp"
                 android:layout_marginLeft="4dp"
                 android:textColor="@color/white"
+                android:gravity="center"
                 android:background="@drawable/style_oval_purple"/>
         </LinearLayout>
 
@@ -82,6 +85,7 @@
             android:background="@drawable/style_edittext_gray_border">
 
             <ImageView
+                android:id="@+id/img_paytype1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
@@ -89,6 +93,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tv_paytype1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype1"
@@ -106,6 +111,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
+        android:padding="10dp"
         android:visibility="gone"
         android:background="@color/edit_back"></LinearLayout>
 
@@ -128,6 +134,7 @@
             android:background="@drawable/style_edittext_gray_border">
 
             <ImageView
+                android:id="@+id/img_paytype5"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
@@ -135,6 +142,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tv_paytype5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype5"
@@ -154,6 +162,7 @@
             android:background="@drawable/style_edittext_gray_border">
 
             <ImageView
+                android:id="@+id/img_paytype4"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
@@ -161,6 +170,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tv_paytype4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype4"
@@ -190,6 +200,7 @@
             android:background="@drawable/style_edittext_gray_border">
 
             <ImageView
+                android:id="@+id/img_paytype2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
@@ -197,6 +208,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tv_paytype2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype2"
@@ -216,6 +228,7 @@
             android:background="@drawable/style_edittext_gray_border">
 
             <ImageView
+                android:id="@+id/img_paytype3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
@@ -223,6 +236,7 @@
                 android:scaleType="fitXY"/>
 
             <TextView
+                android:id="@+id/tv_paytype3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype3"
@@ -241,6 +255,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:visibility="gone"
         android:gravity="center">
 
         <TextView

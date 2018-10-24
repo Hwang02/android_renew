@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@android:style/TextAppearance.Medium"
+            android:text="숙박일을 다시 한번 확인해 주세요."
+            android:layout_marginTop="20dp"
+            android:textColor="#4f2680"/>
+
+        <TextView
+            android:id="@+id/caution_txt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            style="@android:style/TextAppearance.Small"
+            android:lineSpacingExtra="5dip"
+            android:text=" "
+            android:textColor="@color/blacktxt"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_skip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="확인"
+                android:textColor="#ffffff"
+                android:textSize="13dp"
+                android:background="@drawable/style_dialog_caution_button_left"
+                android:padding="17dp"/>
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="취소"
+                android:textColor="#ffffff"
+                android:textSize="13dp"
+                android:background="@drawable/style_dialog_caution_button_right"
+                android:textStyle="bold"
+                android:padding="17dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

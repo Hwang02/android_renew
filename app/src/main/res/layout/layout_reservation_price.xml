@@ -56,12 +56,14 @@
             tools:text="363,000원"/>
     </LinearLayout>
 
-    <View
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
-        android:background="@drawable/drawable_dash_line2"
+        android:layerType="software"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:background="@drawable/drawable_dash_line2"
         android:layout_marginTop="14dp"/>
 
     <LinearLayout
@@ -183,8 +185,7 @@
         android:layout_marginRight="20dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:visibility="gone"
-        android:background="@drawable/style_edittext_gray_border">
+        android:visibility="gone">
 
         <TableRow
             android:layout_width="match_parent"
@@ -223,6 +224,5 @@
                 android:textColor="@color/graytxt"
                 style="@android:style/TextAppearance.Small"/>
         </TableRow>
-
     </TableLayout>
 </LinearLayout>

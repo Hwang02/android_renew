@@ -93,7 +93,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
-                android:background="@drawable/style_edittext_gray_border_gray_bg"
+                android:background="@drawable/style_edittext_gray_border"
                 android:textColor="@color/termtext"
                 android:textSize="15dp"
                 android:inputType="textEmailAddress"

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -289,9 +290,59 @@ public class ActLoading extends Activity {
                         String uid = _preferences.getString("userid", null);
                         String umi = _preferences.getString("moreinfo", null);
 
+                        if (uid != null && umi != null) {
+                            authCheck();
+                        } else {
+                            SharedPreferences.Editor prefEditor = _preferences.edit();
+                            prefEditor.putString("email", null);
+                            prefEditor.putString("username", null);
+                            prefEditor.putString("phone", null);
+                            prefEditor.putString("userid", null);
+                            prefEditor.commit();
+
+//                            startHandler();
+                        }
                         Intent intent = new Intent(ActLoading.this, MainActivity.class);
                         startActivity(intent);
                     }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void authCheck() {
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("ui", _preferences.getString("userid", null));
+            paramObj.put("umi", _preferences.getString("moreinfo", null));
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+
+        Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (obj.getString("result").equals("0")) {
+                        SharedPreferences.Editor prefEditor = _preferences.edit();
+                        prefEditor.putString("email", null);
+                        prefEditor.putString("username", null);
+                        prefEditor.putString("phone", null);
+                        prefEditor.putString("userid", null);
+                        prefEditor.commit();
+                    }
+
+//                    startHandler();
+
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }

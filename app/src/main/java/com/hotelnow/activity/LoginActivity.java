@@ -24,6 +24,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -62,6 +63,7 @@ public class LoginActivity extends Activity{
     private boolean isHotel;
     private ProgressDialog dialog;
     private SharedPreferences _preferences;
+    private TextView btn_nocookie;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class LoginActivity extends Activity{
 
         btn_facebook = (LinearLayout) findViewById(R.id.btn_facebook);
         btn_kakao = (LinearLayout) findViewById(R.id.btn_kakao);
+        btn_nocookie = (TextView) findViewById(R.id.btn_nocookie);
 
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");
@@ -218,6 +221,13 @@ public class LoginActivity extends Activity{
                                 startActivity(intent);
                                 finish();
                             }
+                            else if(page.equals("Private")) {
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("sdate", ec_date);
+                                returnIntent.putExtra("edate", ee_date);
+                                setResult(80, returnIntent);
+                                finish();
+                            }
                             else {
                                 setResult(90, new Intent());
                                 finish();
@@ -292,6 +302,41 @@ public class LoginActivity extends Activity{
 
             }
         });
+
+        if(page.equals("Booking") || page.equals("detailH")){ // 비회원 예약
+            btn_nocookie.setText(getResources().getText(R.string.login_not_user));
+
+            btn_nocookie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                    Intent intent = new Intent(LoginActivity.this, ReservationActivity.class);
+                    intent.putExtra("pid", pid);
+                    intent.putExtra("ec_date", ec_date);
+                    intent.putExtra("ee_date", ee_date);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+        else{ // 예약 조회
+            btn_nocookie.setText(getResources().getText(R.string.login_user_search));
+
+            btn_nocookie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                    Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
+                    intent.putExtra("url", BuildConfig.webUrl + "/booking/check_auth" + "?is_app=Y");
+                    intent.putExtra("title", "비회원 예약조회");
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
@@ -429,6 +474,13 @@ public class LoginActivity extends Activity{
                         intent.putExtra("ee_date", ee_date);
                         intent.putExtra("pid", pid);
                         startActivity(intent);
+                        finish();
+                    }
+                    else if(page.equals("Private")) {
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("sdate", ec_date);
+                        returnIntent.putExtra("edate", ee_date);
+                        setResult(80, returnIntent);
                         finish();
                     }
                     else {

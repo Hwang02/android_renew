@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_dialog_confirm"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@android:style/TextAppearance.Medium"
+            android:text="알림"
+            android:gravity="center"
+            android:paddingTop="20dp"
+
+            android:textColor="#4f2680"/>
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_margin="20dp"
+            style="@android:style/TextAppearance.Small"
+            android:text="1. 간편결제는 일시불 결제로 진행되오니 할부를 원하실 경우 일반 카드 결제를 선택하신 후 결제를 진행 해 주세요.\n\n 2. 선택하신 상품의 취소, 환불 규정을 다시 한번 확인 하신 후 서명 및 결제 완료 버튼을 눌러주세요."
+            android:textColor="#333333"/>
+
+        <RelativeLayout
+            android:id="@+id/paint_area"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#eeeeee">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="10dp"
+                android:textColor="#aaaaaa"
+                android:text="이곳에 서명해 주세요. "/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/close"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="취소"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:background="@drawable/style_dialog_confirm_button_left"
+                android:padding="17dp"/>
+
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="결제완료"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:background="@drawable/style_dialog_confirm_button_right"
+                android:textStyle="bold"
+                android:padding="17dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -29,6 +29,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.detail.HotelImageFragment;
 import com.hotelnow.fragment.model.FacilitySelItem;
@@ -84,7 +86,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private String[] facility;
     private String image_arr[];
     private FlowLayout filter;
-    private String mAddress, hotel_name;
+    private String mAddress, hotel_name, city;
     private Toolbar toolbar;
     private AppBarLayout app_bar;
     private static int PAGES = 0;
@@ -99,6 +101,8 @@ public class DetailHotelActivity extends AppCompatActivity {
     private String[] selectList;
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
     private String lodge_type;
+    private int privatedeal_status = -1;
+    private DialogAlert dialogAlert = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +168,50 @@ public class DetailHotelActivity extends AppCompatActivity {
         setDetailView();
 
 //        someTextView.setPaintFlags(someTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+    }
+
+    // 프라이빗 딜
+    private void setPrivateDeal(final String linkUrl, String Hotel_id, final String Room_id, final String mProduct_Id){
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("hotel_id", Hotel_id);
+            paramObj.put("room_id", Room_id);
+            paramObj.put("ec_date", ec_date);
+            paramObj.put("ee_date", ee_date);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        Api.post(CONFIG.privateDeaUrl, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.getString("result").equals("success")) {
+                        return;
+                    }
+
+                    String fullLinkUrl =linkUrl+"&bid_id="+obj.getJSONObject("data").getString("id")+"&refKey="+obj.getJSONObject("data").getString("refKey");
+                    Intent intent = new Intent(DetailHotelActivity.this, PrivateDealActivity.class);
+                    intent.putExtra("pid", mProduct_Id);
+                    intent.putExtra("url", fullLinkUrl);
+                    intent.putExtra("bid_id", obj.getJSONObject("data").getString("id"));
+                    intent.putExtra("bid", Room_id);
+                    intent.putExtra("ec_date", ec_date);
+                    intent.putExtra("ee_date", ee_date);
+                    intent.putExtra("city", city);
+                    intent.putExtra("hotel_name", hotel_name);
+                    startActivityForResult(intent, 80);
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void setDetailView(){
@@ -232,6 +280,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         selectList[i] = avail_dates.get(i).toString();
                     }
 
+                    privatedeal_status = obj.getInt("privatedeal_booking_status");
                     lodge_type = hotel_data.getString("lodge_type");
 
                     // 호텔 이미지
@@ -252,6 +301,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_category.setText(Util.getCategory(DetailHotelActivity.this, hotel_data.getString("category")));
 
                     hotel_name = hotel_data.getString("name");
+                    city = hotel_data.getString("city_name");
                     tv_hotelname.setText(hotel_name);
                     tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
 
@@ -551,12 +601,12 @@ public class DetailHotelActivity extends AppCompatActivity {
 
             for (int i = 0; i < for_cnt; i++) {
                 View view_room = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
-                TextView tv_room_title = (TextView)view_room.findViewById(R.id.tv_room_title);
+                final TextView tv_room_title = (TextView)view_room.findViewById(R.id.tv_room_title);
                 TextView tv_room_sub_title = (TextView)view_room.findViewById(R.id.tv_room_sub_title);
                 TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
                 TextView tv_detail2 = (TextView)view_room.findViewById(R.id.tv_detail2);
                 TextView tv_detail3 = (TextView)view_room.findViewById(R.id.tv_detail3);
-                ImageView img_room = (ImageView)view_room.findViewById(R.id.img_room);
+                final ImageView img_room = (ImageView)view_room.findViewById(R.id.img_room);
                 TextView tv_room_detail_price = (TextView)view_room.findViewById(R.id.tv_room_detail_price);
                 RelativeLayout btn_more = (RelativeLayout)view_room.findViewById(R.id.btn_more);
                 AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
@@ -566,8 +616,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                 TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
                 TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
                 final TextView pid = (TextView)view_room.findViewById(R.id.pid);
+                final TextView rid = (TextView)view_room.findViewById(R.id.rid);
+                final String p_default = rdata.getJSONObject(i).getString("default_pn");
+                final String p_max = rdata.getJSONObject(i).getString("max_pn");
+                final int sale_price = rdata.getJSONObject(i).getInt("sale_price");
+                final int normal_price = rdata.getJSONObject(i).getInt("normal_price");
 
                 pid.setText(rdata.getJSONObject(i).getString("product_id"));
+                rid.setText(rdata.getJSONObject(i).getString("room_id"));
                 tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
 
                 if(!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
@@ -619,12 +675,40 @@ public class DetailHotelActivity extends AppCompatActivity {
                     btn_private.setVisibility(View.VISIBLE);
                 }
 
+                img_room.setTag(image_arr[0]);
+                tv_room_title.setTag(i);
+                rid.setTag(i);
                 pid.setTag(i);
                 view_room.setTag(i);
                 btn_more.setTag(i);
                 btn_more_close.setTag(i);
                 btn_private.setTag(i);
                 btn_reservation.setTag(i);
+
+                btn_private.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (privatedeal_status == 1 || privatedeal_status == -1) {
+                            String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String)img_room.getTag()
+                                    + "&product_id=" + pid.getText() + "&product_name=" + tv_room_title.getText() + "&default_pn=" + p_default + "&max_pn=" + p_max
+                                    + "&normal_price=" + normal_price + "&price=" + sale_price;
+
+                            if (cookie == null) {
+                                Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
+                                intent.putExtra("page", "Private");
+                                intent.putExtra("sdate", ec_date);
+                                intent.putExtra("edate", ee_date);
+                                startActivityForResult(intent, 80);
+                            } else {
+                                setPrivateDeal(mUrl, hid, rid.getText().toString(), pid.getText().toString());
+                            }
+                        }
+                        else{
+                            ShowPrivateDealDialog("프라이빗딜은 1일 1회 예약 가능합니다.\n내일 다시 시도해주세요.");
+                            return;
+                        }
+                    }
+                });
 
                 btn_reservation.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -643,6 +727,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         intent.putExtra("ec_date", ec_date);
                         intent.putExtra("ee_date", ee_date);
                         intent.putExtra("pid", pid.getText());
+                        intent.putExtra("page", "detailH");
                         startActivity(intent);
                     }
                 });
@@ -688,6 +773,24 @@ public class DetailHotelActivity extends AppCompatActivity {
             Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void ShowPrivateDealDialog(String msg){
+        if(dialogAlert != null && dialogAlert.isShowing()){
+            dialogAlert.dismiss();
+        }
+        dialogAlert = new DialogAlert(
+                getString(R.string.alert_notice),
+                msg,
+                DetailHotelActivity.this,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogAlert.dismiss();
+                    }
+                });
+        dialogAlert.setCancelable(false);
+        dialogAlert.show();
     }
 
     private void setCoupon(final JSONArray cdata) {
