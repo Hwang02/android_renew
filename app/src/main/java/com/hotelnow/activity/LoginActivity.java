@@ -38,6 +38,8 @@ import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.squareup.okhttp.Response;
@@ -363,28 +365,16 @@ public class LoginActivity extends Activity{
 
         @Override
         public void onSessionOpened() {
-            UserManagement.requestMe(new MeResponseCallback() {
-
-                @Override
-                public void onFailure(ErrorResult errorResult) {
-                    ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
-//                    if (result == ErrorCode.CLIENT_ERROR_CODE) {
-                    Toast.makeText(getApplicationContext(), "카카오톡 계정을 읽을 수 없습니다. 다른 수단을 사용해 주세요.(1)", Toast.LENGTH_SHORT).show();
-//                    }
-                }
-
+            UserManagement.getInstance().me(new MeV2ResponseCallback() {
                 @Override
                 public void onSessionClosed(ErrorResult errorResult) {
+
                 }
 
                 @Override
-                public void onNotSignedUp() {
-                }
-
-                @Override
-                public void onSuccess(final UserProfile userProfile) {
-                    if( userProfile.getId() != 0 ) {
-                        checkUserInfo("kakao", String.valueOf(userProfile.getId()), "");
+                public void onSuccess(MeV2Response result) {
+                    if( result.getId() != 0 ) {
+                        checkUserInfo("kakao", String.valueOf(result.getId()), "");
                     } else {
                         Toast.makeText(getApplicationContext(), "카카오톡 계정을 읽을 수 없습니다. 다른 수단을 사용해 주세요.(2)", Toast.LENGTH_SHORT).show();
                     }

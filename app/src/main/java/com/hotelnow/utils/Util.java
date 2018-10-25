@@ -37,8 +37,11 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.hotelnow.R;
 import com.hotelnow.activity.ActLoading;
-import com.kakao.kakaolink.KakaoLink;
-import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.message.template.ButtonObject;
+import com.kakao.message.template.ContentObject;
+import com.kakao.message.template.FeedTemplate;
+import com.kakao.message.template.LinkObject;
+import com.kakao.message.template.SocialObject;
 import com.kakao.util.KakaoParameterException;
 import com.squareup.okhttp.Response;
 
@@ -510,18 +513,31 @@ public class Util {
 
         if (cookie != null) {
             try {
-                KakaoLink kakaoLink = KakaoLink.getKakaoLink(activity);
-                KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
-
-                kakaoTalkLinkMessageBuilder.addText("[호텔나우]\n"
-                        + _preferences.getString("username", null)
-                        + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
-                        "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
-                        + Util.getRecommCode(_preferences.getString("userid", null)));
-                kakaoTalkLinkMessageBuilder.addAppButton("앱으로 이동");
-                kakaoTalkLinkMessageBuilder.addImage(CONFIG.kakaotalkimg, 300, 300);
-                kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, activity);
-            } catch (KakaoParameterException e) {
+//                KakaoLink kakaoLink = KakaoLink.getKakaoLink(activity);
+//                KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+//
+//                kakaoTalkLinkMessageBuilder.addText("[호텔나우]\n"
+//                        + _preferences.getString("username", null)
+//                        + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
+//                        "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
+//                        + Util.getRecommCode(_preferences.getString("userid", null)));
+//                kakaoTalkLinkMessageBuilder.addButton("앱으로 이동");
+//                kakaoTalkLinkMessageBuilder.addImage(CONFIG.kakaotalkimg, 300, 300);
+//                kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, activity);
+                // 공유 변경 해야함
+//                FeedTemplate params = FeedTemplate
+//                        .newBuilder(ContentObject.newBuilder("디저트 사진",
+//                                "http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+//                                LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
+//                                        .setMobileWebUrl("https://developers.kakao.com").build())
+//                                .setDescrption("아메리카노, 빵, 케익")
+//                                .build())
+//                        .addButton(new ButtonObject("앱으로 이동", LinkObject.newBuilder()
+//                                .setAndroidExecutionParams("key1=value1")
+//                                .setIosExecutionParams("key1=value1")
+//                                .build()))
+//                        .build();
+            } catch (Exception e) {
 //				Log.e("KakaoParameterException", e.toString());
             }
         } else {
@@ -540,11 +556,12 @@ public class Util {
             if(profile != null) {
                 ShareLinkContent linkContent = new ShareLinkContent.Builder()
 
-                        .setContentTitle(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(_preferences.getString("userid", null))+")")
-                        .setContentDescription(_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
+                        .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
+                                + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(_preferences.getString("userid", null))+")\n"
+                        +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
                                 "추천인코드 : "+ Util.getRecommCode(_preferences.getString("userid", null))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
                         .setContentUrl(Uri.parse(CONFIG.marketUrl))
-                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
+//                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
                         .build();
 
                 ShareDialog shareDialog;
@@ -558,16 +575,17 @@ public class Util {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                                .setContentTitle(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(_preferences.getString("userid", null))+")")
-                                .setContentDescription(_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
+                                .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"
+                                        + Util.getRecommCode(_preferences.getString("userid", null))+")\n"
+                                +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
                                         "추천인코드 : "+ Util.getRecommCode(_preferences.getString("userid", null))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
                                 .setContentUrl(Uri.parse(CONFIG.marketUrl))
-                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
+//                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
                                 .build();
 
                         ShareDialog shareDialog;
                         shareDialog = new ShareDialog(activity);
-                        shareDialog.show(linkContent);
+                        shareDialog.show(linkContent, ShareDialog.Mode.FEED);
                     }
 
                     @Override

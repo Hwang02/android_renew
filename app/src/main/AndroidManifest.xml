@@ -53,6 +53,8 @@
         <activity android:name=".activity.CardAddActivity" />
         <activity android:name=".activity.EventActivity" />
         <activity android:name=".activity.PrivateDealActivity" />
+        <activity android:name=".activity.FullImageViewActivity" />
+        <activity android:name=".activity.ReviewHotelActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

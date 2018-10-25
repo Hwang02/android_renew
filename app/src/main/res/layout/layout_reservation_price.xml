@@ -141,6 +141,7 @@
         android:layout_marginRight="20dp"/>
 
     <LinearLayout
+        android:id="@+id/booking_save_point"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_marginLeft="20dp"
@@ -164,7 +165,7 @@
             android:background="@drawable/point_round"/>
 
         <TextView
-            android:id="@+id/tv_total_discount"
+            android:id="@+id/tv_total_discount_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12dp"

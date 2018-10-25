@@ -91,9 +91,6 @@ public class PaymentActivity extends Activity {
         if(uid == null){
             uid="0";
         }
-        getActionBar().setDisplayShowTitleEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActionBar().setTitle("결제하기 - " + hotel_name);
 
         // Main WebView 생성
         webView = (WebView)findViewById(R.id.webview);

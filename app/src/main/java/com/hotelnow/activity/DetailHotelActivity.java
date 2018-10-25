@@ -315,6 +315,28 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_review_rate.setText(review_data.getDouble("avg")+"");
                     setReviewRate(review_data.getDouble("avg"));
                     tv_review_count.setText(review_data.getInt("cnt")+"");
+                    final Double r1, r2, r3, r4, avg;
+                    r1 = review_data.getDouble("r1");
+                    r2 = review_data.getDouble("r2");
+                    r3 = review_data.getDouble("r3");
+                    r4 = review_data.getDouble("r4");
+                    avg = review_data.getDouble("avg");
+
+
+                    btn_more_review.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DetailHotelActivity.this, ReviewHotelActivity.class);
+                            intent.putExtra("avg", avg);
+                            intent.putExtra("r1", r1);
+                            intent.putExtra("r2", r2);
+                            intent.putExtra("r3", r3);
+                            intent.putExtra("r4", r4);
+                            intent.putExtra("hid", hid);
+                            startActivity(intent);
+                        }
+                    });
+
 
                     //스페셜 메시지
                     if(hotel_data.has("special_msg")){
@@ -452,6 +474,17 @@ public class DetailHotelActivity extends AppCompatActivity {
         PAGES = landscapeImgs.length;
         FIRST_PAGE = PAGES * LOOPS / 2;
 
+        m_countView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailHotelActivity.this, FullImageViewActivity.class);
+                intent.putExtra("hid", hid);
+                intent.putExtra("idx", markNowPosition);
+                intent.putExtra("name", hotel_name);
+                startActivity(intent);
+            }
+        });
+
         try {
             if(captions.length>0) {
                 if (TextUtils.isEmpty(captions[0])) {
@@ -507,7 +540,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void initPageMark() {
 
-        m_countView.setText(1+"/"+landscapeImgs.length);
+        m_countView.setText(1+"/"+landscapeImgs.length+"+");
 
         markPrevPosition = markNowPosition;
     }

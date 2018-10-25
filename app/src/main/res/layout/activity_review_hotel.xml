@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="18dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ico_titbar_back"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/btn_back"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:textColor="@color/purple"
+            android:gravity="left|center"
+            android:ellipsize="end" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"
+            android:layout_below="@id/tv_title_hotel"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_review_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ico_starpoint_20"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/purple_round_18"
+                android:gravity="bottom|center"
+                android:layout_marginLeft="6dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/tv_review_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="22dp"
+                    tools:text="4.1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:layout_gravity="bottom"
+                    android:text="/5점" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_review_rate_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="2dp"
+                android:text="최고에요! 강추!" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/bg_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="19dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11dp"
+                        android:textColor="@color/blacktxt"
+                        android:text="서비스 \u0026 친절도"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="13dp"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/sc_star1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sc_star2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sc_star3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sc_star4"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sc_star5"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.8">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="교통 \u0026 위치접근성"
+                        android:textSize="11dp"
+                        android:textColor="@color/blacktxt"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/ko_star1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/ko_star2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/ko_star3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/ko_star4"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/ko_star5"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="19dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="청결도"
+                        android:textSize="11dp"
+                        android:textColor="@color/blacktxt"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="13dp"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/c_star1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/c_star2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/c_star3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/c_star4"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/c_star5"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="시설 \u0026 편의성"
+                        android:textSize="11dp"
+                        android:textColor="@color/blacktxt"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/sp_star1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sp_star2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sp_star3"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sp_star4"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/sp_star5"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:paddingRight="1dp"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/bg_background"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:textSize="13dp"
+            android:paddingLeft="20dp"
+            tools:text="총 12개의 리뷰"
+            android:gravity="center_vertical"
+            android:textColor="@color/purple"
+            android:background="@color/footerview"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_review_info"
+        android:orientation="vertical">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:background="@color/white"
+            tools:listitem="@layout/layout_detail_review_item"></ListView>
+    </LinearLayout>
+</RelativeLayout>

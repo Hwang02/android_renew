@@ -98,9 +98,20 @@
             android:background="@drawable/style_edittext_gray_border"
             android:textColor="@color/blacktxt"
             android:textColorHint="@color/coupon_dis"
-            android:hint="최소 1,000원부터 사용 가능"
+            android:hint="최소 1,000원부터"
             android:drawablePadding="8dp"
             android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/btn_point_ok"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/purple_and_white_round"
+            android:text="적용"
+            android:textSize="12dp"
+            android:textColor="@color/purple"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1.5"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -108,14 +119,14 @@
         android:layout_height="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/btn_point_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
             android:textSize="13dp"
             android:layout_centerInParent="true"
             android:text="@string/reservation_point_total"
@@ -137,7 +148,7 @@
             android:id="@+id/tv_coupon_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.3"
             android:gravity="left"
             android:textColor="@color/blacktxt"
             android:textSize="14dp" />
@@ -145,7 +156,7 @@
         <Spinner
             android:id="@+id/coupon_use"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:background="@drawable/selectbox"
             android:gravity="right|center_vertical"

@@ -286,7 +286,6 @@ public class HomeFragment extends Fragment {
                         mTheme.getString("id");
                         mTheme.getString("title");
                         mTheme.getString("sub_title");
-                        mTheme.getString("filter_start_color");
                         mTheme.getString("subject");
                         mTheme.getString("detail");
                         mTheme.getString("notice");
@@ -296,10 +295,10 @@ public class HomeFragment extends Fragment {
                                     mItems.getJSONObject(i).getString("id"),
                                     mItems.getJSONObject(i).getString("name"),
                                     mItems.getJSONObject(i).getString("landscape"),
-                                    mItems.getJSONObject(i).getString("product_id"),
+                                    mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") :"",
                                     mTheme.getString("id"),
-                                    mItems.getJSONObject(i).getString("wo"),
-                                    mTheme.getString("filter_start_color")
+                                    mItems.getJSONObject(i).has("wo") ? mItems.getJSONObject(i).getString("wo") : "",
+                                    ""
                             ));
                         }
                         objects.add(mThemeItem.get(0));
