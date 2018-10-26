@@ -4,11 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.adapter.DetailReviewAdapter;
+import com.hotelnow.fragment.model.ReviewItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.squareup.okhttp.Response;
@@ -17,13 +25,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ReviewHotelActivity extends Activity{
 
-    int mPage = 0;
+    int mPage = 1;
     final int mPer_page = 20;
     String hid;
+    TextView tv_review_count, tv_title_hotel;
+    ListView lv_list;
+    Button bt_scroll;
+    DetailReviewAdapter mListAdapter;
+    private ArrayList<ReviewItem> reviewEntries = new ArrayList<ReviewItem>();
+    private boolean isAdd = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +75,11 @@ public class ReviewHotelActivity extends Activity{
         ImageView sp_star4 = (ImageView) findViewById(R.id.sp_star4);
         ImageView sp_star5 = (ImageView) findViewById(R.id.sp_star5);
 
+        tv_review_count = (TextView)findViewById(R.id.tv_review_count);
+        tv_title_hotel = (TextView) findViewById(R.id.tv_title_hotel);
+        bt_scroll = (Button) findViewById(R.id.bt_scroll);
+        lv_list = (ListView) findViewById(R.id.lv_list);
+
         Double mAvg = intent.getDoubleExtra("avg",0);
         if(intent.getDoubleExtra("avg",0)>4) {
             tv_review_rate_message.setText("최고에요! 강추!");
@@ -77,6 +97,8 @@ public class ReviewHotelActivity extends Activity{
             tv_review_rate_message.setText("그럭저럭");
         }
 
+        tv_title_hotel.setText(intent.getStringExtra("title"));
+
         tv_review_rate.setText(mAvg+"");
 
         hid = intent.getStringExtra("hid");
@@ -85,6 +107,16 @@ public class ReviewHotelActivity extends Activity{
         setStar(intent.getDoubleExtra("r2",0), ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
         setStar(intent.getDoubleExtra("r3",0), c_star1, c_star2, c_star3, c_star4, c_star5);
         setStar(intent.getDoubleExtra("r4",0), sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
+
+        bt_scroll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv_list.smoothScrollToPosition(0);
+            }
+        });
+
+        mListAdapter = new DetailReviewAdapter( this, 0, reviewEntries);
+        lv_list.setAdapter(mListAdapter);
         getReviewList();
     }
 
@@ -161,37 +193,66 @@ public class ReviewHotelActivity extends Activity{
         }
     }
 
-    private void getReviewList(){
-        String url = CONFIG.reviewListUrl + "/" + mPage++ + "/" + mPer_page + "/" + hid;
-        Api.get(url, new Api.HttpCallback() {
+    public void getReviewList(){
+        String url = CONFIG.reviewListUrl + "/" + mPage+ "/" + mPer_page + "/" + hid;
+        if(isAdd) {
+            Api.get(url, new Api.HttpCallback() {
 
-            @Override
-            public void onFailure(Response response, Exception throwable) {
-                Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(Map<String, String> headers, String body) {
-
-                try {
-                    JSONObject obj = new JSONObject(body);
-
-                    if (!obj.getJSONObject("reviews").getString("result").equals("success")) {
-                        Toast.makeText(ReviewHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (obj.getJSONObject("reviews").has("data")) {
-                        JSONArray r_list = obj.getJSONObject("reviews").getJSONArray("data");
-
-
-                    }
-
-                } catch (JSONException e) {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
                     Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+
+                    try {
+                        JSONObject obj = new JSONObject(body);
+
+                        if (!obj.getJSONObject("reviews").getString("result").equals("success")) {
+                            Toast.makeText(ReviewHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (mPage == 1) {
+                            String total_cnt = "총 " + obj.getJSONObject("info").getJSONObject("data").getString("cnt") + "개의 리뷰";
+                            SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
+                            builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 2, 2 + obj.getJSONObject("info").getJSONObject("data").getString("cnt").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            tv_review_count.append(builder);
+                        }
+                        if (obj.getJSONObject("reviews").has("data")) {
+//                        String hotel_name, String masked_name, String total_rating, String view_yn, String comment, String owner_comment, String room_name, String stay_cnt, String created_at
+                            JSONArray r_list = obj.getJSONObject("reviews").getJSONArray("data");
+                            if (r_list.length() > 0) {
+                                isAdd = true;
+                                mPage++;
+                                JSONObject entry = null;
+                                for (int i = 0; i < r_list.length(); i++) {
+                                    entry = r_list.getJSONObject(i);
+                                    reviewEntries.add(new ReviewItem(
+                                            entry.getString("hotel_name"),
+                                            entry.getString("masked_name"),
+                                            entry.getString("total_rating"),
+                                            entry.getString("view_yn"),
+                                            entry.getString("comment"),
+                                            entry.getString("owner_comment"),
+                                            entry.getString("room_name"),
+                                            entry.getString("stay_cnt"),
+                                            entry.getString("created_at"),
+                                            entry.getString("updated_at")
+                                    ));
+                                }
+                                mListAdapter.notifyDataSetChanged();
+                            } else {
+                                isAdd = false;
+                            }
+                        }
+
+                    } catch (JSONException e) {
+                        Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }

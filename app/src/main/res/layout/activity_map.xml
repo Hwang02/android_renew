@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:id="@+id/title_back"
                 android:layout_width="45dp"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -37,7 +37,7 @@
             <TextView
                 android:id="@+id/re_search"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:textColor="@color/purple"

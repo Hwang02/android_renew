@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -232,29 +234,29 @@ public class HomeFragment extends Fragment {
                         }
                         objects.add(mEbanerItem.get(0));
                     }
-                    if(obj.has("stay_hot_deals")){
-                        JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
-                        mHotelItem.clear();
-                        if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
-                            for (int i = 0; i < mStay.length(); i++) {
-                                mHotelItem.add(new StayHotDealItem(
-                                        mStay.getJSONObject(i).getString("id"),
-                                        mStay.getJSONObject(i).getString("name"),
-                                        mStay.getJSONObject(i).getString("category_code"),
-                                        mStay.getJSONObject(i).getString("category"),
-                                        mStay.getJSONObject(i).getString("landscape"),
-                                        mStay.getJSONObject(i).getString("special_msg"),
-                                        mStay.getJSONObject(i).getString("review_score"),
-                                        mStay.getJSONObject(i).getString("grade_score"),
-                                        mStay.getJSONObject(i).getString("sale_price"),
-                                        mStay.getJSONObject(i).getString("normal_price"),
-                                        mStay.getJSONObject(i).getString("sale_rate"),
-                                        mStay.getJSONObject(i).getString("items_quantity")
-                                ));
-                            }
-                            objects.add(mHotelItem.get(0));
-                        }
-                    }
+//                    if(obj.has("stay_hot_deals")){
+//                        JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
+//                        mHotelItem.clear();
+//                        if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
+//                            for (int i = 0; i < mStay.length(); i++) {
+//                                mHotelItem.add(new StayHotDealItem(
+//                                        mStay.getJSONObject(i).getString("id"),
+//                                        mStay.getJSONObject(i).getString("name"),
+//                                        mStay.getJSONObject(i).getString("category_code"),
+//                                        mStay.getJSONObject(i).getString("category"),
+//                                        mStay.getJSONObject(i).getString("landscape"),
+//                                        mStay.getJSONObject(i).getString("special_msg"),
+//                                        mStay.getJSONObject(i).getString("review_score"),
+//                                        mStay.getJSONObject(i).getString("grade_score"),
+//                                        mStay.getJSONObject(i).getString("sale_price"),
+//                                        mStay.getJSONObject(i).getString("normal_price"),
+//                                        mStay.getJSONObject(i).getString("sale_rate"),
+//                                        mStay.getJSONObject(i).getString("items_quantity")
+//                                ));
+//                            }
+//                            objects.add(mHotelItem.get(0));
+//                        }
+//                    }
                     if(obj.has("activity_hot_deals")){
                         JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
                         mActivityItem.clear();
@@ -280,28 +282,30 @@ public class HomeFragment extends Fragment {
                         }
                     }
                     if(obj.has("theme_show")){
-                        JSONObject mTheme_show = obj.getJSONObject("theme_show");
-                        JSONObject mTheme = mTheme_show.getJSONObject("theme");
-                        JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
-                        mTheme.getString("id");
-                        mTheme.getString("title");
-                        mTheme.getString("sub_title");
-                        mTheme.getString("subject");
-                        mTheme.getString("detail");
-                        mTheme.getString("notice");
-                        mThemeItem.clear();
-                        for(int i = 0; i < mItems.length(); i++){
-                            mThemeItem.add(new ThemeItem(
-                                    mItems.getJSONObject(i).getString("id"),
-                                    mItems.getJSONObject(i).getString("name"),
-                                    mItems.getJSONObject(i).getString("landscape"),
-                                    mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") :"",
-                                    mTheme.getString("id"),
-                                    mItems.getJSONObject(i).has("wo") ? mItems.getJSONObject(i).getString("wo") : "",
-                                    ""
-                            ));
+                        if(obj.getJSONObject("theme_show").length() >0) {
+                            JSONObject mTheme_show = obj.getJSONObject("theme_show");
+                            JSONObject mTheme = mTheme_show.getJSONObject("theme");
+                            JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
+                            mTheme.getString("id");
+                            mTheme.getString("title");
+                            mTheme.getString("sub_title");
+                            mTheme.getString("subject");
+                            mTheme.getString("detail");
+                            mTheme.getString("notice");
+                            mThemeItem.clear();
+                            for (int i = 0; i < mItems.length(); i++) {
+                                mThemeItem.add(new ThemeItem(
+                                        mItems.getJSONObject(i).getString("id"),
+                                        mItems.getJSONObject(i).getString("name"),
+                                        mItems.getJSONObject(i).getString("landscape"),
+                                        mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+                                        mTheme.getString("id"),
+                                        mItems.getJSONObject(i).has("wo") ? mItems.getJSONObject(i).getString("wo") : "",
+                                        ""
+                                ));
+                            }
+                            objects.add(mThemeItem.get(0));
                         }
-                        objects.add(mThemeItem.get(0));
                     }
                     if(obj.has("theme_lists")){
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());

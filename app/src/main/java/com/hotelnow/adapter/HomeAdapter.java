@@ -290,6 +290,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         intent.putExtra("hid", mHf.getHotelData().get(position).getId());
                         mHf.startActivity(intent);
                     }
+                    else if(page == RECENT) {
+                        Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
+                        intent.putExtra("hid", mHf.getRecentListItem().get(position).getId());
+                        mHf.startActivity(intent);
+                    }
 
                     Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
                 }

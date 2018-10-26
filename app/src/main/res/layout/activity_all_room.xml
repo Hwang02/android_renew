@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true">
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="18dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ico_titbar_back"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/btn_back"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:text="객실 전체보기"
+            android:textColor="@color/purple"
+            android:layout_toLeftOf="@+id/bt_calendar"
+            android:gravity="left|center"
+            android:ellipsize="end" />
+        
+        <RelativeLayout
+            android:id="@+id/bt_calendar"
+            android:layout_width="130dp"
+            android:layout_height="34dp"
+            android:orientation="horizontal"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/style_edittext_gray_border"
+            android:layout_alignParentRight="true">
+            
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/ico_input_calendar"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitXY"/>
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/btn_detail_open"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/icon"
+                android:layout_toLeftOf="@+id/icon1"
+                tools:text="9/21 - 9/22"
+                android:maxLines="1"
+                android:textSize="13dp"
+                android:ellipsize="end"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"
+            android:layout_below="@id/tv_title_hotel"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/room_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

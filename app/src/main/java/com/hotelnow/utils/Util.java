@@ -366,6 +366,30 @@ public class Util {
         return wdt;
     }
 
+    public static String formatchange4(String dt){
+        String wdt = "";
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN);
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+            Date to = formatter.parse(dt);
+            wdt = formatter2.format(to);
+        } catch (Exception e){}
+
+        return wdt;
+    }
+
+    public static String formatchange5(String dt){
+        String wdt = "";
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+            SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd", Locale.KOREAN);
+            Date to = formatter.parse(dt);
+            wdt = formatter2.format(to);
+        } catch (Exception e){}
+
+        return wdt;
+    }
+
 //    public static String todayFormat(){
 //        String mDay = "";
 //        try {
@@ -394,19 +418,19 @@ public class Util {
 //        return mDay;
 //    }
 //
-//    // 요일 날짜포멧
-//    public static String weekdayFormat(String dt) {
-//        String wdt = "";
-//
-//        try {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN);
-//            Date to = formatter.parse(dt);
-//            wdt = transFormat.format(to);
-//        } catch (Exception e){}
-//
-//        return wdt;
-//    }
+    // 요일 날짜포멧
+    public static String weekdayFormat(String dt) {
+        String wdt = "";
+
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN);
+            Date to = formatter.parse(dt);
+            wdt = transFormat.format(to);
+        } catch (Exception e){}
+
+        return wdt;
+    }
 //
 //    // 요일 날짜포멧
 //    public static String weekdayFormatMd(String dt) {
@@ -687,6 +711,7 @@ public class Util {
         }
         return categorytextarr[position];
     }
+
 
     // 검색조건 초기화
 //    public static boolean hasSearch(){

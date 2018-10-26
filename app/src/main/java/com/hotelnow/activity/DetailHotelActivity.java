@@ -43,6 +43,7 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.HotelImageFragment;
 import com.hotelnow.fragment.model.FacilitySelItem;
 import com.hotelnow.utils.Api;
@@ -103,6 +104,8 @@ public class DetailHotelActivity extends AppCompatActivity {
     private String lodge_type;
     private int privatedeal_status = -1;
     private DialogAlert dialogAlert = null;
+    private DialogShare dialogShare;
+    private Double mAvg = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +157,19 @@ public class DetailHotelActivity extends AppCompatActivity {
                });
            }
        });
+
+        findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogShare = new DialogShare(DetailHotelActivity.this, hid, main_photo, hotel_name, ec_date, ee_date, mAvg, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogShare.dismiss();
+                    }
+                });
+                dialogShare.show();
+            }
+        });
 
         Intent intent = getIntent();
         hid = intent.getStringExtra("hid");
@@ -312,6 +328,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_per.setText(hotel_data.getString("sale_rate"));
 
                     //평점
+                    mAvg = review_data.getDouble("avg");
                     tv_review_rate.setText(review_data.getDouble("avg")+"");
                     setReviewRate(review_data.getDouble("avg"));
                     tv_review_count.setText(review_data.getInt("cnt")+"");
@@ -333,6 +350,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                             intent.putExtra("r3", r3);
                             intent.putExtra("r4", r4);
                             intent.putExtra("hid", hid);
+                            intent.putExtra("title", tv_hotelname.getText());
                             startActivity(intent);
                         }
                     });
@@ -601,7 +619,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         }
     }
 
-    private void setRoom(JSONArray rdata) {
+    private void setRoom(final JSONArray rdata) {
         try{
             SpannableStringBuilder sb = new SpannableStringBuilder();
             String total_cnt = "총 "+rdata.length()+"개의 객실 전체보기";
@@ -630,6 +648,19 @@ public class DetailHotelActivity extends AppCompatActivity {
             else {
                 for_cnt = 4;
                 btn_show_room.setVisibility(View.VISIBLE);
+                btn_show_room.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(DetailHotelActivity.this, AllRoomTypeActivity.class);
+                        intent.putExtra("sdate", ec_date);
+                        intent.putExtra("edate", ee_date);
+                        intent.putExtra("hid", hid);
+                        intent.putExtra("pid", pid);
+                        intent.putExtra("evt", evt);
+
+                        startActivityForResult(intent, 80);
+                    }
+                });
             }
 
             for (int i = 0; i < for_cnt; i++) {
@@ -684,7 +715,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 }
 
                 tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"");
-                tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃"+rdata.getJSONObject(i).getString("checkout_time"));
+                tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃 "+rdata.getJSONObject(i).getString("checkout_time"));
                 tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");
                 tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")));
                 String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n","<br>").replace("•","ㆍ ");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimen_title">48dp</dimen>
+    <dimen name="dimen_title">56dp</dimen>
     <dimen name="dimen_location">50dp</dimen>
 
     <dimen name="thumb_width">30dp</dimen>

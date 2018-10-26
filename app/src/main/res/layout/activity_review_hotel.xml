@@ -384,13 +384,14 @@
             android:background="@color/bg_background"/>
 
         <TextView
+            android:id="@+id/tv_review_count"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:textSize="13dp"
             android:paddingLeft="20dp"
             tools:text="총 12개의 리뷰"
             android:gravity="center_vertical"
-            android:textColor="@color/purple"
+            android:textColor="@color/detail_more_color"
             android:background="@color/footerview"/>
     </LinearLayout>
 
@@ -400,10 +401,21 @@
         android:layout_below="@+id/ll_review_info"
         android:orientation="vertical">
         <ListView
+            android:id="@+id/lv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
             android:background="@color/white"
             tools:listitem="@layout/layout_detail_review_item"></ListView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_scroll"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/btn_screenup"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="23dp"/>
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.hotelnow.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -107,6 +108,8 @@ public class SearchActivity extends Activity{
                       getRecentData();
 
                       // 리스트 화면 이동
+                      Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                      startActivity(intent);
                   }
                   return false;
               }
@@ -274,6 +277,15 @@ public class SearchActivity extends Activity{
                 ico_item.setBackgroundResource(R.drawable.ico_search_hotel);
             }
 
+            tv_recent_txt.setTag(i);
+            tv_recent_txt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    startActivity(intent);
+                }
+            });
+
             tv_recent_txt.setText(mHotelAuto.get(i).getName());
             hotel_list.addView(view);
         }
@@ -293,6 +305,14 @@ public class SearchActivity extends Activity{
                 ico_item.setBackgroundResource(R.drawable.ico_search_activity);
             }
 
+            tv_recent_txt.setTag(i);
+            tv_recent_txt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             tv_recent_txt.setText(mActivityAuto.get(i).getName());
             activity_list.addView(view);
@@ -382,6 +402,10 @@ public class SearchActivity extends Activity{
                     dbHelper.insertKeyword(mKeywordList.get((int)v.getTag()).getKeyword(), mKeywordList.get((int)v.getTag()).getId());
                     mSearchList.clear();
                     getRecentData();
+
+                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    startActivity(intent);
+
                 }
             });
 //            tv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

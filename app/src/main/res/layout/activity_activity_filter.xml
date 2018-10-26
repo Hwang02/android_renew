@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:id="@+id/title_back"
                 android:layout_width="45dp"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 android:gravity="center_vertical">
 
                 <ImageView

@@ -55,6 +55,8 @@
         <activity android:name=".activity.PrivateDealActivity" />
         <activity android:name=".activity.FullImageViewActivity" />
         <activity android:name=".activity.ReviewHotelActivity" />
+        <activity android:name=".activity.AllRoomTypeActivity" />
+        <activity android:name=".activity.SearchResultActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">
