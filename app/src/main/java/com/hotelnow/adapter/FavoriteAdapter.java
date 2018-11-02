@@ -5,19 +5,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.hotelnow.fragment.favorite.FavoriteActivityFragment;
+import com.hotelnow.fragment.favorite.FavoriteHotelFragment;
 import com.hotelnow.fragment.search.ActivitySearchFragment;
 import com.hotelnow.fragment.search.HotelSearchFragment;
 
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class FavoriteAdapter extends FragmentPagerAdapter {
 
     public Context mContext;
     public String search_txt, banner_id;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, String search_txt, String banner_id) {
+    public FavoriteAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
-        this.search_txt = search_txt;
-        this.banner_id = banner_id;
     }
 
     @Override
@@ -26,15 +27,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         //Returning the current tabs
         switch (position){
             case 0:
-                HotelSearchFragment hotelSearchFragment = new HotelSearchFragment();
+                FavoriteHotelFragment favoriteHotelFragment = new FavoriteHotelFragment();
                 Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
                 bundle.putString("search_txt", search_txt); // key , value
                 bundle.putString("banner_id", banner_id); // key , value
-                hotelSearchFragment.setArguments(bundle);
-                return hotelSearchFragment;
+                favoriteHotelFragment.setArguments(bundle);
+                return favoriteHotelFragment;
             case 1:
-                ActivitySearchFragment activitySearchFragment = new ActivitySearchFragment();
-                return activitySearchFragment;
+                FavoriteActivityFragment favoriteActivityFragment = new FavoriteActivityFragment();
+                return favoriteActivityFragment;
             default:
                 return null;
         }

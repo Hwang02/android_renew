@@ -46,6 +46,7 @@ public class DbOpenHelper {
             db.execSQL(DataBases.qCategory_CreateDB._CREATE);
             db.execSQL(DataBases.RecentList_CreateDB._CREATE);
             db.execSQL(DataBases.RecentCity_CreateDB._CREATE);
+            db.execSQL(DataBases.Favorite_CreateDB._CREATE);
         }
 
         // 버전이 업데이트 되었을 경우 DB를 다시 만들어 준다.
@@ -58,6 +59,7 @@ public class DbOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS "+ DataBases.qCategory_CreateDB._TABLENAME);
             db.execSQL("DROP TABLE IF EXISTS "+ DataBases.RecentList_CreateDB._TABLENAME);
             db.execSQL("DROP TABLE IF EXISTS "+ DataBases.RecentCity_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.Favorite_CreateDB._TABLENAME);
             onCreate(db);
         }
     }
@@ -522,6 +524,117 @@ public class DbOpenHelper {
             close();
         }
         return items;
+    }
+
+    /**
+     * 관심상품 선택 - INSERT
+     *
+     * @param keyid 선택한 id
+     * @param type 호텔인지 H 액티비티인지 A
+     * @return
+     */
+    public void insertFavoriteItem(String keyid, String type) {
+        open();
+        ContentValues val = new ContentValues();
+        val.put("keyid", keyid);
+        val.put("type", type);
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[] { "created_date" }, null, null, null, null, "created_date desc");
+            if(cur.getCount()==20){
+                String sql = "DELETE FROM "+ DataBases.Favorite_CreateDB._TABLENAME+" WHERE created_date = "
+                        + "(select MIN(created_date) from "+DataBases.Favorite_CreateDB._TABLENAME+ " )";
+                mDB.execSQL(sql);
+            }
+        }
+        catch(Exception ex) {}
+
+        mDB.insert(DataBases.Favorite_CreateDB._TABLENAME, null, val);
+        close();
+    }
+
+    /**
+     * 관심상품 호텔 리스트 - SELECT ALL
+     *
+     * @return
+     */
+    public List<RecentItem> selectAllFavoriteStayItem() {
+        open();
+        List<RecentItem> items = new ArrayList<RecentItem>();
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[] { "keyid", "type"}, "type = 'H'",
+                    null, null, null, "created_date desc");
+
+            if(cur.moveToFirst()) {
+                do {
+                    items.add(new RecentItem(
+                            cur.getString(cur.getColumnIndex("keyid")),
+                            cur.getString(cur.getColumnIndex("type"))
+                    ));
+                }
+                while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+        finally {
+            if(cur != null) {
+                cur.close();
+            }
+            close();
+        }
+        return items;
+    }
+
+    /**
+     * 관심상품 엑티비티 리스트 - SELECT ALL
+     *
+     * @return
+     */
+    public List<RecentItem> selectAllFavoriteActivityItem() {
+        open();
+        List<RecentItem> items = new ArrayList<RecentItem>();
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[] { "keyid", "type"}, "type = 'A'",
+                    null, null, null, "created_date desc");
+
+            if(cur.moveToFirst()) {
+                do {
+                    items.add(new RecentItem(
+                            cur.getString(cur.getColumnIndex("keyid")),
+                            cur.getString(cur.getColumnIndex("type"))
+                    ));
+                }
+                while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+        finally {
+            if(cur != null) {
+                cur.close();
+            }
+            close();
+        }
+        return items;
+    }
+
+    /**
+     * 관심상품 - DELETE
+     *
+     * @return
+     */
+    public void deleteFavoriteTheme(boolean isAll, String keyid, String type) {
+        open();
+        if(isAll) {
+            mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, null, null);
+        }
+        else{
+            String where = "keyid = '" + keyid + "'"
+                    + " AND type = '" + type + "'";
+            mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, where, null);
+        }
+        close();
     }
 
 

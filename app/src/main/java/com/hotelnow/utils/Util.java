@@ -37,11 +37,15 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.hotelnow.R;
 import com.hotelnow.activity.ActLoading;
+import com.kakao.kakaolink.v2.KakaoLinkResponse;
+import com.kakao.kakaolink.v2.KakaoLinkService;
 import com.kakao.message.template.ButtonObject;
 import com.kakao.message.template.ContentObject;
 import com.kakao.message.template.FeedTemplate;
 import com.kakao.message.template.LinkObject;
 import com.kakao.message.template.SocialObject;
+import com.kakao.network.ErrorResult;
+import com.kakao.network.callback.ResponseCallback;
 import com.kakao.util.KakaoParameterException;
 import com.squareup.okhttp.Response;
 
@@ -72,6 +76,7 @@ public class Util {
     public static Location userLocation = null;
     private static Calendar startCal = Calendar.getInstance();
     private static Calendar endCal = Calendar.getInstance();
+    private static ResponseCallback<KakaoLinkResponse> callback;
 
     // unique Android-id
     public static String getAndroidId(Context context) {
@@ -531,36 +536,43 @@ public class Util {
         prefEditor.commit();
     }
 
-    public static void showKakaoLink(Activity activity){
+    public static void showKakaoLink(final Activity activity){
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         String cookie = _preferences.getString("userid", null);
 
         if (cookie != null) {
             try {
-//                KakaoLink kakaoLink = KakaoLink.getKakaoLink(activity);
-//                KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
-//
-//                kakaoTalkLinkMessageBuilder.addText("[호텔나우]\n"
-//                        + _preferences.getString("username", null)
-//                        + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
-//                        "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
-//                        + Util.getRecommCode(_preferences.getString("userid", null)));
-//                kakaoTalkLinkMessageBuilder.addButton("앱으로 이동");
-//                kakaoTalkLinkMessageBuilder.addImage(CONFIG.kakaotalkimg, 300, 300);
-//                kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, activity);
-                // 공유 변경 해야함
-//                FeedTemplate params = FeedTemplate
-//                        .newBuilder(ContentObject.newBuilder("디저트 사진",
-//                                "http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
-//                                LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
-//                                        .setMobileWebUrl("https://developers.kakao.com").build())
-//                                .setDescrption("아메리카노, 빵, 케익")
-//                                .build())
-//                        .addButton(new ButtonObject("앱으로 이동", LinkObject.newBuilder()
-//                                .setAndroidExecutionParams("key1=value1")
-//                                .setIosExecutionParams("key1=value1")
-//                                .build()))
-//                        .build();
+                callback = new ResponseCallback<KakaoLinkResponse>() {
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        Toast.makeText(activity, errorResult.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onSuccess(KakaoLinkResponse result) {
+//                 Toast.makeText(mContext, "Successfully sent KakaoLink v2 message.", Toast.LENGTH_LONG).show();
+                    }
+                };
+
+                FeedTemplate params = FeedTemplate
+                        .newBuilder(ContentObject.newBuilder("[호텔나우]",
+                                CONFIG.kakaotalkimg,
+                                LinkObject.newBuilder()
+                                        .setMobileWebUrl("http://www.hotelnow.co.kr/ko").build())
+                                .setDescrption("[호텔나우]\n"
+                                        + _preferences.getString("username", null)
+                                        + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
+                                        "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
+                                        + Util.getRecommCode(_preferences.getString("userid", null)))
+                                .build())
+                        .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+                                .setMobileWebUrl("http://www.hotelnow.co.kr/ko")
+                                .setAndroidExecutionParams("hotelnow://hnevent")
+                                .setIosExecutionParams("hotelnow://hnevent")
+                                .build()))
+                        .build();
+
+                KakaoLinkService.getInstance().sendDefault(activity, params, callback);
             } catch (Exception e) {
 //				Log.e("KakaoParameterException", e.toString());
             }

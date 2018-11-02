@@ -211,6 +211,8 @@
     <string name="reservemoney_status_withdraw">회수</string>
     <string name="event_need_login">이벤트 응모를 위해 로그인이 필요합니다.</string>
     <string name="sell_complete">판매 완료</string>
+    <string name="all_cancel"><u>전체취소</u></string>
+    <string name="stay_go"><u>숙소 보러가기 ></u></string>
 
     <string name="year_month_day_weekday_format3">MM월 dd일 (E)</string>
 

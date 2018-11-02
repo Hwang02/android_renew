@@ -109,6 +109,7 @@ public class SearchActivity extends Activity{
 
                       // 리스트 화면 이동
                       Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                      intent.putExtra("search", et_search.getText().toString());
                       startActivity(intent);
                   }
                   return false;
@@ -267,7 +268,7 @@ public class SearchActivity extends Activity{
         hotel_list.removeAllViews();
         for(int i =0; i<mHotelAuto.size(); i++) {
             View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
-            TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+            final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
             ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
 
             if(mHotelAuto.get(i).getFlag().equals("region_hotel")){
@@ -282,6 +283,8 @@ public class SearchActivity extends Activity{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    intent.putExtra("tab", 0);
+                    intent.putExtra("search", tv_recent_txt.getText().toString());
                     startActivity(intent);
                 }
             });
@@ -295,7 +298,7 @@ public class SearchActivity extends Activity{
         activity_list.removeAllViews();
         for(int i =0; i<mActivityAuto.size(); i++) {
             View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
-            TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+            final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
             ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
 
             if(mActivityAuto.get(i).getFlag().equals("region_activity")){
@@ -310,6 +313,8 @@ public class SearchActivity extends Activity{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    intent.putExtra("tab", 1);
+                    intent.putExtra("search", tv_recent_txt.getText().toString());
                     startActivity(intent);
                 }
             });
@@ -404,24 +409,11 @@ public class SearchActivity extends Activity{
                     getRecentData();
 
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
                     startActivity(intent);
 
                 }
             });
-//            tv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-//                    // keyword 검색으로 검색 리스트로 이동
-//                    if(isChecked == true){
-//                        dbHelper.insertKeywordArea(tmpCat.get((int)v.getTag()));
-//                        mSearchList.clear();
-//                        getRecentData();
-////                        LogUtil.e("xxxxx",v.getTag().toString());
-//                    } else {
-////                        LogUtil.e("xxxxx",v.getTag().toString());
-//                    }
-//                }
-//            });
 
             popular_keyword.addView(tv);
         }

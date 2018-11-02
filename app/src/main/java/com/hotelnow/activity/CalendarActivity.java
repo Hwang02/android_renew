@@ -78,9 +78,11 @@ public class CalendarActivity extends Activity{
         end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
 
 //        선택안되는 날
-        for(Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()){
-            if (Arrays.asList(selectList).contains(formatter3.format(date)) == false) {
-                not_dates.add(date);
+        if(selectList != null) {
+            for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+                if (Arrays.asList(selectList).contains(formatter3.format(date)) == false) {
+                    not_dates.add(date);
+                }
             }
         }
 
@@ -157,7 +159,7 @@ public class CalendarActivity extends Activity{
                             break;
                     }
 
-                    if (!lodge_type.equals("Y") && calendar.getSelectedDates().size() > 2) {
+                    if (lodge_type != null && !lodge_type.equals("Y") && calendar.getSelectedDates().size() > 2) {
                         calendar.clearSelectedDates();
                         Toast.makeText(getApplication(), "연박을 할 수 없는 상품입니다.", Toast.LENGTH_SHORT).show();
                         sel_unday = 1;

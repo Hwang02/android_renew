@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.adapter.HomeAdapter;
+import com.hotelnow.adapter.PrivateDealAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
@@ -38,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +50,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mHomeBinding;
     private List<Object> objects = null;
     public ArrayList<StayHotDealItem> mHotelItem = new ArrayList<>();
+    public ArrayList<PrivateDealItem> mPrivatedealItem = new ArrayList<>();
     public ArrayList<ActivityHotDealItem> mActivityItem = new ArrayList<>();
     public ArrayList<ThemeSpecialItem> mThemeSItem = new ArrayList<>();
     public ArrayList<ThemeItem> mThemeItem = new ArrayList<>();
@@ -54,9 +59,13 @@ public class HomeFragment extends Fragment {
     public ArrayList<SubBannerItem> mEbanerItem = new ArrayList<>();
     public ArrayList<KeyWordItem> mKeywordItem = new ArrayList<>();
     public List<RecentItem> mRecentItem = new ArrayList<>();
+    public List<RecentItem> mFavoriteStayItem = new ArrayList<>();
+    public List<RecentItem> mFavoriteActivityItem = new ArrayList<>();
     public ArrayList<RecentListItem> mRecentListItem = new ArrayList<>();
     private HomeAdapter adapter;
     private DbOpenHelper dbHelper;
+    private String[] FavoriteStayList;
+    private String[] FavoriteActivityList;
 
     @Nullable
     @Override
@@ -77,9 +86,24 @@ public class HomeFragment extends Fragment {
         dbHelper = new DbOpenHelper(getActivity());
         objects = new ArrayList<>();
         adapter = new HomeAdapter(getActivity(), HomeFragment.this, objects, dbHelper);
+        adapter.setHasStableIds(true);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHomeBinding.recyclerView.setAdapter(adapter);
 
+        mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
+        mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
+        if(mFavoriteStayItem.size()>0){
+            FavoriteStayList = new String[mFavoriteStayItem.size()];
+            for(int i =0; i<mFavoriteStayItem.size();i++){
+                FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
+            }
+        }
+        if(mFavoriteActivityItem.size()>0){
+            FavoriteActivityList = new String[mFavoriteActivityItem.size()];
+            for(int i =0; i<mFavoriteActivityItem.size();i++){
+                FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
+            }
+        }
         getRecentData(true);
 
     }
@@ -142,9 +166,9 @@ public class HomeFragment extends Fragment {
                                 objects.clear();
                                 getObject();
                             }
-//                            else {
-//                                adapter.notifyDataSetChanged();
-//                            }
+                            else {
+                                adapter.refreshRecent();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -213,9 +237,11 @@ public class HomeFragment extends Fragment {
                         }
                         objects.add(mKeywordItem.get(0));
                     }
+
                     if(mRecentListItem.size()>0){
                         objects.add(mRecentListItem.get(0));
                     }
+
                     if(obj.has("event_banners")){
                         JSONArray e_banner = new JSONArray(obj.getJSONArray("event_banners").toString());
                         mEbanerItem.clear();
@@ -234,29 +260,26 @@ public class HomeFragment extends Fragment {
                         }
                         objects.add(mEbanerItem.get(0));
                     }
-//                    if(obj.has("stay_hot_deals")){
-//                        JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
-//                        mHotelItem.clear();
-//                        if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
-//                            for (int i = 0; i < mStay.length(); i++) {
-//                                mHotelItem.add(new StayHotDealItem(
-//                                        mStay.getJSONObject(i).getString("id"),
-//                                        mStay.getJSONObject(i).getString("name"),
-//                                        mStay.getJSONObject(i).getString("category_code"),
-//                                        mStay.getJSONObject(i).getString("category"),
-//                                        mStay.getJSONObject(i).getString("landscape"),
-//                                        mStay.getJSONObject(i).getString("special_msg"),
-//                                        mStay.getJSONObject(i).getString("review_score"),
-//                                        mStay.getJSONObject(i).getString("grade_score"),
-//                                        mStay.getJSONObject(i).getString("sale_price"),
-//                                        mStay.getJSONObject(i).getString("normal_price"),
-//                                        mStay.getJSONObject(i).getString("sale_rate"),
-//                                        mStay.getJSONObject(i).getString("items_quantity")
-//                                ));
-//                            }
-//                            objects.add(mHotelItem.get(0));
-//                        }
-//                    }
+                    if(obj.has("private_deals")){
+                        JSONArray mPrivate = new JSONArray(obj.getJSONArray("private_deals").toString());
+                        mPrivatedealItem.clear();
+                        if(mPrivate.length()>0) {
+                            for (int i = 0; i < mPrivate.length(); i++) {
+                                mPrivatedealItem.add(new PrivateDealItem(
+                                        mPrivate.getJSONObject(i).getString("id"),
+                                        mPrivate.getJSONObject(i).getString("name"),
+                                        mPrivate.getJSONObject(i).getString("category_code"),
+                                        mPrivate.getJSONObject(i).getString("category"),
+                                        mPrivate.getJSONObject(i).getString("landscape"),
+                                        mPrivate.getJSONObject(i).getString("review_score"),
+                                        mPrivate.getJSONObject(i).getString("grade_score"),
+                                        mPrivate.getJSONObject(i).getString("sale_rate"),
+                                        mFavoriteStayItem.size() > 0 && Arrays.asList(FavoriteStayList).contains(mPrivate.getJSONObject(i).getString("id")) ? true : false
+                                ));
+                            }
+                            objects.add(mPrivatedealItem.get(0));
+                        }
+                    }
                     if(obj.has("activity_hot_deals")){
                         JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
                         mActivityItem.clear();
@@ -375,6 +398,10 @@ public class HomeFragment extends Fragment {
         return mRecentListItem;
     }
 
+    public ArrayList<PrivateDealItem> getPrivateDealItem() {
+        return mPrivatedealItem;
+    }
+
     public RecyclerView getRecyclerView(){
         return mHomeBinding.recyclerView;
     }
@@ -390,11 +417,65 @@ public class HomeFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == 80){
-//
-//        }
-//    }
+    public void setPrivateLike(final int position, final boolean islike, final PrivateDealAdapter adapter){
+        final String sel_id = getPrivateDealItem().get(position).getId();
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "stay");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        getPrivateDealItem().get(position).setIslike(!islike);
+                        dbHelper.deleteFavoriteTheme(false,  sel_id,"H");
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        getPrivateDealItem().get(position).setIslike(!islike);
+                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                   }
+                }
+            });
+        }
+    }
 }

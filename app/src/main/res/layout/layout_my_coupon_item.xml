@@ -133,7 +133,7 @@
             android:layout_width="260dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/img_none_point"/>
+            android:background="@drawable/img_none_coupon"/>
 
         <TextView
             android:id="@+id/empty_txt"

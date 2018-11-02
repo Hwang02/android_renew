@@ -1,4 +1,6 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
 		<variable
@@ -6,19 +8,132 @@
 			type="com.hotelnow.fragment.favorite.FavoriteFragment" />
 	</data>
 
-<LinearLayout
+<RelativeLayout
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
-	<Button
-		android:id="@+id/bt_test"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+	android:background="@color/white">
 
-	<android.support.v7.widget.RecyclerView
-		android:id = "@+id/recycler_view"
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		android:clipToPadding = "false" />
-</LinearLayout>
+	<LinearLayout
+		android:id="@+id/title_bar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:singleLine="true"
+			android:maxLines="1"
+			android:textSize="16dp"
+			android:textColor="@color/purple"
+			android:gravity="center"
+			android:ellipsize="end"
+			android:text="관심목록" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/bg_background" />
+	</LinearLayout>
+
+	<android.support.design.widget.TabLayout
+		android:id="@+id/tab_layout"
+		android:layout_width="match_parent"
+		android:layout_height="36dp"
+		android:layout_below="@id/title_bar"
+		app:tabBackground="@drawable/tab_color_selector"
+		app:tabTextColor="@color/detail_more_color"
+		app:tabSelectedTextColor="@color/purple"
+		app:tabIndicatorColor="@android:color/transparent"
+		app:tabIndicatorHeight="0dp">
+	</android.support.design.widget.TabLayout>
+
+	<RelativeLayout
+		android:id="@+id/view_filter"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@+id/tab_layout">
+
+		<TextView
+			android:id="@+id/tv_date_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="숙박일 선택"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="16dp"
+			android:textSize="13dp"
+			android:textColor="@color/termtext"/>
+
+		<RelativeLayout
+			android:id="@+id/btn_date"
+			android:layout_width="140dp"
+			android:layout_height="34dp"
+			android:layout_marginLeft="15dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/tv_date_title"
+			android:background="@drawable/style_edittext_gray_border">
+
+			<ImageView
+				android:id="@+id/iv_date"
+				android:layout_width="14dp"
+				android:layout_height="14dp"
+				android:layout_marginLeft="8dp"
+				android:layout_centerVertical="true"
+				android:layout_alignParentLeft="true"
+				android:scaleType="fitXY"
+				android:background="@drawable/ico_input_calendar"/>
+
+			<ImageView
+				android:id="@+id/iv_open2"
+				android:layout_width="14dp"
+				android:layout_height="14dp"
+				android:layout_alignParentRight="true"
+				android:layout_marginRight="6dp"
+				android:layout_centerVertical="true"
+				android:scaleType="fitXY"
+				android:background="@drawable/btn_detail_open"/>
+
+			<TextView
+				android:id="@+id/tv_date"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_toLeftOf="@+id/iv_open2"
+				android:layout_toRightOf="@+id/iv_date"
+				android:textSize="13dp"
+				android:maxLines="1"
+				android:ellipsize="end"
+				android:layout_marginLeft="8dp"
+				android:layout_centerVertical="true"
+				android:textColor="@color/graytxt"
+				tools:text="9/21/~9/22" />
+		</RelativeLayout>
+
+		<TextView
+			android:id="@+id/btn_cancel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12dp"
+			android:layout_toRightOf="@+id/btn_date"
+			android:textColor="@color/termtext"
+			android:text="@string/all_cancel"
+			android:gravity="right"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="16dp"/>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_alignParentBottom="true"
+			android:background="@color/back_line"/>
+	</RelativeLayout>
+
+	<com.hotelnow.utils.NonSwipeableViewPager
+		android:id="@+id/view_pager"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:layout_below="@+id/view_filter"
+		app:layout_behavior="com.hotelnow.utils.BottomNavigationBehavior"/>
+</RelativeLayout>
 </layout>

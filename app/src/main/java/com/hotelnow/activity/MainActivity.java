@@ -191,7 +191,8 @@ public class MainActivity extends FragmentActivity {
                     transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
                 else{
-                    transaction.show(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
 
                 if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
@@ -217,7 +218,8 @@ public class MainActivity extends FragmentActivity {
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
                 else{
-                    transaction.show(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
 
                 if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {

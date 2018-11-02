@@ -53,10 +53,25 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
+    <RelativeLayout
+        android:id="@+id/rl_bt"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/bg_background" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/rl_bt"
+        android:overScrollMode="never"
         android:fillViewport="true">
 
         <LinearLayout
@@ -316,18 +331,11 @@
                     app:paddingStart="15dp"
                     app:paddingEnd="15dp"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:visibility="invisible"/>
         </LinearLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:layout_alignParentBottom="true">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/bg_background" />
-    </RelativeLayout>
 </RelativeLayout>

@@ -174,9 +174,9 @@ public class FilterHotelActivity extends Activity {
             public void valueChanged(Number minValue, Number maxValue) {
 
                 if (String.valueOf(maxValue).equals("60")) {
-                    select_price.setText(minValue+"원 ~"+maxValue+"원 이상");
+                    select_price.setText(minValue+"만원 ~"+maxValue+"만원 이상");
                 } else {
-                    select_price.setText(minValue+"원 ~"+maxValue+"원 이상");
+                    select_price.setText(minValue+"만원 ~"+maxValue+"만원 이상");
                 }
             }
         });

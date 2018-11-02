@@ -97,4 +97,18 @@ public class DataBases {
                         +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
     }
 
+    // 관심상품
+    public static final class Favorite_CreateDB implements BaseColumns {
+        public static final String keyid = "keyid";
+        public static final String type = "type";
+        public static final String created_date = "created_date";
+        public static final String _TABLENAME = "favorite_list";
+        public static final String _CREATE =
+                "create table "+_TABLENAME+"("
+                        +_ID+" integer primary key autoincrement, "
+                        +keyid+" text not null , "
+                        +type+" text not null , "
+                        +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
+    }
+
 }

@@ -76,39 +76,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tab_layout" />
-    
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/style_edittext_gray_border">
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="16dp"
-            android:background="@drawable/ico_filter"
-            android:layout_marginLeft="17dp"
-            android:scaleType="fitXY"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_marginLeft="7dp"
-            android:textColor="@color/termtext"
-            android:layout_marginRight="17dp"
-            android:text="필터\u0026정렬"/>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/bt_scroll"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@drawable/btn_screenup"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="23dp"/>
 </RelativeLayout>

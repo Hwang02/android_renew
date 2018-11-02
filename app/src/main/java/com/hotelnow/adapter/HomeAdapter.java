@@ -22,6 +22,7 @@ import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.fragment.model.SubBannerItem;
@@ -48,8 +49,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int HOTDEAL_ACTIVITY = 6; // 엑티비티 핫딜 horizontal
     private final int PROMOTION = 7; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 8; // 변경되는 프로모션 vertical
+    private final int PRIVATEDEAL = 9; // 프라이빗딜
     private DbOpenHelper dbHelper;
     private RecentAdapter recentAdapter;
+    private PrivateDealAdapter privateAdapter;
 
     public HomeAdapter(Context context, HomeFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -100,6 +103,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 view = inflater.inflate(R.layout.layout_vertical, parent, false);
                 holder = new FooterViewHolder(view, FOOTER);
                 break;
+            case PRIVATEDEAL:
+                view = inflater.inflate(R.layout.layout_horizontal, parent, false);
+                holder = new HorizontalViewHolder(view, PRIVATEDEAL);
+                break;
             default:
                 view = inflater.inflate(R.layout.layout_horizontal, parent, false);
                 holder = new HorizontalViewHolder(view, RECENT);
@@ -137,6 +144,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             case FOOTER:
                 setBottomView((FooterViewHolder) holder, holder.getItemViewType());
+                break;
+            case PRIVATEDEAL:
+                setPrivateDealView((HorizontalViewHolder) holder, holder.getItemViewType());
                 break;
 
         }
@@ -180,7 +190,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.recyclerView.setAdapter(adapter);
         holder.recyclerView.setBackgroundResource(R.color.footerview);
         holder.main_view.setBackgroundResource(R.color.footerview);
-
     }
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
@@ -211,6 +220,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
             }
         });
+    }
+
+    private void setPrivateDealView(HorizontalViewHolder holder, int type) {
+        privateAdapter = new PrivateDealAdapter(mHf.getPrivateDealItem(), mHf, dbHelper);
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        holder.recyclerView.setAdapter(privateAdapter);
+    }
+
+    public void refreshRecent(){
+        if(recentAdapter != null){
+            recentAdapter.notifyDataSetChanged();
+        }
     }
 
 
@@ -245,8 +266,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return PROMOTION;
         if (items.get(position) instanceof SubBannerItem)
             return BANNER_MINI;
+        if (items.get(position) instanceof PrivateDealItem)
+            return PRIVATEDEAL;
 
         return -1;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     public class HorizontalViewHolder extends RecyclerView.ViewHolder {
@@ -272,39 +300,32 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    if(page == HOTDEAL_HOTEL)
-                    {
-                        dbHelper.insertRecentItem(mHf.getHotelData().get(position).getId(), "H");
-                        if(mHf.getRecentListItem().size()>0) {
-                            mHf.getRecentData(false);
-                            recentAdapter.notifyDataSetChanged();
-                        }
-                        else{
-                            mHf.getRecentData(true);
-                        }
+//            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, int position) {
+//                    if(page == HOTDEAL_HOTEL)
+//                    {
 
-                        Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
-                        intent.putExtra("hid", mHf.getHotelData().get(position).getId());
-                        mHf.startActivity(intent);
-                    }
-                    else if(page == RECENT) {
-                        Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
-                        intent.putExtra("hid", mHf.getRecentListItem().get(position).getId());
-                        mHf.startActivity(intent);
-                    }
-
-                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
-
-            }));
+//
+//                        Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
+//                        intent.putExtra("hid", mHf.getHotelData().get(position).getId());
+//                        mHf.startActivity(intent);
+//                    }
+//                    else if(page == RECENT) {
+//                        Intent intent = new Intent(mHf.getActivity(), DetailHotelActivity.class);
+//                        intent.putExtra("hid", mHf.getRecentListItem().get(position).getId());
+//                        mHf.startActivity(intent);
+//                    }
+//
+//                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onLongItemClick(View view, int position) {
+//
+//                }
+//
+//            }));
         }
     }
 
@@ -428,6 +449,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     break;
                 case SPECIAL:
                     title.setText("특별한 여행 제안");
+                    break;
+                case PRIVATEDEAL:
+                    title.setText("프라이빗딜");
                     break;
             }
         }
