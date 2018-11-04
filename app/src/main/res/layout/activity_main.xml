@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
-        tools:context="com.hotelnow.activity.MainActivity" >
+        tools:context="com.hotelnow.activity.MainActivity"
+        android:background="@color/bg_background">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -66,5 +67,22 @@
             app:menu="@menu/nav_items"
             app:layout_behavior="com.hotelnow.utils.BottomNavigationBehavior"/>
 
+        <RelativeLayout
+            android:id="@+id/wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickable="true"
+            android:background="@color/loading_alpha_bg">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:indicator="BallPulse"
+                app:indicator_color="@color/white"/>
+
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

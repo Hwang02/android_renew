@@ -1,5 +1,6 @@
 package com.hotelnow.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 
 public class MainActivity extends FragmentActivity {
-    private ActivityMainBinding mbinding;
+    private static ActivityMainBinding mbinding;
     private FragmentTransaction transaction;
     private final int FAVPAGE = 1;
     private final int RESERVPAGE = 2;
@@ -30,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     private final int SELECTPAGE = 4;
     private final int HOTELPAGE = 5;
     private final int LEISUREPAGE = 6;
+    private static Context mContext;
 
 
     @Override
@@ -39,7 +41,7 @@ public class MainActivity extends FragmentActivity {
         Util.setStatusColor(this);
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        mContext = this;
         // 하단 탭 버튼 동작 제거
         mbinding.navigation.enableAnimation(false);
         mbinding.navigation.enableShiftingMode(false);
@@ -154,6 +156,15 @@ public class MainActivity extends FragmentActivity {
         });
 
         setTapMove(SELECTPAGE);
+    }
+
+    public static void showProgress(){ mbinding.wrapper.setVisibility(View.VISIBLE); }
+    public static void hideProgress(){
+        try {
+            mbinding.wrapper.setVisibility(View.GONE);
+        } catch (Exception e){
+            Util.doRestart(mContext);
+        }
     }
 
     public void setTapMove(int mPosition){

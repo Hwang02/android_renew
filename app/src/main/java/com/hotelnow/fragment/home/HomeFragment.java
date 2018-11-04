@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.activity.CalendarActivity;
+import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.adapter.PrivateDealAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
@@ -184,6 +185,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getObject() {
+        MainActivity.showProgress();
         String url = CONFIG.mainHome;
 
         Api.get(url, new Api.HttpCallback() {
@@ -354,7 +356,7 @@ public class HomeFragment extends Fragment {
                     objects.add(mDefaultItem.get(0));
 
                     adapter.notifyDataSetChanged();
-
+                    MainActivity.hideProgress();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

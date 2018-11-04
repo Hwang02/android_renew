@@ -28,13 +28,13 @@ import com.hotelnow.adapter.MapHotelAdapter;
 import com.hotelnow.utils.GlobalUtils;
 import com.hotelnow.utils.LogUtil;
 import com.thebrownarrow.customstyledmap.CustomMap;
-import com.thebrownarrow.model.MyLocation;
+import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.ArrayList;
 
 public class MapAcvitityActivity extends AppCompatActivity {
 
-    private ArrayList<MyLocation> latLngsArrayList;
+    private ArrayList<SearchResultItem> latLngsArrayList;
 
     private Animation slide_out_down, slide_in_up;
     public static GoogleMap map;
@@ -79,7 +79,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
         //테스트 용
-        latLngsArrayList = GlobalUtils.getLatLongArray();
+        latLngsArrayList = (ArrayList<SearchResultItem>)getIntent().getSerializableExtra("search_data");
 
         slide_out_down = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_out_down);
         slide_in_up = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_in_up);
@@ -122,9 +122,9 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                MyLocation location = latLngsArrayList.get(position);
+                SearchResultItem location = latLngsArrayList.get(position);
                 Point mappoint = map.getProjection().toScreenLocation(
-                        new LatLng(location.getLatitude(), location.getLongitude()));
+                        new LatLng(location.getLatitude(), location.getLonguitude()));
                 mappoint.set(mappoint.x, mappoint.y - 30);
                 map.animateCamera(CameraUpdateFactory.newLatLng(map.getProjection().fromScreenLocation(mappoint)));
 

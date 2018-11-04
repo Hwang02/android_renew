@@ -11,11 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.MyCouponActivity;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.CouponEntry;
-import com.hotelnow.fragment.model.SearchResultStayItem;
+import com.hotelnow.fragment.search.HotelSearchFragment;
 import com.koushikdutta.ion.Ion;
+import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.List;
 
@@ -23,17 +22,19 @@ import java.util.List;
  * Created by susia on 15. 12. 10..
  */
 
-public class SearchResultStayAdapter extends ArrayAdapter<SearchResultStayItem> {
+public class SearchResultStayAdapter extends ArrayAdapter<SearchResultItem> {
     Context mContext;
     String hotels = "";
     DialogAlert dialogAlert;
-    List<SearchResultStayItem> mlist;
+    List<SearchResultItem> mlist;
+    HotelSearchFragment hsf;
 
-    public SearchResultStayAdapter(Context context, int textViewResourceId, List<SearchResultStayItem> objects) {
+    public SearchResultStayAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, HotelSearchFragment hsf) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
+        this.hsf = hsf;
     }
 
     @Override
@@ -52,7 +53,7 @@ public class SearchResultStayAdapter extends ArrayAdapter<SearchResultStayItem> 
             v.setTag(R.id.id_holder, holder);
         }
 
-        final SearchResultStayItem entry = getItem(position);
+        final SearchResultItem entry = getItem(position);
 
         holder.hotel_name.setText(entry.getName());
         holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
@@ -116,6 +117,10 @@ public class SearchResultStayAdapter extends ArrayAdapter<SearchResultStayItem> 
         else{
             holder.special_msg.setVisibility(View.VISIBLE);
             holder.tv_special.setText(entry.getSpecial_msg());
+        }
+
+        if(position == mlist.size()-2){
+            hsf.getSearch();
         }
 
         return v;

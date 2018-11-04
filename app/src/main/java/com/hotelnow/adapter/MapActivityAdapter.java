@@ -10,16 +10,16 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.utils.LogUtil;
-import com.thebrownarrow.model.MyLocation;
+import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.ArrayList;
 
 public class MapActivityAdapter extends PagerAdapter {
 
-    ArrayList<MyLocation> arr_LocationList;
+    ArrayList<SearchResultItem> arr_LocationList;
     Context context;
 
-    public MapActivityAdapter(Context context, ArrayList<MyLocation> arr_ExploreList) {
+    public MapActivityAdapter(Context context, ArrayList<SearchResultItem> arr_ExploreList) {
         this.context = context;
         this.arr_LocationList = arr_ExploreList;
     }
@@ -47,7 +47,7 @@ public class MapActivityAdapter extends PagerAdapter {
         LinearLayout main_board = (LinearLayout) itemView.findViewById(R.id.main_board);
         TextView tv_name = (TextView) itemView.findViewById(R.id.hotel_name);
 
-        tv_name.setText("Location:" + (position + 1) +"\n" + arr_LocationList.get(position).getLatitude()+"\n" + arr_LocationList.get(position).getLongitude());
+        tv_name.setText("Location:" + (position + 1) +"\n" + arr_LocationList.get(position).getLatitude()+"\n" + arr_LocationList.get(position).getLonguitude());
 
         if(arr_LocationList.get(position).isIsfocus()){
             main_board.setBackgroundResource(R.drawable.style_round_map_activity_item);

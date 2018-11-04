@@ -1,15 +1,19 @@
-package com.hotelnow.fragment.model;
+package com.thebrownarrow.model;
 
-public class SearchResultStayItem {
+import java.io.Serializable;
 
-    private String id, hotel_id, name, address, category, street1, street2, latitude, longuitude, privateDealYN, landscape, sale_price,
+public class SearchResultItem implements Serializable {
+
+    private String id, hotel_id, name, address, category, street1, street2, privateDealYN, landscape, sale_price,
     normal_price, sale_rate, special_msg, review_score, grade_score, real_grade_score, distance, distance_real, normal_price_avg,
             city, is_private_deal, is_hot_deal, is_add_reserve;
     private int items_quantity, coupon_count;
+    private double latitude, longuitude;
+    private boolean isfocus = false;
 
-    public SearchResultStayItem(String id, String hotel_id, String name, String address, String category, String street1, String street2, String latitude, String longuitude, String privateDealYN, String landscape, String sale_price,
-                                String normal_price, String sale_rate, int items_quantity, String special_msg, String review_score, String grade_score, String real_grade_score, String distance, String distance_real, String normal_price_avg,
-                                String city, String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count )
+    public SearchResultItem(String id, String hotel_id, String name, String address, String category, String street1, String street2, double latitude, double longuitude, String privateDealYN, String landscape, String sale_price,
+                            String normal_price, String sale_rate, int items_quantity, String special_msg, String review_score, String grade_score, String real_grade_score, String distance, String distance_real, String normal_price_avg,
+                            String city, String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count, boolean isfocus)
     {
         this.id = id;
         this.hotel_id =  hotel_id;
@@ -38,6 +42,15 @@ public class SearchResultStayItem {
         this.is_hot_deal = is_hot_deal;
         this.is_add_reserve = is_add_reserve;
         this.coupon_count = coupon_count;
+        this.isfocus = isfocus;
+    }
+
+    public boolean isIsfocus() {
+        return isfocus;
+    }
+
+    public void setIsfocus(boolean isfocus) {
+        this.isfocus = isfocus;
     }
 
     public String getId() {
@@ -96,19 +109,19 @@ public class SearchResultStayItem {
         this.street2 = street2;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLonguitude() {
+    public double getLonguitude() {
         return longuitude;
     }
 
-    public void setLonguitude(String longuitude) {
+    public void setLonguitude(double longuitude) {
         this.longuitude = longuitude;
     }
 

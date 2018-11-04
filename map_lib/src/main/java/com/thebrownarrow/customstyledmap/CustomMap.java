@@ -3,19 +3,15 @@ package com.thebrownarrow.customstyledmap;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.thebrownarrow.model.MyLocation;
+import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.ArrayList;
 
@@ -26,7 +22,7 @@ import java.util.ArrayList;
 public class CustomMap {
     private GoogleMap googleMap;
     private Context mContext;
-    private ArrayList<MyLocation> latLngsArrayList;
+    private ArrayList<SearchResultItem> latLngsArrayList;
     private int height = 72;
     private int width = 72;
     private int m_height = 90;
@@ -37,7 +33,7 @@ public class CustomMap {
     private Bitmap sel_smallMarker = null;
     private boolean ishotel = true;
 
-    public CustomMap(GoogleMap googleMap, ArrayList<MyLocation> latLng, Context context, boolean ishotel) {
+    public CustomMap(GoogleMap googleMap, ArrayList<SearchResultItem> latLng, Context context, boolean ishotel) {
         this.googleMap = googleMap;
         this.mContext = context;
         this.latLngsArrayList = latLng;
@@ -67,7 +63,7 @@ public class CustomMap {
     private static boolean isZooming = false;
     private static boolean isZoomingOut = false;
 
-    public void addPin(MyLocation myLocation, int position) {
+    public void addPin(SearchResultItem myLocation, int position) {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -79,7 +75,7 @@ public class CustomMap {
             return;
         }
 
-        LatLng locationPoint = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+        LatLng locationPoint = new LatLng(myLocation.getLatitude(), myLocation.getLonguitude());
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(locationPoint));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
@@ -97,8 +93,8 @@ public class CustomMap {
                 .setTag(position);
     }
 
-    private void addMarkerSelectedPin(MyLocation mLocation, int position, int selectedPosition) {
-        LatLng locationPoint = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+    private void addMarkerSelectedPin(SearchResultItem mLocation, int position, int selectedPosition) {
+        LatLng locationPoint = new LatLng(mLocation.getLatitude(), mLocation.getLonguitude());
 //        map.moveCamera(CameraUpdateFactory.newLatLng(locationPoint));
 
         if (position == selectedPosition) {

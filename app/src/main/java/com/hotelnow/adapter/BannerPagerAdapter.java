@@ -42,6 +42,10 @@ public class BannerPagerAdapter extends PagerAdapter {
 
     }
 
+    public int getItemCount() {
+        return data == null ? 0 : data.size();
+    }
+
     @Override
     public int getCount() {
         return Integer.MAX_VALUE;

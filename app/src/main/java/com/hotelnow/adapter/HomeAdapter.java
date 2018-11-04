@@ -2,6 +2,7 @@ package com.hotelnow.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,13 +34,14 @@ import com.hotelnow.utils.ViewPagerCustom;
 import com.hotelnow.utils.RecyclerItemClickListener;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private List<Object> items;
     private HomeFragment mHf;
-    private LayoutInflater inflater;
     private final int FOOTER = 0; // 하단
     private final int BANNER =1; // viewpager
     private final int KEYWORD = 2; // 키워드 horizontal
@@ -51,15 +53,24 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int SPECIAL = 8; // 변경되는 프로모션 vertical
     private final int PRIVATEDEAL = 9; // 프라이빗딜
     private DbOpenHelper dbHelper;
-    private RecentAdapter recentAdapter;
-    private PrivateDealAdapter privateAdapter;
+    private RecentAdapter recentAdapter = null;
+    private PrivateDealAdapter privateAdapter = null;
+    private BannerPagerAdapter bannerAdapter = null;
+    private FooterAdapter footAdapter = null;
+    private ThemeSpecialAdapter themeSAdapter = null;
+    private ThemeAdapter themeAdapter = null;
+    private ActivityHotDealAdapter acitivityAdapter = null;
+    private KeyWordAdapter keyAdapter = null;
+    private HotelHotDealAdapter hotelAdapter = null;
+    private SubBannerPagerAdapter subbAdapter = null;
+    private LayoutInflater inflater;
 
     public HomeAdapter(Context context, HomeFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
         this.items = items;
         this.mHf = hf;
-        inflater = LayoutInflater.from(context);
         this.dbHelper = dbHelper;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -153,79 +164,98 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void setRecentView(HorizontalViewHolder holder, int type){
-        recentAdapter = new RecentAdapter(mHf.getRecentListItem());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(recentAdapter);
+        if(recentAdapter == null) {
+            recentAdapter = new RecentAdapter(mHf.getRecentListItem());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(recentAdapter);
+        }
     }
 
     private void setBottomView(FooterViewHolder holder, int type){
-        FooterAdapter adapter = new FooterAdapter(mHf.getDefaultItem(), mHf.getRecyclerView());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(adapter);
+        if(footAdapter == null) {
+            footAdapter = new FooterAdapter(mHf.getDefaultItem(), mHf.getRecyclerView());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            holder.recyclerView.setAdapter(footAdapter);
+        }
     }
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
-        ThemeSpecialAdapter adapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(adapter);
+        if(themeSAdapter == null) {
+            themeSAdapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            holder.recyclerView.setAdapter(themeSAdapter);
+        }
     }
 
     private void setThemeView(HorizontalThemeViewHolder holder, int type) {
-        ThemeAdapter adapter = new ThemeAdapter(mHf.getThemeData());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(adapter);
-
+        if(themeAdapter == null) {
+            themeAdapter = new ThemeAdapter(mHf.getThemeData());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(themeAdapter);
+        }
     }
 
     private void setHotelHotDealView(HorizontalViewHolder holder, int type) {
-        HotelHotDealAdapter adapter = new HotelHotDealAdapter(mHf.getHotelData());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(adapter);
-
+        if(hotelAdapter == null) {
+            hotelAdapter = new HotelHotDealAdapter(mHf.getHotelData());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(hotelAdapter);
+        }
     }
 
     private void setKeyWordView(HorizontalViewHolder holder, int type) {
-        KeyWordAdapter adapter = new KeyWordAdapter(mHf.getKeywordData(), context);
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(adapter);
-        holder.recyclerView.setBackgroundResource(R.color.footerview);
-        holder.main_view.setBackgroundResource(R.color.footerview);
+        if(keyAdapter == null) {
+            keyAdapter = new KeyWordAdapter(mHf.getKeywordData(), context);
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(keyAdapter);
+            holder.recyclerView.setBackgroundResource(R.color.footerview);
+            holder.main_view.setBackgroundResource(R.color.footerview);
+        }
     }
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
-        ActivityHotDealAdapter adapter = new ActivityHotDealAdapter(mHf.getActivityData());
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(adapter);
+        if(acitivityAdapter == null) {
+            acitivityAdapter = new ActivityHotDealAdapter(mHf.getActivityData());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(acitivityAdapter);
+        }
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        BannerPagerAdapter adapter = new BannerPagerAdapter(context, mHf.getPbannerData());
-        holder.autoViewPager.setAdapter(adapter); //Auto Viewpager에 Adapter 장착
-        holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
-        holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
-            }
-        });
+        if(bannerAdapter == null) {
+            bannerAdapter = new BannerPagerAdapter(context, mHf.getPbannerData());
+            holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
+            holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+            holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+            });
+            holder.autoViewPager.startAutoScroll();
+        }
     }
 
     private void BannerSubView(final BannerViewHolder holder, int type) {
-        SubBannerPagerAdapter adapter = new SubBannerPagerAdapter(context, mHf.getEbannerData());
-        holder.autoViewPager.setAdapter(adapter); //Auto Viewpager에 Adapter 장착
-        holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
-        holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
-            }
-        });
+        if(subbAdapter == null) {
+            subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData());
+            holder.autoViewPager.setAdapter(subbAdapter); //Auto Viewpager에 Adapter 장착
+            holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+            holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+            });
+        }
     }
 
     private void setPrivateDealView(HorizontalViewHolder holder, int type) {
-        privateAdapter = new PrivateDealAdapter(mHf.getPrivateDealItem(), mHf, dbHelper);
-        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(privateAdapter);
+        if(privateAdapter == null) {
+            privateAdapter = new PrivateDealAdapter(mHf.getPrivateDealItem(), mHf, dbHelper);
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(privateAdapter);
+        }
     }
 
     public void refreshRecent(){
@@ -233,7 +263,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recentAdapter.notifyDataSetChanged();
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -245,6 +274,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
        return count;
     }
+
+
 
     @Override
     public int getItemViewType(int position) {
@@ -381,7 +412,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         BannerViewHolder(View itemView, int page) {
             super(itemView);
-            autoViewPager = (ViewPagerCustom)itemView.findViewById(R.id.autoViewPager);
+            autoViewPager = (ViewPagerCustom) itemView.findViewById(R.id.autoViewPager);
         }
     }
 

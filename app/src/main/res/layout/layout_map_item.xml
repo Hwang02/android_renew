@@ -29,6 +29,7 @@
                 android:scaleType="fitXY" />
 
             <TextView
+                android:id="@+id/tv_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
@@ -43,6 +44,7 @@
                 android:layout_marginLeft="3dp" />
 
             <TextView
+                android:id="@+id/tv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -68,6 +70,7 @@
             android:orientation="horizontal">
             
             <TextView
+                android:id="@+id/tv_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="48%↓"
@@ -75,6 +78,7 @@
                 android:textColor="@color/redtext"/>
 
             <TextView
+                android:id="@+id/tv_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="15,900"
@@ -85,12 +89,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="원~"
+                android:text="원~"
                 android:textSize="11dp"
                 android:textColor="@color/blacktxt"/>
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/img_hotel"
             android:layout_width="196dp"
             android:layout_height="90dp"
             android:scaleType="fitXY"

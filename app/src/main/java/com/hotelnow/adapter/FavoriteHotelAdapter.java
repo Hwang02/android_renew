@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.FavoriteStayItem;
-import com.hotelnow.fragment.model.SearchResultStayItem;
 import com.koushikdutta.ion.Ion;
 
 import java.util.List;

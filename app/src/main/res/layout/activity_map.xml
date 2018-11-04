@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <android.support.v4.view.ViewPager
+        <com.hotelnow.utils.SmoothPager
             android:id="@+id/event_pager"
             android:layout_width="match_parent"
             android:layout_height="181dp"
@@ -90,6 +90,7 @@
             android:layout_alignParentBottom="true" />
 
         <LinearLayout
+            android:id="@+id/ll_count"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:background="@color/purple"
@@ -98,6 +99,7 @@
             android:layout_above="@id/event_pager">
 
             <TextView
+                android:id="@+id/total_item"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 tools:text="총 42개의 숙소"
