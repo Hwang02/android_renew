@@ -1,8 +1,10 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +33,7 @@ public class AreaHotelActivity extends Activity {
     private AreaSelectAdapter mSelectAdapter;
     private AreaResultAdapter mResultAdapter;
     private LinearLayout month_list;
+    private String strdate, strdate2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +56,10 @@ public class AreaHotelActivity extends Activity {
         result_view = (ListView) findViewById(R.id.result_view);
         result_view.setAdapter(mResultAdapter);
         // end resultview
+
+        // 홈 - 호텔 진입시
+        strdate = getIntent().getStringExtra("ec_date");
+        strdate2 = getIntent().getStringExtra("ee_date");
 
         // 최근 본 지역
         month_list = (LinearLayout) findViewById(R.id.month_list);
@@ -88,7 +95,16 @@ public class AreaHotelActivity extends Activity {
                 String subCityKo = mSubCity.get(position).getSubcity_ko();
                 String option = "H";
                 dbHelper.insertRecentCity(cityCode, cityKo, subCityCode, subCityKo, option);
-//                getMonthList();
+
+                Intent intent  = new Intent();
+                intent.putExtra("city", mSubCity.get(position).getSubcity_ko());
+                intent.putExtra("city_code", mCity.get(tabPostion).getCity_code());
+                intent.putExtra("subcity_code", mSubCity.get(position).getSubcity_code());
+                intent.putExtra("ec_date", TextUtils.isEmpty(strdate) ? "" : strdate);
+                intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
+                setResult(80,intent);
+                finish();
+
                 // 검색페이지 이동
             }
         });

@@ -39,8 +39,10 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:textSize="13dp"
-            android:background="@color/white"
-            android:textColor="@color/blacktxt"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
             tools:text="L7 홍대 바이 롯데" />
 
         <LinearLayout
@@ -56,8 +58,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_gravity="left|bottom"
                 android:textSize="14dp"
-                android:background="@color/white"
-                android:textColor="@color/blacktxt"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
                 tools:text="205,700" />
 
             <TextView
@@ -65,10 +67,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|bottom"
                 android:layout_marginLeft="2dp"
-                android:textSize="8dp"
-                android:background="@color/white"
-                android:textColor="@color/blacktxt"
-                tools:text="원 ~" />
+                android:layout_marginTop="2dp"
+                android:textSize="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:text="원 ~" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -9,25 +9,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.PrivateDealActivity;
 import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.ActivityHotDealItem;
+import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
 
-public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.MyViewHolder> {
+public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHotelAdapter.MyViewHolder> {
 
     private ArrayList<PrivateDealItem> data = new ArrayList<>();
-    private HomeFragment hf;
+    private HotelFragment hf;
     private DbOpenHelper dbHelper;
 
-    public PrivateDealAdapter(ArrayList<PrivateDealItem> data, HomeFragment hf, DbOpenHelper dbHelper) {
+    public PrivateDealHotelAdapter(ArrayList<PrivateDealItem> data, HotelFragment hf, DbOpenHelper dbHelper) {
         this.data = data;
         this.hf = hf;
         this.dbHelper = dbHelper;
@@ -43,23 +41,10 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         holder.tv_catagory.setText(data.get(position).getCategory());
-        holder.tv_score.setText(data.get(position).getGrade_score());
+//        holder.tv_score.setText(data.get(position).get());
         holder.tv_hotelname.setText(data.get(position).getName());
-        holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
+        holder.tv_price.setText(data.get(position).getSale_rate());
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
-
-        if(data.get(position).getIs_hot_deal().equals("Y")){
-            holder.soon_discount.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.soon_discount.setVisibility(View.GONE);
-        }
-        if(data.get(position).getIs_add_reserve().equals("Y")){
-            holder.soon_point.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.soon_point.setVisibility(View.GONE);
-        }
         if(data.get(position).isIslike()) {
             holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
         }
@@ -71,7 +56,7 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
             @Override
             public void onClick(View v) {
                 LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setPrivateLike((int)v.getTag(), data.get((int)v.getTag()).isIslike(), PrivateDealAdapter.this);
+                hf.setPrivateLike((int)v.getTag(), data.get((int)v.getTag()).isIslike(), PrivateDealHotelAdapter.this);
             }
         });
         holder.sel_item.setTag(position);
@@ -80,12 +65,12 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
             public void onClick(View v) {
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
                 dbHelper.insertRecentItem(hf.getPrivateDealItem().get((int)v.getTag()).getId(), "H");
-                if(hf.getRecentListItem().size()>0) {
-                    hf.getRecentData(false);
-                }
-                else{
-                    hf.getRecentData(true);
-                }
+//                if(hf.getRecentListItem().size()>0) {
+//                    hf.getRecentData(false);
+//                }
+//                else{
+//                    hf.getRecentData(true);
+//                }
             }
         });
     }
@@ -97,7 +82,7 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price;
-        ImageView iv_image, btn_favorite, soon_discount, soon_point;
+        ImageView iv_image, btn_favorite;
         LinearLayout sel_item;
 
         public MyViewHolder(View itemView) {
@@ -109,8 +94,6 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
             iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
             btn_favorite = (ImageView) itemView.findViewById(R.id.btn_favorite);
-            soon_discount = (ImageView) itemView.findViewById(R.id.soon_discount);
-            soon_point = (ImageView) itemView.findViewById(R.id.soon_point);
         }
     }
 }

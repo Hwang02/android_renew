@@ -239,7 +239,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_below="@id/ll_before"
-                android:layout_marginTop="26dp">
+                android:visibility="gone">
                 <!--호텔 리스트 -->
                 <TextView
                     android:id="@+id/tv_hotel_title"
@@ -266,7 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/back_line"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
                 <!--호텔 리스트 -->
                 <TextView

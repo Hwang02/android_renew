@@ -395,6 +395,18 @@ public class Util {
         return wdt;
     }
 
+    public static String formatchange6(String dt){
+        String wdt = "";
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd", Locale.KOREAN);
+            Date to = formatter.parse(dt);
+            wdt = formatter2.format(to);
+        } catch (Exception e){}
+
+        return wdt;
+    }
+
 //    public static String todayFormat(){
 //        String mDay = "";
 //        try {
@@ -461,6 +473,27 @@ public class Util {
     // 날짜 차 계산
     public static long diffOfDate(String begin, String end) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",Locale.KOREAN);
+
+        Date beginDate;
+        Date endDate;
+        long diff;
+        long diffDays = 0;
+
+        try {
+            beginDate = formatter.parse(begin);
+            endDate = formatter.parse(end);
+            diff = endDate.getTime() - beginDate.getTime();
+            diffDays = diff / (24 * 60 * 60 * 1000);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return diffDays;
+    }
+
+    // 날짜 차 계산
+    public static long diffOfDate2(String begin, String end) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.KOREAN);
 
         Date beginDate;
         Date endDate;
@@ -888,7 +921,7 @@ public class Util {
     public static void setStatusColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.header_dark));
+            activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.purple));
         }
     }
 

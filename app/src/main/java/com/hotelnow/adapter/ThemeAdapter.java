@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.fragment.model.ThemeItem;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
 //        holder.tv_catagory.setText(data.get(position).getCategory());
 //        holder.tv_score.setText(data.get(position).getGrade_score());
         holder.tv_hotelname.setText(data.get(position).getName());
-//        holder.tv_price.setText(data.get(position).getSale_price());
+        holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
     }
 

@@ -192,6 +192,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                MainActivity.hideProgress();
             }
 
             @Override
@@ -276,7 +277,11 @@ public class HomeFragment extends Fragment {
                                         mPrivate.getJSONObject(i).getString("review_score"),
                                         mPrivate.getJSONObject(i).getString("grade_score"),
                                         mPrivate.getJSONObject(i).getString("sale_rate"),
-                                        mFavoriteStayItem.size() > 0 && Arrays.asList(FavoriteStayList).contains(mPrivate.getJSONObject(i).getString("id")) ? true : false
+                                        mFavoriteStayItem.size() > 0 && Arrays.asList(FavoriteStayList).contains(mPrivate.getJSONObject(i).getString("id")) ? true : false,
+                                        mPrivate.getJSONObject(i).getString("sale_price"),
+                                        mPrivate.getJSONObject(i).getString("normal_price"),
+                                        mPrivate.getJSONObject(i).getString("is_hot_deal"),
+                                        mPrivate.getJSONObject(i).getString("is_add_reserve")
                                 ));
                             }
                             objects.add(mPrivatedealItem.get(0));
@@ -326,7 +331,10 @@ public class HomeFragment extends Fragment {
                                         mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
                                         mTheme.getString("id"),
                                         mItems.getJSONObject(i).has("wo") ? mItems.getJSONObject(i).getString("wo") : "",
-                                        ""
+                                        mTheme.getString("theme_color"),
+                                        mTheme.getString("title"),
+                                        mItems.getJSONObject(i).getString("sale_price"),
+                                        mItems.getJSONObject(i).getString("normal_price")
                                 ));
                             }
                             objects.add(mThemeItem.get(0));
@@ -359,6 +367,7 @@ public class HomeFragment extends Fragment {
                     MainActivity.hideProgress();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    MainActivity.hideProgress();
                 }
             }
         });

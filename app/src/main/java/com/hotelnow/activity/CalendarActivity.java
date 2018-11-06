@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -43,6 +44,7 @@ public class CalendarActivity extends Activity{
     private Date fir_cancelday = null;
     private int select_cnt = 1;
     private String lodge_type;
+    private String city, city_code, subcity_code;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +73,11 @@ public class CalendarActivity extends Activity{
         String strdate2 = intent.getStringExtra("ee_date");
         selectList = intent.getStringArrayExtra("selectList");
         lodge_type = intent.getStringExtra("lodge_type");
+
+        //홈 - 호텔 page에서 진입시
+        city = intent.getStringExtra("city");
+        city_code = intent.getStringExtra("city_code");
+        subcity_code = intent.getStringExtra("subcity_code");
 
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
@@ -214,6 +221,9 @@ public class CalendarActivity extends Activity{
                 Intent intent = new Intent();
                 intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
                 intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
+                intent.putExtra("city", TextUtils.isEmpty(city) ? "" : city);
+                intent.putExtra("city_code", TextUtils.isEmpty(city_code) ? "" : city_code);
+                intent.putExtra("subcity_code", TextUtils.isEmpty(subcity_code) ? "" : subcity_code);
                 setResult(80, intent);
                 finish();
             }

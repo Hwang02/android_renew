@@ -2,8 +2,11 @@ package com.hotelnow.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
@@ -32,7 +35,7 @@ public class MainActivity extends FragmentActivity {
     private final int HOTELPAGE = 5;
     private final int LEISUREPAGE = 6;
     private static Context mContext;
-
+    private SharedPreferences _preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class MainActivity extends FragmentActivity {
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
+        // preference
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         // 하단 탭 버튼 동작 제거
         mbinding.navigation.enableAnimation(false);
         mbinding.navigation.enableShiftingMode(false);
@@ -61,7 +67,7 @@ public class MainActivity extends FragmentActivity {
         });
 
         //상단 toolbar
-//        mbinding.layoutSearch.txtSearch.setText("dkdkdkdkdkdkdkdkk");
+        setTitle();
 
         //상단 탭 화면 이동
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -71,17 +77,17 @@ public class MainActivity extends FragmentActivity {
                 switch (tab.getPosition()){
                     case 0:{ // 추천
                         LogUtil.e("xxxxx","111111");
-                        setTapMove(SELECTPAGE);
+                        setTapMove(SELECTPAGE, false);
                         break;
                     }
                     case 1:{ // 호텔
                         LogUtil.e("xxxxx","222222");
-                        setTapMove(HOTELPAGE);
+                        setTapMove(HOTELPAGE, false);
                         break;
                     }
                     case 2:{ // 엑티비티
                         LogUtil.e("xxxxx","33333");
-                        setTapMove(LEISUREPAGE);
+                        setTapMove(LEISUREPAGE, false);
                         break;
                     }
                 }
@@ -118,27 +124,26 @@ public class MainActivity extends FragmentActivity {
                         else if(mbinding.tabLayout.getSelectedTabPosition() == 2){
                             mPosition = LEISUREPAGE;
                         }
-                        setTapMove(mPosition);
-                        mbinding.tabLayout.setVisibility(View.VISIBLE);
+                        setTapMove(mPosition, false);
                         break;
                     }
                     case R.id.fav:{
                         LogUtil.e("xxxxx","666666");
-                        setTapMove(FAVPAGE);
+                        setTapMove(FAVPAGE, false);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.reserv:{
                         LogUtil.e("xxxxx","77777");
-                        setTapMove(RESERVPAGE);
+                        setTapMove(RESERVPAGE, false);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.mypage:{
                         LogUtil.e("xxxxx","888888");
-                        setTapMove(MYPAGE);
+                        setTapMove(MYPAGE, false);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         mbinding.toolbar.setVisibility(View.GONE);
                         break;
@@ -155,7 +160,7 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        setTapMove(SELECTPAGE);
+        setTapMove(SELECTPAGE, false);
     }
 
     public static void showProgress(){ mbinding.wrapper.setVisibility(View.VISIBLE); }
@@ -167,34 +172,48 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    public void setTapMove(int mPosition){
+    public void setTapMove(int mPosition, boolean isMove){
         transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.fadein, R.anim.fadeout);
+//        transaction.setCustomAnimations(R.anim.fadein, R.anim.fadeout);
         switch (mPosition){
             case SELECTPAGE:{
-                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
-                    transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
+                if(isMove) {
+                    new Handler().postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    setHide();
+                                    mbinding.navigation.setCurrentItem(0);
+                                    mbinding.tabLayout.getTabAt(0).select();
+                                }
+                            }, 100);
                 }
-                else{
-                    transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
-                }
+                else {
+                    if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
+                        transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
+                    } else {
+                        transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                    }
 
-                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                    if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    }
+                    transaction.commitAllowingStateLoss();
+                    mbinding.tabLayout.setVisibility(View.VISIBLE);
+                    mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
-                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
-                }
-                transaction.commitAllowingStateLoss();
                 break;
             }
             case FAVPAGE:{
@@ -278,58 +297,111 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case HOTELPAGE:{
-                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
-                    transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
+                if(isMove) {
+                    new Handler().postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    setHide();
+                                    mbinding.navigation.setCurrentItem(0);
+                                    mbinding.tabLayout.getTabAt(1).select();
+                                }
+                            }, 100);
                 }
-                else{
-                    transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
-                }
+                else {
+                    if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
+                        transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
+                    } else {
+                        transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                    }
 
-                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                    if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                    }
+                    transaction.commitAllowingStateLoss();
+                    mbinding.tabLayout.setVisibility(View.VISIBLE);
+                    mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
-                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
-                }
-                transaction.commitAllowingStateLoss();
                 break;
             }
             case LEISUREPAGE:{
-                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
-                    transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
+                if(isMove) {
+                    new Handler().postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    setHide();
+                                    mbinding.navigation.setCurrentItem(0);
+                                    mbinding.tabLayout.getTabAt(2).select();
+                                }
+                            }, 100);
                 }
-                else{
-                    transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
-                }
+                else {
+                    if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
+                        transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
+                    } else {
+                        transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                    }
 
-                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                    if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                        transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                    }
+                    transaction.commitAllowingStateLoss();
+                    mbinding.tabLayout.setVisibility(View.VISIBLE);
+                    mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
-                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
-                }
-                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
-                }
-                transaction.commitAllowingStateLoss();
                 break;
             }
 
         }
+    }
+
+    private void setHide(){
+        if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+            transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+        }
+        if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+            transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+        }
+        if (getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+            transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+        }
+        if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+            transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+        }
+        if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+            transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+        }
+        if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+            transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+        }
+    }
+
+    public void setTitle(){
+        mbinding.layoutSearch.txtSearch.setText( _preferences.getString("username", "나우")+"님, 어떤 여행을 찾고 계세요?");
     }
 }

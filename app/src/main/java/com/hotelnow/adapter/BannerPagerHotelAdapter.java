@@ -5,21 +5,19 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.BannerItem;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
-public class BannerPagerAdapter extends PagerAdapter {
+public class BannerPagerHotelAdapter extends PagerAdapter {
     private Context context;
     private ArrayList<BannerItem> data;
 
-    public BannerPagerAdapter(Context context, ArrayList<BannerItem> data) {
+    public BannerPagerHotelAdapter(Context context, ArrayList<BannerItem> data) {
         this.context = context;
         this.data = data;
     }
@@ -29,7 +27,7 @@ public class BannerPagerAdapter extends PagerAdapter {
 
         //뷰페이지 슬라이딩 할 레이아웃 인플레이션
         int realPos = position % data.size();
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_banner_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_hotel_banner_item, parent, false);
         RoundedImageView image_container = (RoundedImageView) v.findViewById(R.id.image_container);
         Ion.with(image_container).load(data.get(realPos).getImage());
         parent.addView(v);

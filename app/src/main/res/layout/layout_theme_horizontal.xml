@@ -11,6 +11,7 @@
     <!--</data>-->
 
     <LinearLayout
+        android:id="@+id/background_view"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,6 +24,7 @@
             style="@style/TitleText"
             android:layout_marginRight="16dp"
             android:gravity="center"
+            android:textColor="@color/white"
             android:layout_toLeftOf="@id/all_view"
             tools:text="ㅎㅎㅎㅎㅎ"/>
 
@@ -48,12 +50,13 @@
                 android:background="@color/white" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/btn_moreproduct"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:gravity="center">
+                android:layout_gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,7 +69,8 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_marginLeft="4dp"
-                    android:background="@drawable/ico_more_light"/>
+                    android:background="@drawable/ico_more_light"
+                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
 

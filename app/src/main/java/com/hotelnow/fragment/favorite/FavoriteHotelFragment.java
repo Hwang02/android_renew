@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.favorite;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -8,16 +9,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
+import com.hotelnow.activity.LoginActivity;
+import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteHotelAdapter;
 import com.hotelnow.fragment.model.FavoriteStayItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
@@ -39,7 +44,9 @@ public class FavoriteHotelFragment extends Fragment {
     private LinearLayout btn_filter;
     private FavoriteHotelAdapter adapter;
     private View empty;
-
+    private Button btn_go_login;
+    private RelativeLayout main_view;
+    private TextView btn_go_list;
 
     @Nullable
     @Override
@@ -60,9 +67,9 @@ public class FavoriteHotelFragment extends Fragment {
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         adapter = new FavoriteHotelAdapter(getActivity(), 0, mItems);
         mlist.setAdapter(adapter);
-
-        mlist.setEmptyView(getView().findViewById(R.id.empty_view));
-
+        btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
+        main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
+        btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
         authCheck();
     }
 
@@ -92,7 +99,26 @@ public class FavoriteHotelFragment extends Fragment {
                         prefEditor.putString("userid", null);
                         prefEditor.commit();
 
+                        mlist.setEmptyView(getView().findViewById(R.id.login_view));
+                        getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
+                        main_view.setBackgroundResource(R.color.white);
+                        btn_go_login.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                startActivityForResult(intent, 80);
+                            }
+                        });
                     } else {
+                        mlist.setEmptyView(getView().findViewById(R.id.empty_view));
+                        getView().findViewById(R.id.login_view).setVisibility(View.GONE);
+                        main_view.setBackgroundResource(R.color.footerview);
+                        btn_go_list.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ((MainActivity)getActivity()).setTapMove(5, true);
+                            }
+                        });
                         getSearch();
                     }
                 } catch (Exception e) {
@@ -103,6 +129,7 @@ public class FavoriteHotelFragment extends Fragment {
     }
 
     private void getSearch(){
+
         String url = CONFIG.like_list+"?only_id=N&type=stay";
 
         Api.get(url, new Api.HttpCallback() {
@@ -152,5 +179,14 @@ public class FavoriteHotelFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 80){
+            authCheck();
+            ((MainActivity)getActivity()).setTitle();
+        }
     }
 }

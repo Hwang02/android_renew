@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
         tools:context="com.hotelnow.activity.MainActivity"
-        android:background="@color/bg_background">
+        android:background="@color/white">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -44,7 +44,7 @@
                 app:tabSelectedTextColor="@color/purple"
                 app:tabIndicatorColor="@color/purple"
                 app:tabMode="fixed"
-                app:tabGravity="fill" />
+                android:elevation="0dp"/>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:background="@color/bg_background"/>
+            android:background="@color/footerview"/>
 
         <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
             android:id="@+id/navigation"
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             android:clickable="true"
-            android:background="@color/loading_alpha_bg">
+            android:background="@color/footerview">
 
             <com.wang.avi.AVLoadingIndicatorView
                 android:id="@+id/loading_indicator"

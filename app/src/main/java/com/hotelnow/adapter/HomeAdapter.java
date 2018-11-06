@@ -2,6 +2,7 @@ package com.hotelnow.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -159,7 +160,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case PRIVATEDEAL:
                 setPrivateDealView((HorizontalViewHolder) holder, holder.getItemViewType());
                 break;
-
         }
     }
 
@@ -192,6 +192,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             themeAdapter = new ThemeAdapter(mHf.getThemeData());
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(themeAdapter);
+            holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));
+            holder.mTitle.setText(mHf.getThemeData().get(0).getMain_title());
         }
     }
 
@@ -364,27 +366,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         RecyclerView recyclerView;
         TextView mTitle;
+        LinearLayout background_view;
 
         HorizontalThemeViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
+            background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
 
-            setTitle(mTitle, page);
-
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
-
-            }));
         }
     }
 
@@ -474,9 +463,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     SpannableStringBuilder builder2 = new SpannableStringBuilder(context.getResources().getText(R.string.hotdeal_activity));
                     builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.activitytxt)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     title.append(builder2);
-                    break;
-                case PROMOTION:
-                    title.setText("제목 받아서");
                     break;
                 case SPECIAL:
                     title.setText("특별한 여행 제안");
