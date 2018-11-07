@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:id="@+id/main_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/footerview">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <com.hotelnow.utils.NonScrollListView
+                android:id="@+id/h_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:listSelector="@android:color/transparent">
+            </com.hotelnow.utils.NonScrollListView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/empty_view"
+        layout="@layout/layout_reservation_empty"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="131dp"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/login_view"
+        layout="@layout/layout_reservation_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        android:visibility="gone"/>
+</RelativeLayout>

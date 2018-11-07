@@ -217,7 +217,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
         if(acitivityAdapter == null) {
-            acitivityAdapter = new ActivityHotDealAdapter(mHf.getActivityData());
+            acitivityAdapter = new ActivityHotDealAdapter(mHf.getActivityData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
         }

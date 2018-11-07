@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.hotelnow.R;
 import com.hotelnow.activity.LoginActivity;
+import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.MyCardActivity;
 import com.hotelnow.activity.MyCouponActivity;
 import com.hotelnow.activity.MySaveActivity;
@@ -280,6 +281,8 @@ public class MypageFragment extends Fragment {
                                             prefEditor.putString("moreinfo", moreinfo);
                                             prefEditor.putString("utype", null);
                                             prefEditor.commit();
+
+                                            ((MainActivity)getActivity()).setTitle();
 
                                             try{
                                                 LoginManager.getInstance().logOut();

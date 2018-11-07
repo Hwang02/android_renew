@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.home.HomeFragment;
+import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
-import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
@@ -19,15 +19,15 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDealAdapter.MyViewHolder> {
+public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<ActivityHotDealLeisureAdapter.MyViewHolder> {
 
     private ArrayList<ActivityHotDealItem> data = new ArrayList<>();
-    private HomeFragment hf;
+    private LeisureFragment lf;
     private DbOpenHelper dbHelper;
 
-    public ActivityHotDealAdapter(ArrayList<ActivityHotDealItem> data, HomeFragment hf, DbOpenHelper dbHelper) {
+    public ActivityHotDealLeisureAdapter(ArrayList<ActivityHotDealItem> data, LeisureFragment lf, DbOpenHelper dbHelper) {
         this.data = data;
-        this.hf = hf;
+        this.lf = lf;
         this.dbHelper = dbHelper;
     }
 
@@ -71,7 +71,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
             @Override
             public void onClick(View v) {
                 LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setActivityLike((int)v.getTag(), data.get((int)v.getTag()).isIslike(), ActivityHotDealAdapter.this);
+                lf.setActivityLike((int)v.getTag(), data.get((int)v.getTag()).isIslike(), ActivityHotDealLeisureAdapter.this);
             }
         });
 

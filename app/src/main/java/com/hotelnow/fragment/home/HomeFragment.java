@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.MainActivity;
+import com.hotelnow.adapter.ActivityHotDealAdapter;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.adapter.PrivateDealAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
@@ -305,7 +306,10 @@ public class HomeFragment extends Fragment {
                                         mActivity.getJSONObject(i).getString("category_code"),
                                         mActivity.getJSONObject(i).getString("category"),
                                         mActivity.getJSONObject(i).getString("review_score"),
-                                        mActivity.getJSONObject(i).getString("grade_score")
+                                        mActivity.getJSONObject(i).getString("grade_score"),
+                                        mActivity.getJSONObject(i).getString("is_hot_deal"),
+                                        mActivity.getJSONObject(i).getString("is_add_reserve"),
+                                        mFavoriteActivityItem.size() > 0 && Arrays.asList(FavoriteActivityList).contains(mActivity.getJSONObject(i).getString("id")) ? true : false
                                 ));
                             }
                             objects.add(mActivityItem.get(0));
@@ -485,6 +489,68 @@ public class HomeFragment extends Fragment {
                     }catch (JSONException e){
 
                    }
+                }
+            });
+        }
+    }
+
+    public void setActivityLike(final int position, final boolean islike, final ActivityHotDealAdapter adapter){
+        final String sel_id = getActivityData().get(position).getId();
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "activity");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        getActivityData().get(position).setIslike(!islike);
+                        dbHelper.deleteFavoriteTheme(false,  sel_id,"A");
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        getActivityData().get(position).setIslike(!islike);
+                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
                 }
             });
         }

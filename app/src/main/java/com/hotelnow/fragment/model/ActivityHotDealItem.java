@@ -1,9 +1,11 @@
 package com.hotelnow.fragment.model;
 
 public class ActivityHotDealItem {
-    private String id, name, sale_price, sale_rate, latitude, longitude, benefit_text, img_url, location, category_code, category, review_score, grade_score;
+    private String id, name, sale_price, sale_rate, latitude, longitude, benefit_text, img_url, location, category_code, category, review_score, grade_score, is_hot_deal, is_add_reserve;
+    private boolean islike;
 
-    public ActivityHotDealItem(String id, String name, String sale_price, String sale_rate, String latitude, String longitude, String benefit_text, String img_url, String location, String category_code, String category, String review_score, String grade_score) {
+    public ActivityHotDealItem(String id, String name, String sale_price, String sale_rate, String latitude, String longitude, String benefit_text, String img_url, String location,
+                               String category_code, String category, String review_score, String grade_score, String is_hot_deal, String is_add_reserve, boolean islike ) {
         this.id = id;
         this.name = name;
         this.sale_price = sale_price;
@@ -17,6 +19,33 @@ public class ActivityHotDealItem {
         this.category = category;
         this.review_score = review_score;
         this.grade_score = grade_score;
+        this.is_hot_deal = is_hot_deal;
+        this.is_add_reserve = is_add_reserve;
+        this.islike = islike;
+    }
+
+    public boolean isIslike() {
+        return islike;
+    }
+
+    public void setIslike(boolean islike) {
+        this.islike = islike;
+    }
+
+    public String getIs_hot_deal() {
+        return is_hot_deal;
+    }
+
+    public void setIs_hot_deal(String is_hot_deal) {
+        this.is_hot_deal = is_hot_deal;
+    }
+
+    public String getIs_add_reserve() {
+        return is_add_reserve;
+    }
+
+    public void setIs_add_reserve(String is_add_reserve) {
+        this.is_add_reserve = is_add_reserve;
     }
 
     public String getId() {

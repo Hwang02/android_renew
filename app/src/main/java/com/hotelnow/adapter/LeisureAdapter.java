@@ -47,7 +47,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private HeaderLAdapter headerAdapter = null;
     private ThemeSpecialAdapter themeSAdapter = null;
     private ThemeAdapter themeAdapter = null;
-    private ActivityHotDealAdapter acitivityAdapter = null;
+    private ActivityHotDealLeisureAdapter acitivityAdapter = null;
 
     public LeisureAdapter(Context context, LeisureFragment Lf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -187,7 +187,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
         if(acitivityAdapter == null) {
-            acitivityAdapter = new ActivityHotDealAdapter(mLf.getActivityData());
+            acitivityAdapter = new ActivityHotDealLeisureAdapter(mLf.getActivityData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
         }
@@ -343,7 +343,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     title.setText("특별한 여행 제안");
                     break;
                 case HOTDEAL_ACTIVITY:
-                    title.setText("오늘의 엑티비티");
+                    title.setText("오늘의 액티비티");
                     break;
             }
         }

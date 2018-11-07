@@ -62,7 +62,7 @@ public class CONFIG {
     public final static String signoutUrl = domainssl+"/signout";							//	signout
     public final static String passresetUrl = domainssl+"/password/remind";					//	비번 초기화
 
-    public final static String bookingListUrl = domain+"/booking/list";						//	예약리스트 / booking/list/{page}/{per_page}
+    public final static String bookingListUrl = domain+"/api/booking";						//	예약리스트 / booking/list/{page}/{per_page}
     public final static String bookingDetailUrl = domain+"/booking/detail";					//	예약상세 / booking/detail/{booking_id}
     public final static String eventApplyUrl = domain+"/booking/event";						//	이벤트 응모하기
     public final static String bookingHidelUrl = domain+"/booking/hide";	 				//	예약내역 숨김
@@ -74,7 +74,7 @@ public class CONFIG {
     public final static String eventWebUrl = domain+"/popup_event";							//	이벤트 웹 url
 
     public final static String ticketUrl = domain+"/q/deal_list";                           //  티켓리스트
-    public final static String ticket_booking_Url = domain+"/q/booking_list";               //  티켓예약리스트
+    public final static String ticket_booking_Url = domain+"/api/qbooking";                 //  티켓예약리스트
     public final static String ticketbookingSuccessUrl = domain+"/q/booking_confirm";       //  티켓예약완료
     public final static String ticketbookingDetailUrl = domain+"/q/booking_detail";         //  티켓예약상세
     public final static String themeTicketUrl = domain+"/theme/ticket";	 			        //	테마 티켓

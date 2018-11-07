@@ -399,7 +399,7 @@ public class Util {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd", Locale.KOREAN);
+            SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd(EEE)", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
         } catch (Exception e){}

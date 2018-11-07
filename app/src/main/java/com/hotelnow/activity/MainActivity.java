@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
@@ -403,5 +404,15 @@ public class MainActivity extends FragmentActivity {
 
     public void setTitle(){
         mbinding.layoutSearch.txtSearch.setText( _preferences.getString("username", "나우")+"님, 어떤 여행을 찾고 계세요?");
+    }
+
+    public void setTapdelete(String tag){
+        transaction = getSupportFragmentManager().beginTransaction();
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        if(fragment != null)
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        transaction.commitAllowingStateLoss();
     }
 }

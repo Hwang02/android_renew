@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/empty_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/btn_go_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_go"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@color/purple"
+        android:textSize="15dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="24dp"
+        android:layout_above="@+id/btn_go_list">
+        <TextView
+            android:id="@+id/tv_info1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="최근 저장된 상품이 없습니다"
+            android:gravity="center"
+            android:textColor="@color/termtext"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_info2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/graytxt"
+            android:layout_marginTop="5dp"
+            android:padding="1dp"
+            android:text="호텔나우가 추천하는 액티비티를 보러 가시겠어요?"
+            android:textSize="14dp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,8 +1,11 @@
 package com.hotelnow.fragment.reservation;
 
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -10,12 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.LoginActivity;
+import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.adapter.HomeAdapter;
+import com.hotelnow.adapter.ReservationAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.databinding.FragmentReservationBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
+import com.hotelnow.utils.DbOpenHelper;
 
 import java.util.ArrayList;
 
@@ -23,6 +30,9 @@ public class ReservationFragment extends Fragment {
 
     private FragmentReservationBinding mReservationBinding;
     private ArrayList<Object> objects = new ArrayList<>();
+    private ReservationAdapter reservationAdapter;
+    private DbOpenHelper dbHelper;
+    private SharedPreferences _preferences;
 
     @Nullable
     @Override
@@ -33,47 +43,55 @@ public class ReservationFragment extends Fragment {
         mReservationBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_reservation, container, false);
         View inflate = mReservationBinding.getRoot();
 
-//        HomeAdapter adapter = new HomeAdapter(getActivity(), getObject());
-//        mHomeBinding.recyclerView.setAdapter(adapter);
-//        mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         return inflate;
     }
 
-    private ArrayList<Object> getObject() {
-        objects.add(getBannerData().get(0));
-        objects.add(getHorizontalData().get(0));
-        objects.add(getVerticalData().get(0));
-        return objects;
-    }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-    //test용 데이터
-    public static ArrayList<SingleVertical> getVerticalData() {
-        ArrayList<SingleVertical> singleVerticals = new ArrayList<>();
-        singleVerticals.add(new SingleVertical("Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", R.drawable.charlie));
-        singleVerticals.add(new SingleVertical("Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", R.drawable.mrbean));
-        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-        singleVerticals.add(new SingleVertical("Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", R.drawable.jim));
-        return singleVerticals;
-    }
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-    public static ArrayList<SingleHorizontal> getHorizontalData() {
-        ArrayList<SingleHorizontal> singleHorizontals = new ArrayList<>();
-        singleHorizontals.add(new SingleHorizontal(R.drawable.charlie, "Charlie Chaplin", "Sir Charles Spencer \"Charlie\" Chaplin, KBE was an English comic actor,....", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.mrbean, "Mr.Bean", "Mr. Bean is a British sitcom created by Rowan Atkinson and Richard Curtis, and starring Atkinson as the title character.", "2010/2/1"));
-        singleHorizontals.add(new SingleHorizontal(R.drawable.jim, "Jim Carrey", "James Eugene \"Jim\" Carrey is a Canadian-American actor, comedian, impressionist, screenwriter...", "2010/2/1"));
-        return singleHorizontals;
-    }
+        if(_preferences.getString("userid", null) != null) {
+            mReservationBinding.info.setVisibility(View.VISIBLE);
+            mReservationBinding.line.setVisibility(View.VISIBLE);
+        }
+        else{
+            mReservationBinding.info.setVisibility(View.GONE);
+            mReservationBinding.line.setVisibility(View.GONE);
+        }
 
-    public static ArrayList<Banner> getBannerData() {
-        ArrayList<Banner> data = new ArrayList<>(); //이미지 url를 저장하는 arraylist
-        data.add(new Banner("https://upload.wikimedia.org/wikipedia/en/thumb/2/24/SpongeBob_SquarePants_logo.svg/1200px-SpongeBob_SquarePants_logo.svg.png"));
-        data.add(new Banner("http://nick.mtvnimages.com/nick/promos-thumbs/videos/spongebob-squarepants/rainbow-meme-video/spongebob-rainbow-meme-video-16x9.jpg?quality=0.60"));
-        data.add(new Banner("http://nick.mtvnimages.com/nick/video/images/nick/sb-053-16x9.jpg?maxdimension=&quality=0.60"));
-        data.add(new Banner("https://www.gannett-cdn.com/-mm-/60f7e37cc9fdd931c890c156949aafce3b65fd8c/c=243-0-1437-898&r=x408&c=540x405/local/-/media/2017/03/14/USATODAY/USATODAY/636250854246773757-XXX-IMG-WTW-SPONGEBOB01-0105-1-1-NC9J38E8.JPG"));
-        return data;
+        dbHelper = new DbOpenHelper(getActivity());
+        mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("숙소"));
+        mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("액티비티"));
+        mReservationBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+//        if(m_Selecttab == 0) {
+//            tabLayout.getTabAt(0).select();
+//        }
+//        else {
+//            tabLayout.getTabAt(1).select();
+//        }
+
+        reservationAdapter = new ReservationAdapter(getActivity(), getChildFragmentManager());
+        mReservationBinding.viewPager.setAdapter(reservationAdapter);
+
+        mReservationBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mReservationBinding.viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override

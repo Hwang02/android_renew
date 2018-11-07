@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/aid"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/placeholder"/>
+
+    <TextView
+        android:id="@+id/booking_status"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="112dp"
+        android:layout_alignParentRight="true"
+        android:textSize="13dip"
+        android:textColor="@color/white"
+        android:padding="5dp"
+        android:background="@drawable/bg_round_status_book"/>
+
+    <LinearLayout
+        android:id="@+id/info1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_img"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/hotel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/blacktxt"
+            android:textSize="16dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="l7 홍대 바이 롯데"/>
+
+        <TextView
+            android:id="@+id/hotel_reser_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/termtext"
+            android:textSize="14dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="2018-10-20(화) ~ 2018-10-21(수)"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/termtext"
+                android:text="미사용"/>
+
+            <TextView
+                android:id="@+id/not_used_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/activitytxt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="21dp"
+                android:textColor="@color/termtext"
+                android:text="사용"/>
+
+            <TextView
+                android:id="@+id/used_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/blacktxt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="21dp"
+                android:textColor="@color/termtext"
+                android:text="취소"/>
+
+            <TextView
+                android:id="@+id/cancel_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/blacktxt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_review"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:gravity="center"
+            android:background="@drawable/private_round">
+
+            <TextView
+                android:id="@+id/review_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/privateview"
+                android:text="@string/info_review"/>
+
+            <TextView
+                android:id="@+id/review_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/graytxt"
+                android:text="@string/info_review2"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/info1">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="@color/back_line"/>
+    </LinearLayout>
+</RelativeLayout>

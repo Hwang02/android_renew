@@ -8,15 +8,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hotelnow.fragment.favorite.FavoriteActivityFragment;
 import com.hotelnow.fragment.favorite.FavoriteHotelFragment;
-import com.hotelnow.fragment.search.ActivitySearchFragment;
-import com.hotelnow.fragment.search.HotelSearchFragment;
+import com.hotelnow.fragment.reservation.ReservationActivityFragment;
+import com.hotelnow.fragment.reservation.ReservationHotelFragment;
 
-public class FavoriteAdapter extends FragmentPagerAdapter {
+public class ReservationAdapter extends FragmentPagerAdapter {
 
     public Context mContext;
     public String search_txt, banner_id;
 
-    public FavoriteAdapter(Context context, FragmentManager fm) {
+    public ReservationAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }
@@ -27,15 +27,15 @@ public class FavoriteAdapter extends FragmentPagerAdapter {
         //Returning the current tabs
         switch (position){
             case 0:
-                FavoriteHotelFragment favoriteHotelFragment = new FavoriteHotelFragment();
+                ReservationHotelFragment resesrvationHotelFragment = new ReservationHotelFragment();
 //                Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
 //                bundle.putString("search_txt", search_txt); // key , value
 //                bundle.putString("banner_id", banner_id); // key , value
-//                favoriteHotelFragment.setArguments(bundle);
-                return favoriteHotelFragment;
+//                resesrvationHotelFragment.setArguments(bundle);
+                return resesrvationHotelFragment;
             case 1:
-                FavoriteActivityFragment favoriteActivityFragment = new FavoriteActivityFragment();
-                return favoriteActivityFragment;
+                ReservationActivityFragment resesrvationActivityFragment = new ReservationActivityFragment();
+                return resesrvationActivityFragment;
             default:
                 return null;
         }
