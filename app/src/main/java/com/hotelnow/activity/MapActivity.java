@@ -69,8 +69,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private GoogleMap mGoogleMap;
     private String hid;
     private String from = "";
-    private double lat;
-    private double lng;
+    private String lat = "37.506292";
+    private String lng = "127.053612";
     private int zoom;
     private String title;
     private String hotel_name;
@@ -122,12 +122,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
            isTicket = intent.getBooleanExtra("isTicket",false);
             if(isTicket) {
                 title = intent.getStringExtra("deal_name");
-                lat = intent.getDoubleExtra("lat",37.506292);
-                lng = intent.getDoubleExtra("lng",127.053612);
+                lat = intent.getStringExtra("lat") == null ? "37.506292" : intent.getStringExtra("lat");
+                lng = intent.getStringExtra("lng") == null ? "127.053612" : intent.getStringExtra("lng");
                 from = intent.getStringExtra("from");
                 hid = "0";
                 zoom = 12;
-                getActionBar().setTitle(title);
+
                 GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapActivity.this);
 
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.map);
@@ -163,8 +163,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                             JSONArray data = obj.getJSONArray("data");
 
-                            lat = data.getJSONObject(0).getDouble("latitude");
-                            lng = data.getJSONObject(0).getDouble("longuitude");
+                            lat = data.getJSONObject(0).getString("latitude");
+                            lng = data.getJSONObject(0).getString("longuitude");
                             zoom = data.getJSONObject(0).getInt("map_zoom");
                             title = data.getJSONObject(0).getString("name").replace("&amp;", "&");
                             category = data.getJSONObject(0).getString("category");
@@ -244,7 +244,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private void setMainTicketMarker(){
-        LatLng position = new LatLng(lat, lng);
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
         mainIconFactory = new IconGenerator(MapActivity.this);
@@ -264,7 +264,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private void setMainMarker(){
-        LatLng position = new LatLng(lat, lng);
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
 
@@ -515,7 +515,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         } else {
             Toast.makeText(MapActivity.this, getString(R.string.not_support_device), Toast.LENGTH_SHORT).show();
             finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
         }
     }
 
@@ -541,7 +540,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
         super.onBackPressed();
     }
 

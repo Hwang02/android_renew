@@ -558,7 +558,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void initPageMark() {
 
-        m_countView.setText(1+"/"+landscapeImgs.length+"+");
+        m_countView.setText(1+"/"+landscapeImgs.length+" + ");
 
         markPrevPosition = markNowPosition;
     }

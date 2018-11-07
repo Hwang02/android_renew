@@ -58,6 +58,8 @@
         <activity android:name=".activity.AllRoomTypeActivity" />
         <activity android:name=".activity.SearchResultActivity" />
         <activity android:name=".activity.CalendarSingleActivity" android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name=".activity.DetailActivityActivity" />
+        <activity android:name=".activity.FullImageViewActivityActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

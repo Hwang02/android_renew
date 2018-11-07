@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@color/blacktxt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26dp"/>
+
+    <com.luseen.autolinklibrary.AutoLinkTextView
+        android:id="@+id/title_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:autoLink="phone|web"
+        android:textColor="@color/termtext"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="13dp"/>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.detail;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import com.koushikdutta.ion.Ion;
  */
 public class HotelFullImageFragment extends Fragment {
 
-    public static Fragment newInstance(FullImageViewActivity context, int pos, String url) {
+    public static Fragment newInstance(Context context, int pos, String url) {
         Bundle b = new Bundle();
         b.putString("url", url);
         return Fragment.instantiate(context, HotelFullImageFragment.class.getName(), b);

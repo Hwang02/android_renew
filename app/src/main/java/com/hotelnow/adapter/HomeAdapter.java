@@ -112,7 +112,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder = new VerticalViewHolder(view, SPECIAL);
                 break;
             case FOOTER:
-                view = inflater.inflate(R.layout.layout_vertical, parent, false);
+                view = inflater.inflate(R.layout.layout_footer_home_vertical, parent, false);
                 holder = new FooterViewHolder(view, FOOTER);
                 break;
             case PRIVATEDEAL:

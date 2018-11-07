@@ -151,6 +151,7 @@ public class CONFIG {
     public final static String like_list = domain+"/like/list";                             // 찜 - 호텔
     public final static String like_like = domain+"/like/like";                             // 찜 하기 - 호텔
     public final static String like_unlike = domain+"/like/unlike";                         // 찜 취소- 호텔
+    public final static String ticketdetailUrl_v2 = domain+"/activity"; 					//	티켓 상품 상세
 
 
     public static String TAG = "HOTELNOW LOGGING";
