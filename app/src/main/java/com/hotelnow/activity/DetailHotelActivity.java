@@ -285,6 +285,24 @@ public class DetailHotelActivity extends AppCompatActivity {
                     m_img_title = (TextView) findViewById(R.id.img_title);
                     bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
 
+                    if(hotel_data.getString("is_private_deal").equals("Y")){
+                        findViewById(R.id.ico_private).setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        findViewById(R.id.ico_private).setVisibility(View.GONE);
+                    }
+                    if(hotel_data.getString("is_hot_deal").equals("Y")){
+                        findViewById(R.id.ico_hotdeal).setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        findViewById(R.id.ico_hotdeal).setVisibility(View.GONE);
+                    }
+                    if(hotel_data.getString("is_add_reserve").equals("Y")) {
+                        findViewById(R.id.ico_addpoint).setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        findViewById(R.id.ico_addpoint).setVisibility(View.GONE);
+                    }
 
                     // 선택 될 날짜
                     if(ec_date == null && ee_date==null) {
@@ -322,7 +340,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
 
                     //원 금액
-                    tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price")));
+                    tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                     tv_per.setText(hotel_data.getString("sale_rate"));

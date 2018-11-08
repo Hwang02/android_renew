@@ -1,5 +1,6 @@
 package com.hotelnow.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.PrivateDealItem;
@@ -71,6 +73,9 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
 //                else{
 //                    hf.getRecentData(true);
 //                }
+                Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
+                intent.putExtra("hid", data.get((int)v.getTag()).getId()+"");
+                hf.startActivity(intent);
             }
         });
     }

@@ -95,26 +95,22 @@
             android:orientation="horizontal"
             android:layout_marginTop="24dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="11dp"
-                android:background="@drawable/hotdeal_round"
-                android:textColor="@color/hotdealview"
-                android:padding="3dp"
-                android:text="@string/detail_hotdeal_title"/>
+            <ImageView
+                android:id="@+id/ico_hotdeal"
+                android:layout_width="49dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:background="@drawable/tag_benefit_hotdeal" />
 
-            <TextView
-                android:id="@+id/tv_addper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="11dp"
-                android:layout_marginLeft="5dp"
-                android:padding="3dp"
-                android:textColor="@color/addview"
-                android:background="@drawable/add_round"
-                tools:text="@string/detail_add_title"/>
+            <ImageView
+                android:id="@+id/ico_addpoint"
+                android:layout_width="49dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:background="@drawable/tag_benefit_point" />
         </LinearLayout>
 
         <RelativeLayout

@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -201,6 +202,20 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_per = (TextView) findViewById(R.id.tv_per);
                     tv_review_rate = (TextView) findViewById(R.id.tv_review_rate);
                     tv_review_count = (TextView) findViewById(R.id.tv_review_count);
+
+                    if(ticket_data.getString("is_hot_deal").equals("Y")){
+                        findViewById(R.id.ico_hotdeal).setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        findViewById(R.id.ico_hotdeal).setVisibility(View.GONE);
+                    }
+                    if(ticket_data.getString("is_add_reserve").equals("Y")) {
+                        findViewById(R.id.ico_addpoint).setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        findViewById(R.id.ico_addpoint).setVisibility(View.GONE);
+                    }
+
                     //티켓 메인 명
                     //title 명
                     tname = ticket_data.getString("name");
@@ -209,8 +224,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                     mCity = ticket_data.getString("city");
                     tv_hotelname.setText(tname);
                     tv_category.setText(ticket_data.getString("category"));
-                    tv_minprice.setText(ticket_data.getString("sale_price"));
-                    tv_maxprice.setText(ticket_data.getString("normal_price"));
+                    tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
+                    tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
+                    tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     tv_per.setText(ticket_data.getString("sale_rate"));
                     tv_review_rate.setText(review_data.getDouble("avg")+"");
                     setReviewRate(review_data.getDouble("avg"));
