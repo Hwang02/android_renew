@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,6 +31,8 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.ActivityImageFragment;
 import com.hotelnow.fragment.model.TicketInfoEntry;
@@ -47,6 +50,8 @@ import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +91,10 @@ public class DetailActivityActivity extends AppCompatActivity {
     private TextView tv_category, tv_hotelname,
             tv_minprice, tv_maxprice, tv_per, tv_review_rate, tv_review_count,review_message;
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
+    private Button btn_reservation;
+    private DialogAlert dialogAlert;
+    private DialogCoupon dialogCoupon;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -202,6 +211,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_per = (TextView) findViewById(R.id.tv_per);
                     tv_review_rate = (TextView) findViewById(R.id.tv_review_rate);
                     tv_review_count = (TextView) findViewById(R.id.tv_review_count);
+                    btn_reservation = (Button) findViewById(R.id.btn_reservation);
 
                     if(ticket_data.getString("is_hot_deal").equals("Y")){
                         findViewById(R.id.ico_hotdeal).setVisibility(View.VISIBLE);
@@ -303,12 +313,12 @@ public class DetailActivityActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                                        if(sel_list.get((int)v.getTag()).getmCnt() == 0){
+                                                        int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
+                                                        if(cnt == 0){
                                                             item_cnt.setText(0 + "장");
                                                             sel_list.get((int)v.getTag()).setmCnt(0);
                                                             v.setBackgroundResource(R.drawable.numeric_m_disabled);
-                                                        }else {
-                                                            int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
+                                                        }else if(cnt > 0) {
                                                             item_cnt.setText(cnt + "장");
                                                             sel_list.get((int) v.getTag()).setmCnt(cnt);
                                                             plus.setBackgroundResource(R.drawable.numeric_p_enabled);
@@ -321,13 +331,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                                        if(sel_list.get((int)v.getTag()).getmCnt() == 10){
+                                                        int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
+                                                        if(cnt == 10){
                                                             item_cnt.setText(10 + "장");
                                                             sel_list.get((int)v.getTag()).setmCnt(10);
                                                             v.setBackgroundResource(R.drawable.numeric_p_disabled);
                                                         }
-                                                        else {
-                                                            int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
+                                                        else if(cnt < 11){
                                                             item_cnt.setText(cnt + "장");
                                                             sel_list.get((int) v.getTag()).setmCnt(cnt);
                                                             minus.setBackgroundResource(R.drawable.numeric_m_enabled);
@@ -594,6 +604,51 @@ public class DetailActivityActivity extends AppCompatActivity {
                     }
                     //이용 정보
 
+                    btn_reservation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            boolean is_sel = false;
+                            for(int i=0; i<sel_list.size(); i++){
+                                if(sel_list.get(i).getmCnt() != 0){
+                                    is_sel = true;
+                                    break;
+                                }
+                            }
+                            if(is_sel) {
+                                cookie = _preferences.getString("userid", null);
+                                if(cookie != null) {
+                                    Intent intent = new Intent(DetailActivityActivity.this, ReservationActivityActivity.class);
+                                    intent.putExtra("sel_list", (Serializable) sel_list);
+                                    intent.putExtra("tid", tid);
+                                    intent.putExtra("tname", tname);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Intent intent = new Intent(DetailActivityActivity.this, LoginActivity.class);
+                                    intent.putExtra("from", "ticket_reservation");
+                                    intent.putExtra("sel_list", (Serializable) sel_list);
+                                    intent.putExtra("pid", tid);
+                                    intent.putExtra("tname", tname);
+                                    startActivity(intent);
+                                }
+                            }
+                            else{
+                                dialogAlert = new DialogAlert(
+                                        getString(R.string.alert_notice),
+                                        "옵션 수량을 1개 이상 선택해주세요.",
+                                        DetailActivityActivity.this,
+                                        new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialogAlert.dismiss();
+                                            }
+                                        });
+                                dialogAlert.setCancelable(false);
+                                dialogAlert.show();
+                            }
+                        }
+                    });
+
                 }
                 catch (Exception e) {
                     e.getStackTrace();
@@ -633,7 +688,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                 }
                 view_coupon.setTag(i);
                 isAcoupon[i] = cdata.getJSONObject(i).getInt("mycoupon_cnt");
-                mCouponId[i] = cdata.getJSONObject(i).getString("code");
+                mCouponId[i] = cdata.getJSONObject(i).getString("id");
                 view_coupon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -652,14 +707,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     }
 
     private void setCouponDown(final int position, final JSONArray cdata){
-
-        JSONObject params = new JSONObject();
-        try {
-            params.put("pcode", mCouponId[position]);
-        } catch (JSONException e) {
-        }
-
-        Api.post(CONFIG.promotionUrl2, params.toString(), new Api.HttpCallback() {
+        Api.get(CONFIG.ticketcouponUrl2+"/"+mCouponId[position], new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -675,13 +723,40 @@ public class DetailActivityActivity extends AppCompatActivity {
                         return;
                     }
 
-                    setCoupon(cdata);
+                    isAcoupon[position] = 1;
+                    TextView tv_coupon_price = (TextView) coupon_list.getChildAt(position).findViewById(R.id.tv_coupon_price);
+                    TextView tv_coupon_title = (TextView) coupon_list.getChildAt(position).findViewById(R.id.tv_coupon_title);
+                    ImageView icon_coupon = (ImageView) coupon_list.getChildAt(position).findViewById(R.id.icon_coupon);
+                    ImageView icon_download = (ImageView) coupon_list.getChildAt(position).findViewById(R.id.icon_download);
+
+                    tv_coupon_price.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.coupon_dis));
+                    tv_coupon_title.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.coupon_dis));
+                    icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
+                    icon_download.setBackgroundResource(R.drawable.ico_download_dis);
+
+                    showCouponDialog(obj.getString("msg"));
                 } catch (Exception e) {
                     Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
 
+    //쿠폰 다이얼로그
+    private void showCouponDialog(String message){
+        dialogCoupon = new DialogCoupon(
+                DetailActivityActivity.this,
+                getString(R.string.coupon_title2),
+                tname+"\n"+message +"\n\n지금 바로예약하세요",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogCoupon.dismiss();
+                    }
+                }
+        );
+        dialogCoupon.setCancelable(false);
+        dialogCoupon.show();
     }
 
     private void showPager(final int pager_cnt) {

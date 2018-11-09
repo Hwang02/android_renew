@@ -13,6 +13,7 @@
         android:background="@color/bg_background" />
 
     <LinearLayout
+        android:id="@+id/ll_coupon_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/footerview"
@@ -115,6 +116,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_all_point"
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:layout_marginTop="10dp"

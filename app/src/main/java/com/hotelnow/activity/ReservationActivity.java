@@ -86,7 +86,7 @@ public class ReservationActivity extends Activity {
     private String is_auth = "N";
     private String checkin_date;
     private String checkout_date;
-    private TextView sub_total_price2, auth_count, remain_count;
+    private TextView auth_count, remain_count;
     private CountDownTimer countDownTimer;
     final int MILLISINFUTURE = 180 * 1000; //총 시간 (300초 = 5분)
     final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
@@ -129,10 +129,11 @@ public class ReservationActivity extends Activity {
     private DialogBillingAlert dialogBillingAlert;
     private String bmpStr = "";
     String selected_card = "", bid_id="";
-    int reserve_value = 0;
-    private int private_money = 0;
+    String reserve_value = "";
+    private int private_money = 0, real_price=0, coupon_value = 0;
     private String hotel_name;
-    private boolean is_point_ok = false;
+    private boolean isReserve = false, isCoupon = false, is_sel_point = false, is_sel_coupon = false;
+    private String all_coupon_id = "";
 
 
     @Override
@@ -202,7 +203,7 @@ public class ReservationActivity extends Activity {
                 }
                 else if(s.length()==0){
                     int m_save = save_price + 0;
-                    int m_total = sale_price - m_save;
+                    int m_total = real_price - m_save;
                     tv_discount_price.setText("-"+nf.format(m_save) +"원");
                     tv_total_price.setText(nf.format(m_total)+"원");
                     point_discount.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -217,41 +218,34 @@ public class ReservationActivity extends Activity {
         btn_point_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!is_point_ok){
-                    if(!TextUtils.isEmpty(point_discount.getText().toString()) && Integer.parseInt(point_discount.getText().toString()) >1000) {
+                if(!TextUtils.isEmpty(point_discount.getText().toString()) && Integer.parseInt(point_discount.getText().toString()) >1000) {
                     if(reserve_money < Integer.parseInt(point_discount.getText().toString())){
                         point_discount.setText(reserve_money+"");
-                        is_point_ok = false;
                         Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    is_point_ok = true;
                     int m_save = save_price + Integer.parseInt(point_discount.getText().toString());
-                    int m_total = sale_price - m_save;
+                    int m_total = real_price - m_save;
                     tv_discount_price.setText("-"+nf.format(m_save) +"원");
                     tv_total_price.setText(nf.format(m_total)+"원");
+                    is_sel_point = true;
+                    is_sel_coupon = false;
+                    setSavePoint("", point_discount.getText().toString());
                 }
                 else{
-                    is_point_ok =false;
                     Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
-            }
         });
-
 
         btn_point_total.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int m_save = save_price + reserve_money;
-                int m_total = sale_price - m_save;
-                if(reserve_money > sale_price && m_total < 0){
-                    m_save = sale_price - save_price;
-                    point_discount.setText(m_save+"");
+                if(reserve_money > sale_price){
+                    point_discount.setText(sale_price+"");
                     return;
-                }else if(reserve_money < sale_price){
-                    m_save = reserve_money;
-                    point_discount.setText(m_save+"");
+                }else if(reserve_money < sale_price && reserve_money>=1000){
+                    point_discount.setText(reserve_money);
                     return;
                 }
                 point_discount.setText(reserve_money+"");
@@ -291,8 +285,12 @@ public class ReservationActivity extends Activity {
                     if(event.getRawX() >= (point_discount.getRight() - point_discount.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         point_discount.setText("");
-                        is_point_ok = false;
-
+                        save_price = real_price - sale_price;
+                        tv_discount_price.setText("-"+nf.format(real_price - sale_price) +"원");
+                        tv_total_price.setText(nf.format(sale_price)+"원");
+                        is_sel_point = false;
+                        is_sel_coupon = false;
+                        setSavePoint("","");
                         return true;
                     }
                 }
@@ -365,7 +363,7 @@ public class ReservationActivity extends Activity {
             @Override
             public void onSuccess(Map<String, String> headers, String body) {
                 try {
-                    boolean isReserve = false, isCoupon = false, isPrivate = false;
+                    boolean isPrivate = false;
                     JSONObject obj = new JSONObject(body);
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -384,10 +382,30 @@ public class ReservationActivity extends Activity {
                     sale_available = data.getBoolean("sale_available");
                     sale_price = data.getInt("sale_price");
                     hid = data.getString("hotel_id");
-                    int real_price = data.getInt("normal_price");
+                    real_price = data.getInt("normal_price");
                     if(data.has("reserve_money"))
                         reserve_money = data.getInt("reserve_money");
-                    save_price = real_price - sale_price;
+                    save_price = real_price - sale_price - private_money;
+
+//                    TextView private_discount = (TextView) findViewById(R.id.private_discount);
+//                    if(from.equals("private")) {
+//                        ll_private.setVisibility(View.VISIBLE);
+//                        //프라이빗 할인금액
+//                        isPrivate = true;
+//                        int private_sale_price = sale_price - accepted_price;
+//                        private_money = private_sale_price;
+//                        private_discount.setText("-"+Util.numberFormat(private_sale_price) + "원");
+//                    }
+//                    else {
+//                        ll_private.setVisibility(View.GONE);
+//                    }
+
+                    if(reserve_money >=1000){
+                        btn_point_total.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        btn_point_total.setVisibility(View.GONE);
+                    }
 
                     SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd(EEE)", Locale.KOREAN);
                     SimpleDateFormat DateFormat2 = new SimpleDateFormat("HH:mm", Locale.KOREAN);
@@ -594,85 +612,6 @@ public class ReservationActivity extends Activity {
                         btn_point_total.setVisibility(View.GONE);
                     }
 
-                    // 쿠폰
-                    if(data.has("promotion_code")) {
-                        JSONArray pcodes = data.getJSONArray("promotion_code");
-                        LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
-                        if (pcodes.length() > 0) {
-                            isCoupon = true;
-
-                            ll_coupon.setVisibility(View.VISIBLE);
-
-                            tv_coupon_title = (TextView) findViewById(R.id.tv_coupon_title);
-                            String s_coupon = getResources().getString(R.string.reservation_coupon) + "(" + nf.format(pcodes.length()) + " 장)";
-                            SpannableStringBuilder builder = new SpannableStringBuilder(s_coupon);
-                            builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 4, s_coupon.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            tv_coupon_title.append(builder);
-
-                            coupon_arr = new HashMap<Integer, String>();
-                            coupon_price = new ArrayList<Integer>();
-                            ArrayList<String> coupon_txt_arr = new ArrayList<String>();
-
-                            coupon_arr.put(0, "0");
-                            coupon_txt_arr.add("사용안함");
-                            coupon_price.add(0);
-
-                            for (int i = 0; i < pcodes.length(); i++) {
-                                JSONObject tobj = pcodes.getJSONObject(i);
-
-                                coupon_arr.put(i + 1, tobj.getString("id"));
-                                coupon_txt_arr.add(tobj.getString("promotion_name") +" (" + tobj.getString("promotion_price") + "원)");
-                                coupon_price.add(Integer.valueOf(tobj.getString("promotion_price")));
-                            }
-
-                            ArrayAdapter<String> coupon_adapter = new ArrayAdapter<String>(ReservationActivity.this, R.layout.layout_spinner_item, coupon_txt_arr);
-                            coupon_spinner.setAdapter(coupon_adapter);
-                            coupon_spinner.setOnTouchListener(new View.OnTouchListener() {
-                                @Override
-                                public boolean onTouch(View v, MotionEvent event) {
-                                    return false;
-                                }
-                            });
-
-                            coupon_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                                    coupon_value = coupon_price.get(position);
-//                                    pcode = coupon_arr.get(position);
-//                                    selectdCouponIdx = position;
-//
-//                                    int final_price = sale_price - reserve_value - coupon_value - private_money;
-//
-//                                    if (final_price < 0) {
-//                                        int minusReserve = (int) Math.ceil(Math.abs(final_price) / (double) 1000);
-//
-//                                        reserve_money_spinner.setSelection(selectdReserveIdx - minusReserve);
-//                                        txt_sale_price.setText(getString(R.string.price, nf.format(sale_price - final_price)));
-//                                    } else {
-//                                        txt_sale_price.setText(getString(R.string.price, nf.format(final_price)));
-//                                        if(coupon_value == 0) {
-//                                            if(parentView.getChildAt(0) !=null)
-//                                                ((TextView) parentView.getChildAt(0)).setText("사용안함");
-//                                        } else {
-//                                            if(parentView.getChildAt(0) !=null)
-//                                                ((TextView) parentView.getChildAt(0)).setText(getString(R.string.price, nf.format(coupon_value)));
-//                                        }
-//                                    }
-//
-//                                    sub_total_price2.setText("-"+Util.numberFormat(reserve_value + coupon_value + private_money) + "원");
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parentView) {
-                                    // your code here
-                                }
-                            });
-                        }
-                        else{
-                            ll_coupon.setVisibility(View.GONE);
-                        }
-                    }
-
                     // 금액
                     tv_discount_price.setText("-"+nf.format(save_price)+"원");
                     tv_real_price.setText(nf.format(real_price)+"원");
@@ -680,8 +619,48 @@ public class ReservationActivity extends Activity {
 
                     // 적립금 포인트 지급관련
                     if(cookie != null) {
-                        booking_save_point.setVisibility(View.VISIBLE);
-                        setBookingSavePoint(sale_price);
+                        // 쿠폰
+                        if(data.has("promotion_code")) {
+                            JSONArray pcodes = data.getJSONArray("promotion_code");
+                            LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
+                            if (pcodes.length() > 0) {
+                                isCoupon = true;
+
+                                ll_coupon.setVisibility(View.VISIBLE);
+
+                                tv_coupon_title = (TextView) findViewById(R.id.tv_coupon_title);
+                                String s_coupon = getResources().getString(R.string.reservation_coupon) + "(" + nf.format(pcodes.length()) + " 장)";
+                                SpannableStringBuilder builder = new SpannableStringBuilder(s_coupon);
+                                builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 4, s_coupon.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                tv_coupon_title.append(builder);
+
+                                coupon_arr = new HashMap<Integer, String>();
+                                coupon_price = new ArrayList<Integer>();
+                                ArrayList<String> coupon_txt_arr = new ArrayList<String>();
+
+                                coupon_arr.put(0, "0");
+                                coupon_txt_arr.add("사용안함");
+                                coupon_price.add(0);
+
+                                for (int i = 0; i < pcodes.length(); i++) {
+                                    JSONObject tobj = pcodes.getJSONObject(i);
+                                    coupon_arr.put(i + 1, tobj.getString("id"));
+                                    if(i == 0) {
+                                        all_coupon_id = tobj.getString("id");
+                                    }
+                                    else{
+                                        all_coupon_id += ","+tobj.getString("id");
+                                    }
+                                    coupon_txt_arr.add(tobj.getString("promotion_name") +" (" + tobj.getString("promotion_price") + "원)");
+                                    coupon_price.add(Integer.valueOf(tobj.getString("promotion_price")));
+                                }
+                                setSavePoint("", "");
+                            }
+                            else{
+                                ll_coupon.setVisibility(View.GONE);
+                            }
+                        }
+
                     }
                     else{
                         booking_save_point.setVisibility(View.GONE);
@@ -1026,12 +1005,11 @@ public class ReservationActivity extends Activity {
         });
     }
 
-    private void setBookingSavePoint(int t_price) {
-        Api.get(CONFIG.booking_save_point+"/"+hid+"?total_price="+sale_price,new Api.HttpCallback() {
-
+    private void setSavePoint(String apply_coupon_id, final String apply_reserve_money){
+        Api.get(CONFIG.save_point+"/"+hid+"?sale_price="+sale_price+"&coupon_ids="+all_coupon_id+"&apply_coupon_id="+apply_coupon_id+"&checkin_date="+ec_date+"&checkout_date="+ee_date+"&privatedeal_money="+private_money+"&apply_reserve_money="+apply_reserve_money, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
-                LogUtil.e(CONFIG.TAG, throwable.getMessage());
+                booking_save_point.setVisibility(View.GONE);
                 Toast.makeText(ReservationActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
@@ -1044,14 +1022,106 @@ public class ReservationActivity extends Activity {
                         Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    String t_save_point = nf.format(obj.getInt("buy_reserve_money"))+"원 적립 예정(체크아웃 이후 지급)";
+
+                    booking_save_point.setVisibility(View.VISIBLE);
+                    String t_save_point = nf.format(obj.getInt("buy_reserve_money")) + "원 적립 예정(체크아웃 이후 지급)";
                     SpannableStringBuilder builder = new SpannableStringBuilder(t_save_point);
                     builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 0, nf.format(obj.getInt("buy_reserve_money")).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    tv_total_discount_point.append(builder);
+                    tv_total_discount_point.setText(builder);
+
+
+                    // 쿠폰
+                    if(obj.has("coupons")) {
+                        JSONArray pcodes = obj.getJSONArray("coupons");
+                        LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
+                        if (pcodes.length() > 0) {
+                            ll_coupon.setVisibility(View.VISIBLE);
+
+                            tv_coupon_title = (TextView) findViewById(R.id.tv_coupon_title);
+                            String s_coupon = getResources().getString(R.string.reservation_coupon) + "(" + nf.format(pcodes.length()) + " 장)";
+                            SpannableStringBuilder builder1 = new SpannableStringBuilder(s_coupon);
+                            builder1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 4, s_coupon.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            tv_coupon_title.setText(builder1);
+
+                            if(!is_sel_coupon) {
+                                coupon_arr = new HashMap<Integer, String>();
+                                coupon_price = new ArrayList<Integer>();
+                                ArrayList<String> coupon_txt_arr = new ArrayList<String>();
+
+                                coupon_arr.put(0, "0");
+                                coupon_txt_arr.add("사용안함");
+                                coupon_price.add(0);
+
+                                for (int i = 0; i < pcodes.length(); i++) {
+                                    JSONObject tobj = pcodes.getJSONObject(i);
+
+                                    coupon_arr.put(i + 1, tobj.getString("id"));
+                                    coupon_txt_arr.add(tobj.getString("promotion_name") + " (" + tobj.getString("promotion_price") + "원)");
+                                    coupon_price.add(Integer.valueOf(tobj.getString("promotion_price")));
+
+                                    if(i == 0) {
+                                        all_coupon_id = tobj.getString("id");
+                                    }
+                                    else {
+                                        all_coupon_id += "," + tobj.getString("id");
+                                    }
+                                }
+
+                                ArrayAdapter<String> coupon_adapter = new ArrayAdapter<String>(ReservationActivity.this, R.layout.layout_spinner_item, coupon_txt_arr);
+                                coupon_spinner.setAdapter(coupon_adapter);
+                                coupon_spinner.setOnTouchListener(new View.OnTouchListener() {
+                                    @Override
+                                    public boolean onTouch(View v, MotionEvent event) {
+                                        return false;
+                                    }
+                                });
+
+                                coupon_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                                        coupon_value = coupon_price.get(position);
+                                        pcode = coupon_arr.get(position);
+
+                                        int final_price = 0;
+                                        int final_save = 0;
+                                        if (TextUtils.isEmpty(point_discount.getText().toString())) {
+                                            final_save = real_price - sale_price - private_money + coupon_value;
+                                            final_price = sale_price - coupon_value - private_money;
+                                        } else {
+                                            final_save = real_price - sale_price - private_money + Integer.parseInt(point_discount.getText().toString()) + coupon_value;
+                                            final_price = sale_price - coupon_value - private_money - Integer.parseInt(point_discount.getText().toString());
+                                        }
+                                        if (coupon_value == 0) {
+                                            if (parentView.getChildAt(0) != null)
+                                                ((TextView) parentView.getChildAt(0)).setText("사용안함");
+                                        } else {
+                                            if (parentView.getChildAt(0) != null)
+                                                ((TextView) parentView.getChildAt(0)).setText(getString(R.string.price, nf.format(coupon_value)));
+                                        }
+
+                                        tv_discount_price.setText("-" + nf.format(final_save) + "원");
+                                        tv_total_price.setText(nf.format(final_price) + "원");
+                                        is_sel_coupon = true;
+                                        setSavePoint(pcode, apply_reserve_money);
+
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parentView) {
+                                        // your code here
+                                    }
+                                });
+                            }
+                        }
+                        else{
+                            ll_coupon.setVisibility(View.GONE);
+                        }
+                    }
 
                 }
-                catch (Exception e){
-                    LogUtil.e("xxxx", e.getMessage());
+                catch (JSONException e){
+                    booking_save_point.setVisibility(View.GONE);
+                    Toast.makeText(ReservationActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -1458,8 +1528,8 @@ public class ReservationActivity extends Activity {
     private void goPayment(){
         String phone_number = "";
         String user_name = "";
-        if(is_point_ok) {
-            reserve_value = Integer.parseInt(point_discount.getText().toString());
+        if(is_sel_point) {
+            reserve_value = point_discount.getText().toString();
         }
         if(is_other_user) { // 다른유저
             phone_number = other_pnum1.getSelectedItem() + "-" + other_pnum2.getText().toString() + "-" + other_pnum3.getText().toString();

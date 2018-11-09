@@ -19,8 +19,8 @@
             android:layout_centerVertical="true">
             <ImageView
                 android:id="@+id/icon_back"
-                android:layout_width="18dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@drawable/ico_titbar_back"
                 android:layout_gravity="center"/>
         </LinearLayout>
@@ -36,6 +36,7 @@
             android:textSize="16dp"
             android:textColor="@color/purple"
             android:gravity="left|center"
+            android:layout_marginLeft="10dp"
             android:ellipsize="end"
             android:text="@string/coupon_title" />
 

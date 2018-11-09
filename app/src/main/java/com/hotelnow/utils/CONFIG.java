@@ -146,12 +146,14 @@ public class CONFIG {
     public final static String hotel_detail = domain+"/product";                            // 호텔상세
     public final static String search_before = domain+"/search/keyword/before";             // 검색 진입시
     public final static String search_auto = domain+"/search/keyword?query=";               // 자동완성
-    public final static String booking_save_point = domain+"/api/booking/buy_reserve_money";   // 예약시 받을 포인트
+    public final static String booking_save_point = domain+"api/booking/check_discount/";   // 예약시 받을 포인트, 쿠폰 자주 호출
     public final static String search_stay_list = domain+"/stay?use_se=Y";                  // 검색결과 - 호텔
     public final static String like_list = domain+"/like/list";                             // 찜 - 호텔
     public final static String like_like = domain+"/like/like";                             // 찜 하기 - 호텔
     public final static String like_unlike = domain+"/like/unlike";                         // 찜 취소- 호텔
     public final static String ticketdetailUrl_v2 = domain+"/activity"; 					//	티켓 상품 상세
+    public final static String promotionUrl3 = domain+"/coupon/receive_instant/hotel";		    //	쿠폰다운
+    public final static String save_point = domain+"/api/booking/check_discount";		    //	프로모션
 
 
     public static String TAG = "HOTELNOW LOGGING";

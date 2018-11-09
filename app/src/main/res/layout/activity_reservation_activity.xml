@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -25,14 +26,12 @@
                 android:layout_height="54dp"
                 android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true">
-
                 <ImageView
                     android:id="@+id/icon_back"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/ico_titbar_back"
-                    android:layout_gravity="center"
-                    android:scaleType="fitXY"/>
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <TextView
@@ -44,6 +43,7 @@
                 android:singleLine="true"
                 android:maxLines="1"
                 android:textSize="16dp"
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/purple"
                 android:gravity="left|center"
                 android:ellipsize="end"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/layout_reservation_hotel" />
+            <include layout="@layout/layout_reservation_activity" />
 
             <include android:id="@+id/include_user_info"
                 layout="@layout/layout_reservation_user_info" />
@@ -92,7 +92,7 @@
                 </android.support.v4.view.ViewPager>
             </LinearLayout>
 
-            <include layout="@layout/layout_reservation_pay" />
+            <include layout="@layout/layout_reservation_activity_pay" />
 
             <include layout="@layout/layout_reservation_fee" />
 

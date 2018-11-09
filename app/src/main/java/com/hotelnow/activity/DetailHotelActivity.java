@@ -43,6 +43,7 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.HotelImageFragment;
 import com.hotelnow.fragment.model.FacilitySelItem;
@@ -106,6 +107,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private DialogAlert dialogAlert = null;
     private DialogShare dialogShare;
     private Double mAvg = 0.0;
+    private DialogCoupon dialogCoupon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -905,7 +907,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 }
                 view_coupon.setTag(i);
                 isAcoupon[i] = cdata.getJSONObject(i).getInt("mycoupon_cnt");
-                mCouponId[i] = cdata.getJSONObject(i).getString("code");
+                mCouponId[i] = cdata.getJSONObject(i).getString("id");
                 view_coupon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -924,14 +926,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     private void setCouponDown(final int position, final JSONArray cdata){
-
-        JSONObject params = new JSONObject();
-        try {
-            params.put("pcode", mCouponId[position]);
-        } catch (JSONException e) {
-        }
-
-        Api.post(CONFIG.promotionUrl2, params.toString(), new Api.HttpCallback() {
+        Api.get(CONFIG.promotionUrl3+"/"+mCouponId[position], new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -947,13 +942,40 @@ public class DetailHotelActivity extends AppCompatActivity {
                         return;
                     }
 
-                    setCoupon(cdata);
+                    isAcoupon[position] = 1;
+                    TextView tv_coupon_price = (TextView) coupon_list.getChildAt(position).findViewById(R.id.tv_coupon_price);
+                    TextView tv_coupon_title = (TextView) coupon_list.getChildAt(position).findViewById(R.id.tv_coupon_title);
+                    ImageView icon_coupon = (ImageView) coupon_list.getChildAt(position).findViewById(R.id.icon_coupon);
+                    ImageView icon_download = (ImageView) coupon_list.getChildAt(position).findViewById(R.id.icon_download);
+
+                    tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
+                    tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
+                    icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
+                    icon_download.setBackgroundResource(R.drawable.ico_download_dis);
+
+                    showCouponDialog(obj.getString("msg"));
                 } catch (Exception e) {
                     Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
 
+    //쿠폰 다이얼로그
+    private void showCouponDialog(String message){
+        dialogCoupon = new DialogCoupon(
+                DetailHotelActivity.this,
+                getString(R.string.coupon_title2),
+                hotel_name+"\n"+message +"\n\n지금 바로예약하세요",
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogCoupon.dismiss();
+                    }
+                }
+        );
+        dialogCoupon.setCancelable(false);
+        dialogCoupon.show();
     }
 
     private void setReviewRate(Double rate){

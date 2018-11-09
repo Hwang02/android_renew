@@ -27,6 +27,9 @@
     <string name="error_review_regist">리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="booking_hide_success">예약내역을 삭제하였습니다.</string>
     <string name="not_recent_search">최근 검색내역이 없습니다.</string>
+    <string name="cancel_rule">취소규정 안내</string>
+    <string name="agree">동의</string>
+    <string name="not_agree">동의안함</string>
     <!-- // error msg -->
 
     <!-- title -->
@@ -112,6 +115,7 @@
     <string name="detail_address_copy">주소복사</string>
     <string name="detail_address_near">주변호텔보기</string>
     <string name="detail_room_select">객실 선택하기</string>
+    <string name="detail_activity_select">구매하기</string>
     <string name="calendar_complate">선택 완료</string>
     <string name="reservation_title">예약하기</string>
     <string name="reservation_user_info_title">예약자 정보</string>
@@ -215,7 +219,7 @@
     <string name="all_cancel"><u>전체취소</u></string>
     <string name="stay_go"><u>숙소 보러가기 ></u></string>
     <string name="activity_go"><u>액티비티 보러가기 ></u></string>
-
+    <string name="activity_info">실제 사용하는 분의 이름과 연락처를 입력해주세요\n입장에 필요한 PIN번호 또는 바코드가 발송됩니다</string>
     <string name="year_month_day_weekday_format3">MM월 dd일 (E)</string>
 
     <!-- ActFreePromotion -->
@@ -230,7 +234,11 @@
     <string name="alert_review_message">고객님의 리뷰와 함께 친구들에게 호텔을 추천해보세요!\n좋은 일이 생기실거에요.</string>
     <string name="alert_ticket_review_message">고객님의 리뷰와 함께 친구들에게 액티비티를 추천해보세요!\n좋은 일이 생기실거에요.</string>
     <string name="alert_event">응모하기</string>
-
+    <string name="price">%1$s원</string>
+    <!-- 쿠폰메시지 -->
+    <string name="coupon_explain">쿠폰을 입력하고 할인 혜택을 누려보세요!</string>
+    <string name="coupon_explain2">쿠폰을 받기 위해서는 로그인이 필요합니다!</string>
+    <string name="coupon_title2">축하합니다!</string>
 
     <!-- Member Join Validator -->
     <string name="validator_name_length">2글자 이상의 이름을 입력해 주세요.</string>

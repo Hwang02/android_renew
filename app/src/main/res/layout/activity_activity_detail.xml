@@ -87,8 +87,8 @@
                         android:layout_centerVertical="true">
                         <ImageView
                             android:id="@+id/icon_back"
-                            android:layout_width="18dp"
-                            android:layout_height="16dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:background="@drawable/ico_titbarw_back"
                             android:layout_gravity="center"/>
                     </LinearLayout>
@@ -286,6 +286,7 @@
             android:background="@color/back_line"/>
 
         <Button
+            android:id="@+id/btn_reservation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/purple"
@@ -293,7 +294,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="@string/detail_room_select"
+            android:text="@string/detail_activity_select"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="15dp"/>

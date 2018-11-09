@@ -30,6 +30,18 @@
 
     <!-- 이름, 연락처 비회원 및 인증 안한회원-->
 
+    <TextView
+        android:id="@+id/activity_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple"
+        android:textSize="14dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="17dp"
+        android:visibility="gone"
+        android:text="@string/activity_info"/>
+
     <LinearLayout
         android:id="@+id/layout_user"
         android:layout_width="match_parent"
