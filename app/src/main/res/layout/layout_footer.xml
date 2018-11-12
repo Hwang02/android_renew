@@ -23,7 +23,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -120,10 +122,10 @@
                     android:textColor="@color/termtext"/>
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:visibility="invisible"></LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="@color/footerview"></LinearLayout>
     </LinearLayout>
 </LinearLayout>

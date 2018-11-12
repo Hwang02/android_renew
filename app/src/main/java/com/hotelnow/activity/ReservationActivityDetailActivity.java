@@ -14,6 +14,9 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
 import android.view.View;
@@ -48,19 +51,19 @@ import java.util.Map;
 public class ReservationActivityDetailActivity extends Activity {
 
     String bid, accnum, hotel_id,mAddress, lat, lon, h_name;
-    TextView hotel_name, hotel_room_name, booking_status, tv_checkin_day, tv_checkin_time,tv_checkout_day, tv_checkout_time, tv_username, tv_usertel,
+    TextView hotel_name, hotel_room_name, booking_status, tv_username, tv_usertel,
             tv_real_price, tv_private_price, tv_reserve_price,tv_coupon_price, tv_total_price,tv_pay_type,tv_pay_bank_nm, tv_pay_bank_num,tv_pay_bank_user_nm,
-            tv_pay_bank_user_day,tv_pay_income_day,tv_pay_num,tv_pay_tel_com,tv_pay_card_com,tv_save_point,tv_address;
+            tv_pay_bank_user_day,tv_pay_num,tv_pay_tel_com,tv_pay_card_com,tv_save_point,tv_address, tv_pay_income_day;
     ImageView iv_img;
     Boolean showSnsDialog = true;
     DialogAlert dialogAlert;
     Button btn_review;
-    LinearLayout ll_private, ll_reservation, ll_coupon;
-    TableLayout sub_products;
+    LinearLayout ll_coupon, ticket_list;
     private SharedPreferences _preferences;
     DialogConfirm dialogConfirm;
     String call_message;
     String hotel_phone_number = "";
+    WebView info_view;
 
 
     @Override
@@ -101,59 +104,47 @@ public class ReservationActivityDetailActivity extends Activity {
                     JSONObject booking = obj.getJSONObject("detail");
                     JSONObject info = booking.getJSONObject("info");
                     JSONObject booking_info = booking.getJSONObject("booking_info");
+                    JSONArray option_info = booking.getJSONArray("option_info");
                     JSONObject price_info = booking.getJSONObject("price_info");
                     JSONObject payment_info = booking.getJSONObject("payment_info");
-                    JSONObject buy_reward = booking.getJSONObject("buy_reward");
-                    JSONObject confirm_info = booking.getJSONObject("confirm_info");
+                    JSONObject deal_info = booking.getJSONObject("deal_info");
 
 
                     hotel_name = (TextView) findViewById(R.id.hotel_name);
                     hotel_room_name = (TextView) findViewById(R.id.hotel_room_name);
                     iv_img = (ImageView) findViewById(R.id.iv_img);
                     booking_status = (TextView) findViewById(R.id.booking_status);
-                    tv_checkin_day = (TextView) findViewById(R.id.tv_checkin_day);
-                    tv_checkin_time = (TextView) findViewById(R.id.tv_checkin_time);
-                    tv_checkout_day = (TextView) findViewById(R.id.tv_checkout_day);
-                    tv_checkout_time = (TextView) findViewById(R.id.tv_checkout_time);
                     btn_review = (Button) findViewById(R.id.btn_review);
                     tv_username = (TextView) findViewById(R.id.tv_username);
                     tv_usertel = (TextView) findViewById(R.id.tv_usertel);
                     tv_real_price = (TextView) findViewById(R.id.tv_real_price);
-                    ll_private = (LinearLayout) findViewById(R.id.ll_private);
-                    tv_private_price = (TextView) findViewById(R.id.tv_private_price);
-                    ll_reservation = (LinearLayout) findViewById(R.id.ll_reservation);
-                    tv_reserve_price = (TextView) findViewById(R.id.tv_reserve_price);
                     ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
                     tv_coupon_price = (TextView) findViewById(R.id.tv_coupon_price);
                     tv_total_price = (TextView) findViewById(R.id.tv_total_price);
-                    sub_products = (TableLayout) findViewById(R.id.sub_products);
                     tv_pay_type = (TextView) findViewById(R.id.tv_pay_type);
                     tv_pay_bank_nm = (TextView) findViewById(R.id.tv_pay_bank_nm);
                     tv_pay_bank_num = (TextView) findViewById(R.id.tv_pay_bank_num);
                     tv_pay_bank_user_nm = (TextView) findViewById(R.id.tv_pay_bank_user_nm);
                     tv_pay_bank_user_day = (TextView) findViewById(R.id.tv_pay_bank_user_day);
-                    tv_pay_income_day = (TextView) findViewById(R.id.tv_pay_income_day);
                     tv_pay_num = (TextView) findViewById(R.id.tv_pay_num);
                     tv_pay_tel_com = (TextView) findViewById(R.id.tv_pay_tel_com);
                     tv_pay_card_com = (TextView) findViewById(R.id.tv_pay_card_com);
                     tv_save_point = (TextView) findViewById(R.id.tv_save_point);
                     tv_address = (TextView) findViewById(R.id.tv_address);
+                    tv_pay_income_day = (TextView) findViewById(R.id.tv_pay_income_day);
+                    ticket_list = (LinearLayout) findViewById(R.id.ticket_list);
 
-                    hotel_name.setText(info.getString("hotel_name"));
-                    hotel_room_name.setText(info.getString("room_name"));
-                    Ion.with(iv_img).load(info.getString("room_img"));
-                    tv_checkin_day.setText(info.getString("checkin_date_format"));
-                    tv_checkin_time.setText(info.getString("checkin_time_format"));
-                    tv_checkout_day.setText(info.getString("checkout_date_format"));
-                    tv_checkout_time.setText(info.getString("checkout_time_format"));
+                    hotel_name.setText(info.getString("deal_name"));
+                    hotel_room_name.setText(info.getString("total_ticket_count_display"));
+                    Ion.with(iv_img).load(info.getString("img_url"));
                     tv_username.setText(booking_info.getString("user_name"));
                     tv_usertel.setText(booking_info.getString("user_phone"));
 
-                    hotel_id = info.getString("hotel_id");
+                    hotel_id = info.getString("deal_id");
                     lat = info.getString("latitude");
-                    lon = info.getString("longuitude");
-                    h_name = info.getString("hotel_name");
-                    tv_real_price.setText("-" + Util.numberFormat(price_info.getInt("price")) + "원");
+                    lon = info.getString("longitude");
+                    h_name = info.getString("deal_name");
+                    tv_real_price.setText(Util.numberFormat(price_info.getInt("sale_price")) + "원");
 
                     if(_preferences.getString("userid", null) != null) {
                         if (info.getString("is_review_writable").equals("Y") && info.getInt("review_count") == 0) {
@@ -180,7 +171,7 @@ public class ReservationActivityDetailActivity extends Activity {
                         btn_review.setVisibility(View.GONE);
                         findViewById(R.id.not_user_reserid).setVisibility(View.VISIBLE);
                         Spannable spannable = new SpannableString("예약번호 "+info.getString("booking_id"));
-                        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 4, info.getString("booking_id").length()+4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 5, info.getString("booking_id").length()+5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         ((TextView)findViewById(R.id.not_user_reserid)).setText(spannable);
                     }
 
@@ -199,22 +190,6 @@ public class ReservationActivityDetailActivity extends Activity {
 
                     booking_status.setText(info.getString("status_display"));
 
-                    if(price_info.getInt("privatedeal_money") <= 0){
-                        ll_private.setVisibility(View.GONE);
-                    }
-                    else{
-                        ll_private.setVisibility(View.VISIBLE);
-                        tv_private_price.setText("-"+Util.numberFormat(price_info.getInt("privatedeal_money"))+"원");
-                    }
-
-                    if(price_info.getInt("reserve_money") <= 0){
-                        ll_reservation.setVisibility(View.GONE);
-                    }
-                    else{
-                        ll_reservation.setVisibility(View.VISIBLE);
-                        tv_reserve_price.setText("-"+Util.numberFormat(price_info.getInt("reserve_money"))+"원");
-                    }
-
                     if(price_info.getInt("promotion_money") <= 0){
                         ll_coupon.setVisibility(View.GONE);
                     }
@@ -223,43 +198,38 @@ public class ReservationActivityDetailActivity extends Activity {
                         tv_coupon_price.setText("-"+Util.numberFormat(price_info.getInt("promotion_money"))+"원");
                     }
 
-                    tv_total_price.setText(Util.numberFormat(price_info.getInt("total_price"))+"원");
+                    tv_total_price.setText(Util.numberFormat(price_info.getInt("pay_price"))+"원");
 
-                    if (price_info.has("sub_bookings") == true) {
-                        SimpleDateFormat p_DateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        SimpleDateFormat p_CurDateFormat = new SimpleDateFormat(getString(R.string.year_month_day_weekday_format3), Locale.KOREAN);
-                        JSONArray products = price_info.getJSONArray("sub_bookings");
+                    if (option_info.length() > 0) {
+                        ticket_list.removeAllViews();
+                        ticket_list.setVisibility(View.VISIBLE);
 
-                        if(products.length() > 1) {
-                            sub_products.setVisibility(View.VISIBLE);
+                        //	sub_products 아래에 할당할 상품 정보들
+                        for (int i = 0; i < option_info.length(); i++) {
+                            JSONObject tobj = option_info.getJSONObject(i);
 
-                            //	sub_products 아래에 할당할 상품 정보들
-                            for (int i = 0; i < products.length(); i++) {
-                                if(i == 0)
-                                {
-                                    View t = new View(ReservationActivityDetailActivity.this);
-                                    t.setBackgroundResource(R.color.bg_background);
-                                    t.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 2));
-                                    sub_products.addView(t);
-                                }
-                                JSONObject tobj = products.getJSONObject(i);
+                            View v = getLayoutInflater().inflate(R.layout.layout_reservation_ticket_item, null);
+                            TextView tv_option_title = (TextView) v.findViewById(R.id.tv_option_title);
+                            TextView tv_option_info = (TextView) v.findViewById(R.id.tv_option_info);
 
-                                View v = (TableRow) getLayoutInflater().inflate(R.layout.row_consecutive, null);
-                                TextView sub_date = (TextView) v.findViewById(R.id.date);
-                                TextView sub_price = (TextView) v.findViewById(R.id.price);
-                                TextView sub_breakfast = (TextView) v.findViewById(R.id.breakfast);
-
-                                String bf = tobj.getString("breakfast");
-
-                                if(bf.equals("0")) bf = "불포함";
-                                else bf = "포함";
-
-                                sub_date.setText(tobj.getString("checkin_date_format"));
-                                sub_price.setText(Util.numberFormat(tobj.getInt("total_price")) + "원");
-                                sub_breakfast.setText(bf);
-
-                                sub_products.addView(v);
+                            tv_option_title.setText(tobj.getString("name"));
+                            String tv_option = tobj.getString("available_date");
+                            if(!TextUtils.isEmpty(tobj.getString("status_display"))){
+                                tv_option +=  " / "+tobj.getString("status_display");
                             }
+
+                            SpannableStringBuilder builder = new SpannableStringBuilder(tv_option);
+                            builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.termtext)), tv_option.length() - tobj.getString("available_date").length(), tv_option.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            tv_option_info.setText(tv_option);
+
+                            if(i == option_info.length()-1){
+                                v.findViewById(R.id.item_line).setVisibility(View.GONE);
+                            }
+                            else{
+                                v.findViewById(R.id.item_line).setVisibility(View.VISIBLE);
+                            }
+
+                            ticket_list.addView(v);
                         }
                     }
 
@@ -338,37 +308,67 @@ public class ReservationActivityDetailActivity extends Activity {
                         }
                     }
 
-                    if(_preferences.getString("userid", null) != null){
-                        findViewById(R.id.ll_save_point).setVisibility(View.VISIBLE);
-                        tv_save_point.setText(Util.numberFormat(buy_reward.getInt("buy_reserve_monay"))+"원");
+                   info_view = (WebView) findViewById(R.id.info_view);
+
+                    String webData ="";
+                    Spannable sp = null;
+                    String html = "";
+                    if(deal_info.has("deal_introduce") && !TextUtils.isEmpty(deal_info.getString("deal_introduce"))) {
+                        webData = deal_info.getString("deal_introduce").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html = "<div style='font-size:14px;color:#222222'>상품 소개</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
-                    else{
-                        findViewById(R.id.ll_save_point).setVisibility(View.GONE);
+                    if(deal_info.has("deal_info") && !TextUtils.isEmpty(deal_info.getString("deal_info"))){
+                        webData = deal_info.getString("deal_info").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html += "<div style='font-size:14px;color:#222222''>상품 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
-
-                    WebView info_view = (WebView) findViewById(R.id.info_view);
-
-                    String webData =
-                            confirm_info.getString("confirm_check").replace("<ul>", "").replace("</ul>", "").replace("<li>", "<div>• ").replace("</li>", "</div>")
-                            +confirm_info.getString("cancel_fee").replace("\n","<br>");
-
-                    Spannable sp = new SpannableString(Html.fromHtml(webData));
-                    Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
-                    final String html = Html.toHtml(sp);
+                    if(deal_info.has("refund_info") && !TextUtils.isEmpty(deal_info.getString("refund_info"))){
+                        webData = deal_info.getString("refund_info").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html += "<div style='font-size:14px;color:#222222''>환불 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
+                    }
+                    if(deal_info.has("usage_info") && !TextUtils.isEmpty(deal_info.getString("usage_info"))){
+                        webData = deal_info.getString("usage_info").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html += "<div style='font-size:14px;color:#222222''>사용 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
+                    }
+                    if(deal_info.has("store_info") && !TextUtils.isEmpty(deal_info.getString("store_info"))){
+                        webData = deal_info.getString("store_info").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html += "<div style='font-size:14px;color:#222222''>시설사 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
+                    }
+                    if(deal_info.has("notice_info") && !TextUtils.isEmpty(deal_info.getString("notice_info"))){
+                        webData = deal_info.getString("notice_info").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html += "<div style='font-size:14px;color:#222222''>공지 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
+                    }
+                    if(deal_info.has("cs_info") && !TextUtils.isEmpty(deal_info.getString("cs_info"))){
+                        webData = deal_info.getString("cs_info").replace("\n", "<br>");
+                        sp = new SpannableString(Html.fromHtml(webData));
+                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        html += "<div style='font-size:14px;color:#222222''>고객센터 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
+                    }
 
                     if(android.os.Build.VERSION.SDK_INT < 16) {
-                        info_view.loadData("<div style='font-size:12px'>"+html+"</div>", "text/html", "UTF-8"); // Android 4.0 이하 버전
+                        info_view.loadData(html, "text/html", "UTF-8"); // Android 4.0 이하 버전
                     }else {
-                        info_view.loadData("<div style='font-size:12px'>"+html+"</div>", "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
+                        info_view.loadData(html, "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
                     }
 
                     // 지도 상세보기 정보 설정
-                    String mapStr = "http://maps.googleapis.com/maps/api/staticmap?center="+info.getString("latitude")+"%2C"+info.getString("longuitude")+
-                            "&markers=icon:http://d2gxin9b07oiov.cloudfront.net/web/hotel_pin.png%7C"+info.getString("latitude")+"%2C"+info.getString("longuitude")+
-                            "&scale=2&sensor=false&language=ko&size=360x220&zoom="+info.getString("map_zoom")+"&key="+ BuildConfig.google_map_key2;
+                    String mapStr = "http://maps.googleapis.com/maps/api/staticmap?center="+info.getString("latitude")+"%2C"+info.getString("longitude")+
+                            "&markers=icon:http://d2gxin9b07oiov.cloudfront.net/web/hotel_pin.png%7C"+info.getString("latitude")+"%2C"+info.getString("longitude")+
+                            "&scale=2&sensor=false&language=ko&size=360x220&zoom=13"+"&key="+ BuildConfig.google_map_key2;
                     ImageView mapImg = (ImageView)findViewById(R.id.map_img);
                     Ion.with(mapImg).load(mapStr);
-                    mAddress = info.getString("hotel_address");
+                    mAddress = info.getString("address");
                     tv_address.setText(mAddress);
 
                     // 지도 클릭 이벤트 설정
@@ -382,14 +382,14 @@ public class ReservationActivityDetailActivity extends Activity {
                         }
                     });
 
-                    ((TextView)findViewById(R.id.btn_near)).setText("주변액티비티 보기");
+                    ((TextView)findViewById(R.id.btn_near)).setText("주변호텔 보기");
                     findViewById(R.id.btn_kimkisa).setVisibility(View.VISIBLE);
 
-                    if(info.isNull("hotel_phone")){
+                    if(info.isNull("company_tel")){
                         hotel_phone_number = null;
                     } else {
                         findViewById(R.id.company_call).setVisibility(View.VISIBLE);
-                        hotel_phone_number = info.getString("hotel_phone");
+                        hotel_phone_number = info.getString("company_tel");
                         call_message = h_name + "\n" + hotel_phone_number + "\n\n" + "[확인] 버튼을 누르면 시설사와 바로 연결됩니다.";
                         findViewById(R.id.company_call).setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -475,18 +475,19 @@ public class ReservationActivityDetailActivity extends Activity {
                     findViewById(R.id.btn_address_near).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ReservationActivityDetailActivity.this, ActivityMapActivity.class);
-                            intent.putExtra("hid", hotel_id);
+                            Intent intent = new Intent(ReservationActivityDetailActivity.this, MapActivity.class);
+                            intent.putExtra("isTicket", true);
+                            intent.putExtra("deal_name", h_name);
                             intent.putExtra("lat", lat);
                             intent.putExtra("lng", lon);
-                            intent.putExtra("deal_name", h_name);
+                            intent.putExtra("from", "pdetail");
                             startActivity(intent);
                         }
                     });
 
                     if(payment_info.getString("account_available").equals("Y") && payment_info.getString("pay_type").equals("VBANK_KCP")) {
                         showSnsDialog = false; // sns 띄우지마
-                        String timeLimit = booking.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
+                        String timeLimit = payment_info.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
 
                         dialogAlert = new DialogAlert(
                                 getString(R.string.alert_notice),
@@ -542,7 +543,7 @@ public class ReservationActivityDetailActivity extends Activity {
                                                 paramObj.put("bid", bid);
                                             } catch (JSONException e) {}
 
-                                            Api.post(CONFIG.bookingHidelUrl, paramObj.toString(), new Api.HttpCallback() {
+                                            Api.post(CONFIG.bookingticketHidelUrl, paramObj.toString(), new Api.HttpCallback() {
                                                 @Override
                                                 public void onFailure(Response response, Exception e) {
                                                     Toast.makeText(ReservationActivityDetailActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -602,7 +603,7 @@ public class ReservationActivityDetailActivity extends Activity {
                                     new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            String url = CONFIG.bookingReceiptlUrl+"/"+bid;
+                                            String url = CONFIG.bookingticketReceiptlUrl+"/"+bid;
 
                                             Api.get(url, new Api.HttpCallback() {
                                                 @Override
@@ -649,5 +650,12 @@ public class ReservationActivityDetailActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(info_view != null)
+            info_view.destroy();
     }
 }

@@ -457,12 +457,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 case HOTDEAL_HOTEL:
                     SpannableStringBuilder builder = new SpannableStringBuilder(context.getResources().getText(R.string.hotdeal_hotel));
                     builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.purple)), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    title.append(builder);
+                    title.setText(builder);
                     break;
                 case HOTDEAL_ACTIVITY:
                     SpannableStringBuilder builder2 = new SpannableStringBuilder(context.getResources().getText(R.string.hotdeal_activity));
                     builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.activitytxt)), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    title.append(builder2);
+                    title.setText(builder2);
                     break;
                 case SPECIAL:
                     title.setText("특별한 여행 제안");

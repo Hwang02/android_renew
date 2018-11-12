@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="78dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_option_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blacktxt"
+        tools:text="A-1. [500매 한정] 1인 입장권"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tv_option_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blacktxt"
+        android:layout_marginTop="6dp"
+        tools:text="유효기간 : 2018-10-20 ~ 2018-12-31"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginLeft="46dp"
+        android:layout_marginBottom="14dp"
+        android:textSize="14dp" />
+
+    <View
+        android:id="@+id/item_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/back_line"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+</LinearLayout>

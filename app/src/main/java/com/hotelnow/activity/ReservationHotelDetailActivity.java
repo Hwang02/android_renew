@@ -62,6 +62,7 @@ public class ReservationHotelDetailActivity extends Activity {
     DialogConfirm dialogConfirm;
     String call_message;
     String hotel_phone_number = "";
+    WebView info_view;
 
 
     @Override
@@ -154,7 +155,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     lat = info.getString("latitude");
                     lon = info.getString("longuitude");
                     h_name = info.getString("hotel_name");
-                    tv_real_price.setText("-" + Util.numberFormat(price_info.getInt("price")) + "원");
+                    tv_real_price.setText(Util.numberFormat(price_info.getInt("price")) + "원");
 
                     if(_preferences.getString("userid", null) != null) {
                         if (info.getString("is_review_writable").equals("Y") && info.getInt("review_count") == 0) {
@@ -181,7 +182,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         btn_review.setVisibility(View.GONE);
                         findViewById(R.id.not_user_reserid).setVisibility(View.VISIBLE);
                         Spannable spannable = new SpannableString("예약번호 "+info.getString("booking_id"));
-                        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 4, info.getString("booking_id").length()+4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 5, info.getString("booking_id").length()+5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         ((TextView)findViewById(R.id.not_user_reserid)).setText(spannable);
                     }
 
@@ -347,7 +348,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         findViewById(R.id.ll_save_point).setVisibility(View.GONE);
                     }
 
-                    WebView info_view = (WebView) findViewById(R.id.info_view);
+                    info_view = (WebView) findViewById(R.id.info_view);
 
                     String webData =
                             confirm_info.getString("confirm_check").replace("<ul>", "").replace("</ul>", "").replace("<li>", "<div>• ").replace("</li>", "</div>")
@@ -487,7 +488,7 @@ public class ReservationHotelDetailActivity extends Activity {
 
                     if(payment_info.getString("account_available").equals("Y") && payment_info.getString("pay_type").equals("VBANK_KCP")) {
                         showSnsDialog = false; // sns 띄우지마
-                        String timeLimit = booking.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
+                        String timeLimit = payment_info.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
 
                         dialogAlert = new DialogAlert(
                                 getString(R.string.alert_notice),
@@ -650,5 +651,12 @@ public class ReservationHotelDetailActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(info_view != null)
+            info_view.destroy();
     }
 }
