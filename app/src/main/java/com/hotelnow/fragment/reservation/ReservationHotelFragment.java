@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
+import com.hotelnow.activity.ReservationHotelDetailActivity;
 import com.hotelnow.adapter.FavoriteHotelAdapter;
 import com.hotelnow.adapter.ReservationHotelAdapter;
 import com.hotelnow.fragment.model.BookingEntry;
@@ -69,6 +71,15 @@ public class ReservationHotelFragment extends Fragment {
         btn_go_reservation = (TextView) getView().findViewById(R.id.btn_go_reservation);
         mlist.setOnScrollListener(endlessScrollListener);
 
+        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView)view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
+                intent.putExtra("bid", tv.getText().toString());
+                startActivity(intent);
+            }
+        });
         authCheck();
     }
 

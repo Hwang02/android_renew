@@ -10,7 +10,8 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:background="@drawable/btn_screenup"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <LinearLayout
         android:layout_width="match_parent"

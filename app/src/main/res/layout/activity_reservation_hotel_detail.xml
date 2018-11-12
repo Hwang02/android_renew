@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/Theme.AppCompat.NoActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/btn_back"
+                android:layout_width="24dp"
+                android:layout_height="54dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/icon_back"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ico_titbar_back"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/btn_back"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textSize="16dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/purple"
+                android:gravity="left|center"
+                android:ellipsize="end"
+                android:text="예약 상세보기" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/hid"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@id/toolbar"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/info1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="19dp">
+
+                <TextView
+                    android:id="@+id/hotel_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="16dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="l7 홍대 바이 롯데"/>
+
+                <TextView
+                    android:id="@+id/hotel_room_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/blacktxt"
+                    android:textSize="14dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="[단독] 에디터 룸(1 킹 베드) + 목테일 2잔(취소불가)"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/img_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/info1"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/placeholder"/>
+
+                <TextView
+                    android:id="@+id/booking_status"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_alignParentRight="true"
+                    android:textSize="13dip"
+                    android:textColor="@color/white"
+                    android:padding="5dp"
+                    android:background="@drawable/bg_round_status_book"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_date"
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/img_info"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:text="-"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/blacktxt"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@+id/tv_center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_checkin_title"
+                        android:textColor="@color/star_txt"
+                        android:textSize="13dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_checkin_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="2018년 8월 31일(금)"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_checkin_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="14:00"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="14dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_toRightOf="@+id/tv_center"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_checkout_title"
+                        android:textColor="@color/star_txt"
+                        android:textSize="13dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_checkout_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="2018년 9월 01일(토)"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_checkout_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="12:00"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="14dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_review"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/rl_date"
+                android:background="@drawable/hotdeal_round"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/redtext"
+                android:text="리뷰 작성하기"
+                android:textSize="14dp"
+                style="?android:attr/borderlessButtonStyle"/>
+            
+            <TextView
+                android:id="@+id/not_user_reserid"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@+id/rl_date"
+                android:background="@color/special"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/purple"
+                android:text="예약번호"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/ll_gap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/btn_review"
+                android:layout_marginTop="25dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="@color/back_line"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_gap"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/footerview">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:text="@string/reservation_user_info_title2"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/purple" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="예약자명"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="연락처"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_usertel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@color/bg_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/footerview">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:text="@string/reservation_user_price_title"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/purple" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="판매금액"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_real_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="358,000원"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_private"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="프라이빗딜 특별할인"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_private_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_reservation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="적립금 사용액"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_reserve_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_coupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="쿠폰 적용금액"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_coupon_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/redtext"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@color/back_line"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="총 결제금액"
+                        android:textSize="16dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_total_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/blacktxt"
+                        tools:text="329,000원"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+
+                <TableLayout
+                    android:id="@+id/sub_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#f7f7fa"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textColor="@color/graytxt"
+                            android:text="날짜"
+                            style="@android:style/TextAppearance.Small"/>
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:text="판매가"
+                            android:textColor="@color/graytxt"
+                            style="@android:style/TextAppearance.Small"/>
+
+                        <TextView
+                            android:id="@+id/breakfast"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:text="조식"
+                            android:textColor="@color/graytxt"
+                            style="@android:style/TextAppearance.Small"/>
+                    </TableRow>
+                </TableLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@color/bg_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/footerview">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:text="@string/reservation_payinfo_title"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/purple" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="결제수단"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="결제번호"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_tel_com"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="통신사"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_tel_com"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_card_com"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="카드사"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_card_com"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_bank_nm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="은행"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_bank_nm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_bank_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="계좌번호"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_bank_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_bank_user_nm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="입금자명"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_bank_user_nm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_bank_user_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="입금기한"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_bank_user_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_income_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="결제기한"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        android:gravity="left" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_income_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/blacktxt"
+                        tools:text="김나우"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_save_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@color/bg_background" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/footerview">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="37dp"
+                            android:text="@string/reservation_money"
+                            android:textSize="14dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/purple" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="적립금"
+                            android:textSize="14dp"
+                            android:textColor="@color/blacktxt"
+                            android:gravity="left" />
+
+                        <TextView
+                            android:id="@+id/tv_save_point"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/blacktxt"
+                            tools:text="김나우"
+                            android:gravity="right"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_save_point_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/graytxt"
+                        android:text="@string/save_point_info"
+                        android:gravity="right"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@color/bg_background" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/footerview">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:text="@string/info_title"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/purple" />
+                </LinearLayout>
+
+                <WebView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/info_view"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    tools:ignore="WebViewLayout"></WebView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="28dp"
+                    android:background="@color/back_line" />
+
+                <include layout="@layout/layout_detail_map" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="@color/back_line" />
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="94dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:background="@color/footerview">
+
+                    <Button
+                        android:id="@+id/booking_delete"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:textColor="@color/termtext"
+                        android:textSize="14dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/delete_round"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:text="숙박내역 삭제"
+                        style="?android:attr/borderlessButtonStyle"/>
+                    <Button
+                        android:id="@+id/booking_receipt"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:textColor="@color/purple"
+                        android:textSize="14dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/receipt_round"
+                        android:text="영수증 신청"
+                        style="?android:attr/borderlessButtonStyle"/>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

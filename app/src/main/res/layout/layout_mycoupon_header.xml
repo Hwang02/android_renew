@@ -130,7 +130,8 @@
                 android:textColor="@color/purple"
                 android:textSize="13dp"
                 android:layout_alignParentRight="true"
-                android:text="쿠폰 등록하기"/>
+                android:text="쿠폰 등록하기"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <EditText
                 android:id="@+id/code"

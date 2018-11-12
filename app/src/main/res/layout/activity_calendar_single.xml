@@ -154,7 +154,8 @@
             android:layout_marginRight="20dp"
             android:text="@string/calendar_complate"
             android:background="@color/board_line"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
     <com.savvi.rangedatepicker.CalendarPickerView

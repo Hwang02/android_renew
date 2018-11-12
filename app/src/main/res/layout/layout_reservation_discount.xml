@@ -112,7 +112,8 @@
             android:textSize="12dp"
             android:textColor="@color/purple"
             android:layout_marginLeft="5dp"
-            android:layout_weight="1.5"/>
+            android:layout_weight="1.5"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 
     <RelativeLayout

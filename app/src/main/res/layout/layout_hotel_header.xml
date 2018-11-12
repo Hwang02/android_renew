@@ -84,7 +84,8 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/purple_and_white_round"
         android:text="검색하기"
-        android:textColor="@color/purple"/>
+        android:textColor="@color/purple"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <View
         android:layout_width="match_parent"

@@ -112,8 +112,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         info = (RelativeLayout) findViewById(R.id.info);
 
-
-
         Intent intent = getIntent();
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");

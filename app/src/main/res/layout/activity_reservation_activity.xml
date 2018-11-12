@@ -160,7 +160,8 @@
                     android:text="@string/reservation_ok"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp"
+                    style="?android:attr/borderlessButtonStyle"/>
             </LinearLayout>
 
         </LinearLayout>

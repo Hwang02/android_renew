@@ -14,7 +14,8 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:background="@color/purple"
-        android:textSize="14dp"/>
+        android:textSize="14dp"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <LinearLayout
         android:layout_width="match_parent"

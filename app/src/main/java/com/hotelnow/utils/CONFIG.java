@@ -63,7 +63,7 @@ public class CONFIG {
     public final static String passresetUrl = domainssl+"/password/remind";					//	비번 초기화
 
     public final static String bookingListUrl = domain+"/api/booking";						//	예약리스트 / booking/list/{page}/{per_page}
-    public final static String bookingDetailUrl = domain+"/booking/detail";					//	예약상세 / booking/detail/{booking_id}
+    public final static String bookingDetailUrl = domain+"/api/booking";					//	예약상세 / booking/detail/{booking_id}
     public final static String eventApplyUrl = domain+"/booking/event";						//	이벤트 응모하기
     public final static String bookingHidelUrl = domain+"/booking/hide";	 				//	예약내역 숨김
     public final static String bookingReceiptlUrl = domain+"/booking/receipt";	 			//	영수증 발급
@@ -76,7 +76,7 @@ public class CONFIG {
     public final static String ticketUrl = domain+"/q/deal_list";                           //  티켓리스트
     public final static String ticket_booking_Url = domain+"/api/qbooking";                 //  티켓예약리스트
     public final static String ticketbookingSuccessUrl = domain+"/q/booking_confirm";       //  티켓예약완료
-    public final static String ticketbookingDetailUrl = domain+"/q/booking_detail";         //  티켓예약상세
+    public final static String ticketbookingDetailUrl = domain+"/api/qbooking";              //  티켓예약상세
     public final static String themeTicketUrl = domain+"/theme/ticket";	 			        //	테마 티켓
     public final static String ticketreviewCreateUrl_v2 = domain+"/q/review/create_v2";
     public final static String ticketreviewUrl_v2 = domain+"/q/review/list_v2";

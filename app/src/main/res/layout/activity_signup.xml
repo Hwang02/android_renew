@@ -162,7 +162,8 @@
                     android:layout_marginLeft="3dp"
                     android:textColor="@color/white"
                     android:background="@color/board_line"
-                    android:text="@string/join_send"/>
+                    android:text="@string/join_send"
+                    style="?android:attr/borderlessButtonStyle"/>
             </LinearLayout>
 
             <LinearLayout
@@ -386,7 +387,9 @@
                 android:textSize="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                style="?android:attr/borderlessButtonStyle"/>
+
         </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -410,6 +413,7 @@
             android:background="@drawable/purple_round"
             android:textSize="15dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 </RelativeLayout>

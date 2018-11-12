@@ -63,7 +63,8 @@
                         android:textSize="13dp"
                         android:background="@drawable/style_dialog_alert_button"
                         android:textStyle="bold"
-                        android:padding="17dp"/>
+                        android:padding="17dp"
+                        style="?android:attr/borderlessButtonStyle"/>
 
                 </LinearLayout>
             </LinearLayout>

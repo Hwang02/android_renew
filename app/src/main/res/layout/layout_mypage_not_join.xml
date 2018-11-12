@@ -87,7 +87,8 @@
                 android:textSize="14dp"
                 android:textColor="@color/purple"
                 android:text="@string/mypage_join"
-                android:background="@drawable/purple_and_white_round"/>
+                android:background="@drawable/purple_and_white_round"
+                style="?android:attr/borderlessButtonStyle"/>
 
             <Button
                 android:id="@+id/bt_login"
@@ -97,7 +98,8 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/white"
                 android:text="@string/mypage_login"
-                android:background="@drawable/purple_round"/>
+                android:background="@drawable/purple_round"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
     </RelativeLayout>
 </layout>
