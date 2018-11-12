@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.ReviewHotelWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BookingEntry;
 import com.hotelnow.fragment.model.FavoriteStayItem;
@@ -25,16 +27,18 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
     String hotels = "";
     DialogAlert dialogAlert;
     List<BookingEntry> mlist;
+    String userId = "";
 
-    public ReservationHotelAdapter(Context context, int textViewResourceId, List<BookingEntry> objects) {
+    public ReservationHotelAdapter(Context context, int textViewResourceId, List<BookingEntry> objects, String userId) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
+        this.userId = userId;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
 
         if (v == null) {
@@ -75,6 +79,19 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
             holder.btn_review.setVisibility(View.VISIBLE);
             holder.review_text1.setText(entry.getReview_writable_words_1());
             holder.review_text2.setText(entry.getReview_writable_words_2());
+            holder.btn_review.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ReviewHotelWriteActivity.class);
+                    intent.putExtra("booking_id", mlist.get(position).getId());
+                    intent.putExtra("hotel_id", mlist.get(position).getmHotelId());
+                    intent.putExtra("room_id", mlist.get(position).getmRoomId());
+                    intent.putExtra("userid", userId);
+                    intent.putExtra("hotel_name", mlist.get(position).getHotelName());
+                    intent.putExtra("room_name", mlist.get(position).getRoomName());
+                    mContext.startActivity(intent);
+                }
+            });
         } else{
             holder.btn_review.setVisibility(View.GONE);
         }

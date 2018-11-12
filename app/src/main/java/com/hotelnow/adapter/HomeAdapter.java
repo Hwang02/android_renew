@@ -226,6 +226,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void BannerView(final BannerViewHolder holder, int type) {
         if(bannerAdapter == null) {
             bannerAdapter = new BannerPagerAdapter(context, mHf.getPbannerData());
+            holder.autoViewPager.setClipToPadding(false);
+            holder.autoViewPager.setOffscreenPageLimit(mHf.getPbannerData().size());
+            holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -234,6 +237,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 }
             });
+
             holder.autoViewPager.startAutoScroll();
         }
     }
