@@ -1,32 +1,25 @@
 package com.hotelnow.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
@@ -37,7 +30,7 @@ import java.util.Map;
  * Created by idhwang on 2017. 8. 18..
  */
 
-public class ReviewHotelWriteActivity extends Activity implements View.OnClickListener{
+public class ReviewActivityWriteActivity extends Activity implements View.OnClickListener{
 
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private ImageView ko_star1, ko_star2, ko_star3, ko_star4, ko_star5;
@@ -46,19 +39,19 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
     private int sc_count = 5, c_count = 5, ko_count = 5, sp_count = 5;
     private Button right;
     private EditText review_edittext;
-    private String bid, hotel_id, room_id, userid, h_name, r_name;
+    private String bid, userid, h_name;
     private boolean review_sent = true;
-    private TextView hotel_name, user_room_info, info, info1;
+    private TextView hotel_name, user_room_info, info1;
     private ScrollView scroll;
     private DialogAlert dialogConfirm;
-//    private DialogSocial dialogSocial;
     private CallbackManager callbackManager;
+    private int t_count = 0;
 //    private Tracker t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hotel_write_review);
+        setContentView(R.layout.activity_activity_write_review);
 
 
 //        t = ((HotelnowApplication)getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
@@ -66,17 +59,14 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         Intent intent = getIntent();
 
         bid = intent.getStringExtra("booking_id");
-        hotel_id = intent.getStringExtra("hotel_id");
-        room_id = intent.getStringExtra("room_id");
         userid = intent.getStringExtra("userid");
-        h_name = intent.getStringExtra("hotel_name");
-        r_name = intent.getStringExtra("room_name");
-
+        h_name = intent.getStringExtra("name");
+        t_count = intent.getIntExtra("cnt",0);
 
         hotel_name = (TextView) findViewById(R.id.hotel_name);
         user_room_info = (TextView) findViewById(R.id.user_room_info);
         hotel_name.setText(h_name);
-        user_room_info.setText(r_name);
+        user_room_info.setText("티켓 " + t_count+"장");
 
         //서비스
         sc_star1 = (ImageView) findViewById(R.id.sc_star1);
@@ -103,15 +93,9 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         sp_star4 = (ImageView) findViewById(R.id.sp_star4);
         sp_star5 = (ImageView) findViewById(R.id.sp_star5);
         review_edittext = (EditText) findViewById(R.id.review_edittext);
-        info = (TextView)findViewById(R.id.info);
         info1 = (TextView)findViewById(R.id.info1);
 
-        Spannable spannable = new SpannableString(info.getText());
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 30, 39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 30, 39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        info.setText(spannable);
-
-        spannable = new SpannableString(info1.getText());
+        Spannable spannable = new SpannableString(info1.getText());
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.termtext)), 63, 80, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         info1.setText(spannable);
 
@@ -147,8 +131,6 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
     private void setReview(){
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("hotel_id", hotel_id);
-            paramObj.put("room_id", room_id);
             paramObj.put("user_id", userid);
             paramObj.put("comment", review_edittext.getText());
             paramObj.put("booking_id", bid);
@@ -160,11 +142,11 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         } catch (Exception e) {
         }
         review_sent = true;
-        Api.post(CONFIG.reviewCreateUrl_v2, paramObj.toString(), new Api.HttpCallback() {
+        Api.post(CONFIG.ticketreviewCreateUrl_v2, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 review_sent = false;
-                Toast.makeText(ReviewHotelWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReviewActivityWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -173,12 +155,12 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
                     JSONObject obj = new JSONObject(body);
 
                     if (!obj.getString("result").equals("success")) {
-                        Toast.makeText(ReviewHotelWriteActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReviewActivityWriteActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
                     succReviewDialog();
                 }catch (Exception e) {
-                    Toast.makeText(ReviewHotelWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReviewActivityWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
                 }
                 review_sent = false;
             }
@@ -190,7 +172,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         dialogConfirm = new DialogAlert(
                 getString(R.string.alert_review_title),
                 getString(R.string.alert_ticket_review_message),
-                ReviewHotelWriteActivity.this,
+                ReviewActivityWriteActivity.this,
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -210,15 +192,15 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
             case R.id.right :{
 
                 if (review_edittext.getText().length() == 0) {
-                    Toast.makeText(ReviewHotelWriteActivity.this, getText(R.string.need_review_msg), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReviewActivityWriteActivity.this, getText(R.string.need_review_msg), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(review_edittext.getText().length() < 10){
-                    Toast.makeText(ReviewHotelWriteActivity.this, getText(R.string.need_review_msg2), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReviewActivityWriteActivity.this, getText(R.string.need_review_msg2), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(sc_count == 0 || c_count == 0 || ko_count == 0 || sp_count == 0){
-                    Toast.makeText(ReviewHotelWriteActivity.this, getText(R.string.need_review_msg3), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReviewActivityWriteActivity.this, getText(R.string.need_review_msg3), Toast.LENGTH_SHORT).show();
                     return;
                 }
 

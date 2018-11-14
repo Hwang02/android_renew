@@ -65,6 +65,7 @@
         <activity android:name=".activity.ActivityMapActivity" />
         <activity android:name=".activity.ReservationActivityDetailActivity" />
         <activity android:name=".activity.ReviewHotelWriteActivity" />
+        <activity android:name=".activity.ReviewActivityWriteActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

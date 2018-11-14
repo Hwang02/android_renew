@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.ReviewActivityWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BookingEntry;
 import com.hotelnow.fragment.model.BookingQEntry;
@@ -24,16 +26,18 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
     String hotels = "";
     DialogAlert dialogAlert;
     List<BookingQEntry> mlist;
+    String userId = "";
 
-    public ReservationActivityAdapter(Context context, int textViewResourceId, List<BookingQEntry> objects) {
+    public ReservationActivityAdapter(Context context, int textViewResourceId, List<BookingQEntry> objects, String userId) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
+        this.userId = userId;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
 
         if (v == null) {
@@ -73,6 +77,17 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
             holder.btn_review.setVisibility(View.VISIBLE);
             holder.review_text1.setText(entry.getReview_writable_words_1());
             holder.review_text2.setText(entry.getReview_writable_words_2());
+            holder.btn_review.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ReviewActivityWriteActivity.class);
+                    intent.putExtra("booking_id", mlist.get(position).getId());
+                    intent.putExtra("userid", userId);
+                    intent.putExtra("name", mlist.get(position).getDeal_name());
+                    intent.putExtra("cnt", mlist.get(position).getTotal_ticket_count());
+                    mContext.startActivity(intent);
+                }
+            });
         } else{
             holder.btn_review.setVisibility(View.GONE);
         }

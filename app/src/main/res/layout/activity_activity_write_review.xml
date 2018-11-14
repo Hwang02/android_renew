@@ -74,7 +74,7 @@
             
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="69dp"
+                android:layout_height="49dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:background="@color/back_line">
@@ -92,7 +92,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:textSize="13dp"
-                    android:text="@string/review_save_title"/>
+                    android:text="@string/review_save_title2"/>
             </LinearLayout>
 
             <View
@@ -217,7 +217,7 @@
                     android:layout_weight="1"
                     android:textSize="14dp"
                     android:textColor="@color/blacktxt"
-                    android:text="ㆍ 청결도"/>
+                    android:text="ㆍ 안전성"/>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
