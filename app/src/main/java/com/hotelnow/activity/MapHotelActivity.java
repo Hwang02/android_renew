@@ -182,7 +182,6 @@ public class MapHotelActivity extends AppCompatActivity {
 
     public void getSearch(){
         String url = CONFIG.search_stay_list;
-        search_txt = "서울";
         if(!TextUtils.isEmpty(search_txt)){
             url +="&search_text="+search_txt;
         }
@@ -211,11 +210,6 @@ public class MapHotelActivity extends AppCompatActivity {
 
                         final JSONArray list = obj.getJSONArray("lists");
                         JSONObject entry = null;
-
-//                        final String total_cnt = "총 " + obj.getString("total_count") + "개의 객실이 있습니다";
-//                        SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
-//                        builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                        tv_review_count.setText(builder);
 
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);

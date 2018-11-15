@@ -18,9 +18,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@android:style/TextAppearance.Medium"
+            android:textSize="18dp"
             android:layout_marginTop="20dp"
-            android:textColor="#4f2680"/>
+            android:textColor="@color/purple"/>
 
         <TextView
             android:id="@+id/coupon_message"
@@ -30,13 +30,16 @@
             android:layout_marginTop="20dp"
             android:text=""
             android:layout_marginBottom="15dp"
-            android:textColor="#333333"/>
+            android:textColor="@color/termtext"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal" >
 
             <Button
@@ -46,11 +49,9 @@
                 android:layout_weight=".5"
                 android:gravity="center"
                 android:text="@string/alert_confrim"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textSize="13dp"
-                android:background="@drawable/style_dialog_alert_button"
-                android:textStyle="bold"
-                android:padding="17dp"/>
+                android:background="@color/purple"/>
 
         </LinearLayout>
     </LinearLayout>

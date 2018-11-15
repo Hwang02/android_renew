@@ -2,14 +2,20 @@ package com.hotelnow.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.MapAcvitityActivity;
+import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
+import com.koushikdutta.ion.Ion;
 import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.ArrayList;
@@ -46,14 +52,25 @@ public class MapActivityAdapter extends PagerAdapter {
 
         LinearLayout main_board = (LinearLayout) itemView.findViewById(R.id.main_board);
         TextView tv_name = (TextView) itemView.findViewById(R.id.hotel_name);
+        TextView tv_score = (TextView) itemView.findViewById(R.id.tv_score);
+        TextView tv_category = (TextView) itemView.findViewById(R.id.tv_category);
+        TextView tv_discount = (TextView) itemView.findViewById(R.id.tv_discount);
+        TextView tv_sale = (TextView) itemView.findViewById(R.id.tv_sale);
+        ImageView img_hotel = (ImageView) itemView.findViewById(R.id.img_hotel);
 
-        tv_name.setText("Location:" + (position + 1) +"\n" + arr_LocationList.get(position).getLatitude()+"\n" + arr_LocationList.get(position).getLonguitude());
+        tv_name.setText(arr_LocationList.get(position).getName());
+        tv_score.setText(arr_LocationList.get(position).getGrade_score());
+        tv_category.setText(arr_LocationList.get(position).getCategory());
+        tv_discount.setText(arr_LocationList.get(position).getSale_rate()+"%↓");
+        Ion.with(img_hotel).load(arr_LocationList.get(position).getLandscape());
+        if(!TextUtils.isEmpty(arr_LocationList.get(position).getSale_price()))
+            tv_sale.setText(Util.numberFormat(Integer.parseInt(arr_LocationList.get(position).getSale_price())));
 
         if(arr_LocationList.get(position).isIsfocus()){
-            main_board.setBackgroundResource(R.drawable.style_round_map_activity_item);
+            main_board.setBackgroundResource(R.drawable.style_round_map_item);
         }
         else{
-            main_board.setBackgroundResource(R.drawable.style_round_map_item_activity_default);
+            main_board.setBackgroundResource(R.drawable.style_round_map_item_default);
         }
 
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +81,10 @@ public class MapActivityAdapter extends PagerAdapter {
             }
         });
         container.addView(itemView);
+
+        if(position == arr_LocationList.size()-2){
+            ((MapAcvitityActivity)context).getSearch();
+        }
 
         return itemView;
     }

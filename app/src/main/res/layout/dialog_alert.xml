@@ -28,9 +28,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="20dp"
-                    style="@android:style/TextAppearance.Medium"
+                    android:textSize="18dp"
                     android:text=""
-                    android:textColor="#4f2680"/>
+                    android:textColor="@color/purple"/>
 
                 <TextView
                     android:id="@+id/message"
@@ -43,27 +43,28 @@
                     android:layout_marginBottom="20dp"
                     android:textSize="15dp"
                     android:text=""
-                    android:textColor="#333333"/>
+                    android:textColor="@color/termtext"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal" >
 
                     <Button
                         android:id="@+id/ok"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_weight=".5"
                         android:gravity="center"
                         android:text="@string/alert_confrim"
-                        android:textColor="#ffffff"
-                        android:textSize="13dp"
-                        android:background="@drawable/style_dialog_alert_button"
-                        android:textStyle="bold"
-                        android:padding="17dp"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:background="@color/purple"
                         style="?android:attr/borderlessButtonStyle"/>
 
                 </LinearLayout>

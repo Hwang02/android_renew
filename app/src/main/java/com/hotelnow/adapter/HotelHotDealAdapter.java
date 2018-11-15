@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.StayHotDealItem;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
         holder.tv_catagory.setText(data.get(position).getCategory());
         holder.tv_score.setText(data.get(position).getGrade_score());
         holder.tv_hotelname.setText(data.get(position).getName());
-        holder.tv_price.setText(data.get(position).getSale_price());
+        holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price()))+"원");
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
     }
 
@@ -46,7 +48,7 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price;
-        ImageView iv_image;
+        RoundedImageView iv_image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -54,7 +56,7 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
             tv_score = (TextView) itemView.findViewById(R.id.tv_score);
             tv_hotelname = (TextView) itemView.findViewById(R.id.tv_hotelname);
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
-            iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
+            iv_image = (RoundedImageView) itemView.findViewById(R.id.iv_image);
         }
     }
 }

@@ -187,6 +187,33 @@ public class HotelFragment extends Fragment {
                         }
                     }
 
+                    if(obj.has("stay_hot_deals")){
+                        JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
+                        mHotelItem.clear();
+                        if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
+                            for (int i = 0; i < mStay.length(); i++) {
+                                mHotelItem.add(new StayHotDealItem(
+                                        mStay.getJSONObject(i).getString("id"),
+                                        mStay.getJSONObject(i).getString("name"),
+                                        mStay.getJSONObject(i).getString("category_code"),
+                                        mStay.getJSONObject(i).getString("category"),
+                                        mStay.getJSONObject(i).getString("landscape"),
+                                        mStay.getJSONObject(i).getString("special_msg"),
+                                        mStay.getJSONObject(i).getString("review_score"),
+                                        mStay.getJSONObject(i).getString("grade_score"),
+                                        mStay.getJSONObject(i).getString("sale_price"),
+                                        mStay.getJSONObject(i).getString("normal_price"),
+                                        mStay.getJSONObject(i).getString("sale_rate"),
+                                        mStay.getJSONObject(i).getString("items_quantity"),
+                                        mStay.getJSONObject(i).getString("is_private_deal"),
+                                        mStay.getJSONObject(i).getString("is_hot_deal"),
+                                        mStay.getJSONObject(i).getString("is_add_reserve")
+                                ));
+                            }
+                            objects.add(mHotelItem.get(0));
+                        }
+                    }
+
                     if(obj.has("theme_show")){
                         if(obj.getJSONObject("theme_show").length() >0) {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
@@ -264,7 +291,9 @@ public class HotelFragment extends Fragment {
     public ArrayList<TopItem> getTopItem() {
         return mTopItem;
     }
-
+    public ArrayList<StayHotDealItem> getHotelData() {
+        return mHotelItem;
+    }
     public ArrayList<BannerItem> getPbannerData() {
         return mPbanerItem;
     }

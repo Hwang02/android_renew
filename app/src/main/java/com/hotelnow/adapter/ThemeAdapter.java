@@ -12,6 +12,7 @@ import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
@@ -47,13 +48,13 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price;
-        ImageView iv_image;
+        RoundedImageView iv_image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_hotelname = (TextView) itemView.findViewById(R.id.tv_hotelname);
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
-            iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
+            iv_image = (RoundedImageView) itemView.findViewById(R.id.iv_image);
         }
     }
 }

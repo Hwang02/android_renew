@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/pid"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+    <TextView
+        android:id="@+id/hid"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+    <LinearLayout
+        android:id="@+id/ll_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/placeholder"/>
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="13dp"
+                android:background="@drawable/ico_titbar_favorite_active"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ico_private"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/tag_privatedeal"/>
+
+                <ImageView
+                    android:id="@+id/ico_hotdeal"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/ico_private"
+                    android:background="@drawable/tag_hotdeal"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/room_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#66000000"
+                tools:text="남은객실 4개"
+                android:textSize="10dp"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="16dp"
+                android:visibility="gone"
+                android:padding="3dp"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/hotel_info1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_img"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/ico_star"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/ico_starpoint_press"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/tv_rate"
+                android:textSize="14dp"
+                android:textColor="@color/purple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ico_star"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                tools:text="4.6"/>
+
+            <View
+                android:id="@+id/v_bar"
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:background="@color/textbar"
+                android:layout_toRightOf="@+id/tv_rate"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp" />
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/termtext"
+                android:layout_toRightOf="@+id/v_bar"
+                android:textSize="12dp"
+                android:layout_marginLeft="8dp"
+                android:layout_centerVertical="true"
+                tools:text="특2급"/>
+
+            <TextView
+                android:id="@+id/tv_nearlocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_toRightOf="@id/category"
+                android:textSize="11dp"
+                android:textColor="@color/graytxt"
+                tools:text="홍대입구역 / 1번출구 도보 2분" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/hotel_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/blacktxt"
+            android:layout_below="@+id/hotel_info1"
+            android:textSize="17dp"
+            tools:text="l7 홍대 바이 롯데"/>
+
+        <RelativeLayout
+            android:id="@+id/hotel_info2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hotel_name"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp">
+
+            <TextView
+                android:id="@+id/tv_discount_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:textColor="@color/redtext"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02"
+                tools:text="48%↓" />
+
+            <TextView
+                android:id="@+id/sale_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:textColor="@color/redtext"
+                android:layout_toRightOf="@id/tv_discount_rate"
+                android:letterSpacing="-0.01"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:textStyle="bold"
+                tools:text="166,600" />
+
+            <TextView
+                android:id="@+id/won"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:textColor="@color/redtext"
+                android:layout_toRightOf="@id/sale_price"
+                android:layout_centerVertical="true"
+                android:paddingTop="3dp"
+                android:text="원~" />
+
+            <TextView
+                android:id="@+id/tv_soldout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/graytxt"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                android:text="판매완료" />
+
+            <LinearLayout
+                android:id="@+id/hotel_info3"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/soon_discount"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/tag_discount"
+                    android:layout_marginLeft="4dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/soon_point"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/tag_doublepoint"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/soon_discount" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/special_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/back_line" />
+
+            <TextView
+                android:id="@+id/tv_special"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="11dp"
+                android:textSize="13dp"
+                android:textColor="@color/purple"
+                android:maxLines="3"
+                android:ellipsize="end"
+                tools:text="선착순 5천원 할인쿠폰 프로모션 진행 중! (9/10~9/23 예약기간 내 재발급 가능)"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/hotel_info2">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/back_line"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ccffffff"
+            android:layout_below="@id/tv_subject"
+            android:layout_marginTop="47dp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="14dp"
+            android:text=""/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/iv_top">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/back_line"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

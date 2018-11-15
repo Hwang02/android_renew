@@ -16,6 +16,7 @@ import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.PrivateDealItem;
+import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.fragment.model.TopItem;
@@ -38,12 +39,14 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int PROMOTION = 3; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 4; // 변경되는 프로모션 vertical
     private final int FOOTER = 5; // 변경되는 프로모션 vertical
+    private final int HOTDEAL_HOTEL = 6; // 호텔 핫딜 horizontal
     private PrivateDealHotelAdapter privateAdapter = null;
     private BannerPagerHotelAdapter bannerAdapter = null;
     private FooterHAAdapter footAdapter = null;
     private HeaderAdapter headerAdapter = null;
     private ThemeSpecialAdapter themeSAdapter = null;
     private ThemeAdapter themeAdapter = null;
+    private HotelHotDealAdapter hotelAdapter = null;
 
     public HotelAdapter(Context context, HotelFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -82,6 +85,10 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 view = inflater.inflate(R.layout.layout_header_vertical, parent, false);
                 holder = new HotelAdapter.HeaderViewHolder(view, HEADER);
                 break;
+            case HOTDEAL_HOTEL:
+                view = inflater.inflate(R.layout.layout_horizontal, parent, false);
+                holder = new HotelAdapter.HorizontalViewHolder(view, HOTDEAL_HOTEL);
+                break;
             default:
                 view = inflater.inflate(R.layout.layout_header_vertical, parent, false);
                 holder = new HotelAdapter.HeaderViewHolder(view, HEADER);
@@ -111,6 +118,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             case PRIVATEDEAL:
                 setPrivateDealView((HotelAdapter.HorizontalViewHolder) holder, holder.getItemViewType());
                 break;
+            case HOTDEAL_HOTEL:
+                setHotelHotDealView((HotelAdapter.HorizontalViewHolder) holder, holder.getItemViewType());
+                break;
         }
     }
 
@@ -128,8 +138,18 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             return HEADER;
         if (items.get(position) instanceof PrivateDealItem)
             return PRIVATEDEAL;
+        if (items.get(position) instanceof StayHotDealItem)
+            return HOTDEAL_HOTEL;
 
         return -1;
+    }
+
+    private void setHotelHotDealView(HorizontalViewHolder holder, int type) {
+        if(hotelAdapter == null) {
+            hotelAdapter = new HotelHotDealAdapter(mHf.getHotelData());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(hotelAdapter);
+        }
     }
 
     private void setTopView(HeaderViewHolder holder, int type){
@@ -340,6 +360,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     break;
                 case PRIVATEDEAL:
                     title.setText("오늘의 프라이빗딜");
+                    break;
+                case HOTDEAL_HOTEL:
+                    title.setText("단독핫딜");
                     break;
             }
         }

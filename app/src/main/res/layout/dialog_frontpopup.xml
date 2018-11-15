@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/popup_bg"
+            android:background="@color/blacktxt"
+            android:layout_width="match_parent"
+            android:layout_height="435dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/popup_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:riv_corner_radius_top_left="5dp"
+                app:riv_corner_radius_top_right="5dp"
+                android:src="@drawable/ico_starpoint"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:background="@color/white"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center|left"
+                android:text="7일간 보지 않기"
+                android:textColor="@color/termtext"
+                android:layout_marginLeft="20dp"
+                android:textSize="13dp"
+                android:button="@drawable/checkbox_icon"
+                android:padding="17dp"/>
+
+            <Button
+                android:id="@+id/right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".2"
+                android:gravity="center"
+                android:text="닫기"
+                android:textColor="@color/termtext"
+                android:textSize="13dp"
+                android:background="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

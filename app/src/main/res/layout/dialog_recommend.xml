@@ -21,7 +21,7 @@
             style="@android:style/TextAppearance.Medium"
             android:text="@string/recommend_input_title"
             android:layout_marginTop="20dp"
-            android:textColor="#4f2680"/>
+            android:textColor="@color/purple"/>
 
         <EditText
             android:id="@+id/recommend_code"
@@ -46,39 +46,40 @@
             android:gravity="center"
             android:text=""
             android:layout_marginBottom="15dp"
-            android:textColor="#4a2767"/>
+            android:textColor="@color/termtext"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/left"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_height="50dp"
+                android:layout_weight=".3"
                 android:gravity="center"
                 android:text="@string/alert_no"
-                android:textColor="#ffffff"
+                android:textColor="@color/termtext"
                 android:textSize="13dp"
-                android:background="@drawable/style_dialog_confirm_button_left"
+                android:background="@color/white"
                 android:padding="17dp"/>
 
             <Button
                 android:id="@+id/right"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight=".5"
                 android:gravity="center"
                 android:text="@string/alert_yes"
                 android:textColor="#ffffff"
                 android:textSize="13dp"
-                android:background="@drawable/style_dialog_confirm_button_right"
-                android:textStyle="bold"
-                android:padding="17dp"/>
+                android:background="@color/purple" />
 
         </LinearLayout>
     </LinearLayout>

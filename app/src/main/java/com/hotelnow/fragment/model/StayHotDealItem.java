@@ -2,9 +2,9 @@ package com.hotelnow.fragment.model;
 
 public class StayHotDealItem {
 
-    private String id, name, category_code, category, landscape, special_msg, review_score, grade_score, normal_price, sale_price, sale_rate, items_quantity;
+    private String id, name, category_code, category, landscape, special_msg, review_score, grade_score, normal_price, sale_price, sale_rate, items_quantity, is_private_deal, is_hot_deal, is_add_reserve;
 
-    public StayHotDealItem(String id, String name, String category_code, String category, String landscape, String special_msg, String review_score, String grade_score, String sale_price, String normal_price, String sale_rate, String items_quantity) {
+    public StayHotDealItem(String id, String name, String category_code, String category, String landscape, String special_msg, String review_score, String grade_score, String sale_price, String normal_price, String sale_rate, String items_quantity, String is_private_deal, String is_hot_deal, String is_add_reserve) {
         this.id = id;
         this.name = name;
         this.category_code = category_code;
@@ -17,6 +17,33 @@ public class StayHotDealItem {
         this.normal_price = normal_price;
         this.sale_rate = sale_rate;
         this.items_quantity = items_quantity;
+        this.is_private_deal = is_private_deal;
+        this.is_hot_deal = is_hot_deal;
+        this.is_add_reserve = is_add_reserve;
+    }
+
+    public String getIs_private_deal() {
+        return is_private_deal;
+    }
+
+    public void setIs_private_deal(String is_private_deal) {
+        this.is_private_deal = is_private_deal;
+    }
+
+    public String getIs_hot_deal() {
+        return is_hot_deal;
+    }
+
+    public void setIs_hot_deal(String is_hot_deal) {
+        this.is_hot_deal = is_hot_deal;
+    }
+
+    public String getIs_add_reserve() {
+        return is_add_reserve;
+    }
+
+    public void setIs_add_reserve(String is_add_reserve) {
+        this.is_add_reserve = is_add_reserve;
     }
 
     public String getId() {

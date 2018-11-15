@@ -12,6 +12,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public Context mContext;
     public String search_txt, banner_id;
+    public Bundle bundle;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm, String search_txt, String banner_id) {
         super(fm);
@@ -27,13 +28,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0:
                 HotelSearchFragment hotelSearchFragment = new HotelSearchFragment();
-                Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
+                bundle = new Bundle(2); // 파라미터는 전달할 데이터 개수
                 bundle.putString("search_txt", search_txt); // key , value
                 bundle.putString("banner_id", banner_id); // key , value
                 hotelSearchFragment.setArguments(bundle);
                 return hotelSearchFragment;
             case 1:
                 ActivitySearchFragment activitySearchFragment = new ActivitySearchFragment();
+                bundle = new Bundle(2); // 파라미터는 전달할 데이터 개수
+                bundle.putString("search_txt", search_txt); // key , value
+                bundle.putString("banner_id", banner_id); // key , value
+                activitySearchFragment.setArguments(bundle);
                 return activitySearchFragment;
             default:
                 return null;

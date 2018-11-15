@@ -114,7 +114,7 @@ public class HotelSearchFragment extends Fragment {
 
     public void getSearch(){
         String url = CONFIG.search_stay_list;
-        search_txt = "서울";
+//        search_txt = "서울";
         if(!TextUtils.isEmpty(search_txt)){
             url +="&search_text="+search_txt;
         }

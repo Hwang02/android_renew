@@ -22,10 +22,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@android:style/TextAppearance.Medium"
+            android:textSize="18dp"
             android:text="숙박일을 다시 한번 확인해 주세요."
             android:layout_marginTop="20dp"
-            android:textColor="#4f2680"/>
+            android:textColor="@color/purple"/>
 
         <TextView
             android:id="@+id/caution_txt"
@@ -35,42 +35,42 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            style="@android:style/TextAppearance.Small"
+            android:textSize="15dp"
             android:lineSpacingExtra="5dip"
             android:text=" "
-            android:textColor="@color/blacktxt"/>
+            android:textColor="@color/termtext"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btn_skip"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:text="확인"
-                android:textColor="#ffffff"
-                android:textSize="13dp"
-                android:background="@drawable/style_dialog_caution_button_left"
-                android:padding="17dp"/>
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_height="50dp"
+                android:layout_weight=".3"
                 android:gravity="center"
                 android:text="취소"
-                android:textColor="#ffffff"
+                android:textColor="@color/termtext"
                 android:textSize="13dp"
-                android:background="@drawable/style_dialog_caution_button_right"
-                android:textStyle="bold"
-                android:padding="17dp"/>
+                android:background="@color/white" />
+
+            <Button
+                android:id="@+id/btn_skip"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:text="확인"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:background="@color/purple" />
         </LinearLayout>
     </LinearLayout>
 

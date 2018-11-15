@@ -169,6 +169,19 @@
                     android:gravity="center"
                     android:textSize="15dp"
                     android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/not_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_user_reservation"
+                    android:textSize="14dp"
+                    android:textColor="@color/termtext"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

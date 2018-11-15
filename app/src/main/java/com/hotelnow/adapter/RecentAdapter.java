@@ -11,6 +11,7 @@ import com.hotelnow.R;
 import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
 import com.koushikdutta.ion.Ion;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
@@ -43,12 +44,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_keyword;
-        ImageView iv_image;
+        RoundedImageView iv_image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_keyword = (TextView) itemView.findViewById(R.id.tv_keyword);
-            iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
+            iv_image = (RoundedImageView) itemView.findViewById(R.id.iv_image);
         }
     }
 }

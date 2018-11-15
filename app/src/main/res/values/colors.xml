@@ -7,6 +7,7 @@
     <color name="background">#FAFAFA</color>
     <color name="header_dark">#380f69</color>
     <color name="purple">#4d267f</color>
+    <color name="purple_cc">#cc4d267f</color>
     <color name="blacktxt">#222222</color>
     <color name="graytxt">#999999</color>
     <color name="white">#ffffff</color>
@@ -16,6 +17,7 @@
     <color name="textbar">#d8d8d8</color>
     <color name="board_line">#e1e1e1</color>
     <color name="activitytxt">#ff6427</color>
+    <color name="activity_cc">#ccff6427</color>
     <color name="footerview">#f7f7fa</color>
     <color name="termtext">#666666</color>
     <color name="back_line">#f0f0f5</color>

@@ -64,7 +64,10 @@
                     android:background="@drawable/pager_count_round"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/white"
-                    android:padding="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:textSize="11dp"
                     tools:text=" 3/10 + "/>
             </RelativeLayout>

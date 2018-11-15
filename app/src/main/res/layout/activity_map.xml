@@ -93,7 +93,7 @@
             android:id="@+id/ll_count"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@color/purple"
+            android:background="@color/purple_cc"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="16dp"
             android:layout_above="@id/event_pager">

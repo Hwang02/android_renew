@@ -17,6 +17,7 @@ import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.koushikdutta.ion.Ion;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
@@ -87,8 +88,9 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price;
-        ImageView iv_image, btn_favorite;
+        ImageView btn_favorite;
         LinearLayout sel_item;
+        RoundedImageView iv_image;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -97,7 +99,7 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
             tv_score = (TextView) itemView.findViewById(R.id.tv_score);
             tv_hotelname = (TextView) itemView.findViewById(R.id.tv_hotelname);
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
-            iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
+            iv_image = (RoundedImageView) itemView.findViewById(R.id.iv_image);
             btn_favorite = (ImageView) itemView.findViewById(R.id.btn_favorite);
         }
     }

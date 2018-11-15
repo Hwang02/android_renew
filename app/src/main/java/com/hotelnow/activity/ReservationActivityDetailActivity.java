@@ -170,6 +170,7 @@ public class ReservationActivityDetailActivity extends Activity {
                     else{
                         btn_review.setVisibility(View.GONE);
                         findViewById(R.id.not_user_reserid).setVisibility(View.VISIBLE);
+                        findViewById(R.id.not_user_info).setVisibility(View.VISIBLE);
                         Spannable spannable = new SpannableString("예약번호 "+info.getString("booking_id"));
                         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 5, info.getString("booking_id").length()+5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         ((TextView)findViewById(R.id.not_user_reserid)).setText(spannable);
