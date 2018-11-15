@@ -46,7 +46,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private FooterHAAdapter footAdapter = null;
     private HeaderLAdapter headerAdapter = null;
     private ThemeSpecialAdapter themeSAdapter = null;
-    private ThemeAdapter themeAdapter = null;
+    private ThemeLeisureAdapter themeAdapter = null;
     private ActivityHotDealLeisureAdapter acitivityAdapter = null;
 
     public LeisureAdapter(Context context, LeisureFragment Lf, List<Object> items, DbOpenHelper dbHelper) {
@@ -162,7 +162,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void setThemeView(HorizontalThemeViewHolder holder, int type) {
         if(themeAdapter == null) {
-            themeAdapter = new ThemeAdapter(mLf.getThemeData());
+            themeAdapter = new ThemeLeisureAdapter(mLf.getThemeData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mLf.getThemeData().get(0).getBack_color()));

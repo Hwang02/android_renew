@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
-import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.StayHotDealItem;
+import com.hotelnow.fragment.hotel.HotelFragment;
+import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
@@ -24,13 +24,13 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.util.ArrayList;
 
 
-public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder> {
+public class ThemeStayAdapter extends RecyclerView.Adapter<ThemeStayAdapter.MyViewHolder> {
 
     ArrayList<ThemeItem> data = new ArrayList<>();
     DbOpenHelper dbHelper;
-    HomeFragment hf;
+    HotelFragment hf;
 
-    public ThemeAdapter(ArrayList<ThemeItem> data, HomeFragment hf, DbOpenHelper dbHelper) {
+    public ThemeStayAdapter(ArrayList<ThemeItem> data, HotelFragment hf, DbOpenHelper dbHelper) {
         this.data = data;
         this.hf = hf;
         this.dbHelper = dbHelper;
@@ -65,7 +65,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
                 @Override
                 public void onClick(View v) {
                     LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
-                    hf.setThemeLike((int) v.getTag(), holder.islike, ThemeAdapter.this);
+                    hf.setThemeLike((int) v.getTag(), holder.islike, ThemeStayAdapter.this);
                 }
             });
 
@@ -98,7 +98,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
                 @Override
                 public void onClick(View v) {
                     LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
-                    hf.setThemeLike((int) v.getTag(), holder.islike, ThemeAdapter.this);
+                    hf.setThemeLike((int) v.getTag(), holder.islike, ThemeStayAdapter.this);
                 }
             });
 

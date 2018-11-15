@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="10dp"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sel_item"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -19,6 +20,7 @@
             app:riv_corner_radius="2dp"/>
 
         <ImageView
+            android:id="@+id/btn_favorite"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitXY"
@@ -68,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:textSize="11dp"
+                android:textSize="12dp"
                 android:background="@color/white"
                 android:textColor="@color/blacktxt"
                 tools:text="특2급" />
@@ -80,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:maxLines="1"
             android:ellipsize="end"
             android:background="@color/white"
@@ -90,15 +92,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:gravity="left|center|bottom"
+            android:layout_marginTop="2dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_per"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/redtext"
+                android:textStyle="bold"
+                tools:text="48%↓"/>
 
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="4dp"
                 android:textSize="16dp"
+                android:textStyle="bold"
                 android:background="@color/white"
                 android:textColor="@color/blacktxt"
                 tools:text="205,700" />
@@ -108,10 +122,38 @@
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
                 android:textSize="12dp"
+                android:textStyle="bold"
                 android:background="@color/white"
                 android:textColor="@color/blacktxt"
-                tools:text="원 ~" />
+                android:text="원 ~" />
+
+            <LinearLayout
+                android:id="@+id/hotel_info3"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="left|center"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/soon_discount"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/tag_discount"
+                    android:layout_marginLeft="4dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/soon_point"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/tag_doublepoint"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/soon_discount" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

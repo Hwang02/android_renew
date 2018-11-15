@@ -43,7 +43,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tv_catagory.setText(data.get(position).getCategory());
         holder.tv_score.setText(data.get(position).getGrade_score());
@@ -64,11 +64,15 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        if(data.get(position).isIslike()) {
-            holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{
-            holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+        for(int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+            if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                holder.islike = true;
+                break;
+            } else {
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
+            }
         }
 
         holder.btn_favorite.setTag(position);
@@ -76,7 +80,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
             @Override
             public void onClick(View v) {
                 LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setActivityLike((int)v.getTag(), data.get((int)v.getTag()).isIslike(), ActivityHotDealAdapter.this);
+                hf.setActivityLike((int)v.getTag(), holder.islike, ActivityHotDealAdapter.this);
             }
         });
 
@@ -85,16 +89,10 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
             @Override
             public void onClick(View v) {
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
-//                dbHelper.insertRecentItem(hf.getPrivateDealItem().get((int)v.getTag()).getId(), "H");
-//                if(hf.getRecentListItem().size()>0) {
-//                    hf.getRecentData(false);
-//                }
-//                else{
-//                    hf.getRecentData(true);
-//                }
                 Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", data.get((int)v.getTag()).getId()+"");
-                hf.startActivity(intent);
+                hf.startActivityForResult(intent,80);
+                dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "A");
             }
         });
     }
@@ -109,6 +107,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         ImageView soon_discount, soon_point, btn_favorite;
         LinearLayout sel_item;
         RoundedImageView iv_image;
+        boolean islike = false;
 
         public MyViewHolder(View itemView) {
             super(itemView);

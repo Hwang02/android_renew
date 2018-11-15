@@ -3,6 +3,7 @@ package com.hotelnow.fragment.model;
 public class RecentListItem {
 
     private String flag, id, name, now, view_yn, img_url;
+    private boolean islike;
 
     public RecentListItem(String flag, String id, String name, String now, String view_yn, String img_url) {
         this.flag = flag;

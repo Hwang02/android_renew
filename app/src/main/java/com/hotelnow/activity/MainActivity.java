@@ -415,4 +415,38 @@ public class MainActivity extends FragmentActivity {
 
         transaction.commitAllowingStateLoss();
     }
+
+    public void showToast(String msg){
+        mbinding.toastLayout.setVisibility(View.VISIBLE);
+        mbinding.tvToast.setText(msg);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        mbinding.toastLayout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
+
+    public void showIconToast(String msg, boolean is_fav){
+        mbinding.toastLayout.setVisibility(View.VISIBLE);
+        mbinding.tvToast.setText(msg);
+
+        if(is_fav) { // 성공
+            mbinding.icoFavorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+        }
+        else{ // 취소
+            mbinding.icoFavorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
+        }
+        mbinding.icoFavorite.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        mbinding.toastLayout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
 }

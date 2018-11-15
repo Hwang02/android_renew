@@ -33,7 +33,6 @@ import java.util.Random;
  */
 public class PrivateDealActivity extends FragmentActivity {
     private WebView webview;
-    private RelativeLayout wrapper;
     private String linkUrl, pid, bid_id, ec_date, ee_date, bid, city="", hotel_name="";
     private final Handler handler = new Handler();
 
@@ -110,8 +109,6 @@ public class PrivateDealActivity extends FragmentActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-
-            wrapper.setVisibility(View.GONE);
         }
     }
 

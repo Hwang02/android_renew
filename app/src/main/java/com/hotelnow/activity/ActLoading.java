@@ -299,8 +299,6 @@ public class ActLoading extends Activity {
                             prefEditor.putString("phone", null);
                             prefEditor.putString("userid", null);
                             prefEditor.commit();
-
-//                            startHandler();
                         }
                         Intent intent = new Intent(ActLoading.this, MainActivity.class);
                         startActivity(intent);
@@ -340,11 +338,49 @@ public class ActLoading extends Activity {
                         prefEditor.putString("userid", null);
                         prefEditor.commit();
                     }
-
+                    getFavorite();
 //                    startHandler();
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void getFavorite(){
+
+        String url = CONFIG.like_list;
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+                Toast.makeText(ActLoading.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(ActLoading.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    dbHelper.deleteFavoriteItem(true,"","");
+                    if(obj.getJSONArray("stay").length() >0) {
+                        for(int i = 0; i<obj.getJSONArray("stay").length(); i++) {
+                            dbHelper.insertFavoriteItem(obj.getJSONArray("stay").getString(i), "H");
+                        }
+                    }
+
+                    if(obj.getJSONArray("activity").length() >0) {
+                        for(int i = 0; i<obj.getJSONArray("activity").length(); i++) {
+                            dbHelper.insertFavoriteItem(obj.getJSONArray("activity").getString(i), "A");
+                        }
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(ActLoading.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });

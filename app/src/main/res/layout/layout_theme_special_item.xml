@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/style_theme_special_border"
     android:layout_marginBottom="13dp"
+    android:id="@+id/sel_item"
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView

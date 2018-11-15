@@ -337,6 +337,7 @@ public class MypageFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 90 && resultCode == 90) { // 로그인
             authCheck();
+            ((MainActivity)getActivity()).setTitle();
         }
         if (requestCode == 91 && resultCode == 91) { // 쿠폰, 카드
             checkLogin();

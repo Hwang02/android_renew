@@ -1,0 +1,256 @@
+package com.hotelnow.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hotelnow.R;
+import com.hotelnow.adapter.ThemeSpecialActivityAdapter;
+import com.hotelnow.adapter.ThemeSpecialHotelAdapter;
+import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.fragment.model.ThemeSItem;
+import com.hotelnow.utils.Api;
+import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.Util;
+import com.squareup.okhttp.Response;
+import com.thebrownarrow.model.SearchResultItem;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ * Created by susia on 16. 5. 8..
+ */
+public class ThemeSpecialActivityActivity extends Activity {
+    RelativeLayout wrapper;
+
+    ListView hotelListview;
+    public ArrayList<SearchResultItem> mThemeItem = new ArrayList<>();
+    ThemeSpecialActivityAdapter mAdapter;
+
+    SharedPreferences _preferences;
+    String tid;
+    String from = "";
+
+    DialogAlert dialogAlert;
+//    Tracker t;
+    boolean isRefresh = false;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_special_themehotel);
+
+        Util.setStatusColor(this);
+
+//        t = ((HotelnowApplication)getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
+//        t.setScreenName("ThemeHotelList");
+//        t.send(new HitBuilders.AppViewBuilder().build());
+
+//        TuneWrap.ScreenName("ThemeHotelList");
+//        FacebookWrap.logViewedContentEvent(this, "ThemeHotelList");
+
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+//        getActionBar().setTitle("테마");
+
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        wrapper = (RelativeLayout)findViewById(R.id.wrapper);
+//        wrapper.setVisibility(View.VISIBLE);
+
+        Intent intent = getIntent();
+        tid = intent.getStringExtra("tid");
+        from = intent.getStringExtra("from") != null? intent.getStringExtra("from"):"";
+
+        hotelListview = (ListView)findViewById(R.id.listview);
+        mAdapter = new ThemeSpecialActivityAdapter(ThemeSpecialActivityActivity.this, 0, mThemeItem);
+        hotelListview.setAdapter(mAdapter);
+
+        hotelListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                TextView hid = (TextView) v.findViewById(R.id.hid);
+                TextView pid = (TextView) v.findViewById(R.id.pid);
+                // 내일 확인
+                TextView hname = (TextView) v.findViewById(R.id.hotel_name);
+
+                if(!pid.getText().toString().equals("-1")) {
+//                    t.send(new HitBuilders.EventBuilder().setCategory("PRODUCT_THEME").setAction(tid).setLabel(hname.getText().toString()).build());
+//                    TuneWrap.Event("PRODUCT_THEME", tid, hname.getText().toString());
+
+                    Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
+                    intent.putExtra("hid", hid.getText().toString());
+                    intent.putExtra("evt", "N");
+                    startActivity(intent);
+                }
+            }
+        });
+
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)findViewById(R.id.swipe);
+        swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeView.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        isRefresh = true;
+                        swipeView.setRefreshing(false);
+                        getHotelList();
+                    }
+                }, 200);
+            }
+        });
+
+        getHotelList();
+    }
+
+    public void getHotelList() {
+        String url = CONFIG.special_theme_list+"/"+tid+"/A";
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+                Toast.makeText(ThemeSpecialActivityActivity.this, getString(R.string.error_theme_info), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.has("theme")) {
+                        Toast.makeText(ThemeSpecialActivityActivity.this, getString(R.string.error_theme_info), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    JSONObject entry = null;
+                    JSONArray rows = obj.getJSONArray("lists");
+
+//                    getActionBar().setTitle(head.getString("title"));
+
+                    if(isRefresh){
+                        isRefresh = false;
+                        mThemeItem.clear();
+                    }
+                    //0번째에 head 이미지가 있으면 array에 넣고 없으면 리스트만 담는다.
+                    //array name 무시 필요한것만 담음.
+                    if(obj.has("theme")) {
+                        JSONObject head = obj.getJSONObject("theme");
+                        mThemeItem.add(new SearchResultItem(
+                                head.getString("id"),
+                                "",
+                                head.getString("title"),
+                                "",
+                                "-1",
+                                head.getString("sub_title"),
+                                "",
+                               0,
+                                0,
+                                "N",
+                                head.getString("img_background"),
+                                "",
+                                "",
+                                "",
+                                0,
+                                "",
+                                "0",
+                                "",
+                                "",
+                                "0",
+                                "",
+                                "0",
+                                "",
+                                "N",
+                                "",
+                                "",
+                                0,
+                               false
+                        ));
+                    }
+
+                    for (int i = 0; i < rows.length(); i++) {
+                        entry = rows.getJSONObject(i);
+                        mThemeItem.add(new SearchResultItem(
+                                entry.getString("id"),
+                                entry.getString("deal_id"),
+                                entry.getString("name"),
+                                "",
+                                entry.getString("category"),
+                                "",
+                                "",
+                                entry.getDouble("latitude"),
+                                entry.getDouble("longitude"),
+                                "N",
+                                entry.getString("landscape"),
+                                entry.getString("sale_price"),
+                                entry.getString("normal_price"),
+                                entry.getString("sale_rate"),
+                                0,
+                                entry.getString("benefit_text"),
+                                "0",
+                                entry.getString("grade_score"),
+                                entry.getString("real_grade_score"),
+                                "0",
+                                entry.getString("distance_real"),
+                                "0",
+                                entry.getString("location"),
+                                "N",
+                                entry.getString("is_hot_deal"),
+                                entry.getString("is_add_reserve"),
+                                entry.getInt("coupon_count"),
+                                false
+                        ));
+                    }
+
+                    Handler mHandler = new Handler();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }, 200);
+
+                } catch (Exception e) {
+                    Toast.makeText(ThemeSpecialActivityActivity.this, getString(R.string.error_theme_info), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+       finish();
+       super.onBackPressed();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+//        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
+    }
+
+}

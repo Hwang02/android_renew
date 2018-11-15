@@ -38,7 +38,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tv_catagory.setText(data.get(position).getCategory());
         holder.tv_score.setText(data.get(position).getGrade_score());
@@ -59,11 +59,15 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        if(data.get(position).isIslike()) {
-            holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{
-            holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+        for(int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+            if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                holder.islike = true;
+                break;
+            } else {
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
+            }
         }
 
         holder.btn_favorite.setTag(position);
@@ -71,7 +75,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
             @Override
             public void onClick(View v) {
                 LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                lf.setActivityLike((int)v.getTag(), data.get((int)v.getTag()).isIslike(), ActivityHotDealLeisureAdapter.this);
+                lf.setActivityLike((int)v.getTag(), holder.islike, ActivityHotDealLeisureAdapter.this);
             }
         });
 
@@ -99,6 +103,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price;
         ImageView iv_image, soon_discount, soon_point, btn_favorite;
+        boolean islike;
 
         public MyViewHolder(View itemView) {
             super(itemView);

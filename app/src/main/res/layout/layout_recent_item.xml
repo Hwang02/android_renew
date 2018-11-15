@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="15dp"
+    android:id="@+id/sel_item"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
@@ -18,30 +19,9 @@
             android:layout_height="150dp"
             app:riv_corner_radius="2dp"
             android:scaleType="fitXY" />
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="25dp">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="13dp"
-                android:scaleType="fitXY"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="25dp">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="15dp"
-                android:scaleType="fitXY"/>
-
-        </LinearLayout>
         
         <ImageView
+            android:id="@+id/btn_favorite"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitXY"
@@ -58,6 +38,8 @@
         android:gravity="left|bottom"
         android:paddingLeft="8dp"
         android:textSize="15dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:background="@color/white"
         android:textColor="@color/blacktxt"
         tools:text="서울" />

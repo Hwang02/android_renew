@@ -153,14 +153,26 @@ public class HomeFragment extends Fragment {
                                 mRecentListItem.clear();
                                 JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
                                 for (int i = 0; i < p_recent.length(); i++) {
-                                    mRecentListItem.add(new RecentListItem(
-                                            p_recent.getJSONObject(i).getString("flag"),
-                                            p_recent.getJSONObject(i).getString("id"),
-                                            p_recent.getJSONObject(i).getString("name"),
-                                            p_recent.getJSONObject(i).getString("now"),
-                                            p_recent.getJSONObject(i).getString("view_yn"),
-                                            p_recent.getJSONObject(i).getString("img_url")
-                                    ));
+                                    if(p_recent.getJSONObject(i).getString("flag").equals("1")) {
+                                        mRecentListItem.add(new RecentListItem(
+                                                p_recent.getJSONObject(i).getString("flag"),
+                                                p_recent.getJSONObject(i).getString("id"),
+                                                p_recent.getJSONObject(i).getString("name"),
+                                                p_recent.getJSONObject(i).getString("now"),
+                                                p_recent.getJSONObject(i).getString("view_yn"),
+                                                p_recent.getJSONObject(i).getString("img_url")
+                                        ));
+                                    }
+                                    else{
+                                        mRecentListItem.add(new RecentListItem(
+                                                p_recent.getJSONObject(i).getString("flag"),
+                                                p_recent.getJSONObject(i).getString("id"),
+                                                p_recent.getJSONObject(i).getString("name"),
+                                                p_recent.getJSONObject(i).getString("now"),
+                                                p_recent.getJSONObject(i).getString("view_yn"),
+                                                p_recent.getJSONObject(i).getString("img_url")
+                                        ));
+                                    }
                                 }
                             }
                             if (isStart) {
@@ -284,11 +296,11 @@ public class HomeFragment extends Fragment {
                                         mPrivate.getJSONObject(i).getString("review_score"),
                                         mPrivate.getJSONObject(i).getString("grade_score"),
                                         mPrivate.getJSONObject(i).getString("sale_rate"),
-                                        mFavoriteStayItem.size() > 0 && Arrays.asList(FavoriteStayList).contains(mPrivate.getJSONObject(i).getString("id")) ? true : false,
                                         mPrivate.getJSONObject(i).getString("sale_price"),
                                         mPrivate.getJSONObject(i).getString("normal_price"),
                                         mPrivate.getJSONObject(i).getString("is_hot_deal"),
-                                        mPrivate.getJSONObject(i).getString("is_add_reserve")
+                                        mPrivate.getJSONObject(i).getString("is_add_reserve"),
+                                        mPrivate.getJSONObject(i).has("coupon_count") ? mPrivate.getJSONObject(i).getInt("coupon_count") : 0
                                 ));
                             }
                             objects.add(mPrivatedealItem.get(0));
@@ -314,7 +326,8 @@ public class HomeFragment extends Fragment {
                                         mStay.getJSONObject(i).getString("items_quantity"),
                                         mStay.getJSONObject(i).getString("is_private_deal"),
                                         mStay.getJSONObject(i).getString("is_hot_deal"),
-                                        mStay.getJSONObject(i).getString("is_add_reserve")
+                                        mStay.getJSONObject(i).getString("is_add_reserve"),
+                                        mStay.getJSONObject(i).has("coupon_count") ? mStay.getJSONObject(i).getInt("coupon_count") : 0
                                 ));
                             }
                             objects.add(mHotelItem.get(0));
@@ -341,7 +354,7 @@ public class HomeFragment extends Fragment {
                                         mActivity.getJSONObject(i).getString("grade_score"),
                                         mActivity.getJSONObject(i).getString("is_hot_deal"),
                                         mActivity.getJSONObject(i).getString("is_add_reserve"),
-                                        mFavoriteActivityItem.size() > 0 && Arrays.asList(FavoriteActivityList).contains(mActivity.getJSONObject(i).getString("id")) ? true : false
+                                        mActivity.getJSONObject(i).has("coupon_count") ? mActivity.getJSONObject(i).getInt("coupon_count") : 0
                                 ));
                             }
                             objects.add(mActivityItem.get(0));
@@ -352,26 +365,38 @@ public class HomeFragment extends Fragment {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
                             JSONObject mTheme = mTheme_show.getJSONObject("theme");
                             JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
-                            mTheme.getString("id");
-                            mTheme.getString("title");
-                            mTheme.getString("sub_title");
-                            mTheme.getString("subject");
-                            mTheme.getString("detail");
-                            mTheme.getString("notice");
                             mThemeItem.clear();
-                            for (int i = 0; i < mItems.length(); i++) {
-                                mThemeItem.add(new ThemeItem(
-                                        mItems.getJSONObject(i).getString("id"),
-                                        mItems.getJSONObject(i).getString("name"),
-                                        mItems.getJSONObject(i).getString("landscape"),
-                                        mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
-                                        mTheme.getString("id"),
-                                        mItems.getJSONObject(i).has("wo") ? mItems.getJSONObject(i).getString("wo") : "",
-                                        mTheme.getString("theme_color"),
-                                        mTheme.getString("title"),
-                                        mItems.getJSONObject(i).getString("sale_price"),
-                                        mItems.getJSONObject(i).getString("normal_price")
-                                ));
+                            if(mTheme.getString("theme_flag").equals("H")) { // 호텔일때
+                                for (int i = 0; i < mItems.length(); i++) {
+                                    mThemeItem.add(new ThemeItem(
+                                            mItems.getJSONObject(i).getString("id"),
+                                            mItems.getJSONObject(i).getString("name"),
+                                            mItems.getJSONObject(i).getString("landscape"),
+                                            mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+                                            mTheme.getString("id"),
+                                            mTheme.getString("theme_flag"),
+                                            mTheme.getString("theme_color"),
+                                            mTheme.getString("title"),
+                                            mItems.getJSONObject(i).getString("sale_price"),
+                                            mItems.getJSONObject(i).getString("normal_price")
+                                    ));
+                                }
+                            }
+                            else{
+                                for (int i = 0; i < mItems.length(); i++) {
+                                    mThemeItem.add(new ThemeItem(
+                                            mItems.getJSONObject(i).getString("id"),
+                                            mItems.getJSONObject(i).getString("name"),
+                                            mItems.getJSONObject(i).getString("landscape"),
+                                            mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+                                            mTheme.getString("id"),
+                                            mTheme.getString("theme_flag"),
+                                            mTheme.getString("theme_color"),
+                                            mTheme.getString("title"),
+                                            mItems.getJSONObject(i).getString("sale_price"),
+                                            mItems.getJSONObject(i).getString("normal_price")
+                                    ));
+                                }
                             }
                             objects.add(mThemeItem.get(0));
                         }
@@ -466,7 +491,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void setPrivateLike(final int position, final boolean islike, final PrivateDealAdapter adapter){
+    public void setPrivateLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
         final String sel_id = getPrivateDealItem().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
@@ -487,13 +512,13 @@ public class HomeFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
-                        getPrivateDealItem().get(position).setIslike(!islike);
-                        dbHelper.deleteFavoriteTheme(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
@@ -513,12 +538,13 @@ public class HomeFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        getPrivateDealItem().get(position).setIslike(!islike);
+
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
@@ -526,9 +552,10 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+        setLikeRefresh(true);
     }
 
-    public void setActivityLike(final int position, final boolean islike, final ActivityHotDealAdapter adapter){
+    public void setActivityLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
         final String sel_id = getActivityData().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
@@ -549,13 +576,13 @@ public class HomeFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
-                        getActivityData().get(position).setIslike(!islike);
-                        dbHelper.deleteFavoriteTheme(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
@@ -575,18 +602,266 @@ public class HomeFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        getActivityData().get(position).setIslike(!islike);
+
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
                     }
                 }
             });
+        }
+        setLikeRefresh(true);
+    }
+
+    public void setRecentLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+        final String sel_id = getRecentListItem().get(position).getId();
+        final String sel_type = getRecentListItem().get(position).getFlag();
+        JSONObject paramObj = new JSONObject();
+        try {
+            if(sel_type.equals("1")) {
+                paramObj.put("type", "stay");
+            }
+            else{
+                paramObj.put("type", "activity");
+            }
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        if(sel_type.equals("1")) {
+                            dbHelper.deleteFavoriteItem(false, sel_id, "H");
+                        }
+                        else{
+                            dbHelper.deleteFavoriteItem(false, sel_id, "A");
+                        }
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+                        if(sel_type.equals("1")) {
+                            dbHelper.insertFavoriteItem(sel_id, "H");
+                        }
+                        else{
+                            dbHelper.insertFavoriteItem(sel_id, "A");
+                        }
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        setLikeRefresh(true);
+    }
+
+    public void setStayLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+        final String sel_id = getHotelData().get(position).getId();
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "stay");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        setLikeRefresh(true);
+    }
+
+    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+        final String sel_id = getThemeData().get(position).getId();
+        final String sel_type = getThemeData().get(position).getTheme_flag();
+        JSONObject paramObj = new JSONObject();
+        try {
+            if(sel_type.equals("H")) {
+                paramObj.put("type", "stay");
+            }
+            else{
+                paramObj.put("type", "activity");
+            }
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        if(sel_type.equals("H")) {
+                            dbHelper.deleteFavoriteItem(false, sel_id, "H");
+                        }
+                        else{
+                            dbHelper.deleteFavoriteItem(false, sel_id, "A");
+                        }
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+                        if(sel_type.equals("H")) {
+                            dbHelper.insertFavoriteItem(sel_id, "H");
+                        }
+                        else{
+                            dbHelper.insertFavoriteItem(sel_id, "A");
+                        }
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        setLikeRefresh(true);
+    }
+
+    public void setLikeRefresh(boolean isRecent){
+        adapter.allRefresh(isRecent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 80){
+            mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
+            mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
+
+            if(getRecentListItem().size()>0) {
+                getRecentData(false);
+            }
+            else{
+                getRecentData(true);
+            }
+
+            if(resultCode == 80){
+                setLikeRefresh(false);
+            }
         }
     }
 }

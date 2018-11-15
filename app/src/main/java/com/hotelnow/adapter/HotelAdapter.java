@@ -45,8 +45,8 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private FooterHAAdapter footAdapter = null;
     private HeaderAdapter headerAdapter = null;
     private ThemeSpecialAdapter themeSAdapter = null;
-    private ThemeAdapter themeAdapter = null;
-    private HotelHotDealAdapter hotelAdapter = null;
+    private ThemeStayAdapter themeAdapter = null;
+    private HotelHotDealStayAdapter hotelAdapter = null;
 
     public HotelAdapter(Context context, HotelFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -146,7 +146,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void setHotelHotDealView(HorizontalViewHolder holder, int type) {
         if(hotelAdapter == null) {
-            hotelAdapter = new HotelHotDealAdapter(mHf.getHotelData());
+            hotelAdapter = new HotelHotDealStayAdapter(mHf.getHotelData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
         }
@@ -178,7 +178,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void setThemeView(HorizontalThemeViewHolder holder, int type) {
         if(themeAdapter == null) {
-            themeAdapter = new ThemeAdapter(mHf.getThemeData());
+            themeAdapter = new ThemeStayAdapter(mHf.getThemeData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));

@@ -527,6 +527,19 @@ public class DbOpenHelper {
     }
 
     /**
+     *  최근 본 상품 - DELETE
+     *
+     * @return
+     */
+    public void deleteRecentItem() {
+        open();
+
+        mDB.delete(DataBases.RecentList_CreateDB._TABLENAME,null, null);
+
+        close();
+    }
+
+    /**
      * 관심상품 선택 - INSERT
      *
      * @param keyid 선택한 id
@@ -624,7 +637,7 @@ public class DbOpenHelper {
      *
      * @return
      */
-    public void deleteFavoriteTheme(boolean isAll, String keyid, String type) {
+    public void deleteFavoriteItem(boolean isAll, String keyid, String type) {
         open();
         if(isAll) {
             mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, null, null);

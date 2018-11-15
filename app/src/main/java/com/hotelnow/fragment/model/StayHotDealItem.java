@@ -3,8 +3,10 @@ package com.hotelnow.fragment.model;
 public class StayHotDealItem {
 
     private String id, name, category_code, category, landscape, special_msg, review_score, grade_score, normal_price, sale_price, sale_rate, items_quantity, is_private_deal, is_hot_deal, is_add_reserve;
+    private int coupon_count;
 
-    public StayHotDealItem(String id, String name, String category_code, String category, String landscape, String special_msg, String review_score, String grade_score, String sale_price, String normal_price, String sale_rate, String items_quantity, String is_private_deal, String is_hot_deal, String is_add_reserve) {
+    public StayHotDealItem(String id, String name, String category_code, String category, String landscape, String special_msg, String review_score, String grade_score, String sale_price, String normal_price,
+                           String sale_rate, String items_quantity, String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count) {
         this.id = id;
         this.name = name;
         this.category_code = category_code;
@@ -20,6 +22,15 @@ public class StayHotDealItem {
         this.is_private_deal = is_private_deal;
         this.is_hot_deal = is_hot_deal;
         this.is_add_reserve = is_add_reserve;
+        this.coupon_count = coupon_count;
+    }
+
+    public int getCoupon_count() {
+        return coupon_count;
+    }
+
+    public void setCoupon_count(int coupon_count) {
+        this.coupon_count = coupon_count;
     }
 
     public String getIs_private_deal() {

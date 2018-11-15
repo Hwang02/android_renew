@@ -2,10 +2,10 @@ package com.hotelnow.fragment.model;
 
 public class ActivityHotDealItem {
     private String id, name, sale_price, sale_rate, latitude, longitude, benefit_text, img_url, location, category_code, category, review_score, grade_score, is_hot_deal, is_add_reserve;
-    private boolean islike;
+    private int coupon_count;
 
     public ActivityHotDealItem(String id, String name, String sale_price, String sale_rate, String latitude, String longitude, String benefit_text, String img_url, String location,
-                               String category_code, String category, String review_score, String grade_score, String is_hot_deal, String is_add_reserve, boolean islike ) {
+                               String category_code, String category, String review_score, String grade_score, String is_hot_deal, String is_add_reserve, int coupon_count ) {
         this.id = id;
         this.name = name;
         this.sale_price = sale_price;
@@ -21,15 +21,7 @@ public class ActivityHotDealItem {
         this.grade_score = grade_score;
         this.is_hot_deal = is_hot_deal;
         this.is_add_reserve = is_add_reserve;
-        this.islike = islike;
-    }
-
-    public boolean isIslike() {
-        return islike;
-    }
-
-    public void setIslike(boolean islike) {
-        this.islike = islike;
+        this.coupon_count = coupon_count;
     }
 
     public String getIs_hot_deal() {
