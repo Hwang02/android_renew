@@ -184,7 +184,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
         if(themeSAdapter == null) {
-            themeSAdapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData());
+            themeSAdapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
         }

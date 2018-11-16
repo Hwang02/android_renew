@@ -113,6 +113,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private boolean islike = false;
     private boolean islikechange = false;
     private DbOpenHelper dbHelper;
+    private String sdate, edate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +138,17 @@ public class DetailHotelActivity extends AppCompatActivity {
 
         cookie = _preferences.getString("userid", null);
 
-        ec_date = Util.setCheckinout().get(0);
-        ee_date = Util.setCheckinout().get(1);
+        sdate = intent.getStringExtra("sdate");
+        edate = intent.getStringExtra("edate");
+
+        if(sdate==null && edate==null) {
+            ec_date = Util.setCheckinout().get(0);
+            ee_date = Util.setCheckinout().get(1);
+        }
+        else{
+            ec_date = sdate;
+            ee_date = edate;
+        }
 
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override

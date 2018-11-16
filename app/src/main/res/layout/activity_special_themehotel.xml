@@ -1,8 +1,8 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -40,8 +40,7 @@
                 android:gravity="center_horizontal"
                 android:singleLine="true"
                 android:textColor="@color/purple"
-                android:textSize="16dp"
-                android:text="@string/area_title"/>
+                android:textSize="16dp" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -72,20 +71,37 @@
 
     </LinearLayout>
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/wrapper"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:visibility="gone"-->
-        <!--android:background="@color/loading_alpha_bg">-->
+    <RelativeLayout
+        android:id="@+id/toast_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="@drawable/toast_round">
 
-        <!--<com.wang.avi.AVLoadingIndicatorView-->
-            <!--android:id="@+id/loading_indicator"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--app:indicator="BallPulse"-->
-            <!--app:indicator_color="@color/loading_indicator_color"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-    <!--</RelativeLayout>-->
+            <ImageView
+                android:id="@+id/ico_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:background="@drawable/ico_titbar_favorite_active"/>
+
+            <TextView
+                android:id="@+id/tv_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"
+                tools:text="관심 상품 담기 성공"/>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

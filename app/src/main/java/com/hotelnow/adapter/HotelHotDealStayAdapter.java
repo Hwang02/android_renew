@@ -79,7 +79,7 @@ public class HotelHotDealStayAdapter extends RecyclerView.Adapter<HotelHotDealSt
             @Override
             public void onClick(View v) {
                 LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setPrivateLike((int)v.getTag(), holder.islike, HotelHotDealStayAdapter.this);
+                hf.setStayLike((int)v.getTag(), holder.islike, HotelHotDealStayAdapter.this);
             }
         });
         holder.sel_item.setTag(position);
@@ -89,7 +89,7 @@ public class HotelHotDealStayAdapter extends RecyclerView.Adapter<HotelHotDealSt
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", data.get((int)v.getTag()).getId());
-                hf.startActivityForResult(intent, 80);
+                hf.startActivityForResult(intent, 70);
                 dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "H");
             }
         });

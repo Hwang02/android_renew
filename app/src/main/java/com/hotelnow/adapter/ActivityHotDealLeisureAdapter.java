@@ -1,13 +1,17 @@
 package com.hotelnow.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
@@ -79,20 +83,17 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
             }
         });
 
-//        holder.sel_item.setTag(position);
-//        holder.sel_item.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
-//                dbHelper.insertRecentItem(hf.getPrivateDealItem().get((int)v.getTag()).getId(), "H");
-//                if(hf.getRecentListItem().size()>0) {
-//                    hf.getRecentData(false);
-//                }
-//                else{
-//                    hf.getRecentData(true);
-//                }
-//            }
-//        });
+        holder.sel_item.setTag(position);
+        holder.sel_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
+                Intent intent = new Intent(lf.getActivity(), DetailActivityActivity.class);
+                intent.putExtra("tid", data.get((int)v.getTag()).getId());
+                lf.startActivityForResult(intent, 70);
+                dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "H");
+            }
+        });
     }
 
     @Override
@@ -103,7 +104,9 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price;
         ImageView iv_image, soon_discount, soon_point, btn_favorite;
-        boolean islike;
+        boolean islike = false;
+        LinearLayout sel_item;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -115,6 +118,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
             soon_discount = (ImageView) itemView.findViewById(R.id.soon_discount);
             soon_point = (ImageView) itemView.findViewById(R.id.soon_point);
             btn_favorite = (ImageView) itemView.findViewById(R.id.btn_favorite);
+            sel_item = (LinearLayout) itemView.findViewById(R.id.sel_item);
         }
     }
 }

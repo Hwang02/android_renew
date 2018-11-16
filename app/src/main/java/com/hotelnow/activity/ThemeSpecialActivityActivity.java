@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,17 +16,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.adapter.ActivityHotDealLeisureAdapter;
 import com.hotelnow.adapter.ThemeSpecialActivityAdapter;
 import com.hotelnow.adapter.ThemeSpecialHotelAdapter;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.ThemeSItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,6 +53,9 @@ public class ThemeSpecialActivityActivity extends Activity {
     DialogAlert dialogAlert;
 //    Tracker t;
     boolean isRefresh = false;
+    DbOpenHelper dbHelper;
+    RelativeLayout toast_layout;
+    TextView tv_toast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,28 +64,19 @@ public class ThemeSpecialActivityActivity extends Activity {
 
         Util.setStatusColor(this);
 
-//        t = ((HotelnowApplication)getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
-//        t.setScreenName("ThemeHotelList");
-//        t.send(new HitBuilders.AppViewBuilder().build());
-
-//        TuneWrap.ScreenName("ThemeHotelList");
-//        FacebookWrap.logViewedContentEvent(this, "ThemeHotelList");
-
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-//        getActionBar().setTitle("테마");
-
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        wrapper = (RelativeLayout)findViewById(R.id.wrapper);
-//        wrapper.setVisibility(View.VISIBLE);
+        dbHelper = new DbOpenHelper(this);
 
         Intent intent = getIntent();
         tid = intent.getStringExtra("tid");
         from = intent.getStringExtra("from") != null? intent.getStringExtra("from"):"";
 
         hotelListview = (ListView)findViewById(R.id.listview);
-        mAdapter = new ThemeSpecialActivityAdapter(ThemeSpecialActivityActivity.this, 0, mThemeItem);
+        mAdapter = new ThemeSpecialActivityAdapter(ThemeSpecialActivityActivity.this, 0, mThemeItem, dbHelper);
         hotelListview.setAdapter(mAdapter);
+
+        tv_toast = (TextView) findViewById(R.id.tv_toast);
+        toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
 
         hotelListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -93,7 +92,7 @@ public class ThemeSpecialActivityActivity extends Activity {
 //                    TuneWrap.Event("PRODUCT_THEME", tid, hname.getText().toString());
 
                     Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
-                    intent.putExtra("hid", hid.getText().toString());
+                    intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
                     startActivity(intent);
                 }
@@ -151,6 +150,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                     //array name 무시 필요한것만 담음.
                     if(obj.has("theme")) {
                         JSONObject head = obj.getJSONObject("theme");
+                        ((TextView)findViewById(R.id.title_text)).setText(head.getString("title"));
                         mThemeItem.add(new SearchResultItem(
                                 head.getString("id"),
                                 "",
@@ -234,6 +234,40 @@ public class ThemeSpecialActivityActivity extends Activity {
         });
     }
 
+    private void showToast(String msg){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
+
+    private void showIconToast(String msg, boolean is_fav){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        if(is_fav) { // 성공
+            findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+        }
+        else{ // 취소
+            findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite);
+        }
+        findViewById(R.id.ico_favorite).setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
+
     @Override
     public void onBackPressed() {
        finish();
@@ -253,4 +287,64 @@ public class ThemeSpecialActivityActivity extends Activity {
         super.onStop();
     }
 
+    public void setLike(final int position, final boolean islike){
+        final String sel_id = mThemeItem.get(position).getId();
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "activity");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(ThemeSpecialActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        showIconToast("관심 상품 담기 취소", false);
+                        mAdapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(ThemeSpecialActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        showIconToast("관심 상품 담기 성공", true);
+                        mAdapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+    }
 }

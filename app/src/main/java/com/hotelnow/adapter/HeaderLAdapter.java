@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.AreaActivityActivity;
 import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
+import com.hotelnow.activity.CalendarSingleActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.TopItem;
@@ -44,13 +46,12 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
         holder.btn_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(fm.getActivity(), CalendarActivity.class);
+                Intent intent = new Intent(fm.getActivity(), CalendarSingleActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());
                 intent.putExtra("city", data.get(0).getLocation());
                 intent.putExtra("city_code", data.get(0).getLocation_id());
                 intent.putExtra("subcity_code", data.get(0).getLocation_subid());
-                intent.putExtra("lodge_type", "Y");
                 fm.startActivityForResult(intent, 80);
             }
         });
@@ -58,7 +59,7 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
         holder.btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(fm.getActivity(), AreaHotelActivity.class);
+                Intent intent = new Intent(fm.getActivity(), AreaActivityActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());
                 intent.putExtra("city", data.get(0).getLocation());

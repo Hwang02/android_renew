@@ -41,11 +41,10 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final int PROMOTION = 3; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 4; // 변경되는 프로모션 vertical
     private final int FOOTER = 5; // 변경되는 프로모션 vertical
-    private PrivateDealHotelAdapter privateAdapter = null;
     private BannerPagerHotelAdapter bannerAdapter = null;
     private FooterHAAdapter footAdapter = null;
     private HeaderLAdapter headerAdapter = null;
-    private ThemeSpecialAdapter themeSAdapter = null;
+    private ThemeSpecialLeisureAdapter themeSAdapter = null;
     private ThemeLeisureAdapter themeAdapter = null;
     private ActivityHotDealLeisureAdapter acitivityAdapter = null;
 
@@ -154,7 +153,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
         if(themeSAdapter == null) {
-            themeSAdapter = new ThemeSpecialAdapter(mLf.getThemeSpecialData());
+            themeSAdapter = new ThemeSpecialLeisureAdapter(mLf.getThemeSpecialData(), mLf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
         }
@@ -229,20 +228,6 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
-
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
-
-            }));
         }
     }
 
@@ -309,24 +294,21 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             });
-
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    Toast.makeText(context,position+"번 째 아이템 클릭 vertical",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
-            }));
         }
     }
 
     public void setHeaderRefresh(){
         if(headerAdapter != null){
             headerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setAllRefresh(){
+        if(themeAdapter != null) {
+            themeAdapter.notifyDataSetChanged();
+        }
+        if(acitivityAdapter != null){
+            acitivityAdapter.notifyDataSetChanged();
         }
     }
 

@@ -16,6 +16,7 @@ import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -44,10 +45,24 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tv_catagory.setText(data.get(position).getCategory());
-//        holder.tv_score.setText(data.get(position).get());
+        holder.tv_score.setText(data.get(position).getGrade_score());
         holder.tv_hotelname.setText(data.get(position).getName());
-        holder.tv_price.setText(data.get(position).getSale_rate());
+        holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
+
+        if(data.get(position).getCoupon_count()>0){
+            holder.soon_discount.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.soon_discount.setVisibility(View.GONE);
+        }
+        if(data.get(position).getIs_add_reserve().equals("Y")){
+            holder.soon_point.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.soon_point.setVisibility(View.GONE);
+        }
+
         for(int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
             if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -58,6 +73,7 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
                 holder.islike = false;
             }
         }
+        holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
         holder.btn_favorite.setTag(position);
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +87,13 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
             @Override
             public void onClick(View v) {
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
-                dbHelper.insertRecentItem(hf.getPrivateDealItem().get((int)v.getTag()).getId(), "H");
-
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
-                intent.putExtra("hid", data.get((int)v.getTag()).getId()+"");
-                hf.startActivity(intent);
+                intent.putExtra("hid", data.get((int)v.getTag()).getId());
+                hf.startActivityForResult(intent, 80);
+                dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "H");
             }
         });
+
     }
 
     @Override
@@ -86,8 +102,8 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_catagory, tv_score, tv_hotelname, tv_price;
-        ImageView btn_favorite;
+        TextView tv_catagory, tv_score, tv_hotelname, tv_price, tv_per;
+        ImageView btn_favorite, soon_discount, soon_point;
         LinearLayout sel_item;
         RoundedImageView iv_image;
         boolean islike = false;
@@ -101,6 +117,9 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
             iv_image = (RoundedImageView) itemView.findViewById(R.id.iv_image);
             btn_favorite = (ImageView) itemView.findViewById(R.id.btn_favorite);
+            soon_discount = (ImageView) itemView.findViewById(R.id.soon_discount);
+            soon_point = (ImageView) itemView.findViewById(R.id.soon_point);
+            tv_per = (TextView) itemView.findViewById(R.id.tv_per);
         }
     }
 }

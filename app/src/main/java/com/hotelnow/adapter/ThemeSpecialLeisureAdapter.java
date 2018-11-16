@@ -1,6 +1,5 @@
 package com.hotelnow.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,24 +11,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
-import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.SingleVertical;
+import com.hotelnow.fragment.hotel.HotelFragment;
+import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
-import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
 
-public class ThemeSpecialAdapter extends RecyclerView.Adapter<ThemeSpecialAdapter.MyViewHolder> {
+public class ThemeSpecialLeisureAdapter extends RecyclerView.Adapter<ThemeSpecialLeisureAdapter.MyViewHolder> {
     private ArrayList<ThemeSpecialItem> data = new ArrayList<>();
     private Context mContext;
-    private HomeFragment mHf;
+    private LeisureFragment mHf;
 
-    public ThemeSpecialAdapter(ArrayList<ThemeSpecialItem> data, HomeFragment mHf) {
+    public ThemeSpecialLeisureAdapter(ArrayList<ThemeSpecialItem> data, LeisureFragment mHf) {
         this.data = data;
         this.mHf = mHf;
     }
@@ -53,12 +50,12 @@ public class ThemeSpecialAdapter extends RecyclerView.Adapter<ThemeSpecialAdapte
                 if (data.get((int) v.getTag()).getTheme_flag().equals("H")){
                     Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());
-                    mHf.startActivityForResult(intent,80);
+                    mHf.startActivityForResult(intent,70);
                 }
                 else{
                     Intent intent = new Intent(mContext, ThemeSpecialActivityActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());
-                    mHf.startActivityForResult(intent,80);
+                    mHf.startActivityForResult(intent,70);
                 }
             }
         });

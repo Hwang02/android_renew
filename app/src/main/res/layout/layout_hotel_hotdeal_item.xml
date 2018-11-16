@@ -45,7 +45,6 @@
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:layout_marginLeft="16dp"
                 android:background="@drawable/ico_starpoint_press"/>
 
             <TextView
@@ -80,7 +79,6 @@
             android:id="@+id/tv_hotelname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:textSize="16dp"
             android:maxLines="1"
@@ -101,7 +99,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
-                android:layout_marginLeft="16dp"
                 android:textColor="@color/redtext"
                 android:textStyle="bold"
                 tools:text="48%↓"/>

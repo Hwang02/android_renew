@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,7 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.fragment.model.ThemeSItem;
+import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.koushikdutta.ion.Ion;
 import com.thebrownarrow.model.SearchResultItem;
 
@@ -24,10 +29,14 @@ import java.util.List;
  */
 public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> {
     Context mContext;
+    DbOpenHelper dbHelper;
+    List<SearchResultItem> data;
 
-    public ThemeSpecialActivityAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects) {
+    public ThemeSpecialActivityAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, DbOpenHelper dbHelper) {
         super(context, textViewResourceId, objects);
         mContext = context;
+        this.dbHelper = dbHelper;
+        data = objects;
     }
 
     @Override
@@ -109,12 +118,12 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
                 holder.soon_point.setVisibility(View.VISIBLE);
             }
 
-//            if(entry.getCoupon_count() > 0){
-//                holder.soon_discount.setVisibility(View.VISIBLE);
-//            }
-//            else{
-//                holder.soon_discount.setVisibility(View.GONE);
-//            }
+            if(entry.getCoupon_count() > 0){
+                holder.soon_discount.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.soon_discount.setVisibility(View.GONE);
+            }
 
             if(TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")){
                 holder.special_msg.setVisibility(View.GONE);
@@ -123,6 +132,27 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
                 holder.special_msg.setVisibility(View.VISIBLE);
                 holder.tv_special.setText(entry.getSpecial_msg());
             }
+            for(int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+                if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    holder.islike = true;
+                    break;
+                } else {
+                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                    holder.islike = false;
+                }
+            }
+
+            final ViewHolder finalHolder = holder;
+            finalHolder.iv_favorite.setTag(position);
+            finalHolder.iv_favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
+                    ((ThemeSpecialActivityActivity)mContext).setLike((int)v.getTag(), finalHolder.islike);
+                }
+            });
+
         } else{
             holder.layout_top.setVisibility(View.VISIBLE);
             holder.layout_item.setVisibility(View.GONE);
@@ -152,6 +182,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
         TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, tv_subject, tv_detail, pid, hid;
         LinearLayout special_msg, layout_item;
         RelativeLayout layout_top;
+        boolean islike = false;
 
         public ViewHolder(View v) {
 

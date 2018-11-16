@@ -44,7 +44,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private BannerPagerHotelAdapter bannerAdapter = null;
     private FooterHAAdapter footAdapter = null;
     private HeaderAdapter headerAdapter = null;
-    private ThemeSpecialAdapter themeSAdapter = null;
+    private ThemeSpecialStayAdapter themeSAdapter = null;
     private ThemeStayAdapter themeAdapter = null;
     private HotelHotDealStayAdapter hotelAdapter = null;
 
@@ -170,7 +170,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
         if(themeSAdapter == null) {
-            themeSAdapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData());
+            themeSAdapter = new ThemeSpecialStayAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
         }
@@ -245,20 +245,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
-
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                    Toast.makeText(context,position+"번 째 아이템 클릭 horizon",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
-
-            }));
         }
     }
 
@@ -325,24 +311,24 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 }
             });
-
-            recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    Toast.makeText(context,position+"번 째 아이템 클릭 vertical",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onLongItemClick(View view, int position) {
-
-                }
-            }));
         }
     }
 
     public void setHeaderRefresh(){
         if(headerAdapter != null){
             headerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setAllRefresh(){
+        if(themeAdapter != null) {
+            themeAdapter.notifyDataSetChanged();
+        }
+        if(privateAdapter != null) {
+            privateAdapter.notifyDataSetChanged();
+        }
+        if(hotelAdapter != null){
+            hotelAdapter.notifyDataSetChanged();
         }
     }
 

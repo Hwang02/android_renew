@@ -2,11 +2,11 @@ package com.hotelnow.fragment.model;
 
 public class ThemeSItem {
 
-    private String id, name,  category,  street1,  street2,  special_msg,  sale_price,  normal_price,  sale_rate, landscape,  grade_score,  real_grade_score,  is_private_deal,  is_hot_deal,  is_add_reserve,  theme_listing_order,  top_img;
-    private int items_quantity;
+    private String id, name,  category,  street1,  street2,  special_msg,  sale_price,  normal_price,  sale_rate, landscape,  grade_score,  real_grade_score,  is_private_deal,  is_hot_deal,  is_add_reserve,  theme_listing_order,  top_img, checkin, checkout;
+    private int items_quantity, coupon_count;
 
     public ThemeSItem(String id, String name, String category, String street1, String street2, String special_msg, String sale_price, String normal_price, String sale_rate,
-                      int items_quantity, String landscape, String grade_score, String real_grade_score, String is_private_deal, String is_hot_deal, String is_add_reserve, String theme_listing_order, String top_img) {
+                      int items_quantity, String landscape, String grade_score, String real_grade_score, String is_private_deal, String is_hot_deal, String is_add_reserve, String theme_listing_order, String top_img, String checkin, String checkout, int coupon_count) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -26,6 +26,33 @@ public class ThemeSItem {
         this.is_add_reserve = is_add_reserve;
         this.theme_listing_order = theme_listing_order;
         this.top_img = top_img;
+        this.checkin = checkin;
+        this.checkout = checkout;
+        this.coupon_count = coupon_count;
+    }
+
+    public int getCoupon_count() {
+        return coupon_count;
+    }
+
+    public void setCoupon_count(int coupon_count) {
+        this.coupon_count = coupon_count;
+    }
+
+    public String getCheckin() {
+        return checkin;
+    }
+
+    public void setCheckin(String checkin) {
+        this.checkin = checkin;
+    }
+
+    public String getCheckout() {
+        return checkout;
+    }
+
+    public void setCheckout(String checkout) {
+        this.checkout = checkout;
     }
 
     public String getId() {

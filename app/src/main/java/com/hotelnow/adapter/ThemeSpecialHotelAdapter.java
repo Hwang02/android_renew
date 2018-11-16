@@ -16,11 +16,15 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.ReservationActivity;
+import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSItem;
+import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,10 +32,14 @@ import java.util.List;
  */
 public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
     Context mContext;
+    List<ThemeSItem> data;
+    DbOpenHelper dbHelper;
 
-    public ThemeSpecialHotelAdapter(Context context, int textViewResourceId, List<ThemeSItem> objects) {
+    public ThemeSpecialHotelAdapter(Context context, int textViewResourceId, List<ThemeSItem> objects, DbOpenHelper dbHelper) {
         super(context, textViewResourceId, objects);
-        mContext = context;
+        this.mContext = context;
+        this.data = objects;
+        this.dbHelper = dbHelper;
     }
 
     @Override
@@ -88,7 +96,7 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
             holder.tv_rate.setText(entry.getGrade_score());
             holder.category.setText(entry.getCategory());
             holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
-            holder.sale_price.setText(entry.getSale_price());
+            holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
 
             if(entry.getIs_private_deal().equals("N")){
                 holder.ico_private.setVisibility(View.GONE);
@@ -100,10 +108,12 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
             if(entry.getIs_hot_deal().equals("N")){
                 holder.ico_hotdeal.setVisibility(View.GONE);
                 holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
+                holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
             }
             else{
                 holder.ico_hotdeal.setVisibility(View.VISIBLE);
                 holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
+                holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
             }
 
             if(entry.getIs_add_reserve().equals("N")){
@@ -113,12 +123,12 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
                 holder.soon_point.setVisibility(View.VISIBLE);
             }
 
-//            if(entry.getCoupon_count() > 0){
-//                holder.soon_discount.setVisibility(View.VISIBLE);
-//            }
-//            else{
-//                holder.soon_discount.setVisibility(View.GONE);
-//            }
+            if(entry.getCoupon_count() > 0){
+                holder.soon_discount.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.soon_discount.setVisibility(View.GONE);
+            }
 
             if(TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")){
                 holder.special_msg.setVisibility(View.GONE);
@@ -127,6 +137,30 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
                 holder.special_msg.setVisibility(View.VISIBLE);
                 holder.tv_special.setText(entry.getSpecial_msg());
             }
+            holder.sdate.setText(entry.getCheckin());
+            holder.edate.setText(entry.getCheckout());
+
+            final ViewHolder finalHolder = holder;
+            finalHolder.iv_favorite.setTag(position);
+            for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    finalHolder.islike = true;
+                    break;
+                } else {
+                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                    finalHolder.islike = false;
+                }
+            }
+
+            finalHolder.iv_favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
+                    ((ThemeSpecialHotelActivity)mContext).setLike((int)v.getTag(), finalHolder.islike);
+                }
+            });
+
         } else{
             holder.layout_top.setVisibility(View.VISIBLE);
             holder.layout_item.setVisibility(View.GONE);
@@ -156,6 +190,8 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
         TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, tv_subject, tv_detail, pid, hid;
         LinearLayout special_msg, layout_item;
         RelativeLayout layout_top;
+        TextView sdate, edate;
+        boolean islike = false;
 
         public ViewHolder(View v) {
 
@@ -185,6 +221,8 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
             tv_detail = (TextView) v.findViewById(R.id.tv_detail);
             pid = (TextView) v.findViewById(R.id.pid);
             hid = (TextView) v.findViewById(R.id.hid);
+            sdate = (TextView)v.findViewById(R.id.sdate);
+            edate = (TextView)v.findViewById(R.id.edate);
 
             v.setTag(R.id.id_holder);
         }

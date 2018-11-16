@@ -196,12 +196,7 @@ public class LeisureFragment extends Fragment {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
                             JSONObject mTheme = mTheme_show.getJSONObject("theme");
                             JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
-                            mTheme.getString("id");
-                            mTheme.getString("title");
-                            mTheme.getString("sub_title");
-                            mTheme.getString("subject");
-                            mTheme.getString("detail");
-                            mTheme.getString("notice");
+
                             mThemeItem.clear();
                             for (int i = 0; i < mItems.length(); i++) {
                                 mThemeItem.add(new ThemeItem(
@@ -210,7 +205,7 @@ public class LeisureFragment extends Fragment {
                                         mItems.getJSONObject(i).getString("landscape"),
                                         mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
                                         mTheme.getString("id"),
-                                        mItems.getJSONObject(i).has("wo") ? mItems.getJSONObject(i).getString("wo") : "",
+                                        mTheme.getString("theme_flag"),
                                         mTheme.getString("theme_color"),
                                         mTheme.getString("title"),
                                         mItems.getJSONObject(i).getString("sale_price"),
@@ -301,6 +296,9 @@ public class LeisureFragment extends Fragment {
             mTopItem.add(new TopItem(data.getStringExtra("city"), data.getStringExtra("city_code"), data.getStringExtra("subcity_code"), data.getStringExtra("ec_date"), data.getStringExtra("ee_date")));
             adapter.setHeaderRefresh();
         }
+        else if(requestCode == 70){
+            adapter.setAllRefresh();
+        }
     }
 
     public void setActivityLike(final int position, final boolean islike, final ActivityHotDealLeisureAdapter adapter){
@@ -324,11 +322,12 @@ public class LeisureFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
                         dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
@@ -348,11 +347,12 @@ public class LeisureFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
+                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 

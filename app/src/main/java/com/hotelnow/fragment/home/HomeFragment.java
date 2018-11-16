@@ -519,7 +519,7 @@ public class HomeFragment extends Fragment {
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
@@ -545,14 +545,13 @@ public class HomeFragment extends Fragment {
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                    }
                 }
             });
         }
-        setLikeRefresh(true);
     }
 
     public void setActivityLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
@@ -583,7 +582,7 @@ public class HomeFragment extends Fragment {
                         dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
@@ -609,14 +608,14 @@ public class HomeFragment extends Fragment {
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
                 }
             });
         }
-        setLikeRefresh(true);
+
     }
 
     public void setRecentLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
@@ -658,7 +657,7 @@ public class HomeFragment extends Fragment {
                         }
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
@@ -688,14 +687,13 @@ public class HomeFragment extends Fragment {
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
                 }
             });
         }
-        setLikeRefresh(true);
     }
 
     public void setStayLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
@@ -726,7 +724,7 @@ public class HomeFragment extends Fragment {
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
@@ -752,14 +750,13 @@ public class HomeFragment extends Fragment {
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
                 }
             });
         }
-        setLikeRefresh(true);
     }
 
     public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
@@ -801,7 +798,7 @@ public class HomeFragment extends Fragment {
                         }
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
@@ -831,14 +828,13 @@ public class HomeFragment extends Fragment {
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        adapter.notifyDataSetChanged();
+                        setLikeRefresh(true);
                     }catch (JSONException e){
 
                     }
                 }
             });
         }
-        setLikeRefresh(true);
     }
 
     public void setLikeRefresh(boolean isRecent){
@@ -854,13 +850,12 @@ public class HomeFragment extends Fragment {
 
             if(getRecentListItem().size()>0) {
                 getRecentData(false);
+                if(resultCode == 80){
+                    setLikeRefresh(false);
+                }
             }
             else{
                 getRecentData(true);
-            }
-
-            if(resultCode == 80){
-                setLikeRefresh(false);
             }
         }
     }

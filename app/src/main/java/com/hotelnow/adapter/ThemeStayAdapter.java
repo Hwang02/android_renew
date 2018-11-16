@@ -76,7 +76,7 @@ public class ThemeStayAdapter extends RecyclerView.Adapter<ThemeStayAdapter.MyVi
                     LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                     Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                     intent.putExtra("hid", data.get((int) v.getTag()).getId() + "");
-                    hf.startActivityForResult(intent, 80);
+                    hf.startActivityForResult(intent, 70);
                     dbHelper.insertRecentItem(data.get((int) v.getTag()).getId(), "H");
                 }
             });
@@ -109,7 +109,7 @@ public class ThemeStayAdapter extends RecyclerView.Adapter<ThemeStayAdapter.MyVi
                     LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                     Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId() + "");
-                    hf.startActivityForResult(intent, 80);
+                    hf.startActivityForResult(intent, 70);
                     dbHelper.insertRecentItem(data.get((int) v.getTag()).getId(), "A");
                 }
             });

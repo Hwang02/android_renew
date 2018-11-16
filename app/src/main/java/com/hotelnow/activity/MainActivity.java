@@ -37,6 +37,7 @@ public class MainActivity extends FragmentActivity {
     private final int LEISUREPAGE = 6;
     private static Context mContext;
     private SharedPreferences _preferences;
+    private boolean is_refresh = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +213,8 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                     }
                     transaction.commitAllowingStateLoss();
+                    if(is_refresh)
+                        moveTabRefresh();
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
@@ -242,6 +245,7 @@ public class MainActivity extends FragmentActivity {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
                 transaction.commitAllowingStateLoss();
+                is_refresh = true;
                 break;
             }
             case RESERVPAGE:{
@@ -269,6 +273,7 @@ public class MainActivity extends FragmentActivity {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
                 transaction.commitAllowingStateLoss();
+                is_refresh = true;
                 break;
             }
             case MYPAGE:{
@@ -295,6 +300,7 @@ public class MainActivity extends FragmentActivity {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
                 transaction.commitAllowingStateLoss();
+                is_refresh = true;
                 break;
             }
             case HOTELPAGE:{
@@ -332,6 +338,7 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                     }
                     transaction.commitAllowingStateLoss();
+                    is_refresh = true;
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
@@ -372,6 +379,7 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                     }
                     transaction.commitAllowingStateLoss();
+                    is_refresh = true;
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
@@ -448,5 +456,17 @@ public class MainActivity extends FragmentActivity {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
                 }, 2000);
+    }
+
+    public void moveTabRefresh(){
+        HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
+        if(fm.getRecentListItem() != null) {
+            if (fm.getRecentListItem().size() > 0) {
+                fm.getRecentData(false);
+                fm.setLikeRefresh(false);
+            } else {
+                fm.getRecentData(true);
+            }
+        }
     }
 }

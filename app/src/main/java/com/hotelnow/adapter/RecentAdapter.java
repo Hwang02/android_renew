@@ -90,14 +90,12 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
                     intent.putExtra("hid", data.get((int)v.getTag()).getId());
                     intent.putExtra("islike", holder.islike);
                     hf.startActivityForResult(intent, 80);
-                    dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "H");
                 }
                 else { // 액티비티
                     Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                     intent.putExtra("tid", data.get((int)v.getTag()).getId());
                     intent.putExtra("islike", holder.islike);
                     hf.startActivityForResult(intent, 80);
-                    dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "A");
                 }
             }
         });
