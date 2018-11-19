@@ -10,6 +10,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +28,19 @@ import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.FilterHotelActivity;
 import com.hotelnow.activity.MapAcvitityActivity;
 import com.hotelnow.activity.MapHotelActivity;
+import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.adapter.SearchResultActivityAdapter;
 import com.hotelnow.adapter.SearchResultStayAdapter;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -59,6 +64,7 @@ public class ActivitySearchFragment  extends Fragment {
     private int Page = 1;
     private int total_count;
     private String s_position = "";
+    private DbOpenHelper dbHelper;
 
     @Nullable
     @Override
@@ -72,6 +78,7 @@ public class ActivitySearchFragment  extends Fragment {
 
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
 
         search_txt = getArguments().getString("search_txt");
         banner_id = getArguments().getString("banner_id");
@@ -85,7 +92,7 @@ public class ActivitySearchFragment  extends Fragment {
         btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
 
         mlist.addHeaderView(HeaderView);
-        adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this);
+        adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
         mlist.setAdapter(adapter);
 
         btn_location.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +215,69 @@ public class ActivitySearchFragment  extends Fragment {
 
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    public void setLike(final int position, final boolean islike){
+        final String sel_id = mItems.get(position).getId();
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "activity");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((SearchResultActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        ((SearchResultActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            ((SearchResultActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        ((SearchResultActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        adapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
                     }
                 }
             });

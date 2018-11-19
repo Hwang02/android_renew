@@ -67,7 +67,7 @@ public class MapActivityAdapter extends PagerAdapter {
             tv_sale.setText(Util.numberFormat(Integer.parseInt(arr_LocationList.get(position).getSale_price())));
 
         if(arr_LocationList.get(position).isIsfocus()){
-            main_board.setBackgroundResource(R.drawable.style_round_map_item);
+            main_board.setBackgroundResource(R.drawable.style_round_map_activity_item);
         }
         else{
             main_board.setBackgroundResource(R.drawable.style_round_map_item_default);

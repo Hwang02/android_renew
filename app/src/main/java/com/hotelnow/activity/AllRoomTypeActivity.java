@@ -23,6 +23,7 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
@@ -316,7 +317,7 @@ public class AllRoomTypeActivity extends Activity {
         Api.post(CONFIG.privateDeaUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-                Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -340,7 +341,7 @@ public class AllRoomTypeActivity extends Activity {
                     startActivityForResult(intent, 80);
 
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });

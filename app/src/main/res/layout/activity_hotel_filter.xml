@@ -64,6 +64,48 @@
             android:layout_height="1dp"
             android:layout_alignParentTop="true"
             android:background="@color/bg_background" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:id="@+id/btn_refresh"
+                android:layout_width="54dp"
+                android:layout_height="46dp"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/style_round_refresh">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ico_refresh"
+                    android:scaleType="fitXY"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:textSize="11dp"
+                    android:text="초기화"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:text="저장하기"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_toRightOf="@+id/btn_refresh"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/purple_round"
+                style="?android:attr/borderlessButtonStyle"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView

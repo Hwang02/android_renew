@@ -134,7 +134,7 @@ public class FilterHotelActivity extends Activity {
     // 단일 선택
     private void setUsePerson(){
         ColorStateList myColorStateList = new ColorStateList(
-                new int[][]{ new int[]{android.R.attr.state_selected}, new int[]{-android.R.attr.state_selected}},
+                new int[][]{ new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}},
                 new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
 
         for(int i=0;i<usepersonarr.length;i++){
@@ -146,17 +146,17 @@ public class FilterHotelActivity extends Activity {
             ch.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             ch.setTextColor(Color.WHITE);
             ch.setGravity(Gravity.CENTER);
-            ch.setBackgroundResource(R.drawable.style_checkbox_filter);
+            ch.setBackgroundResource(R.drawable.style_checkbox_filter2);
             ch.setButtonDrawable(android.R.color.transparent);
             ch.setTextColor(myColorStateList);
 
             ch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-                    for(int j = 0; j<filter3.getChildCount(); j++){
-                        filter3.getChildAt(j).setSelected(false);
-                    }
-                    filter3.getChildAt((int)v.getTag()).setSelected(true);
+//                    for(int j = 0; j<filter3.getChildCount(); j++){
+//                        filter3.getChildAt(j).setSelected(false);
+//                    }
+//                    filter3.getChildAt((int)v.getTag()).setSelected(true);
                 }
             });
 // 이전 부분 적용

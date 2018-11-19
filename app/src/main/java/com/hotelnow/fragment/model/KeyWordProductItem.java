@@ -1,10 +1,10 @@
 package com.hotelnow.fragment.model;
 
-public class KeyWordItem {
+public class KeyWordProductItem {
 
-    private String id, order, category, image, keyword, type, evt_type, event_id,  link, bannerable_id;
+    private String id, order, category, image, keyword, type, evt_type, event_id, link, bannerable_id, hotel_id, hotel_name, deal_id, deal_name, grade_score;
 
-    public KeyWordItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String bannerable_id) {
+    public KeyWordProductItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String bannerable_id, String hotel_id, String hotel_name, String deal_id, String deal_name, String grade_score) {
         this.id = id;
         this.order = order;
         this.category = category;
@@ -15,7 +15,11 @@ public class KeyWordItem {
         this.event_id = event_id;
         this.link = link;
         this.bannerable_id = bannerable_id;
-
+        this.hotel_id = hotel_id;
+        this.hotel_name = hotel_name;
+        this.deal_id = deal_id;
+        this.deal_name = deal_name;
+        this.grade_score = grade_score;
     }
 
     public String getBannerable_id() {
@@ -24,6 +28,46 @@ public class KeyWordItem {
 
     public void setBannerable_id(String bannerable_id) {
         this.bannerable_id = bannerable_id;
+    }
+
+    public String getHotel_id() {
+        return hotel_id;
+    }
+
+    public void setHotel_id(String hotel_id) {
+        this.hotel_id = hotel_id;
+    }
+
+    public String getHotel_name() {
+        return hotel_name;
+    }
+
+    public void setHotel_name(String hotel_name) {
+        this.hotel_name = hotel_name;
+    }
+
+    public String getDeal_id() {
+        return deal_id;
+    }
+
+    public void setDeal_id(String deal_id) {
+        this.deal_id = deal_id;
+    }
+
+    public String getDeal_name() {
+        return deal_name;
+    }
+
+    public void setDeal_name(String deal_name) {
+        this.deal_name = deal_name;
+    }
+
+    public String getGrade_score() {
+        return grade_score;
+    }
+
+    public void setGrade_score(String grade_score) {
+        this.grade_score = grade_score;
     }
 
     public String getId() {

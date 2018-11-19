@@ -39,6 +39,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.GlobalUtils;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.SmoothPager;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.customstyledmap.CustomMap;
@@ -60,7 +61,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
     public static GoogleMap map;
     private SupportMapFragment supportMapFragment;
     private Marker previousSelectedMarker;
-    private static ViewPager event_pager;
+    private static SmoothPager event_pager;
     private MapActivityAdapter mapAdapter;
     private int prePosition = 0;
     private int Page = 1;
@@ -122,7 +123,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         slide_out_down = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_out_down);
         slide_in_up = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_in_up);
 
-        event_pager = (ViewPager) findViewById(R.id.event_pager);
+        event_pager = (SmoothPager) findViewById(R.id.event_pager);
 
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 

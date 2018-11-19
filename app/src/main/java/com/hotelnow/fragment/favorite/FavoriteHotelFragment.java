@@ -28,6 +28,7 @@ import com.hotelnow.fragment.model.FavoriteStayItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.squareup.okhttp.Response;
@@ -100,7 +101,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-                Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -141,7 +142,7 @@ public class FavoriteHotelFragment extends Fragment {
                         getFavorite();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -158,7 +159,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-                Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -167,7 +168,7 @@ public class FavoriteHotelFragment extends Fragment {
                     JSONObject obj = new JSONObject(body);
 
                     if (!obj.getString("result").equals("success")) {
-                        Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -199,7 +200,7 @@ public class FavoriteHotelFragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -239,7 +240,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
-                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -276,7 +277,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
-                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -29,6 +29,7 @@ import com.hotelnow.fragment.model.FavoriteStayItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.EndlessScrollListener;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.NonScrollListView;
 import com.squareup.okhttp.Response;
 
@@ -93,7 +94,7 @@ public class ReservationHotelFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-                Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -132,7 +133,7 @@ public class ReservationHotelFragment extends Fragment {
                         getBookingList();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -43,11 +43,11 @@
                 android:singleLine="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:textColor="@color/purple"
+                android:textColor="@color/termtext"
                 android:layout_marginRight="10dp"
                 android:paddingLeft="7dp"
                 android:background="@drawable/style_edittext_gray_border"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 tools:text="서울"/>
 
             <View
@@ -76,4 +76,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tab_layout" />
+
+    <RelativeLayout
+        android:id="@+id/toast_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="@drawable/toast_round">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ico_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:background="@drawable/ico_titbar_favorite_active"/>
+
+            <TextView
+                android:id="@+id/tv_toast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white"
+                tools:text="관심 상품 담기 성공"/>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.KeyWordProductItem;
 import com.hotelnow.fragment.model.SearchAutoitem;
 import com.hotelnow.fragment.model.SearchKeyWordItem;
 import com.hotelnow.utils.Api;
@@ -60,7 +62,7 @@ public class SearchActivity extends Activity{
     private View recent_clear_line, underline3;
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
-    private List<KeyWordItem> mHotelActivity = new ArrayList<>();
+    private List<KeyWordProductItem> mHotelActivity = new ArrayList<>();
     private List<SearchAutoitem> mHotelAuto = new ArrayList<>();
     private List<SearchAutoitem> mActivityAuto = new ArrayList<>();
 
@@ -113,7 +115,7 @@ public class SearchActivity extends Activity{
                       // 리스트 화면 이동
                       Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                       intent.putExtra("search", et_search.getText().toString());
-                      startActivity(intent);
+                      startActivityForResult(intent, 80);
                   }
                   return false;
               }
@@ -126,30 +128,33 @@ public class SearchActivity extends Activity{
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
-                    tv_search_word.setText("");
-                    SpannableStringBuilder builder = new SpannableStringBuilder("'"+et_search.getText()+"'"+" 로 키워드 검색하기 〉");
-                    builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    tv_search_word.append(builder);
-                    tv_search_word.setVisibility(View.VISIBLE);
-                    ll_result.setVisibility(View.VISIBLE);
-                    lv_location.setVisibility(View.GONE);
-                    ll_popular.setVisibility(View.GONE);
-                    tv_popular_title.setVisibility(View.GONE);
-                    ll_before.setVisibility(View.GONE);
-
-                    setResultData();
-
-                }
-                else if(s.length()==0){
-                    tv_search_word.setVisibility(View.GONE);
-                    ll_result.setVisibility(View.GONE);
-                    lv_location.setVisibility(View.VISIBLE);
-                    ll_popular.setVisibility(View.VISIBLE);
-                    tv_popular_title.setVisibility(View.VISIBLE);
-                    ll_before.setVisibility(View.VISIBLE);
-                }
+            public void onTextChanged(CharSequence s, int start, int before, final int count) {
+                    et_search.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(count>0 && !TextUtils.isEmpty(et_search.getText().toString())) {
+                                tv_search_word.setText("");
+                                SpannableStringBuilder builder = new SpannableStringBuilder("'" + et_search.getText() + "'" + " 로 키워드 검색하기 〉");
+                                builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                tv_search_word.append(builder);
+                                tv_search_word.setVisibility(View.VISIBLE);
+                                ll_result.setVisibility(View.VISIBLE);
+                                lv_location.setVisibility(View.GONE);
+                                ll_popular.setVisibility(View.GONE);
+                                tv_popular_title.setVisibility(View.GONE);
+                                ll_before.setVisibility(View.GONE);
+                                setResultData();
+                            }
+                            else if(count == 0){
+                                tv_search_word.setVisibility(View.GONE);
+                                ll_result.setVisibility(View.GONE);
+                                lv_location.setVisibility(View.VISIBLE);
+                                ll_popular.setVisibility(View.VISIBLE);
+                                tv_popular_title.setVisibility(View.VISIBLE);
+                                ll_before.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    },300);
             }
 
             @Override
@@ -188,6 +193,11 @@ public class SearchActivity extends Activity{
                 dbHelper.insertKeyword(et_search.getText().toString(),"x");
                 mSearchList.clear();
                 getRecentData();
+
+                // 리스트 화면 이동
+                Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                intent.putExtra("search", et_search.getText().toString());
+                startActivityForResult(intent, 80);
             }
         });
 
@@ -257,6 +267,25 @@ public class SearchActivity extends Activity{
                         ));
                     }
 
+                    if(mHotelAuto.size() == 0){
+                        mHotelAuto.add(new SearchAutoitem(
+                                "N",
+                                "",
+                                "검색 결과가 없습니다.",
+                                "",
+                                ""
+                        ));
+                    }
+                    if(mActivityAuto.size() == 0){
+                        mActivityAuto.add(new SearchAutoitem(
+                                "N",
+                                "",
+                                "검색 결과가 없습니다.",
+                                "",
+                                ""
+                        ));
+                    }
+
                     setAutoH();
                     setAutoA();
 
@@ -272,23 +301,41 @@ public class SearchActivity extends Activity{
         for(int i =0; i<mHotelAuto.size(); i++) {
             View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
             final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+            final TextView hid = (TextView)view.findViewById(R.id.hid);
             ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
 
             if(mHotelAuto.get(i).getFlag().equals("region_hotel")){
                 ico_item.setBackgroundResource(R.drawable.ico_search_location);
             }
+            else if(mHotelAuto.get(i).getFlag().equals("N")){
+                ico_item.setVisibility(View.GONE);
+            }
             else{
                 ico_item.setBackgroundResource(R.drawable.ico_search_hotel);
             }
 
+            hid.setText(mHotelAuto.get(i).getId());
             tv_recent_txt.setTag(i);
             tv_recent_txt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                    intent.putExtra("tab", 0);
-                    intent.putExtra("search", tv_recent_txt.getText().toString());
-                    startActivity(intent);
+                    if(!mHotelAuto.get((int)v.getTag()).getFlag().equals("N")) {
+                        if(!mHotelAuto.get((int)v.getTag()).getFlag().equals("region_hotel")) {
+                            Intent intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
+                            intent.putExtra("hid", hid.getText().toString());
+                            intent.putExtra("save", true);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                            intent.putExtra("tab", 0);
+                            intent.putExtra("search", tv_recent_txt.getText().toString());
+//                            intent.putExtra("city", mHotelAuto.get((int)v.getTag()).getCity());
+//                            intent.putExtra("sub_city", mHotelAuto.get((int)v.getTag()).getSub_city());
+//                            intent.putExtra("iscity", true);
+//                            startActivity(intent);
+                        }
+                    }
                 }
             });
 
@@ -302,23 +349,41 @@ public class SearchActivity extends Activity{
         for(int i =0; i<mActivityAuto.size(); i++) {
             View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
             final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+            final TextView hid = (TextView)view.findViewById(R.id.hid);
             ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
 
             if(mActivityAuto.get(i).getFlag().equals("region_activity")){
                 ico_item.setBackgroundResource(R.drawable.ico_search_location);
             }
+            else if(mActivityAuto.get(i).getFlag().equals("N")){
+                ico_item.setVisibility(View.GONE);
+            }
             else{
                 ico_item.setBackgroundResource(R.drawable.ico_search_activity);
             }
 
+            hid.setText(mActivityAuto.get(i).getId());
             tv_recent_txt.setTag(i);
             tv_recent_txt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                    intent.putExtra("tab", 1);
-                    intent.putExtra("search", tv_recent_txt.getText().toString());
-                    startActivity(intent);
+                    if(!mActivityAuto.get((int)v.getTag()).getFlag().equals("N")) {
+                        if(!mActivityAuto.get((int)v.getTag()).getFlag().equals("region_activity")) {
+                            Intent intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
+                            intent.putExtra("tid", hid.getText().toString());
+                            intent.putExtra("save", true);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                            intent.putExtra("tab", 1);
+                            intent.putExtra("search", tv_recent_txt.getText().toString());
+//                            intent.putExtra("city", mHotelAuto.get((int)v.getTag()).getCity());
+//                            intent.putExtra("sub_city", mHotelAuto.get((int)v.getTag()).getSub_city());
+//                            intent.putExtra("iscity", true);
+//                            startActivity(intent);
+                        }
+                    }
                 }
             });
 
@@ -357,21 +422,29 @@ public class SearchActivity extends Activity{
                                 popular_keywords.getJSONObject(i).getString("type"),
                                 popular_keywords.getJSONObject(i).getString("evt_type"),
                                 popular_keywords.getJSONObject(i).getString("event_id"),
-                                popular_keywords.getJSONObject(i).has("link") ? popular_keywords.getJSONObject(i).getString("link") : ""
+                                popular_keywords.getJSONObject(i).has("link") ? popular_keywords.getJSONObject(i).getString("link") : "",
+                                popular_keywords.getJSONObject(i).getString("bannerable_id")
                         ));
                     }
 
                     for(int j = 0; j < popular_products.length(); j++){
-                        mHotelActivity.add(new KeyWordItem(
-                                popular_products.getJSONObject(j).getString("id"),
-                                popular_products.getJSONObject(j).getString("order"),
-                                popular_products.getJSONObject(j).getString("category"),
-                                popular_products.getJSONObject(j).getString("image"),
-                                popular_products.getJSONObject(j).getString("keyword"),
-                                popular_products.getJSONObject(j).getString("type"),
-                                popular_products.getJSONObject(j).getString("evt_type"),
-                                popular_products.getJSONObject(j).getString("event_id"),
-                                popular_products.getJSONObject(j).has("link") ? popular_products.getJSONObject(j).getString("link") : ""
+                        JSONObject item = popular_products.getJSONObject(j);
+                        mHotelActivity.add(new KeyWordProductItem(
+                                item.getString("id"),
+                                item.getString("order"),
+                                item.getString("category"),
+                                item.getString("image"),
+                                item.getString("keyword"),
+                                item.getString("type"),
+                                item.getString("evt_type"),
+                                item.getString("event_id"),
+                                item.has("link") ? popular_products.getJSONObject(j).getString("link") : "",
+                                item.getString("bannerable_id"),
+                                item.getString("hotel_id"),
+                                item.getString("hotel_name"),
+                                item.getString("deal_id"),
+                                item.getString("deal_name"),
+                                item.getString("grade_score")
                         ));
                     }
                     // 키워드
@@ -395,7 +468,7 @@ public class SearchActivity extends Activity{
             TextView tv = new TextView(this);
             tv.setId(i);
             tv.setTag(i);
-            tv.setText(mKeywordList.get(i).getLink());
+            tv.setText(mKeywordList.get(i).getKeyword());
             tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             tv.setTextColor(getResources().getColor(R.color.termtext));
@@ -406,14 +479,9 @@ public class SearchActivity extends Activity{
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // keyword 검색으로 검색 리스트로 이동
-                    dbHelper.insertKeyword(mKeywordList.get((int)v.getTag()).getKeyword(), mKeywordList.get((int)v.getTag()).getId());
-                    mSearchList.clear();
-                    getRecentData();
-
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
-                    startActivity(intent);
+                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getBannerable_id());
+                    startActivityForResult(intent, 80);
 
                 }
             });
@@ -446,18 +514,20 @@ public class SearchActivity extends Activity{
             for (int i = 0; i < mSearchList.size(); i++) {
                 View view_recent = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_recent_item, null);
                 ImageView item_del = (ImageView) view_recent.findViewById(R.id.item_del);
-                TextView tv_recent_txt = (TextView) view_recent.findViewById(R.id.tv_recent_txt);
+                final TextView tv_recent_txt = (TextView) view_recent.findViewById(R.id.tv_recent_txt);
                 TextView tv_recent_id = (TextView) view_recent.findViewById(R.id.tv_recent_id);
 
                 tv_recent_txt.setText(mSearchList.get(i).getKeyword());
                 tv_recent_id.setText(mSearchList.get(i).getKeyword_id()+"");
-                tv_recent_txt.setOnClickListener(new View.OnClickListener() {
+                view_recent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         LogUtil.e("xxxxx", v.getTag()+"");
-//                        et_search.setText(mSearchList.get((int)v.getTag()).getKeyword());
-//                        mSearchList.clear();
-//                        getRecentData();
+                        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                        intent.putExtra("tab", 0);
+                        intent.putExtra("search", tv_recent_txt.getText().toString());
+                        startActivityForResult(intent, 80);
+
                     }
                 });
 
@@ -471,6 +541,7 @@ public class SearchActivity extends Activity{
                 });
                 item_del.setTag(i);
                 tv_recent_txt.setTag(i);
+                view_recent.setTag(i);
                 recent_list.addView(view_recent);
             }
         }
@@ -503,14 +574,42 @@ public class SearchActivity extends Activity{
 
             if(mHotelActivity.get(i).getCategory().equals("popular_product_stay")){
                 ico_popular.setBackgroundResource(R.drawable.ico_search_hotel);
+                tv_popular_txt.setText(mHotelActivity.get(i).getHotel_name());
             }
             else{
                 ico_popular.setBackgroundResource(R.drawable.ico_search_activity);
+                tv_popular_txt.setText(mHotelActivity.get(i).getDeal_name());
             }
 
-            item_star_txt.setText("");
-            tv_popular_txt.setText(mHotelActivity.get(i).getKeyword());
+            item_star_txt.setText(mHotelActivity.get(i).getGrade_score());
+            view_ha.setTag(i);
+            view_ha.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = null;
+                    if(mHotelActivity.get((int)v.getTag()).getCategory().equals("popular_product_stay")) {
+                        intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
+                        intent.putExtra("hid", mHotelActivity.get((int)v.getTag()).getHotel_id());
+                        intent.putExtra("save", true);
+                        startActivityForResult(intent, 80);
+                    }
+                    else {
+                        intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
+                        intent.putExtra("tid", mHotelActivity.get((int)v.getTag()).getDeal_id());
+                        intent.putExtra("save", true);
+                        startActivityForResult(intent, 80);
+                    }
+                }
+            });
             hq_list.addView(view_ha);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 80 && resultCode == 80){
+            finish();
         }
     }
 }

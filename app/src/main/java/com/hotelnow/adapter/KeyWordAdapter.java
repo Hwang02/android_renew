@@ -38,7 +38,7 @@ public class KeyWordAdapter extends RecyclerView.Adapter<KeyWordAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.tv_keyword.setText(data.get(position).getLink());
+        holder.tv_keyword.setText(data.get(position).getKeyword());
         Ion.with(holder.iv_image).load(data.get(position).getImage());
 
     }

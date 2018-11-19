@@ -108,20 +108,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:gravity="center"
-                android:padding="17dp"
                 android:text="닫기"
+                android:layout_gravity="center"
                 android:background="@color/purple"
-                android:textColor="#ffffff"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"/>
+                android:textColor="#ffffff" />
         </LinearLayout>
     </LinearLayout>
 

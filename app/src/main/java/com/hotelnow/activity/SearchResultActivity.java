@@ -2,11 +2,16 @@ package com.hotelnow.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.SectionsPagerAdapter;
@@ -19,6 +24,11 @@ public class SearchResultActivity extends AppCompatActivity {
     SectionsPagerAdapter mSectionsPagerAdapter;
     int m_Selecttab = 0;
     String search_txt, banner_id;
+    TextView title_text;
+    RelativeLayout toast_layout;
+    ImageView ico_favorite;
+    TextView tv_toast;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,16 +42,20 @@ public class SearchResultActivity extends AppCompatActivity {
         search_txt = intent.getStringExtra("search");
         banner_id = intent.getStringExtra("banner_id");
 
-        LogUtil.e("xxxxx", m_Selecttab+"");
-
         if(TextUtils.isEmpty(banner_id)) LogUtil.e("xxxxx", search_txt);
         LogUtil.e("xxxxx", banner_id+"");
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         view_pager = (ViewPager) findViewById(R.id.view_pager);
+        toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
+        ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
+        tv_toast = (TextView) findViewById(R.id.tv_toast);
         tabLayout.addTab(tabLayout.newTab().setText("숙소"));
         tabLayout.addTab(tabLayout.newTab().setText("액티비티"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        title_text = (TextView) findViewById(R.id.title_text);
+        title_text.setText(search_txt);
 
         if(m_Selecttab == 0) {
             tabLayout.getTabAt(0).select();
@@ -69,5 +83,54 @@ public class SearchResultActivity extends AppCompatActivity {
 
             }
         });
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(80);
+                finish();
+            }
+        });
+
+        title_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    public void showToast(String msg){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
+
+    public void showIconToast(String msg, boolean is_fav){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        if(is_fav) { // 성공
+            ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+        }
+        else{ // 취소
+            ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
+        }
+        ico_favorite.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
     }
 }

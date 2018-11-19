@@ -35,6 +35,7 @@ import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -137,7 +138,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onFailure(Response response, Exception throwable) {
-                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -145,7 +146,7 @@ public class HomeFragment extends Fragment {
                         try {
                             JSONObject obj = new JSONObject(body);
                             if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             if (obj.has("recent_items")) {
@@ -204,7 +205,7 @@ public class HomeFragment extends Fragment {
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
-                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 MainActivity.hideProgress();
             }
 
@@ -213,7 +214,7 @@ public class HomeFragment extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -251,7 +252,8 @@ public class HomeFragment extends Fragment {
                                         mKeyword.getJSONObject(i).getString("type"),
                                         mKeyword.getJSONObject(i).getString("evt_type"),
                                         mKeyword.getJSONObject(i).getString("event_id"),
-                                        mKeyword.getJSONObject(i).has("link") ? mKeyword.getJSONObject(i).getString("link") : ""
+                                        mKeyword.getJSONObject(i).has("link") ? mKeyword.getJSONObject(i).getString("link") : "",
+                                        mKeyword.getJSONObject(i).getString("bannerable_id")
                                 ));
                             }
                             objects.add(mKeywordItem.get(0));
@@ -504,7 +506,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -530,7 +532,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -568,7 +570,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -594,7 +596,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -638,7 +640,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -669,7 +671,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -710,7 +712,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -736,7 +738,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -779,7 +781,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -810,7 +812,7 @@ public class HomeFragment extends Fragment {
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

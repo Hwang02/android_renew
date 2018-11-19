@@ -35,6 +35,7 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
+import com.hotelnow.dialog.DialogTicketShare;
 import com.hotelnow.fragment.detail.ActivityImageFragment;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.TicketInfoEntry;
@@ -105,6 +106,8 @@ public class DetailActivityActivity extends AppCompatActivity {
     private boolean islike = false;
     private ImageView icon_zzim;
     private boolean islikechange = false;
+    private DialogTicketShare dialogTicketShare;
+    private Double mAvg = 0.0;
 
 
     @Override
@@ -265,13 +268,13 @@ public class DetailActivityActivity extends AppCompatActivity {
         findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                dialogShare = new DialogShare(DetailActivityActivity.this, hid, main_photo, hotel_name, ec_date, ee_date, mAvg, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialogShare.dismiss();
-//                    }
-//                });
-//                dialogShare.show();
+                dialogTicketShare = new DialogTicketShare(DetailActivityActivity.this, tid, PagerImgs[0], tname, mAvg, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogTicketShare.dismiss();
+                    }
+                });
+                dialogTicketShare.show();
             }
         });
 
@@ -355,7 +358,8 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     tv_per.setText(ticket_data.getString("sale_rate"));
-                    tv_review_rate.setText(review_data.getDouble("avg")+"");
+                    mAvg = review_data.getDouble("avg");
+                    tv_review_rate.setText(mAvg+"");
                     setReviewRate(review_data.getDouble("avg"));
                     tv_review_count.setText(review_data.getInt("cnt")+"");
                     final Double r1, r2, r3, r4, avg;

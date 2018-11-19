@@ -125,7 +125,7 @@ public class MypageFragment extends Fragment {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.cs_txt2)));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(getActivity(), getString(R.string.no_email_program), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.no_email_program), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -258,7 +258,7 @@ public class MypageFragment extends Fragment {
                                 Api.get(CONFIG.logoutUrl, new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception e) {
-                                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -267,7 +267,7 @@ public class MypageFragment extends Fragment {
                                             JSONObject obj = new JSONObject(body);
 
                                             if (!obj.getString("result").equals("success")) {
-                                                Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                                                 return;
                                             }
 
@@ -409,7 +409,7 @@ public class MypageFragment extends Fragment {
                         JSONObject obj = new JSONObject(body);
 
                         if (!obj.getString("result").equals("success")) {
-                            Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -434,7 +434,7 @@ public class MypageFragment extends Fragment {
                 @Override
                 public void onFailure(Response response, Exception e) {
                     if(getActivity() != null && isAdded())
-                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -444,7 +444,7 @@ public class MypageFragment extends Fragment {
 
                         if (!obj.getString("result").equals("success")) {
                             if(getActivity() != null && isAdded())
-                                Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -480,7 +480,7 @@ public class MypageFragment extends Fragment {
                     } catch (Exception e) {
                         Log.e(CONFIG.TAG, e.toString());
                         if(getActivity() != null && isAdded()){
-                            Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
