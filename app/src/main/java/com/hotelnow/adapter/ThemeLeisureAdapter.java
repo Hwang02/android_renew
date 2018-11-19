@@ -49,15 +49,21 @@ public class ThemeLeisureAdapter extends RecyclerView.Adapter<ThemeLeisureAdapte
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
 
         if(data.get(position).getTheme_flag().equals("H")) {
-            for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                    holder.islike = true;
-                    break;
-                } else {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                    holder.islike = false;
+            if(dbHelper.selectAllFavoriteStayItem().size()>0) {
+                for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                    if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                        holder.islike = true;
+                        break;
+                    } else {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                        holder.islike = false;
+                    }
                 }
+            }
+            else {
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
             }
 
             holder.btn_favorite.setTag(position);
@@ -76,21 +82,27 @@ public class ThemeLeisureAdapter extends RecyclerView.Adapter<ThemeLeisureAdapte
                     LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                     Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                     intent.putExtra("hid", data.get((int) v.getTag()).getId() + "");
+                    intent.putExtra("save", true);
                     hf.startActivityForResult(intent, 70);
-                    dbHelper.insertRecentItem(data.get((int) v.getTag()).getId(), "H");
                 }
             });
         }
         else{
-            for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                    holder.islike = true;
-                    break;
-                } else {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                    holder.islike = false;
+            if(dbHelper.selectAllFavoriteActivityItem().size() > 0) {
+                for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+                    if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                        holder.islike = true;
+                        break;
+                    } else {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                        holder.islike = false;
+                    }
                 }
+            }
+            else {
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
             }
 
             holder.btn_favorite.setTag(position);
@@ -109,8 +121,8 @@ public class ThemeLeisureAdapter extends RecyclerView.Adapter<ThemeLeisureAdapte
                     LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                     Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId() + "");
+                    intent.putExtra("save", true);
                     hf.startActivityForResult(intent, 70);
-                    dbHelper.insertRecentItem(data.get((int) v.getTag()).getId(), "A");
                 }
             });
         }

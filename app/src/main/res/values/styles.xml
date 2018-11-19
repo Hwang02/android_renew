@@ -56,7 +56,7 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="EditTheme">
         <item name="colorAccent">@color/bg_background</item>
         <item name="colorControlNormal">@color/bg_background</item>
         <item name="colorControlActivated">@color/purple</item>

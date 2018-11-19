@@ -23,6 +23,8 @@ import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.mypage.MypageFragment;
 import com.hotelnow.fragment.reservation.ReservationFragment;
+import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 
@@ -38,6 +40,7 @@ public class MainActivity extends FragmentActivity {
     private static Context mContext;
     private SharedPreferences _preferences;
     private boolean is_refresh = false;
+    private DbOpenHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class MainActivity extends FragmentActivity {
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
+        dbHelper = new DbOpenHelper(this);
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -460,13 +464,11 @@ public class MainActivity extends FragmentActivity {
 
     public void moveTabRefresh(){
         HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
-        if(fm.getRecentListItem() != null) {
-            if (fm.getRecentListItem().size() > 0) {
-                fm.getRecentData(false);
-                fm.setLikeRefresh(false);
-            } else {
-                fm.getRecentData(true);
-            }
+
+        if (dbHelper.selectAllRecentItem().size() > 0 && !CONFIG.isRecent) {
+            fm.getRecentData(true);
+        } else {
+            fm.setLikeRefresh(true);
         }
     }
 }

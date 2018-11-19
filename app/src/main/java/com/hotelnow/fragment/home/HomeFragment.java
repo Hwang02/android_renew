@@ -88,7 +88,6 @@ public class HomeFragment extends Fragment {
         dbHelper = new DbOpenHelper(getActivity());
         objects = new ArrayList<>();
         adapter = new HomeAdapter(getActivity(), HomeFragment.this, objects, dbHelper);
-        adapter.setHasStableIds(true);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHomeBinding.recyclerView.setAdapter(adapter);
 
@@ -179,6 +178,7 @@ public class HomeFragment extends Fragment {
                                 // 리스트 호출
                                 objects.clear();
                                 getObject();
+                                CONFIG.isRecent = isStart;
                             }
                             else {
                                 adapter.refreshRecent();
@@ -519,7 +519,7 @@ public class HomeFragment extends Fragment {
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        setLikeRefresh(true);
+                        adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
                     }
@@ -545,13 +545,14 @@ public class HomeFragment extends Fragment {
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        setLikeRefresh(true);
+                        adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
                    }
                 }
             });
         }
+        setLikeRefresh(true);
     }
 
     public void setActivityLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
@@ -582,7 +583,7 @@ public class HomeFragment extends Fragment {
                         dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
-                        setLikeRefresh(true);
+                        adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
                     }
@@ -608,14 +609,14 @@ public class HomeFragment extends Fragment {
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
-                        setLikeRefresh(true);
+                        adapter.notifyDataSetChanged();
                     }catch (JSONException e){
 
                     }
                 }
             });
         }
-
+        setLikeRefresh(true);
     }
 
     public void setRecentLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){

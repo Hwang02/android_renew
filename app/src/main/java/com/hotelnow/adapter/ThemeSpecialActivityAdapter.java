@@ -19,6 +19,7 @@ import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.fragment.model.ThemeSItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.thebrownarrow.model.SearchResultItem;
 
@@ -71,29 +72,29 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
             Ion.with(holder.iv_img).load(entry.getLandscape());
 
-            if(entry.getItems_quantity() < 5){
-                if(entry.getItems_quantity() == 0) {
-                    holder.room_count.setVisibility(View.GONE);
-                    holder.tv_discount_rate.setVisibility(View.INVISIBLE);
-                    holder.sale_price.setVisibility(View.INVISIBLE);
-                    holder.won.setVisibility(View.INVISIBLE);
-                    holder.tv_soldout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    holder.room_count.setVisibility(View.VISIBLE);
-                    holder.room_count.setText("남은객실 "+ entry.getItems_quantity()+"개");
-                    holder.tv_soldout.setVisibility(View.GONE);
-                }
-            }
-            else{
+//            if(entry.getItems_quantity() < 5){
+//                if(entry.getItems_quantity() == 0) {
+//                    holder.room_count.setVisibility(View.GONE);
+//                    holder.tv_discount_rate.setVisibility(View.INVISIBLE);
+//                    holder.sale_price.setVisibility(View.INVISIBLE);
+//                    holder.won.setVisibility(View.INVISIBLE);
+//                    holder.tv_soldout.setVisibility(View.VISIBLE);
+//                }
+//                else{
+//                    holder.room_count.setVisibility(View.VISIBLE);
+//                    holder.room_count.setText("남은객실 "+ entry.getItems_quantity()+"개");
+//                    holder.tv_soldout.setVisibility(View.GONE);
+//                }
+//            }
+//            else{
                 holder.room_count.setVisibility(View.GONE);
                 holder.tv_soldout.setVisibility(View.GONE);
-            }
+//            }
 
             holder.tv_rate.setText(entry.getGrade_score());
             holder.category.setText(entry.getCategory());
             holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
-            holder.sale_price.setText(entry.getSale_price());
+            holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
 
             if(entry.getIs_private_deal().equals("N")){
                 holder.ico_private.setVisibility(View.GONE);
@@ -105,10 +106,12 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             if(entry.getIs_hot_deal().equals("N")){
                 holder.ico_hotdeal.setVisibility(View.GONE);
                 holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
+                holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
             }
             else{
                 holder.ico_hotdeal.setVisibility(View.VISIBLE);
                 holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
+                holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
             }
 
             if(entry.getIs_add_reserve().equals("N")){
@@ -132,15 +135,21 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
                 holder.special_msg.setVisibility(View.VISIBLE);
                 holder.tv_special.setText(entry.getSpecial_msg());
             }
-            for(int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                    holder.islike = true;
-                    break;
-                } else {
-                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                    holder.islike = false;
+            if(dbHelper.selectAllFavoriteActivityItem().size()>0) {
+                for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+                    if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                        holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                        holder.islike = true;
+                        break;
+                    } else {
+                        holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                        holder.islike = false;
+                    }
                 }
+            }
+            else {
+                holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
             }
 
             final ViewHolder finalHolder = holder;

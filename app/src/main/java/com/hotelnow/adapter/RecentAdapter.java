@@ -49,26 +49,38 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
         Ion.with(holder.iv_image).load(data.get(position).getImg_url());
 
         if(data.get(position).getFlag().equals("1")) { // 호텔
-            for(int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                    holder.islike = true;
-                    break;
-                } else {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                    holder.islike = false;
+            if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+                for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                    if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                        holder.islike = true;
+                        break;
+                    } else {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                        holder.islike = false;
+                    }
                 }
             }
+            else{
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
+            }
         }else {
-            for(int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                    holder.islike = true;
-                    break;
-                } else {
-                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                    holder.islike = false;
+            if(dbHelper.selectAllFavoriteActivityItem().size()>0) {
+                for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+                    if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                        holder.islike = true;
+                        break;
+                    } else {
+                        holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                        holder.islike = false;
+                    }
                 }
+            }
+            else{
+                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                holder.islike = false;
             }
         }
 
@@ -88,13 +100,11 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
                 if(data.get((int)v.getTag()).getFlag().equals("1")){ // 호텔
                     Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                     intent.putExtra("hid", data.get((int)v.getTag()).getId());
-                    intent.putExtra("islike", holder.islike);
                     hf.startActivityForResult(intent, 80);
                 }
                 else { // 액티비티
                     Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                     intent.putExtra("tid", data.get((int)v.getTag()).getId());
-                    intent.putExtra("islike", holder.islike);
                     hf.startActivityForResult(intent, 80);
                 }
             }

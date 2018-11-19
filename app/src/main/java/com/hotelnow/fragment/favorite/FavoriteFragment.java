@@ -72,7 +72,7 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    allDelete();
                                 }
                             });
                         }
@@ -99,7 +99,7 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    allDelete();
                                 }
                             });
                         }
@@ -127,12 +127,6 @@ public class FavoriteFragment extends Fragment {
                             startActivityForResult(intent, 80);
                         }
                     });
-                    mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
                 }
                 else if(tab.getPosition() == 1){
                     mFavoriteBinding.tvDateTitle.setText("방문일 선택");
@@ -146,13 +140,13 @@ public class FavoriteFragment extends Fragment {
                             startActivityForResult(intent, 80);
                         }
                     });
-                    mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
                 }
+                mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        allDelete();
+                    }
+                });
             }
 
             @Override
@@ -188,10 +182,12 @@ public class FavoriteFragment extends Fragment {
 
     private void allDelete(){
         if(m_Selecttab == 0){
-
+            FavoriteHotelFragment f = (FavoriteHotelFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
+            f.setDeleteAll();
         }
         else{
-
+            FavoriteActivityFragment f = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
+            f.setDeleteAll();
         }
     }
 

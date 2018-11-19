@@ -3,12 +3,15 @@ package com.hotelnow.fragment.favorite;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteActivityAdapter;
@@ -24,10 +29,13 @@ import com.hotelnow.adapter.FavoriteHotelAdapter;
 import com.hotelnow.fragment.model.FavoriteStayItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -47,6 +55,7 @@ public class FavoriteActivityFragment extends Fragment {
     private Button btn_go_login;
     private RelativeLayout main_view;
     private TextView btn_go_list;
+    private DbOpenHelper dbHelper;
 
     @Nullable
     @Override
@@ -60,16 +69,28 @@ public class FavoriteActivityFragment extends Fragment {
 
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
 
 //        search_txt = getArguments().getString("search_txt");
 //        banner_id = getArguments().getString("banner_id");
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-        adapter = new FavoriteActivityAdapter(getActivity(), 0, mItems);
+        adapter = new FavoriteActivityAdapter(getActivity(), FavoriteActivityFragment.this,0, mItems);
         mlist.setAdapter(adapter);
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
         btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
+        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView) view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                intent.putExtra("tid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 70);
+            }
+        });
+
         authCheck();
     }
 
@@ -170,7 +191,8 @@ public class FavoriteActivityFragment extends Fragment {
                                     entry.getString("real_grade_score"),
                                     entry.has("is_private_deal") ? "Y" : "N",
                                     entry.getString("is_hot_deal"),
-                                    entry.getString("is_add_reserve")
+                                    entry.getString("is_add_reserve"),
+                                    entry.getInt("coupon_count")
                             ));
                         }
                     }
@@ -191,6 +213,84 @@ public class FavoriteActivityFragment extends Fragment {
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
         }
+        else if(requestCode == 70 && resultCode == 80){
+            mItems.clear();
+            getFavorite();
+        }
+    }
+
+    public void setLike(final int position){
+        final String sel_id = mItems.get(position).getId();
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "activity");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+
+        Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                        ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                        return;
+                    }
+
+                    dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                    LogUtil.e("xxxx", "찜하기 취소");
+                    ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                    mItems.clear();
+                    getFavorite();
+                }catch (JSONException e){
+
+                }
+            }
+        });
+    }
+
+    public void setDeleteAll(){
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("all_flag", "Y");
+            paramObj.put("type", "activity");
+
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+
+        Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                        ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                        return;
+                    }
+
+                    dbHelper.selectAllFavoriteActivityItem();
+                    LogUtil.e("xxxx", "찜하기 전체 취소");
+                    ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
+                    mItems.clear();
+                    getFavorite();
+                }catch (JSONException e){
+
+                }
+            }
+        });
     }
 
 }

@@ -5,11 +5,11 @@ public class FavoriteStayItem {
     private String id, name, category, street1, street2, landscape, sale_price,
             sale_rate, special_msg, grade_score, real_grade_score,
             is_private_deal, is_hot_deal, is_add_reserve;
-    private int items_quantity;
+    private int items_quantity, coupon_count;
 
     public FavoriteStayItem(String id, String name, String category, String street1, String street2, String landscape, String sale_price,
                             String sale_rate, int items_quantity, String special_msg, String grade_score, String real_grade_score,
-                            String is_private_deal, String is_hot_deal, String is_add_reserve)
+                            String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count)
     {
         this.id = id;
         this.name = name;
@@ -26,6 +26,15 @@ public class FavoriteStayItem {
         this.is_private_deal = is_private_deal;
         this.is_hot_deal = is_hot_deal;
         this.is_add_reserve = is_add_reserve;
+        this.coupon_count = coupon_count;
+    }
+
+    public int getCoupon_count() {
+        return coupon_count;
+    }
+
+    public void setCoupon_count(int coupon_count) {
+        this.coupon_count = coupon_count;
     }
 
     public String getId() {

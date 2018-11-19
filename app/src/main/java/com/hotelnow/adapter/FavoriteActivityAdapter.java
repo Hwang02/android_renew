@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.fragment.favorite.FavoriteActivityFragment;
 import com.hotelnow.fragment.model.FavoriteStayItem;
+import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
 import java.util.List;
@@ -23,12 +27,14 @@ public class FavoriteActivityAdapter extends ArrayAdapter<FavoriteStayItem> {
     String hotels = "";
     DialogAlert dialogAlert;
     List<FavoriteStayItem> mlist;
+    FavoriteActivityFragment fa;
 
-    public FavoriteActivityAdapter(Context context, int textViewResourceId, List<FavoriteStayItem> objects) {
+    public FavoriteActivityAdapter(Context context, FavoriteActivityFragment fa, int textViewResourceId, List<FavoriteStayItem> objects) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
+        this.fa = fa;
     }
 
     @Override
@@ -50,22 +56,49 @@ public class FavoriteActivityAdapter extends ArrayAdapter<FavoriteStayItem> {
         final FavoriteStayItem entry = getItem(position);
 
         holder.hotel_name.setText(entry.getName());
-        holder.tv_nearlocation.setText(entry.getStreet1());
+        String mLocation = "";
+        if(!TextUtils.isEmpty(entry.getStreet1())){
+            mLocation = entry.getStreet1();
+        }
+        if(!TextUtils.isEmpty(entry.getStreet2())){
+            mLocation += "/"+entry.getStreet2();
+        }
+        holder.tv_nearlocation.setText(mLocation);
         Ion.with(holder.iv_img).load(entry.getLandscape());
 
         holder.room_count.setVisibility(View.GONE);
         holder.tv_soldout.setVisibility(View.GONE);
 
+        holder.iv_favorite.setTag(position);
+        holder.iv_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.e("ggggg", mlist.get((int)v.getTag()).getId()+"");
+                fa.setLike((int)v.getTag());
+            }
+        });
+
         holder.tv_rate.setText(entry.getGrade_score());
         holder.category.setText(entry.getCategory());
         holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
-        holder.sale_price.setText(entry.getSale_price());
+        holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
 
         if(entry.getIs_hot_deal().equals("N")){
             holder.ico_hotdeal.setVisibility(View.GONE);
+            holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
+            holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
         }
         else{
             holder.ico_hotdeal.setVisibility(View.VISIBLE);
+            holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
+            holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
+        }
+
+        if(entry.getCoupon_count() > 0){
+            holder.soon_discount.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.soon_discount.setVisibility(View.GONE);
         }
 
         if(entry.getIs_add_reserve().equals("N")){
@@ -82,14 +115,14 @@ public class FavoriteActivityAdapter extends ArrayAdapter<FavoriteStayItem> {
             holder.special_msg.setVisibility(View.VISIBLE);
             holder.tv_special.setText(entry.getSpecial_msg());
         }
-
+        holder.hid.setText(entry.getId());
         return v;
     }
 
     private class ViewHolder {
 
         ImageView iv_img, iv_favorite, ico_hotdeal, soon_discount, soon_point;
-        TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special;
+        TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, hid;
         LinearLayout special_msg;
 
         public ViewHolder(View v) {
@@ -110,6 +143,7 @@ public class FavoriteActivityAdapter extends ArrayAdapter<FavoriteStayItem> {
             won = (TextView) v.findViewById(R.id.won);
             tv_soldout = (TextView) v.findViewById(R.id.tv_soldout);
             tv_special = (TextView) v.findViewById(R.id.tv_special);
+            hid = (TextView) v.findViewById(R.id.hid);
 
             special_msg = (LinearLayout) v.findViewById(R.id.special_msg);
 

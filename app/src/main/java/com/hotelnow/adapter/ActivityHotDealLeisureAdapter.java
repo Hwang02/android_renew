@@ -63,15 +63,21 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        for(int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
-            if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                holder.islike = true;
-                break;
-            } else {
-                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                holder.islike = false;
+        if(dbHelper.selectAllFavoriteActivityItem().size() > 0) {
+            for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
+                if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    holder.islike = true;
+                    break;
+                } else {
+                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                    holder.islike = false;
+                }
             }
+        }
+        else{
+            holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+            holder.islike = false;
         }
 
         holder.btn_favorite.setTag(position);
@@ -90,8 +96,8 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
                 Intent intent = new Intent(lf.getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", data.get((int)v.getTag()).getId());
+                intent.putExtra("save", true);
                 lf.startActivityForResult(intent, 70);
-                dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "H");
             }
         });
     }

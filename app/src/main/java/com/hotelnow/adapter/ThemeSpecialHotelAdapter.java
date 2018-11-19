@@ -142,15 +142,21 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
 
             final ViewHolder finalHolder = holder;
             finalHolder.iv_favorite.setTag(position);
-            for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                    finalHolder.islike = true;
-                    break;
-                } else {
-                    holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                    finalHolder.islike = false;
+            if(dbHelper.selectAllFavoriteStayItem().size()>0) {
+                for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                    if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                        holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                        finalHolder.islike = true;
+                        break;
+                    } else {
+                        holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                        finalHolder.islike = false;
+                    }
                 }
+            }
+            else{
+                holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                finalHolder.islike = false;
             }
 
             finalHolder.iv_favorite.setOnClickListener(new View.OnClickListener() {

@@ -47,6 +47,7 @@ import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.HotelImageFragment;
 import com.hotelnow.fragment.model.FacilitySelItem;
+import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -66,6 +67,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -110,10 +112,13 @@ public class DetailHotelActivity extends AppCompatActivity {
     private Double mAvg = 0.0;
     private DialogCoupon dialogCoupon;
     private ImageView icon_zzim;
-    private boolean islike = false;
     private boolean islikechange = false;
     private DbOpenHelper dbHelper;
     private String sdate, edate;
+    private boolean isSave = false;
+    public List<RecentItem> mFavoriteStayItem = new ArrayList<>();
+    private String[] FavoriteStayList;
+    private boolean islike = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +139,30 @@ public class DetailHotelActivity extends AppCompatActivity {
         hid = intent.getStringExtra("hid");
         pid = intent.getStringExtra("pid");
         evt = intent.getStringExtra("evt");
-        islike = intent.getBooleanExtra("islike", false);
+
+        isSave = intent.getBooleanExtra("save", false);
+        if(isSave) {
+            dbHelper.insertRecentItem(hid, "H");
+        }
+
+        // 찜인지 아닌지 확인
+        mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
+        if(mFavoriteStayItem.size()>0){
+            FavoriteStayList = new String[mFavoriteStayItem.size()];
+            for(int i =0; i<mFavoriteStayItem.size();i++){
+                FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
+            }
+
+            if(Arrays.asList(FavoriteStayList).contains(hid)){
+                islike = true;
+            }
+            else {
+                islike = false;
+            }
+        }
+        else {
+            islike = false;
+        }
 
         cookie = _preferences.getString("userid", null);
 

@@ -92,7 +92,6 @@ public class LeisureFragment extends Fragment {
         objects = new ArrayList<>();
 
         adapter = new LeisureAdapter(getActivity(), LeisureFragment.this, objects, dbHelper);
-        adapter.setHasStableIds(true);
 
         mLeisureBinding.recyclerView.setAdapter(adapter);
         mLeisureBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -147,21 +146,23 @@ public class LeisureFragment extends Fragment {
 
                     if(obj.has("promotion_banners")){
                         JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
-                        mPbanerItem.clear();
-                        for(int i = 0; i < p_banner.length(); i++){
-                            mPbanerItem.add(new BannerItem(
-                                    p_banner.getJSONObject(i).getString("id"),
-                                    p_banner.getJSONObject(i).getString("order"),
-                                    p_banner.getJSONObject(i).getString("category"),
-                                    p_banner.getJSONObject(i).getString("image"),
-                                    p_banner.getJSONObject(i).getString("keyword"),
-                                    p_banner.getJSONObject(i).getString("type"),
-                                    p_banner.getJSONObject(i).getString("evt_type"),
-                                    p_banner.getJSONObject(i).getString("event_id"),
-                                    p_banner.getJSONObject(i).has("link") ? p_banner.getJSONObject(i).getString("link") : ""
-                            ));
+                        if(p_banner.length()>0) {
+                            mPbanerItem.clear();
+                            for (int i = 0; i < p_banner.length(); i++) {
+                                mPbanerItem.add(new BannerItem(
+                                        p_banner.getJSONObject(i).getString("id"),
+                                        p_banner.getJSONObject(i).getString("order"),
+                                        p_banner.getJSONObject(i).getString("category"),
+                                        p_banner.getJSONObject(i).getString("image"),
+                                        p_banner.getJSONObject(i).getString("keyword"),
+                                        p_banner.getJSONObject(i).getString("type"),
+                                        p_banner.getJSONObject(i).getString("evt_type"),
+                                        p_banner.getJSONObject(i).getString("event_id"),
+                                        p_banner.getJSONObject(i).has("link") ? p_banner.getJSONObject(i).getString("link") : ""
+                                ));
+                            }
+                            objects.add(mPbanerItem.get(0));
                         }
-                        objects.add(mPbanerItem.get(0));
                     }
 
                     if(obj.has("activity_hot_deals")){
@@ -217,22 +218,24 @@ public class LeisureFragment extends Fragment {
                     }
                     if(obj.has("theme_lists")){
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
-                        mThemeSItem.clear();
-                        for(int i = 0; i < mThemeS.length(); i++){
-                            mThemeSItem.add(new ThemeSpecialItem(
-                                    mThemeS.getJSONObject(i).getString("id"),
-                                    mThemeS.getJSONObject(i).getString("title"),
-                                    mThemeS.getJSONObject(i).getString("sub_title"),
-                                    mThemeS.getJSONObject(i).getString("img_main_top"),
-                                    mThemeS.getJSONObject(i).getString("img_main_list"),
-                                    mThemeS.getJSONObject(i).getString("theme_flag"),
-                                    mThemeS.getJSONObject(i).getString("subject"),
-                                    mThemeS.getJSONObject(i).getString("detail"),
-                                    mThemeS.getJSONObject(i).getString("notice"),
-                                    mThemeS.getJSONObject(i).getString("img_background")
-                            ));
+                        if(mThemeS.length() >0) {
+                            mThemeSItem.clear();
+                            for (int i = 0; i < mThemeS.length(); i++) {
+                                mThemeSItem.add(new ThemeSpecialItem(
+                                        mThemeS.getJSONObject(i).getString("id"),
+                                        mThemeS.getJSONObject(i).getString("title"),
+                                        mThemeS.getJSONObject(i).getString("sub_title"),
+                                        mThemeS.getJSONObject(i).getString("img_main_top"),
+                                        mThemeS.getJSONObject(i).getString("img_main_list"),
+                                        mThemeS.getJSONObject(i).getString("theme_flag"),
+                                        mThemeS.getJSONObject(i).getString("subject"),
+                                        mThemeS.getJSONObject(i).getString("detail"),
+                                        mThemeS.getJSONObject(i).getString("notice"),
+                                        mThemeS.getJSONObject(i).getString("img_background")
+                                ));
+                            }
+                            objects.add(mThemeSItem.get(0));
                         }
-                        objects.add(mThemeSItem.get(0));
                     }
                     mDefaultItem.clear();
                     mDefaultItem.add(new DefaultItem("bottom"));

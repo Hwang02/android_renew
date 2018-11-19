@@ -18,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +36,12 @@ import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.ActivityImageFragment;
+import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.TicketInfoEntry;
 import com.hotelnow.fragment.model.TicketSelEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.ToughViewPager;
@@ -54,6 +57,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +98,13 @@ public class DetailActivityActivity extends AppCompatActivity {
     private Button btn_reservation;
     private DialogAlert dialogAlert;
     private DialogCoupon dialogCoupon;
+    private boolean isSave = false;
+    private DbOpenHelper dbHelper;
+    private String[] FavoriteActivityList;
+    public List<RecentItem> mFavoriteActivityItem = new ArrayList<>();
+    private boolean islike = false;
+    private ImageView icon_zzim;
+    private boolean islikechange = false;
 
 
     @Override
@@ -107,10 +118,40 @@ public class DetailActivityActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tid = intent.getStringExtra("tid");
         cookie = _preferences.getString("userid", null);
+        isSave = intent.getBooleanExtra("save", false);
+        dbHelper = new DbOpenHelper(this);
+
+        if(isSave) {
+            dbHelper.insertRecentItem(tid, "A");
+        }
+
+        mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
+        if(mFavoriteActivityItem.size()>0){
+            FavoriteActivityList = new String[mFavoriteActivityItem.size()];
+            for(int i =0; i<mFavoriteActivityItem.size();i++){
+                FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
+            }
+            if(Arrays.asList(FavoriteActivityList).contains(tid)){
+                islike = true;
+            }
+            else {
+                islike = false;
+            }
+        }
+        else {
+            islike = false;
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
+        icon_zzim = (ImageView) toolbar.findViewById(R.id.icon_zzim);
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finished();
+            }
+        });
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = true;
             int scrollRange = -1;
@@ -127,7 +168,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                             ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
                             findViewById(R.id.btn_share).setVisibility(View.GONE);
                             // 찜상품이면 빨강색으로 변경
-                            findViewById(R.id.icon_zzim).setBackgroundResource(R.drawable.ico_titbar_favorite);
+                            // 찜상품이면 빨강색으로 변경
+                            if(islike) {
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                            }
+                            else{
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite);
+                            }
                             findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
                             toolbar.setBackgroundResource(R.color.white);
                             isShow = true;
@@ -135,13 +182,83 @@ public class DetailActivityActivity extends AppCompatActivity {
                             ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText("");
                             findViewById(R.id.btn_share).setVisibility(View.VISIBLE);
                             // 찜상품이면 빨강색으로 변경
-                            findViewById(R.id.icon_zzim).setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                            if(islike) {
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                            }
+                            else{
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                            }
                             findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
                             toolbar.setBackgroundResource(android.R.color.transparent);
                             isShow = false;
                         }
                     }
                 });
+            }
+        });
+
+        icon_zzim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject paramObj = new JSONObject();
+                try {
+                    paramObj.put("type", "activity");
+                    paramObj.put("id", tid);
+                } catch(Exception e){
+                    Log.e(CONFIG.TAG, e.toString());
+                }
+                if(islike){// 취소
+                    Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                        @Override
+                        public void onFailure(Response response, Exception throwable) {
+                            Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onSuccess(Map<String, String> headers, String body) {
+                            try {
+                                JSONObject obj = new JSONObject(body);
+                                if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                    Toast.makeText(DetailActivityActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                islike = false;
+                                dbHelper.deleteFavoriteItem(false,  tid,"A");
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                                LogUtil.e("xxxx", "찜하기 취소");
+                                islikechange = true;
+                            }catch (JSONException e){
+
+                            }
+                        }
+                    });
+                }
+                else{// 성공
+                    Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                        @Override
+                        public void onFailure(Response response, Exception throwable) {
+                            Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onSuccess(Map<String, String> headers, String body) {
+                            try {
+                                JSONObject obj = new JSONObject(body);
+                                if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                    Toast.makeText(DetailActivityActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                islike = true;
+                                dbHelper.insertFavoriteItem(tid,"A");
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                                LogUtil.e("xxxx", "찜하기 성공");
+                                islikechange = true;
+                            }catch (JSONException e){
+
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -233,7 +350,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     maplon = ticket_data.getString("longitude");
                     mCity = ticket_data.getString("city");
                     tv_hotelname.setText(tname);
-                    tv_category.setText(ticket_data.getString("category"));
+                    tv_category.setText(ticket_data.getString("categor_name"));
                     tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -963,5 +1080,18 @@ public class DetailActivityActivity extends AppCompatActivity {
         if(webview != null){
             webview.destroy();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finished();
+        super.onBackPressed();
+    }
+
+    public void finished(){
+        if(islikechange) {
+            setResult(80);
+        }
+        finish();
     }
 }

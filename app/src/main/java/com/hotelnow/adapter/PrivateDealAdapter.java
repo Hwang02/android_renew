@@ -64,16 +64,23 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        for(int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
-            if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
-                holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                holder.islike = true;
-                break;
-            } else {
-                holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
-                holder.islike = false;
+        if(dbHelper.selectAllFavoriteStayItem().size()>0) {
+            for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
+                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    holder.islike = true;
+                    break;
+                } else {
+                    holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                    holder.islike = false;
+                }
             }
         }
+        else {
+            holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+            holder.islike = false;
+        }
+
         holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
         holder.btn_favorite.setTag(position);
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +97,8 @@ public class PrivateDealAdapter extends RecyclerView.Adapter<PrivateDealAdapter.
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", data.get((int)v.getTag()).getId());
+                intent.putExtra("save", true);
                 hf.startActivityForResult(intent, 80);
-                dbHelper.insertRecentItem(data.get((int)v.getTag()).getId(), "H");
             }
         });
     }
