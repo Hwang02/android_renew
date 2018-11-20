@@ -76,7 +76,7 @@ public class CustomMap {
         }
 
         LatLng locationPoint = new LatLng(myLocation.getLatitude(), myLocation.getLonguitude());
-
+        googleMap.setMyLocationEnabled(false);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(locationPoint));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
 

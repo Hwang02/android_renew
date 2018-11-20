@@ -157,7 +157,14 @@ public class CONFIG {
     public final static String save_point = domain+"/api/booking/check_discount";		    //	프로모션
     public final static String special_theme_list = domain+"/api/theme";                    // 테마 리스트
     public static Boolean isRecent = false;                                           // 최근 상품이 없다 생겼을때 유무
-
+    // 앱 종료시 초기화
+    public static String sel_orderby = null;												// 검색가테고리
+    public static String sel_category = null;
+    public static String sel_rate = null;
+    public static String sel_facility = null;
+    public static String sel_useperson = null;
+    public static String sel_max = "600000";
+    public static String sel_min = "0";
 
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";
@@ -165,4 +172,6 @@ public class CONFIG {
 
     public static int default_reserve_money = 5000;											//  적립금
 
+    public static String lat = null;
+    public static String lng = null;
 }

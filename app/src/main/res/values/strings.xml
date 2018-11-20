@@ -103,6 +103,7 @@
     <string name="filter_sub_title5">리뷰 평점</string>
     <string name="filter_sub_title6">객실 부대 시설</string>
     <string name="filter_activity_sub_title">액티비티 테마</string>
+    <string name="filter_select_title">테마 선택</string>
     <string name="detail_private_title">프라이빗딜</string>
     <string name="detail_hotdeal_title">단독핫딜</string>
     <string name="detail_add_title">추가적립</string>
@@ -292,6 +293,7 @@
     <string name="login_loading">로그인 중&#8230;</string>
     <string name="login_complete">로그인 되었습니다.</string>
     <string name="until_string">%1$s 까지</string>
+    <string name="location_loading">위치값 받아오는중</string>
 
     <!-- FrgRecommend -->
     <string name="recom_title">친구에게 호텔나우를 소개해주세요!\n친구와 각각 %1$s원씩 적립해드립니다.</string>

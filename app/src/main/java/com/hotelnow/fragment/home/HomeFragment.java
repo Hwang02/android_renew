@@ -146,32 +146,36 @@ public class HomeFragment extends Fragment {
                         try {
                             JSONObject obj = new JSONObject(body);
                             if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if (obj.has("recent_items")) {
-                                mRecentListItem.clear();
-                                JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
-                                for (int i = 0; i < p_recent.length(); i++) {
-                                    if(p_recent.getJSONObject(i).getString("flag").equals("1")) {
-                                        mRecentListItem.add(new RecentListItem(
-                                                p_recent.getJSONObject(i).getString("flag"),
-                                                p_recent.getJSONObject(i).getString("id"),
-                                                p_recent.getJSONObject(i).getString("name"),
-                                                p_recent.getJSONObject(i).getString("now"),
-                                                p_recent.getJSONObject(i).getString("view_yn"),
-                                                p_recent.getJSONObject(i).getString("img_url")
-                                        ));
+                                if(obj.has("recent_items")) {
+                                    if(obj.getJSONArray("recent_items").length()==0) {
+                                        dbHelper.deleteRecentItem();
                                     }
-                                    else{
-                                        mRecentListItem.add(new RecentListItem(
-                                                p_recent.getJSONObject(i).getString("flag"),
-                                                p_recent.getJSONObject(i).getString("id"),
-                                                p_recent.getJSONObject(i).getString("name"),
-                                                p_recent.getJSONObject(i).getString("now"),
-                                                p_recent.getJSONObject(i).getString("view_yn"),
-                                                p_recent.getJSONObject(i).getString("img_url")
-                                        ));
+                                }
+                            }
+                            else if (obj.has("recent_items")) {
+                                mRecentListItem.clear();
+                                if(obj.getJSONArray("recent_items").length()>0) {
+                                    JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
+                                    for (int i = 0; i < p_recent.length(); i++) {
+                                        if (p_recent.getJSONObject(i).getString("flag").equals("1")) {
+                                            mRecentListItem.add(new RecentListItem(
+                                                    p_recent.getJSONObject(i).getString("flag"),
+                                                    p_recent.getJSONObject(i).getString("id"),
+                                                    p_recent.getJSONObject(i).getString("name"),
+                                                    p_recent.getJSONObject(i).getString("now"),
+                                                    p_recent.getJSONObject(i).getString("view_yn"),
+                                                    p_recent.getJSONObject(i).getString("img_url")
+                                            ));
+                                        } else {
+                                            mRecentListItem.add(new RecentListItem(
+                                                    p_recent.getJSONObject(i).getString("flag"),
+                                                    p_recent.getJSONObject(i).getString("id"),
+                                                    p_recent.getJSONObject(i).getString("name"),
+                                                    p_recent.getJSONObject(i).getString("now"),
+                                                    p_recent.getJSONObject(i).getString("view_yn"),
+                                                    p_recent.getJSONObject(i).getString("img_url")
+                                            ));
+                                        }
                                     }
                                 }
                             }
@@ -179,7 +183,6 @@ public class HomeFragment extends Fragment {
                                 // 리스트 호출
                                 objects.clear();
                                 getObject();
-                                CONFIG.isRecent = isStart;
                             }
                             else {
                                 adapter.refreshRecent();

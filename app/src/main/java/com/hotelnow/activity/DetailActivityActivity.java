@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -108,6 +109,9 @@ public class DetailActivityActivity extends AppCompatActivity {
     private boolean islikechange = false;
     private DialogTicketShare dialogTicketShare;
     private Double mAvg = 0.0;
+    private RelativeLayout toast_layout;
+    private ImageView ico_favorite;
+    private TextView tv_toast;
 
 
     @Override
@@ -123,6 +127,9 @@ public class DetailActivityActivity extends AppCompatActivity {
         cookie = _preferences.getString("userid", null);
         isSave = intent.getBooleanExtra("save", false);
         dbHelper = new DbOpenHelper(this);
+        toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
+        ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
+        tv_toast = (TextView) findViewById(R.id.tv_toast);
 
         if(isSave) {
             dbHelper.insertRecentItem(tid, "A");
@@ -222,13 +229,14 @@ public class DetailActivityActivity extends AppCompatActivity {
                             try {
                                 JSONObject obj = new JSONObject(body);
                                 if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                    Toast.makeText(DetailActivityActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                                    showToast("로그인 후 이용해주세요");
                                     return;
                                 }
                                 islike = false;
                                 dbHelper.deleteFavoriteItem(false,  tid,"A");
                                 icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
                                 LogUtil.e("xxxx", "찜하기 취소");
+                                showIconToast("관심 상품 담기 취소", true);
                                 islikechange = true;
                             }catch (JSONException e){
 
@@ -248,13 +256,14 @@ public class DetailActivityActivity extends AppCompatActivity {
                             try {
                                 JSONObject obj = new JSONObject(body);
                                 if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                    Toast.makeText(DetailActivityActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                                    showToast("로그인 후 이용해주세요");
                                     return;
                                 }
                                 islike = true;
                                 dbHelper.insertFavoriteItem(tid,"A");
                                 icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
                                 LogUtil.e("xxxx", "찜하기 성공");
+                                showIconToast("관심 상품 담기 성공", true);
                                 islikechange = true;
                             }catch (JSONException e){
 
@@ -1076,6 +1085,40 @@ public class DetailActivityActivity extends AppCompatActivity {
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_press);
         }
+    }
+
+    public void showToast(String msg){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
+
+    public void showIconToast(String msg, boolean is_fav){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        if(is_fav) { // 성공
+            ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+        }
+        else{ // 취소
+            ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
+        }
+        ico_favorite.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
     }
 
     @Override

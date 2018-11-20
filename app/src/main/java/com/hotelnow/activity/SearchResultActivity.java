@@ -87,8 +87,7 @@ public class SearchResultActivity extends AppCompatActivity {
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(80);
-                finish();
+                finished();
             }
         });
 
@@ -132,5 +131,16 @@ public class SearchResultActivity extends AppCompatActivity {
                         toast_layout.setVisibility(View.GONE);
                     }
                 }, 2000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
+
+    public void finished(){
+        setResult(80);
+        finish();
     }
 }

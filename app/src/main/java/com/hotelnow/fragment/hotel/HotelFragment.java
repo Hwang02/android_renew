@@ -507,7 +507,7 @@ public class HotelFragment extends Fragment {
         }
     }
 
-    private void allRefresh(){
+    public void allRefresh(){
         adapter.setAllRefresh();
     }
 

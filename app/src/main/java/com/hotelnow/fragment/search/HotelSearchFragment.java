@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.FilterHotelActivity;
 import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.activity.SearchResultActivity;
@@ -68,6 +70,7 @@ public class HotelSearchFragment extends Fragment {
     private TextView tv_location, tv_date;
     private String ec_date ="", ee_date="";
     private Button bt_scroll;
+    private String category ="", facility="", price_min="", person_count="", price_max="", order_kind="", score="";
 
     @Nullable
     @Override
@@ -135,6 +138,17 @@ public class HotelSearchFragment extends Fragment {
             }
         });
 
+        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView)view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                intent.putExtra("hid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 50);
+            }
+        });
+
         getSearch();
 
     }
@@ -158,6 +172,30 @@ public class HotelSearchFragment extends Fragment {
         }
         if(!TextUtils.isEmpty(ee_date)){
             url +="&ee_date="+ee_date;
+        }
+        if(!TextUtils.isEmpty(category)){
+            url +="&category="+category;
+        }
+        if(!TextUtils.isEmpty(facility)){
+            url +="&facility="+facility;
+        }
+        if(!TextUtils.isEmpty(price_min)){
+            url +="&price_min="+price_min;
+        }
+        if(!TextUtils.isEmpty(person_count)){
+            url +="&person_count="+person_count;
+        }
+        if(!TextUtils.isEmpty(price_max)){
+            url +="&price_max="+price_max;
+        }
+        if(!TextUtils.isEmpty(score)){
+            url +="&score="+score;
+        }
+        if(!TextUtils.isEmpty(order_kind)){
+            url +="&order_kind="+order_kind;
+            if(order_kind.equals("distance")){
+                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+            }
         }
 
         url +="&per_page=20";
@@ -235,6 +273,24 @@ public class HotelSearchFragment extends Fragment {
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
                                 intent.putExtra("total_count", total_count);
+                                intent.putExtra("city", city);
+                                intent.putExtra("city_name", tv_location.getText().toString());
+                                intent.putExtra("sub_city",sub_city);
+                                intent.putExtra("search_txt",search_txt);
+                                intent.putExtra("banner_id",banner_id);
+                                intent.putExtra("ec_date",ec_date);
+                                intent.putExtra("ee_date",ee_date);
+                                intent.putExtra("category",category);
+                                intent.putExtra("facility",facility);
+                                intent.putExtra("price_min",price_min);
+                                intent.putExtra("person_count",person_count);
+                                intent.putExtra("price_max",price_max);
+                                intent.putExtra("score",score);
+                                intent.putExtra("order_kind",order_kind);
+                                if(order_kind.equals("distance")){
+                                    intent.putExtra("lat", CONFIG.lat);
+                                    intent.putExtra("lng", CONFIG.lng);
+                                }
                                 startActivityForResult(intent, 90);
                             }
                         });
@@ -317,17 +373,17 @@ public class HotelSearchFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if(responseCode == 90) {
-            if(data.getBooleanExtra("search_data", false)) {
-                mItems = (ArrayList<SearchResultItem>)data.getSerializableExtra("search_data");
-                if(adapter != null)
-                    adapter.notifyDataSetChanged();
-            }
+        if(requestCode == 90 && responseCode == 90) {
+            getActivity().setResult(80);
+            getActivity().finish();
         }
         if(requestCode == 80 && responseCode == 80){
             tv_location.setText(data.getStringExtra("city"));
             city = data.getStringExtra("city_code");
             sub_city = data.getStringExtra("subcity_code");
+            if(city.equals(sub_city)){
+                sub_city = "";
+            }
             Page = 1;
             total_count = 0;
             mItems.clear();
@@ -344,10 +400,48 @@ public class HotelSearchFragment extends Fragment {
         }
         else if(requestCode == 60 && responseCode == 80){
 
-//            Page = 1;
-//            total_count = 0;
-//            mItems.clear();
-//            getSearch();
+            LogUtil.e("xxxxx", CONFIG.sel_max);
+            price_max = CONFIG.sel_max;
+            LogUtil.e("xxxxx", CONFIG.sel_min);
+            price_min = CONFIG.sel_min;
+            if(!TextUtils.isEmpty(CONFIG.sel_category)) {
+                LogUtil.e("xxxxx", CONFIG.sel_category);
+                category = CONFIG.sel_category.replace("|",",");
+            }
+            if(!TextUtils.isEmpty(CONFIG.sel_facility)) {
+                LogUtil.e("xxxxx", CONFIG.sel_facility);
+                facility = CONFIG.sel_facility.replace("|", ",");
+            }
+            if(!TextUtils.isEmpty(CONFIG.sel_orderby)) {
+                LogUtil.e("xxxxx", CONFIG.sel_orderby);
+                order_kind = CONFIG.sel_orderby;
+            }
+            if(!TextUtils.isEmpty(CONFIG.sel_rate)) {
+                LogUtil.e("xxxxx", CONFIG.sel_rate);
+                if(CONFIG.sel_rate.equals("0"))
+                    score = "2";
+                else if(CONFIG.sel_rate.equals("1")){
+                    score = "3";
+                }
+                else if(CONFIG.sel_rate.equals("2")){
+                    score = "4";
+                }
+                else if(CONFIG.sel_rate.equals("3")){
+                    score = "5";
+                }
+            }
+            if(!TextUtils.isEmpty(CONFIG.sel_useperson)) {
+                LogUtil.e("xxxxx", CONFIG.sel_useperson);
+                person_count = CONFIG.sel_useperson.replace("0", "1").replace("3","5").replace("2", "3|4").replace("1", "2").replace("|", ",");
+            }
+
+            Page = 1;
+            total_count = 0;
+            mItems.clear();
+            getSearch();
+        }
+        else if(requestCode == 50 && responseCode == 80){
+            adapter.notifyDataSetChanged();
         }
     }
 

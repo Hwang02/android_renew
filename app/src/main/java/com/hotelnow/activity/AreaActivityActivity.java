@@ -1,6 +1,7 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -60,13 +61,13 @@ public class AreaActivityActivity extends Activity {
                 String option = "A";
                 dbHelper.insertRecentCity(cityCode, cityKo, subCityCode, subCityKo, option);
 
-                getMonthList();
-                view.setSelected(true);
+                Intent intent = new Intent();
+                intent.putExtra("id", cityCode);
+                intent.putExtra("name", cityKo);
+                setResult(80, intent);
+                finish();
             }
         });
-
-        // acvitity는 default 0번째 선택 할필요가 없어 보임
-//        select_view.performItemClick(select_view,0, select_view.getAdapter().getItemId(0));
 
         getMonthList();
     }
@@ -83,7 +84,11 @@ public class AreaActivityActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     LogUtil.e("xxxxx", (int)v.getTag()+"");
-                    // 검색페이지 이동
+                    Intent intent = new Intent();
+                    intent.putExtra("id", mRecentCity.get((int)v.getTag()).getSel_city_id());
+                    intent.putExtra("name", mRecentCity.get((int)v.getTag()).getSel_city_ko());
+                    setResult(80, intent);
+                    finish();
                 }
             });
             month_list.addView(view_recent);

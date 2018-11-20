@@ -39,6 +39,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.GlobalUtils;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.SmoothPager;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.customstyledmap.CustomMap;
@@ -67,7 +68,8 @@ public class MapHotelActivity extends AppCompatActivity {
     private TextView total_item;
     private int Page = 1;
     private int total_count=0;
-    private String banner_id, search_txt;
+    private String city, sub_city, search_txt, banner_id, ec_date, ee_date,category,facility,price_min,person_count,price_max,score,order_kind,city_name;
+    private TextView title_text, subtitle_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +81,55 @@ public class MapHotelActivity extends AppCompatActivity {
         latLngsArrayList.clear();
         latLngsArrayList = (ArrayList<SearchResultItem>)intent.getSerializableExtra("search_data");
         total_count = intent.getIntExtra("total_count",0);
+        city = intent.getStringExtra("city");
+        city_name = intent.getStringExtra("city_name");
+        sub_city = intent.getStringExtra("sub_city");
+        search_txt = intent.getStringExtra("search_txt");
+        banner_id = intent.getStringExtra("banner_id");
+        ec_date = intent.getStringExtra("ec_date");
+        ee_date = intent.getStringExtra("ee_date");
+        category = intent.getStringExtra("category");
+        facility = intent.getStringExtra("facility");
+        price_min = intent.getStringExtra("price_min");
+        person_count = intent.getStringExtra("person_count");
+        price_max =  intent.getStringExtra("price_max");
+        score = intent.getStringExtra("score");
+        order_kind =  intent.getStringExtra("order_kind");
         Page = intent.getIntExtra("Page",1);
+
         TextView total_item = (TextView)findViewById(R.id.total_item);
+        TextView title_text = (TextView)findViewById(R.id.title_text);
+        TextView subtitle_text = (TextView)findViewById(R.id.subtitle_text);
+        title_text.setText(search_txt);
+        String sub ="";
+        if(!TextUtils.isEmpty(city_name) && !city_name.equals("지역선택")){
+            sub = city_name+", ";
+        }
+        if(!TextUtils.isEmpty(ec_date) && !TextUtils.isEmpty(ee_date)){
+            long gap = Util.diffOfDate2(ec_date, ee_date);
+            sub += Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+gap+"박";
+        }
+
+        subtitle_text.setText(sub);
+
         Spannable spannable = new SpannableString("총 "+total_count+"개의 숙소");
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(total_count+"").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(90);
+                finish();
+            }
+        });
+
+        findViewById(R.id.re_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -95,7 +141,6 @@ public class MapHotelActivity extends AppCompatActivity {
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 Toast.makeText(MapHotelActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-
                 finish();
             }
 
@@ -126,7 +171,6 @@ public class MapHotelActivity extends AppCompatActivity {
                 map = googleMap;
                 map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 customMap = new CustomMap(map, latLngsArrayList, MapHotelActivity.this, true);
-
                 try {
 //                    customMap.setCustomMapStyle(R.drawable.map_marker_stay);
                     // Customise the styling of the base map using a JSON object defined in a raw resource file.
@@ -182,11 +226,47 @@ public class MapHotelActivity extends AppCompatActivity {
 
     public void getSearch(){
         String url = CONFIG.search_stay_list;
-        if(!TextUtils.isEmpty(search_txt)){
-            url +="&search_text="+search_txt;
+        if(!TextUtils.isEmpty(city)){
+            url +="&city="+city;
+        }
+        if(!TextUtils.isEmpty(sub_city)){
+            url +="&sub_city="+sub_city;
+        }
+        if (!TextUtils.isEmpty(search_txt)) {
+            url += "&search_text=" + search_txt;
         }
         if(!TextUtils.isEmpty(banner_id)){
             url +="&banner_id="+banner_id;
+        }
+        if(!TextUtils.isEmpty(ec_date)){
+            url +="&ec_date="+ec_date;
+        }
+        if(!TextUtils.isEmpty(ee_date)){
+            url +="&ee_date="+ee_date;
+        }
+        if(!TextUtils.isEmpty(category)){
+            url +="&category="+category;
+        }
+        if(!TextUtils.isEmpty(facility)){
+            url +="&facility="+facility;
+        }
+        if(!TextUtils.isEmpty(price_min)){
+            url +="&price_min="+price_min;
+        }
+        if(!TextUtils.isEmpty(person_count)){
+            url +="&person_count="+person_count;
+        }
+        if(!TextUtils.isEmpty(price_max)){
+            url +="&price_max="+price_max;
+        }
+        if(!TextUtils.isEmpty(score)){
+            url +="&score="+score;
+        }
+        if(!TextUtils.isEmpty(order_kind)){
+            url +="&order_kind="+order_kind;
+            if(order_kind.equals("distance")){
+                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+            }
         }
 
         url +="&per_page=20";

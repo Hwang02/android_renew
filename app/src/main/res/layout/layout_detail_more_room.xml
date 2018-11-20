@@ -12,12 +12,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:background="@drawable/ico_room_total"
-        android:scaleType="fitXY"/>
-
     <TextView
         android:id="@+id/tv_total_count"
         android:layout_width="wrap_content"

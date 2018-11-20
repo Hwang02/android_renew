@@ -111,6 +111,12 @@ public class AreaHotelActivity extends Activity {
 
         //default 0번째 선택
         select_view.performItemClick(select_view,0, select_view.getAdapter().getItemId(0));
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         getMonthList();
     }
@@ -127,7 +133,14 @@ public class AreaHotelActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     LogUtil.e("xxxxx", (int)v.getTag()+"");
-                    // 검색페이지 이동
+                    Intent intent  = new Intent();
+                    intent.putExtra("city", mRecentCity.get((int)v.getTag()).getSel_subcity_ko());
+                    intent.putExtra("city_code", mRecentCity.get((int)v.getTag()).getSel_city_id());
+                    intent.putExtra("subcity_code", mRecentCity.get((int)v.getTag()).getSel_subcity_id());
+                    intent.putExtra("ec_date", TextUtils.isEmpty(strdate) ? "" : strdate);
+                    intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
+                    setResult(80,intent);
+                    finish();
                 }
             });
             month_list.addView(view_recent);

@@ -282,6 +282,10 @@ public class LeisureFragment extends Fragment {
     }
 
 
+    public void allRefresh(){
+        adapter.setAllRefresh();
+    }
+
     @Override
     public void onStart() {
         super.onStart();

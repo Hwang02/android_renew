@@ -41,6 +41,7 @@ public class MainActivity extends FragmentActivity {
     private SharedPreferences _preferences;
     private boolean is_refresh = false;
     private DbOpenHelper dbHelper;
+    private int myPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,8 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
+                myPosition = mbinding.tabLayout.getSelectedTabPosition();
+                startActivityForResult(intent,80);
             }
         });
 
@@ -180,7 +182,6 @@ public class MainActivity extends FragmentActivity {
 
     public void setTapMove(int mPosition, boolean isMove){
         transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.setCustomAnimations(R.anim.fadein, R.anim.fadeout);
         switch (mPosition){
             case SELECTPAGE:{
                 if(isMove) {
@@ -467,8 +468,34 @@ public class MainActivity extends FragmentActivity {
 
         if (dbHelper.selectAllRecentItem().size() > 0 && !CONFIG.isRecent) {
             fm.getRecentData(true);
+            CONFIG.isRecent = true;
         } else {
             fm.setLikeRefresh(true);
+        }
+    }
+
+    public void moveTabRefresh2(){
+        HotelFragment fm = (HotelFragment) getSupportFragmentManager().findFragmentByTag("HOTELPAGE");
+        fm.allRefresh();
+    }
+
+    public void moveTabRefresh3(){
+        LeisureFragment fm = (LeisureFragment) getSupportFragmentManager().findFragmentByTag("LEISUREPAGE");
+        fm.allRefresh();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(myPosition == 0){
+            moveTabRefresh();
+        }
+        else if(myPosition == 1) {
+            moveTabRefresh2();
+        }
+        else if(myPosition == 2) {
+            moveTabRefresh3();
         }
     }
 }

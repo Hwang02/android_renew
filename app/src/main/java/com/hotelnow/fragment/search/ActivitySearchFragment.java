@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,8 +25,13 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.activity.ActivityFilterActivity;
+import com.hotelnow.activity.AreaActivityActivity;
 import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
+import com.hotelnow.activity.CalendarSingleActivity;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.FilterActivityActivity;
 import com.hotelnow.activity.FilterHotelActivity;
 import com.hotelnow.activity.MapAcvitityActivity;
 import com.hotelnow.activity.MapHotelActivity;
@@ -55,16 +62,16 @@ public class ActivitySearchFragment  extends Fragment {
     private View EmptyView;
     private View HeaderView;
     private ImageView map_img;
-    private TextView tv_review_count;
-    private RelativeLayout btn_location, btn_date;
+    private TextView tv_review_count, tv_category, tv_location;
+    private RelativeLayout btn_location, btn_category;
     private ArrayList<SearchResultItem> mItems = new ArrayList<>();
     private SearchResultActivityAdapter adapter;
     private String banner_id, search_txt;
-    private LinearLayout btn_filter;
     private int Page = 1;
     private int total_count;
-    private String s_position = "";
+    private String s_position = "", theme_id="", city="";
     private DbOpenHelper dbHelper;
+    private Button bt_scroll;
 
     @Nullable
     @Override
@@ -84,36 +91,48 @@ public class ActivitySearchFragment  extends Fragment {
         banner_id = getArguments().getString("banner_id");
 
         mlist = (ListView) getView().findViewById(R.id.h_list);
-        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header, null, false);
+        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_date = (RelativeLayout)HeaderView.findViewById(R.id.btn_date);
+        btn_category = (RelativeLayout)HeaderView.findViewById(R.id.btn_category);
         tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
         map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
-        btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
+        tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
+        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
+        bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
 
         mlist.addHeaderView(HeaderView);
         adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
         mlist.setAdapter(adapter);
 
+        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView) view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                intent.putExtra("tid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 50);
+            }
+        });
+
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
+                startActivityForResult(intent, 80);
             }
         });
-        btn_date.setOnClickListener(new View.OnClickListener() {
+        btn_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                startActivityForResult(intent, 70);
             }
         });
-        btn_filter.setOnClickListener(new View.OnClickListener() {
+        bt_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
-                startActivity(intent);
+                mlist.smoothScrollToPosition(0);
             }
         });
 
@@ -128,6 +147,12 @@ public class ActivitySearchFragment  extends Fragment {
         }
         if(!TextUtils.isEmpty(banner_id)){
             url +="&banner_id="+banner_id;
+        }
+        if(!TextUtils.isEmpty(theme_id)){
+            url += "&category=" + theme_id;
+        }
+        if(!TextUtils.isEmpty(city)){
+            url += "&city=" + city;
         }
 
         url +="&per_page=20";
@@ -293,6 +318,25 @@ public class ActivitySearchFragment  extends Fragment {
                 if(adapter != null)
                     adapter.notifyDataSetChanged();
             }
+        }
+        else if(requestCode == 80 && responseCode == 80) {
+            city = data.getStringExtra("id");
+            tv_location.setText(data.getStringExtra("name"));
+            Page = 1;
+            total_count = 0;
+            mItems.clear();
+            getSearch();
+        }
+        else if(requestCode == 70 && responseCode == 80) {
+            theme_id = data.getStringExtra("id");
+            tv_category.setText(data.getStringExtra("name"));
+            Page = 1;
+            total_count = 0;
+            mItems.clear();
+            getSearch();
+        }
+        else if(requestCode == 50 && responseCode == 80) {
+            adapter.notifyDataSetChanged();
         }
     }
 }

@@ -501,6 +501,7 @@ public class SearchActivity extends Activity{
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
 
+        setResult(80);
         finish();
     }
 
@@ -609,6 +610,7 @@ public class SearchActivity extends Activity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 80 && resultCode == 80){
+            setResult(80);
             finish();
         }
     }

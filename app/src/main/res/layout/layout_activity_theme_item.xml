@@ -6,6 +6,10 @@
     android:orientation="vertical"
     android:background="@drawable/select_area_tab">
 
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -16,10 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/select_area_txt"
-        android:textSize="13dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="13dp"
         android:layout_marginRight="15dp"
+        android:textSize="14dp"
         tools:text="xxxxx"/>
 </LinearLayout>
