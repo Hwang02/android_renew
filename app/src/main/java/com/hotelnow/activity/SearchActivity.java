@@ -1,13 +1,20 @@
 package com.hotelnow.activity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Spannable;
@@ -33,6 +40,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.fragment.model.KeyWordProductItem;
@@ -65,8 +74,11 @@ public class SearchActivity extends Activity{
     private List<KeyWordProductItem> mHotelActivity = new ArrayList<>();
     private List<SearchAutoitem> mHotelAuto = new ArrayList<>();
     private List<SearchAutoitem> mActivityAuto = new ArrayList<>();
-
     private RelativeLayout ll_before, ll_result;
+    LocationManager locManager; // 위치 정보 프로바이더
+    LocationListener locationListener; // 위치 정보가 업데이트시 동작
+    String lat ="", lng="";
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -187,6 +199,42 @@ public class SearchActivity extends Activity{
             }
         });
 
+        lv_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                locationListener = new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        locManager.removeUpdates(locationListener);
+                        CONFIG.lat = location.getLatitude()+"";
+                        CONFIG.lng = location.getLongitude()+"";
+                        dialog.dismiss();
+                        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                        intent.putExtra("order_kind", "distance");
+                        startActivityForResult(intent, 80);
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+
+                    }
+                };
+                getMyLocation();
+            }
+        });
+
         tv_search_word.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,9 +265,8 @@ public class SearchActivity extends Activity{
             }
         });
 
-        //인기 여행지 하드코딩 데이터
+
         setData();
-//        setCategory();
     }
 
     private void setResultData(){
@@ -613,5 +660,50 @@ public class SearchActivity extends Activity{
             setResult(80);
             finish();
         }
+    }
+
+    private void getMyLocation() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(SearchActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+                if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+
+                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                        2000, 0, locationListener);
+                CONFIG.lat = "37.506799";
+                CONFIG.lng = "127.066288";
+
+                dialog = new ProgressDialog(SearchActivity.this);
+                dialog.setMessage(getString(R.string.location_loading));
+                dialog.setIndeterminate(true);
+                dialog.setCancelable(true);
+                dialog.show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(SearchActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
+                CONFIG.lat = "37.506799";
+                CONFIG.lng = "127.066288";
+            }
+        };
+
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("현재 위치값을 얻어오기 위해 권한이 필요합니다.")
+                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .check();
     }
 }

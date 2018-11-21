@@ -71,7 +71,7 @@ public class LeisureFragment extends Fragment {
     public ArrayList<DefaultItem> mDefaultItem = new ArrayList<>();
     public ArrayList<ActivityHotDealItem> mActivityItem = new ArrayList<>();
     public ArrayList<BannerItem> mPbanerItem = new ArrayList<>();
-
+    public String sel_location = "",sel_location_id ="", sel_theme ="", sel_theme_id ="";
 
     @Nullable
     @Override
@@ -142,7 +142,9 @@ public class LeisureFragment extends Fragment {
                     }
 
                     mTopItem.clear();
-                    mTopItem.add(new TopItem("전체","0","0",strdate, strdate2));
+                   mTopItem.add(new TopItem("전체","0","0","테마전체", ""));
+                    sel_location = "전체";
+                    sel_theme = "테마전체";
                     objects.add(mTopItem.get(0));
 
                     if(obj.has("promotion_banners")){
@@ -301,7 +303,12 @@ public class LeisureFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 80 && resultCode == 80){
             mTopItem.clear();
-            mTopItem.add(new TopItem(data.getStringExtra("city"), data.getStringExtra("city_code"), data.getStringExtra("subcity_code"), data.getStringExtra("ec_date"), data.getStringExtra("ee_date")));
+            mTopItem.add(new TopItem(data.getStringExtra("name"), data.getStringExtra("id"), "", sel_theme, sel_theme_id));
+            adapter.setHeaderRefresh();
+        }
+        else if(requestCode == 60 && resultCode == 80){
+            mTopItem.clear();
+            mTopItem.add(new TopItem(sel_location, sel_location_id, "", data.getStringExtra("name"), data.getStringExtra("id")));
             adapter.setHeaderRefresh();
         }
         else if(requestCode == 70){

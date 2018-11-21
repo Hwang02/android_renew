@@ -5,6 +5,10 @@ import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -345,10 +349,17 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     title.setText("특별한 여행 제안");
                     break;
                 case PRIVATEDEAL:
-                    title.setText("오늘의 프라이빗딜");
+                    SpannableStringBuilder builder = new SpannableStringBuilder("오늘의 프라이빗딜 원하는 가격을 직접 제안!");
+                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.privateview)), 4, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 10, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new RelativeSizeSpan(0.8f), 10, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    title.setText(builder);
                     break;
                 case HOTDEAL_HOTEL:
-                    title.setText("단독핫딜");
+                    SpannableStringBuilder builder2 = new SpannableStringBuilder("단독핫딜 호텔나우 만의 최저가 상품");
+                    builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 5, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder2.setSpan(new RelativeSizeSpan(0.8f), 5, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    title.setText(builder2);
                     break;
             }
         }

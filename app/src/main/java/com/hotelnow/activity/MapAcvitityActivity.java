@@ -57,7 +57,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
     private int Page = 1;
     private int total_count=0;
     CustomMap customMap;
-    private String banner_id, search_txt;
+    private String banner_id, search_txt,order_kind, lat, lng, theme_id,city;
     private TextView total_item;
     private LinearLayout ll_count;
 
@@ -72,10 +72,21 @@ public class MapAcvitityActivity extends AppCompatActivity {
         latLngsArrayList = (ArrayList<SearchResultItem>)intent.getSerializableExtra("search_data");
         total_count = intent.getIntExtra("total_count",0);
         Page = intent.getIntExtra("Page",1);
+        order_kind = intent.getStringExtra("order_kind");
+
+        if(order_kind.equals("distance")){
+           lat =  intent.getStringExtra("lat");
+           lng = intent.getStringExtra("lng");
+        }
+
+        banner_id =  intent.getStringExtra("banner_id");
+        theme_id = intent.getStringExtra("theme_id");
+        city = intent.getStringExtra("city");
+
         ll_count = (LinearLayout) findViewById(R.id.ll_count);
         ll_count.setBackgroundResource(R.color.activity_cc);
         TextView total_item = (TextView)findViewById(R.id.total_item);
-        Spannable spannable = new SpannableString("총 "+total_count+"개의 숙소");
+        Spannable spannable = new SpannableString("총 "+total_count+"개의 액티비티");
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(total_count+"").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
@@ -187,6 +198,18 @@ public class MapAcvitityActivity extends AppCompatActivity {
         }
         if(!TextUtils.isEmpty(banner_id)){
             url +="&banner_id="+banner_id;
+        }
+        if(!TextUtils.isEmpty(theme_id)){
+            url += "&category=" + theme_id;
+        }
+        if(!TextUtils.isEmpty(city)){
+            url += "&city=" + city;
+        }
+        if(!TextUtils.isEmpty(order_kind)){
+            url +="&order_kind="+order_kind;
+            if(order_kind.equals("distance")){
+                url +="&lat="+lat+"&lng="+lng;
+            }
         }
 
         url +="&per_page=20";

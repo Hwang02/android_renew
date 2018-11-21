@@ -618,11 +618,12 @@ public class ReservationActivity extends Activity {
                     tv_total_price.setText(nf.format(sale_price)+"원");
 
                     // 적립금 포인트 지급관련
+                    LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
                     if(cookie != null) {
                         // 쿠폰
                         if(data.has("promotion_code")) {
                             JSONArray pcodes = data.getJSONArray("promotion_code");
-                            LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
+
                             if (pcodes.length() > 0) {
                                 isCoupon = true;
 
@@ -664,6 +665,7 @@ public class ReservationActivity extends Activity {
                     }
                     else{
                         booking_save_point.setVisibility(View.GONE);
+                        ll_coupon.setVisibility(View.GONE);
                     }
 
                     // 결제관련 이미지

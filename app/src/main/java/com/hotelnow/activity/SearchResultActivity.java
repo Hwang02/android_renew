@@ -28,6 +28,7 @@ public class SearchResultActivity extends AppCompatActivity {
     RelativeLayout toast_layout;
     ImageView ico_favorite;
     TextView tv_toast;
+    String order_kind="";
 
 
     @Override
@@ -41,9 +42,11 @@ public class SearchResultActivity extends AppCompatActivity {
         m_Selecttab = intent.getIntExtra("tab",0);
         search_txt = intent.getStringExtra("search");
         banner_id = intent.getStringExtra("banner_id");
+        order_kind = intent.getStringExtra("order_kind");
 
-        if(TextUtils.isEmpty(banner_id)) LogUtil.e("xxxxx", search_txt);
-        LogUtil.e("xxxxx", banner_id+"");
+        if(TextUtils.isEmpty(order_kind)){
+            order_kind = "";
+        }
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         view_pager = (ViewPager) findViewById(R.id.view_pager);
@@ -55,7 +58,12 @@ public class SearchResultActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         title_text = (TextView) findViewById(R.id.title_text);
-        title_text.setText(search_txt);
+        if(TextUtils.isEmpty(order_kind)) {
+            title_text.setText(search_txt);
+        }
+        else {
+            title_text.setText("내 주변 바로보기");
+        }
 
         if(m_Selecttab == 0) {
             tabLayout.getTabAt(0).select();
@@ -64,7 +72,7 @@ public class SearchResultActivity extends AppCompatActivity {
             tabLayout.getTabAt(1).select();
         }
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind);
         view_pager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

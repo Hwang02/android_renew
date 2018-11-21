@@ -5,6 +5,10 @@ import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -325,7 +329,10 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     title.setText("특별한 여행 제안");
                     break;
                 case HOTDEAL_ACTIVITY:
-                    title.setText("오늘의 액티비티");
+                    SpannableStringBuilder builder2 = new SpannableStringBuilder("단독핫딜 호텔나우 만의 최저가 상품");
+                    builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 5, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder2.setSpan(new RelativeSizeSpan(0.8f), 5, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    title.setText(builder2);
                     break;
             }
         }

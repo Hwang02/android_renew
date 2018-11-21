@@ -58,12 +58,12 @@ android {
 
             buildConfigField("String", "domain", "\"https://dev.api.hotelnow.co.kr\"")
             buildConfigField("String", "domainssl", "\"https://dev.api.hotelnow.co.kr\"")
-            buildConfigField("String", "arsDomain", "\"https://13.114.248.114:8008\"")
-            buildConfigField("String", "billDomain", "\"https://13.114.248.114:8808\"")
-            buildConfigField("String", "phonePayDomain", "\"https://13.114.248.114:8088\"")
-            buildConfigField("String", "cardDomain", "\"https://13.114.248.114:7777\"")
+            buildConfigField("String", "arsDomain", "\"http://13.114.248.114:8008\"")
+            buildConfigField("String", "billDomain", "\"http://13.114.248.114:8808\"")
+            buildConfigField("String", "phonePayDomain", "\"http://13.114.248.114:8088\"")
+            buildConfigField("String", "cardDomain", "\"http://13.114.248.114:7777\"")
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
-            buildConfigField("String", "kcpCardDomain", "\"https://13.114.248.114:8009/order_app.php\"")
+            buildConfigField("String", "kcpCardDomain", "\"http://13.114.248.114:8009/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://dev.www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
         }

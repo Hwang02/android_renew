@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
+import com.hotelnow.activity.HotelSearchActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.Util;
@@ -70,7 +71,13 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
         holder.btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(fm.getActivity(), HotelSearchActivity.class);
+                intent.putExtra("ec_date", data.get(0).getEc_date());
+                intent.putExtra("ee_date", data.get(0).getEe_date());
+                intent.putExtra("city", data.get(0).getLocation());
+                intent.putExtra("city_code", data.get(0).getLocation_id());
+                intent.putExtra("subcity_code", data.get(0).getLocation_subid());
+                fm.startActivityForResult(intent, 80);
             }
         });
 

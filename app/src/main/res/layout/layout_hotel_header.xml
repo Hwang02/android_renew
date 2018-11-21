@@ -53,6 +53,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/title_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/graytxt"
@@ -92,5 +93,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/bg_background"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="20dp"/>
 </LinearLayout>

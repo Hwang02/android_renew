@@ -11,14 +11,15 @@ import com.hotelnow.fragment.search.HotelSearchFragment;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public Context mContext;
-    public String search_txt, banner_id;
+    public String search_txt, banner_id, order_kind;
     public Bundle bundle;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, String search_txt, String banner_id) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, String search_txt, String banner_id, String order_kind) {
         super(fm);
         mContext = context;
         this.search_txt = search_txt;
         this.banner_id = banner_id;
+        this.order_kind = order_kind;
     }
 
     @Override
@@ -28,16 +29,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0:
                 HotelSearchFragment hotelSearchFragment = new HotelSearchFragment();
-                bundle = new Bundle(2); // 파라미터는 전달할 데이터 개수
+                bundle = new Bundle(3); // 파라미터는 전달할 데이터 개수
                 bundle.putString("search_txt", search_txt); // key , value
                 bundle.putString("banner_id", banner_id); // key , value
+                bundle.putString("order_kind", order_kind);
                 hotelSearchFragment.setArguments(bundle);
                 return hotelSearchFragment;
             case 1:
                 ActivitySearchFragment activitySearchFragment = new ActivitySearchFragment();
-                bundle = new Bundle(2); // 파라미터는 전달할 데이터 개수
+                bundle = new Bundle(3); // 파라미터는 전달할 데이터 개수
                 bundle.putString("search_txt", search_txt); // key , value
                 bundle.putString("banner_id", banner_id); // key , value
+                bundle.putString("order_kind", order_kind);
                 activitySearchFragment.setArguments(bundle);
                 return activitySearchFragment;
             default:
