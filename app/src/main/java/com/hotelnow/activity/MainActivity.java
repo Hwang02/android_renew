@@ -470,7 +470,8 @@ public class MainActivity extends FragmentActivity {
             fm.getRecentData(true);
             CONFIG.isRecent = true;
         } else {
-            fm.setLikeRefresh(true);
+            fm.getRecentData(false);
+            fm.setLikeRefresh(false);
         }
     }
 

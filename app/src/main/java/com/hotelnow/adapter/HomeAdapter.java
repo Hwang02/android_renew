@@ -289,6 +289,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void allRefresh(boolean isRecent){
         if(recentAdapter != null && isRecent){
+            dbHelper.selectAllRecentItem();
             recentAdapter.notifyDataSetChanged();
         }
         if(privateAdapter != null){

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -31,12 +32,15 @@ import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.FilterHotelActivity;
 import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.activity.SearchResultActivity;
+import com.hotelnow.adapter.SearchBannerPagerAdapter;
 import com.hotelnow.adapter.SearchResultStayAdapter;
+import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
+import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -67,10 +71,17 @@ public class HotelSearchFragment extends Fragment {
     private int total_count;
     private String s_position = "",city = "",sub_city = "";
     private DbOpenHelper dbHelper;
-    private TextView tv_location, tv_date;
+    private TextView tv_location, tv_date, page;
     private String ec_date ="", ee_date="";
     private Button bt_scroll;
     private String category ="", facility="", price_min="", person_count="", price_max="", order_kind="", score="";
+    private RelativeLayout bannerview;
+    private ArrayList<BannerItem> mBannerItems = new ArrayList<>();
+    private ViewPagerCustom autoViewPager;
+    private SearchBannerPagerAdapter bannerAdapter;
+    public static int markNowPosition = 0;
+    private static int PAGES = 0;
+    private static int nowPosition = 0;
 
     @Nullable
     @Override
@@ -97,6 +108,9 @@ public class HotelSearchFragment extends Fragment {
         map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
         tv_date = (TextView) HeaderView.findViewById(R.id.tv_date);
+        bannerview = (RelativeLayout) HeaderView.findViewById(R.id.bannerview);
+        autoViewPager = (ViewPagerCustom) HeaderView.findViewById(R.id.autoViewPager);
+        page = (TextView) HeaderView.findViewById(R.id.page);
         btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
         bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
 
@@ -218,12 +232,65 @@ public class HotelSearchFragment extends Fragment {
                         }
 
                         final JSONArray list = obj.getJSONArray("lists");
+                        final JSONArray bannerlist = obj.getJSONArray("region_banners");
                         JSONObject entry = null;
+                        JSONObject bannerentry = null;
 
                         final String total_cnt = "총 " + obj.getString("total_count") + "개의 객실이 있습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                         builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_review_count.setText(builder);
+
+                        if(bannerlist.length() >0) {
+                            bannerview.setVisibility(View.VISIBLE);
+                            for (int j = 0; j < bannerlist.length(); j++) {
+                                bannerentry = bannerlist.getJSONObject(j);
+                                mBannerItems.add(new BannerItem(
+                                        "",
+                                        "",
+                                        "",
+                                        bannerentry.getString("image"),
+                                        "",
+                                        "",
+                                        bannerentry.getString("evt_type"),
+                                        bannerentry.getString("event_id"),
+                                        bannerentry.getString("link")
+                                ));
+                            }
+
+                            PAGES = mBannerItems.size();
+                            bannerAdapter = new SearchBannerPagerAdapter(getActivity(), mBannerItems);
+                            autoViewPager.setClipToPadding(false);
+                            autoViewPager.setOffscreenPageLimit(mBannerItems.size());
+                            autoViewPager.setPageMargin(20);
+                            autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
+                            autoViewPager.setCurrentItem(mBannerItems.size() * 10);
+                            autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                                @Override
+                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                    autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                                }
+
+                                @Override
+                                public void onPageSelected(int position) {
+                                    nowPosition = position;
+                                    markNowPosition = position % PAGES;
+                                    page.setText(markNowPosition+1 +" / "+ PAGES +" +");
+                                }
+
+                                @Override
+                                public void onPageScrollStateChanged(int state) {
+
+                                }
+                            });
+                            page.setText("1 / "+ mBannerItems.size()+" +");
+
+                            autoViewPager.startAutoScroll();
+                        }
+                        else {
+                            bannerview.setVisibility(View.GONE);
+                            autoViewPager.stopAutoScroll();
+                        }
 
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);
@@ -294,6 +361,8 @@ public class HotelSearchFragment extends Fragment {
                                 startActivityForResult(intent, 90);
                             }
                         });
+
+
 
                         total_count = obj.getInt("total_count");
                         adapter.notifyDataSetChanged();

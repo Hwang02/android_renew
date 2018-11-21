@@ -124,4 +124,66 @@
         android:textColor="@color/detail_more_color"
         android:background="@color/footerview"/>
 
+    <RelativeLayout
+        android:id="@+id/bannerview"
+        android:layout_width="match_parent"
+        android:layout_height="126dp"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/gap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/back_line"/>
+        </LinearLayout>
+
+        <com.hotelnow.utils.ViewPagerCustom
+            android:id="@+id/autoViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:scaleType="fitXY"
+            android:layout_below="@+id/gap"/>
+
+        <TextView
+            android:id="@+id/page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pager_count_round"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:textSize="11dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="24dp"
+            tools:text=" 3/10 + "/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/autoViewPager">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/back_line"/>
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

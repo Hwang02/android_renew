@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.hotelnow.R;
@@ -65,6 +66,14 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
                 fm.startActivityForResult(intent, 80);
             }
         });
+
+        holder.btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +84,7 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout btn_location, btn_date;
         TextView tv_date, tv_location;
+        Button btn_search;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -82,6 +92,7 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
             btn_date = (LinearLayout) itemView.findViewById(R.id.btn_date);
             tv_date = (TextView) itemView.findViewById(R.id.tv_date);
             tv_location = (TextView) itemView.findViewById(R.id.tv_location);
+            btn_search = (Button) itemView.findViewById(R.id.btn_search);
         }
     }
 }
