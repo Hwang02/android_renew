@@ -139,10 +139,10 @@
     <string name="reservation_payinfo_title">결제 장보</string>
     <string name="reservation_private">프라이빗딜 특별할인</string>
     <string name="reservation_point">적립금</string>
-    <string name="reservation_coupon">쿠폰사용</string>
+    <string name="reservation_coupon">사용가능쿠폰</string>
     <string name="reservation_point_total"><u>전액사용</u></string>
     <string name="reservation_point_total_cancel"><u>전액취소</u></string>
-    <string name="reservation_price">정상가</string>
+    <string name="reservation_price">예약금액</string>
     <string name="reservation_discount_price">할인금액</string>
     <string name="reservation_sale_price">총 결제금액</string>
     <string name="reservation_money">구매 보상</string>

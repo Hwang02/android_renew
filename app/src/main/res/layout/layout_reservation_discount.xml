@@ -39,7 +39,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="14dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:gravity="center">
 
         <TextView
@@ -55,7 +55,7 @@
             android:id="@+id/private_discount"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_weight="1"
+            android:layout_weight="0.75"
             android:gravity="right|center"
             android:maxLength="10"
             android:paddingLeft="5dp"
@@ -101,6 +101,7 @@
             android:textColorHint="@color/coupon_dis"
             android:hint="최소 1,000원부터"
             android:drawablePadding="8dp"
+            android:longClickable="false"
             android:textSize="12dp" />
 
         <Button

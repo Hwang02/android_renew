@@ -155,6 +155,10 @@ public class PrivateDealActivity extends FragmentActivity {
             setResult(80, returnIntent);
             finish();
         }
+        else if (responseCode == 100) {
+            setResult(100);
+            finish();
+        }
     }
 
     @Override

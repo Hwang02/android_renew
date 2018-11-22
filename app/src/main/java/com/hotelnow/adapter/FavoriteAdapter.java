@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
 
 import com.hotelnow.fragment.favorite.FavoriteActivityFragment;
 import com.hotelnow.fragment.favorite.FavoriteHotelFragment;
@@ -42,7 +43,13 @@ public class FavoriteAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public int getCount() {
         return 2;
     }
+
 }

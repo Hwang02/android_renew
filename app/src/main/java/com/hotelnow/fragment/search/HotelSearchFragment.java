@@ -444,7 +444,7 @@ public class HotelSearchFragment extends Fragment {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    banner_id = mKeywordList.get((int)v.getTag()).getBannerable_id();
+                    banner_id = mKeywordList.get((int)v.getTag()).getId();
                     setClear();
                 }
             });

@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
+import android.util.Patterns;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -47,6 +48,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class ReservationActivityDetailActivity extends Activity {
 
@@ -64,6 +66,7 @@ public class ReservationActivityDetailActivity extends Activity {
     String call_message;
     String hotel_phone_number = "";
     WebView info_view;
+    boolean isReservation = false;
 
 
     @Override
@@ -77,6 +80,7 @@ public class ReservationActivityDetailActivity extends Activity {
         Intent intent = getIntent();
         if(intent != null){
             bid = intent.getStringExtra("bid");
+            isReservation = intent.getBooleanExtra("reservation", false);
         }
 
         setData();
@@ -317,43 +321,50 @@ public class ReservationActivityDetailActivity extends Activity {
                     if(deal_info.has("deal_introduce") && !TextUtils.isEmpty(deal_info.getString("deal_introduce"))) {
                         webData = deal_info.getString("deal_introduce").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html = "<div style='font-size:14px;color:#222222'>상품 소개</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
                     if(deal_info.has("deal_info") && !TextUtils.isEmpty(deal_info.getString("deal_info"))){
                         webData = deal_info.getString("deal_info").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html += "<div style='font-size:14px;color:#222222''>상품 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
                     if(deal_info.has("refund_info") && !TextUtils.isEmpty(deal_info.getString("refund_info"))){
                         webData = deal_info.getString("refund_info").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html += "<div style='font-size:14px;color:#222222''>환불 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
                     if(deal_info.has("usage_info") && !TextUtils.isEmpty(deal_info.getString("usage_info"))){
                         webData = deal_info.getString("usage_info").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html += "<div style='font-size:14px;color:#222222''>사용 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
                     if(deal_info.has("store_info") && !TextUtils.isEmpty(deal_info.getString("store_info"))){
                         webData = deal_info.getString("store_info").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html += "<div style='font-size:14px;color:#222222''>시설사 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
                     if(deal_info.has("notice_info") && !TextUtils.isEmpty(deal_info.getString("notice_info"))){
                         webData = deal_info.getString("notice_info").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html += "<div style='font-size:14px;color:#222222''>공지 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
                     if(deal_info.has("cs_info") && !TextUtils.isEmpty(deal_info.getString("cs_info"))){
                         webData = deal_info.getString("cs_info").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
-                        Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                                Linkify.sPhoneNumberTransformFilter);
                         html += "<div style='font-size:14px;color:#222222''>고객센터 정보</div><div style='font-size:12px;color:#666666'>"+Html.toHtml(sp)+"</div>";
                     }
 
@@ -658,5 +669,13 @@ public class ReservationActivityDetailActivity extends Activity {
         super.onDestroy();
         if(info_view != null)
             info_view.destroy();
+
+        setfinish();
+    }
+
+    public void setfinish(){
+        if(isReservation){
+
+        }
     }
 }

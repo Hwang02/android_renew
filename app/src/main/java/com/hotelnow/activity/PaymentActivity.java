@@ -264,17 +264,20 @@ public class PaymentActivity extends Activity {
 //                        					Log.e("HOTELNOW_LOG : error ????",e.toString());
                                     }
                                     //예약 상세 페이지
-//                                    if (!uid.equals("0")) {
-//                                        Intent intent = new Intent(PaymentActivity.this, TicketBookingDetailActivity.class);
-//                                        intent.putExtra("reservation", true);
-//                                        intent.putExtra("tid", bid);
+                                    if (!uid.equals("0")) {
+                                        Intent intent = new Intent(PaymentActivity.this, ReservationActivityDetailActivity.class);
+                                        intent.putExtra("reservation", true);
+                                        intent.putExtra("tid", bid);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        startActivity(intent);
+                                        startActivity(intent);
+                                        setResult(80);
+                                        finish();
 //                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-//                                    } else { // 링크 변경
+                                    }
+//                                    else { // 링크 변경
 //                                        Intent intent = new Intent(PaymentActivity.this, TicketBookingDetailActivity.class);
 //                                        intent.putExtra("search_name", Base64.encodeToString(un.getBytes(), Base64.NO_WRAP));
 //                                        intent.putExtra("search_tel", Base64.encodeToString(up.getBytes(), Base64.NO_WRAP));
@@ -380,17 +383,20 @@ public class PaymentActivity extends Activity {
                                     } catch (Exception e) {
 //                        					Log.e("HOTELNOW_LOG : error ????",e.toString());
                                     }
-//                                    if (!uid.equals("0")) {
-//                                        Intent intent = new Intent(PaymentActivity.this, BookingDetailActivity.class);
-//                                        intent.putExtra("reservation", true);
-//                                        intent.putExtra("bid", bid);
+                                    if (!uid.equals("0")) {
+                                        Intent intent = new Intent(PaymentActivity.this, ReservationHotelDetailActivity.class);
+                                        intent.putExtra("reservation", true);
+                                        intent.putExtra("bid", bid);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        startActivity(intent);
+                                        setResult(80);
+                                        finish();
+                                        startActivity(intent);
 //                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-//                                    } else {
+                                    }
+//                                    else {
 //                                        Intent intent = new Intent(PaymentActivity.this, WebviewActivity.class);
 //                                        intent.putExtra("reservation", true);
 //                                        intent.putExtra("url", BuildConfig.webUrl + "/booking/detail/" + bid + "?user_name=" + un + "&user_phone=" + up + "&is_app=Y");

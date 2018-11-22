@@ -17,61 +17,114 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:hardwareAccelerated="true"
+        android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
         android:theme="@style/AppTheme">
-        <activity android:name="com.hotelnow.activity.ActLoading">
+        <activity android:name="com.hotelnow.activity.ActLoading"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="app.launch" android:scheme="hotelnow" />
+                <data android:host="kakaolink" android:scheme="kakao4d8f460a1c1f7084095dfac28289e89e" />
+            </intent-filter>
         </activity>
 
         <activity android:name="com.hotelnow.activity.MainActivity"
-            android:theme="@style/AppTheme.TransNav"/>
-        <activity android:name=".activity.CalendarActivity" android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".activity.DetailHotelActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.AreaHotelActivity" />
-        <activity android:name=".activity.MapHotelActivity" />
-        <activity android:name=".activity.FilterHotelActivity" />
-        <activity android:name=".activity.FilterActivityActivity" />
-        <activity android:name=".activity.AreaActivityActivity" />
-        <activity android:name=".activity.MapAcvitityActivity" />
+            android:theme="@style/AppTheme.TransNav"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".activity.CalendarActivity"
+            android:theme="@android:style/Theme.Translucent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DetailHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AreaHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MapHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FilterHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FilterActivityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AreaActivityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MapAcvitityActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.ReservationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".activity.PaymentActivity" />
-        <activity android:name=".activity.MapActivity" />
-        <activity android:name=".activity.WebviewActivity" />
-        <activity android:name=".activity.MySaveActivity" />
+        <activity android:name=".activity.PaymentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MapActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.WebviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MySaveActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".activity.SignupActivity" />
-        <activity android:name=".activity.MyCouponActivity" />
-        <activity android:name=".activity.MyCardActivity" />
-        <activity android:name=".activity.CardAddActivity" />
-        <activity android:name=".activity.EventActivity" />
-        <activity android:name=".activity.PrivateDealActivity" />
-        <activity android:name=".activity.FullImageViewActivity" />
-        <activity android:name=".activity.ReviewHotelActivity" />
-        <activity android:name=".activity.AllRoomTypeActivity" />
-        <activity android:name=".activity.SearchResultActivity" />
-        <activity android:name=".activity.CalendarSingleActivity" android:theme="@android:style/Theme.Translucent"/>
-        <activity android:name=".activity.DetailActivityActivity" />
-        <activity android:name=".activity.FullImageViewActivityActivity" />
-        <activity android:name=".activity.ReservationActivityActivity" />
-        <activity android:name=".activity.ReservationHotelDetailActivity" />
-        <activity android:name=".activity.ActivityMapActivity" />
-        <activity android:name=".activity.ReservationActivityDetailActivity" />
-        <activity android:name=".activity.ReviewHotelWriteActivity" />
-        <activity android:name=".activity.ReviewActivityWriteActivity" />
-        <activity android:name=".activity.ReviewShowActivity" />
-        <activity android:name=".activity.ThemeSpecialHotelActivity" />
-        <activity android:name=".activity.ThemeSpecialActivityActivity" />
-        <activity android:name=".activity.ActivityFilterActivity" />
-        <activity android:name=".activity.ActivitySearchActivity" />
-        <activity android:name=".activity.HotelSearchActivity" />
+        <activity android:name=".activity.SignupActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyCouponActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CardAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EventActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PrivateDealActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FullImageViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReviewHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AllRoomTypeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SearchResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.CalendarSingleActivity"
+            android:theme="@android:style/Theme.Translucent"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DetailActivityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FullImageViewActivityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReservationActivityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReservationHotelDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityMapActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReservationActivityDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReviewHotelWriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReviewActivityWriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ReviewShowActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ThemeSpecialHotelActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ThemeSpecialActivityActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityFilterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivitySearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.HotelSearchActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

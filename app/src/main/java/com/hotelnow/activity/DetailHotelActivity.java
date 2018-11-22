@@ -944,7 +944,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         intent.putExtra("ee_date", ee_date);
                         intent.putExtra("pid", pid.getText());
                         intent.putExtra("page", "detailH");
-                        startActivity(intent);
+                        startActivityForResult(intent,80);
                     }
                 });
 
@@ -1303,6 +1303,9 @@ public class DetailHotelActivity extends AppCompatActivity {
         }
         else if(resultCode == 90 && requestCode == 90) {
             cookie = _preferences.getString("userid", null);
+        }
+        else if(resultCode == 100 && requestCode == 80) {
+            finish();
         }
     }
 }

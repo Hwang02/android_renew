@@ -141,6 +141,9 @@ public class FavoriteFragment extends Fragment {
                         }
                     });
                 }
+
+                favoriteAdapter.notifyDataSetChanged();
+
                 mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -205,8 +208,8 @@ public class FavoriteFragment extends Fragment {
             else{
                 ec_date = data.getStringExtra("ec_date");
                 mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date));
-                FavoriteActivityFragment f = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
-//                f.setDateRefresh(ec_date, ee_date);
+                FavoriteActivityFragment f2 = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
+                f2.setDateRefresh("","");
             }
         }
     }

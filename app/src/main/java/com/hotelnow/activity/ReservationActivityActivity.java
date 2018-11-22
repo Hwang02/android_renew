@@ -1356,7 +1356,7 @@ public class ReservationActivityActivity extends Activity {
                     float revenue = obj.has("revenue")? (float)obj.getInt("revenue"):0;
                     int quantity = obj.has("quantity")? obj.getInt("quantity"):0;
 
-                    startActivity(intent);
+                    startActivityForResult(intent,80);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 } catch (JSONException e) {
                     Log.e(CONFIG.TAG, e.toString());
@@ -1367,6 +1367,13 @@ public class ReservationActivityActivity extends Activity {
 
             }
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 80 && resultCode == 80){
+            finish();
+        }
     }
 }

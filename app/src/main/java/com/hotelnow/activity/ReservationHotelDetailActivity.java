@@ -16,6 +16,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
+import android.util.Patterns;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -63,6 +64,7 @@ public class ReservationHotelDetailActivity extends Activity {
     String call_message;
     String hotel_phone_number = "";
     WebView info_view;
+    boolean isReservation = false;
 
 
     @Override
@@ -76,7 +78,14 @@ public class ReservationHotelDetailActivity extends Activity {
         Intent intent = getIntent();
         if(intent != null){
             bid = intent.getStringExtra("bid");
+            isReservation = intent.getBooleanExtra("reservation", false);
         }
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         setData();
     }
@@ -356,7 +365,9 @@ public class ReservationHotelDetailActivity extends Activity {
                             +confirm_info.getString("cancel_fee").replace("\n","<br>");
 
                     Spannable sp = new SpannableString(Html.fromHtml(webData));
-                    Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+//                    Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
+                    Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                            Linkify.sPhoneNumberTransformFilter);
                     final String html = Html.toHtml(sp);
 
                     if(android.os.Build.VERSION.SDK_INT < 16) {
@@ -659,5 +670,12 @@ public class ReservationHotelDetailActivity extends Activity {
         super.onDestroy();
         if(info_view != null)
             info_view.destroy();
+
+        setfinish();
+    }
+
+    public void setfinish(){
+        if(isReservation){
+        }
     }
 }

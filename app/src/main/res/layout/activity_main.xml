@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:indicator="BallPulse"
-                app:indicator_color="@color/white"/>
+                app:indicator_color="@color/purple"/>
 
         </RelativeLayout>
 

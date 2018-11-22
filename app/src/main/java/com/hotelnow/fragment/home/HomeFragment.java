@@ -183,6 +183,7 @@ public class HomeFragment extends Fragment {
                                 // 리스트 호출
                                 objects.clear();
                                 getObject();
+                                CONFIG.isRecent = true;
                             }
                             else {
                                 adapter.refreshRecent();
@@ -197,6 +198,7 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
         } else{
+            CONFIG.isRecent = false;
             getObject();
         }
     }

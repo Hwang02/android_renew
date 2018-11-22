@@ -139,7 +139,7 @@ public class FavoriteActivityFragment extends Fragment {
                         btn_go_list.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ((MainActivity)getActivity()).setTapMove(5, true);
+                                ((MainActivity)getActivity()).setTapMove(6, true);
                             }
                         });
                         ((FavoriteFragment)getParentFragment()).setCancelView(false);
@@ -292,6 +292,11 @@ public class FavoriteActivityFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void setDateRefresh(String ecc_date, String eee_date){
+        mItems.clear();
+        getFavorite();
     }
 
 }

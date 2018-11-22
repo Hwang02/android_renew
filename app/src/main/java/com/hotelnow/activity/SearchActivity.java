@@ -527,7 +527,7 @@ public class SearchActivity extends Activity{
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getBannerable_id());
+                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
                     startActivityForResult(intent, 80);
 
                 }

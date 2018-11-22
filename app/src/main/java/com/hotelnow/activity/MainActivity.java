@@ -427,6 +427,7 @@ public class MainActivity extends FragmentActivity {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
         transaction.commitAllowingStateLoss();
+
     }
 
     public void showToast(String msg){
@@ -488,7 +489,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(myPosition == 0){
             moveTabRefresh();
         }

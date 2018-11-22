@@ -25,8 +25,6 @@ public class ReviewShowActivity extends Activity{
 
         setContentView(R.layout.activity_review_show);
 
-
-
         hotel_name = (TextView) findViewById(R.id.hotel_name);
         user_room_info = (TextView) findViewById(R.id.user_room_info);
 //        hotel_name.setText(h_name);
