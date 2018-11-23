@@ -123,6 +123,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private RelativeLayout toast_layout;
     private ImageView ico_favorite;
     private TextView tv_toast;
+    private boolean isLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,8 +317,6 @@ public class DetailHotelActivity extends AppCompatActivity {
         });
 
         setDetailView();
-
-//        someTextView.setPaintFlags(someTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     // 프라이빗 딜
@@ -1248,7 +1247,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     public void showToast(String msg){
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
-
+        findViewById(R.id.ico_favorite).setVisibility(View.VISIBLE);
         new Handler().postDelayed(
                 new Runnable() {
                     @Override
@@ -1289,6 +1288,9 @@ public class DetailHotelActivity extends AppCompatActivity {
         if(islikechange) {
             setResult(80);
         }
+        else if(isLogin){
+            setResult(110);
+        }
         finish();
     }
 
@@ -1302,6 +1304,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             setDetailView();
         }
         else if(resultCode == 90 && requestCode == 90) {
+            isLogin = true;
             cookie = _preferences.getString("userid", null);
         }
         else if(resultCode == 100 && requestCode == 80) {

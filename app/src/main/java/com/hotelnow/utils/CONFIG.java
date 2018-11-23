@@ -166,6 +166,7 @@ public class CONFIG {
     public static String sel_max = "600000";
     public static String sel_min = "0";
     public static Boolean TabLogin = false;
+    public static int sel_reserv = 0;
 
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";

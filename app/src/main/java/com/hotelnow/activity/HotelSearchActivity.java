@@ -545,12 +545,16 @@ public class HotelSearchActivity extends Activity {
         else if(requestCode == 50 && responseCode == 80){
             adapter.notifyDataSetChanged();
         }
+        else if(responseCode == 100){
+            setResult(100);
+            finish();
+        }
     }
 
     public void showToast(String msg){
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
-
+        findViewById(R.id.ico_favorite).setVisibility(View.GONE);
         new Handler().postDelayed(
                 new Runnable() {
                     @Override

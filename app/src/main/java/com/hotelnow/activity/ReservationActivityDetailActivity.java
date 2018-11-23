@@ -67,6 +67,8 @@ public class ReservationActivityDetailActivity extends Activity {
     String hotel_phone_number = "";
     WebView info_view;
     boolean isReservation = false;
+    String cookie="", user_name ="", user_phone="";
+    TextView tv_title_bar;
 
 
     @Override
@@ -76,18 +78,37 @@ public class ReservationActivityDetailActivity extends Activity {
         setContentView(R.layout.activity_reservation_activity_detail);
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
 
         Intent intent = getIntent();
         if(intent != null){
-            bid = intent.getStringExtra("bid");
+            bid = intent.getStringExtra("tid");
             isReservation = intent.getBooleanExtra("reservation", false);
+            if(cookie == null){
+                user_name = intent.getStringExtra("user_name");
+                user_phone = intent.getStringExtra("user_phone");
+                tv_title_bar.setText(intent.getStringExtra("title"));
+            }
+            if(isReservation) {
+                CONFIG.sel_reserv = 1;
+            }
         }
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         setData();
     }
 
     private void setData(){
         String url = CONFIG.ticketbookingDetailUrl+"/"+bid;
+        if(cookie == null){
+            url +="?user_name="+user_name+"&user_phone="+user_phone;
+        }
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -669,13 +690,6 @@ public class ReservationActivityDetailActivity extends Activity {
         super.onDestroy();
         if(info_view != null)
             info_view.destroy();
-
-        setfinish();
     }
 
-    public void setfinish(){
-        if(isReservation){
-
-        }
-    }
 }

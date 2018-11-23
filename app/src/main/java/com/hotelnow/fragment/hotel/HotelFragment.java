@@ -1,8 +1,10 @@
 package com.hotelnow.fragment.hotel;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +71,8 @@ public class HotelFragment extends Fragment {
     private String[] FavoriteStayList;
     private String[] FavoriteActivityList;
     private String strdate, strdate2;
+    private SharedPreferences _preferences;
+    private String cookie;
 
     @Nullable
     @Override
@@ -90,6 +94,8 @@ public class HotelFragment extends Fragment {
         objects = new ArrayList<>();
 
         adapter = new HotelAdapter(getActivity(), HotelFragment.this, objects, dbHelper);
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        cookie = _preferences.getString("userid", null);
 
         mHotelBinding.recyclerView.setAdapter(adapter);
         mHotelBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -237,7 +243,8 @@ public class HotelFragment extends Fragment {
                                         mItems.getJSONObject(i).getString("normal_price")
                                 ));
                             }
-                            objects.add(mThemeItem.get(0));
+                            if(mThemeItem.size()>0)
+                                objects.add(mThemeItem.get(0));
                         }
                     }
                     if(obj.has("theme_lists")){
@@ -531,6 +538,17 @@ public class HotelFragment extends Fragment {
         }
         else if(requestCode == 70){
             adapter.setAllRefresh();
+        }
+        else if(resultCode == 110){
+            ((MainActivity)getActivity()).setTitle();
+            ((MainActivity)getActivity()).setTapdelete("MYPAGE");
+        }
+        if(resultCode == 100){
+            if(cookie == null) {
+                CONFIG.TabLogin=false;
+                return;
+            }
+            ((MainActivity) getActivity()).moveTabReservation();
         }
     }
 }

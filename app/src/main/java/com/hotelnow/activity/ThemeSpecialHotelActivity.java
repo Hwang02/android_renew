@@ -299,7 +299,7 @@ public class ThemeSpecialHotelActivity extends Activity {
     private void showToast(String msg){
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
-
+        findViewById(R.id.ico_favorite).setVisibility(View.GONE);
         new Handler().postDelayed(
                 new Runnable() {
                     @Override

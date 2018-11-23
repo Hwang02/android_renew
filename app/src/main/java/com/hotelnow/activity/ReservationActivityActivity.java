@@ -565,7 +565,7 @@ public class ReservationActivityActivity extends Activity {
                                     dialogFee = new DialogFee(
                                             getString(R.string.cancel_rule),
                                             cancel_fee_str.replaceAll("\n", "<br>"),
-                                            getString(R.string.activity_go),
+                                            getString(R.string.not_agree),
                                             getString(R.string.agree),
                                             ReservationActivityActivity.this,
                                             new View.OnClickListener() {
@@ -1373,6 +1373,7 @@ public class ReservationActivityActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 80 && resultCode == 80){
+            setResult(100);
             finish();
         }
     }

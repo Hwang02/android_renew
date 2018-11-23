@@ -3,6 +3,7 @@ package com.hotelnow.fragment.reservation;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -67,15 +68,16 @@ public class ReservationFragment extends Fragment {
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("액티비티"));
         mReservationBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-//        if(m_Selecttab == 0) {
-//            tabLayout.getTabAt(0).select();
-//        }
-//        else {
-//            tabLayout.getTabAt(1).select();
-//        }
-
         reservationAdapter = new ReservationAdapter(getActivity(), getChildFragmentManager());
         mReservationBinding.viewPager.setAdapter(reservationAdapter);
+
+        if(CONFIG.sel_reserv == 0) {
+            mReservationBinding.viewPager.setCurrentItem(0);
+        }
+        else {
+            mReservationBinding.viewPager.setCurrentItem(1);
+        }
+        mReservationBinding.tabLayout.setupWithViewPager(mReservationBinding.viewPager);
 
         mReservationBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -85,6 +87,7 @@ public class ReservationFragment extends Fragment {
                     reservationAdapter.notifyDataSetChanged();
                     CONFIG.TabLogin=false;
                 }
+                CONFIG.sel_reserv = tab.getPosition();
             }
 
             @Override

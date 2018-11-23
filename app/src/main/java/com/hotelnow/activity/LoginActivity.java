@@ -28,27 +28,20 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.kakao.auth.AuthType;
-import com.kakao.auth.ErrorCode;
 import com.kakao.auth.Session;
 import com.kakao.auth.ISessionCallback;
-import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
-import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.squareup.okhttp.Response;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -66,6 +59,7 @@ public class LoginActivity extends Activity{
     private ProgressDialog dialog;
     private SharedPreferences _preferences;
     private TextView btn_nocookie;
+    private DbOpenHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +68,8 @@ public class LoginActivity extends Activity{
         setContentView(R.layout.activity_login);
 
         Util.setStatusColor(this);
+
+        dbHelper = new DbOpenHelper(this);
 
         mKakaoSession = Session.getCurrentSession();
         mKakaoSession.addCallback(callback);
@@ -215,25 +211,7 @@ public class LoginActivity extends Activity{
                             final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                            if(page.equals("detailH")){
-                                Intent intent = new Intent(LoginActivity.this, ReservationActivity.class);
-                                intent.putExtra("ec_date", ec_date);
-                                intent.putExtra("ee_date", ee_date);
-                                intent.putExtra("pid", pid);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else if(page.equals("Private")) {
-                                Intent returnIntent = new Intent();
-                                returnIntent.putExtra("sdate", ec_date);
-                                returnIntent.putExtra("edate", ee_date);
-                                setResult(80, returnIntent);
-                                finish();
-                            }
-                            else {
-                                setResult(90, new Intent());
-                                finish();
-                            }
+                            getFavorite();
 
                         } catch (Exception e) {
                             Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -458,12 +436,49 @@ public class LoginActivity extends Activity{
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
+                    getFavorite();
+
+                } catch (Exception e) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void getFavorite(){
+
+        String url = CONFIG.like_list;
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+                Toast.makeText(LoginActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(LoginActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    dbHelper.deleteFavoriteItem(true,"","");
+                    if(obj.getJSONArray("stay").length() >0) {
+                        for(int i = 0; i<obj.getJSONArray("stay").length(); i++) {
+                            dbHelper.insertFavoriteItem(obj.getJSONArray("stay").getString(i), "H");
+                        }
+                    }
+
+                    if(obj.getJSONArray("activity").length() >0) {
+                        for(int i = 0; i<obj.getJSONArray("activity").length(); i++) {
+                            dbHelper.insertFavoriteItem(obj.getJSONArray("activity").getString(i), "A");
+                        }
+                    }
+
                     if(page.equals("detailH")){
-                        Intent intent = new Intent(LoginActivity.this, ReservationActivity.class);
-                        intent.putExtra("ec_date", ec_date);
-                        intent.putExtra("ee_date", ee_date);
-                        intent.putExtra("pid", pid);
-                        startActivity(intent);
+                        setResult(90);
                         finish();
                     }
                     else if(page.equals("Private")) {
@@ -477,10 +492,8 @@ public class LoginActivity extends Activity{
                         setResult(90, new Intent());
                         finish();
                     }
-
-
                 } catch (Exception e) {
-                    Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -504,4 +517,6 @@ public class LoginActivity extends Activity{
         Session.getCurrentSession().removeCallback(callback);
         Session.getCurrentSession().close();
     }
+
+
 }

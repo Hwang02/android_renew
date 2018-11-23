@@ -435,6 +435,7 @@ public class MainActivity extends FragmentActivity {
     public void showToast(String msg){
         mbinding.toastLayout.setVisibility(View.VISIBLE);
         mbinding.tvToast.setText(msg);
+        mbinding.icoFavorite.setVisibility(View.GONE);
 
         new Handler().postDelayed(
                 new Runnable() {

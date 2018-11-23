@@ -112,6 +112,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     private RelativeLayout toast_layout;
     private ImageView ico_favorite;
     private TextView tv_toast;
+    private boolean isLogin = false;
 
 
     @Override
@@ -751,7 +752,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     intent.putExtra("sel_list", (Serializable) sel_list);
                                     intent.putExtra("tid", tid);
                                     intent.putExtra("tname", tname);
-                                    startActivity(intent);
+                                    startActivityForResult(intent,80);
                                 }
                                 else{
                                     Intent intent = new Intent(DetailActivityActivity.this, LoginActivity.class);
@@ -759,7 +760,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     intent.putExtra("sel_list", (Serializable) sel_list);
                                     intent.putExtra("pid", tid);
                                     intent.putExtra("tname", tname);
-                                    startActivity(intent);
+                                    startActivityForResult(intent,90);
                                 }
                             }
                             else{
@@ -1090,7 +1091,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     public void showToast(String msg){
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
-
+        ico_favorite.setVisibility(View.GONE);
         new Handler().postDelayed(
                 new Runnable() {
                     @Override
@@ -1139,6 +1140,23 @@ public class DetailActivityActivity extends AppCompatActivity {
         if(islikechange) {
             setResult(80);
         }
+        else if(isLogin){
+            setResult(110);
+        }
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 90 && requestCode == 90) {
+            isLogin = true;
+            cookie = _preferences.getString("userid", null);
+        }
+        else if(resultCode == 100 && requestCode == 80) {
+            setResult(100);
+            finish();
+        }
     }
 }

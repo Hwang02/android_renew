@@ -1,8 +1,10 @@
 package com.hotelnow.fragment.leisure;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,6 +74,9 @@ public class LeisureFragment extends Fragment {
     public ArrayList<ActivityHotDealItem> mActivityItem = new ArrayList<>();
     public ArrayList<BannerItem> mPbanerItem = new ArrayList<>();
     public String sel_location = "",sel_location_id ="", sel_theme ="", sel_theme_id ="";
+    private SharedPreferences _preferences;
+    private String cookie;
+
 
     @Nullable
     @Override
@@ -93,6 +98,8 @@ public class LeisureFragment extends Fragment {
         objects = new ArrayList<>();
 
         adapter = new LeisureAdapter(getActivity(), LeisureFragment.this, objects, dbHelper);
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        cookie = _preferences.getString("userid", null);
 
         mLeisureBinding.recyclerView.setAdapter(adapter);
         mLeisureBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -216,7 +223,8 @@ public class LeisureFragment extends Fragment {
                                         mItems.getJSONObject(i).getString("normal_price")
                                 ));
                             }
-                            objects.add(mThemeItem.get(0));
+                            if(mThemeItem.size()>0)
+                                objects.add(mThemeItem.get(0));
                         }
                     }
                     if(obj.has("theme_lists")){
@@ -313,6 +321,13 @@ public class LeisureFragment extends Fragment {
         }
         else if(requestCode == 70){
             adapter.setAllRefresh();
+        }
+        if(resultCode == 100){
+            if(cookie == null) {
+                CONFIG.TabLogin=false;
+                return;
+            }
+            ((MainActivity) getActivity()).moveTabReservation();
         }
     }
 

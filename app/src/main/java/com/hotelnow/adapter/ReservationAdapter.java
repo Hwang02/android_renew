@@ -16,9 +16,17 @@ public class ReservationAdapter extends FragmentPagerAdapter {
     public Context mContext;
     public String search_txt, banner_id;
 
+    // tab titles
+    private String[] tabTitles = new String[]{"숙소", "액티비티"};
+
     public ReservationAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return tabTitles[position];
     }
 
     @Override

@@ -868,6 +868,10 @@ public class HomeFragment extends Fragment {
                 }
                 ((MainActivity) getActivity()).moveTabReservation();
             }
+            else if(resultCode == 110){
+                ((MainActivity)getActivity()).setTitle();
+                ((MainActivity)getActivity()).setTapdelete("MYPAGE");
+            }
             if(getRecentListItem().size()>0) {
                 getRecentData(false);
                 if(resultCode == 80){

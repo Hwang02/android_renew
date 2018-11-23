@@ -75,7 +75,7 @@ public class ReservationActivityFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView)view.findViewById(R.id.aid);
                 Intent intent = new Intent(getActivity(), ReservationActivityDetailActivity.class);
-                intent.putExtra("bid", tv.getText().toString());
+                intent.putExtra("tid", tv.getText().toString());
                 startActivity(intent);
             }
         });

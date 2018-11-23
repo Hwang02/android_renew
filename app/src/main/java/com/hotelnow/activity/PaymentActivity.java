@@ -268,30 +268,22 @@ public class PaymentActivity extends Activity {
                                         Intent intent = new Intent(PaymentActivity.this, ReservationActivityDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("tid", bid);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
                                         setResult(80);
                                         finish();
-//                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+                                        startActivity(intent);
                                     }
-//                                    else { // 링크 변경
-//                                        Intent intent = new Intent(PaymentActivity.this, TicketBookingDetailActivity.class);
-//                                        intent.putExtra("search_name", Base64.encodeToString(un.getBytes(), Base64.NO_WRAP));
-//                                        intent.putExtra("search_tel", Base64.encodeToString(up.getBytes(), Base64.NO_WRAP));
-//                                        intent.putExtra("search_id", bid);
-//                                        intent.putExtra("reservation", true);
-//                                        intent.putExtra("title", "비회원 예약조회");
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        startActivity(intent);
-//                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-//
-//                                    }
+                                    else { // 링크 변경
+                                        Intent intent = new Intent(PaymentActivity.this, ReservationActivityDetailActivity.class);
+                                        intent.putExtra("reservation", true);
+                                        intent.putExtra("user_name", un);
+                                        intent.putExtra("user_phone", up);
+                                        intent.putExtra("tid", bid);
+                                        intent.putExtra("title", "비회원 예약조회");
+                                        setResult(80);
+                                        finish();
+                                        startActivity(intent);
+
+                                    }
                                     if (!obj.has("pay_type")) {
                                         Toast.makeText(getApplicationContext(), "결제 및 예약이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -387,32 +379,23 @@ public class PaymentActivity extends Activity {
                                         Intent intent = new Intent(PaymentActivity.this, ReservationHotelDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("bid", bid);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         setResult(80);
                                         finish();
                                         startActivity(intent);
-//                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                                     }
-//                                    else {
-//                                        Intent intent = new Intent(PaymentActivity.this, WebviewActivity.class);
-//                                        intent.putExtra("reservation", true);
-//                                        intent.putExtra("url", BuildConfig.webUrl + "/booking/detail/" + bid + "?user_name=" + un + "&user_phone=" + up + "&is_app=Y");
-//                                        intent.putExtra("title", "비회원 예약조회");
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        startActivity(intent);
-//                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-//
-//                                    }
+                                    else {
+                                        Intent intent = new Intent(PaymentActivity.this, ReservationHotelDetailActivity.class);
+                                        intent.putExtra("reservation", true);
+                                        intent.putExtra("user_name", un);
+                                        intent.putExtra("user_phone", up);
+                                        intent.putExtra("bid", bid);
+                                        intent.putExtra("title", "비회원 예약조회");
+                                        setResult(80);
+                                        finish();
+                                        startActivity(intent);
+                                    }
                                     if (!obj.has("pay_type")) {
                                         Toast.makeText(getApplicationContext(), "결제 및 예약이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
-//                                    Util.clearSearch();
                                     }
                                 } catch (JSONException e) {
                                     Toast.makeText(getApplicationContext(), "결제를 성공했지만 예약 처리가 되지 않았습니다. 호텔 나우로 연락 부탁드립니다.", Toast.LENGTH_LONG).show();

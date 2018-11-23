@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -34,6 +35,7 @@ import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -51,6 +53,7 @@ public class MypageFragment extends Fragment {
     private SharedPreferences _preferences;
     private DialogConfirm dialogConfirm;
     private String expire_money, save_money;
+    private DbOpenHelper dbHelper;
 
     @Nullable
     @Override
@@ -70,14 +73,13 @@ public class MypageFragment extends Fragment {
 
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+        dbHelper = new DbOpenHelper(getActivity());
         mMypageBinding.join.rlJoin.setVisibility(View.GONE);
 
         // 푸시
-        mMypageBinding.center.acceptPush.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.acceptPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                mMypageBinding.center.acceptPush.setChecked(!mMypageBinding.center.acceptPush.isChecked());
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setPush();
             }
         });
@@ -283,13 +285,18 @@ public class MypageFragment extends Fragment {
                                             prefEditor.commit();
 
                                             ((MainActivity)getActivity()).setTitle();
+                                            mMypageBinding.notJoin.rlNotJoin.setVisibility(View.VISIBLE);
+                                            mMypageBinding.join.rlJoin.setVisibility(View.GONE);
+
+                                            dbHelper.deleteFavoriteItem(true,"","");
+                                            ((MainActivity)getActivity()).moveTabRefresh();
+                                            ((MainActivity)getActivity()).moveTabRefresh2();
+                                            ((MainActivity)getActivity()).moveTabRefresh3();
 
                                             try{
                                                 LoginManager.getInstance().logOut();
                                             } catch (Exception e) {}
 
-                                            mMypageBinding.notJoin.rlNotJoin.setVisibility(View.VISIBLE);
-                                            mMypageBinding.join.rlJoin.setVisibility(View.GONE);
                                         } catch (Exception e) {
                                         }
                                     }
