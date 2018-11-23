@@ -17,6 +17,7 @@ import com.hotelnow.activity.CalendarSingleActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentFavoriteBinding;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.Util;
 
@@ -141,8 +142,10 @@ public class FavoriteFragment extends Fragment {
                         }
                     });
                 }
-
-                favoriteAdapter.notifyDataSetChanged();
+                if(CONFIG.TabLogin) {
+                    favoriteAdapter.notifyDataSetChanged();
+                    CONFIG.TabLogin=false;
+                }
 
                 mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override

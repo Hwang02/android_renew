@@ -213,6 +213,7 @@ public class FavoriteActivityFragment extends Fragment {
             authCheck();
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
+            CONFIG.TabLogin=true;
         }
         else if(requestCode == 70 && resultCode == 80){
             mItems.clear();

@@ -22,6 +22,7 @@ import com.hotelnow.databinding.FragmentReservationBinding;
 import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.SingleHorizontal;
 import com.hotelnow.fragment.model.SingleVertical;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 
 import java.util.ArrayList;
@@ -80,6 +81,10 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mReservationBinding.viewPager.setCurrentItem(tab.getPosition());
+                if(CONFIG.TabLogin) {
+                    reservationAdapter.notifyDataSetChanged();
+                    CONFIG.TabLogin=false;
+                }
             }
 
             @Override

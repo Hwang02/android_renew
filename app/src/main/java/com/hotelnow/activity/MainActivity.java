@@ -137,6 +137,7 @@ public class MainActivity extends FragmentActivity {
                     }
                     case R.id.fav:{
                         LogUtil.e("xxxxx","666666");
+                        CONFIG.TabLogin=false;
                         setTapMove(FAVPAGE, false);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         mbinding.toolbar.setVisibility(View.GONE);
@@ -144,6 +145,7 @@ public class MainActivity extends FragmentActivity {
                     }
                     case R.id.reserv:{
                         LogUtil.e("xxxxx","77777");
+                        CONFIG.TabLogin=false;
                         setTapMove(RESERVPAGE, false);
                         mbinding.tabLayout.setVisibility(View.GONE);
                         mbinding.toolbar.setVisibility(View.GONE);
@@ -462,6 +464,17 @@ public class MainActivity extends FragmentActivity {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
                 }, 2000);
+    }
+
+    public void moveTabReservation(){
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        setHide();
+                        mbinding.navigation.setCurrentItem(2);
+                    }
+                }, 100);
     }
 
     public void moveTabRefresh(){

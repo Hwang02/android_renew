@@ -1305,6 +1305,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             cookie = _preferences.getString("userid", null);
         }
         else if(resultCode == 100 && requestCode == 80) {
+            setResult(100);
             finish();
         }
     }

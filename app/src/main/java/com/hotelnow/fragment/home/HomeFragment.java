@@ -1,8 +1,10 @@
 package com.hotelnow.fragment.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +71,8 @@ public class HomeFragment extends Fragment {
     private DbOpenHelper dbHelper;
     private String[] FavoriteStayList;
     private String[] FavoriteActivityList;
+    private SharedPreferences _preferences;
+    private String cookie;
 
     @Nullable
     @Override
@@ -87,6 +91,8 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         dbHelper = new DbOpenHelper(getActivity());
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        cookie = _preferences.getString("userid", null);
         objects = new ArrayList<>();
         adapter = new HomeAdapter(getActivity(), HomeFragment.this, objects, dbHelper);
         mHomeBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -855,7 +861,13 @@ public class HomeFragment extends Fragment {
         if(requestCode == 80){
             mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
             mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
-
+            if(resultCode == 100){
+                if(cookie == null) {
+                    CONFIG.TabLogin=false;
+                    return;
+                }
+                ((MainActivity) getActivity()).moveTabReservation();
+            }
             if(getRecentListItem().size()>0) {
                 getRecentData(false);
                 if(resultCode == 80){

@@ -197,6 +197,7 @@ public class ReservationActivityFragment extends Fragment {
             authCheck();
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
+            CONFIG.TabLogin=true;
         }
     }
 
