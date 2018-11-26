@@ -39,7 +39,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
     private int sc_count = 5, c_count = 5, ko_count = 5, sp_count = 5;
     private Button right;
     private EditText review_edittext;
-    private String bid, userid, h_name;
+    private String bid, userid, h_name, deal_id;
     private boolean review_sent = true;
     private TextView hotel_name, user_room_info, info1;
     private ScrollView scroll;
@@ -47,6 +47,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
     private CallbackManager callbackManager;
     private int t_count = 0;
 //    private Tracker t;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
         userid = intent.getStringExtra("userid");
         h_name = intent.getStringExtra("name");
         t_count = intent.getIntExtra("cnt",0);
+        deal_id = intent.getStringExtra("deal_id");
 
         hotel_name = (TextView) findViewById(R.id.hotel_name);
         user_room_info = (TextView) findViewById(R.id.user_room_info);
@@ -141,6 +143,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
             paramObj.put("user_id", userid);
             paramObj.put("comment", review_edittext.getText());
             paramObj.put("booking_id", bid);
+            paramObj.put("deal_id", deal_id);
             paramObj.put("rating_1", sc_count);
             paramObj.put("rating_2", c_count);
             paramObj.put("rating_3", ko_count);

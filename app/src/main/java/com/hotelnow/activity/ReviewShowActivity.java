@@ -122,14 +122,19 @@ public class ReviewShowActivity extends Activity{
                         return;
                     }
                     JSONObject item = obj.getJSONObject("review");
-                    hotel_name.setText(item.getString("hotel_name"));
-                    user_room_info.setText(item.getString("room_name"));
+                    if (page.equals("stay")){
+                        hotel_name.setText(item.getString("hotel_name"));
+                        user_room_info.setText(item.getString("room_name"));
+                    }
+                    else{
+                        hotel_name.setText(item.getString("deal_name"));
+                        user_room_info.setText("티켓 " + item.getString("total_ticket_count")+"장");
+                    }
                     sc_count = item.getInt("rating_1");
                     c_count = item.getInt("rating_2");
                     ko_count = item.getInt("rating_3");
                     sp_count = item.getInt("rating_4");
                     review_edittext.setText(item.getString("comment"));
-
 
                     setStar(sc_count, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
                     setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);

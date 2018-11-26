@@ -7,13 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,15 +22,11 @@ import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,7 +58,7 @@ import java.util.Map;
 /**
  * Created by susia on 15. 12. 24..
  */
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class StayMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private String hid;
     private String from = "";
@@ -107,7 +100,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         Util.setStatusColor(this);
 
-        _preferences = PreferenceManager.getDefaultSharedPreferences(MapActivity.this);
+        _preferences = PreferenceManager.getDefaultSharedPreferences(StayMapActivity.this);
         flag_use_location = _preferences.getBoolean("flag_use_location", false);
 
         info = (RelativeLayout) findViewById(R.id.info);
@@ -127,16 +120,16 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 hid = "0";
                 zoom = 12;
 
-                GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapActivity.this);
+                GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(StayMapActivity.this);
 
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.map);
                 SupportMapFragment mapFragment = (SupportMapFragment) fragment;
 
                 if (mapFragment == null) {
-                    Toast.makeText(MapActivity.this, getString(R.string.cant_use_map), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StayMapActivity.this, getString(R.string.cant_use_map), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    mapFragment.getMapAsync(MapActivity.this);
+                    mapFragment.getMapAsync(StayMapActivity.this);
                 }
             } else {
                 from = intent.getStringExtra("from");
@@ -148,7 +141,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     @Override
                     public void onFailure(Response response, Exception e) {
                         Log.e(CONFIG.TAG, "expection is ", e);
-                        Toast.makeText(MapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StayMapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -157,7 +150,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                             JSONObject obj = new JSONObject(body);
 
                             if (!obj.getString("result").equals("success")) {
-                                Toast.makeText(MapActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(StayMapActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
@@ -170,21 +163,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                             category = data.getJSONObject(0).getString("category");
 
 //                            getActionBar().setTitle(title);
-                            GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapActivity.this);
+                            GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(StayMapActivity.this);
 
                             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.map);
                             SupportMapFragment mapFragment = (SupportMapFragment) fragment;
 
                             if (mapFragment == null) {
-                                Toast.makeText(MapActivity.this, getString(R.string.cant_use_map), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(StayMapActivity.this, getString(R.string.cant_use_map), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
-                                mapFragment.getMapAsync(MapActivity.this);
+                                mapFragment.getMapAsync(StayMapActivity.this);
                             }
 
                         } catch (Exception e) {
                             Log.e(CONFIG.TAG, "expection is ", e);
-                            Toast.makeText(MapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StayMapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -203,7 +196,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                         getString(R.string.booking_kimkisa_ask)+"\n목적지 : "+title,
                         getString(R.string.alert_no),
                         getString(R.string.alert_yes),
-                        MapActivity.this,
+                        StayMapActivity.this,
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -223,7 +216,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                                     intent.setData(Uri.parse(url));
                                     startActivity(intent);
 
-                                    Toast.makeText(MapActivity.this, "카카오내비를 구동합니다.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(StayMapActivity.this, "카카오내비를 구동합니다.", Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {
                                     try {
                                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + strAppPackage));
@@ -254,7 +247,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
-        mainIconFactory = new IconGenerator(MapActivity.this);
+        mainIconFactory = new IconGenerator(StayMapActivity.this);
 //        int color = getResources().getIdentifier(category, "color", getPackageName());
         mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
         mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
@@ -340,7 +333,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onFailure(Response response, Exception e) {
                 Log.e(CONFIG.TAG, "expection is ", e);
-                Toast.makeText(MapActivity.this, getString(R.string.error_near_hotel_location), Toast.LENGTH_SHORT).show();
+                Toast.makeText(StayMapActivity.this, getString(R.string.error_near_hotel_location), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -352,21 +345,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                         if (hid.equals(data.getJSONObject(i).getString("id"))) continue;
 
                         LatLng hotel = new LatLng(data.getJSONObject(i).getDouble("latitude"), data.getJSONObject(i).getDouble("longuitude"));
-                        IconGenerator iconFactory = new IconGenerator(MapActivity.this);
+                        IconGenerator iconFactory = new IconGenerator(StayMapActivity.this);
                         int color = getResources().getIdentifier(data.getJSONObject(i).getString("category"), "color", getPackageName());
                         iconFactory.setColor(getResources().getColor(color));
                         iconFactory.setTextAppearance(R.style.iconGenText);
 
                         tv_marker.setBackgroundResource(R.drawable.map_marker_price);
-                        tv_marker.setTextColor(ContextCompat.getColor(MapActivity.this, R.color.white));
+                        tv_marker.setTextColor(ContextCompat.getColor(StayMapActivity.this, R.color.white));
                         tv_marker.setText(Util.numberFormat(data.getJSONObject(i).getInt("sale_price")));
 
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.title(Util.numberFormat(data.getJSONObject(i).getInt("sale_price")));
                         markerOptions.position(hotel);
-                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapActivity.this, marker_root_view)));
+                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(StayMapActivity.this, marker_root_view)));
 
-                        mGoogleMap.setInfoWindowAdapter(new MapWindowAdapter(MapActivity.this));
+                        mGoogleMap.setInfoWindowAdapter(new MapWindowAdapter(StayMapActivity.this));
                         Marker sub = mGoogleMap.addMarker(markerOptions);
                         sub.setTitle(data.getJSONObject(i).getString("name"));
                         sub.setSnippet(data.getJSONObject(i).getString("id"));
@@ -376,7 +369,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                 } catch (Exception e) {
 //                    Log.e(CONFIG.TAG, "expection is ", e);
-                    Toast.makeText(MapActivity.this, getString(R.string.error_near_hotel_location), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StayMapActivity.this, getString(R.string.error_near_hotel_location), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -443,13 +436,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                             if (preMarker != null && preobj !=null) {
 //                                preMarker.setAlpha(0.7f);
                                 tv_marker.setBackgroundResource(R.drawable.map_marker_price);
-                                tv_marker.setTextColor(ContextCompat.getColor(MapActivity.this, R.color.white));
+                                tv_marker.setTextColor(ContextCompat.getColor(StayMapActivity.this, R.color.white));
                                 try {
                                     tv_marker.setText(Util.numberFormat(preobj.getInt("sale_price")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                preMarker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapActivity.this, marker_root_view)));
+                                preMarker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(StayMapActivity.this, marker_root_view)));
                             }
                             preMarker = selmarker;
                             preobj = obj;
@@ -465,9 +458,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                                 String category_name = obj.getString("category_name");
 
                                 tv_marker.setBackgroundResource(R.drawable.map_marker_price_selected);
-                                tv_marker.setTextColor(ContextCompat.getColor(MapActivity.this, R.color.purple));
+                                tv_marker.setTextColor(ContextCompat.getColor(StayMapActivity.this, R.color.purple));
                                 tv_marker.setText(Util.numberFormat(obj.getInt("sale_price")));
-                                selmarker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapActivity.this, marker_root_view)));
+                                selmarker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(StayMapActivity.this, marker_root_view)));
 
                                 TextView tv_score = (TextView) findViewById(R.id.tv_score);
                                 TextView tv_catagory = (TextView) findViewById(R.id.tv_catagory);
@@ -483,13 +476,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                                 detail_btn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent returnIntent = new Intent();
+                                        Intent returnIntent = new Intent(StayMapActivity.this, DetailHotelActivity.class);
                                         returnIntent.putExtra("hid", sel_hotel_id);
                                         returnIntent.putExtra("ec_date", ec_date);
                                         returnIntent.putExtra("ee_date", ee_date);
                                         returnIntent.putExtra("evt", "N");
-                                        setResult(81, returnIntent);
-                                        finish();
+                                        returnIntent.putExtra("save", true);
+                                        startActivityForResult(returnIntent, 81);
 
                                     }
                                 });
@@ -513,8 +506,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             if (flag_use_location) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if(ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MapActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_LOCATION);
+                    if(ActivityCompat.checkSelfPermission(StayMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(StayMapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_LOCATION);
                     }
                 } else {
                     mGoogleMap.setMyLocationEnabled(true);
@@ -522,7 +515,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
 
         } else {
-            Toast.makeText(MapActivity.this, getString(R.string.not_support_device), Toast.LENGTH_SHORT).show();
+            Toast.makeText(StayMapActivity.this, getString(R.string.not_support_device), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

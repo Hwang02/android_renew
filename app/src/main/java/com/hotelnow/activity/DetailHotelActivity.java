@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -37,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,6 +126,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private ImageView ico_favorite;
     private TextView tv_toast;
     private boolean isLogin = false;
+    private NestedScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +141,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
+        scroll = (NestedScrollView) findViewById(R.id.scroll);
 
         dbHelper = new DbOpenHelper(DetailHotelActivity.this);
 
@@ -149,28 +153,9 @@ public class DetailHotelActivity extends AppCompatActivity {
         evt = intent.getStringExtra("evt");
 
         isSave = intent.getBooleanExtra("save", false);
-        if(isSave) {
-            dbHelper.insertRecentItem(hid, "H");
-        }
 
         // 찜인지 아닌지 확인
         mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
-        if(mFavoriteStayItem.size()>0){
-            FavoriteStayList = new String[mFavoriteStayItem.size()];
-            for(int i =0; i<mFavoriteStayItem.size();i++){
-                FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
-            }
-
-            if(Arrays.asList(FavoriteStayList).contains(hid)){
-                islike = true;
-            }
-            else {
-                islike = false;
-            }
-        }
-        else {
-            islike = false;
-        }
 
         cookie = _preferences.getString("userid", null);
 
@@ -385,12 +370,34 @@ public class DetailHotelActivity extends AppCompatActivity {
                         Toast.makeText(DetailHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    if(isSave) {
+                        dbHelper.insertRecentItem(hid, "H");
+                    }
+
                     final JSONObject hotel_data = obj.getJSONObject("hotel");
                     final JSONArray room_data = obj.getJSONArray("room_types");
                     final JSONArray photos = hotel_data.getJSONArray("photos");
                     final JSONObject review_data = obj.getJSONObject("review_info");
                     final JSONArray avail_dates = obj.getJSONArray("avail_dates");
                     final JSONArray instant_coupons = obj.getJSONArray("instant_coupons");
+
+                    if(cookie != null) {
+                        if (mFavoriteStayItem.size() > 0) {
+                            FavoriteStayList = new String[mFavoriteStayItem.size()];
+                            for (int i = 0; i < mFavoriteStayItem.size(); i++) {
+                                FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
+                            }
+
+                            if (Arrays.asList(FavoriteStayList).contains(hid)) {
+                                islike = true;
+                            } else {
+                                islike = false;
+                            }
+                        } else {
+                            islike = false;
+                        }
+                    }
 
                     tv_category = (TextView) findViewById(R.id.tv_category);
                     tv_hotelname = (TextView) findViewById(R.id.tv_hotelname);
@@ -523,7 +530,11 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     // 쿠폰
                     if(instant_coupons.length()>0) {
+                        coupon_list.setVisibility(View.VISIBLE);
                         setCoupon(instant_coupons);
+                    }
+                    else{
+                        coupon_list.setVisibility(View.GONE);
                     }
 
                     // 체크인 체크아웃
@@ -615,6 +626,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                             // 주변보기
                             Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
                             intent.putExtra("from", "pdetail");
+                            intent.putExtra("title", hotel_name);
                             intent.putExtra("hid", hid);
                             intent.putExtra("ec_date", ec_date);
                             intent.putExtra("ee_date", ee_date);
@@ -1301,6 +1313,15 @@ public class DetailHotelActivity extends AppCompatActivity {
         if(resultCode == 80 && requestCode == 80){
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
+            setDetailView();
+        }
+        else if(resultCode == 81 && requestCode == 81){
+            ec_date = data.getStringExtra("ec_date");
+            ee_date = data.getStringExtra("ee_date");
+            hid = data.getStringExtra("hid");
+            isSave = true;
+            scroll.fling(0);
+            scroll.smoothScrollTo(0, 0);
             setDetailView();
         }
         else if(resultCode == 90 && requestCode == 90) {

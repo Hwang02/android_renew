@@ -73,7 +73,7 @@ public class CONFIG {
     public final static String reviewListUrl = domain+"/review/list_v2";					//	리뷰리스트 param1 : page_num , param2 : count , param3 : hotel
     public final static String eventWebUrl = domain+"/popup_event";							//	이벤트 웹 url
 
-    public final static String ticketUrl = domain+"/q/deal_list";                           //  티켓리스트
+    public final static String ticketUrl = domain+"/activity";                           //  티켓리스트
     public final static String ticket_booking_Url = domain+"/api/qbooking";                 //  티켓예약리스트
     public final static String ticketbookingSuccessUrl = domain+"/q/booking_confirm";       //  티켓예약완료
     public final static String ticketbookingDetailUrl = domain+"/api/qbooking";              //  티켓예약상세

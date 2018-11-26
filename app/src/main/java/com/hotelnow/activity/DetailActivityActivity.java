@@ -132,26 +132,7 @@ public class DetailActivityActivity extends AppCompatActivity {
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
 
-        if(isSave) {
-            dbHelper.insertRecentItem(tid, "A");
-        }
-
         mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
-        if(mFavoriteActivityItem.size()>0){
-            FavoriteActivityList = new String[mFavoriteActivityItem.size()];
-            for(int i =0; i<mFavoriteActivityItem.size();i++){
-                FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
-            }
-            if(Arrays.asList(FavoriteActivityList).contains(tid)){
-                islike = true;
-            }
-            else {
-                islike = false;
-            }
-        }
-        else {
-            islike = false;
-        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
@@ -311,6 +292,26 @@ public class DetailActivityActivity extends AppCompatActivity {
                         MainActivity.hideProgress();
                         Toast.makeText(DetailActivityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
+                    }
+
+                    if(isSave) {
+                        dbHelper.insertRecentItem(tid, "A");
+                    }
+
+                    if(cookie != null) {
+                        if (mFavoriteActivityItem.size() > 0) {
+                            FavoriteActivityList = new String[mFavoriteActivityItem.size()];
+                            for (int i = 0; i < mFavoriteActivityItem.size(); i++) {
+                                FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
+                            }
+                            if (Arrays.asList(FavoriteActivityList).contains(tid)) {
+                                islike = true;
+                            } else {
+                                islike = false;
+                            }
+                        } else {
+                            islike = false;
+                        }
                     }
 
                     final JSONObject ticket_data = obj.getJSONObject("deal");
@@ -1157,6 +1158,12 @@ public class DetailActivityActivity extends AppCompatActivity {
         else if(resultCode == 100 && requestCode == 80) {
             setResult(100);
             finish();
+        }
+        else if(resultCode == 81 && requestCode == 81){
+            Intent intent = new Intent(this, DetailHotelActivity.class);
+            intent.putExtra("hid", data.getStringExtra("hid"));
+            intent.putExtra("save", true);
+            startActivityForResult(intent, 100);
         }
     }
 }

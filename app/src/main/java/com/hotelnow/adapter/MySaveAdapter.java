@@ -2,6 +2,7 @@ package com.hotelnow.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,6 @@ public class MySaveAdapter extends ArrayAdapter<MySaveMoneyItem> {
             NumberFormat nf = NumberFormat.getNumberInstance();
             if (entry.getMincome() > 0) {
                 status = mContext.getString(R.string.reservemoney_status_reserve);
-                price = "+" + nf.format(entry.getMincome()) + "원";
                 mColor = ContextCompat.getColor(mContext, R.color.hotdealview);
             } else {
                 if (type.equals("withdraw") || type.equals("expired"))
@@ -67,15 +67,21 @@ public class MySaveAdapter extends ArrayAdapter<MySaveMoneyItem> {
                     status = mContext.getString(R.string.reservemoney_status_use);
 
                 mColor = ContextCompat.getColor(mContext, R.color.blacktxt);
-                price = "-" + nf.format(entry.getMspent()) + "원";
             }
 
-            holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10));
+            price = entry.getChange_dp();
+
+            String m_end = entry.getEnd_date();
+            if(TextUtils.isEmpty(m_end)){
+                holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10));
+            }else {
+                holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + " 만료)");
+            }
             holder.tv_save_status.setText(status);
             holder.tv_save_status.setTextColor(mColor);
             holder.tv_save_money.setText(price);
             holder.tv_save_money.setTextColor(mColor);
-            holder.tv_save_title.setText(entry.getMname());
+            holder.tv_save_title.setText(entry.getType_dp());
 
             if(mlist.size()-1 == position){
                 holder.end_bar.setVisibility(View.INVISIBLE);

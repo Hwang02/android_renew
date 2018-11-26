@@ -209,7 +209,7 @@ public class ReservationActivityFragment extends Fragment {
 
     private class EndlessScrollListener implements AbsListView.OnScrollListener {
         // how many entries earlier to start loading next page
-        private int visibleThreshold = 5;
+        private int visibleThreshold = 20;
         private int currentPage = 1;
         private int previousTotal = 0;
         private boolean loading = true;

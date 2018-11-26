@@ -50,7 +50,7 @@
                 android:textColor="@color/purple"
                 android:gravity="left|center"
                 android:ellipsize="end"
-                android:text="리뷰 작성" />
+                android:text="나의 리뷰" />
 
             <View
                 android:layout_width="match_parent"

@@ -85,10 +85,11 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ReviewActivityWriteActivity.class);
                     intent.putExtra("booking_id", mlist.get(position).getId());
+                    intent.putExtra("deal_id", mlist.get(position).getId());
                     intent.putExtra("userid", userId);
                     intent.putExtra("name", mlist.get(position).getDeal_name());
                     intent.putExtra("cnt", mlist.get(position).getTotal_ticket_count());
-                    mActivity.startActivityForResult(intent, 80);
+                    mActivity.startActivityForResult(intent, 90);
                 }
             });
         } else{

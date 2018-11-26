@@ -183,6 +183,7 @@ public class ReservationActivityDetailActivity extends Activity {
                                     Intent intent = new Intent(ReservationActivityDetailActivity.this, ReviewActivityWriteActivity.class);
                                     intent.putExtra("booking_id", bid);
                                     intent.putExtra("userid", cookie);
+                                    intent.putExtra("deal_id", hotel_id);
                                     intent.putExtra("name", h_name);
                                     intent.putExtra("cnt", t_count);
                                     startActivityForResult(intent, 80);
@@ -520,7 +521,7 @@ public class ReservationActivityDetailActivity extends Activity {
                     findViewById(R.id.btn_address_near).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ReservationActivityDetailActivity.this, MapActivity.class);
+                            Intent intent = new Intent(ReservationActivityDetailActivity.this, StayMapActivity.class);
                             intent.putExtra("isTicket", true);
                             intent.putExtra("deal_name", h_name);
                             intent.putExtra("lat", lat);

@@ -125,6 +125,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.HotelSearchActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.StayMapActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

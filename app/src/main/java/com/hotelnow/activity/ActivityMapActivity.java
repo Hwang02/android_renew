@@ -22,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -235,7 +236,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
     public void getList(){
         setCustomMarkerView();
 
-        url = CONFIG.ticketUrl + "/1" +"?order_kind=distance"+"&lat="+lat+"&lng="+lng;
+        url = CONFIG.ticketUrl+"?order_kind=distance"+"&lat="+lat+"&lng="+lng+"&page=1";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -256,7 +257,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
 
                     LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-                    JSONArray data = obj.getJSONArray("data");
+                    JSONArray data = obj.getJSONArray("lists");
                     JSONArray feed = new JSONArray(data.toString());
 
                     for(int i = 0; i < feed.length(); i++) {
@@ -342,11 +343,9 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                 try {
                     sel_hotel_id = obj.getString("deal_id");
                     hotel_name = obj.getString("name");
-//                    String review_score = obj.getString("review_score");
-//                    String grade_score = obj.getString("grade_score");
+                    String grade_score = obj.getString("grade_score");
                     int sale_price = obj.getInt("sale_price");
                     String category = obj.getString("category");
-//                    String category_name = obj.getString("category_name");
 
                     tv_marker.setBackgroundResource(R.drawable.map_marker_price_act_selected);
                     tv_marker.setTextColor(ContextCompat.getColor(ActivityMapActivity.this, R.color.activitytxt));
@@ -359,19 +358,20 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                     TextView tv_price = (TextView) findViewById(R.id.tv_price);
                     TextView detail_btn = (TextView) findViewById(R.id.detail_btn);
 
-//                    tv_score.setText(grade_score);
                     tv_catagory.setText(category);
                     tv_hotelname.setText(hotel_name);
                     tv_price.setText(Util.numberFormat(sale_price));
+                    tv_score.setText(grade_score);
+                    detail_btn.setText(Html.fromHtml(getResources().getString(R.string.map_detail2)));
 
                     detail_btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent returnIntent = new Intent();
-                            returnIntent.putExtra("hid", sel_hotel_id);
+                            Intent returnIntent = new Intent(ActivityMapActivity.this, DetailActivityActivity.class);
+                            returnIntent.putExtra("tid", sel_hotel_id);
                             returnIntent.putExtra("evt", "N");
-                            setResult(81, returnIntent);
-                            finish();
+                            returnIntent.putExtra("save", true);
+                            startActivityForResult(returnIntent, 81);
 
                         }
                     });

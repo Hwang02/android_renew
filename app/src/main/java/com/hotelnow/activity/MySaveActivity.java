@@ -106,7 +106,11 @@ public class MySaveActivity extends Activity{
                                 entry.getInt("remain"),
                                 entry.getInt("amount"),
                                 entry.getString("use_yn"),
-                                entry.getString("created_at"))
+                                entry.getString("created_at"),
+                                entry.getString("end_date"),
+                                entry.getString("type_dp"),
+                                entry.getString("change_dp")
+                                )
                         );
                     }
 
@@ -119,6 +123,9 @@ public class MySaveActivity extends Activity{
                                 0,
                                 0,
                                 0,
+                                "",
+                                "",
+                                "",
                                 "",
                                 "")
                         );
