@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.reservation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -65,7 +66,7 @@ public class ReservationHotelFragment extends Fragment {
 
         endlessScrollListener = new EndlessScrollListener();
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-        adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""));
+        adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationHotelFragment.this);
         mlist.setAdapter(adapter);
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
@@ -78,7 +79,7 @@ public class ReservationHotelFragment extends Fragment {
                 TextView tv = (TextView)view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
                 intent.putExtra("bid", tv.getText().toString());
-                startActivity(intent);
+                startActivityForResult(intent, 90);
             }
         });
         authCheck();
@@ -196,10 +197,17 @@ public class ReservationHotelFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 80){
+
             authCheck();
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
             CONFIG.TabLogin=true;
+        }
+        else if(requestCode == 90 && resultCode == 0)
+        {
+            mEntries.clear();
+            endlessScrollListener.initialize();
+            getBookingList();
         }
     }
 

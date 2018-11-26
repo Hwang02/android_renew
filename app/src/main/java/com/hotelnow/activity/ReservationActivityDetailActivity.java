@@ -69,6 +69,7 @@ public class ReservationActivityDetailActivity extends Activity {
     boolean isReservation = false;
     String cookie="", user_name ="", user_phone="";
     TextView tv_title_bar;
+    int t_count = 0;
 
 
     @Override
@@ -169,23 +170,34 @@ public class ReservationActivityDetailActivity extends Activity {
                     lat = info.getString("latitude");
                     lon = info.getString("longitude");
                     h_name = info.getString("deal_name");
+                    t_count = info.getInt("total_ticket_count");
                     tv_real_price.setText(Util.numberFormat(price_info.getInt("sale_price")) + "원");
 
                     if(_preferences.getString("userid", null) != null) {
                         if (info.getString("is_review_writable").equals("Y") && info.getInt("review_count") == 0) {
+                            btn_review.setVisibility(View.VISIBLE);
                             btn_review.setText("리뷰 작성하기");
                             btn_review.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    Intent intent = new Intent(ReservationActivityDetailActivity.this, ReviewActivityWriteActivity.class);
+                                    intent.putExtra("booking_id", bid);
+                                    intent.putExtra("userid", cookie);
+                                    intent.putExtra("name", h_name);
+                                    intent.putExtra("cnt", t_count);
+                                    startActivityForResult(intent, 80);
                                 }
                             });
                         } else if (info.getInt("review_count") > 0) {
+                            btn_review.setVisibility(View.VISIBLE);
                             btn_review.setText("리뷰 보기");
                             btn_review.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    Intent intent = new Intent(ReservationActivityDetailActivity.this, ReviewShowActivity.class);
+                                    intent.putExtra("page", "activity");
+                                    intent.putExtra("booking_id", bid);
+                                    startActivity(intent);
                                 }
                             });
                         } else {

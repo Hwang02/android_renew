@@ -65,8 +65,9 @@ public class ReservationHotelDetailActivity extends Activity {
     String hotel_phone_number = "";
     WebView info_view;
     boolean isReservation = false;
-    String cookie="", user_name ="", user_phone="";
+    String cookie="", user_name ="", user_phone="", r_name="", r_id;
     TextView tv_title_bar;
+    boolean is_review = false;
 
 
     @Override
@@ -181,23 +182,37 @@ public class ReservationHotelDetailActivity extends Activity {
                     lat = info.getString("latitude");
                     lon = info.getString("longuitude");
                     h_name = info.getString("hotel_name");
+                    r_id = info.getString("room_id");
+                    r_name = info.getString("room_name");
                     tv_real_price.setText(Util.numberFormat(price_info.getInt("price")) + "원");
 
                     if(cookie != null) {
                         if (info.getString("is_review_writable").equals("Y") && info.getInt("review_count") == 0) {
+                            btn_review.setVisibility(View.VISIBLE);
                             btn_review.setText("리뷰 작성하기");
                             btn_review.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    Intent intent = new Intent(ReservationHotelDetailActivity.this, ReviewHotelWriteActivity.class);
+                                    intent.putExtra("booking_id", bid);
+                                    intent.putExtra("hotel_id", hotel_id);
+                                    intent.putExtra("room_id", r_id);
+                                    intent.putExtra("userid", cookie);
+                                    intent.putExtra("hotel_name", h_name);
+                                    intent.putExtra("room_name", r_name);
+                                    startActivityForResult(intent, 80);
                                 }
                             });
                         } else if (info.getInt("review_count") > 0) {
+                            btn_review.setVisibility(View.VISIBLE);
                             btn_review.setText("리뷰 보기");
                             btn_review.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    Intent intent = new Intent(ReservationHotelDetailActivity.this, ReviewShowActivity.class);
+                                    intent.putExtra("page", "stay");
+                                    intent.putExtra("booking_id", bid);
+                                    startActivity(intent);
                                 }
                             });
                         } else {
@@ -683,9 +698,23 @@ public class ReservationHotelDetailActivity extends Activity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 80 && resultCode == RESULT_OK){
+            is_review = true;
+            setData();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if(info_view != null)
             info_view.destroy();
+
+        if(is_review){
+            setResult(0);
+        }
     }
 }

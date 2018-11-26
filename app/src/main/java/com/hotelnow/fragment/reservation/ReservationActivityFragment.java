@@ -76,7 +76,7 @@ public class ReservationActivityFragment extends Fragment {
                 TextView tv = (TextView)view.findViewById(R.id.aid);
                 Intent intent = new Intent(getActivity(), ReservationActivityDetailActivity.class);
                 intent.putExtra("tid", tv.getText().toString());
-                startActivity(intent);
+                startActivityForResult(intent, 90);
             }
         });
 
@@ -170,7 +170,7 @@ public class ReservationActivityFragment extends Fragment {
                                 entry.getString("created_at_format"),
                                 entry.getString("img_url"),
                                 entry.getString("is_review_writable"),
-                                entry.getString("total_ticket_count"),
+                                entry.getInt("total_ticket_count"),
                                 entry.getString("not_used_ticket_count"),
                                 entry.getString("used_ticket_count"),
                                 entry.getString("cancel_ticket_count"),
@@ -198,6 +198,12 @@ public class ReservationActivityFragment extends Fragment {
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
             CONFIG.TabLogin=true;
+        }
+        else if(requestCode == 90 && resultCode == 0)
+        {
+            mEntries.clear();
+            endlessScrollListener.initialize();
+            getBookingList();
         }
     }
 

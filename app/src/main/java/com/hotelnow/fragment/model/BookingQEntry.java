@@ -10,7 +10,7 @@ public class BookingQEntry {
     private String created_at_format;
     private String img_url;
     private String is_review_writable;
-    private String total_ticket_count;
+    private int total_ticket_count;
     private String not_used_ticket_count;
     private String used_ticket_count;
     private String cancel_ticket_count;
@@ -20,7 +20,7 @@ public class BookingQEntry {
     private String status_detail;
 
     public BookingQEntry(String id, String status, String deal_name, String created_at_format, String img_url, String is_review_writable,
-                         String total_ticket_count, String not_used_ticket_count, String used_ticket_count, String cancel_ticket_count, String status_display,
+                         int total_ticket_count, String not_used_ticket_count, String used_ticket_count, String cancel_ticket_count, String status_display,
                          String review_writable_words_1, String review_writable_words_2, String status_detail) {
         super();
         this.id = id;
@@ -92,11 +92,11 @@ public class BookingQEntry {
         this.is_review_writable = is_review_writable;
     }
 
-    public String getTotal_ticket_count() {
+    public int getTotal_ticket_count() {
         return total_ticket_count;
     }
 
-    public void setTotal_ticket_count(String total_ticket_count) {
+    public void setTotal_ticket_count(int total_ticket_count) {
         this.total_ticket_count = total_ticket_count;
     }
 

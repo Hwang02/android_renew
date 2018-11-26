@@ -28,7 +28,7 @@ public class SearchResultActivity extends AppCompatActivity {
     RelativeLayout toast_layout;
     ImageView ico_favorite;
     TextView tv_toast;
-    String order_kind="";
+    String order_kind="", page = "";
 
 
     @Override
@@ -43,9 +43,14 @@ public class SearchResultActivity extends AppCompatActivity {
         search_txt = intent.getStringExtra("search");
         banner_id = intent.getStringExtra("banner_id");
         order_kind = intent.getStringExtra("order_kind");
+        page = intent.getStringExtra("page");
 
         if(TextUtils.isEmpty(order_kind)){
             order_kind = "";
+        }
+
+        if(TextUtils.isEmpty(page)){
+            page = "";
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -102,6 +107,10 @@ public class SearchResultActivity extends AppCompatActivity {
         title_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!TextUtils.isEmpty(page)) {
+                    Intent intent = new Intent(SearchResultActivity.this, SearchActivity.class);
+                    startActivityForResult(intent, 80);
+                }
                 finish();
             }
         });
@@ -150,5 +159,15 @@ public class SearchResultActivity extends AppCompatActivity {
     public void finished(){
         setResult(80);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 80 && resultCode == 80){
+            setResult(80);
+            finish();
+        }
     }
 }

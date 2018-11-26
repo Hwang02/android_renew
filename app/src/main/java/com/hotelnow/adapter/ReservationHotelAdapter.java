@@ -1,5 +1,7 @@
 package com.hotelnow.adapter;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -12,10 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.ReservationActivity;
 import com.hotelnow.activity.ReviewHotelWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BookingEntry;
 import com.hotelnow.fragment.model.FavoriteStayItem;
+import com.hotelnow.fragment.reservation.ReservationHotelFragment;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
@@ -28,13 +32,15 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
     DialogAlert dialogAlert;
     List<BookingEntry> mlist;
     String userId = "";
+    ReservationHotelFragment mActivity;
 
-    public ReservationHotelAdapter(Context context, int textViewResourceId, List<BookingEntry> objects, String userId) {
+    public ReservationHotelAdapter(Context context, int textViewResourceId, List<BookingEntry> objects, String userId, ReservationHotelFragment mActivity) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
         this.userId = userId;
+        this.mActivity = mActivity;
     }
 
     @Override
@@ -89,7 +95,7 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
                     intent.putExtra("userid", userId);
                     intent.putExtra("hotel_name", mlist.get(position).getHotelName());
                     intent.putExtra("room_name", mlist.get(position).getRoomName());
-                    mContext.startActivity(intent);
+                    mActivity.startActivityForResult(intent, 80);
                 }
             });
         } else{

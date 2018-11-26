@@ -34,6 +34,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:textSize="16dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/purple"
             android:gravity="left|center"
             android:ellipsize="end"

@@ -196,7 +196,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
     private void succReviewDialog(){
         dialogConfirm = new DialogAlert(
                 getString(R.string.alert_review_title),
-                getString(R.string.alert_ticket_review_message),
+                getString(R.string.alert_review_message),
                 ReviewHotelWriteActivity.this,
                 new View.OnClickListener() {
                     @Override

@@ -6,6 +6,7 @@
     android:layout_marginRight="10dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/sel_item"
     android:layout_gravity="center_vertical"
     android:layout_marginBottom="25dp">
 
