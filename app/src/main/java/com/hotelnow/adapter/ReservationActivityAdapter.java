@@ -15,6 +15,7 @@ import com.hotelnow.activity.ReviewActivityWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BookingEntry;
 import com.hotelnow.fragment.model.BookingQEntry;
+import com.hotelnow.fragment.reservation.ReservationActivityFragment;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
@@ -27,13 +28,15 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
     DialogAlert dialogAlert;
     List<BookingQEntry> mlist;
     String userId = "";
+    ReservationActivityFragment mActivity;
 
-    public ReservationActivityAdapter(Context context, int textViewResourceId, List<BookingQEntry> objects, String userId) {
+    public ReservationActivityAdapter(Context context, int textViewResourceId, List<BookingQEntry> objects, String userId, ReservationActivityFragment mActivity) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
         this.userId = userId;
+        this.mActivity = mActivity;
     }
 
     @Override
@@ -85,7 +88,7 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
                     intent.putExtra("userid", userId);
                     intent.putExtra("name", mlist.get(position).getDeal_name());
                     intent.putExtra("cnt", mlist.get(position).getTotal_ticket_count());
-                    mContext.startActivity(intent);
+                    mActivity.startActivityForResult(intent, 80);
                 }
             });
         } else{

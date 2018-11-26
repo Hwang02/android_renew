@@ -63,7 +63,7 @@ public class ReservationActivityFragment extends Fragment {
 
         endlessScrollListener = new EndlessScrollListener();
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-        adapter = new ReservationActivityAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""));
+        adapter = new ReservationActivityAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationActivityFragment.this);
         mlist.setAdapter(adapter);
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
