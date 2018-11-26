@@ -640,6 +640,19 @@ public class DetailHotelActivity extends AppCompatActivity {
                             Util.kakaoYelloId2(DetailHotelActivity.this);
                         }
                     });
+
+                    findViewById(R.id.room_select).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DetailHotelActivity.this, AllRoomTypeActivity.class);
+                            intent.putExtra("sdate", ec_date);
+                            intent.putExtra("edate", ee_date);
+                            intent.putExtra("hid", hid);
+                            intent.putExtra("pid", pid);
+                            intent.putExtra("evt", evt);
+                            startActivityForResult(intent, 80);
+                        }
+                    });
                 }
                 catch (Exception e) {
                     e.getStackTrace();
@@ -1331,6 +1344,13 @@ public class DetailHotelActivity extends AppCompatActivity {
         else if(resultCode == 100 && requestCode == 80) {
             setResult(100);
             finish();
+        }
+        else if(resultCode == 110 && requestCode == 80){
+            isLogin = true;
+            cookie = _preferences.getString("userid", null);
+            ec_date = data.getStringExtra("ec_date");
+            ee_date = data.getStringExtra("ee_date");
+            setDetailView();
         }
     }
 }

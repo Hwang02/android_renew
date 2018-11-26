@@ -51,6 +51,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ThemeSpecialLeisureAdapter themeSAdapter = null;
     private ThemeLeisureAdapter themeAdapter = null;
     private ActivityHotDealLeisureAdapter acitivityAdapter = null;
+    private static int nowPosition = 0;
+    public static int markNowPosition = 0;
+    private static int PAGES = 0;
 
     public LeisureAdapter(Context context, LeisureFragment Lf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -175,6 +178,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void BannerView(final BannerViewHolder holder, int type) {
         if(bannerAdapter == null) {
+            PAGES = mLf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mLf.getPbannerData());
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size() * 10);
@@ -183,7 +187,16 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 }
+                @Override
+                public void onPageSelected(int position) {
+                    nowPosition = position;
+                    markNowPosition = position % PAGES;
+                    holder.page_view.setText(markNowPosition+1 +" / "+ PAGES +" +");
+                }
             });
+
+            holder.page_view.setText("1 / "+ mLf.getPbannerData().size()+" +");
+
             holder.autoViewPager.startAutoScroll();
         }
     }
@@ -272,10 +285,12 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class BannerViewHolder extends RecyclerView.ViewHolder {
 
         ViewPagerCustom autoViewPager;
+        TextView page_view;
 
         BannerViewHolder(View itemView, int page) {
             super(itemView);
             autoViewPager = (ViewPagerCustom) itemView.findViewById(R.id.autoViewPager);
+            page_view = (TextView) itemView.findViewById(R.id.page);
         }
     }
 

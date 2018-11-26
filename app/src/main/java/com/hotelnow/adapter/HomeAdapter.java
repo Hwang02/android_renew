@@ -67,7 +67,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater inflater;
     private static int nowPosition = 0;
     public static int markNowPosition = 0;
-    private static int PAGES = 0;
+    private static int PAGES = 0,PAGES2 = 0;
 
     public HomeAdapter(Context context, HomeFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -261,15 +261,31 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void BannerSubView(final BannerViewHolder holder, int type) {
         if(subbAdapter == null) {
+            PAGES2 = mHf.getPbannerData().size();
             subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData());
             holder.autoViewPager.setAdapter(subbAdapter); //Auto Viewpager에 Adapter 장착
-            holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
-            holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
+            holder.autoViewPager.setPageMargin(20);
+            holder.autoViewPager.setOffscreenPageLimit(mHf.getEbannerData().size());
+            holder.autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 }
+
+                @Override
+                public void onPageSelected(int position) {
+                    nowPosition = position;
+                    markNowPosition = position % PAGES2;
+                    holder.page_view.setText(markNowPosition+1 +" / "+ PAGES2);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
             });
+            holder.page_view.setText("1 / "+ mHf.getEbannerData().size());
         }
     }
 

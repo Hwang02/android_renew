@@ -230,7 +230,7 @@ public class AllRoomTypeActivity extends Activity {
                                         intent.putExtra("page", "Private");
                                         intent.putExtra("sdate", ec_date);
                                         intent.putExtra("edate", ee_date);
-                                        startActivityForResult(intent, 80);
+                                        startActivityForResult(intent, 90);
                                     } else {
                                         setPrivateDeal(mUrl, hid, rid.getText().toString(), pid.getText().toString());
                                     }
@@ -260,7 +260,7 @@ public class AllRoomTypeActivity extends Activity {
                                 intent.putExtra("ee_date", ee_date);
                                 intent.putExtra("pid", pid.getText());
                                 intent.putExtra("page", "detailH");
-                                startActivity(intent);
+                                startActivityForResult(intent,80);
                             }
                         });
 
@@ -379,6 +379,17 @@ public class AllRoomTypeActivity extends Activity {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             setDetailView();
+        }
+        else if(resultCode == 90 && requestCode == 90) {
+            Intent intent = new Intent();
+            intent.putExtra("ec_date", ec_date);
+            intent.putExtra("ee_date", ee_date);
+            setResult(110, intent);
+            finish();
+        }
+        else if(resultCode == 100 && requestCode == 80) {
+            setResult(100);
+            finish();
         }
     }
 }

@@ -284,6 +284,7 @@
             android:background="@color/back_line"/>
 
         <Button
+            android:id="@+id/room_select"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/purple"

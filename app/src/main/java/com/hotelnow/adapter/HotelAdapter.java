@@ -51,6 +51,10 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private ThemeSpecialStayAdapter themeSAdapter = null;
     private ThemeStayAdapter themeAdapter = null;
     private HotelHotDealStayAdapter hotelAdapter = null;
+    private static int nowPosition = 0;
+    public static int markNowPosition = 0;
+    private static int PAGES = 0;
+
 
     public HotelAdapter(Context context, HotelFragment hf, List<Object> items, DbOpenHelper dbHelper) {
         this.context = context;
@@ -192,7 +196,11 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void BannerView(final BannerViewHolder holder, int type) {
         if(bannerAdapter == null) {
+            PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData());
+            holder.autoViewPager.setClipToPadding(false);
+            holder.autoViewPager.setOffscreenPageLimit(mHf.getPbannerData().size());
+            holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -200,7 +208,16 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 }
+                @Override
+                public void onPageSelected(int position) {
+                    nowPosition = position;
+                    markNowPosition = position % PAGES;
+                    holder.page_view.setText(markNowPosition+1 +" / "+ PAGES +" +");
+                }
             });
+
+            holder.page_view.setText("1 / "+ mHf.getPbannerData().size()+" +");
+
             holder.autoViewPager.startAutoScroll();
         }
     }
@@ -289,10 +306,12 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public class BannerViewHolder extends RecyclerView.ViewHolder {
 
         ViewPagerCustom autoViewPager;
+        TextView page_view;
 
         BannerViewHolder(View itemView, int page) {
             super(itemView);
             autoViewPager = (ViewPagerCustom) itemView.findViewById(R.id.autoViewPager);
+            page_view = (TextView) itemView.findViewById(R.id.page);
         }
     }
 

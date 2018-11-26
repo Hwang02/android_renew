@@ -147,7 +147,7 @@ public class SearchActivity extends Activity{
                             if(count>0 && !TextUtils.isEmpty(et_search.getText().toString())) {
                                 tv_search_word.setText("");
                                 SpannableStringBuilder builder = new SpannableStringBuilder("'" + et_search.getText() + "'" + " 로 키워드 검색하기 〉");
-                                builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                 tv_search_word.append(builder);
                                 tv_search_word.setVisibility(View.VISIBLE);
                                 ll_result.setVisibility(View.VISIBLE);

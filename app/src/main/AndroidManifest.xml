@@ -42,8 +42,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity android:name=".activity.CalendarActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:screenOrientation="portrait"/>
+            android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".activity.DetailHotelActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SearchActivity"
@@ -95,8 +94,7 @@
         <activity android:name=".activity.SearchResultActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.CalendarSingleActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:screenOrientation="portrait"/>
+            android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".activity.DetailActivityActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.FullImageViewActivityActivity"
@@ -125,7 +123,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.HotelSearchActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.StayMapActivity" />
+        <activity android:name=".activity.StayMapActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">
