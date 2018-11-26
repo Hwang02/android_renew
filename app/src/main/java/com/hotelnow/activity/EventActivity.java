@@ -299,6 +299,13 @@ public class EventActivity extends AppCompatActivity {
             }
         }
 
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         webView.loadUrl(linkUrl);
     }
 

@@ -62,6 +62,13 @@ public class CardAddActivity extends Activity {
         webview.setWebChromeClient(new WebChromeClient());
 
         webview.loadUrl(CONFIG.cardAddUrl+"?uid="+uid);
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private class webViewClient extends WebViewClient {

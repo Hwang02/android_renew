@@ -81,6 +81,13 @@ public class MyCardActivity extends Activity{
             }
         });
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getCardList();
     }
 

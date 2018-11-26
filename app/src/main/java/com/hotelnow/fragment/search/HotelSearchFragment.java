@@ -248,175 +248,174 @@ public class HotelSearchFragment extends Fragment {
                             Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        if(isAdded()) {
+                            final JSONArray list = obj.getJSONArray("lists");
+                            final JSONArray bannerlist = obj.getJSONArray("region_banners");
+                            JSONObject entry = null;
+                            JSONObject bannerentry = null;
 
-                        final JSONArray list = obj.getJSONArray("lists");
-                        final JSONArray bannerlist = obj.getJSONArray("region_banners");
-                        JSONObject entry = null;
-                        JSONObject bannerentry = null;
+                            final String total_cnt = "총 " + obj.getString("total_count") + "개의 객실이 있습니다";
+                            SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
+                            builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            tv_review_count.setText(builder);
 
-                        final String total_cnt = "총 " + obj.getString("total_count") + "개의 객실이 있습니다";
-                        SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
-                        builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        tv_review_count.setText(builder);
+                            if (bannerlist.length() > 0) {
+                                mBannerItems.clear();
+                                bannerview.setVisibility(View.VISIBLE);
+                                for (int j = 0; j < bannerlist.length(); j++) {
+                                    bannerentry = bannerlist.getJSONObject(j);
+                                    mBannerItems.add(new BannerItem(
+                                            "",
+                                            "",
+                                            "",
+                                            bannerentry.getString("image"),
+                                            "",
+                                            "",
+                                            bannerentry.getString("evt_type"),
+                                            bannerentry.getString("event_id"),
+                                            bannerentry.getString("link")
+                                    ));
+                                }
 
-                        if(bannerlist.length() >0) {
-                            mBannerItems.clear();
-                            bannerview.setVisibility(View.VISIBLE);
-                            for (int j = 0; j < bannerlist.length(); j++) {
-                                bannerentry = bannerlist.getJSONObject(j);
-                                mBannerItems.add(new BannerItem(
-                                        "",
-                                        "",
-                                        "",
-                                        bannerentry.getString("image"),
-                                        "",
-                                        "",
-                                        bannerentry.getString("evt_type"),
-                                        bannerentry.getString("event_id"),
-                                        bannerentry.getString("link")
+                                PAGES = mBannerItems.size();
+                                bannerAdapter = new SearchBannerPagerAdapter(getActivity(), mBannerItems);
+                                autoViewPager.setClipToPadding(false);
+                                autoViewPager.setOffscreenPageLimit(mBannerItems.size());
+                                autoViewPager.setPageMargin(20);
+                                autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
+                                autoViewPager.setCurrentItem(mBannerItems.size() * 10);
+                                autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                                    @Override
+                                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                        autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                                    }
+
+                                    @Override
+                                    public void onPageSelected(int position) {
+                                        nowPosition = position;
+                                        markNowPosition = position % PAGES;
+                                        page.setText(markNowPosition + 1 + " / " + PAGES + " +");
+                                    }
+
+                                    @Override
+                                    public void onPageScrollStateChanged(int state) {
+
+                                    }
+                                });
+                                page.setText("1 / " + mBannerItems.size() + " +");
+
+                                autoViewPager.startAutoScroll();
+                            } else {
+                                bannerview.setVisibility(View.GONE);
+                                autoViewPager.stopAutoScroll();
+                            }
+
+                            final JSONArray popular_keywords = obj.getJSONArray("popular_keywords");
+                            mKeywordList.clear();
+                            for (int i = 0; i < popular_keywords.length(); i++) {
+                                mKeywordList.add(new KeyWordItem(
+                                        popular_keywords.getJSONObject(i).getString("id"),
+                                        popular_keywords.getJSONObject(i).getString("order"),
+                                        popular_keywords.getJSONObject(i).getString("category"),
+                                        popular_keywords.getJSONObject(i).getString("image"),
+                                        popular_keywords.getJSONObject(i).getString("keyword"),
+                                        popular_keywords.getJSONObject(i).getString("type"),
+                                        popular_keywords.getJSONObject(i).getString("evt_type"),
+                                        popular_keywords.getJSONObject(i).getString("event_id"),
+                                        popular_keywords.getJSONObject(i).has("link") ? popular_keywords.getJSONObject(i).getString("link") : "",
+                                        popular_keywords.getJSONObject(i).getString("bannerable_id")
                                 ));
                             }
 
-                            PAGES = mBannerItems.size();
-                            bannerAdapter = new SearchBannerPagerAdapter(getActivity(), mBannerItems);
-                            autoViewPager.setClipToPadding(false);
-                            autoViewPager.setOffscreenPageLimit(mBannerItems.size());
-                            autoViewPager.setPageMargin(20);
-                            autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
-                            autoViewPager.setCurrentItem(mBannerItems.size() * 10);
-                            autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                @Override
-                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                                    autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
-                                }
+                            setPopular();
 
-                                @Override
-                                public void onPageSelected(int position) {
-                                    nowPosition = position;
-                                    markNowPosition = position % PAGES;
-                                    page.setText(markNowPosition+1 +" / "+ PAGES +" +");
-                                }
+                            for (int i = 0; i < list.length(); i++) {
+                                entry = list.getJSONObject(i);
+                                mItems.add(new SearchResultItem(
+                                        entry.getString("id"),
+                                        entry.getString("hotel_id"),
+                                        entry.getString("name"),
+                                        entry.getString("address"),
+                                        entry.getString("category"),
+                                        entry.getString("street1"),
+                                        entry.getString("street2"),
+                                        entry.getDouble("latitude"),
+                                        entry.getDouble("longuitude"),
+                                        entry.getString("privateDealYN"),
+                                        entry.getString("landscape"),
+                                        entry.getString("sale_price"),
+                                        entry.getString("normal_price"),
+                                        entry.getString("sale_rate"),
+                                        entry.getInt("items_quantity"),
+                                        entry.getString("special_msg"),
+                                        entry.getString("review_score"),
+                                        entry.getString("grade_score"),
+                                        entry.getString("real_grade_score"),
+                                        entry.getString("distance"),
+                                        entry.getString("distance_real"),
+                                        entry.getString("normal_price_avg"),
+                                        entry.getString("city"),
+                                        entry.getString("is_private_deal"),
+                                        entry.getString("is_hot_deal"),
+                                        entry.getString("is_add_reserve"),
+                                        entry.getInt("coupon_count"),
+                                        i == 0 ? true : false
+                                ));
+                                if (Page == 1)
+                                    s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181101_173010_uXfZWjNIzK.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longuitude");
+                            }
 
-                                @Override
-                                public void onPageScrollStateChanged(int state) {
+                            if (mItems.size() > 0) {
+                                btn_filter.setVisibility(View.VISIBLE);
+                                bt_scroll.setVisibility(View.VISIBLE);
+                            } else {
+                                btn_filter.setVisibility(View.GONE);
+                                bt_scroll.setVisibility(View.GONE);
+                            }
 
+                            String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
+                                    s_position +
+                                    "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
+                            Ion.with(map_img).load(mapStr);
+
+                            map_img.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getActivity(), MapHotelActivity.class);
+                                    intent.putExtra("search_data", mItems);
+                                    intent.putExtra("Page", Page);
+                                    intent.putExtra("total_count", total_count);
+                                    intent.putExtra("city", city);
+                                    intent.putExtra("city_name", tv_location.getText().toString());
+                                    intent.putExtra("sub_city", sub_city);
+                                    intent.putExtra("search_txt", search_txt);
+                                    intent.putExtra("banner_id", banner_id);
+                                    intent.putExtra("ec_date", ec_date);
+                                    intent.putExtra("ee_date", ee_date);
+                                    intent.putExtra("category", category);
+                                    intent.putExtra("facility", facility);
+                                    intent.putExtra("price_min", price_min);
+                                    intent.putExtra("person_count", person_count);
+                                    intent.putExtra("price_max", price_max);
+                                    intent.putExtra("score", score);
+                                    intent.putExtra("order_kind", order_kind);
+                                    if (order_kind.equals("distance")) {
+                                        intent.putExtra("lat", CONFIG.lat);
+                                        intent.putExtra("lng", CONFIG.lng);
+                                    }
+                                    startActivityForResult(intent, 90);
                                 }
                             });
-                            page.setText("1 / "+ mBannerItems.size()+" +");
 
-                            autoViewPager.startAutoScroll();
+
+                            total_count = obj.getInt("total_count");
+                            adapter.notifyDataSetChanged();
+                            Page++;
                         }
-                        else {
-                            bannerview.setVisibility(View.GONE);
-                            autoViewPager.stopAutoScroll();
-                        }
-
-                        final JSONArray popular_keywords = obj.getJSONArray("popular_keywords");
-                        mKeywordList.clear();
-                        for(int i = 0; i < popular_keywords.length(); i++){
-                            mKeywordList.add(new KeyWordItem(
-                                    popular_keywords.getJSONObject(i).getString("id"),
-                                    popular_keywords.getJSONObject(i).getString("order"),
-                                    popular_keywords.getJSONObject(i).getString("category"),
-                                    popular_keywords.getJSONObject(i).getString("image"),
-                                    popular_keywords.getJSONObject(i).getString("keyword"),
-                                    popular_keywords.getJSONObject(i).getString("type"),
-                                    popular_keywords.getJSONObject(i).getString("evt_type"),
-                                    popular_keywords.getJSONObject(i).getString("event_id"),
-                                    popular_keywords.getJSONObject(i).has("link") ? popular_keywords.getJSONObject(i).getString("link") : "",
-                                    popular_keywords.getJSONObject(i).getString("bannerable_id")
-                            ));
-                        }
-
-                        setPopular();
-
-                        for (int i = 0; i < list.length(); i++) {
-                            entry = list.getJSONObject(i);
-                            mItems.add(new SearchResultItem(
-                                    entry.getString("id"),
-                                    entry.getString("hotel_id"),
-                                    entry.getString("name"),
-                                    entry.getString("address"),
-                                    entry.getString("category"),
-                                    entry.getString("street1"),
-                                    entry.getString("street2"),
-                                    entry.getDouble("latitude"),
-                                    entry.getDouble("longuitude"),
-                                    entry.getString("privateDealYN"),
-                                    entry.getString("landscape"),
-                                    entry.getString("sale_price"),
-                                    entry.getString("normal_price"),
-                                    entry.getString("sale_rate"),
-                                    entry.getInt("items_quantity"),
-                                    entry.getString("special_msg"),
-                                    entry.getString("review_score"),
-                                    entry.getString("grade_score"),
-                                    entry.getString("real_grade_score"),
-                                    entry.getString("distance"),
-                                    entry.getString("distance_real"),
-                                    entry.getString("normal_price_avg"),
-                                    entry.getString("city"),
-                                    entry.getString("is_private_deal"),
-                                    entry.getString("is_hot_deal"),
-                                    entry.getString("is_add_reserve"),
-                                    entry.getInt("coupon_count"),
-                                    i == 0 ? true : false
-                            ));
-                            if (Page == 1)
-                                s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181101_173010_uXfZWjNIzK.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longuitude");
-                        }
-
-                        if(mItems.size() > 0){
-                            btn_filter.setVisibility(View.VISIBLE);
-                            bt_scroll.setVisibility(View.VISIBLE);
-                        }
-                        else {
-                            btn_filter.setVisibility(View.GONE);
-                            bt_scroll.setVisibility(View.GONE);
-                        }
-
-                        String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
-                                s_position +
-                                "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
-                        Ion.with(map_img).load(mapStr);
-
-                        map_img.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(getActivity(), MapHotelActivity.class);
-                                intent.putExtra("search_data", mItems);
-                                intent.putExtra("Page", Page);
-                                intent.putExtra("total_count", total_count);
-                                intent.putExtra("city", city);
-                                intent.putExtra("city_name", tv_location.getText().toString());
-                                intent.putExtra("sub_city",sub_city);
-                                intent.putExtra("search_txt",search_txt);
-                                intent.putExtra("banner_id",banner_id);
-                                intent.putExtra("ec_date",ec_date);
-                                intent.putExtra("ee_date",ee_date);
-                                intent.putExtra("category",category);
-                                intent.putExtra("facility",facility);
-                                intent.putExtra("price_min",price_min);
-                                intent.putExtra("person_count",person_count);
-                                intent.putExtra("price_max",price_max);
-                                intent.putExtra("score",score);
-                                intent.putExtra("order_kind",order_kind);
-                                if(order_kind.equals("distance")){
-                                    intent.putExtra("lat", CONFIG.lat);
-                                    intent.putExtra("lng", CONFIG.lng);
-                                }
-                                startActivityForResult(intent, 90);
-                            }
-                        });
-
-
-
-                        total_count = obj.getInt("total_count");
-                        adapter.notifyDataSetChanged();
-                        Page++;
-
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        if(isAdded()) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

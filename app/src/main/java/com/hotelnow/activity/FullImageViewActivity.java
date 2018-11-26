@@ -57,6 +57,14 @@ public class FullImageViewActivity extends FragmentActivity {
         name = intent.getStringExtra("name");
 
         tv_title_hotel.setText(name);
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getPortraitInfo();
     }
 

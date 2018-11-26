@@ -57,6 +57,13 @@ public class MySaveActivity extends Activity{
         mAdapter = new MySaveAdapter(MySaveActivity.this, 0, mEntries);
         mMainListView.setAdapter(mAdapter);
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         getlist();
     }

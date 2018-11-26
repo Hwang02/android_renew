@@ -117,6 +117,14 @@ public class ReviewHotelActivity extends Activity{
 
         mListAdapter = new DetailReviewAdapter( this, 0, reviewEntries);
         lv_list.setAdapter(mListAdapter);
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getReviewList();
     }
 

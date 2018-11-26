@@ -308,6 +308,14 @@ public class ReservationActivity extends Activity {
             accepted_price = intent.getIntExtra("accepted_price",0);
             bid_id = intent.getStringExtra("bid_id");
         }
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         authCheck();
     }
 

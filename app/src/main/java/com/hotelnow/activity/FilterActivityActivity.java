@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,6 +39,13 @@ public class FilterActivityActivity extends Activity {
 
         orderbyarr = getResources().getStringArray(R.array.list_orderby);
         facilityarr = dbHelper.selectAllActivityTheme();
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         setOrderby();
         setFacility();

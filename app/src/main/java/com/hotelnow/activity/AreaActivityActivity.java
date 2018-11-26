@@ -69,6 +69,13 @@ public class AreaActivityActivity extends Activity {
             }
         });
 
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getMonthList();
     }
 

@@ -184,6 +184,13 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                 dialogConfirm.show();
             }
         });
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setMainMarker(){

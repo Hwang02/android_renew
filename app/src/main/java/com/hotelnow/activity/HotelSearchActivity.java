@@ -94,6 +94,12 @@ public class HotelSearchActivity extends Activity {
         if(city.equals(sub_city)){
             sub_city = "";
         }
+
+        if(ec_date == null && ee_date == null){
+            ec_date = Util.setCheckinout().get(0);
+            ee_date = Util.setCheckinout().get(1);
+        }
+
         title_text = (TextView) findViewById(R.id.title_text);
         mlist = (ListView) findViewById(R.id.h_list);
         HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header, null, false);
@@ -182,6 +188,13 @@ public class HotelSearchActivity extends Activity {
                 intent.putExtra("hid", hid.getText().toString());
                 intent.putExtra("save", true);
                 startActivityForResult(intent, 50);
+            }
+        });
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

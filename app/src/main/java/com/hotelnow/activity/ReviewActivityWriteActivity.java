@@ -126,6 +126,13 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
         sp_star4.setOnClickListener(this);
         sp_star5.setOnClickListener(this);
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void setReview(){

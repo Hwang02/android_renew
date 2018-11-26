@@ -299,7 +299,8 @@ public class SearchActivity extends Activity{
                                 hotel.getJSONObject(i).getString("id"),
                                 hotel.getJSONObject(i).getString("name"),
                                 hotel.getJSONObject(i).getString("city"),
-                                hotel.getJSONObject(i).getString("sub_city")
+                                hotel.getJSONObject(i).getString("sub_city"),
+                                hotel.getJSONObject(i).getString("name_sub_city")
                         ));
                     }
 
@@ -310,7 +311,8 @@ public class SearchActivity extends Activity{
                                 activity.getJSONObject(i).getString("id"),
                                 activity.getJSONObject(i).getString("name"),
                                 activity.getJSONObject(i).getString("city"),
-                                activity.getJSONObject(i).getString("sub_city")
+                                activity.getJSONObject(i).getString("sub_city"),
+                                hotel.getJSONObject(i).getString("name_sub_city")
                         ));
                     }
 
@@ -320,6 +322,7 @@ public class SearchActivity extends Activity{
                                 "",
                                 "검색 결과가 없습니다.",
                                 "",
+                                "",
                                 ""
                         ));
                     }
@@ -328,6 +331,7 @@ public class SearchActivity extends Activity{
                                 "N",
                                 "",
                                 "검색 결과가 없습니다.",
+                                "",
                                 "",
                                 ""
                         ));
@@ -374,13 +378,12 @@ public class SearchActivity extends Activity{
                             startActivity(intent);
                         }
                         else {
-                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                            Intent intent = new Intent(SearchActivity.this, HotelSearchActivity.class);
                             intent.putExtra("tab", 0);
-                            intent.putExtra("search", tv_recent_txt.getText().toString());
-//                            intent.putExtra("city", mHotelAuto.get((int)v.getTag()).getCity());
-//                            intent.putExtra("sub_city", mHotelAuto.get((int)v.getTag()).getSub_city());
-//                            intent.putExtra("iscity", true);
-//                            startActivity(intent);
+                            intent.putExtra("city_code", mHotelAuto.get((int)v.getTag()).getCity());
+                            intent.putExtra("subcity_code", mHotelAuto.get((int)v.getTag()).getSub_city());
+                            intent.putExtra("city", mHotelAuto.get((int)v.getTag()).getName_sub_city());
+                            startActivity(intent);
                         }
                     }
                 }
@@ -422,13 +425,12 @@ public class SearchActivity extends Activity{
                             startActivity(intent);
                         }
                         else {
-                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                            Intent intent = new Intent(SearchActivity.this, ActivitySearchActivity.class);
                             intent.putExtra("tab", 1);
-                            intent.putExtra("search", tv_recent_txt.getText().toString());
-//                            intent.putExtra("city", mHotelAuto.get((int)v.getTag()).getCity());
-//                            intent.putExtra("sub_city", mHotelAuto.get((int)v.getTag()).getSub_city());
-//                            intent.putExtra("iscity", true);
-//                            startActivity(intent);
+                            intent.putExtra("location_id", mActivityAuto.get((int)v.getTag()).getCity());
+                            intent.putExtra("location", mActivityAuto.get((int)v.getTag()).getName());
+                            intent.putExtra("theme", "테마전체");
+                            startActivity(intent);
                         }
                     }
                 }

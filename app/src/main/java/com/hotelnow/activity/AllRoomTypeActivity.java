@@ -84,6 +84,12 @@ public class AllRoomTypeActivity extends Activity {
         });
         date = (TextView) findViewById(R.id.date);
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         setDetailView();
     }

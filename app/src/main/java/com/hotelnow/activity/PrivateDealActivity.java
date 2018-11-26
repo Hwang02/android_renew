@@ -69,6 +69,13 @@ public class PrivateDealActivity extends FragmentActivity {
             webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
         webview.loadUrl(linkUrl);
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private class webViewClient extends WebViewClient {

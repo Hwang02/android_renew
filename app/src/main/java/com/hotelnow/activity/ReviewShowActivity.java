@@ -3,6 +3,7 @@ package com.hotelnow.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,13 @@ public class ReviewShowActivity extends Activity{
         sp_star4 = (ImageView) findViewById(R.id.sp_star4);
         sp_star5 = (ImageView) findViewById(R.id.sp_star5);
         review_edittext = (TextView) findViewById(R.id.review_edittext);
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 }
