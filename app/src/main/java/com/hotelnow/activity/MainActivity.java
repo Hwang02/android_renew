@@ -194,6 +194,7 @@ public class MainActivity extends FragmentActivity {
                                     setHide();
                                     mbinding.navigation.setCurrentItem(0);
                                     mbinding.tabLayout.getTabAt(0).select();
+                                    return;
                                 }
                             }, 100);
                 }
@@ -256,6 +257,19 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case RESERVPAGE:{
+//                if(CONFIG.Mypage_Search){
+//                    new Handler().postDelayed(
+//                            new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+//                                    setHide();
+//                                    mbinding.navigation.setSelectedItemId(R.id.reserv);
+//                                    return;
+//                                }
+//                            }, 100);
+//                }
+
                 if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
@@ -319,6 +333,7 @@ public class MainActivity extends FragmentActivity {
                                     setHide();
                                     mbinding.navigation.setCurrentItem(0);
                                     mbinding.tabLayout.getTabAt(1).select();
+                                    return;
                                 }
                             }, 100);
                 }
@@ -360,6 +375,7 @@ public class MainActivity extends FragmentActivity {
                                     setHide();
                                     mbinding.navigation.setCurrentItem(0);
                                     mbinding.tabLayout.getTabAt(2).select();
+                                    return;
                                 }
                             }, 100);
                 }
@@ -429,7 +445,6 @@ public class MainActivity extends FragmentActivity {
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
         transaction.commitAllowingStateLoss();
-
     }
 
     public void showToast(String msg){
@@ -511,6 +526,10 @@ public class MainActivity extends FragmentActivity {
         }
         else if(myPosition == 2) {
             moveTabRefresh3();
+        }
+
+        if(CONFIG.Mypage_Search){
+            moveTabReservation();
         }
     }
 }

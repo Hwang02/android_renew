@@ -205,7 +205,11 @@ public class HomeFragment extends Fragment {
             }
         } else{
             CONFIG.isRecent = false;
-            getObject();
+            adapter.allRefresh(false);
+            if(isStart){
+                objects.clear();
+                getObject();
+            }
         }
     }
 

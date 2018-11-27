@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,9 +47,11 @@ public class ReservationActivityFragment extends Fragment {
     private SharedPreferences _preferences;
     private NonScrollListView mlist;
     private ReservationActivityAdapter adapter;
-    private Button btn_go_login;
+    private Button btn_go_login, u_send;
     private RelativeLayout main_view;
     private TextView btn_go_reservation;
+    private ImageView back;
+    private EditText u_name, u_tel, u_num;
 
     @Nullable
     @Override
@@ -68,6 +73,12 @@ public class ReservationActivityFragment extends Fragment {
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
         btn_go_reservation = (TextView) getView().findViewById(R.id.btn_go_reservation);
+        u_send = (Button) getView().findViewById(R.id.u_send);
+        back = (ImageView) getView().findViewById(R.id.back);
+        u_name = (EditText) getView().findViewById(R.id.u_name);
+        u_tel = (EditText) getView().findViewById(R.id.u_tel);
+        u_num = (EditText) getView().findViewById(R.id.u_num);
+
         mlist.setOnScrollListener(endlessScrollListener);
 
         mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -119,20 +130,45 @@ public class ReservationActivityFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
+                        btn_go_reservation.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getView().findViewById(R.id.login_view).setVisibility(View.GONE);
+                                getView().findViewById(R.id.reserv_view).setVisibility(View.VISIBLE);
+
+                            }
+                        });
+                        u_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!TextUtils.isEmpty(u_name.getText().toString()) && !TextUtils.isEmpty(u_tel.getText().toString()) && !TextUtils.isEmpty(u_num.getText().toString())) {
+                                    Intent intent = new Intent(getActivity(), ReservationActivityDetailActivity.class);
+                                    intent.putExtra("reservation", true);
+                                    intent.putExtra("user_name", u_name.getText().toString());
+                                    intent.putExtra("user_phone", u_tel.getText().toString());
+                                    intent.putExtra("tid", u_num.getText().toString());
+                                    intent.putExtra("title", "비회원 예약조회");
+                                    startActivityForResult(intent, 80);
+                                }
+                            }
+                        });
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mlist.setEmptyView(getView().findViewById(R.id.login_view));
+                                getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
+                                getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
+                            }
+                        });
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
                         getView().findViewById(R.id.login_view).setVisibility(View.GONE);
                         main_view.setBackgroundResource(R.color.footerview);
-                        btn_go_reservation.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-//                                ((MainActivity)getActivity()).setTapMove(5, true);
-                            }
-                        });
                         getBookingList();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    if(isAdded())
+                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });

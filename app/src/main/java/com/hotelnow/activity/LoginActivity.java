@@ -309,11 +309,9 @@ public class LoginActivity extends Activity{
                 public void onClick(View v) {
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
-                    Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
-                    intent.putExtra("url", BuildConfig.webUrl + "/booking/check_auth" + "?is_app=Y");
-                    intent.putExtra("title", "비회원 예약조회");
-                    startActivity(intent);
+                    CONFIG.Mypage_Search = true;
+                    setResult(90, new Intent());
+                    finish();
                 }
             });
         }

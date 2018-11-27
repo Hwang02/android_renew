@@ -33,4 +33,12 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
         android:visibility="gone"/>
+
+    <include
+        android:id="@+id/reserv_view"
+        layout="@layout/layout_reserv_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        android:visibility="gone"/>
 </RelativeLayout>

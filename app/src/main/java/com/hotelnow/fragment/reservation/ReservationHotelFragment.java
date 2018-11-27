@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,6 +33,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.EndlessScrollListener;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.squareup.okhttp.Response;
 
@@ -45,11 +48,13 @@ public class ReservationHotelFragment extends Fragment {
     private SharedPreferences _preferences;
     private NonScrollListView mlist;
     private ReservationHotelAdapter adapter;
-    private Button btn_go_login;
+    private Button btn_go_login, u_send;
+    private ImageView back;
     private RelativeLayout main_view;
     private TextView btn_go_reservation;
     private EndlessScrollListener endlessScrollListener;
     private ArrayList<BookingEntry> mEntries = new ArrayList<BookingEntry>();
+    private EditText u_name, u_tel, u_num;
 
     @Nullable
     @Override
@@ -71,6 +76,12 @@ public class ReservationHotelFragment extends Fragment {
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
         btn_go_reservation = (TextView) getView().findViewById(R.id.btn_go_reservation);
+        u_send = (Button) getView().findViewById(R.id.u_send);
+        back = (ImageView) getView().findViewById(R.id.back);
+        u_name = (EditText) getView().findViewById(R.id.u_name);
+        u_tel = (EditText) getView().findViewById(R.id.u_tel);
+        u_num = (EditText) getView().findViewById(R.id.u_num);
+
         mlist.setOnScrollListener(endlessScrollListener);
 
         mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,6 +97,7 @@ public class ReservationHotelFragment extends Fragment {
     }
 
     public void authCheck() {
+        LogUtil.e("xxxxxxxx", "11001010101001");
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("ui", _preferences.getString("userid", null));
@@ -110,9 +122,16 @@ public class ReservationHotelFragment extends Fragment {
                         prefEditor.putString("phone", null);
                         prefEditor.putString("userid", null);
                         prefEditor.commit();
-
-                        mlist.setEmptyView(getView().findViewById(R.id.login_view));
-                        getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
+                        if(!CONFIG.Mypage_Search) {
+                            mlist.setEmptyView(getView().findViewById(R.id.login_view));
+                            getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
+                        }
+                        else{
+                            mlist.setEmptyView(getView().findViewById(R.id.reserv_view));
+                            getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
+                            getView().findViewById(R.id.login_view).setVisibility(View.GONE);
+                        }
                         main_view.setBackgroundResource(R.color.white);
                         btn_go_login.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -121,20 +140,50 @@ public class ReservationHotelFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
-                    } else {
-                        mlist.setEmptyView(getView().findViewById(R.id.empty_view));
-                        getView().findViewById(R.id.login_view).setVisibility(View.GONE);
-                        main_view.setBackgroundResource(R.color.footerview);
                         btn_go_reservation.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-//                                ((MainActivity)getActivity()).setTapMove(5, true);
+                                getView().findViewById(R.id.login_view).setVisibility(View.GONE);
+                                getView().findViewById(R.id.reserv_view).setVisibility(View.VISIBLE);
+
                             }
                         });
+                        u_send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!TextUtils.isEmpty(u_name.getText().toString()) && !TextUtils.isEmpty(u_tel.getText().toString()) && !TextUtils.isEmpty(u_num.getText().toString())){
+                                    Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
+                                    intent.putExtra("reservation", true);
+                                    intent.putExtra("user_name", u_name.getText().toString());
+                                    intent.putExtra("user_phone", u_tel.getText().toString());
+                                    intent.putExtra("bid", u_num.getText().toString());
+                                    intent.putExtra("title", "비회원 예약조회");
+                                    startActivityForResult(intent, 80);
+                                }
+                                else {
+                                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_booking_info), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mlist.setEmptyView(getView().findViewById(R.id.login_view));
+                                getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
+                                getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
+                            }
+                        });
+
+                    } else {
+                        mlist.setEmptyView(getView().findViewById(R.id.empty_view));
+                        getView().findViewById(R.id.login_view).setVisibility(View.GONE);
+                        getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
+                        main_view.setBackgroundResource(R.color.footerview);
                         getBookingList();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    if(isAdded())
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });
