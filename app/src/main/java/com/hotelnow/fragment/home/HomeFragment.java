@@ -117,9 +117,9 @@ public class HomeFragment extends Fragment {
     }
 
     public void getRecentData(final boolean isStart){
-        String url = CONFIG.mainRecent;
+        String url = CONFIG.mainRecent+"/check";
         //최근 본 상품
-        mRecentItem = dbHelper.selectAllRecentItem();
+        mRecentItem = dbHelper.selectAllRecentItem("10");
         if (mRecentItem.size() > 0) {
             try {
                 JSONArray jArray = new JSONArray();//배열

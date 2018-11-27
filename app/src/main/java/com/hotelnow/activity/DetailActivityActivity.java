@@ -314,6 +314,10 @@ public class DetailActivityActivity extends AppCompatActivity {
                         }
                     }
 
+                    if(islike){
+                        icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    }
+
                     final JSONObject ticket_data = obj.getJSONObject("deal");
                     final JSONArray photos = obj.getJSONArray("deal_photo");
                     final JSONArray options = obj.getJSONArray("deal_option");

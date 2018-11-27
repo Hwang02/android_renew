@@ -257,18 +257,6 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case RESERVPAGE:{
-//                if(CONFIG.Mypage_Search){
-//                    new Handler().postDelayed(
-//                            new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
-//                                    setHide();
-//                                    mbinding.navigation.setSelectedItemId(R.id.reserv);
-//                                    return;
-//                                }
-//                            }, 100);
-//                }
 
                 if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
@@ -496,7 +484,7 @@ public class MainActivity extends FragmentActivity {
     public void moveTabRefresh(){
         HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
 
-        if (dbHelper.selectAllRecentItem().size() > 0 && !CONFIG.isRecent) {
+        if (dbHelper.selectAllRecentItem("10").size() > 0 && !CONFIG.isRecent) {
             fm.getRecentData(true);
             CONFIG.isRecent = true;
         } else {

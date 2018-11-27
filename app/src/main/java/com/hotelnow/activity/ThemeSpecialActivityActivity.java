@@ -94,7 +94,8 @@ public class ThemeSpecialActivityActivity extends Activity {
                     Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
-                    startActivity(intent);
+                    intent.putExtra("save", true);
+                    startActivityForResult(intent,80);
                 }
             }
         });
@@ -352,6 +353,14 @@ public class ThemeSpecialActivityActivity extends Activity {
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 80 && resultCode == 80){
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

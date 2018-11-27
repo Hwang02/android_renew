@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.MyCouponActivity;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.dialog.DialogScrollAlert;
 import com.hotelnow.fragment.model.CouponEntry;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
 public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
     Context mContext;
     String hotels = "";
-    DialogAlert dialogAlert;
+    DialogScrollAlert dialogScrollAlert;
     List<CouponEntry> mlist;
 
     public MyCouponAdapter(Context context, int textViewResourceId, List<CouponEntry> objects) {
@@ -97,33 +99,38 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
 
             if (entry.getmTarget_lists() != null && entry.getmTarget_lists().length > 0) {
                 holder.coupon_hotel_count.setVisibility(View.VISIBLE);
-                holder.coupon_hotel_count.setText("/  " + entry.getmTarget_lists().length + "개의 숙소");
+                if (entry.getmProduct().equals("activity")) {
+                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 액티비티</u>"));
+                }
+                else {
+                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 숙소</u>"));
+                }
                 holder.coupon_hotel_count.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         hotels = "";
                         for (int i = 0; i < entry.getmTarget_lists().length; i++) {
-                            hotels += entry.getmTarget_lists()[i] + "\n";
+                            hotels += "ㆍ"+entry.getmTarget_lists()[i] + "\n";
                         }
                         String mTitle = "";
                         if (entry.getmProduct().equals("activity")) {
-                            mTitle = "액티비티 목록";
+                            mTitle = "사용 가능 액티비티 목록";
                         } else {
-                            mTitle = "숙소 목록";
+                            mTitle = "사용 가능 숙소 목록";
                         }
-                        dialogAlert = new DialogAlert(
+                        dialogScrollAlert = new DialogScrollAlert(
                                 mTitle,
                                 hotels,
                                 mContext,
                                 new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        dialogAlert.dismiss();
+                                        dialogScrollAlert.dismiss();
                                     }
                                 });
-                        dialogAlert.setCancelable(true);
-                        dialogAlert.show();
+                        dialogScrollAlert.setCancelable(true);
+                        dialogScrollAlert.show();
 
                     }
                 });

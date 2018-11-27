@@ -109,7 +109,8 @@ public class ThemeSpecialHotelActivity extends Activity {
                     intent.putExtra("evt", "N");
                     intent.putExtra("sdate", sdate.getText().toString());
                     intent.putExtra("edate", edate.getText().toString());
-                    startActivity(intent);
+                    intent.putExtra("save", true);
+                    startActivityForResult(intent,80);
                 }
             }
         });
@@ -356,4 +357,11 @@ public class ThemeSpecialHotelActivity extends Activity {
         super.onStop();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 80 && resultCode == 80){
+            mAdapter.notifyDataSetChanged();
+        }
+    }
 }

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailHotelActivity;
+import com.hotelnow.activity.RecentAllActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
@@ -171,6 +172,19 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recentAdapter = new RecentAdapter(mHf.getRecentListItem(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(recentAdapter);
+            if(mHf.getRecentListItem().size()>0){
+                holder.mMoreView.setVisibility(View.VISIBLE);
+                holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mHf.getContext(), RecentAllActivity.class);
+                        mHf.startActivityForResult(intent, 80);
+                    }
+                });
+            }
+            else {
+                holder.mMoreView.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -261,7 +275,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void BannerSubView(final BannerViewHolder holder, int type) {
         if(subbAdapter == null) {
-            PAGES2 = mHf.getPbannerData().size();
+            PAGES2 = mHf.getEbannerData().size();
             subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData());
             holder.autoViewPager.setAdapter(subbAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
@@ -305,7 +319,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void allRefresh(boolean isRecent){
         if(recentAdapter != null && isRecent){
-            dbHelper.selectAllRecentItem();
             recentAdapter.notifyDataSetChanged();
         }
         if(privateAdapter != null){
@@ -381,13 +394,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             main_view = (LinearLayout) itemView.findViewById(R.id.main_view);
 
             setTitle(mTitle, page);
-
-            mMoreView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
 

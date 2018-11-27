@@ -82,7 +82,7 @@
         
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="148dp"
+            android:layout_height="105dp"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"
             android:layout_below="@id/gap">
@@ -133,19 +133,19 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ico_my_point"
-                    android:scaleType="fitXY"
-                    android:layout_marginTop="8dp"/>
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_marginTop="47dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginRight="10dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ico_my_point"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"/>
 
                     <ImageView
                         android:id="@+id/ico_marker"
@@ -230,7 +230,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="33dp"
                         android:layout_marginLeft="8dp">
 
                         <ImageView
@@ -257,7 +257,7 @@
                                 android:id="@+id/tv_user_coupon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18dp"
+                                android:textSize="24dp"
                                 android:textColor="@color/blacktxt"
                                 android:layout_toLeftOf="@id/ico_marker2"
                                 android:textStyle="bold"
@@ -280,6 +280,7 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="20dp"
+                    android:visibility="gone"
                     android:layout_weight="1">
 
                     <LinearLayout

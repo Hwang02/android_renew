@@ -473,7 +473,7 @@ public class DbOpenHelper {
         Cursor cur = null;
         try {
             cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "created_date" }, null, null, null, null, "created_date desc");
-            if(cur.getCount()==10){
+            if(cur.getCount()==30){
                 String sql = "DELETE FROM "+ DataBases.RecentList_CreateDB._TABLENAME+" WHERE created_date = "
                         + "(select MIN(created_date) from "+DataBases.RecentCity_CreateDB._TABLENAME+ " )";
                 mDB.execSQL(sql);
@@ -498,13 +498,13 @@ public class DbOpenHelper {
      *
      * @return
      */
-    public List<RecentItem> selectAllRecentItem() {
+    public List<RecentItem> selectAllRecentItem(String count) {
         open();
         List<RecentItem> items = new ArrayList<RecentItem>();
         Cursor cur = null;
         try {
             cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id", "sel_option"}, null,
-                    null, null, null, "created_date desc");
+                    null, null, null, "created_date desc", count);
 
             if(cur.moveToFirst()) {
                 do {

@@ -399,6 +399,10 @@ public class DetailHotelActivity extends AppCompatActivity {
                         }
                     }
 
+                    if(islike){
+                        icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    }
+
                     tv_category = (TextView) findViewById(R.id.tv_category);
                     tv_hotelname = (TextView) findViewById(R.id.tv_hotelname);
                     tv_minprice = (TextView) findViewById(R.id.tv_minprice);
