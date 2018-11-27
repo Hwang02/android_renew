@@ -188,6 +188,7 @@ public class HomeFragment extends Fragment {
                             if (isStart) {
                                 // 리스트 호출
                                 objects.clear();
+                                adapter.allRefresh(false);
                                 getObject();
                                 CONFIG.isRecent = true;
                             }
