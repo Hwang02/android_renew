@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.HotDealActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
+import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
@@ -163,6 +167,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             themeSAdapter = new ThemeSpecialLeisureAdapter(mLf.getThemeSpecialData(), mLf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
+            holder.mMoreView.setVisibility(View.GONE);
         }
     }
 
@@ -173,6 +178,21 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mLf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mLf.getThemeData().get(0).getMain_title());
+            holder.btn_moreproduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mLf.getThemeData().get(0).getTheme_flag().equals("H")){
+                        Intent intent = new Intent(mLf.getContext(), ThemeSpecialHotelActivity.class);
+                        intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
+                        mLf.startActivityForResult(intent,80);
+                    }
+                    else{
+                        Intent intent = new Intent(mLf.getContext(), ThemeSpecialActivityActivity.class);
+                        intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
+                        mLf.startActivityForResult(intent,80);
+                    }
+                }
+            });
         }
     }
 
@@ -206,6 +226,14 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             acitivityAdapter = new ActivityHotDealLeisureAdapter(mLf.getActivityData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
+            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mLf.getContext(), HotDealActivity.class);
+                    intent.putExtra("tab",1);
+                    mLf.startActivityForResult(intent, 70);
+                }
+            });
         }
     }
 
@@ -239,12 +267,14 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         RecyclerView recyclerView;
         TextView mTitle;
         LinearLayout background_view;
+        LinearLayout btn_moreproduct;
 
         HorizontalThemeViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
+            btn_moreproduct = (LinearLayout) itemView.findViewById(R.id.btn_moreproduct);
         }
     }
 

@@ -157,6 +157,8 @@ public class CONFIG {
     public final static String save_point = domain+"/api/booking/check_discount";		    //	프로모션
     public final static String special_theme_list = domain+"/api/theme";                    // 테마 리스트
     public final static String review_show = domain+"/review";                          // 내 리뷰보기
+    public final static String banner_list = domain+"/banner";                          // banner 전체보기
+    public final static String hotdeal_list = domain+"/deallist";                       // 핫딜
     public static Boolean isRecent = false;                                           // 최근 상품이 없다 생겼을때 유무
     // 앱 종료시 초기화
     public static String sel_orderby = null;												// 검색가테고리

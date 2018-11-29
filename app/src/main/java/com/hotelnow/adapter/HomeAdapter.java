@@ -18,8 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.BannerAllActivity;
 import com.hotelnow.activity.DetailHotelActivity;
+import com.hotelnow.activity.HotDealActivity;
 import com.hotelnow.activity.RecentAllActivity;
+import com.hotelnow.activity.ThemeSAllActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
+import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
@@ -201,6 +206,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             themeSAdapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
+            holder.mMoreView.setVisibility(View.GONE);
+            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
+                    mHf.startActivityForResult(intent, 80);
+                }
+            });
         }
     }
 
@@ -211,6 +224,22 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mHf.getThemeData().get(0).getMain_title());
+
+            holder.btn_moreproduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mHf.getThemeData().get(0).getTheme_flag().equals("H")){
+                        Intent intent = new Intent(mHf.getContext(), ThemeSpecialHotelActivity.class);
+                        intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
+                        mHf.startActivityForResult(intent,80);
+                    }
+                    else{
+                        Intent intent = new Intent(mHf.getContext(), ThemeSpecialActivityActivity.class);
+                        intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
+                        mHf.startActivityForResult(intent,80);
+                    }
+                }
+            });
         }
     }
 
@@ -219,6 +248,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             hotelAdapter = new HotelHotDealAdapter(mHf.getHotelData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
+
+            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
+                    intent.putExtra("tab",0);
+                    mHf.startActivityForResult(intent, 80);
+                }
+            });
         }
     }
 
@@ -229,6 +267,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setAdapter(keyAdapter);
             holder.recyclerView.setBackgroundResource(R.color.footerview);
             holder.main_view.setBackgroundResource(R.color.footerview);
+            holder.mMoreView.setVisibility(View.GONE);
         }
     }
 
@@ -237,6 +276,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             acitivityAdapter = new ActivityHotDealAdapter(mHf.getActivityData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
+            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
+                    intent.putExtra("tab",1);
+                    mHf.startActivityForResult(intent, 80);
+                }
+            });
         }
     }
 
@@ -268,8 +315,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
             holder.page_view.setText("1 / "+ mHf.getPbannerData().size()+" +");
-
             holder.autoViewPager.startAutoScroll();
+
+            holder.page_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), BannerAllActivity.class);
+                    mHf.startActivityForResult(intent, 80);
+                }
+            });
         }
     }
 
@@ -402,12 +456,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RecyclerView recyclerView;
         TextView mTitle;
         LinearLayout background_view;
+        LinearLayout btn_moreproduct;
 
         HorizontalThemeViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
+            btn_moreproduct = (LinearLayout) itemView.findViewById(R.id.btn_moreproduct);
 
         }
     }
@@ -454,13 +510,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mMoreView = (TextView) itemView.findViewById(R.id.all_view);
 
             setTitle(mTitle, page);
-
-            mMoreView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
 

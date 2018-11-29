@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.PrivateDaelAllActivity;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.search.ActivitySearchFragment;
-import com.hotelnow.fragment.search.HotelSearchFragment;
+import com.hotelnow.fragment.hotdeal.HotDealHotelFragment;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
@@ -27,20 +27,18 @@ import java.util.List;
  * Created by susia on 15. 12. 10..
  */
 
-public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> {
+public class PrivateDealAllAdapter extends ArrayAdapter<SearchResultItem> {
     Context mContext;
     String hotels = "";
     DialogAlert dialogAlert;
     List<SearchResultItem> mlist;
-    ActivitySearchFragment hsf;
     DbOpenHelper dbHelper;
 
-    public SearchResultActivityAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, ActivitySearchFragment hsf, DbOpenHelper dbHelper) {
+    public PrivateDealAllAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, DbOpenHelper dbHelper) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
-        this.hsf = hsf;
         this.dbHelper = dbHelper;
     }
 
@@ -63,15 +61,31 @@ public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> 
         final SearchResultItem entry = getItem(position);
 
         holder.hotel_name.setText(entry.getName());
-        holder.tv_nearlocation.setText(entry.getStreet1());
+        holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
         Ion.with(holder.iv_img).load(entry.getLandscape());
 
-        holder.room_count.setVisibility(View.GONE);
-        holder.tv_soldout.setVisibility(View.GONE);
+        if(entry.getItems_quantity() < 5){
+            if(entry.getItems_quantity() == 0) {
+                holder.room_count.setVisibility(View.GONE);
+                holder.tv_discount_rate.setVisibility(View.INVISIBLE);
+                holder.sale_price.setVisibility(View.INVISIBLE);
+                holder.won.setVisibility(View.INVISIBLE);
+                holder.tv_soldout.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.room_count.setVisibility(View.VISIBLE);
+                holder.room_count.setText("남은객실 "+ entry.getItems_quantity()+"개");
+                holder.tv_soldout.setVisibility(View.GONE);
+            }
+        }
+        else{
+            holder.room_count.setVisibility(View.GONE);
+            holder.tv_soldout.setVisibility(View.GONE);
+        }
 
-        if(dbHelper.selectAllFavoriteActivityItem().size() > 0) {
-            for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
-                if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(entry.getId())) {
+        if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+            for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(entry.getId())) {
                     holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
                     holder.islike = true;
                     break;
@@ -93,7 +107,7 @@ public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> 
             @Override
             public void onClick(View v) {
                 LogUtil.e("ggggg", mlist.get((int)v.getTag()).getId()+"");
-                hsf.setLike((int)v.getTag(), finalHolder.islike);
+                ((PrivateDaelAllActivity)mContext).setLike((int)v.getTag(), finalHolder.islike);
             }
         });
 
@@ -143,10 +157,6 @@ public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> 
         }
         holder.hid.setText(entry.getId());
 
-        if(position == mlist.size()-2){
-            hsf.getSearch();
-        }
-
         return v;
     }
 
@@ -178,7 +188,7 @@ public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> 
             tv_special = (TextView) v.findViewById(R.id.tv_special);
 
             special_msg = (LinearLayout) v.findViewById(R.id.special_msg);
-            hid = (TextView) v.findViewById(R.id.hid);
+            hid = (TextView)v.findViewById(R.id.hid);
 
             v.setTag(R.id.id_holder);
         }

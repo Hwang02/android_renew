@@ -44,6 +44,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
@@ -236,7 +237,7 @@ public class HotelSearchFragment extends Fragment {
             Api.get(url + "&page=" + Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

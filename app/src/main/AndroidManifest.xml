@@ -126,6 +126,10 @@
         <activity android:name=".activity.StayMapActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.RecentAllActivity" />
+        <activity android:name=".activity.BannerAllActivity" />
+        <activity android:name=".activity.ThemeSAllActivity" />
+        <activity android:name=".activity.HotDealActivity" />
+        <activity android:name=".activity.PrivateDaelAllActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

@@ -3,26 +3,17 @@ package com.hotelnow.fragment.reservation;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.LoginActivity;
-import com.hotelnow.adapter.FavoriteAdapter;
-import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.adapter.ReservationAdapter;
-import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.databinding.FragmentReservationBinding;
-import com.hotelnow.fragment.model.Banner;
-import com.hotelnow.fragment.model.SingleHorizontal;
-import com.hotelnow.fragment.model.SingleVertical;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 

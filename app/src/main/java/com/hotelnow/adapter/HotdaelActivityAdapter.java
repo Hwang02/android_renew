@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.fragment.hotdeal.HotDealActivityFragment;
 import com.hotelnow.fragment.search.ActivitySearchFragment;
-import com.hotelnow.fragment.search.HotelSearchFragment;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
@@ -27,15 +27,15 @@ import java.util.List;
  * Created by susia on 15. 12. 10..
  */
 
-public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> {
+public class HotdaelActivityAdapter extends ArrayAdapter<SearchResultItem> {
     Context mContext;
     String hotels = "";
     DialogAlert dialogAlert;
     List<SearchResultItem> mlist;
-    ActivitySearchFragment hsf;
+    HotDealActivityFragment hsf;
     DbOpenHelper dbHelper;
 
-    public SearchResultActivityAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, ActivitySearchFragment hsf, DbOpenHelper dbHelper) {
+    public HotdaelActivityAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, HotDealActivityFragment hsf, DbOpenHelper dbHelper) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
@@ -142,10 +142,6 @@ public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> 
             holder.tv_special.setText(entry.getSpecial_msg());
         }
         holder.hid.setText(entry.getId());
-
-        if(position == mlist.size()-2){
-            hsf.getSearch();
-        }
 
         return v;
     }

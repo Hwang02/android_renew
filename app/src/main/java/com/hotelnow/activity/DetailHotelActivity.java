@@ -42,6 +42,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
@@ -51,6 +52,7 @@ import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.HotelImageFragment;
 import com.hotelnow.fragment.model.FacilitySelItem;
 import com.hotelnow.fragment.model.RecentItem;
+import com.hotelnow.fragment.model.TicketInfoEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -61,6 +63,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
+import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkTextView;
 import com.squareup.okhttp.Response;
 
@@ -127,6 +130,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private TextView tv_toast;
     private boolean isLogin = false;
     private NestedScrollView scroll;
+    private LinearLayout hotel_check_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,6 +330,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(getApplicationContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -378,6 +383,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     final JSONObject hotel_data = obj.getJSONObject("hotel");
                     final JSONArray room_data = obj.getJSONArray("room_types");
                     final JSONArray photos = hotel_data.getJSONArray("photos");
+                    final JSONArray notes_array = hotel_data.getJSONArray("notes_array");
                     final JSONObject review_data = obj.getJSONObject("review_info");
                     final JSONArray avail_dates = obj.getJSONArray("avail_dates");
                     final JSONArray instant_coupons = obj.getJSONArray("instant_coupons");
@@ -428,6 +434,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     m_countView = (TextView) findViewById(R.id.page);
                     m_img_title = (TextView) findViewById(R.id.img_title);
                     bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
+                    hotel_check_list = (LinearLayout) findViewById(R.id.hotel_check_list);
 
                     if(hotel_data.getString("is_private_deal").equals("Y")){
                         findViewById(R.id.ico_private).setVisibility(View.VISIBLE);
@@ -657,6 +664,33 @@ public class DetailHotelActivity extends AppCompatActivity {
                             startActivityForResult(intent, 80);
                         }
                     });
+
+                    //이용 정보
+                    ArrayList<TicketInfoEntry> infolist = new ArrayList<>();
+
+                    if(notes_array.length() > 0) {
+                        for (int i = 0; i < notes_array.length(); i++) {
+                            infolist.add(new TicketInfoEntry(notes_array.getJSONObject(i).getString("title"), notes_array.getJSONObject(i).getString("content")));
+                        }
+
+                        if (infolist.size() > 0) {
+                            hotel_check_list.removeAllViews();
+                            for (int i = 0; i < infolist.size(); i++) {
+                                View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
+                                AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
+                                TextView title = (TextView) info_view.findViewById(R.id.title);
+                                title_sub.addAutoLinkMode(
+                                        AutoLinkMode.MODE_PHONE,
+                                        AutoLinkMode.MODE_URL);
+                                title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
+                                title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
+                                title_sub.setText(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n","")));
+                                title.setText(infolist.get(i).getmTitle());
+
+                                hotel_check_list.addView(info_view);
+                            }
+                        }
+                    }
                 }
                 catch (Exception e) {
                     e.getStackTrace();
@@ -913,6 +947,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                     btn_private.setVisibility(View.VISIBLE);
                 }
                 if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                    btn_private.setVisibility(View.GONE);
+                }
+                if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
                     btn_private.setVisibility(View.GONE);
                 }
                 else {

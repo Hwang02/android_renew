@@ -17,25 +17,13 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
-import com.hotelnow.adapter.ActivityHotDealAdapter;
 import com.hotelnow.adapter.ActivityHotDealLeisureAdapter;
-import com.hotelnow.adapter.HotelAdapter;
 import com.hotelnow.adapter.LeisureAdapter;
-import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.databinding.FragmentLeisureBinding;
-import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
-import com.hotelnow.fragment.model.Banner;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
-import com.hotelnow.fragment.model.KeyWordItem;
-import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.fragment.model.RecentItem;
-import com.hotelnow.fragment.model.RecentListItem;
-import com.hotelnow.fragment.model.SingleHorizontal;
-import com.hotelnow.fragment.model.SingleVertical;
-import com.hotelnow.fragment.model.StayHotDealItem;
-import com.hotelnow.fragment.model.SubBannerItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.fragment.model.TopItem;
@@ -52,7 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

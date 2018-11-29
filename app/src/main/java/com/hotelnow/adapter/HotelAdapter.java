@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
+import com.hotelnow.activity.HotDealActivity;
+import com.hotelnow.activity.PrivateDaelAllActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
+import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
@@ -157,6 +162,14 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             hotelAdapter = new HotelHotDealStayAdapter(mHf.getHotelData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
+            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
+                    intent.putExtra("tab",0);
+                    mHf.startActivityForResult(intent, 70);
+                }
+            });
         }
     }
 
@@ -181,6 +194,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             themeSAdapter = new ThemeSpecialStayAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
+            holder.mMoreView.setVisibility(View.GONE);
         }
     }
 
@@ -191,6 +205,21 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mHf.getThemeData().get(0).getMain_title());
+            holder.btn_moreproduct.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mHf.getThemeData().get(0).getTheme_flag().equals("H")){
+                        Intent intent = new Intent(mHf.getContext(), ThemeSpecialHotelActivity.class);
+                        intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
+                        mHf.startActivityForResult(intent,80);
+                    }
+                    else{
+                        Intent intent = new Intent(mHf.getContext(), ThemeSpecialActivityActivity.class);
+                        intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
+                        mHf.startActivityForResult(intent,80);
+                    }
+                }
+            });
         }
     }
 
@@ -227,6 +256,13 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             privateAdapter = new PrivateDealHotelAdapter(mHf.getPrivateDealItem(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(privateAdapter);
+            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), PrivateDaelAllActivity.class);
+                    mHf.startActivityForResult(intent, 70);
+                }
+            });
         }
     }
 
@@ -260,12 +296,14 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         RecyclerView recyclerView;
         TextView mTitle;
         LinearLayout background_view;
+        LinearLayout btn_moreproduct;
 
         HorizontalThemeViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
+            btn_moreproduct = (LinearLayout) itemView.findViewById(R.id.btn_moreproduct);
         }
     }
 
