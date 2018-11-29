@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,10 +19,12 @@ import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
+import com.hotelnow.dialog.DialogMainFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.fragment.model.Popupitem;
 import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.RecentListItem;
@@ -34,6 +37,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements DialogMainFragment.onSubmitListener{
 
     private FragmentHomeBinding mHomeBinding;
     private List<Object> objects = null;
@@ -64,8 +68,9 @@ public class HomeFragment extends Fragment {
     private DbOpenHelper dbHelper;
     private String[] FavoriteStayList;
     private String[] FavoriteActivityList;
-    private SharedPreferences _preferences;
+    public SharedPreferences _preferences;
     private String cookie;
+    public static DialogMainFragment frgpopup = null;
 
     @Nullable
     @Override
@@ -241,7 +246,8 @@ public class HomeFragment extends Fragment {
                                         p_banner.getJSONObject(i).getString("type"),
                                         p_banner.getJSONObject(i).getString("evt_type"),
                                         p_banner.getJSONObject(i).getString("event_id"),
-                                        p_banner.getJSONObject(i).has("link") ? p_banner.getJSONObject(i).getString("link") : ""
+                                        p_banner.getJSONObject(i).has("link") ? p_banner.getJSONObject(i).getString("link") : "",
+                                        p_banner.getJSONObject(i).getString("title")
                                 ));
                             }
                             objects.add(mPbanerItem.get(0));
@@ -438,6 +444,26 @@ public class HomeFragment extends Fragment {
                     objects.add(mDefaultItem.get(0));
 
                     adapter.notifyDataSetChanged();
+
+                    if(obj.has("pop_ups")){
+                        if(obj.getJSONArray("pop_ups").length() >0) {
+                            JSONArray mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+//                            if(!_preferences.getBoolean("today_start_app", false)) {
+//                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                                    frgpopup = new DialogMainFragment();
+                                    frgpopup.mListener = HomeFragment.this;
+                                    frgpopup.popup_data = mPopups;
+                                    frgpopup.pf = HomeFragment.this;
+                                    frgpopup.setCancelable(false);
+
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.add(frgpopup, null);
+                                    ft.commitAllowingStateLoss();
+//                                }
+//                            }
+                        }
+                    }
+
                     MainActivity.hideProgress();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -880,5 +906,10 @@ public class HomeFragment extends Fragment {
                 getRecentData(true);
             }
         }
+    }
+
+    @Override
+    public void setOnSubmitListener(int idx) {
+
     }
 }

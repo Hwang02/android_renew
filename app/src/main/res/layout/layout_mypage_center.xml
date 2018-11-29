@@ -54,9 +54,9 @@
                 android:text="@string/cs_txt1"/>
 
             <ImageView
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:background="@drawable/ico_more_color"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/ico_my_more"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
@@ -93,9 +93,9 @@
                 android:text="@string/cs_faq"/>
 
             <ImageView
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:background="@drawable/ico_more_color"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/ico_my_more"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
 
@@ -133,9 +133,9 @@
                 android:text="@string/cs_txt2"/>
 
             <ImageView
-                android:layout_width="7dp"
-                android:layout_height="7dp"
-                android:background="@drawable/ico_more_color"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/ico_my_more"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
 

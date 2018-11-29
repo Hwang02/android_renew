@@ -1,12 +1,6 @@
 package com.hotelnow.utils;
 
-import android.location.Location;
-
 import com.hotelnow.BuildConfig;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,6 +10,7 @@ import java.util.Date;
 public class CONFIG {
     // 과거 dev server : 54.238.211.153 // sync->dev server 54.64.90.137
     public final static String domain = BuildConfig.domain;                                 //	api url
+    public final static String domain2 = BuildConfig.domain2;                                 //	api url
     public final static String domainssl = BuildConfig.domainssl;                           //	ssl url
     public final static String arsDomain = BuildConfig.arsDomain;                           //	ars url
     public final static String billDomain = BuildConfig.billDomain;                         //	pay url
@@ -71,7 +66,7 @@ public class CONFIG {
     public final static String reviewCreateUrl = domain+"/review/create";					//	리뷰쓰기
     public final static String reviewCreateUrl_v2 = domain+"/review/create_v2";					//	리뷰쓰기
     public final static String reviewListUrl = domain+"/review/list_v2";					//	리뷰리스트 param1 : page_num , param2 : count , param3 : hotel
-    public final static String eventWebUrl = domain+"/popup_event";							//	이벤트 웹 url
+    public final static String eventWebUrl = domain2+"/popup_event";							//	이벤트 웹 url
 
     public final static String ticketUrl = domain+"/activity";                           //  티켓리스트
     public final static String ticket_booking_Url = domain+"/api/qbooking";                 //  티켓예약리스트

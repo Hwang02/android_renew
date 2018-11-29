@@ -4,9 +4,9 @@ package com.hotelnow.fragment.model;
 
 public class BannerItem {
 
-    private String id, order, category, image, keyword, type, evt_type, event_id,  link;
+    private String id, order, category, image, keyword, type, evt_type, event_id,  link, title;
 
-    public BannerItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link) {
+    public BannerItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String title) {
         this.id = id;
         this.order = order;
         this.category = category;
@@ -16,7 +16,16 @@ public class BannerItem {
         this.evt_type = evt_type;
         this.event_id = event_id;
         this.link = link;
+        this.title = title;
 
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getId() {

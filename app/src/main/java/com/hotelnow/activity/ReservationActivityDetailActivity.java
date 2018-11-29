@@ -1,6 +1,7 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -34,8 +37,10 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.dialog.DialogMarket;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.EndEventScrollView;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
@@ -70,7 +75,71 @@ public class ReservationActivityDetailActivity extends Activity {
     String cookie="", user_name ="", user_phone="";
     TextView tv_title_bar;
     int t_count = 0;
+    int dayCount = 0;
+    boolean isEndScroll = false;
+    DialogMarket dialogMarket;
+    EndEventScrollView scrollview;
 
+    private Handler mEndHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0 && !isEndScroll) {
+                isEndScroll = true;
+                if (!_preferences.getBoolean("isReMarket", false)) {
+                    if (_preferences.getString("ReMarketDate", null) == null) {
+                        showMarketPopup();
+                    }
+                    else{
+                        if( (int) Util.diffOfDate(_preferences.getString("ReMarketDate", null), Util.todayFormat()) >= 180){
+                            showMarketPopup();
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    private void showMarketPopup(){
+        final String mDay = Util.todayFormat();
+
+//        누른 날짜 적용
+        dialogMarket = new DialogMarket(
+                getString(R.string.alert_notice),
+                "호텔나우 서비스에 만족하셨나요?\n별점과 리뷰로 응원해주세요!",
+                "다음에요",
+                "응원해요! 호텔나우",
+                ReservationActivityDetailActivity.this,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPreferences.Editor prefEditor = _preferences.edit();
+                        prefEditor.putString("ReMarketDate", mDay);
+                        prefEditor.commit();
+                        dialogMarket.dismiss();
+                    }
+                },
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPreferences.Editor prefEditor = _preferences.edit();
+                        prefEditor.putBoolean("isReMarket", true);
+                        prefEditor.commit();
+
+                        String appPackageName = getPackageName();
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException anfe) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName));
+                            startActivity(intent);
+                        }
+                        dialogMarket.dismiss();
+
+                    }
+                });
+        dialogMarket.setCancelable(false);
+        dialogMarket.show();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +149,8 @@ public class ReservationActivityDetailActivity extends Activity {
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
+        scrollview = (EndEventScrollView) findViewById(R.id.scrollview);
+        scrollview.setHandler(mEndHandler);
 
         Intent intent = getIntent();
         if(intent != null){

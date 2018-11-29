@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
+import com.hotelnow.activity.BannerStayAllActivity;
 import com.hotelnow.activity.HotDealActivity;
 import com.hotelnow.activity.PrivateDaelAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
@@ -211,12 +212,12 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     if (mHf.getThemeData().get(0).getTheme_flag().equals("H")){
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
-                        mHf.startActivityForResult(intent,80);
+                        mHf.startActivityForResult(intent,70);
                     }
                     else{
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialActivityActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
-                        mHf.startActivityForResult(intent,80);
+                        mHf.startActivityForResult(intent,70);
                     }
                 }
             });
@@ -246,6 +247,13 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
 
             holder.page_view.setText("1 / "+ mHf.getPbannerData().size()+" +");
+            holder.page_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), BannerStayAllActivity.class);
+                    mHf.startActivityForResult(intent, 70);
+                }
+            });
 
             holder.autoViewPager.startAutoScroll();
         }

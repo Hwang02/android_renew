@@ -24,13 +24,15 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
     List<BannerItem> mlist;
     DbOpenHelper dbHelper;
     Context mContext;
+    String page;
 
-    public BannerAllAdapter(Context context, int textViewResourceId, List<BannerItem> objects, DbOpenHelper dbHelper) {
+    public BannerAllAdapter(Context context, int textViewResourceId, List<BannerItem> objects, DbOpenHelper dbHelper, String page) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         mlist = objects;
         this.dbHelper = dbHelper;
+        this.page = page;
     }
 
     @Override
@@ -50,7 +52,13 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
         }
 
         BannerItem entry = getItem(position);
-        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(mContext, 180));
+        RelativeLayout.LayoutParams param;
+        if(page == "Home") {
+            param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(mContext, 180));
+        }
+        else {
+            param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(mContext, 130));
+        }
 
         if(position == 0){
             param.topMargin = Util.dptopixel(mContext, 14);

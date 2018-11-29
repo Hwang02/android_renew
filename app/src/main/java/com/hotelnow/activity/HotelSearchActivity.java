@@ -289,7 +289,8 @@ public class HotelSearchActivity extends Activity {
                                         "",
                                         bannerentry.getString("evt_type"),
                                         bannerentry.getString("event_id"),
-                                        bannerentry.getString("link")
+                                        bannerentry.getString("link"),
+                                        bannerentry.getString("title")
                                 ));
                             }
 

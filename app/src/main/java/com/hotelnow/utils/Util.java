@@ -407,19 +407,19 @@ public class Util {
         return wdt;
     }
 
-//    public static String todayFormat(){
-//        String mDay = "";
-//        try {
-//            Date today;
-//            Calendar todayCal = Calendar.getInstance();
-//            todayCal.setTime(new Date());
-//            today = todayCal.getTime();
-//            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-//            mDay = df.format(today);
-//        } catch (Exception e){}
-//
-//        return mDay;
-//    }
+    public static String todayFormat(){
+        String mDay = "";
+        try {
+            Date today;
+            Calendar todayCal = Calendar.getInstance();
+            todayCal.setTime(new Date());
+            today = todayCal.getTime();
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+            mDay = df.format(today);
+        } catch (Exception e){}
+
+        return mDay;
+    }
 //
 //    public static String todayFormat2(){
 //        String mDay = "";

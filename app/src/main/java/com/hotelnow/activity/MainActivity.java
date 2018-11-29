@@ -15,6 +15,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.facebook.CallbackManager;
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
@@ -42,6 +44,7 @@ public class MainActivity extends FragmentActivity {
     private boolean is_refresh = false;
     private DbOpenHelper dbHelper;
     private int myPosition = 0;
+    public static CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +172,9 @@ public class MainActivity extends FragmentActivity {
                 //재선택시 동작 없음.
             }
         });
+
+        // facebook
+        callbackManager = CallbackManager.Factory.create();
 
         setTapMove(SELECTPAGE, false);
     }
@@ -519,5 +525,7 @@ public class MainActivity extends FragmentActivity {
         if(CONFIG.Mypage_Search){
             moveTabReservation();
         }
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

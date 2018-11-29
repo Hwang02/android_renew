@@ -36,6 +36,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
     private String method;
     private String url;
     private CallbackManager callbackManager;
+    private String frontTitle;
 
     public SearchBannerPagerAdapter(Context context, ArrayList<BannerItem> data) {
         this.context = context;
@@ -62,6 +63,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
                     if (arr.length > 1) {
                         frontMethod = arr[1];
                         frontMethod = Util.stringToHTMLString(frontMethod);
+                        frontTitle = data.get((int)v.getTag()).getTitle() != "" ? data.get((int)v.getTag()).getTitle() : "무료 숙박 이벤트";
                     }
                     if (!frontType.equals("a")) {
                         frontEvtId = mId;
@@ -129,6 +131,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
                 else {
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
+                    intentEvt.putExtra("title", frontTitle);
                     context.startActivity(intentEvt);
                 }
             }

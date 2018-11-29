@@ -41,6 +41,7 @@ android {
             resValue("string", "facebook_provider", "com.facebook.app.NativeAppCallContentProvider640301742734227");
 
             buildConfigField("String", "domain", "\"http://" + localhost + ":8888\"")
+            buildConfigField("String", "domain2", "\"http://" + localhost + ":8888\"")
             buildConfigField("String", "domainssl", "\"http://" + localhost + ":8888\"")
             buildConfigField("String", "arsDomain", "\"http://54.178.165.97:8008\"")
             buildConfigField("String", "billDomain", "\"http://54.178.165.97:8808\"")
@@ -57,6 +58,7 @@ android {
             resValue("string", "facebook_provider", "com.facebook.app.NativeAppCallContentProvider640301742734227");
 
             buildConfigField("String", "domain", "\"https://dev.api.hotelnow.co.kr\"")
+            buildConfigField("String", "domain2", "\"http://dev.api.hotelnow.co.kr\"")
             buildConfigField("String", "domainssl", "\"https://dev.api.hotelnow.co.kr\"")
             buildConfigField("String", "arsDomain", "\"http://13.114.248.114:8008\"")
             buildConfigField("String", "billDomain", "\"http://13.114.248.114:8808\"")
@@ -74,6 +76,7 @@ android {
             resValue("string", "facebook_provider", "com.facebook.app.NativeAppCallContentProvider752568681483147");
 
             buildConfigField("String", "domain", "\"https://elb.api.hotelnow.co.kr\"")
+            buildConfigField("String", "domain2", "\"http://elb.api.hotelnow.co.kr\"")
             buildConfigField("String", "domainssl", "\"https://elb.api.hotelnow.co.kr\"")
             buildConfigField("String", "arsDomain", "\"https://54.178.161.178:8008\"")
             buildConfigField("String", "billDomain", "\"https://54.178.161.178:8808\"")

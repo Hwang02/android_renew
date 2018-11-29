@@ -55,6 +55,8 @@ public class EventActivity extends AppCompatActivity {
     DialogAlert dialogAlert;
     String selhid;
     boolean fromPush =false;
+    TextView title_text;
+    String title;
     //  fb
     CallbackManager callbackManager;
 
@@ -76,6 +78,7 @@ public class EventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         idx = intent.getIntExtra("idx", 0);
         obj = intent.getStringExtra("obj");
+        title = intent.getStringExtra("title");
 
         if(intent != null) {
             fromPush = intent.getBooleanExtra("from_push", false);
@@ -86,6 +89,11 @@ public class EventActivity extends AppCompatActivity {
         uid = _preferences.getString("userid", "");
 
         webView = (WebView) findViewById(R.id.webview);
+        title_text = (TextView) findViewById(R.id.title_text);
+
+        if(title != null)
+            title_text.setText(title);
+
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());

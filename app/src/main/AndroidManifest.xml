@@ -130,6 +130,8 @@
         <activity android:name=".activity.ThemeSAllActivity" />
         <activity android:name=".activity.HotDealActivity" />
         <activity android:name=".activity.PrivateDaelAllActivity" />
+        <activity android:name=".activity.BannerActivityAllActivity" />
+        <activity android:name=".activity.BannerStayAllActivity" />
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.BannerAllActivity;
+import com.hotelnow.activity.BannerStayAllActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.HotDealActivity;
 import com.hotelnow.activity.RecentAllActivity;

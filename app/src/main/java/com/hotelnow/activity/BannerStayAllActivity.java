@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class BannerAllActivity extends Activity {
+public class BannerStayAllActivity extends Activity {
 
     private ListView listview;
     private ArrayList<BannerItem> mItems = new ArrayList<>();
@@ -46,7 +46,7 @@ public class BannerAllActivity extends Activity {
         });
 
         listview = (ListView) findViewById(R.id.listview);
-        mAdapter = new BannerAllAdapter(this, 0, mItems, dbHelper, "Home");
+        mAdapter = new BannerAllAdapter(this, 0, mItems, dbHelper, "Stay");
         listview.setAdapter(mAdapter);
 
         getData();
@@ -54,7 +54,7 @@ public class BannerAllActivity extends Activity {
 
     private void getData(){
 
-        Api.get(CONFIG.banner_list+"?category=promotion", new Api.HttpCallback() {
+        Api.get(CONFIG.banner_list+"?category=promotion&view=stay", new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
