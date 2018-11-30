@@ -220,51 +220,27 @@
             android:background="@color/back_line"/>
 
         <RelativeLayout
+            android:id="@+id/btn_setting"
             android:layout_width="match_parent"
-            android:layout_height="105dp"
+            android:layout_height="52dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-            <!-- 고객센터 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_centerVertical="true"
                 android:textSize="15dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/service_txt2"/>
+                android:text="설정하기"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="17dp"
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/ico_my_more"
                 android:layout_alignParentRight="true"
-                android:gravity="center|center_horizontal">
-
-                <CheckBox
-                    android:id="@+id/accept_push"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:clickable="true"
-                    android:background="@drawable/push_checkbox_icon"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13dp"
-                android:textColor="@color/graytxt"
-                android:layout_marginBottom="17dp"
-                android:layout_marginTop="13dp"
-                android:layout_alignParentBottom="true"
-                android:text="@string/service_txt3"/>
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
-        <!-- 고객지원 -->
 
         <View
             android:layout_width="match_parent"

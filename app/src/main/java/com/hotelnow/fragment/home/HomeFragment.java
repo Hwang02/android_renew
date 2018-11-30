@@ -448,8 +448,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     if(obj.has("pop_ups")){
                         if(obj.getJSONArray("pop_ups").length() >0) {
                             JSONArray mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
-//                            if(!_preferences.getBoolean("today_start_app", false)) {
-//                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                            if(!_preferences.getBoolean("today_start_app", false)) {
+                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                     frgpopup = new DialogMainFragment();
                                     frgpopup.mListener = HomeFragment.this;
                                     frgpopup.popup_data = mPopups;
@@ -459,8 +459,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                     ft.add(frgpopup, null);
                                     ft.commitAllowingStateLoss();
-//                                }
-//                            }
+                                }
+                            }
                         }
                     }
 

@@ -94,7 +94,6 @@ public class PagerMainFragment extends Fragment {
             if (arr.length > 1) {
                 frontMethod = arr[1];
                 frontMethod = Util.stringToHTMLString(frontMethod);
-                frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
             }
             if (!frontType.equals("a")) {
                 frontEvtId = mId;
@@ -277,11 +276,11 @@ public class PagerMainFragment extends Fragment {
 //                            }
                             else if (method.equals("outer_link")) {
                                 if(url.contains("hotelnow")) {
+                                    frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                                     Intent intent = new Intent(getActivity(), WebviewActivity.class);
                                     intent.putExtra("url", url);
                                     intent.putExtra("title", frontTitle);
-
-                                    getActivity().startActivity(intent);
+                                    getActivity().startActivityForResult(intent, 80);
 
                                 } else {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -295,10 +294,11 @@ public class PagerMainFragment extends Fragment {
                             Toast.makeText(getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
+                        frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                         Intent intentEvt = new Intent(getActivity(), EventActivity.class);
                         intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                         intentEvt.putExtra("title", frontTitle);
-                        getActivity().startActivity(intentEvt);
+                        getActivity().startActivityForResult(intentEvt, 80);
                     }
 
                     if(mPf != null && mPf.frgpopup != null) {

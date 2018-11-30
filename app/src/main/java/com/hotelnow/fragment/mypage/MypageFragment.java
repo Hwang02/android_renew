@@ -23,6 +23,7 @@ import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.MyCardActivity;
 import com.hotelnow.activity.MyCouponActivity;
 import com.hotelnow.activity.MySaveActivity;
+import com.hotelnow.activity.SettingActivity;
 import com.hotelnow.activity.SignupActivity;
 import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.databinding.FragmentMypageBinding;
@@ -48,6 +49,7 @@ public class MypageFragment extends Fragment {
     private DialogConfirm dialogConfirm;
     private String expire_money, save_money;
     private DbOpenHelper dbHelper;
+    private boolean isPush = false;
 
     @Nullable
     @Override
@@ -70,11 +72,15 @@ public class MypageFragment extends Fragment {
         dbHelper = new DbOpenHelper(getActivity());
         mMypageBinding.join.rlJoin.setVisibility(View.GONE);
 
-        // 푸시
-        mMypageBinding.center.acceptPush.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // 설정하기
+        mMypageBinding.center.btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setPush();
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                intent.putExtra("isPush", isPush);
+                intent.putExtra("isEmail", _preferences.getString("marketing_email_yn", "N"));
+                intent.putExtra("isSms", _preferences.getString("marketing_sms_yn", "N"));
+                startActivityForResult(intent, 91);
             }
         });
 
@@ -354,7 +360,7 @@ public class MypageFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-                mMypageBinding.center.acceptPush.setChecked(false);
+                isPush = false;
                 if(getActivity() == null) {
                     Util.doRestart(HotelnowApplication.getAppContext());
                 }
@@ -378,7 +384,7 @@ public class MypageFragment extends Fragment {
                     checkLogin();
 
                 } catch (Exception e) {
-                    mMypageBinding.center.acceptPush.setChecked(false);
+                    isPush = false;
                 }
             }
         });
@@ -401,7 +407,7 @@ public class MypageFragment extends Fragment {
             Api.post(CONFIG.notiStatusUrl, params.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
-                    mMypageBinding.center.acceptPush.setChecked(false);
+                    isPush = false;
                 }
 
                 @Override
@@ -414,16 +420,13 @@ public class MypageFragment extends Fragment {
                             return;
                         }
 
-                        try{
-                            if(obj.getString("status").toUpperCase().equals("Y"))
-                                mMypageBinding.center.acceptPush.setChecked(true);
-                            else
-                                mMypageBinding.center.acceptPush.setChecked(false);
-                        } catch (JSONException e) {
-                            mMypageBinding.center.acceptPush.setChecked(false);
-                        }
+                        isPush = obj.getString("status").toUpperCase().equals("Y") ? true : false;
+                        SharedPreferences.Editor prefEditor = _preferences.edit();
+                        prefEditor.putString("marketing_email_yn", obj.getString("marketing_email_yn"));
+                        prefEditor.putString("marketing_sms_yn", obj.getString("marketing_sms_yn"));
+                        prefEditor.commit();
                     } catch (Exception e) {
-                        mMypageBinding.center.acceptPush.setChecked(false);
+                        isPush = false;
                     }
                 }
             });
@@ -461,22 +464,16 @@ public class MypageFragment extends Fragment {
                         mMypageBinding.join.disableMoney.setText(expire_money+"원");
                         mMypageBinding.join.disableCoupon.setText(data.getInt("expire_coupon_cnt")+"장");
 
-//                        utype.setVisibility(View.GONE);
-//                        if(_preferences.getString("utype",null) != null && _preferences.getString("utype",null).equals("kakao")) {
-//                            utype.setImageResource(R.drawable.ico_login_kakao);
-//                            utype.setVisibility(View.VISIBLE);
-//                        }
-//
-//                        if(_preferences.getString("utype",null) != null && _preferences.getString("utype",null).equals("facebook")) {
-//                            utype.setImageResource(R.drawable.ico_login_facebook);
-//                            utype.setVisibility(View.VISIBLE);
-//                        }
+                        SharedPreferences.Editor prefEditor = _preferences.edit();
+                        prefEditor.putString("marketing_email_yn", obj.getString("marketing_email_yn"));
+                        prefEditor.putString("marketing_sms_yn", obj.getString("marketing_sms_yn"));
+                        prefEditor.commit();
 
                         // 푸시 사용설정
                         if(obj.getString("status").toUpperCase().equals("Y"))
-                            mMypageBinding.center.acceptPush.setChecked(true);
+                            isPush = true;
                         else
-                            mMypageBinding.center.acceptPush.setChecked(false);
+                            isPush = false;
 
                     } catch (Exception e) {
                         Log.e(CONFIG.TAG, e.toString());
@@ -498,47 +495,5 @@ public class MypageFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-    }
-
-    private void setPush(){
-        // 푸시 수신 상태값 저장
-        String regId = _preferences.getString("gcm_registration_id", null);
-        String userId = _preferences.getString("userid", null);
-
-        if(regId != null)
-            setGcmToken(getActivity(), regId, userId, mMypageBinding.center.acceptPush.isChecked());
-    }
-
-    // GCM TOKEN
-    public static void setGcmToken(final Context context, String regId, String userId, final Boolean flag){
-        String androidId = Util.getAndroidId(context);
-
-        JSONObject paramObj = new JSONObject();
-
-        try{
-            paramObj.put("os", "a");
-            paramObj.put("uuid", androidId);
-            paramObj.put("push_token", regId);
-            paramObj.put("ver", Util.getAppVersionName(context));
-
-            if(flag != null) {
-                paramObj.put("use_yn", ((flag == true)? "Y":"N"));
-            }
-            if(userId != null) paramObj.put("user_id", userId);
-        } catch (JSONException e) {}
-
-        Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
-            @Override
-            public void onFailure(Response response, Exception e) {
-            }
-
-            @Override
-            public void onSuccess(Map<String, String> headers, String body) {
-                try {
-//                    setPushCheckPopup(context, flag);
-                } catch (Exception e) {
-                }
-            }
-        });
     }
 }

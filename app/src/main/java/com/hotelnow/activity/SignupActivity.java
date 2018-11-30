@@ -486,6 +486,9 @@ public class SignupActivity extends Activity {
                             prefEditor.putString("username", username);
                             prefEditor.putString("phone", phone);
                             prefEditor.putString("userid", userid);
+                            prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
+                            prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
+
                             prefEditor.commit();
 
                             // 디바이스 정보 서버에 있는지 체크 후 적립금 띄우든가 말든가

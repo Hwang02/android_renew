@@ -112,7 +112,7 @@ public class DialogMainFragment extends DialogFragment {
 
         ViewPager mViewPager = (ViewPager) getView().findViewById(R.id.popup_pager);
 
-        CheckBox left = (CheckBox) getView().findViewById(R.id.left);
+        final CheckBox left = (CheckBox) getView().findViewById(R.id.left);
         TextView right = (TextView) getView().findViewById(R.id.right);
 
         mViewPager.setClipToPadding(true);
@@ -123,33 +123,31 @@ public class DialogMainFragment extends DialogFragment {
         mViewPager.setCurrentItem(0, true);
         mViewPager.setOnPageChangeListener(mPagerAdapter);
 
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 오늘 하루 닫기
-                Calendar calendar = Calendar.getInstance();
-                Date currentTime = new Date();
-                calendar.setTime(currentTime);
-                calendar.add(Calendar.DAY_OF_YEAR, 7);
-
-                SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String checkdate = mSimpleDateFormat.format(calendar.getTime());
-                if(pf != null && pf._preferences != null) {
-                    Util.setPreferenceValues(pf._preferences, "front_popup_date", checkdate);
-                }
-                if(pf != null && pf.frgpopup != null)
-                    pf.frgpopup.dismiss();
-            }
-        });
-
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 닫기
-                if(pf != null && pf.frgpopup != null) {
-                    pf.frgpopup.dismiss();
-                    Util.setPreferenceValues(pf._preferences, "today_start_app", true);
 
+                if(left.isChecked()){
+                    // 오늘 하루 닫기
+                    Calendar calendar = Calendar.getInstance();
+                    Date currentTime = new Date();
+                    calendar.setTime(currentTime);
+                    calendar.add(Calendar.DAY_OF_YEAR, 7);
+
+                    SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String checkdate = mSimpleDateFormat.format(calendar.getTime());
+                    if(pf != null && pf._preferences != null) {
+                        Util.setPreferenceValues(pf._preferences, "front_popup_date", checkdate);
+                    }
+                    if(pf != null && pf.frgpopup != null)
+                        pf.frgpopup.dismiss();
+                }
+                else {
+                    // 닫기
+                    if (pf != null && pf.frgpopup != null) {
+                        pf.frgpopup.dismiss();
+                        Util.setPreferenceValues(pf._preferences, "today_start_app", true);
+                    }
                 }
             }
         });

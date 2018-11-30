@@ -171,7 +171,7 @@ public class EventActivity extends AppCompatActivity {
                                     try {
                                         JSONObject obj = new JSONObject(body);
 
-                                        if (!obj.getString("result").equals("success")) {
+                                        if (obj.has("result") && !obj.getString("result").equals("success")) {
                                             Toast.makeText(EventActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                                             return;
                                         }
@@ -203,14 +203,13 @@ public class EventActivity extends AppCompatActivity {
                                         intent.putExtra("evt", "N");
                                         intent.putExtra("sdate", checkin);
                                         intent.putExtra("edate", checkout);
-                                        startActivity(intent);
+                                        intent.putExtra("save", true);
+                                        startActivityForResult(intent, 80);
                                     } catch (Exception e) {
 //                                        Log.e(CONFIG.TAG, e.toString());
                                         Toast.makeText(EventActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                         return;
                                     }
-
-
                                 }
                             });
                         }
@@ -222,7 +221,8 @@ public class EventActivity extends AppCompatActivity {
                             Intent intent = new Intent(EventActivity.this, DetailHotelActivity.class);
                             intent.putExtra("hid", hid);
                             intent.putExtra("evt", "Y");
-                            startActivity(intent);
+                            intent.putExtra("save", true);
+                            startActivityForResult(intent, 80);
                         }
 
                         // move_theme_ticket
@@ -231,7 +231,8 @@ public class EventActivity extends AppCompatActivity {
 
                             Intent intent = new Intent(EventActivity.this, DetailHotelActivity.class);
                             intent.putExtra("tid", tid);
-                            startActivity(intent);
+                            intent.putExtra("save", true);
+                            startActivityForResult(intent, 80);
                         }
 
                         // move_ticket_detail

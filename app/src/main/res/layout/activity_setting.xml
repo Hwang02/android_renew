@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_title"
+        android:background="@color/white"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/Theme.AppCompat.NoActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+
+            <RelativeLayout
+                android:id="@+id/title_back"
+                android:layout_width="45dp"
+                android:layout_height="55dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ico_titbar_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:layout_toRightOf="@id/title_back"
+                android:textColor="@color/purple"
+                android:textSize="16dp"
+                android:text="설정하기" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/title_back"
+                android:background="@color/bg_background" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:textSize="14dp"
+            android:text="할인 혜택 알림 설정"
+            android:textColor="@color/purple"
+            android:background="@color/back_line"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:gravity="center_vertical"/>
+
+        <RelativeLayout
+            android:id="@+id/ll_email"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이메일"
+                android:textSize="15dp"
+                android:textColor="@color/select_setting_txt"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:gravity="center|center_horizontal">
+
+                <CheckBox
+                    android:id="@+id/accept_email"
+                    android:layout_width="50dp"
+                    android:layout_height="26dp"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:background="@drawable/push_checkbox_icon"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/v_email"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:id="@+id/ll_sms"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_sms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SMS/MMS"
+                android:textSize="15dp"
+                android:textColor="@color/select_setting_txt"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:gravity="center|center_horizontal">
+
+                <CheckBox
+                    android:id="@+id/accept_sms"
+                    android:layout_width="50dp"
+                    android:layout_height="26dp"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:background="@drawable/push_checkbox_icon"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/v_sms"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_push"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="앱 PUSH"
+                android:textSize="15dp"
+                android:textColor="@color/select_setting_txt"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:gravity="center|center_horizontal">
+
+                <CheckBox
+                    android:id="@+id/accept_push"
+                    android:layout_width="50dp"
+                    android:layout_height="26dp"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:background="@drawable/push_checkbox_icon"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:textColor="@color/purple"
+                android:text="- 단독 특가 알림, 깜짝 이벤트 등 호텔나우의 실속있는 혜택을  누구보다 빠르게 받아볼 수 있습니다."/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:textColor="@color/termtext"
+                android:text="- 동의해주신 채널에 따라 메시지가 발송됩니다. 원하지 않으실  경우 각 채널별 수신동의를 해제해주시기 바랍니다."/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -98,6 +98,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
                             intent.putExtra("evt", "N");
                             intent.putExtra("sdate", Util.setCheckinout().get(0));
                             intent.putExtra("edate", Util.setCheckinout().get(1));
+                            intent.putExtra("save", true);
                             context.startActivity(intent);
                         }
                         else if (method.equals("outer_link")) {

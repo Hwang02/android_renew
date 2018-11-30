@@ -200,6 +200,8 @@ public class LoginActivity extends Activity{
                             prefEditor.putString("phone", phone);
                             prefEditor.putString("userid", userid);
                             prefEditor.putString("moreinfo", moreinfo);
+                            prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
+                            prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
                             prefEditor.commit();
 
                             // Tune
@@ -430,6 +432,8 @@ public class LoginActivity extends Activity{
                     prefEditor.putString("userid", userid);
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
+                    prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
+                    prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
                     prefEditor.commit();
 
                     // Tune
