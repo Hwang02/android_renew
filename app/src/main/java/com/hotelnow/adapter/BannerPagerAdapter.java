@@ -8,21 +8,28 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.EventActivity;
-import com.hotelnow.activity.MainActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;
+import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.BannerItem;
+import com.hotelnow.utils.Api;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
-
+import com.squareup.okhttp.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.Map;
 
 public class BannerPagerAdapter extends PagerAdapter {
     private Context context;
@@ -36,10 +43,14 @@ public class BannerPagerAdapter extends PagerAdapter {
     private String url;
     private CallbackManager callbackManager;
     private String frontTitle;
+    private static DialogAlert dialogAlert;
+    private HomeFragment mHf;
+    private String mTitle;
 
-    public BannerPagerAdapter(Context context, ArrayList<BannerItem> data) {
+    public BannerPagerAdapter(Context context, ArrayList<BannerItem> data, HomeFragment mHf) {
         this.context = context;
         this.data = data;
+        this.mHf = mHf;
     }
 
     @Override
@@ -55,6 +66,7 @@ public class BannerPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 mId = data.get((int)v.getTag()).getId();
+                mTitle = data.get((int)v.getTag()).getTitle();
                 if (!TextUtils.isEmpty(data.get((int)v.getTag()).getImage())) {
                     frontType = data.get((int)v.getTag()).getEvt_type();
                     frontImg = data.get((int)v.getTag()).getImage();
@@ -75,54 +87,101 @@ public class BannerPagerAdapter extends PagerAdapter {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
                         url = obj.getString("param");
-                        if (method.equals("social_open")) {
-                            if (url.equals("kakao")) {
-                                Util.showKakaoLink((MainActivity)context);
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                t.send(new HitBuilders.EventBuilder().setCategory("RECOMMENDATION").setAction("KAKAO").setLabel("EVENT_ALONE").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
-//                                TuneWrap.Event("RECOMMENDATION", "KAKAO", "EVENT_ALONE");
-                            } else if (url.equals("facebook")) {
-                                callbackManager = CallbackManager.Factory.create();
-                                Util.shareFacebookFeed((MainActivity)context, callbackManager);
+
+                        if (method.equals("move_near")) {
+                            int fDayLimit = mHf._preferences.getInt("future_day_limit", 180);
+                            String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
+
+                            Api.get(checkurl, new Api.HttpCallback() {
+                                @Override
+                                public void onFailure(Response response, Exception e) {
+                                    Toast.makeText(context, context.getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                @Override
+                                public void onSuccess(Map<String, String> headers, String body) {
+                                    try {
+                                        JSONObject obj = new JSONObject(body);
+                                        JSONArray aobj = obj.getJSONArray("data");
+
+                                        if (aobj.length() == 0) {
+                                            dialogAlert = new DialogAlert(
+                                                    context.getString(R.string.alert_notice),
+                                                    "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
+                                                    context,
+                                                    new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialogAlert.dismiss();
+                                                        }
+                                                    });
+                                            dialogAlert.setCancelable(false);
+                                            dialogAlert.show();
+                                            return;
+                                        }
+
+                                        String checkin = aobj.getString(0);
+                                        String checkout = Util.getNextDateStr(checkin);
+
+                                        Intent intent = new Intent(context, DetailHotelActivity.class);
+                                        intent.putExtra("hid", url);
+                                        intent.putExtra("evt", "N");
+                                        intent.putExtra("sdate", checkin);
+                                        intent.putExtra("edate", checkout);
+
+                                        mHf.startActivityForResult(intent, 80);
+
+                                    } catch (Exception e) {
+                                        // Log.e(CONFIG.TAG, e.toString());
+                                        Toast.makeText(context, context.getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
+                                }
+                            });
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                t.send(new HitBuilders.EventBuilder().setCategory("RECOMMENDATION").setAction("FACEBOOK").setLabel("EVENT_ALONE").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-//                                TuneWrap.Event("RECOMMENDATION", "FACEBOOK", "EVENT_ALONE");
-                            }
-                        } else if (method.equals("move_near")) {
-                            Intent intent = new Intent(context, DetailHotelActivity.class);
-                            intent.putExtra("hid", url);
-                            intent.putExtra("evt", "N");
-                            intent.putExtra("sdate", Util.setCheckinout().get(0));
-                            intent.putExtra("edate", Util.setCheckinout().get(1));
-                            context.startActivity(intent);
-                        }
-                        else if (method.equals("outer_link")) {
-                            if(url.contains("hotelnow")) {
-                                Intent intent = new Intent(context, WebviewActivity.class);
-                                intent.putExtra("url", url);
-                                intent.putExtra("title", "");
-
-                                context.startActivity(intent);
-
-                            } else {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                context.startActivity(intent);
-                            }
-
-//                            t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                            TuneWrap.Event("EVENT", frontEvtId);
-                        }
-                        else if (method.equals("move_theme")) {
+                        } else if (method.equals("move_theme")) {
                             Intent intent = new Intent(context, ThemeSpecialHotelActivity.class);
                             intent.putExtra("tid", url);
 
-                            context.startActivity(intent);
+                            mHf.startActivityForResult(intent, 80);
 
-//                            t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                            TuneWrap.Event("EVENT", frontEvtId);
+//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
+//                                TuneWrap.Event("EVENT", frontEvtId);
+                        } else if (method.equals("move_theme_ticket")) {
+                            Intent intent = new Intent(context, ThemeSpecialActivityActivity.class);
+                            intent.putExtra("tid", url);
+
+                            mHf.startActivityForResult(intent, 80);
+
+//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
+//                                TuneWrap.Event("EVENT", frontEvtId);
+                        } else if (method.equals("move_ticket_detail")) {
+                            Intent intent = new Intent(context, DetailActivityActivity.class);
+                            intent.putExtra("tid", url);
+
+                            mHf.startActivityForResult(intent, 80);
+
+//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
+//                                TuneWrap.Event("EVENT", frontEvtId);
+                        } else if (method.equals("outer_link")) {
+                            if (url.contains("hotelnow")) {
+                                frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
+                                Intent intent = new Intent(context, WebviewActivity.class);
+                                intent.putExtra("url", url);
+                                intent.putExtra("title", frontTitle);
+                                mHf.startActivityForResult(intent, 80);
+
+                            } else {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                mHf.startActivity(intent);
+                            }
+
+//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
+//                                TuneWrap.Event("EVENT", frontEvtId);
                         }
                     }
                     catch (Exception e) {}

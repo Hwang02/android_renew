@@ -291,7 +291,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void BannerView(final BannerViewHolder holder, int type) {
         if(bannerAdapter == null) {
             PAGES = mHf.getPbannerData().size();
-            bannerAdapter = new BannerPagerAdapter(context, mHf.getPbannerData());
+            bannerAdapter = new BannerPagerAdapter(context, mHf.getPbannerData(), mHf);
             holder.autoViewPager.setClipToPadding(false);
             holder.autoViewPager.setOffscreenPageLimit(mHf.getPbannerData().size());
             holder.autoViewPager.setPageMargin(20);

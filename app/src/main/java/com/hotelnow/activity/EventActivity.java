@@ -136,7 +136,7 @@ public class EventActivity extends AppCompatActivity {
                         }
 
                         // move_detail
-                        if(obj.getString("method").equals("move_detail")){
+                        else if(obj.getString("method").equals("move_detail")){
 
                             JSONObject info = new JSONObject(obj.getString("param"));
 
@@ -150,11 +150,12 @@ public class EventActivity extends AppCompatActivity {
                             intent.putExtra("evt", is_event);
                             intent.putExtra("sdate", sdate);
                             intent.putExtra("edate", edate);
-                            startActivity(intent);
+                            intent.putExtra("save", true);
+                            startActivityForResult(intent, 80);
                         }
 
                         // move_near
-                        if(obj.getString("method").equals("move_near")){
+                        else if(obj.getString("method").equals("move_near")){
                             selhid = obj.getString("param");
                             int fDayLimit = _preferences.getInt("future_day_limit", 180);
                             String checkurl = CONFIG.checkinDateUrl+"/"+selhid+"/"+ String.valueOf(fDayLimit);
@@ -214,24 +215,12 @@ public class EventActivity extends AppCompatActivity {
                             });
                         }
 
-                        // move_hotel
-                        if(obj.getString("method").equals("move_hotel")){
-                            String hid = obj.getString("param");
-
-                            Intent intent = new Intent(EventActivity.this, DetailHotelActivity.class);
-                            intent.putExtra("hid", hid);
-                            intent.putExtra("evt", "Y");
-                            intent.putExtra("save", true);
-                            startActivityForResult(intent, 80);
-                        }
-
                         // move_theme_ticket
                         if(obj.getString("method").equals("move_theme_ticket")){
                             String tid = obj.getString("param");
 
-                            Intent intent = new Intent(EventActivity.this, DetailHotelActivity.class);
-                            intent.putExtra("tid", tid);
-                            intent.putExtra("save", true);
+                            Intent intent = new Intent(EventActivity.this, ThemeSpecialActivityActivity.class);
+                            intent.putExtra("tid", url);
                             startActivityForResult(intent, 80);
                         }
 
@@ -239,38 +228,21 @@ public class EventActivity extends AppCompatActivity {
                         if(obj.getString("method").equals("move_ticket_detail")){
                             String tid = obj.getString("param");
 
-                            Intent intent = new Intent(EventActivity.this, DetailHotelActivity.class);
+                            Intent intent = new Intent(EventActivity.this, DetailActivityActivity.class);
                             intent.putExtra("tid", tid);
                             intent.putExtra("evt", "Y");
-                            startActivity(intent);
+                            intent.putExtra("save", true);
+                            startActivityForResult(intent, 80);
                         }
 
-//                        // move_theme
-//                        if(obj.getString("method").equals("move_theme")){
-//                            String tid = obj.getString("param");
-//
-//                            Intent intent = new Intent(EventActivity.this, ThemeHotelActivity.class);
-//                            intent.putExtra("tid", tid);
-//                            startActivity(intent);
-//                        }
+                        // move_theme
+                        if(obj.getString("method").equals("move_theme")){
+                            String tid = obj.getString("param");
 
-//                        // move_page
-//                        if(obj.getString("method").equals("move_page")){
-//                            String type = obj.getString("param");
-//
-//                            if(type.equals("account")){
-//                                Intent intent = new Intent(EventActivity.this, IndexActivity.class);
-//                                startActivity(intent);
-//                                intent.putExtra("reserve", true);
-//                                startActivity(intent);
-//
-//                            } else if(type.equals("booking")) {
-//                                Intent intent = new Intent(EventActivity.this, IndexActivity.class);
-//                                startActivity(intent);
-//                                intent.putExtra("booking", true);
-//                                startActivity(intent);
-//                            }
-//                        }
+                            Intent intent = new Intent(EventActivity.this, ThemeSpecialHotelActivity.class);
+                            intent.putExtra("tid", tid);
+                            startActivity(intent);
+                        }
 
                         if(obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow")){
                             view.loadUrl(obj.getString("param"));

@@ -14,10 +14,16 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.EventActivity;
 import com.hotelnow.activity.MainActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
+import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.utils.Api;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
@@ -130,150 +136,88 @@ public class PagerMainFragment extends Fragment {
                             method = obj.getString("method");
                             url = obj.getString("param");
 
-                            if (method.equals("social_open")) {
-                                if (url.equals("kakao")) {
-                                    Util.showKakaoLink(getActivity());
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("RECOMMENDATION").setAction("KAKAO").setLabel("EVENT_ALONE").build());
-//                                    TuneWrap.Event("EVENT", frontEvtId);
-//                                    TuneWrap.Event("RECOMMENDATION", "KAKAO", "EVENT_ALONE");
-                                } else if (url.equals("facebook")) {
-                                    CallbackManager callbackManager = MainActivity.callbackManager;
+                           if (method.equals("move_near")) {
+                                int fDayLimit = mPf._preferences.getInt("future_day_limit", 180);
+                                String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
 
-                                    FacebookSdk.sdkInitialize(HotelnowApplication.getAppContext());
-                                    callbackManager = CallbackManager.Factory.create();
+                                Api.get(checkurl, new Api.HttpCallback() {
+                                    @Override
+                                    public void onFailure(Response response, Exception e) {
+                                        Toast.makeText(getActivity(), getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
 
-                                    Util.shareFacebookFeed(getActivity(), callbackManager);
+                                    @Override
+                                    public void onSuccess(Map<String, String> headers, String body) {
+                                        try {
+                                            JSONObject obj = new JSONObject(body);
+                                            JSONArray aobj = obj.getJSONArray("data");
 
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("RECOMMENDATION").setAction("FACEBOOK").setLabel("EVENT_ALONE").build());
-//                                    TuneWrap.Event("EVENT", frontEvtId);
-//                                    TuneWrap.Event("RECOMMENDATION", "FACEBOOK", "EVENT_ALONE");
-                                }
+                                            if (aobj.length() == 0) {
+                                                dialogAlert = new DialogAlert(
+                                                        getActivity().getString(R.string.alert_notice),
+                                                        "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
+                                                        getActivity(),
+                                                        new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                dialogAlert.dismiss();
+                                                            }
+                                                        });
+                                                dialogAlert.setCancelable(false);
+                                                dialogAlert.show();
+                                                return;
+                                            }
+
+                                            String checkin = aobj.getString(0);
+                                            String checkout = Util.getNextDateStr(checkin);
+
+                                            Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                                            intent.putExtra("hid", url);
+                                            intent.putExtra("evt", "N");
+                                            intent.putExtra("sdate", checkin);
+                                            intent.putExtra("edate", checkout);
+
+                                            getActivity().startActivityForResult(intent, 80);
+
+                                        } catch (Exception e) {
+                                            // Log.e(CONFIG.TAG, e.toString());
+                                            Toast.makeText(getActivity(), getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+                                    }
+                                });
+
+//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
+//                                TuneWrap.Event("EVENT", frontEvtId);
                             }
-//                            else if (method.equals("move_detail")) {
-//                                try {
-//                                    JSONObject info = new JSONObject(url);
-//
-//                                    String hid = info.getString("hotel_id");
-//                                    String sdate = info.getString("date");
-//                                    String edate = info.getString("e_date");
-//                                    String is_event = info.getString("is_event");
-//
-//                                    Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
-//                                    intent.putExtra("hid", hid);
-//                                    intent.putExtra("evt", is_event);
-//                                    intent.putExtra("sdate", sdate);
-//                                    intent.putExtra("edate", edate);
-//
-//                                    getActivity().startActivity(intent);
-//                                    getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
-//
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                    TuneWrap.Event("EVENT", frontEvtId);
-//                                } catch (Exception e) {}
-//                            }  else if (method.equals("move_near")) {
-//                                int fDayLimit = mPf._preferences.getInt("future_day_limit", 30);
-//                                String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + String.valueOf(fDayLimit);
-//
-//                                Api.get(checkurl, new Api.HttpCallback() {
-//                                    @Override
-//                                    public void onFailure(Response response, Exception e) {
-//                                        Toast.makeText(getActivity(), getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-//                                        return;
-//                                    }
-//
-//                                    @Override
-//                                    public void onSuccess(Map<String, String> headers, String body) {
-//                                        try {
-//                                            JSONObject obj = new JSONObject(body);
-//                                            JSONArray aobj = obj.getJSONArray("data");
-//
-//                                            if (aobj.length() == 0) {
-//                                                dialogAlert = new DialogAlert(
-//                                                        getActivity().getString(R.string.alert_notice),
-//                                                        "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
-//                                                        getActivity(),
-//                                                        new View.OnClickListener() {
-//                                                            @Override
-//                                                            public void onClick(View v) {
-//                                                                dialogAlert.dismiss();
-//                                                            }
-//                                                        });
-//                                                dialogAlert.setCancelable(false);
-//                                                dialogAlert.show();
-//                                            }
-//
-//                                            String checkin = aobj.getString(0);
-//                                            String checkout = Util.getNextDateStr(checkin);
-//
-//                                            Intent intent = new Intent((IndexActivity) mPf.getActivity(), ProductDetailActivity.class);
-//                                            intent.putExtra("hid", url);
-//                                            intent.putExtra("evt", "N");
-//                                            intent.putExtra("sdate", checkin);
-//                                            intent.putExtra("edate", checkout);
-//
-//                                            mPf.getActivity().startActivity(intent);
-//                                            mPf.getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
-//
-//                                        } catch (Exception e) {
-//                                            // Log.e(CONFIG.TAG, e.toString());
-//                                            Toast.makeText(getActivity(), getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-//                                            return;
-//                                        }
-//
-//                                    }
-//                                });
-//
+                             else if (method.equals("move_theme")) {
+                                Intent intent = new Intent(getActivity(), ThemeSpecialHotelActivity.class);
+                                intent.putExtra("tid", url);
+
+                                getActivity().startActivityForResult(intent, 80);
+
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-//                            } else if (method.equals("move_hotel")) {
-//                                Intent intent = new Intent(getActivity(), ProductDetailActivity.class);
-//                                intent.putExtra("hid", url);
-//                                intent.putExtra("evt", "Y");
-//                                getActivity().startActivity(intent);
-//                                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
-//
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
-//                            } else if (method.equals("move_theme")) {
-//                                Intent intent = new Intent(getActivity(), ThemeHotelActivity.class);
-//                                intent.putExtra("tid", url);
-//
-//                                getActivity().startActivity(intent);
-//                                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
-//
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
-//                            } else if (method.equals("move_page")) {
-//                                if (url.equals("account")) {
-//                                    IndexActivity.setTapHost((IndexActivity)getActivity(), 3);
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                    TuneWrap.Event("EVENT", frontEvtId);
-//                                } else if (url.equals("booking")) {
-//                                    IndexActivity.setTapHost((IndexActivity) getActivity(), 2);
-//                                    t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                    TuneWrap.Event("EVENT", frontEvtId);
-//                                }
-//                            } else if(method.equals("move_theme_ticket")){
-//                                Intent intent = new Intent(getActivity(), ThemeTicketActivity.class);
-//                                intent.putExtra("tid", url);
-//
-//                                startActivity(intent);
-//                                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
-//
+                            }
+                           else if(method.equals("move_theme_ticket")){
+                                Intent intent = new Intent(getActivity(), ThemeSpecialActivityActivity.class);
+                                intent.putExtra("tid", url);
+
+                                getActivity().startActivityForResult(intent, 80);
+
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-//                            } else if(method.equals("move_ticket_detail")){
-//                                Intent intent = new Intent(getActivity(), TicketDetailActivity.class);
-//                                intent.putExtra("tid", url);
-//
-//                                startActivity(intent);
-//                                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_in_down);
-//
+                            } else if(method.equals("move_ticket_detail")){
+                                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                                intent.putExtra("tid", url);
+
+                                getActivity().startActivityForResult(intent, 80);
+
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-//                            }
+                            }
                             else if (method.equals("outer_link")) {
                                 if(url.contains("hotelnow")) {
                                     frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";

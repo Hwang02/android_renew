@@ -10,7 +10,10 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -45,7 +48,7 @@ public class SignupActivity extends Activity {
     private TextView auth_ok, auth_count, remain_count;
     private Button btn_auth;
     private EditText auth_string, email, passwd, username, phone_num_2, phone_num_3;
-    private CheckBox all_checkbox, agree_checkbox0, agree_checkbox1, agree_checkbox2, agree_checkbox3;
+    private CheckBox all_checkbox, agree_checkbox0, agree_checkbox1, agree_checkbox2, agree_checkbox3, agree_checkbox4;
     private CountDownTimer countDownTimer;
     private final int MILLISINFUTURE = 180 * 1000; //총 시간 (300초 = 5분)
     private final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
@@ -54,6 +57,7 @@ public class SignupActivity extends Activity {
     private EditText codeInput;
     private TextView codeResult;
     private LinearLayout auth_layout;
+    private String marketing_yn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,6 +93,11 @@ public class SignupActivity extends Activity {
         agree_checkbox1 = (CheckBox)findViewById(R.id.agree_checkbox1);
         agree_checkbox2 = (CheckBox)findViewById(R.id.agree_checkbox2);
         agree_checkbox3 = (CheckBox)findViewById(R.id.agree_checkbox3);
+        agree_checkbox4 = (CheckBox)findViewById(R.id.agree_checkbox4);
+
+        SpannableStringBuilder builder = new SpannableStringBuilder("할인 혜택 알림 수신동의(선택)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 14, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_checkbox4.setText(builder);
 
         Intent intent = getIntent();
         emailval = intent.getStringExtra("email") != null? intent.getStringExtra("email"):"";
@@ -107,6 +116,7 @@ public class SignupActivity extends Activity {
                 agree_checkbox1.setChecked(isChecked);
                 agree_checkbox2.setChecked(isChecked);
                 agree_checkbox3.setChecked(isChecked);
+                agree_checkbox4.setChecked(isChecked);
             }
         });
 
@@ -439,6 +449,14 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
+                if (agree_checkbox4.isChecked() != true) {
+                    marketing_yn = "N";
+                }
+                else {
+                    marketing_yn = "Y";
+                }
+
+
                 String phone_num_1 = (String) (phone_first.getSelectedItem() != null ? phone_first.getSelectedItem() : phone_prefixs[0]);
                 phone_number = phone_num_1 + "-" + phone_num_2.getText().toString() + "-" + phone_num_3.getText().toString();
 
@@ -454,6 +472,7 @@ public class SignupActivity extends Activity {
                     paramObj.put("useragent", Util.getUserAgent(SignupActivity.this));
                     paramObj.put("uuid", Util.getAndroidId(SignupActivity.this));
                     paramObj.put("phone_auth", is_auth);
+                    paramObj.put("marketing_yn",marketing_yn);
                 } catch (JSONException e) {}
 
                 Api.post(CONFIG.signupUrl, paramObj.toString(), new Api.HttpCallback() {

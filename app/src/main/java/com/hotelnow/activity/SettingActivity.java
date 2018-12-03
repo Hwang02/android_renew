@@ -65,18 +65,13 @@ public class SettingActivity extends Activity{
         Intent intent = getIntent();
 
         cb_push.setChecked(intent.getBooleanExtra("isPush", false));
-        if(intent.getStringExtra("isEmail").equals("Y")) {
-            cb_email.setChecked(true);
-        }
-        else{
-            cb_email.setChecked(false);
-        }
-        if(intent.getStringExtra("isSms").equals("Y")) {
-            cb_sms.setChecked(true);
-        }
-        else{
-            cb_sms.setChecked(false);
-        }
+        tv_push.setSelected(intent.getBooleanExtra("isPush", false));
+
+        cb_email.setChecked(intent.getStringExtra("isEmail").equals("Y"));
+        tv_email.setSelected(intent.getStringExtra("isEmail").equals("Y"));
+
+        cb_sms.setChecked(intent.getStringExtra("isSms").equals("Y"));
+        tv_sms.setSelected(intent.getStringExtra("isSms").equals("Y"));
 
         cb_email.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -140,7 +135,7 @@ public class SettingActivity extends Activity{
                             discountAlert.dismiss();
                         }
                         if(obj.getJSONObject("marketing_info").getString("category").equals("email")){
-                            tv_email.setSelected((obj.getJSONObject("marketing_info").getString("yn").equals("Y")) ? true : false);
+                            tv_email.setSelected((obj.getJSONObject("marketing_info").getString("yn").equals("Y")));
                             if(tv_email.isSelected()){
                                 discountAlert = new DialogDiscountAlert(
                                         "할인 혜택 알림 수신 동의 안내",
@@ -179,7 +174,7 @@ public class SettingActivity extends Activity{
                             }
                         }
                         else{
-                            tv_sms.setSelected((obj.getJSONObject("marketing_info").getString("yn").equals("Y")) ? true : false);
+                            tv_sms.setSelected((obj.getJSONObject("marketing_info").getString("yn").equals("Y")));
                             if(tv_sms.isSelected()){
                                 discountAlert = new DialogDiscountAlert(
                                         "할인 혜택 알림 수신 동의 안내",
@@ -260,16 +255,63 @@ public class SettingActivity extends Activity{
         Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                cb_push.setChecked(false);
+                tv_push.setSelected(false);
             }
 
             @Override
             public void onSuccess(Map<String, String> headers, String body) {
                 try {
-                    if (cb_push.isChecked())
-                        tv_push.setSelected(true);
-                    else
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        cb_push.setChecked(false);
                         tv_push.setSelected(false);
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(obj.has("use_yn")) {
+                        tv_push.setSelected((obj.getString("use_yn").equals("Y")));
+                        if (cb_push.isChecked()) {
+                            discountAlert = new DialogDiscountAlert(
+                                    "할인 혜택 알림 수신 동의 안내",
+                                    "앱 PUSH (동의)",
+                                    "수신 동의 일시 : " + obj.getString("updated_at").substring(0, 16),
+                                    "위의 내용으로 호텔나우 혜택 알림 수신에 동의 하셨습니다.",
+                                    "특가 정보, 이벤트, 할인쿠폰 소식 받고 즐거운 여행을 떠나세요!",
+                                    SettingActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            discountAlert.dismiss();
+                                            tv_push.setSelected(true);
+                                        }
+                                    }
+                            );
+
+                            discountAlert.show();
+                        } else {
+                            discountAlert = new DialogDiscountAlert(
+                                    "할인 혜택 알림 수신 미동의 안내",
+                                    "앱 PUSH (미동의)",
+                                    "수신 동의 일시 : " + obj.getString("updated_at").substring(0, 16),
+                                    "위의 내용으로 호텔나우 혜택 알림 수신에 미동의 하셨습니다.",
+                                    "특가 정보, 이벤트, 할인 쿠폰 소식이 궁금하다면 언제든지 푸시 알림을 허용해주세요!",
+                                    SettingActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            discountAlert.dismiss();
+                                        }
+                                    }
+                            );
+
+                            discountAlert.show();
+                        }
+                    }
                 } catch (Exception e) {
+                    cb_push.setChecked(false);
+                    tv_push.setSelected(false);
                 }
             }
         });
