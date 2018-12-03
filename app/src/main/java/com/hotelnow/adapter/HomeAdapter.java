@@ -524,7 +524,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     title.setText("작은베너");
                     break;
                 case KEYWORD:
-                    title.setText("요즘 뜨는 키워드");
+                    title.setText("요즘 뜨는 인기 키워드");
                     break;
                 case RECENT:
                     title.setText("최근 본 상품");

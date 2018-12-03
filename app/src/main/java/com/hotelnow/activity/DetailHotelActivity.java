@@ -501,6 +501,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_review_rate.setText(review_data.getDouble("avg")+"");
                     setReviewRate(review_data.getDouble("avg"));
                     tv_review_count.setText(review_data.getInt("cnt")+"");
+                    if(review_data.getInt("cnt") == 0){
+                        btn_more_review.setVisibility(View.GONE);
+                    }
+                    else{
+                        btn_more_review.setVisibility(View.VISIBLE);
+                    }
                     final Double r1, r2, r3, r4, avg;
                     r1 = review_data.getDouble("r1");
                     r2 = review_data.getDouble("r2");

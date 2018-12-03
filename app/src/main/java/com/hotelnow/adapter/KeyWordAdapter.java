@@ -49,6 +49,7 @@ public class KeyWordAdapter extends RecyclerView.Adapter<KeyWordAdapter.MyViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, SearchResultActivity.class);
                 intent.putExtra("banner_id", data.get(position).getId());
+                intent.putExtra("banner_name", data.get(position).getLink());
                 intent.putExtra("page", "key");
                 ((MainActivity)mContext).startActivityForResult(intent,80);
             }

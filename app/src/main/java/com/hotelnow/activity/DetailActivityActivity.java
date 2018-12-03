@@ -84,7 +84,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     public static int markPrevPosition = 0;
     private TicketPagerAdapter mPagerAdapter;
     private ToughViewPager mViewPager;
-    private LinearLayout room_list, coupon_list, btn_more_detail, info_list;
+    private LinearLayout room_list, coupon_list, btn_more_detail, info_list, btn_more_review;
     private int ticket_count = 0;
     private List<TicketSelEntry> sel_list = new ArrayList<TicketSelEntry>();
     private int isAcoupon[];
@@ -347,6 +347,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_review_rate = (TextView) findViewById(R.id.tv_review_rate);
                     tv_review_count = (TextView) findViewById(R.id.tv_review_count);
                     btn_reservation = (Button) findViewById(R.id.btn_reservation);
+                    btn_more_review = (LinearLayout) findViewById(R.id.btn_more_review);
 
                     if(ticket_data.getString("is_hot_deal").equals("Y")){
                         findViewById(R.id.ico_hotdeal).setVisibility(View.VISIBLE);
@@ -377,6 +378,12 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_review_rate.setText(mAvg+"");
                     setReviewRate(review_data.getDouble("avg"));
                     tv_review_count.setText(review_data.getInt("cnt")+"");
+                    if(review_data.getInt("cnt") == 0){
+                        btn_more_review.setVisibility(View.GONE);
+                    }
+                    else{
+                        btn_more_review.setVisibility(View.VISIBLE);
+                    }
                     final Double r1, r2, r3, r4, avg;
                     r1 = review_data.getDouble("r1");
                     r2 = review_data.getDouble("r2");

@@ -237,7 +237,9 @@ public class HotelSearchFragment extends Fragment {
             Api.get(url + "&page=" + Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
-                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    if(isAdded()) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
@@ -445,8 +447,11 @@ public class HotelSearchFragment extends Fragment {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    banner_id = mKeywordList.get((int)v.getTag()).getId();
-                    setClear();
+                    Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
+                    intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());
+                    startActivityForResult(intent, 80);
+                    getActivity().finish();
                 }
             });
 

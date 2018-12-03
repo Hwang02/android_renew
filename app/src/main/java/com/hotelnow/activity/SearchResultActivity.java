@@ -28,7 +28,7 @@ public class SearchResultActivity extends AppCompatActivity {
     RelativeLayout toast_layout;
     ImageView ico_favorite;
     TextView tv_toast;
-    String order_kind="", page = "";
+    String order_kind="", page = "", banner_name="";
 
 
     @Override
@@ -42,6 +42,7 @@ public class SearchResultActivity extends AppCompatActivity {
         m_Selecttab = intent.getIntExtra("tab",0);
         search_txt = intent.getStringExtra("search");
         banner_id = intent.getStringExtra("banner_id");
+        banner_name = intent.getStringExtra("banner_name");
         order_kind = intent.getStringExtra("order_kind");
         page = intent.getStringExtra("page");
 
@@ -51,6 +52,10 @@ public class SearchResultActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(page)){
             page = "";
+        }
+
+        if(TextUtils.isEmpty(banner_name)){
+            banner_name = "";
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -64,7 +69,12 @@ public class SearchResultActivity extends AppCompatActivity {
 
         title_text = (TextView) findViewById(R.id.title_text);
         if(TextUtils.isEmpty(order_kind)) {
-            title_text.setText(search_txt);
+            if(!TextUtils.isEmpty(banner_name)){
+                title_text.setText(banner_name);
+            }
+            else {
+                title_text.setText(search_txt);
+            }
         }
         else {
             title_text.setText("내 주변 바로보기");

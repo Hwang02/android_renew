@@ -530,6 +530,7 @@ public class SearchActivity extends Activity{
                 public void onClick(View v) {
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                     intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
+                    intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());
                     startActivityForResult(intent, 80);
 
                 }

@@ -36,52 +36,13 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="14dp"
         android:orientation="horizontal">
-        
-        <LinearLayout
-            android:id="@+id/paytype0_background"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:background="@drawable/style_edittext_gray_border">
-            
-            <ImageView
-                android:id="@+id/img_paytype0"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="31dp"
-                android:background="@drawable/ico_pay_direct"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:id="@+id/tv_paytype0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/paytype0"
-                android:textColor="@color/blacktxt"
-                android:textSize="14dp"
-                android:layout_marginLeft="8dp" />
-            
-            <TextView
-                android:id="@+id/paytype0_count"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginLeft="4dp"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:text="2"
-                android:textSize="11dp"
-                android:background="@drawable/style_oval_purple"/>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/paytype1_background"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:background="@drawable/style_edittext_gray_border">
@@ -99,6 +60,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/paytype1"
+                android:textColor="@color/blacktxt"
+                android:textSize="14dp"
+                android:layout_marginLeft="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/paytype5_background"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:background="@drawable/style_edittext_gray_border">
+
+            <ImageView
+                android:id="@+id/img_paytype5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="31dp"
+                android:background="@drawable/ico_pay_payco"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/tv_paytype5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/paytype5"
                 android:textColor="@color/blacktxt"
                 android:textSize="14dp"
                 android:layout_marginLeft="8dp" />
@@ -126,39 +115,11 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/paytype5_background"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginRight="5dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:background="@drawable/style_edittext_gray_border">
-
-            <ImageView
-                android:id="@+id/img_paytype5"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="31dp"
-                android:background="@drawable/ico_pay_payco"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:id="@+id/tv_paytype5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/paytype5"
-                android:textColor="@color/blacktxt"
-                android:textSize="14dp"
-                android:layout_marginLeft="8dp" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/paytype4_background"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:background="@drawable/style_edittext_gray_border">
@@ -180,22 +141,12 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="8dp" />
         </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/paytype2_background"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:orientation="horizontal"
             android:layout_weight="1"
             android:gravity="center_vertical"
@@ -218,13 +169,23 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="8dp" />
         </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/paytype3_background"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:background="@drawable/style_edittext_gray_border">
@@ -246,6 +207,16 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="8dp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:background="@drawable/style_edittext_gray_border"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <LinearLayout

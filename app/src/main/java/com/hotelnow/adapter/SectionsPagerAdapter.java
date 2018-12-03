@@ -11,7 +11,7 @@ import com.hotelnow.fragment.search.HotelSearchFragment;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public Context mContext;
-    public String search_txt, banner_id, order_kind;
+    public String search_txt, banner_id, order_kind, banner_name;
     public Bundle bundle;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm, String search_txt, String banner_id, String order_kind) {

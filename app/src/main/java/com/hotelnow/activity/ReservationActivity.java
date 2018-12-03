@@ -121,10 +121,10 @@ public class ReservationActivity extends Activity {
     int save_price = 0;
     private LinearLayout ll_private;
     String mPage = ""; // nomal, private
-    private LinearLayout paytype0_background, paytype1_background, paytype2_background, paytype3_background, paytype4_background, paytype5_background, paytype3_info, booking_save_point;
+    private LinearLayout paytype1_background, paytype2_background, paytype3_background, paytype4_background, paytype5_background, paytype3_info, booking_save_point;
     private LinearLayout paytype0_list;
-    private TextView tv_paytype0, tv_paytype1, tv_paytype2, tv_paytype3, tv_paytype4, tv_paytype5, paytype0_count;
-    private ImageView img_paytype0, img_paytype1, img_paytype2, img_paytype3, img_paytype4, img_paytype5;
+    private TextView tv_paytype1, tv_paytype2, tv_paytype3, tv_paytype4, tv_paytype5;
+    private ImageView img_paytype1, img_paytype2, img_paytype3, img_paytype4, img_paytype5;
     private HashMap<Integer, JSONObject> billmap;
     private CheckBox agree_policy;
     private DialogBookingCaution bdialog;
@@ -747,19 +747,19 @@ public class ReservationActivity extends Activity {
                     }
 
                     // 결제 정보
-                    paytype0_background = (LinearLayout) findViewById(R.id.paytype0_background);
+//                    paytype0_background = (LinearLayout) findViewById(R.id.paytype0_background);
                     paytype1_background = (LinearLayout) findViewById(R.id.paytype1_background);
                     paytype5_background = (LinearLayout) findViewById(R.id.paytype5_background);
                     paytype4_background = (LinearLayout) findViewById(R.id.paytype4_background);
                     paytype2_background = (LinearLayout) findViewById(R.id.paytype2_background);
                     paytype3_background = (LinearLayout) findViewById(R.id.paytype3_background);
-                    tv_paytype0= (TextView) findViewById(R.id.tv_paytype0);
+//                    tv_paytype0= (TextView) findViewById(R.id.tv_paytype0);
                     tv_paytype1= (TextView) findViewById(R.id.tv_paytype1);
                     tv_paytype2= (TextView) findViewById(R.id.tv_paytype2);
                     tv_paytype3= (TextView) findViewById(R.id.tv_paytype3);
                     tv_paytype4= (TextView) findViewById(R.id.tv_paytype4);
                     tv_paytype5= (TextView) findViewById(R.id.tv_paytype5);
-                    img_paytype0= (ImageView) findViewById(R.id.img_paytype0);
+//                    img_paytype0= (ImageView) findViewById(R.id.img_paytype0);
                     img_paytype1= (ImageView) findViewById(R.id.img_paytype1);
                     img_paytype2= (ImageView) findViewById(R.id.img_paytype2);
                     img_paytype3= (ImageView) findViewById(R.id.img_paytype3);
@@ -768,36 +768,36 @@ public class ReservationActivity extends Activity {
 
                     paytype3_info = (LinearLayout) findViewById(R.id.paytype3_info);
                     paytype0_list = (LinearLayout) findViewById(R.id.paytype0_list);
-                    paytype0_count = (TextView) findViewById(R.id.paytype0_count);
+//                    paytype0_count = (TextView) findViewById(R.id.paytype0_count);
                     if(_preferences.getString("userid", null) != null && data.has("billkeys") && !data.getString("billkeys").equals("null")) {
                         JSONArray billkeys = data.getJSONArray("billkeys");
                         if (billkeys.length() > 0) {
-                            paytype0_count.setText(billkeys.length()+"");
+//                            paytype0_count.setText(billkeys.length()+"");
                             billmap = new HashMap<Integer, JSONObject>();
                             for (int i = 0; i < billkeys.length(); i++) {
                                 JSONObject tmp = billkeys.getJSONObject(i);
                                 billmap.put(i, tmp);
                             }
                         }
-                        paytype0_background.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                setPayItem(4);
-                            }
-                        });
+//                        paytype0_background.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                setPayItem(4);
+//                            }
+//                        });
                     }
                     else {
-                        paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border_gray_bg);
-                        tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.graytxt));
-                        img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_no);
-                        paytype0_count.setVisibility(View.GONE);
-
-                        paytype0_background.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                setPayItem(4);
-                            }
-                        });
+//                        paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border_gray_bg);
+//                        tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.graytxt));
+//                        img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_no);
+//                        paytype0_count.setVisibility(View.GONE);
+//
+//                        paytype0_background.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                setPayItem(4);
+//                            }
+//                        });
                     }
 
                     paytype1_background.setOnClickListener(new View.OnClickListener() {
@@ -1343,27 +1343,27 @@ public class ReservationActivity extends Activity {
                     }
                 }
                 paytype0_list.addView(rg);
-                paytype0_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
-                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
-                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_selected);
+//                paytype0_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
+//                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
+//                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_selected);
             }
             else{
                 View child = getLayoutInflater().inflate(R.layout.layout_paytype0_info, null);
                 paytype0_list.addView(child);
             }
-            paytype0_count.setVisibility(View.GONE);
+//            paytype0_count.setVisibility(View.GONE);
         }else{
             if(billmap != null && billmap.size() > 0) {
-                paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border);
-                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
-                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct);
-                paytype0_count.setVisibility(View.VISIBLE);
+//                paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border);
+//                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
+//                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct);
+//                paytype0_count.setVisibility(View.VISIBLE);
             }
             else {
-                paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border_gray_bg);
-                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.graytxt));
-                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_no);
-                paytype0_count.setVisibility(View.GONE);
+//                paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border_gray_bg);
+//                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.graytxt));
+//                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_no);
+//                paytype0_count.setVisibility(View.GONE);
             }
             paytype0_list.setVisibility(View.GONE);
 
