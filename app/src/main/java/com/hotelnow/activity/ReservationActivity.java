@@ -689,7 +689,7 @@ public class ReservationActivity extends Activity {
                     else{
                         booking_save_point.setVisibility(View.GONE);
                         ll_coupon.setVisibility(View.GONE);
-                        setSavePoint("","");
+//                        setSavePoint("","");
                     }
 
                     // 결제관련 이미지
