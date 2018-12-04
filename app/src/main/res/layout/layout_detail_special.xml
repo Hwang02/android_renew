@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/special_title"
         android:textColor="@color/purple"
-        android:textSize="14dp"
+        android:textSize="15dp"
         android:gravity="center"/>
 
    <include layout="@layout/layout_detail_special_item" />

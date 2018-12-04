@@ -116,7 +116,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="12dp"
+                        android:layout_marginRight="24dp"
                         android:layout_toLeftOf="@id/btn_zzim">
                         <ImageView
                             android:id="@+id/icon_share"

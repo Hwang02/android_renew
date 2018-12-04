@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/blacktxt"
-        android:textSize="14dp"
+        android:textSize="16dp"
         android:text="상품 소개"
         android:layout_marginTop="28dp"
         android:layout_marginLeft="20dp"

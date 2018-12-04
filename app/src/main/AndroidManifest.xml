@@ -125,14 +125,22 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.StayMapActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RecentAllActivity" />
-        <activity android:name=".activity.BannerAllActivity" />
-        <activity android:name=".activity.ThemeSAllActivity" />
-        <activity android:name=".activity.HotDealActivity" />
-        <activity android:name=".activity.PrivateDaelAllActivity" />
-        <activity android:name=".activity.BannerActivityAllActivity" />
-        <activity android:name=".activity.BannerStayAllActivity" />
-        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.RecentAllActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BannerAllActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ThemeSAllActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.HotDealActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PrivateDaelAllActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BannerActivityAllActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BannerStayAllActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.hotelnow.utils.MyFirebaseMessagingService">

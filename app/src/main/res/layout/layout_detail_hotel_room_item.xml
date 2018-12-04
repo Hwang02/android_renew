@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:textSize="16dp"
+        android:textSize="17dp"
         android:textColor="@color/blacktxt"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -29,12 +29,12 @@
         android:id="@+id/tv_room_sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="13dp"
+        android:textSize="15dp"
         android:textColor="@color/purple"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@id/tv_room_title"
         tools:text="객실 예약 시 FB 3만원권 1매 증정!" />
 
@@ -45,7 +45,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@id/tv_room_sub_title"
-        android:layout_marginTop="11dp">
+        android:layout_marginTop="14dp">
 
         <ImageView
             android:id="@+id/img_room"
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/redtext"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     tools:text="48%↓"/>
 
                 <LinearLayout
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/blacktxt"
-                        android:textSize="16dp"
+                        android:textSize="17dp"
                         tools:text="205,700"/>
 
                     <TextView
@@ -286,7 +286,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@id/hscroll_img"
-            android:textSize="13dp"
+            android:textSize="14dp"
             android:textColor="@color/termtext"/>
 
         <LinearLayout
