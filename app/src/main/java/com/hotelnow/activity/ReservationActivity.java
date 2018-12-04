@@ -109,7 +109,7 @@ public class ReservationActivity extends Activity {
     private Map<Integer, String> coupon_arr;
     private ArrayList<Integer> coupon_price;
     private ArrayList<String> coupon_avail;
-    private TextView tv_discount_price, tv_real_price, tv_total_price, tv_total_discount_point;
+    private TextView tv_discount_price, tv_real_price, tv_total_price, tv_total_discount_point, tv_title_bar;
     private ViewPager pay_pager;
     private ArrayList<String> banner_arr;
     private ReservationPagerAdapter pay_adapter;
@@ -189,8 +189,17 @@ public class ReservationActivity extends Activity {
         booking_save_point = (LinearLayout) findViewById(R.id.booking_save_point);
         tv_total_discount_point = (TextView) findViewById(R.id.tv_total_discount_point);
         btn_point_ok = (Button) findViewById(R.id.btn_point_ok);
+        tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
 
         cookie = _preferences.getString("userid", null);
+
+        if(cookie == null){
+            tv_title_bar.setText(getResources().getString(R.string.login_not_user_title));
+            findViewById(R.id.ll_coupon_title).setVisibility(View.GONE);
+        }
+        else{
+            tv_title_bar.setText(getResources().getString(R.string.reservation_title));
+        }
 
         point_discount.addTextChangedListener(new TextWatcher() {
             @Override

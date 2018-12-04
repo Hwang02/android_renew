@@ -120,7 +120,7 @@ public class ReservationActivityActivity extends Activity {
     String mPage = ""; // nomal, private
     private LinearLayout paytype1_background, paytype3_background, paytype5_background, paytype3_info, booking_save_point;
     private LinearLayout paytype0_list;
-    private TextView tv_paytype1, tv_paytype3, tv_paytype5;
+    private TextView tv_paytype1, tv_paytype3, tv_paytype5, tv_title_bar;
     private ImageView img_paytype1, img_paytype3, img_paytype5;
     private HashMap<Integer, JSONObject> billmap;
     private CheckBox agree_policy;
@@ -182,9 +182,18 @@ public class ReservationActivityActivity extends Activity {
         layout_info = (LinearLayout) findViewById(R.id.layout_info);
         rl_all_point = (RelativeLayout) findViewById(R.id.rl_all_point);
         ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
+        tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
 
 
         cookie = _preferences.getString("userid", null);
+
+        if(cookie == null){
+            tv_title_bar.setText(getResources().getString(R.string.login_not_user_title));
+            findViewById(R.id.ll_coupon_title).setVisibility(View.GONE);
+        }
+        else{
+            tv_title_bar.setText(getResources().getString(R.string.reservation_title));
+        }
 
         ll_private.setVisibility(View.GONE);
         ll_point.setVisibility(View.GONE);

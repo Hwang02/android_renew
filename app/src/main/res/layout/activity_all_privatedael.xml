@@ -42,7 +42,7 @@
                 android:layout_toRightOf="@id/title_back"
                 android:textColor="@color/purple"
                 android:textSize="16dp"
-                android:text="테마 여행" />
+                android:text="프라이빗딜" />
 
             <View
                 android:layout_width="match_parent"

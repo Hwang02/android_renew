@@ -219,6 +219,7 @@
     <string name="login_sns">SNS계정으로 로그인</string>
     <string name="login_kakao">카카오</string>
     <string name="login_facebook">페이스북</string>
+    <string name="login_not_user_title"><u>비회원 예약하기</u></string>
     <string name="login_not_user"><u>비회원 예약하기 ></u></string>
     <string name="login_user_search"><u>비회원 조회하기 ></u></string>
     <string name="login_user_search2"><u>비회원 예약조회</u></string>
