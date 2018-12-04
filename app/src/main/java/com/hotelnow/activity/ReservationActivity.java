@@ -16,13 +16,16 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.text.util.Linkify;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,7 @@ import com.hotelnow.dialog.DialogBookingCaution;
 import com.hotelnow.dialog.DialogFee;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
@@ -1021,7 +1025,9 @@ public class ReservationActivity extends Activity {
                     });
 
                     // 규정
-                    Spanned fee_tmp = Html.fromHtml(data.getString("fee").replaceAll("\n", "<br>").replaceAll("-", "ㆍ"));
+                    Spannable fee_tmp = new SpannableString(Html.fromHtml(data.getString("fee").replaceAll("\n", "<br>").replaceAll("-", "ㆍ")));
+                    Linkify.addLinks(fee_tmp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                    fee_text.setMovementMethod(CustomLinkMovementMethod.getInstance());
                     fee_text.setText(fee_tmp);
                     cancel_fee_str = data.getString("fee");
                     cancel_fee_str = cancel_fee_str + "\n\n- <font color=#ff0000>체크아웃</font> : " + Util.formatchange(checkout_date.substring(0,10));

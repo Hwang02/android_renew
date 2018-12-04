@@ -27,11 +27,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
+import android.text.util.Linkify;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +58,7 @@ import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.TicketInfoEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
@@ -64,6 +68,7 @@ import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkMode;
+import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;
 import com.squareup.okhttp.Response;
 
@@ -77,6 +82,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 public class DetailHotelActivity extends AppCompatActivity {
 
@@ -690,9 +696,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                                         AutoLinkMode.MODE_URL);
                                 title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
                                 title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
-                                title_sub.setText(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n","")));
-                                title.setText(infolist.get(i).getmTitle());
+                                Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n","")));
+                                Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                                title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                                title_sub.setText(sp);
 
+                                title.setText(infolist.get(i).getmTitle());
                                 hotel_check_list.addView(info_view);
                             }
                         }

@@ -26,6 +26,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.fragment.model.TicketSelEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -42,6 +43,9 @@ import com.kakao.util.exception.KakaoException;
 import com.squareup.okhttp.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -60,6 +64,7 @@ public class LoginActivity extends Activity{
     private SharedPreferences _preferences;
     private TextView btn_nocookie;
     private DbOpenHelper dbHelper;
+    private ArrayList<TicketSelEntry> sel_items;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +95,7 @@ public class LoginActivity extends Activity{
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");
         tname = intent.getStringExtra("tname");
+        sel_items = (ArrayList<TicketSelEntry>)intent.getSerializableExtra("sel_list");
 
         // 회원가입
         Button btn_join = (Button)findViewById(R.id.btn_join);
@@ -298,6 +304,24 @@ public class LoginActivity extends Activity{
                     intent.putExtra("pid", pid);
                     intent.putExtra("ec_date", ec_date);
                     intent.putExtra("ee_date", ee_date);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+        else if(page.equals("detailA")){ // 비회원 예약
+            btn_nocookie.setText(getResources().getText(R.string.login_not_user));
+
+            btn_nocookie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                    Intent intent = new Intent(LoginActivity.this, ReservationActivityActivity.class);
+                    intent.putExtra("sel_list", (Serializable) sel_items);
+                    intent.putExtra("tid", pid);
+                    intent.putExtra("tname", tname);
                     startActivity(intent);
                     finish();
                 }

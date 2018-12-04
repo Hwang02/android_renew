@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
+import android.text.util.Linkify;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -530,6 +531,22 @@ public class Util {
             return false;
         }
     }
+
+    public static final Linkify.MatchFilter sPhoneNumberMatchFilter = new Linkify.MatchFilter() {
+        public final boolean acceptMatch(CharSequence s, int start, int end) {
+            int digitCount = 0;
+
+            for (int i = start; i < end; i++) {
+                if (Character.isDigit(s.charAt(i))) {
+                    digitCount++;
+                    if (digitCount >= 8) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    };
 
     public static String getFrontThemeId(String thumb_link_action) {
         String[] arr = thumb_link_action.split("otelnowevent://");

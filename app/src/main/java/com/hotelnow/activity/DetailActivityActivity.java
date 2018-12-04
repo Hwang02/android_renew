@@ -18,8 +18,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +49,7 @@ import com.hotelnow.fragment.model.TicketInfoEntry;
 import com.hotelnow.fragment.model.TicketSelEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
@@ -739,7 +746,10 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     AutoLinkMode.MODE_URL);
                             title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
                             title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
-                            title_sub.setText(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+                            Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+                            Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                            title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                            title_sub.setText(sp);
                             title.setText(infolist.get(i).getmTitle());
 
                             info_list.addView(info_view);
@@ -772,6 +782,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     intent.putExtra("sel_list", (Serializable) sel_list);
                                     intent.putExtra("pid", tid);
                                     intent.putExtra("tname", tname);
+                                    intent.putExtra("page", "detailA");
                                     startActivityForResult(intent,90);
                                 }
                             }

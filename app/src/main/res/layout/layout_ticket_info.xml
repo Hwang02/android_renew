@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="13dp"
-        android:autoLink="phone|web"
+        android:textColorLink="@color/purple"
         android:textColor="@color/termtext"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
