@@ -68,7 +68,6 @@ public class ReservationFragment extends Fragment {
         else {
             mReservationBinding.viewPager.setCurrentItem(1);
         }
-        mReservationBinding.tabLayout.setupWithViewPager(mReservationBinding.viewPager);
 
         mReservationBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -78,7 +77,7 @@ public class ReservationFragment extends Fragment {
                     reservationAdapter.notifyDataSetChanged();
                     CONFIG.TabLogin=false;
                 }
-                CONFIG.sel_reserv = tab.getPosition();
+//                CONFIG.sel_reserv = tab.getPosition();
             }
 
             @Override

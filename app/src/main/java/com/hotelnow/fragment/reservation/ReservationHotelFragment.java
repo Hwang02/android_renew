@@ -97,7 +97,6 @@ public class ReservationHotelFragment extends Fragment {
     }
 
     public void authCheck() {
-        LogUtil.e("xxxxxxxx", "11001010101001");
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("ui", _preferences.getString("userid", null));
