@@ -16,7 +16,7 @@
             android:id="@+id/iv_image"
             android:layout_width="290dp"
             android:layout_height="150dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:riv_corner_radius="2dp"/>
         
         <ImageView

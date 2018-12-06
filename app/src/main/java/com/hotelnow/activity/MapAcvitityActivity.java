@@ -74,7 +74,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         Page = intent.getIntExtra("Page",1);
         order_kind = intent.getStringExtra("order_kind");
 
-        if(order_kind.equals("distance")){
+        if(order_kind != null &&order_kind.equals("distance")){
            lat =  intent.getStringExtra("lat");
            lng = intent.getStringExtra("lng");
         }
