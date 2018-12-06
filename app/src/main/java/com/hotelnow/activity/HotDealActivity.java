@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.HotDealPagerAdapter;
-import com.hotelnow.adapter.SectionsPagerAdapter;
 
 public class HotDealActivity extends AppCompatActivity {
 

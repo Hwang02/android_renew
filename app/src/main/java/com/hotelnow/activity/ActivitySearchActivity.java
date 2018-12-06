@@ -7,19 +7,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,13 +25,10 @@ import android.widget.Toast;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchLeisureAdapter;
-import com.hotelnow.adapter.SearchResultActivityAdapter;
-import com.hotelnow.adapter.SearchStayAdapter;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -45,8 +39,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ActivitySearchActivity extends Activity {
 

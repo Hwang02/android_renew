@@ -1,6 +1,5 @@
 package com.hotelnow.fragment.detail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailHotelActivity;

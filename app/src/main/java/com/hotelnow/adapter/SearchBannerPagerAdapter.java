@@ -18,7 +18,6 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.EventActivity;
-import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;

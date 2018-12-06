@@ -1,6 +1,5 @@
 package com.hotelnow.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.SingleVertical;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
-import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;

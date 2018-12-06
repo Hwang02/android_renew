@@ -7,14 +7,11 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
@@ -31,16 +28,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.MapHotelAdapter;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.GlobalUtils;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.SmoothPager;
 import com.hotelnow.utils.Util;
-import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.customstyledmap.CustomMap;
 import com.thebrownarrow.model.SearchResultItem;
@@ -50,8 +44,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MapHotelActivity extends AppCompatActivity {
 

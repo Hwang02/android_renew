@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.MyCouponActivity;
-import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogScrollAlert;
 import com.hotelnow.fragment.model.CouponEntry;
 

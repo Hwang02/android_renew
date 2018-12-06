@@ -32,7 +32,6 @@ import com.luseen.autolinklibrary.AutoLinkTextView;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;

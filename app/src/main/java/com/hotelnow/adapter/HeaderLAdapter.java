@@ -13,13 +13,8 @@ import com.hotelnow.R;
 import com.hotelnow.activity.ActivityFilterActivity;
 import com.hotelnow.activity.ActivitySearchActivity;
 import com.hotelnow.activity.AreaActivityActivity;
-import com.hotelnow.activity.AreaHotelActivity;
-import com.hotelnow.activity.CalendarActivity;
-import com.hotelnow.activity.CalendarSingleActivity;
-import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.TopItem;
-import com.hotelnow.utils.Util;
 
 import java.util.ArrayList;
 

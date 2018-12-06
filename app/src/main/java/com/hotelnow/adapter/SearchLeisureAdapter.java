@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.ActivitySearchActivity;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.search.ActivitySearchFragment;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;

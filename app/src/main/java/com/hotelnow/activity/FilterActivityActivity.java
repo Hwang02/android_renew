@@ -16,7 +16,6 @@ import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FilterActivityActivity extends Activity {

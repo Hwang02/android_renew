@@ -1,7 +1,6 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,9 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.MyCardActivity;
-import com.hotelnow.activity.MyCouponActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.model.CardEntry;
-import com.hotelnow.fragment.model.CouponEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.squareup.okhttp.Response;

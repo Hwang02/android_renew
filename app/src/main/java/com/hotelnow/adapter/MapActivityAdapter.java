@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.MapAcvitityActivity;
-import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;

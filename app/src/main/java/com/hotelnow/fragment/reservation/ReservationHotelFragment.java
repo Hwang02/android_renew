@@ -1,6 +1,5 @@
 package com.hotelnow.fragment.reservation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,15 +23,11 @@ import com.hotelnow.R;
 import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.ReservationHotelDetailActivity;
-import com.hotelnow.adapter.FavoriteHotelAdapter;
 import com.hotelnow.adapter.ReservationHotelAdapter;
 import com.hotelnow.fragment.model.BookingEntry;
-import com.hotelnow.fragment.model.FavoriteStayItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.EndlessScrollListener;
 import com.hotelnow.utils.HotelnowApplication;
-import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.squareup.okhttp.Response;
 

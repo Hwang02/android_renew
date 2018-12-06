@@ -20,6 +20,7 @@ import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -50,37 +51,6 @@ public class ActLoading extends Activity {
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         checkSeverInfo();
-
-
-        //권한 예제권한 후 동작 진행
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                Toast.makeText(ActLoading.this, "권한 허가", Toast.LENGTH_SHORT).show();
-
-//                Intent intent = new Intent(ActLoading.this, MainActivity.class);
-//                startActivity(intent);
-
-                Util.setPreferenceValues(_preferences, "flag_use_location", true);
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(ActLoading.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-
-//                Intent intent = new Intent(ActLoading.this, MainActivity.class);
-//                startActivity(intent);
-
-                Util.setPreferenceValues(_preferences, "flag_use_location", false);
-            }
-        };
-
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("구글 로그인을 하기 위해서는 주소록 접근 권한이 필요해요")
-                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check();
     }
 
     private void checkSeverInfo() {
@@ -267,7 +237,7 @@ public class ActLoading extends Activity {
                                     new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-//                                            startHandler();
+                                            startHandler();
                                         }
                                     },
                                     new View.OnClickListener() {
@@ -299,9 +269,10 @@ public class ActLoading extends Activity {
                             prefEditor.putString("phone", null);
                             prefEditor.putString("userid", null);
                             prefEditor.commit();
+                            startHandler();
                         }
-                        Intent intent = new Intent(ActLoading.this, MainActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(ActLoading.this, MainActivity.class);
+//                        startActivity(intent);
                     }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
@@ -379,11 +350,65 @@ public class ActLoading extends Activity {
                             dbHelper.insertFavoriteItem(obj.getJSONArray("activity").getString(i), "A");
                         }
                     }
+                    startHandler();
                 } catch (Exception e) {
                     Toast.makeText(ActLoading.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void startHandler(){
+        //권한 예제권한 후 동작 진행
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+//                Toast.makeText(ActLoading.this, "권한 허가", Toast.LENGTH_SHORT).show();
+
+                MovePage();
+
+                Util.setPreferenceValues(_preferences, "flag_use_location", true);
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+//                Toast.makeText(ActLoading.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+
+                MovePage();
+
+                Util.setPreferenceValues(_preferences, "flag_use_location", false);
+            }
+        };
+
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("위치 권한이 필요합니다.")
+                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .check();
+    }
+
+    private void MovePage(){
+//        Intent intent = new Intent(ActLoading.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+        Intent intentLink = getIntent();
+        String action = intentLink.getAction();
+        String data = intentLink.getDataString();
+        if (Intent.ACTION_VIEW.equals(action) && data != null) {
+            LogUtil.e("xxxxxx", action);
+            LogUtil.e("xxxxxx", data);
+        }
+        else {
+            Intent intent = new Intent(ActLoading.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 }

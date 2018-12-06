@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.MySaveActivity;
 import com.hotelnow.fragment.model.MySaveMoneyItem;
 

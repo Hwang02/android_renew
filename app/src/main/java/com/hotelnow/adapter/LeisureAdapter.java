@@ -15,25 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.BannerActivityAllActivity;
-import com.hotelnow.activity.BannerStayAllActivity;
 import com.hotelnow.activity.HotDealActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
-import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
-import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.DbOpenHelper;
-import com.hotelnow.utils.RecyclerItemClickListener;
 import com.hotelnow.utils.ViewPagerCustom;
 
 import java.util.List;

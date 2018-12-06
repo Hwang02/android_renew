@@ -1,21 +1,17 @@
 package com.hotelnow.activity;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -41,15 +37,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.HotelImageFragment;
@@ -68,7 +61,6 @@ import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkMode;
-import com.luseen.autolinklibrary.AutoLinkOnClickListener;
 import com.luseen.autolinklibrary.AutoLinkTextView;
 import com.squareup.okhttp.Response;
 
@@ -79,10 +71,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 
 public class DetailHotelActivity extends AppCompatActivity {
 

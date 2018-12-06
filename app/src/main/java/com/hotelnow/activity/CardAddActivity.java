@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,14 +14,12 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.Util;
 
 /**

@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,17 +29,10 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.activity.ActivityFilterActivity;
 import com.hotelnow.activity.AreaActivityActivity;
-import com.hotelnow.activity.AreaHotelActivity;
-import com.hotelnow.activity.CalendarActivity;
-import com.hotelnow.activity.CalendarSingleActivity;
 import com.hotelnow.activity.DetailActivityActivity;
-import com.hotelnow.activity.FilterActivityActivity;
-import com.hotelnow.activity.FilterHotelActivity;
 import com.hotelnow.activity.MapAcvitityActivity;
-import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.adapter.SearchResultActivityAdapter;
-import com.hotelnow.adapter.SearchResultStayAdapter;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -48,7 +40,6 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -60,8 +51,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ActivitySearchFragment  extends Fragment {
 

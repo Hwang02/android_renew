@@ -16,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.ActivityHotDealLeisureAdapter;
 import com.hotelnow.adapter.ThemeSpecialActivityAdapter;
-import com.hotelnow.adapter.ThemeSpecialHotelAdapter;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.ThemeSItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;

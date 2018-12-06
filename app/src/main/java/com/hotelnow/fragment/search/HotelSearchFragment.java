@@ -34,7 +34,6 @@ import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.FilterHotelActivity;
 import com.hotelnow.activity.MapHotelActivity;
-import com.hotelnow.activity.SearchActivity;
 import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
 import com.hotelnow.adapter.SearchResultStayAdapter;

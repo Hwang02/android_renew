@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.SectionsPagerAdapter;
-import com.hotelnow.utils.LogUtil;
 
 public class SearchResultActivity extends AppCompatActivity {
 

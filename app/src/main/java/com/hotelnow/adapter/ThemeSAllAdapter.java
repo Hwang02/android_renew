@@ -2,26 +2,21 @@ package com.hotelnow.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.ThemeSAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
-import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.DbOpenHelper;
-import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 

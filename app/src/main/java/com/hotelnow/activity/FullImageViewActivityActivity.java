@@ -10,20 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
-import com.hotelnow.utils.Api;
-import com.hotelnow.utils.CONFIG;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.Map;
 
 
 public class FullImageViewActivityActivity extends FragmentActivity {

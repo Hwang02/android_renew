@@ -1,7 +1,6 @@
 package com.hotelnow.adapter;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
-import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;

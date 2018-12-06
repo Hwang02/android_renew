@@ -1,16 +1,13 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,22 +15,16 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MyCardAdapter;
-import com.hotelnow.adapter.MyCouponAdapter;
-import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.model.CardEntry;
-import com.hotelnow.fragment.model.CouponEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MyCardActivity extends Activity{

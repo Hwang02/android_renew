@@ -13,10 +13,8 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.fragment.model.DefaultItem;
-import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
-import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 

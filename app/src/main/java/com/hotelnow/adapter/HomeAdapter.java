@@ -3,7 +3,6 @@ package com.hotelnow.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.BannerAllActivity;
-import com.hotelnow.activity.BannerStayAllActivity;
-import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.HotDealActivity;
 import com.hotelnow.activity.RecentAllActivity;
 import com.hotelnow.activity.ThemeSAllActivity;
@@ -39,11 +35,8 @@ import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.ViewPagerCustom;
-import com.hotelnow.utils.RecyclerItemClickListener;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

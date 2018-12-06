@@ -1,42 +1,26 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.BannerAllAdapter;
-import com.hotelnow.adapter.RecentAllAdapter;
 import com.hotelnow.adapter.ThemeSAllAdapter;
-import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.BannerItem;
-import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
-import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
-import com.thebrownarrow.model.SearchResultItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -1,7 +1,6 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
-import com.thebrownarrow.model.MyLocation;
 import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.ArrayList;

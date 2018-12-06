@@ -1,6 +1,5 @@
 package com.hotelnow.adapter;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,10 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.fragment.model.DefaultItem;
-import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.HotelnowApplication;
 
 import java.util.ArrayList;
 

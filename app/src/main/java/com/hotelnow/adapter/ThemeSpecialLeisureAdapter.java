@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
-import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.koushikdutta.ion.Ion;

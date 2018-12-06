@@ -1,7 +1,6 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.MySaveActivity;
 import com.hotelnow.activity.ReviewHotelActivity;
-import com.hotelnow.fragment.model.MySaveMoneyItem;
 import com.hotelnow.fragment.model.ReviewItem;
 import com.hotelnow.utils.Util;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 public class DetailReviewAdapter extends ArrayAdapter<ReviewItem> {

@@ -24,7 +24,6 @@ import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.KeyWordItem;
-import com.hotelnow.fragment.model.Popupitem;
 import com.hotelnow.fragment.model.PrivateDealItem;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.RecentListItem;

@@ -2,13 +2,10 @@ package com.hotelnow.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +13,6 @@ import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.fragment.model.KeyWordItem;
-import com.hotelnow.fragment.model.StayHotDealItem;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 

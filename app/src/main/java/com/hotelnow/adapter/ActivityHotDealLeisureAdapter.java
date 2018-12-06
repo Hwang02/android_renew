@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
-import com.hotelnow.activity.DetailHotelActivity;
-import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;

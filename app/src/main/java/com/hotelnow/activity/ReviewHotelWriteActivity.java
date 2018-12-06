@@ -1,32 +1,25 @@
 package com.hotelnow.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;

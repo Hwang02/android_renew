@@ -14,14 +14,12 @@ import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.RecentListItem;
-import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHolder> {

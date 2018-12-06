@@ -1,8 +1,6 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,16 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.ReservationActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
-import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

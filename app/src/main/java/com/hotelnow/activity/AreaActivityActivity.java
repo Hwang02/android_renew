@@ -16,11 +16,9 @@ import com.hotelnow.adapter.AreaResultAdapter;
 import com.hotelnow.adapter.AreaSelectAdapter;
 import com.hotelnow.fragment.model.CityItem;
 import com.hotelnow.fragment.model.RecentCityItem;
-import com.hotelnow.fragment.model.SubCityItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AreaActivityActivity extends Activity {
