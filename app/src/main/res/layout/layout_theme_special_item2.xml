@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="129dp"
             android:layout_margin="1dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:riv_corner_radius_top_left="2dp"
             app:riv_corner_radius_top_right="2dp"/>
 

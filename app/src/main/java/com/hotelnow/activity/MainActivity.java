@@ -13,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,6 +30,10 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
+
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends FragmentActivity {
     private static ActivityMainBinding mbinding;
@@ -135,6 +140,7 @@ public class MainActivity extends FragmentActivity {
                         else if(mbinding.tabLayout.getSelectedTabPosition() == 2){
                             mPosition = LEISUREPAGE;
                         }
+
                         setTapMove(mPosition, false);
                         break;
                     }
@@ -176,7 +182,198 @@ public class MainActivity extends FragmentActivity {
         // facebook
         callbackManager = CallbackManager.Factory.create();
 
-        setTapMove(SELECTPAGE, false);
+        // 딥링크, push
+        String action = getIntent().getStringExtra("action");
+        String data = getIntent().getStringExtra("data");
+        if (Intent.ACTION_VIEW.equals(action) && data != null) {
+            String recipeStr1 = data.substring(data.lastIndexOf("?") + 1);
+            LogUtil.e("recipeStr1", recipeStr1);
+            LogUtil.e("action", action);
+            LogUtil.e("data", data);
+            if (recipeStr1.contains("hotel_id") && recipeStr1.contains("date") && recipeStr1.contains("e_date") && recipeStr1.contains("is_event")) {
+                setTapMove(SELECTPAGE, false);
+                String[] recipeStr2 = recipeStr1.split("#");
+                try {
+                    Map<String, String> map = new HashMap<String, String>();
+                    for (String param : recipeStr2[0].split("&")) {
+                        String pair[] = param.split("=");
+                        String key = URLDecoder.decode(pair[0], "UTF-8");
+                        String value = "";
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        map.put(key, value);
+                    }
+
+                    if(!map.get("hotel_id").equals("")) {
+                        Intent intent = new Intent(this, DetailHotelActivity.class);
+                        intent.putExtra("hid", map.get("hotel_id"));
+                        intent.putExtra("sdate", map.get("date"));
+                        intent.putExtra("edate", map.get("e_date"));
+                        intent.putExtra("save", true);
+                        startActivityForResult(intent, 80);
+                    }
+                    else if(!map.get("evt_id").equals("")) {
+                        Intent intentEvt = new Intent(this, EventActivity.class);
+                        intentEvt.putExtra("idx", Integer.valueOf(map.get("evt_id")));
+                        startActivityForResult(intentEvt, 80);
+                    }
+                    else if(!map.get("t_id").equals("")) {
+                        Intent intentTheme = new Intent(this, ThemeSpecialHotelActivity.class);
+                        intentTheme.putExtra("tid", String.valueOf(map.get("t_id")));
+                        intentTheme.putExtra("from", "evt");
+                        startActivityForResult(intentTheme, 80);
+                    }
+                }
+                catch (Exception e) {
+                    LogUtil.e(CONFIG.TAG, e.toString());
+                }
+            }
+            else if (recipeStr1.contains("hotel_id")){
+                setTapMove(SELECTPAGE, false);
+                String[] recipeStr3 = recipeStr1.split("#");
+                try {
+                    Map<String, String> map = new HashMap<String, String>();
+                    for (String param : recipeStr3[0].split("&")) {
+                        String pair[] = param.split("=");
+                        String key = URLDecoder.decode(pair[0], "UTF-8");
+                        String value = "";
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        map.put(key, value);
+                    }
+                    Intent intentDetail = new Intent(this, DetailHotelActivity.class);
+                    intentDetail.putExtra("hid", map.get("hotel_id"));
+                    intentDetail.putExtra("evt", "N");
+                    intentDetail.putExtra("save", true);
+                    startActivityForResult(intentDetail, 80);
+                }
+                catch (Exception e) {
+                    LogUtil.e(CONFIG.TAG, e.toString());
+                }
+            }
+            else if(recipeStr1.contains("ticket_id")){
+                setTapMove(SELECTPAGE, false);
+                String[] recipeStr2 = recipeStr1.split("#");
+                try {
+                    Map<String, String> map = new HashMap<String, String>();
+                    for (String param : recipeStr2[0].split("&")) {
+                        String pair[] = param.split("=");
+                        String key = URLDecoder.decode(pair[0], "UTF-8");
+                        String value = "";
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        map.put(key, value);
+                    }
+
+                    Intent intent = new Intent(this, DetailActivityActivity.class);
+                    intent.putExtra("tid", String.valueOf(map.get("ticket_id")));
+                    intent.putExtra("save", true);
+                    startActivityForResult(intent, 80);
+                }
+                catch (Exception e) {
+                    LogUtil.e(CONFIG.TAG, e.toString());
+                }
+            }
+            else if(recipeStr1.contains("theme_id")){
+                setTapMove(SELECTPAGE, false);
+                String[] recipeStr4 = recipeStr1.split("#");
+                try {
+                    Map<String, String> map = new HashMap<String, String>();
+                    for (String param : recipeStr4[0].split("&")) {
+                        String pair[] = param.split("=");
+                        String key = URLDecoder.decode(pair[0], "UTF-8");
+                        String value = "";
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        map.put(key, value);
+                    }
+                    Intent intentTheme = null;
+                    if(map.get("theme_id").contains("Q")) {
+                        intentTheme = new Intent(this, ThemeSpecialActivityActivity.class);
+                    } else {
+                        intentTheme = new Intent(this, ThemeSpecialHotelActivity.class);
+                    }
+                    intentTheme.putExtra("tid", String.valueOf(map.get("theme_id").replace("H", "").replace("Q","")));
+                    intentTheme.putExtra("from", "evt");
+                    startActivityForResult(intentTheme, 80);
+                }
+                catch (Exception e) {
+                    LogUtil.e(CONFIG.TAG, e.toString());
+                }
+            }
+            else if(recipeStr1.contains("event_id")){
+                setTapMove(SELECTPAGE, false);
+                String[] recipeStr4 = recipeStr1.split("#");
+                try {
+                    Map<String, String> map = new HashMap<String, String>();
+                    for (String param : recipeStr4[0].split("&")) {
+                        String pair[] = param.split("=");
+                        String key = URLDecoder.decode(pair[0], "UTF-8");
+                        String value = "";
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        map.put(key, value);
+                    }
+                    Intent intentEvt = new Intent(this, EventActivity.class);
+                    intentEvt.putExtra("idx", Integer.valueOf(map.get("event_id")));
+                    startActivityForResult(intentEvt, 80);
+                }
+                catch (Exception e) {
+                    LogUtil.e(CONFIG.TAG, e.toString());
+                }
+            }
+            else if(recipeStr1.contains("move_ticket_list")){
+               // ticket tab
+                setTapMove(LEISUREPAGE, true);
+            }
+            else if(recipeStr1.contains("move_coupon")){
+                Intent intentEvt = new Intent(this, MyCouponActivity.class);
+                startActivityForResult(intentEvt, 80);
+            }
+            else if(recipeStr1.contains("move_theme_list")){
+                Intent intent = new Intent(this, ThemeSAllActivity.class);
+                startActivityForResult(intent, 80);
+            }
+            else if(recipeStr1.contains("move_booking_list")){
+                String[] recipeStr4 = recipeStr1.split("#");
+                try {
+                    Map<String, String> map = new HashMap<String, String>();
+                    for (String param : recipeStr4[0].split("&")) {
+                        String pair[] = param.split("=");
+                        String key = URLDecoder.decode(pair[0], "UTF-8");
+                        String value = "";
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        map.put(key, value);
+                    }
+
+                    if(map.get("kind_booked") == null) {// ticket 예약리스트 탭
+                        CONFIG.sel_reserv = 1;
+                        setTapMove(RESERVPAGE, false);
+                    }
+                    else {//hotel 예약리스트 탭
+                        CONFIG.sel_reserv = 0;
+                        setTapMove(RESERVPAGE, false);
+                    }
+                }
+                catch (Exception e) {
+                    LogUtil.e(CONFIG.TAG, e.toString());
+                    setTapMove(SELECTPAGE, false);
+                }
+            }
+            else {
+                setTapMove(SELECTPAGE, false);
+            }
+        }
+        else {
+            setTapMove(SELECTPAGE, false);
+        }
     }
 
     public static void showProgress(){ mbinding.wrapper.setVisibility(View.VISIBLE); }
@@ -490,23 +687,29 @@ public class MainActivity extends FragmentActivity {
     public void moveTabRefresh(){
         HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
 
-        if (dbHelper.selectAllRecentItem("10").size() > 0 && !CONFIG.isRecent) {
-            fm.getRecentData(true);
-            CONFIG.isRecent = true;
-        } else {
-            fm.getRecentData(false);
-            fm.setLikeRefresh(false);
+        if(fm != null) {
+            if (dbHelper.selectAllRecentItem("10").size() > 0 && !CONFIG.isRecent) {
+                fm.getRecentData(true);
+                CONFIG.isRecent = true;
+            } else {
+                fm.getRecentData(false);
+                fm.setLikeRefresh(false);
+            }
         }
     }
 
     public void moveTabRefresh2(){
         HotelFragment fm = (HotelFragment) getSupportFragmentManager().findFragmentByTag("HOTELPAGE");
-        fm.allRefresh();
+        if(fm != null) {
+            fm.allRefresh();
+        }
     }
 
     public void moveTabRefresh3(){
         LeisureFragment fm = (LeisureFragment) getSupportFragmentManager().findFragmentByTag("LEISUREPAGE");
-        fm.allRefresh();
+        if(fm != null) {
+            fm.allRefresh();
+        }
     }
 
     @Override

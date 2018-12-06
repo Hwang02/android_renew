@@ -47,6 +47,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
         holder.tv_hotelname.setText(data.get(position).getName());
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getImg_url());
+        holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
 
         if(data.get(position).getIs_hot_deal().equals("Y")){
             holder.soon_discount.setVisibility(View.VISIBLE);
@@ -106,7 +107,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_catagory, tv_score, tv_hotelname, tv_price;
+        TextView tv_catagory, tv_score, tv_hotelname, tv_price, tv_per;
         ImageView iv_image, soon_discount, soon_point, btn_favorite;
         boolean islike = false;
         LinearLayout sel_item;
@@ -123,6 +124,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
             soon_point = (ImageView) itemView.findViewById(R.id.soon_point);
             btn_favorite = (ImageView) itemView.findViewById(R.id.btn_favorite);
             sel_item = (LinearLayout) itemView.findViewById(R.id.sel_item);
+            tv_per = (TextView) itemView.findViewById(R.id.tv_per);
         }
     }
 }

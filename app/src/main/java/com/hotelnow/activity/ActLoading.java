@@ -3,6 +3,7 @@ package com.hotelnow.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -12,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
@@ -26,8 +30,10 @@ import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ActLoading extends Activity {
@@ -392,23 +398,38 @@ public class ActLoading extends Activity {
 //        Intent intent = new Intent(ActLoading.this, MainActivity.class);
 //        startActivity(intent);
 //        finish();
-        Intent intentLink = getIntent();
-        String action = intentLink.getAction();
-        String data = intentLink.getDataString();
-        if (Intent.ACTION_VIEW.equals(action) && data != null) {
-            LogUtil.e("xxxxxx", action);
-            LogUtil.e("xxxxxx", data);
-        }
-        else {
+        if (checkPlayServices()) {
+            Intent intentLink = getIntent();
+            String action = intentLink.getAction();
+            String data = intentLink.getDataString();
+
             Intent intent = new Intent(ActLoading.this, MainActivity.class);
+            intent.putExtra("action", action);
+            intent.putExtra("data", data);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
+
         }
 
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        if (resultCode == ConnectionResult.SUCCESS) {
+            return true;
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(resultCode, this, 0, new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    finish();
+                }
+            }).show();
+            return false;
+        }
     }
 
 }

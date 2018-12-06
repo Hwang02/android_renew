@@ -100,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:textColor="@color/redtext"
+                android:textStyle="bold"
                 tools:text="48%↓"/>
 
             <TextView

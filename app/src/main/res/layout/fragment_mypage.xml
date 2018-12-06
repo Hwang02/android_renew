@@ -58,6 +58,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="7dp"
 					android:background="@color/back_line"/>
+
 				<include android:id="@+id/footer"
 					layout="@layout/layout_mypage_footer" />
 

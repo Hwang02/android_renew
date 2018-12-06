@@ -45,6 +45,7 @@ public class ActivityImageFragment extends Fragment {
                 .error(R.drawable.placeholder)
                 .load(url);
         String caption = this.getArguments().getString("caption");
+        niv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         hid = this.getArguments().getString("hid");
         idx = DetailHotelActivity.markNowPosition;
