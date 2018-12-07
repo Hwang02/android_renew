@@ -24,6 +24,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
 
@@ -62,9 +63,9 @@ public class HotDealActivityFragment extends Fragment {
         adapter = new HotdaelActivityAdapter(getActivity(), 0, mActivityItem, HotDealActivityFragment.this, dbHelper);
         mlist.setAdapter(adapter);
 
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", hid.getText().toString());

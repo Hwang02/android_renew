@@ -30,6 +30,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -79,9 +80,9 @@ public class ReservationHotelFragment extends Fragment {
         u_num = (EditText) getView().findViewById(R.id.u_num);
 
 
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView)view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
                 intent.putExtra("bid", tv.getText().toString());
@@ -169,7 +170,7 @@ public class ReservationHotelFragment extends Fragment {
                                 getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
                             }
                         });
-
+                        MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
                         getView().findViewById(R.id.login_view).setVisibility(View.GONE);

@@ -22,6 +22,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -88,9 +89,9 @@ public class ThemeSpecialHotelActivity extends Activity {
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
 
-        hotelListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        hotelListview.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View v, int position, long id) {
 
                 TextView hid = (TextView) v.findViewById(R.id.hid);
                 TextView pid = (TextView) v.findViewById(R.id.pid);

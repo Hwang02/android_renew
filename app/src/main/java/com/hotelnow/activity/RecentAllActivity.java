@@ -23,6 +23,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -78,9 +79,9 @@ public class RecentAllActivity extends Activity {
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
 
-        Listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Listview.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View v, int position, long id) {
 
                 TextView hid = (TextView) v.findViewById(R.id.hid);
                 TextView pid = (TextView) v.findViewById(R.id.pid);

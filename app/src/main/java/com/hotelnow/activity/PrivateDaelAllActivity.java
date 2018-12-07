@@ -22,6 +22,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
 import org.json.JSONArray;
@@ -58,9 +59,9 @@ public class PrivateDaelAllActivity extends Activity{
         mlist = (ListView) findViewById(R.id.listview);
         adapter = new PrivateDealAllAdapter(this, 0, mHotelItem, dbHelper);
         mlist.setAdapter(adapter);
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView)view.findViewById(R.id.hid);
                 Intent intent = new Intent(PrivateDaelAllActivity.this, DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());

@@ -13,6 +13,7 @@ import com.hotelnow.R;
 import com.hotelnow.adapter.ActivityFilterAdapter;
 import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.OnSingleItemClickListener;
 
 import java.util.List;
 
@@ -35,9 +36,9 @@ public class ActivityFilterActivity extends Activity{
         mAdapter = new ActivityFilterAdapter( this, 0, facilityarr);
         mlist = (ListView) findViewById(R.id.listview);
         mlist.setAdapter(mAdapter);
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv_id = (TextView) view.findViewById(R.id.tv_id);
                 TextView tv_city = (TextView) view.findViewById(R.id.tv_city);
 

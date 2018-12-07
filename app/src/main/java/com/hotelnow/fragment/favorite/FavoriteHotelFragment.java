@@ -30,6 +30,7 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,9 +78,9 @@ public class FavoriteHotelFragment extends Fragment {
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
         btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());

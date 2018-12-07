@@ -32,6 +32,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -180,9 +181,9 @@ public class HotelSearchActivity extends Activity {
             }
         });
 
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView)view.findViewById(R.id.hid);
                 Intent intent = new Intent(HotelSearchActivity.this, DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());

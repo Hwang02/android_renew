@@ -18,6 +18,7 @@ import com.hotelnow.fragment.model.CityItem;
 import com.hotelnow.fragment.model.RecentCityItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleItemClickListener;
 
 import java.util.List;
 
@@ -48,9 +49,9 @@ public class AreaActivityActivity extends Activity {
         // 최근 본 지역
         month_list = (LinearLayout) findViewById(R.id.month_list);
 
-        select_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        select_view.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 int tabPostion = select_view.getCheckedItemPosition();
                 String cityCode = mCity.get(tabPostion).getCity_code();
                 String cityKo = mCity.get(tabPostion).getCity_ko();

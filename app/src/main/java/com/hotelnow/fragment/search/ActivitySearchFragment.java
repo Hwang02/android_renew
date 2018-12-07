@@ -41,6 +41,7 @@ import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.OnSingleItemClickListener;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -111,9 +112,9 @@ public class ActivitySearchFragment  extends Fragment {
         adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
         mlist.setAdapter(adapter);
 
-        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", hid.getText().toString());
