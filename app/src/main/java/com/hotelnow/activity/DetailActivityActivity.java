@@ -51,6 +51,7 @@ import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
@@ -143,9 +144,9 @@ public class DetailActivityActivity extends AppCompatActivity {
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
         icon_zzim = (ImageView) toolbar.findViewById(R.id.icon_zzim);
 
-        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_back).setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 finished();
             }
         });
@@ -194,9 +195,9 @@ public class DetailActivityActivity extends AppCompatActivity {
             }
         });
 
-        icon_zzim.setOnClickListener(new View.OnClickListener() {
+        icon_zzim.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 JSONObject paramObj = new JSONObject();
                 try {
                     paramObj.put("type", "activity");
@@ -261,9 +262,9 @@ public class DetailActivityActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_share).setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 dialogTicketShare = new DialogTicketShare(DetailActivityActivity.this, tid, PagerImgs[0], tname, mAvg, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -457,9 +458,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     if (!options.getJSONObject(i).getString("group_id").equals("null")) {
                                         if (deal_option_group.getJSONObject(j).getInt("id") == options.getJSONObject(i).getInt("group_id")) {
                                             minus.setTag(i);
-                                            minus.setOnClickListener(new View.OnClickListener() {
+                                            minus.setOnClickListener(new OnSingleClickListener() {
                                                 @Override
-                                                public void onClick(View v) {
+                                                public void onSingleClick(View v) {
                                                     if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
                                                         int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
                                                         if(cnt == 0){

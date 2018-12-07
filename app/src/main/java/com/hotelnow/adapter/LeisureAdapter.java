@@ -29,6 +29,7 @@ import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.ViewPagerCustom;
 
 import java.util.List;
@@ -175,9 +176,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mLf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mLf.getThemeData().get(0).getMain_title());
-            holder.btn_moreproduct.setOnClickListener(new View.OnClickListener() {
+            holder.btn_moreproduct.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if (mLf.getThemeData().get(0).getTheme_flag().equals("H")){
                         Intent intent = new Intent(mLf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
@@ -213,9 +214,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             holder.page_view.setText("1 / "+ mLf.getPbannerData().size()+" +");
-            holder.page_view.setOnClickListener(new View.OnClickListener() {
+            holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(mLf.getContext(), BannerActivityAllActivity.class);
                     mLf.startActivityForResult(intent, 70);
                 }
@@ -230,9 +231,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             acitivityAdapter = new ActivityHotDealLeisureAdapter(mLf.getActivityData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
-            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(mLf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab",1);
                     mLf.startActivityForResult(intent, 70);
@@ -257,9 +258,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             setTitle(mTitle, page);
 
-            mMoreView.setOnClickListener(new View.OnClickListener() {
+            mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
 
                 }
             });
@@ -341,9 +342,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             setTitle(mTitle, page);
 
-            mMoreView.setOnClickListener(new View.OnClickListener() {
+            mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
 
                 }
             });

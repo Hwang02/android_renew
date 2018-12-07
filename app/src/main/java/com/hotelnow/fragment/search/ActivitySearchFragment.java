@@ -40,6 +40,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -121,23 +122,23 @@ public class ActivitySearchFragment  extends Fragment {
             }
         });
 
-        btn_location.setOnClickListener(new View.OnClickListener() {
+        btn_location.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
                 startActivityForResult(intent, 80);
             }
         });
-        btn_category.setOnClickListener(new View.OnClickListener() {
+        btn_category.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
                 startActivityForResult(intent, 70);
             }
         });
-        bt_scroll.setOnClickListener(new View.OnClickListener() {
+        bt_scroll.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 mlist.smoothScrollToPosition(0);
             }
         });
@@ -264,9 +265,9 @@ public class ActivitySearchFragment  extends Fragment {
                                 "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
                         Ion.with(map_img).load(mapStr);
 
-                        map_img.setOnClickListener(new View.OnClickListener() {
+                        map_img.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 Intent intent = new Intent(getActivity(), MapAcvitityActivity.class);
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
@@ -314,9 +315,9 @@ public class ActivitySearchFragment  extends Fragment {
             tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
 //            tv.setButtonDrawable(android.R.color.transparent);
             tv.setTextColor(myColorStateList);
-            tv.setOnClickListener(new View.OnClickListener() {
+            tv.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(getActivity(), SearchResultActivity.class);
                     intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
                     intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());

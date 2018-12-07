@@ -14,6 +14,7 @@ import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.HotelSearchActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.TopItem;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import java.util.ArrayList;
 
@@ -40,9 +41,9 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
 
         holder.tv_location.setText(data.get(0).getLocation());
 
-        holder.btn_date.setOnClickListener(new View.OnClickListener() {
+        holder.btn_date.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(fm.getActivity(), CalendarActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());
@@ -54,9 +55,9 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
             }
         });
 
-        holder.btn_location.setOnClickListener(new View.OnClickListener() {
+        holder.btn_location.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(fm.getActivity(), AreaHotelActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());
@@ -68,9 +69,9 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
             }
         });
 
-        holder.btn_search.setOnClickListener(new View.OnClickListener() {
+        holder.btn_search.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(fm.getActivity(), HotelSearchActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());

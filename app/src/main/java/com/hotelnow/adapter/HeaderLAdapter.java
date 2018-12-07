@@ -15,6 +15,7 @@ import com.hotelnow.activity.ActivitySearchActivity;
 import com.hotelnow.activity.AreaActivityActivity;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.TopItem;
+import com.hotelnow.utils.OnSingleClickListener;
 
 import java.util.ArrayList;
 
@@ -42,9 +43,9 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
 
         holder.tv_location.setText(data.get(0).getLocation());
 
-        holder.btn_date.setOnClickListener(new View.OnClickListener() {
+        holder.btn_date.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 fm.sel_location = data.get(0).getLocation();
                 fm.sel_location_id = data.get(0).getLocation_id();
                 Intent intent = new Intent(fm.getActivity(), ActivityFilterActivity.class);
@@ -52,9 +53,9 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
             }
         });
 
-        holder.btn_location.setOnClickListener(new View.OnClickListener() {
+        holder.btn_location.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 fm.sel_theme = data.get(0).getEc_date();
                 fm.sel_theme_id = data.get(0).getEe_date();
                 Intent intent = new Intent(fm.getActivity(), AreaActivityActivity.class);
@@ -62,9 +63,9 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
             }
         });
 
-        holder.btn_search.setOnClickListener(new View.OnClickListener() {
+        holder.btn_search.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(fm.getActivity(), ActivitySearchActivity.class);
                 intent.putExtra("location", data.get(0).getLocation());
                 intent.putExtra("location_id", data.get(0).getLocation_id());

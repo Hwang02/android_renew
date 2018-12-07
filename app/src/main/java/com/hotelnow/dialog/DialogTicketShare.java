@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.kakao.kakaolink.v2.KakaoLinkResponse;
 import com.kakao.kakaolink.v2.KakaoLinkService;
 import com.kakao.message.template.ButtonObject;
@@ -91,9 +92,9 @@ public class DialogTicketShare extends Dialog {
             }
         };
 
-        kakao_btn.setOnClickListener(new View.OnClickListener(){
+        kakao_btn.setOnClickListener(new OnSingleClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //At least O
                     String msg = "";
                     if(value >0) {
@@ -142,9 +143,9 @@ public class DialogTicketShare extends Dialog {
             }
         });
 
-        sms_btn.setOnClickListener(new View.OnClickListener(){
+        sms_btn.setOnClickListener(new OnSingleClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 
                 String smsBody = "[호텔나우]\n"
                         +"친구가 추천하는 액티비티!\n"
@@ -195,9 +196,9 @@ public class DialogTicketShare extends Dialog {
             }
         });
 
-        share_btn.setOnClickListener(new View.OnClickListener(){
+        share_btn.setOnClickListener(new OnSingleClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("label", linkUrl);
                 clipboard.setPrimaryClip(clip);

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.savvi.rangedatepicker.CalendarPickerView;
 
@@ -206,17 +207,17 @@ public class CalendarActivity extends Activity{
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        btn_back.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 finish();
             }
         });
 
         btn_complate.setClickable(false);
-        btn_complate.setOnClickListener(new View.OnClickListener() {
+        btn_complate.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
                 intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));

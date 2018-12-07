@@ -28,6 +28,7 @@ import com.hotelnow.fragment.model.BookingQEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.NonScrollListView;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -121,24 +122,24 @@ public class ReservationActivityFragment extends Fragment {
                         mlist.setEmptyView(getView().findViewById(R.id.login_view));
                         getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
                         main_view.setBackgroundResource(R.color.white);
-                        btn_go_login.setOnClickListener(new View.OnClickListener() {
+                        btn_go_login.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                                 startActivityForResult(intent, 80);
                             }
                         });
-                        btn_go_reservation.setOnClickListener(new View.OnClickListener() {
+                        btn_go_reservation.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 getView().findViewById(R.id.login_view).setVisibility(View.GONE);
                                 getView().findViewById(R.id.reserv_view).setVisibility(View.VISIBLE);
 
                             }
                         });
-                        u_send.setOnClickListener(new View.OnClickListener() {
+                        u_send.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 if (!TextUtils.isEmpty(u_name.getText().toString()) && !TextUtils.isEmpty(u_tel.getText().toString()) && !TextUtils.isEmpty(u_num.getText().toString())) {
                                     Intent intent = new Intent(getActivity(), ReservationActivityDetailActivity.class);
                                     intent.putExtra("reservation", true);
@@ -150,9 +151,9 @@ public class ReservationActivityFragment extends Fragment {
                                 }
                             }
                         });
-                        back.setOnClickListener(new View.OnClickListener() {
+                        back.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 mlist.setEmptyView(getView().findViewById(R.id.login_view));
                                 getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
                                 getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
@@ -258,64 +259,4 @@ public class ReservationActivityFragment extends Fragment {
             MainActivity.showProgress();
         }
     }
-
-//    private class EndlessScrollListener implements AbsListView.OnScrollListener {
-//        // how many entries earlier to start loading next page
-//        private int visibleThreshold = 10;
-//        private int currentPage = 1;
-//        private int previousTotal = 0;
-//        private boolean loading = false;
-//
-//        public EndlessScrollListener() {
-//        }
-//
-//        public EndlessScrollListener(int visibleThreshold) {
-//            this.visibleThreshold = visibleThreshold;
-//        }
-//
-//        public int getItemCountOffset() {
-//            return 0;
-//        }
-//
-//        @Override
-//        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//            totalItemCount -= getItemCountOffset();
-//            totalItemCount = Math.max(0, totalItemCount);
-//
-//            if (totalItemCount < previousTotal) {
-//                this.previousTotal = totalItemCount;
-//                if (totalItemCount == 0) {
-//                    this.loading = true;
-//                }
-//            }
-//
-//            if (loading) {
-//                if (totalItemCount > previousTotal) {
-//                    loading = false;
-//                    previousTotal = totalItemCount;
-//
-//                }
-//            }
-//
-//            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-//                currentPage++;
-//                loading = true;
-//                MainActivity.showProgress();
-//                getBookingList();
-//            }
-//        }
-//
-//        @Override
-//        public void onScrollStateChanged(AbsListView arg0, int arg1) {}
-//
-//        public int getCurrentPage() {
-//            return currentPage;
-//        }
-//
-//        public void initialize() {
-//            currentPage = 1;
-//            previousTotal = 0;
-//        }
-//    }
 }

@@ -29,6 +29,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -119,46 +120,46 @@ public class ActivitySearchActivity extends Activity {
                 startActivityForResult(intent, 50);
             }
         });
-        tv_ecategory.setOnClickListener(new View.OnClickListener() {
+        tv_ecategory.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(ActivitySearchActivity.this, ActivityFilterActivity.class);
                 startActivityForResult(intent, 70);
             }
         });
 
-        tv_elocation.setOnClickListener(new View.OnClickListener() {
+        tv_elocation.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(ActivitySearchActivity.this, AreaActivityActivity.class);
                 startActivityForResult(intent, 80);
             }
         });
 
-        btn_location.setOnClickListener(new View.OnClickListener() {
+        btn_location.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(ActivitySearchActivity.this, AreaActivityActivity.class);
                 startActivityForResult(intent, 80);
             }
         });
-        btn_category.setOnClickListener(new View.OnClickListener() {
+        btn_category.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(ActivitySearchActivity.this, ActivityFilterActivity.class);
                 startActivityForResult(intent, 70);
             }
         });
-        bt_scroll.setOnClickListener(new View.OnClickListener() {
+        bt_scroll.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 mlist.smoothScrollToPosition(0);
             }
         });
 
-        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 finish();
             }
         });
@@ -257,9 +258,9 @@ public class ActivitySearchActivity extends Activity {
                                 "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
                         Ion.with(map_img).load(mapStr);
 
-                        map_img.setOnClickListener(new View.OnClickListener() {
+                        map_img.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 Intent intent = new Intent(ActivitySearchActivity.this, MapAcvitityActivity.class);
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);

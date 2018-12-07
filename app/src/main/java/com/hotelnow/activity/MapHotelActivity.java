@@ -33,6 +33,7 @@ import com.hotelnow.adapter.MapHotelAdapter;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.SmoothPager;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -108,17 +109,17 @@ public class MapHotelActivity extends AppCompatActivity {
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(total_count+"").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
-        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 setResult(90);
                 finish();
             }
         });
 
-        findViewById(R.id.re_search).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.re_search).setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 finish();
             }
         });

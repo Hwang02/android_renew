@@ -16,6 +16,7 @@ import com.hotelnow.activity.HotelSearchActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.thebrownarrow.model.SearchResultItem;
@@ -102,9 +103,9 @@ public class SearchStayAdapter extends ArrayAdapter<SearchResultItem> {
         holder.iv_favorite.setTag(position);
         final ViewHolder finalHolder = holder;
         finalHolder.iv_favorite.setTag(position);
-        finalHolder.iv_favorite.setOnClickListener(new View.OnClickListener() {
+        finalHolder.iv_favorite.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 LogUtil.e("ggggg", mlist.get((int)v.getTag()).getId()+"");
                 ((HotelSearchActivity)mContext).setLike((int)v.getTag(), finalHolder.islike);
             }

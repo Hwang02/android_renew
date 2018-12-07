@@ -18,6 +18,7 @@ import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentFavoriteBinding;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 
 public class FavoriteFragment extends Fragment {
@@ -60,18 +61,18 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.tabLayout.getTabAt(0).select();
                             mFavoriteBinding.viewPager.setCurrentItem(0);
                             mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) +" - "+Util.formatchange5(ee_date));
-                            mFavoriteBinding.btnDate.setOnClickListener(new View.OnClickListener() {
+                            mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                                 @Override
-                                public void onClick(View v) {
+                                public void onSingleClick(View v) {
                                     Intent intent = new Intent(getContext(), CalendarActivity.class);
                                     intent.putExtra("ec_date", ec_date);
                                     intent.putExtra("ee_date", ee_date);
                                     startActivityForResult(intent, 80);
                                 }
                             });
-                            mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
+                            mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
                                 @Override
-                                public void onClick(View v) {
+                                public void onSingleClick(View v) {
                                     allDelete();
                                 }
                             });
@@ -86,9 +87,9 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.tabLayout.getTabAt(1).select();
                             mFavoriteBinding.viewPager.setCurrentItem(1);
                             mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date));
-                            mFavoriteBinding.btnDate.setOnClickListener(new View.OnClickListener() {
+                            mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                                 @Override
-                                public void onClick(View v) {
+                                public void onSingleClick(View v) {
                                     Intent intent = new Intent(getContext(), CalendarSingleActivity.class);
                                     intent.putExtra("ec_date", ec_date);
                                     intent.putExtra("ee_date", ee_date);
@@ -96,9 +97,9 @@ public class FavoriteFragment extends Fragment {
                                 }
                             });
 
-                            mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
+                            mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
                                 @Override
-                                public void onClick(View v) {
+                                public void onSingleClick(View v) {
                                     allDelete();
                                 }
                             });
@@ -118,9 +119,9 @@ public class FavoriteFragment extends Fragment {
                 if(tab.getPosition() == 0){
                     mFavoriteBinding.tvDateTitle.setText("숙박일 선택");
                     mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) +" - "+Util.formatchange5(ee_date));
-                    mFavoriteBinding.btnDate.setOnClickListener(new View.OnClickListener() {
+                    mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             Intent intent = new Intent(getContext(), CalendarActivity.class);
                             intent.putExtra("ec_date", ec_date);
                             intent.putExtra("ee_date", ee_date);
@@ -131,9 +132,9 @@ public class FavoriteFragment extends Fragment {
                 else if(tab.getPosition() == 1){
                     mFavoriteBinding.tvDateTitle.setText("방문일 선택");
                     mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date));
-                    mFavoriteBinding.btnDate.setOnClickListener(new View.OnClickListener() {
+                    mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             Intent intent = new Intent(getContext(), CalendarSingleActivity.class);
                             intent.putExtra("ec_date", ec_date);
                             intent.putExtra("ee_date", ee_date);
@@ -146,9 +147,9 @@ public class FavoriteFragment extends Fragment {
                     CONFIG.TabLogin=false;
                 }
 
-                mFavoriteBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
+                mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onSingleClick(View v) {
                         allDelete();
                     }
                 });

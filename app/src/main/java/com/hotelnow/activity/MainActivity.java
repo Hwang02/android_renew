@@ -29,6 +29,7 @@ import com.hotelnow.fragment.reservation.ReservationFragment;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 
 import java.net.URLDecoder;
@@ -73,9 +74,9 @@ public class MainActivity extends FragmentActivity {
         mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("숙소"));
         mbinding.tabLayout.addTab(mbinding.tabLayout.newTab().setText("액티비티"));
 
-        mbinding.layoutSearch.searchMain.setOnClickListener(new View.OnClickListener() {
+        mbinding.layoutSearch.searchMain.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 myPosition = mbinding.tabLayout.getSelectedTabPosition();
                 startActivityForResult(intent,80);

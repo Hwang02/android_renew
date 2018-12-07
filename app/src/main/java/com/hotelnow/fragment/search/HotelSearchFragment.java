@@ -45,6 +45,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -140,32 +141,32 @@ public class HotelSearchFragment extends Fragment {
         adapter = new SearchResultStayAdapter(getActivity(), 0, mItems, HotelSearchFragment.this, dbHelper);
         mlist.setAdapter(adapter);
 
-        btn_location.setOnClickListener(new View.OnClickListener() {
+        btn_location.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
                 startActivityForResult(intent, 80);
             }
         });
-        btn_date.setOnClickListener(new View.OnClickListener() {
+        btn_date.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), CalendarActivity.class);
                 intent.putExtra("ec_date", ec_date);
                 intent.putExtra("ee_date", ee_date);
                 startActivityForResult(intent, 70);
             }
         });
-        btn_filter.setOnClickListener(new View.OnClickListener() {
+        btn_filter.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
                 startActivityForResult(intent, 60);
             }
         });
-        bt_scroll.setOnClickListener(new View.OnClickListener() {
+        bt_scroll.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 mlist.smoothScrollToPosition(0);
             }
         });
@@ -381,9 +382,9 @@ public class HotelSearchFragment extends Fragment {
                                     "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
                             Ion.with(map_img).load(mapStr);
 
-                            map_img.setOnClickListener(new View.OnClickListener() {
+                            map_img.setOnClickListener(new OnSingleClickListener() {
                                 @Override
-                                public void onClick(View v) {
+                                public void onSingleClick(View v) {
                                     Intent intent = new Intent(getActivity(), MapHotelActivity.class);
                                     intent.putExtra("search_data", mItems);
                                     intent.putExtra("Page", Page);
@@ -443,9 +444,9 @@ public class HotelSearchFragment extends Fragment {
             tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
 //            tv.setButtonDrawable(android.R.color.transparent);
             tv.setTextColor(myColorStateList);
-            tv.setOnClickListener(new View.OnClickListener() {
+            tv.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(getActivity(), SearchResultActivity.class);
                     intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
                     intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());

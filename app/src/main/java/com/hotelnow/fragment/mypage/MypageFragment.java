@@ -30,6 +30,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -71,9 +72,9 @@ public class MypageFragment extends Fragment {
         mMypageBinding.join.rlJoin.setVisibility(View.GONE);
 
         // 설정하기
-        mMypageBinding.center.btnSetting.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.btnSetting.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 intent.putExtra("isPush", isPush);
                 intent.putExtra("isEmail", _preferences.getString("marketing_email_yn", "N"));
@@ -90,9 +91,9 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.infoTime.setText("운영시간 "+CONFIG.operation_time);
 
         // 공지사항
-        mMypageBinding.center.btnNotice.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.btnNotice.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_notice);
                 intent.putExtra("title", getString(R.string.notice));
@@ -101,9 +102,9 @@ public class MypageFragment extends Fragment {
         });
 
         // faq
-        mMypageBinding.center.btnFaq.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.btnFaq.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_faq);
                 intent.putExtra("title", getString(R.string.cs_faq));
@@ -112,9 +113,9 @@ public class MypageFragment extends Fragment {
         });
 
         // 이메일로 의견
-        mMypageBinding.center.btnEmail.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.btnEmail.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 String userId = _preferences.getString("userid", null);
 
                 Intent i = new Intent(Intent.ACTION_SEND);
@@ -131,17 +132,17 @@ public class MypageFragment extends Fragment {
         });
 
         // cs - 카카오
-        mMypageBinding.center.csKakao.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.csKakao.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Util.kakaoYelloId2(getActivity());
             }
         });
 
         // cs - 전화
-        mMypageBinding.center.csPhone.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.center.csPhone.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 dialogConfirm = new DialogConfirm(
                         getString(R.string.alert_notice),
                         getString(R.string.wanna_call_hotelnow)+"\n운영시간 : "+CONFIG.operation_time,
@@ -168,9 +169,9 @@ public class MypageFragment extends Fragment {
         });
 
         //하단 펼치기
-        mMypageBinding.footer.tvMore.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.footer.tvMore.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 if(mMypageBinding.footer.tvCompanyinfo.getVisibility() == View.VISIBLE){
                     mMypageBinding.footer.tvCompanyinfo.setVisibility(View.GONE);
                     mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_close_grey);
@@ -183,9 +184,9 @@ public class MypageFragment extends Fragment {
         });
 
         // 서비스 이용약관
-        mMypageBinding.footer.term1.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.footer.term1.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree1);
                 intent.putExtra("title", getString(R.string.term_txt1));
@@ -194,9 +195,9 @@ public class MypageFragment extends Fragment {
         });
 
         // 개인정보 취급방침
-        mMypageBinding.footer.term2.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.footer.term2.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree2);
                 intent.putExtra("title", getString(R.string.term_txt2));
@@ -205,9 +206,9 @@ public class MypageFragment extends Fragment {
         });
 
         // 위치기반서비스 이용약관
-        mMypageBinding.footer.term3.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.footer.term3.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree3);
                 intent.putExtra("title", getString(R.string.term_txt3));
@@ -219,27 +220,27 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.txtVer.setText("V"+Util.getAppVersionName(getActivity()));
 
         // 회원가입
-        mMypageBinding.notJoin.btJoin.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.notJoin.btJoin.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SignupActivity.class);
                 startActivityForResult(intent, 90);
             }
         });
 
         // 로그인
-        mMypageBinding.notJoin.btLogin.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.notJoin.btLogin.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivityForResult(intent, 90);
             }
         });
 
         //로그아웃
-        mMypageBinding.join.tvLogout.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.join.tvLogout.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 dialogConfirm = new DialogConfirm(
                         getString(R.string.alert_notice),
                         getString(R.string.wanna_logout),
@@ -308,26 +309,26 @@ public class MypageFragment extends Fragment {
         });
 
         // 적립금 상세
-        mMypageBinding.join.llMoney.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.join.llMoney.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), MySaveActivity.class);
                 startActivity(intent);
             }
         });
 
         // 등록 카드 상세
-        mMypageBinding.join.llCard.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.join.llCard.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), MyCardActivity.class);
                 startActivityForResult(intent, 91);
             }
         });
         // 쿠폰 상세
-        mMypageBinding.join.llCoupon.setOnClickListener(new View.OnClickListener() {
+        mMypageBinding.join.llCoupon.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), MyCouponActivity.class);
                 startActivityForResult(intent, 91);
             }

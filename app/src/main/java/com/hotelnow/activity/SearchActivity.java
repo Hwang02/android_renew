@@ -49,6 +49,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -104,9 +105,9 @@ public class SearchActivity extends Activity{
         dbHelper = new DbOpenHelper(this);
         getRecentData();
 
-        recent_clear.setOnClickListener(new View.OnClickListener() {
+        recent_clear.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 dbHelper.deleteKeyword("0",true);
                 mSearchList.clear();
                 getRecentData();
@@ -196,9 +197,9 @@ public class SearchActivity extends Activity{
             }
         });
 
-        lv_location.setOnClickListener(new View.OnClickListener() {
+        lv_location.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
 
                 locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 locationListener = new LocationListener() {
@@ -232,9 +233,9 @@ public class SearchActivity extends Activity{
             }
         });
 
-        tv_search_word.setOnClickListener(new View.OnClickListener() {
+        tv_search_word.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 dbHelper.insertKeyword(et_search.getText().toString(),"x");
                 mSearchList.clear();
                 getRecentData();
@@ -255,9 +256,9 @@ public class SearchActivity extends Activity{
             }
         }, 400);
 
-        search_cancel.setOnClickListener(new View.OnClickListener() {
+        search_cancel.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 activityFinish();
             }
         });
@@ -364,9 +365,9 @@ public class SearchActivity extends Activity{
 
             hid.setText(mHotelAuto.get(i).getId());
             tv_recent_txt.setTag(i);
-            tv_recent_txt.setOnClickListener(new View.OnClickListener() {
+            tv_recent_txt.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(!mHotelAuto.get((int)v.getTag()).getFlag().equals("N")) {
                         if(!mHotelAuto.get((int)v.getTag()).getFlag().equals("region_hotel")) {
                             Intent intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
@@ -411,9 +412,9 @@ public class SearchActivity extends Activity{
 
             hid.setText(mActivityAuto.get(i).getId());
             tv_recent_txt.setTag(i);
-            tv_recent_txt.setOnClickListener(new View.OnClickListener() {
+            tv_recent_txt.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if(!mActivityAuto.get((int)v.getTag()).getFlag().equals("N")) {
                         if(!mActivityAuto.get((int)v.getTag()).getFlag().equals("region_activity")) {
                             Intent intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
@@ -522,9 +523,9 @@ public class SearchActivity extends Activity{
             tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
 //            tv.setButtonDrawable(android.R.color.transparent);
             tv.setTextColor(myColorStateList);
-            tv.setOnClickListener(new View.OnClickListener() {
+            tv.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                     intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
                     intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());
@@ -567,9 +568,9 @@ public class SearchActivity extends Activity{
 
                 tv_recent_txt.setText(mSearchList.get(i).getKeyword());
                 tv_recent_id.setText(mSearchList.get(i).getKeyword_id()+"");
-                view_recent.setOnClickListener(new View.OnClickListener() {
+                view_recent.setOnClickListener(new OnSingleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onSingleClick(View v) {
                         LogUtil.e("xxxxx", v.getTag()+"");
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                         intent.putExtra("tab", 0);
@@ -579,9 +580,9 @@ public class SearchActivity extends Activity{
                     }
                 });
 
-                item_del.setOnClickListener(new View.OnClickListener() {
+                item_del.setOnClickListener(new OnSingleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onSingleClick(View v) {
                         dbHelper.deleteKeyword(mSearchList.get((int)v.getTag()).getKeyword_id()+"", false);
                         mSearchList.clear();
                         getRecentData();
@@ -631,9 +632,9 @@ public class SearchActivity extends Activity{
 
             item_star_txt.setText(mHotelActivity.get(i).getGrade_score());
             view_ha.setTag(i);
-            view_ha.setOnClickListener(new View.OnClickListener() {
+            view_ha.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = null;
                     if(mHotelActivity.get((int)v.getTag()).getCategory().equals("popular_product_stay")) {
                         intent = new Intent(SearchActivity.this, DetailHotelActivity.class);

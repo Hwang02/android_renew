@@ -34,6 +34,7 @@ import com.hotelnow.fragment.model.SubBannerItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.ViewPagerCustom;
 
 import java.util.List;
@@ -173,9 +174,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setAdapter(recentAdapter);
             if(mHf.getRecentListItem().size()>0){
                 holder.mMoreView.setVisibility(View.VISIBLE);
-                holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+                holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onSingleClick(View v) {
                         Intent intent = new Intent(mHf.getContext(), RecentAllActivity.class);
                         mHf.startActivityForResult(intent, 80);
                     }
@@ -201,9 +202,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
             holder.mMoreView.setVisibility(View.GONE);
-            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
                     mHf.startActivityForResult(intent, 80);
                 }
@@ -219,9 +220,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mHf.getThemeData().get(0).getMain_title());
 
-            holder.btn_moreproduct.setOnClickListener(new View.OnClickListener() {
+            holder.btn_moreproduct.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     if (mHf.getThemeData().get(0).getTheme_flag().equals("H")){
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
@@ -243,9 +244,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
 
-            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab",0);
                     mHf.startActivityForResult(intent, 80);
@@ -270,9 +271,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             acitivityAdapter = new ActivityHotDealAdapter(mHf.getActivityData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
-            holder.mMoreView.setOnClickListener(new View.OnClickListener() {
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab",1);
                     mHf.startActivityForResult(intent, 80);
@@ -311,9 +312,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.page_view.setText("1 / "+ mHf.getPbannerData().size()+" +");
             holder.autoViewPager.startAutoScroll();
 
-            holder.page_view.setOnClickListener(new View.OnClickListener() {
+            holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     Intent intent = new Intent(mHf.getContext(), BannerAllActivity.class);
                     mHf.startActivityForResult(intent, 80);
                 }

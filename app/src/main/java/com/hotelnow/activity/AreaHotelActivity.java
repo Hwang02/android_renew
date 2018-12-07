@@ -20,6 +20,7 @@ import com.hotelnow.fragment.model.RecentCityItem;
 import com.hotelnow.fragment.model.SubCityItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,9 +112,9 @@ public class AreaHotelActivity extends Activity {
 
         //default 0번째 선택
         select_view.performItemClick(select_view,0, select_view.getAdapter().getItemId(0));
-        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 finish();
             }
         });
@@ -129,9 +130,9 @@ public class AreaHotelActivity extends Activity {
             TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
             tv_recent.setText(mRecentCity.get(i).getSel_subcity_ko());
             view_recent.setTag(i);
-            view_recent.setOnClickListener(new View.OnClickListener() {
+            view_recent.setOnClickListener(new OnSingleClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onSingleClick(View v) {
                     LogUtil.e("xxxxx", (int)v.getTag()+"");
                     Intent intent  = new Intent();
                     intent.putExtra("city", mRecentCity.get((int)v.getTag()).getSel_subcity_ko());

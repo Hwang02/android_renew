@@ -30,6 +30,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -123,9 +124,9 @@ public class FavoriteActivityFragment extends Fragment {
                         mlist.setEmptyView(getView().findViewById(R.id.login_view));
                         getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
                         main_view.setBackgroundResource(R.color.white);
-                        btn_go_login.setOnClickListener(new View.OnClickListener() {
+                        btn_go_login.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                                 startActivityForResult(intent, 80);
                             }
@@ -135,9 +136,9 @@ public class FavoriteActivityFragment extends Fragment {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
                         getView().findViewById(R.id.login_view).setVisibility(View.GONE);
                         main_view.setBackgroundResource(R.color.footerview);
-                        btn_go_list.setOnClickListener(new View.OnClickListener() {
+                        btn_go_list.setOnClickListener(new OnSingleClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onSingleClick(View v) {
                                 ((MainActivity)getActivity()).setTapMove(6, true);
                             }
                         });
