@@ -46,9 +46,11 @@ public class ReservationHotelFragment extends Fragment {
     private ImageView back;
     private RelativeLayout main_view;
     private TextView btn_go_reservation;
-    private EndlessScrollListener endlessScrollListener;
     private ArrayList<BookingEntry> mEntries = new ArrayList<BookingEntry>();
     private EditText u_name, u_tel, u_num;
+    private int total_count = 0;
+    private int currentPage = 1;
+    private boolean isAdd = true;
 
     @Nullable
     @Override
@@ -63,7 +65,6 @@ public class ReservationHotelFragment extends Fragment {
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        endlessScrollListener = new EndlessScrollListener();
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationHotelFragment.this);
         mlist.setAdapter(adapter);
@@ -76,7 +77,6 @@ public class ReservationHotelFragment extends Fragment {
         u_tel = (EditText) getView().findViewById(R.id.u_tel);
         u_num = (EditText) getView().findViewById(R.id.u_num);
 
-        mlist.setOnScrollListener(endlessScrollListener);
 
         mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,6 +91,7 @@ public class ReservationHotelFragment extends Fragment {
     }
 
     public void authCheck() {
+        MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("ui", _preferences.getString("userid", null));
@@ -100,6 +101,7 @@ public class ReservationHotelFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
@@ -177,62 +179,79 @@ public class ReservationHotelFragment extends Fragment {
                 } catch (Exception e) {
                     if(isAdded())
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    MainActivity.hideProgress();
                 }
             }
         });
     }
 
-    private void getBookingList(){
+    public void getBookingList(){
 
-        String url = CONFIG.bookingListUrl+"?page="+endlessScrollListener.getCurrentPage();
-
-        Api.get(url, new Api.HttpCallback() {
-            @Override
-            public void onFailure(Response response, Exception e) {
-                Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(Map<String, String> headers, String body) {
-                try {
-                    JSONObject obj = new JSONObject(body);
-
-                    if (!obj.getString("result").equals("success")) {
-                        Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    JSONArray feed = obj.getJSONArray("lists");
-                    JSONObject entry;
-
-                    for (int i = 0; i < feed.length(); i++) {
-                        entry = feed.getJSONObject(i);
-                        mEntries.add(new BookingEntry(
-                                entry.getString("id"),
-                                entry.getString("status"),
-                                entry.getString("hotel_name"),
-                                entry.getString("room_name"),
-                                entry.getString("room_img"),
-                                entry.getString("checkin_date"),
-                                entry.getString("checkout_date"),
-                                entry.getString("room_id"),
-                                entry.getString("hotel_id"),
-                                entry.getInt("myreview_cnt"),
-                                entry.getString("is_review_writable"),
-                                entry.getString("status_display"),
-                                entry.getString("review_writable_words_1"),
-                                entry.getString("review_writable_words_2"),
-                                entry.getString("status_detail"))
-                        );
-                    }
-
-                    adapter.notifyDataSetChanged();
-
-                } catch (Exception e) {
+        String url = CONFIG.bookingListUrl + "?page=" + currentPage+"&per_page=10000";
+        if(isAdd) {
+            Api.get(url, new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception e) {
                     Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    MainActivity.hideProgress();
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+
+                        if (!obj.getString("result").equals("success")) {
+                            Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            MainActivity.hideProgress();
+                            return;
+                        }
+
+                        total_count = obj.getInt("total_count");
+
+                        JSONArray feed = obj.getJSONArray("lists");
+                        JSONObject entry;
+                        if(feed.length()>0) {
+                            isAdd = true;
+                            currentPage++;
+                            for (int i = 0; i < feed.length(); i++) {
+                                entry = feed.getJSONObject(i);
+                                mEntries.add(new BookingEntry(
+                                        entry.getString("id"),
+                                        entry.getString("status"),
+                                        entry.getString("hotel_name"),
+                                        entry.getString("room_name"),
+                                        entry.getString("room_img"),
+                                        entry.getString("checkin_date"),
+                                        entry.getString("checkout_date"),
+                                        entry.getString("room_id"),
+                                        entry.getString("hotel_id"),
+                                        entry.getInt("myreview_cnt"),
+                                        entry.getString("is_review_writable"),
+                                        entry.getString("status_display"),
+                                        entry.getString("review_writable_words_1"),
+                                        entry.getString("review_writable_words_2"),
+                                        entry.getString("status_detail"))
+                                );
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                        else{
+                            isAdd = false;
+                        }
+
+                        if(total_count == mEntries.size()){
+                            isAdd = false;
+                        }
+
+                        MainActivity.hideProgress();
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        MainActivity.hideProgress();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -248,51 +267,69 @@ public class ReservationHotelFragment extends Fragment {
         else if(requestCode == 90 && resultCode == 0)
         {
             mEntries.clear();
-            endlessScrollListener.initialize();
-            getBookingList();
-        }
-    }
-
-    private class EndlessScrollListener implements AbsListView.OnScrollListener {
-        // how many entries earlier to start loading next page
-        private int visibleThreshold = 20;
-        private int currentPage = 1;
-        private int previousTotal = 0;
-        private boolean loading = true;
-
-        public EndlessScrollListener() {
-        }
-
-        public EndlessScrollListener(int visibleThreshold) {
-            this.visibleThreshold = visibleThreshold;
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (loading) {
-                if (totalItemCount > previousTotal) {
-                    loading = false;
-                    previousTotal = totalItemCount;
-                    currentPage++;
-                }
-            }
-
-            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                getBookingList();
-                loading = true;
-            }
-        }
-
-        @Override
-        public void onScrollStateChanged(AbsListView arg0, int arg1) {}
-
-        public int getCurrentPage() {
-            return currentPage;
-        }
-
-        public void initialize() {
             currentPage = 1;
-            previousTotal = 0;
+            getBookingList();
+            MainActivity.showProgress();
         }
     }
+
+//    private class EndlessScrollListener implements AbsListView.OnScrollListener {
+//        // how many entries earlier to start loading next page
+//        private int visibleThreshold = 10;
+//        private int currentPage = 1;
+//        private int previousTotal = 0;
+//        private boolean loading = false;
+//
+//        public EndlessScrollListener() {
+//        }
+//
+//        public EndlessScrollListener(int visibleThreshold) {
+//            this.visibleThreshold = visibleThreshold;
+//        }
+//
+//        public int getItemCountOffset() {
+//            return 0;
+//        }
+//
+//        @Override
+//        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//            totalItemCount -= getItemCountOffset();
+//            totalItemCount = Math.max(0, totalItemCount);
+//
+//            if (totalItemCount < previousTotal) {
+//                this.previousTotal = totalItemCount;
+//                if (totalItemCount == 0) {
+//                    this.loading = true;
+//                }
+//            }
+//
+//            if (loading) {
+//                if (totalItemCount > previousTotal) {
+//                    loading = false;
+//                    previousTotal = totalItemCount;
+//
+//                }
+//            }
+//
+//            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold) && (total_count > totalItemCount)) {
+//                currentPage++;
+//                loading = true;
+//                MainActivity.showProgress();
+//                getBookingList();
+//            }
+//        }
+//
+//        @Override
+//        public void onScrollStateChanged(AbsListView arg0, int arg1) {}
+//
+//        public int getCurrentPage() {
+//            return currentPage;
+//        }
+//
+//        public void initialize() {
+//            currentPage = 1;
+//            previousTotal = 0;
+//        }
+//    }
 }

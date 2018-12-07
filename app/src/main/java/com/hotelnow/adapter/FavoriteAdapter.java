@@ -29,10 +29,6 @@ public class FavoriteAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0:
                 FavoriteHotelFragment favoriteHotelFragment = new FavoriteHotelFragment();
-//                Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
-//                bundle.putString("search_txt", search_txt); // key , value
-//                bundle.putString("banner_id", banner_id); // key , value
-//                favoriteHotelFragment.setArguments(bundle);
                 return favoriteHotelFragment;
             case 1:
                 FavoriteActivityFragment favoriteActivityFragment = new FavoriteActivityFragment();

@@ -3,6 +3,7 @@ package com.hotelnow.fragment.reservation;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -63,16 +64,32 @@ public class ReservationFragment extends Fragment {
         mReservationBinding.viewPager.setAdapter(reservationAdapter);
 
         if(CONFIG.sel_reserv == 0) {
-            mReservationBinding.viewPager.setCurrentItem(0);
+            new Handler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            mReservationBinding.tabLayout.getTabAt(0).select();
+                            mReservationBinding.viewPager.setCurrentItem(0);
+                        }
+                    }, 100);
         }
         else {
-            mReservationBinding.viewPager.setCurrentItem(1);
+            new Handler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            mReservationBinding.tabLayout.getTabAt(1).select();
+                            mReservationBinding.viewPager.setCurrentItem(1);
+
+                        }
+                    },100);
+
         }
 
         mReservationBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mReservationBinding.viewPager.setCurrentItem(tab.getPosition());
+                mReservationBinding.viewPager.setCurrentItem(tab.getPosition(), true);
                 if(CONFIG.TabLogin) {
                     reservationAdapter.notifyDataSetChanged();
                     CONFIG.TabLogin=false;

@@ -98,6 +98,11 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
         }
 
         holder.hid.setText(entry.getId());
+
+        if(mlist.size()-2 == position){
+            mActivity.getBookingList();
+        }
+
         return v;
     }
 

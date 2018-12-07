@@ -82,6 +82,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
                 HotelnowApplication.getAppContext().startActivity(intent);
             }
         });
+
         holder.bt_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,16 +105,15 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView lv_more;
+        ImageView lv_more, bt_top;
         TextView tv_companyinfo, tv_more, term1, term2, term3;
-        Button bt_top;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             lv_more = (ImageView) itemView.findViewById(R.id.lv_more);
 //            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
 //            tv_message = (TextView) itemView.findViewById(R.id.tv_message);
-            bt_top = (Button) itemView.findViewById(R.id.bt_top);
+            bt_top = (ImageView) itemView.findViewById(R.id.bt_top);
             tv_companyinfo = (TextView) itemView.findViewById(R.id.tv_companyinfo);
             tv_more = (TextView) itemView.findViewById(R.id.tv_more);
             term1 = (TextView) itemView.findViewById(R.id.term1);

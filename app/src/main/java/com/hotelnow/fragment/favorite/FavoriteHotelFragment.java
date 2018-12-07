@@ -90,6 +90,7 @@ public class FavoriteHotelFragment extends Fragment {
     }
 
     public void authCheck() {
+        MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("ui", _preferences.getString("userid", null));
@@ -99,6 +100,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
@@ -140,6 +142,7 @@ public class FavoriteHotelFragment extends Fragment {
                         getFavorite();
                     }
                 } catch (Exception e) {
+                    MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -147,7 +150,7 @@ public class FavoriteHotelFragment extends Fragment {
     }
 
     private void getFavorite(){
-
+        MainActivity.showProgress();
         String url = CONFIG.like_list+"?only_id=N&type=stay";
 
         if(ec_date != null || ee_date != null){
@@ -157,6 +160,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
@@ -166,6 +170,7 @@ public class FavoriteHotelFragment extends Fragment {
                     JSONObject obj = new JSONObject(body);
 
                     if (!obj.getString("result").equals("success")) {
+                        MainActivity.hideProgress();
                         Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -196,8 +201,9 @@ public class FavoriteHotelFragment extends Fragment {
                         }
                     }
                     adapter.notifyDataSetChanged();
-
+                    MainActivity.hideProgress();
                 } catch (Exception e) {
+                    MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -216,6 +222,7 @@ public class FavoriteHotelFragment extends Fragment {
         else if(requestCode == 70 && resultCode == 80){
             mItems.clear();
             getFavorite();
+            MainActivity.showProgress();
         }
     }
 
@@ -224,9 +231,11 @@ public class FavoriteHotelFragment extends Fragment {
         ee_date = eee_date;
         mItems.clear();
         getFavorite();
+        MainActivity.showProgress();
     }
 
     public void setLike(final int position){
+        MainActivity.showProgress();
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
@@ -239,6 +248,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
@@ -256,14 +266,16 @@ public class FavoriteHotelFragment extends Fragment {
                     ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
                     mItems.clear();
                     getFavorite();
+                    MainActivity.hideProgress();
                 }catch (JSONException e){
-
+                    MainActivity.hideProgress();
                 }
             }
         });
     }
 
     public void setDeleteAll(){
+        MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("all_flag", "Y");
@@ -276,6 +288,7 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
@@ -294,7 +307,7 @@ public class FavoriteHotelFragment extends Fragment {
                     mItems.clear();
                     getFavorite();
                 }catch (JSONException e){
-
+                    MainActivity.hideProgress();
                 }
             }
         });

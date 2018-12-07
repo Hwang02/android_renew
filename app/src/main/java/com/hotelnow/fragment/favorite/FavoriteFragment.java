@@ -113,7 +113,7 @@ public class FavoriteFragment extends Fragment {
         mFavoriteBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mFavoriteBinding.viewPager.setCurrentItem(tab.getPosition());
+                mFavoriteBinding.viewPager.setCurrentItem(tab.getPosition(), true);
 //                m_Selecttab = tab.getPosition();
                 if(tab.getPosition() == 0){
                     mFavoriteBinding.tvDateTitle.setText("숙박일 선택");

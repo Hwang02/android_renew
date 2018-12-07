@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     
-    <Button
+    <ImageView
         android:id="@+id/bt_top"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:background="@drawable/btn_screenup"
-        android:layout_gravity="center"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"

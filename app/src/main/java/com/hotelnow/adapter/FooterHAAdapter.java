@@ -32,6 +32,7 @@ public class FooterHAAdapter extends RecyclerView.Adapter<FooterHAAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
+
         holder.bt_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,13 +55,12 @@ public class FooterHAAdapter extends RecyclerView.Adapter<FooterHAAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView lv_more;
+        ImageView lv_more,bt_top;
         TextView tv_companyinfo, tv_more, term1, term2, term3;
-        Button bt_top;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            bt_top = (Button) itemView.findViewById(R.id.bt_top);
+            bt_top = (ImageView) itemView.findViewById(R.id.bt_top);
         }
     }
 }

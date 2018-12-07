@@ -349,6 +349,7 @@ public class MypageFragment extends Fragment {
         }
     }
     public void authCheck() {
+        MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("ui", _preferences.getString("userid", null));
@@ -383,6 +384,10 @@ public class MypageFragment extends Fragment {
 
                 } catch (Exception e) {
                     isPush = false;
+                    MainActivity.hideProgress();
+                    if(getActivity() != null && isAdded()){
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -406,6 +411,7 @@ public class MypageFragment extends Fragment {
                 @Override
                 public void onFailure(Response response, Exception e) {
                     isPush = false;
+                    MainActivity.hideProgress();
                 }
 
                 @Override
@@ -423,8 +429,10 @@ public class MypageFragment extends Fragment {
                         prefEditor.putString("marketing_email_yn", obj.getString("marketing_email_yn"));
                         prefEditor.putString("marketing_sms_yn", obj.getString("marketing_sms_yn"));
                         prefEditor.commit();
+                        MainActivity.hideProgress();
                     } catch (Exception e) {
                         isPush = false;
+                        MainActivity.hideProgress();
                     }
                 }
             });
@@ -437,6 +445,7 @@ public class MypageFragment extends Fragment {
                 public void onFailure(Response response, Exception e) {
                     if(getActivity() != null && isAdded())
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    MainActivity.hideProgress();
                 }
 
                 @Override
@@ -447,6 +456,7 @@ public class MypageFragment extends Fragment {
                         if (!obj.getString("result").equals("success")) {
                             if(getActivity() != null && isAdded())
                                 Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            MainActivity.hideProgress();
                             return;
                         }
 
@@ -472,12 +482,13 @@ public class MypageFragment extends Fragment {
                             isPush = true;
                         else
                             isPush = false;
-
+                        MainActivity.hideProgress();
                     } catch (Exception e) {
                         Log.e(CONFIG.TAG, e.toString());
                         if(getActivity() != null && isAdded()){
                             Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         }
+                        MainActivity.hideProgress();
                     }
                 }
             });

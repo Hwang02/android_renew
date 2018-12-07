@@ -98,6 +98,11 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
         holder.used_count.setText(entry.getUsed_ticket_count()+"장");
         holder.cancel_count.setText(entry.getCancel_ticket_count()+"장");
         holder.aid.setText(entry.getId());
+
+        if(mlist.size()-2 == position){
+            mActivity.getBookingList();
+        }
+
         return v;
     }
 

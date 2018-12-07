@@ -93,6 +93,7 @@ public class FavoriteActivityFragment extends Fragment {
     }
 
     public void authCheck() {
+        MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("ui", _preferences.getString("userid", null));
@@ -102,6 +103,7 @@ public class FavoriteActivityFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
@@ -142,7 +144,9 @@ public class FavoriteActivityFragment extends Fragment {
                         ((FavoriteFragment)getParentFragment()).setCancelView(false);
                         getFavorite();
                     }
+                    MainActivity.hideProgress();
                 } catch (Exception e) {
+                    MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -150,12 +154,13 @@ public class FavoriteActivityFragment extends Fragment {
     }
 
     private void getFavorite(){
-
+        MainActivity.showProgress();
         String url = CONFIG.like_list+"?only_id=N&type=activity";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
@@ -165,6 +170,7 @@ public class FavoriteActivityFragment extends Fragment {
                     JSONObject obj = new JSONObject(body);
 
                     if (!obj.getString("result").equals("success")) {
+                        MainActivity.hideProgress();
                         Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -195,8 +201,9 @@ public class FavoriteActivityFragment extends Fragment {
                         }
                     }
                     adapter.notifyDataSetChanged();
-
+                    MainActivity.hideProgress();
                 } catch (Exception e) {
+                    MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -215,10 +222,12 @@ public class FavoriteActivityFragment extends Fragment {
         else if(requestCode == 70 && resultCode == 80){
             mItems.clear();
             getFavorite();
+            MainActivity.showProgress();
         }
     }
 
     public void setLike(final int position){
+        MainActivity.showProgress();
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
@@ -231,6 +240,7 @@ public class FavoriteActivityFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
@@ -239,6 +249,7 @@ public class FavoriteActivityFragment extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                        MainActivity.hideProgress();
                         ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
@@ -248,14 +259,16 @@ public class FavoriteActivityFragment extends Fragment {
                     ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
                     mItems.clear();
                     getFavorite();
+                    MainActivity.hideProgress();
                 }catch (JSONException e){
-
+                    MainActivity.hideProgress();
                 }
             }
         });
     }
 
     public void setDeleteAll(){
+        MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("all_flag", "Y");
@@ -268,6 +281,7 @@ public class FavoriteActivityFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
+                MainActivity.hideProgress();
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
@@ -276,6 +290,7 @@ public class FavoriteActivityFragment extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                        MainActivity.hideProgress();
                         ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
@@ -285,8 +300,9 @@ public class FavoriteActivityFragment extends Fragment {
                     ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
                     mItems.clear();
                     getFavorite();
+                    MainActivity.hideProgress();
                 }catch (JSONException e){
-
+                    MainActivity.hideProgress();
                 }
             }
         });
@@ -295,6 +311,7 @@ public class FavoriteActivityFragment extends Fragment {
     public void setDateRefresh(String ecc_date, String eee_date){
         mItems.clear();
         getFavorite();
+        MainActivity.showProgress();
     }
 
 }
