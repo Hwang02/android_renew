@@ -223,8 +223,8 @@ public class FavoriteActivityFragment extends Fragment {
         }
         else if(requestCode == 70 && resultCode == 80){
             mItems.clear();
-            getFavorite();
             MainActivity.showProgress();
+            getFavorite();
         }
     }
 

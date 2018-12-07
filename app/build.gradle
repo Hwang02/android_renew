@@ -17,7 +17,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.hotelnow"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 221
         versionName "4.22"

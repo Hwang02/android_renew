@@ -2,6 +2,7 @@ package com.hotelnow.fragment.reservation;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -79,7 +80,6 @@ public class ReservationHotelFragment extends Fragment {
         u_tel = (EditText) getView().findViewById(R.id.u_tel);
         u_num = (EditText) getView().findViewById(R.id.u_num);
 
-
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,6 +89,7 @@ public class ReservationHotelFragment extends Fragment {
                 startActivityForResult(intent, 90);
             }
         });
+
         authCheck();
     }
 
@@ -254,11 +255,14 @@ public class ReservationHotelFragment extends Fragment {
                 }
             });
         }
+        else{
+            MainActivity.hideProgress();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
         if(requestCode == 80){
 
             authCheck();
@@ -270,8 +274,11 @@ public class ReservationHotelFragment extends Fragment {
         {
             mEntries.clear();
             currentPage = 1;
-            getBookingList();
+            isAdd = true;
             MainActivity.showProgress();
+            getBookingList();
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

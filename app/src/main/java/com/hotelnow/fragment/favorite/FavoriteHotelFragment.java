@@ -152,7 +152,6 @@ public class FavoriteHotelFragment extends Fragment {
     }
 
     private void getFavorite(){
-        MainActivity.showProgress();
         String url = CONFIG.like_list+"?only_id=N&type=stay";
 
         if(ec_date != null || ee_date != null){
@@ -223,8 +222,8 @@ public class FavoriteHotelFragment extends Fragment {
         }
         else if(requestCode == 70 && resultCode == 80){
             mItems.clear();
-            getFavorite();
             MainActivity.showProgress();
+            getFavorite();
         }
     }
 
@@ -232,8 +231,8 @@ public class FavoriteHotelFragment extends Fragment {
         ec_date = ecc_date;
         ee_date = eee_date;
         mItems.clear();
-        getFavorite();
         MainActivity.showProgress();
+        getFavorite();
     }
 
     public void setLike(final int position){
@@ -308,6 +307,7 @@ public class FavoriteHotelFragment extends Fragment {
                     ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
                     mItems.clear();
                     getFavorite();
+                    MainActivity.hideProgress();
                 }catch (JSONException e){
                     MainActivity.hideProgress();
                 }

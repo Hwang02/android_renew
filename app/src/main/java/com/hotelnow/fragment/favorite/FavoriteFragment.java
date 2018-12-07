@@ -117,6 +117,9 @@ public class FavoriteFragment extends Fragment {
                 mFavoriteBinding.viewPager.setCurrentItem(tab.getPosition(), true);
 //                m_Selecttab = tab.getPosition();
                 if(tab.getPosition() == 0){
+                    mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
+                    mFavoriteBinding.tvDate.setVisibility(View.VISIBLE);
+                    mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
                     mFavoriteBinding.tvDateTitle.setText("숙박일 선택");
                     mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) +" - "+Util.formatchange5(ee_date));
                     mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
@@ -130,17 +133,9 @@ public class FavoriteFragment extends Fragment {
                     });
                 }
                 else if(tab.getPosition() == 1){
-                    mFavoriteBinding.tvDateTitle.setText("방문일 선택");
-                    mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date));
-                    mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
-                        @Override
-                        public void onSingleClick(View v) {
-                            Intent intent = new Intent(getContext(), CalendarSingleActivity.class);
-                            intent.putExtra("ec_date", ec_date);
-                            intent.putExtra("ee_date", ee_date);
-                            startActivityForResult(intent, 80);
-                        }
-                    });
+                    mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
+                    mFavoriteBinding.tvDate.setVisibility(View.GONE);
+                    mFavoriteBinding.btnDate.setVisibility(View.GONE);
                 }
                 if(CONFIG.TabLogin) {
                     favoriteAdapter.notifyDataSetChanged();

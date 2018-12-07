@@ -2,6 +2,7 @@ package com.hotelnow.fragment.reservation;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -241,11 +242,14 @@ public class ReservationActivityFragment extends Fragment {
                 }
             });
         }
+        else{
+            MainActivity.hideProgress();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
         if(requestCode == 80){
             authCheck();
             ((MainActivity)getActivity()).setTitle();
@@ -256,8 +260,11 @@ public class ReservationActivityFragment extends Fragment {
         {
             mEntries.clear();
             currentPage = 1;
-            getBookingList();
+            isAdd = true;
             MainActivity.showProgress();
+            getBookingList();
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
