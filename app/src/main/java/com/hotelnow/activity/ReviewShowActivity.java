@@ -98,6 +98,7 @@ public class ReviewShowActivity extends Activity{
     }
 
     private void getData(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.review_show;
         if(page.equals("stay")) {
             url += "/stay/" + bid;
@@ -109,6 +110,7 @@ public class ReviewShowActivity extends Activity{
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(ReviewShowActivity.this, getString(R.string.error_booking_info), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -118,6 +120,7 @@ public class ReviewShowActivity extends Activity{
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReviewShowActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
                     JSONObject item = obj.getJSONObject("review");
@@ -139,9 +142,11 @@ public class ReviewShowActivity extends Activity{
                     setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);
                     setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
                     setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                  }
                  catch (Exception e) {
                     Toast.makeText(ReviewShowActivity.this, getString(R.string.error_booking_info), Toast.LENGTH_SHORT).show();
+                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

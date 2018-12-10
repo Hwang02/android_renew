@@ -73,10 +73,12 @@ public class PrivateDaelAllActivity extends Activity{
     }
 
     private void getData(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.hotdeal_list + "/private_deals", new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -126,11 +128,13 @@ public class PrivateDaelAllActivity extends Activity{
                                 ));
                             }
                             adapter.notifyDataSetChanged();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         }
                     }
                 }
                 catch (Exception e){
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

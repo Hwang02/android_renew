@@ -122,6 +122,7 @@ public class RecentAllActivity extends Activity {
     }
 
     public void getRecentData(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.mainRecent;
         if (mRecentItem.size() > 0) {
             try {
@@ -148,6 +149,7 @@ public class RecentAllActivity extends Activity {
                     @Override
                     public void onFailure(Response response, Exception throwable) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
 
                     @Override
@@ -229,13 +231,16 @@ public class RecentAllActivity extends Activity {
                                 }
                             }
                             mAdapter.notifyDataSetChanged();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         }
                     }
                 });
             } catch(Exception e){
                 e.printStackTrace();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
         }
     }

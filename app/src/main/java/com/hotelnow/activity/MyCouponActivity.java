@@ -139,10 +139,12 @@ public class MyCouponActivity extends Activity{
     }
 
     private void getCouponList(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.promotionListUrl, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(MyCouponActivity.this, getString(R.string.error_coupon_money), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -152,6 +154,7 @@ public class MyCouponActivity extends Activity{
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(MyCouponActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -218,9 +221,11 @@ public class MyCouponActivity extends Activity{
                     }
 
                     mAdapter.notifyDataSetChanged();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
 
                 } catch (Exception e) {
                     Toast.makeText(MyCouponActivity.this, getString(R.string.error_coupon_money), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

@@ -168,7 +168,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                                0,
                                 0,
                                 "N",
-                                head.getString("img_background"),
+                                head.getString("img_main_list"),
                                 "",
                                 "",
                                 "",

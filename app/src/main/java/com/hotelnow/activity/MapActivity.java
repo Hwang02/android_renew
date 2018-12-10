@@ -136,12 +136,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 hid = intent.getStringExtra("hid");
                 title = intent.getStringExtra("title");
                 String url = CONFIG.locationUrl + "/" + hid;
-
+                findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
                 Api.get(url, new Api.HttpCallback() {
                     @Override
                     public void onFailure(Response response, Exception e) {
                         Log.e(CONFIG.TAG, "expection is ", e);
                         Toast.makeText(MapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
 
                     @Override
@@ -151,6 +152,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                             if (!obj.getString("result").equals("success")) {
                                 Toast.makeText(MapActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                findViewById(R.id.wrapper).setVisibility(View.GONE);
                                 return;
                             }
 
@@ -174,10 +176,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                             } else {
                                 mapFragment.getMapAsync(MapActivity.this);
                             }
-
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         } catch (Exception e) {
                             Log.e(CONFIG.TAG, "expection is ", e);
                             Toast.makeText(MapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         }
 
                     }
@@ -329,11 +332,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         else{
             nearurl = CONFIG.locationNearUrl + "/" + lat + "/" + lng + "?ec_date=" + ec + "&ee_date=" + ee + "&date_term=" + diffDays+"&is_q=Y";
         }
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(nearurl, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Log.e(CONFIG.TAG, "expection is ", e);
                 Toast.makeText(MapActivity.this, getString(R.string.error_near_hotel_location), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -366,10 +371,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                         objs.add(data.getJSONObject(i));
                         markers.add(sub);
                     }
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
 //                    Log.e(CONFIG.TAG, "expection is ", e);
                     Toast.makeText(MapActivity.this, getString(R.string.error_near_hotel_location), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
             }

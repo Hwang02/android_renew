@@ -159,6 +159,14 @@ public class SearchResultActivity extends AppCompatActivity {
                 }, 2000);
     }
 
+    public void hideprogress(){
+        findViewById(R.id.wrapper).setVisibility(View.GONE);
+    }
+
+    public void showprogress(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onBackPressed() {
         finish();

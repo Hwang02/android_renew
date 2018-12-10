@@ -203,6 +203,7 @@ public class HotelSearchActivity extends Activity {
     }
 
     public void getSearch(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.search_stay_list;
         if(!TextUtils.isEmpty(city)){
             url +="&city="+city;
@@ -254,6 +255,7 @@ public class HotelSearchActivity extends Activity {
                 @Override
                 public void onFailure(Response response, Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -263,6 +265,7 @@ public class HotelSearchActivity extends Activity {
 
                         if (!obj.getString("result").equals("success")) {
                             Toast.makeText(HotelSearchActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
@@ -413,16 +416,21 @@ public class HotelSearchActivity extends Activity {
                         total_count = obj.getInt("total_count");
                         adapter.notifyDataSetChanged();
                         Page++;
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
         }
+        else{
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
+        }
     }
 
     public void setLike(final int position, final boolean islike){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
@@ -430,12 +438,14 @@ public class HotelSearchActivity extends Activity {
             paramObj.put("id", sel_id);
         } catch(Exception e){
             Log.e(CONFIG.TAG, e.toString());
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
         if(islike){// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
                     Toast.makeText(HotelSearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -444,15 +454,17 @@ public class HotelSearchActivity extends Activity {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
                             showToast("로그인 후 이용해주세요");
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
@@ -462,6 +474,7 @@ public class HotelSearchActivity extends Activity {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
                     Toast.makeText(HotelSearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -470,15 +483,17 @@ public class HotelSearchActivity extends Activity {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
                             showToast("로그인 후 이용해주세요");
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
                     }catch (JSONException e){
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });

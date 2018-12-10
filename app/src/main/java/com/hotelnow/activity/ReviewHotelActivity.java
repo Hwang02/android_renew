@@ -202,6 +202,7 @@ public class ReviewHotelActivity extends Activity{
     }
 
     public void getReviewList(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.reviewListUrl + "/" + mPage+ "/" + mPer_page + "/" + hid;
         if(isAdd) {
             Api.get(url, new Api.HttpCallback() {
@@ -209,6 +210,7 @@ public class ReviewHotelActivity extends Activity{
                 @Override
                 public void onFailure(Response response, Exception throwable) {
                     Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -219,6 +221,7 @@ public class ReviewHotelActivity extends Activity{
 
                         if (!obj.getJSONObject("reviews").getString("result").equals("success")) {
                             Toast.makeText(ReviewHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
                         if (mPage == 1) {
@@ -250,6 +253,7 @@ public class ReviewHotelActivity extends Activity{
                                     ));
                                 }
                                 mListAdapter.notifyDataSetChanged();
+                                findViewById(R.id.wrapper).setVisibility(View.GONE);
                             } else {
                                 isAdd = false;
                             }
@@ -258,6 +262,7 @@ public class ReviewHotelActivity extends Activity{
                     } catch (JSONException e) {
                         Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });

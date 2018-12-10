@@ -220,12 +220,13 @@ public class MapAcvitityActivity extends AppCompatActivity {
         }
 
         url +="&per_page=20";
-
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         if(total_count != latLngsArrayList.size()) {
             Api.get(url + "&page=" + ++Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -235,6 +236,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
                         if (!obj.getString("result").equals("success")) {
                             Toast.makeText(MapAcvitityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
@@ -277,12 +279,17 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
                         total_count = obj.getInt("total_count");
                         mapAdapter.notifyDataSetChanged();
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
+        }
+        else{
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
 

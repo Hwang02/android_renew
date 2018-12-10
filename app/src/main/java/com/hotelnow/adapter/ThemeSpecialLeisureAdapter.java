@@ -39,7 +39,7 @@ public class ThemeSpecialLeisureAdapter extends RecyclerView.Adapter<ThemeSpecia
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Ion.with(holder.iv_image).load(data.get(position).getImg_background());
+        Ion.with(holder.iv_image).load(data.get(position).getImg_main_list());
         holder.tv_title.setText(data.get(position).getTitle());
         holder.tv_message.setText(data.get(position).getSub_title());
         holder.sel_item.setTag(position);

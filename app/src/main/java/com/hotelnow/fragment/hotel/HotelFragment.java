@@ -121,6 +121,7 @@ public class HotelFragment extends Fragment {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                MainActivity.hideProgress();
             }
 
             @Override

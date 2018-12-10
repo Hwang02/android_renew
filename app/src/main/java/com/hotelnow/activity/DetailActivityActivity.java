@@ -279,7 +279,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     }
 
     private void setDetailData(){
-
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.ticketdetailUrl_v2+"/"+ tid;
 
         Api.get(url, new Api.HttpCallback() {
@@ -287,6 +287,7 @@ public class DetailActivityActivity extends AppCompatActivity {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -297,6 +298,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     if (!obj.getString("result").equals("success")) {
                         MainActivity.hideProgress();
                         Toast.makeText(DetailActivityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -802,10 +804,12 @@ public class DetailActivityActivity extends AppCompatActivity {
                         }
                     });
 
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
                 catch (Exception e) {
                     e.getStackTrace();
                     Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });
@@ -856,14 +860,17 @@ public class DetailActivityActivity extends AppCompatActivity {
         catch (Exception e) {
             e.getStackTrace();
             Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
 
     private void setCouponDown(final int position, final JSONArray cdata){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.ticketcouponUrl2+"/"+mCouponId[position], new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -873,6 +880,7 @@ public class DetailActivityActivity extends AppCompatActivity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(DetailActivityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -888,8 +896,10 @@ public class DetailActivityActivity extends AppCompatActivity {
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
 
                     showCouponDialog(obj.getString("msg"));
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

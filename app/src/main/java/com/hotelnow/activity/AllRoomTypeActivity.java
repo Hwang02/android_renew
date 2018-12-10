@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -152,6 +153,7 @@ public class AllRoomTypeActivity extends Activity {
                         final String p_max = rdata.getJSONObject(i).getString("max_pn");
                         final int sale_price = rdata.getJSONObject(i).getInt("sale_price");
                         final int normal_price = rdata.getJSONObject(i).getInt("normal_price");
+                        HorizontalScrollView hscroll_img = (HorizontalScrollView) view_room.findViewById(R.id.hscroll_img);
 
                         pid.setText(rdata.getJSONObject(i).getString("product_id"));
                         rid.setText(rdata.getJSONObject(i).getString("room_id"));
@@ -171,6 +173,12 @@ public class AllRoomTypeActivity extends Activity {
                                 image_arr[j] = rdata.getJSONObject(i).getJSONArray("img").getJSONObject(j).getString("room_img");
                             }
                             Ion.with(img_room).load(image_arr[0]);
+                            if (image_arr.length == 1){
+                                hscroll_img.setVisibility(View.GONE);
+                            }
+                            else {
+                                hscroll_img.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         more_img_list.removeAllViews();

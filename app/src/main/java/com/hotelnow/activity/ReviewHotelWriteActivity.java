@@ -145,6 +145,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
     }
 
     private void setReview(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("hotel_id", hotel_id);
@@ -158,6 +159,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
             paramObj.put("rating_4", sp_count);
             paramObj.put("is_write", "Y");
         } catch (Exception e) {
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
         review_sent = true;
         Api.post(CONFIG.reviewCreateUrl_v2, paramObj.toString(), new Api.HttpCallback() {
@@ -165,6 +167,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
             public void onFailure(Response response, Exception e) {
                 review_sent = false;
                 Toast.makeText(ReviewHotelWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -174,11 +177,14 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReviewHotelWriteActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
                     succReviewDialog();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }catch (Exception e) {
                     Toast.makeText(ReviewHotelWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
                 review_sent = false;
             }

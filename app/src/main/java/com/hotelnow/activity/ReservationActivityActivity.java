@@ -336,7 +336,7 @@ public class ReservationActivityActivity extends Activity {
     }
 
     private void getDealInfo() {
-
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url="";
         url = CONFIG.ticketreserveUrl+"?deal_ids="+t_id+"&option_ids="+option_id+"&option_counts="+option_cnt;
 
@@ -344,6 +344,7 @@ public class ReservationActivityActivity extends Activity {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(ReservationActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -353,6 +354,7 @@ public class ReservationActivityActivity extends Activity {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReservationActivityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
                     JSONObject booking_data = obj.getJSONObject("booking_data");
@@ -919,9 +921,10 @@ public class ReservationActivityActivity extends Activity {
                             }
                         });
                     }
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     LogUtil.e("xxxx", e.getMessage());
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

@@ -62,17 +62,18 @@ public class MySaveActivity extends Activity{
             }
         });
 
-
         getlist();
     }
 
     private void getlist(){
         String url = CONFIG.reservemoneyUrl+"/"+1+"/"+PAGE_SIZE;
 
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(MySaveActivity.this, getString(R.string.error_reserve_money), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -82,6 +83,7 @@ public class MySaveActivity extends Activity{
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(MySaveActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -130,10 +132,12 @@ public class MySaveActivity extends Activity{
                     }
 
                     mAdapter.notifyDataSetChanged();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
 
                 } catch (Exception e) {
                     Log.e(CONFIG.TAG, "expection is ", e);
                     Toast.makeText(MySaveActivity.this, getString(R.string.error_reserve_money), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

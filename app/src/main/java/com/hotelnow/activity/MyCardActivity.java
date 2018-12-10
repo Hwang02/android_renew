@@ -83,10 +83,12 @@ public class MyCardActivity extends Activity{
     }
 
     public void getCardList() {
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.cardManageUrl, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(MyCardActivity.this, "카드 정보를 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -127,9 +129,10 @@ public class MyCardActivity extends Activity{
                     }
 
                     mAdapter.notifyDataSetChanged();
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(MyCardActivity.this, "카드 정보를 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

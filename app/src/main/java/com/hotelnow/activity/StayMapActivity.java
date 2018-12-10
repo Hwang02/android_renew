@@ -132,6 +132,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                     mapFragment.getMapAsync(StayMapActivity.this);
                 }
             } else {
+                findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
                 from = intent.getStringExtra("from");
                 hid = intent.getStringExtra("hid");
                 title = intent.getStringExtra("title");
@@ -141,6 +142,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                     @Override
                     public void onFailure(Response response, Exception e) {
                         Log.e(CONFIG.TAG, "expection is ", e);
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         Toast.makeText(StayMapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
                     }
 
@@ -151,6 +153,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
 
                             if (!obj.getString("result").equals("success")) {
                                 Toast.makeText(StayMapActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                findViewById(R.id.wrapper).setVisibility(View.GONE);
                                 return;
                             }
 
@@ -174,10 +177,11 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                             } else {
                                 mapFragment.getMapAsync(StayMapActivity.this);
                             }
-
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         } catch (Exception e) {
                             Log.e(CONFIG.TAG, "expection is ", e);
                             Toast.makeText(StayMapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         }
 
                     }

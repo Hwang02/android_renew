@@ -132,6 +132,7 @@ public class LeisureFragment extends Fragment {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        MainActivity.hideProgress();
                         return;
                     }
 

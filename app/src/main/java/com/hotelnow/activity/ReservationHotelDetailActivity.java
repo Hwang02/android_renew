@@ -176,6 +176,7 @@ public class ReservationHotelDetailActivity extends Activity {
     }
 
     private void setData(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.bookingDetailUrl+"/"+bid;
         if(cookie == null){
             url +="?user_name="+user_name+"&user_phone="+user_phone;
@@ -185,6 +186,7 @@ public class ReservationHotelDetailActivity extends Activity {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(ReservationHotelDetailActivity.this, getString(R.string.error_booking_info), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -194,6 +196,7 @@ public class ReservationHotelDetailActivity extends Activity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReservationHotelDetailActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -759,9 +762,10 @@ public class ReservationHotelDetailActivity extends Activity {
                             dialogConfirm.show();
                         }
                     });
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(ReservationHotelDetailActivity.this, getString(R.string.error_booking_info), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

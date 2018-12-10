@@ -69,10 +69,12 @@ public class FullImageViewActivity extends FragmentActivity {
     }
 
     private void getPortraitInfo() {
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.portraitUrl+"/"+hid, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(FullImageViewActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -82,6 +84,7 @@ public class FullImageViewActivity extends FragmentActivity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(FullImageViewActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -114,8 +117,10 @@ public class FullImageViewActivity extends FragmentActivity {
                     }
 
                     showPager();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
             }

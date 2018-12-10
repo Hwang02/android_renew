@@ -190,7 +190,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                                 "",
                                 "null",
                                 "",
-                                head.getString("img_background"),
+                                head.getString("img_main_list"),
                                 "",
                                 "",
                                 0)

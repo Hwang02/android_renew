@@ -34,6 +34,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -306,6 +307,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     // 프라이빗 딜
     private void setPrivateDeal(final String linkUrl, String Hotel_id, final String Room_id, final String mProduct_Id){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("hotel_id", Hotel_id);
@@ -313,11 +315,13 @@ public class DetailHotelActivity extends AppCompatActivity {
             paramObj.put("ec_date", ec_date);
             paramObj.put("ee_date", ee_date);
         } catch(Exception e){
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
             Log.e(CONFIG.TAG, e.toString());
         }
         Api.post(CONFIG.privateDeaUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
             }
 
@@ -326,9 +330,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.getString("result").equals("success")) {
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
 
                     String fullLinkUrl =linkUrl+"&bid_id="+obj.getJSONObject("data").getString("id")+"&refKey="+obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(DetailHotelActivity.this, PrivateDealActivity.class);
@@ -341,8 +348,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                     intent.putExtra("city", city);
                     intent.putExtra("hotel_name", hotel_name);
                     startActivityForResult(intent, 80);
-
                 } catch (Exception e) {
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -350,6 +357,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     private void setDetailView(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";
@@ -360,6 +368,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -369,6 +378,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(DetailHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -696,9 +706,11 @@ public class DetailHotelActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
                 catch (Exception e) {
                     e.getStackTrace();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                     LogUtil.e("xxxxx", e.getMessage());
                     Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
@@ -904,6 +916,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 final String p_max = rdata.getJSONObject(i).getString("max_pn");
                 final int sale_price = rdata.getJSONObject(i).getInt("sale_price");
                 final int normal_price = rdata.getJSONObject(i).getInt("normal_price");
+                HorizontalScrollView hscroll_img = (HorizontalScrollView) view_room.findViewById(R.id.hscroll_img);
 
                 pid.setText(rdata.getJSONObject(i).getString("product_id"));
                 rid.setText(rdata.getJSONObject(i).getString("room_id"));
@@ -923,6 +936,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                         image_arr[j] = rdata.getJSONObject(i).getJSONArray("img").getJSONObject(j).getString("room_img");
                     }
                     Ion.with(img_room).load(image_arr[0]);
+                    if (image_arr.length == 1){
+                        hscroll_img.setVisibility(View.GONE);
+                    }
+                    else {
+                        hscroll_img.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 more_img_list.removeAllViews();
@@ -1056,6 +1075,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         catch (Exception e) {
             e.getStackTrace();
             LogUtil.e("xxxxx", e.getMessage());
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
             Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
         }
 

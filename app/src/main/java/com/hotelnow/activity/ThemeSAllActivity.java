@@ -58,11 +58,12 @@ public class ThemeSAllActivity extends Activity {
     }
 
     private void getData() {
-
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.special_theme_list, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -71,6 +72,7 @@ public class ThemeSAllActivity extends Activity {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
                         Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
 
                     if(obj.has("theme_lists")){
@@ -94,8 +96,10 @@ public class ThemeSAllActivity extends Activity {
                           mAdapter.notifyDataSetChanged();
                         }
                     }
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
             }

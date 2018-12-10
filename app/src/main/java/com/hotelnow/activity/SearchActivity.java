@@ -268,11 +268,13 @@ public class SearchActivity extends Activity{
     }
 
     private void setResultData(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.search_auto+et_search.getText().toString();
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
             @Override
             public void onSuccess(Map<String, String> headers, String body) {
@@ -280,6 +282,7 @@ public class SearchActivity extends Activity{
                     JSONObject obj = new JSONObject(body);
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(SearchActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -337,9 +340,10 @@ public class SearchActivity extends Activity{
 
                     setAutoH();
                     setAutoA();
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

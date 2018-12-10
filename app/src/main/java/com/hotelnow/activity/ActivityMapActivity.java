@@ -224,7 +224,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
 
     public void getList(){
         setCustomMarkerView();
-
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         url = CONFIG.ticketUrl+"?order_kind=distance"+"&lat="+lat+"&lng="+lng+"&page=1";
 
         Api.get(url, new Api.HttpCallback() {
@@ -232,6 +232,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
             public void onFailure(Response response, Exception e) {
                 Log.e(CONFIG.TAG, "expection is ", e);
                 Toast.makeText(ActivityMapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -241,6 +242,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ActivityMapActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -273,10 +275,11 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                         markers.add(sub);
 
                     }
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Log.e(CONFIG.TAG, "expection is ", e);
                     Toast.makeText(ActivityMapActivity.this, getString(R.string.error_hotel_location), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
             }

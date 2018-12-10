@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/white"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@android:color/transparent"
+        android:theme="@style/AppTheme.TransNav">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -173,7 +173,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/special"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
@@ -257,6 +258,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="35dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="30dp"
                     style="?android:attr/borderlessButtonStyle"/>
 
             </LinearLayout>
@@ -275,6 +277,7 @@
                     android:layout_height="60dp"
                     android:visibility="invisible" />
             </LinearLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -338,5 +341,22 @@
                 android:textColor="@color/white"
                 tools:text="관심 상품 담기 성공"/>
         </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/loading_alpha_bg">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:indicator="BallSpinFadeLoader"
+            app:indicator_color="@color/purple"/>
+
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

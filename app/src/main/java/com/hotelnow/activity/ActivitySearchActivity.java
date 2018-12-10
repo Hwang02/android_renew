@@ -169,6 +169,7 @@ public class ActivitySearchActivity extends Activity {
     }
 
     public void getSearch(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.search_activity_list;
 //        search_txt = "서울";
         if(!TextUtils.isEmpty(search_txt)){
@@ -191,6 +192,7 @@ public class ActivitySearchActivity extends Activity {
                 @Override
                 public void onFailure(Response response, Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -200,6 +202,7 @@ public class ActivitySearchActivity extends Activity {
 
                         if (!obj.getString("result").equals("success")) {
                             Toast.makeText(ActivitySearchActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
@@ -273,16 +276,21 @@ public class ActivitySearchActivity extends Activity {
                         total_count = obj.getInt("total_count");
                         adapter.notifyDataSetChanged();
                         Page++;
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
         }
+        else {
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
+        }
     }
 
     public void setLike(final int position, final boolean islike){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
@@ -290,12 +298,14 @@ public class ActivitySearchActivity extends Activity {
             paramObj.put("id", sel_id);
         } catch(Exception e){
             Log.e(CONFIG.TAG, e.toString());
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
         if(islike){// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
                     Toast.makeText(ActivitySearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -304,6 +314,7 @@ public class ActivitySearchActivity extends Activity {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
                             showToast("로그인 후 이용해주세요");
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
@@ -311,8 +322,9 @@ public class ActivitySearchActivity extends Activity {
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }catch (JSONException e){
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
@@ -322,6 +334,7 @@ public class ActivitySearchActivity extends Activity {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
                     Toast.makeText(ActivitySearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
                 @Override
@@ -330,6 +343,7 @@ public class ActivitySearchActivity extends Activity {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
                             showToast("로그인 후 이용해주세요");
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
 
@@ -337,8 +351,9 @@ public class ActivitySearchActivity extends Activity {
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }catch (JSONException e){
-
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });

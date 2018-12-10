@@ -106,17 +106,20 @@ public class SettingActivity extends Activity{
     }
 
     private void setCheckMaketing(final String type, String flag){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         JSONObject paramObj = new JSONObject();
 
         try{
             paramObj.put("yn", flag);
 
-        } catch (JSONException e) {}
+        } catch (JSONException e) {
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
+        }
 
         Api.post(CONFIG.maketing_check + "/" + type, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
-
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -127,6 +130,7 @@ public class SettingActivity extends Activity{
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -213,10 +217,10 @@ public class SettingActivity extends Activity{
                             }
                         }
                     }
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
 
                 } catch (Exception e) {
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });

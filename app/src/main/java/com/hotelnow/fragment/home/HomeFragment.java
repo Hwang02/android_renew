@@ -142,6 +142,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     @Override
                     public void onFailure(Response response, Exception throwable) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        MainActivity.hideProgress();
                     }
 
                     @Override
@@ -192,14 +193,16 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             else {
                                 adapter.refreshRecent();
                             }
-
+                            MainActivity.hideProgress();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            MainActivity.hideProgress();
                         }
                     }
                 });
             } catch(Exception e){
                 e.printStackTrace();
+                MainActivity.hideProgress();
             }
         } else{
             CONFIG.isRecent = false;
@@ -228,6 +231,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        MainActivity.hideProgress();
                         return;
                     }
 

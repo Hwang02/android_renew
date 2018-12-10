@@ -188,6 +188,7 @@ public class HotelSearchFragment extends Fragment {
     }
 
     public void getSearch(){
+        ((SearchResultActivity)getActivity()).showprogress();
         String url = CONFIG.search_stay_list;
         if(!TextUtils.isEmpty(city)){
             url +="&city="+city;
@@ -241,6 +242,7 @@ public class HotelSearchFragment extends Fragment {
                     if(isAdded()) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                     }
+                    ((SearchResultActivity)getActivity()).hideprogress();
                 }
 
                 @Override
@@ -249,6 +251,7 @@ public class HotelSearchFragment extends Fragment {
                         JSONObject obj = new JSONObject(body);
 
                         if (!obj.getString("result").equals("success")) {
+                            ((SearchResultActivity)getActivity()).hideprogress();
                             Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -417,13 +420,18 @@ public class HotelSearchFragment extends Fragment {
                             adapter.notifyDataSetChanged();
                             Page++;
                         }
+                        ((SearchResultActivity)getActivity()).hideprogress();
                     } catch (Exception e) {
                         if(isAdded()) {
                             Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                         }
+                        ((SearchResultActivity)getActivity()).hideprogress();
                     }
                 }
             });
+        }
+        else {
+            ((SearchResultActivity)getActivity()).hideprogress();
         }
     }
 

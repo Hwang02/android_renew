@@ -137,6 +137,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
     }
 
     private void setReview(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("user_id", userid);
@@ -149,6 +150,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
             paramObj.put("rating_4", sp_count);
             paramObj.put("is_write", "Y");
         } catch (Exception e) {
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
         review_sent = true;
         Api.post(CONFIG.ticketreviewCreateUrl_v2, paramObj.toString(), new Api.HttpCallback() {
@@ -156,6 +158,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
             public void onFailure(Response response, Exception e) {
                 review_sent = false;
                 Toast.makeText(ReviewActivityWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -165,11 +168,14 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReviewActivityWriteActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
                     succReviewDialog();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }catch (Exception e) {
                     Toast.makeText(ReviewActivityWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
                 review_sent = false;
             }

@@ -148,6 +148,7 @@ public class ActivitySearchFragment  extends Fragment {
     }
 
     public void getSearch(){
+        ((SearchResultActivity)getActivity()).showprogress();
         String url = CONFIG.search_activity_list;
 //        search_txt = "서울";
         if(!TextUtils.isEmpty(search_txt)){
@@ -178,6 +179,7 @@ public class ActivitySearchFragment  extends Fragment {
                     if(isAdded()) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                     }
+                    ((SearchResultActivity)getActivity()).hideprogress();
                 }
 
                 @Override
@@ -186,6 +188,7 @@ public class ActivitySearchFragment  extends Fragment {
                         JSONObject obj = new JSONObject(body);
 
                         if (!obj.getString("result").equals("success")) {
+                            ((SearchResultActivity)getActivity()).hideprogress();
                             Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -288,13 +291,18 @@ public class ActivitySearchFragment  extends Fragment {
                         adapter.notifyDataSetChanged();
                         Page++;
 
+                        ((SearchResultActivity)getActivity()).hideprogress();
                     } catch (Exception e) {
                         if(isAdded()) {
                             Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                         }
+                        ((SearchResultActivity)getActivity()).hideprogress();
                     }
                 }
             });
+        }
+        else{
+            ((SearchResultActivity)getActivity()).hideprogress();
         }
     }
 
