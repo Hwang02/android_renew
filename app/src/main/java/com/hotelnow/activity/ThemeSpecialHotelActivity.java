@@ -143,12 +143,14 @@ public class ThemeSpecialHotelActivity extends Activity {
     }
 
     public void getHotelList() {
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list+"/"+tid+"/H";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(ThemeSpecialHotelActivity.this, getString(R.string.error_theme_info), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -157,6 +159,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("theme")) {
                         Toast.makeText(ThemeSpecialHotelActivity.this, getString(R.string.error_theme_info), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -231,9 +234,10 @@ public class ThemeSpecialHotelActivity extends Activity {
                             mAdapter.notifyDataSetChanged();
                         }
                     }, 200);
-
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(ThemeSpecialHotelActivity.this, getString(R.string.error_theme_info), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
             }

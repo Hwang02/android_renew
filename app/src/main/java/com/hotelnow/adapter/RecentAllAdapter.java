@@ -133,6 +133,18 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
         });
 
         holder.tv_rate.setText(entry.getGrade_score());
+
+        if(entry.getGrade_score().equals("0.0")){
+            holder.tv_rate.setVisibility(View.GONE);
+            holder.text_bar.setVisibility(View.GONE);
+            holder.img_star.setVisibility(View.GONE);
+        }
+        else{
+            holder.tv_rate.setVisibility(View.VISIBLE);
+            holder.text_bar.setVisibility(View.VISIBLE);
+            holder.img_star.setVisibility(View.VISIBLE);
+        }
+
         holder.category.setText(entry.getCategory());
         holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
         holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
@@ -183,10 +195,11 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
 
     private class ViewHolder {
 
-        ImageView iv_img, iv_favorite, ico_private, ico_hotdeal, soon_discount, soon_point;
+        ImageView iv_img, iv_favorite, ico_private, ico_hotdeal, soon_discount, soon_point, img_star;
         TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, hid, sdate, edate;
         LinearLayout special_msg;
         boolean islike = false;
+        View text_bar;
 
         public ViewHolder(View v) {
 
@@ -213,6 +226,8 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
             sdate = (TextView)v.findViewById(R.id.sdate);
             edate = (TextView)v.findViewById(R.id.edate);
 
+            text_bar = (View) v.findViewById(R.id.v_bar);
+            img_star = (ImageView) v.findViewById(R.id.ico_star);
 
             v.setTag(R.id.id_holder);
         }

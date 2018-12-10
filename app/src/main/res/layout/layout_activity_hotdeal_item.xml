@@ -43,6 +43,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/img_star"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:background="@drawable/ico_starpoint_press"/>
@@ -58,7 +59,8 @@
                 android:textColor="@color/blacktxt"
                 tools:text="3.3" />
 
-            <TextView
+            <View
+                android:id="@+id/text_bar"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"

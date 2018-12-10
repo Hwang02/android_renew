@@ -56,9 +56,23 @@ public class MapActivityAdapter extends PagerAdapter {
         TextView tv_discount = (TextView) itemView.findViewById(R.id.tv_discount);
         TextView tv_sale = (TextView) itemView.findViewById(R.id.tv_sale);
         ImageView img_hotel = (ImageView) itemView.findViewById(R.id.img_hotel);
+        View text_bar = (View) itemView.findViewById(R.id.text_bar);
+        ImageView img_star = (ImageView) itemView.findViewById(R.id.img_star);
 
         tv_name.setText(arr_LocationList.get(position).getName());
         tv_score.setText(arr_LocationList.get(position).getGrade_score());
+
+        if(arr_LocationList.get(position).getGrade_score().equals("0.0")){
+            tv_score.setVisibility(View.GONE);
+            text_bar.setVisibility(View.GONE);
+            img_star.setVisibility(View.GONE);
+        }
+        else {
+            tv_score.setVisibility(View.VISIBLE);
+            text_bar.setVisibility(View.VISIBLE);
+            img_star.setVisibility(View.VISIBLE);
+        }
+
         tv_category.setText(arr_LocationList.get(position).getCategory());
         tv_discount.setText(arr_LocationList.get(position).getSale_rate()+"%↓");
         Ion.with(img_hotel).load(arr_LocationList.get(position).getLandscape());

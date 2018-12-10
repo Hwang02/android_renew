@@ -143,6 +143,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:textColor="@color/blacktxt"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_below="@+id/hotel_info1"
         android:textSize="17dp"
         tools:text="l7 홍대 바이 롯데"/>

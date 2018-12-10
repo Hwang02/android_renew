@@ -49,6 +49,17 @@ public class HotelHotDealStayAdapter extends RecyclerView.Adapter<HotelHotDealSt
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
 
+        if(data.get(position).getGrade_score().equals("0.0")){
+            holder.tv_score.setVisibility(View.GONE);
+            holder.text_bar.setVisibility(View.GONE);
+            holder.img_star.setVisibility(View.GONE);
+        }
+        else{
+            holder.tv_score.setVisibility(View.VISIBLE);
+            holder.text_bar.setVisibility(View.VISIBLE);
+            holder.img_star.setVisibility(View.VISIBLE);
+        }
+
         if(data.get(position).getCoupon_count()>0){
             holder.soon_discount.setVisibility(View.VISIBLE);
         }
@@ -109,9 +120,10 @@ public class HotelHotDealStayAdapter extends RecyclerView.Adapter<HotelHotDealSt
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price, tv_per;
         RoundedImageView iv_image;
-        ImageView btn_favorite, soon_discount, soon_point;
+        ImageView btn_favorite, soon_discount, soon_point, img_star;
         LinearLayout sel_item;
         boolean islike = false;
+        View text_bar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -125,6 +137,8 @@ public class HotelHotDealStayAdapter extends RecyclerView.Adapter<HotelHotDealSt
             soon_discount = (ImageView) itemView.findViewById(R.id.soon_discount);
             soon_point = (ImageView) itemView.findViewById(R.id.soon_point);
             sel_item = (LinearLayout) itemView.findViewById(R.id.sel_item);
+            text_bar = (View) itemView.findViewById(R.id.text_bar);
+            img_star = (ImageView) itemView.findViewById(R.id.img_star);
         }
     }
 }
