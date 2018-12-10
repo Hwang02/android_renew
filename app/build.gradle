@@ -19,8 +19,8 @@ android {
         applicationId "com.hotelnow"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 221
-        versionName "4.22"
+        versionCode 225
+        versionName "4.26"
         multiDexEnabled true
     }
     buildTypes {
@@ -89,7 +89,7 @@ android {
         }
     }
     dexOptions {
-        javaMaxHeapSize "2048M"
+        javaMaxHeapSize "Xg"
     }
 
     dataBinding {
@@ -124,7 +124,7 @@ dependencies {
     implementation 'com.squareup.okhttp:okhttp:2.7.5'
     implementation 'com.facebook.android:facebook-android-sdk:4.35.0'
     implementation 'com.tune:tune-marketing-console-sdk:4.15.0'
-    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'

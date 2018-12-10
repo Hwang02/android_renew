@@ -68,7 +68,7 @@ public class ActivitySearchFragment  extends Fragment {
     private String banner_id, search_txt, order_kind;
     private int Page = 1;
     private int total_count;
-    private String s_position = "", theme_id="", city="";
+    private String s_position = "", theme_id="", city="", title_text;
     private DbOpenHelper dbHelper;
     private Button bt_scroll;
     private FlowLayout popular_keyword;
@@ -91,6 +91,7 @@ public class ActivitySearchFragment  extends Fragment {
         search_txt = getArguments().getString("search_txt");
         banner_id = getArguments().getString("banner_id");
         order_kind = getArguments().getString("order_kind");
+        title_text = getArguments().getString("title_text");
 
         mlist = (ListView) getView().findViewById(R.id.h_list);
         HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
@@ -283,6 +284,7 @@ public class ActivitySearchFragment  extends Fragment {
                                 intent.putExtra("banner_id", banner_id);
                                 intent.putExtra("theme_id", theme_id);
                                 intent.putExtra("city", city);
+                                intent.putExtra("title_text", title_text);
                                 startActivityForResult(intent, 90);
                             }
                         });

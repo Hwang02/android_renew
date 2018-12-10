@@ -47,6 +47,7 @@
             android:layout_weight="0.2"
             android:gravity="center"
             android:text="닫기"
+            android:layout_marginRight="20dp"
             android:textColor="@color/termtext"
             android:textSize="15dp"
             android:background="@color/white" />

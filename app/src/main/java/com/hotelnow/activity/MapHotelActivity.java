@@ -88,12 +88,13 @@ public class MapHotelActivity extends AppCompatActivity {
         price_max =  intent.getStringExtra("price_max");
         score = intent.getStringExtra("score");
         order_kind =  intent.getStringExtra("order_kind");
+
         Page = intent.getIntExtra("Page",1);
 
         TextView total_item = (TextView)findViewById(R.id.total_item);
         TextView title_text = (TextView)findViewById(R.id.title_text);
         TextView subtitle_text = (TextView)findViewById(R.id.subtitle_text);
-        title_text.setText(search_txt);
+        title_text.setText(intent.getStringExtra("title_text"));
         String sub ="";
         if(!TextUtils.isEmpty(city_name) && !city_name.equals("지역선택")){
             sub = city_name+", ";

@@ -93,6 +93,7 @@ public class HotelSearchFragment extends Fragment {
     private static int nowPosition = 0;
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
+    private String title_text;
 
     @Nullable
     @Override
@@ -111,6 +112,7 @@ public class HotelSearchFragment extends Fragment {
         search_txt = getArguments().getString("search_txt");
         banner_id = getArguments().getString("banner_id");
         order_kind = getArguments().getString("order_kind");
+        title_text = getArguments().getString("title_text");
 
         mlist = (ListView) getView().findViewById(R.id.h_list);
         HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header, null, false);
@@ -407,6 +409,7 @@ public class HotelSearchFragment extends Fragment {
                                     intent.putExtra("price_max", price_max);
                                     intent.putExtra("score", score);
                                     intent.putExtra("order_kind", order_kind);
+                                    intent.putExtra("title_text", title_text);
                                     if (order_kind.equals("distance")) {
                                         intent.putExtra("lat", CONFIG.lat);
                                         intent.putExtra("lng", CONFIG.lng);

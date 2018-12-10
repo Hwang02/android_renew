@@ -880,29 +880,18 @@ public class Util {
         return format.format(calendar.getTime());
     }
 
-//    public static void clearSearch(){
-//        CONFIG.sel_sort = "";													        // 필터
-//        CONFIG.sel_keyword = null;														// 검색문자
-//        CONFIG.sel_area = "all";															// 검색도시
-//        CONFIG.sel_subarea = null;														// 검색구
-//        CONFIG.sel_category = null;														// 검색가테고리
-//        CONFIG.sel_facility = null;														// 검색부대시설
-//        CONFIG.sel_checkin = null;														// 검색체크인
-//        CONFIG.sel_checkout = null;														// 검색체크아웃
-//        CONFIG.sel_minPrice = "";												        // 검색가격대
-//        CONFIG.sel_maxPrice = "";                                                       // 검색가격대
-//        CONFIG.isAdd = true;                                                            // item 추가 여부
-//        CONFIG.mPage = 1;                                                               //mainpage 호출된 페이지
-//        CONFIG.sel_sort_price="";                                                       //필터 가격순
-//        CONFIG.sel_ticket_area = null;
-//        CONFIG.sel_ticket_category = null;
-//        CONFIG.sel_areaticketname = null;
-//        CONFIG.sel_categoryticketname = null;
-//        CONFIG.sel_ticket_keyword = null;
-//        CONFIG.sel_booking_tab = true;
-//        CONFIG.ticket_isAdd = true;
-//        CONFIG.mticket_Page = 1;
-//    }
+    public static void clearSearch(){
+        CONFIG.sel_category = null;														// 검색가테고리
+        CONFIG.sel_facility = null;														// 검색부대시설
+        CONFIG.sel_orderby = null;												// 검색가테고리
+        CONFIG.sel_category = null;
+        CONFIG.sel_rate = null;
+        CONFIG.sel_facility = null;
+        CONFIG.sel_useperson = null;
+        CONFIG.sel_max = "600000";
+        CONFIG.sel_min = "0";
+        CONFIG.Mypage_Search = false;
+    }
 
 //    private static String getDefaultCheckinout(){
 //        Date dateObj = new Date();

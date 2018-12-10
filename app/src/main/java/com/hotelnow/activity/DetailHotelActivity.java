@@ -657,6 +657,19 @@ public class DetailHotelActivity extends AppCompatActivity {
                         }
                     });
 
+                    map_img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
+                            intent.putExtra("from", "pdetail");
+                            intent.putExtra("title", hotel_name);
+                            intent.putExtra("hid", hid);
+                            intent.putExtra("ec_date", ec_date);
+                            intent.putExtra("ee_date", ee_date);
+                            startActivityForResult(intent, 81); // 81 지도보기
+                        }
+                    });
+
                     findViewById(R.id.btn_kakao).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -1392,6 +1405,10 @@ public class DetailHotelActivity extends AppCompatActivity {
         if(resultCode == 80 && requestCode == 80){
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
+
+            if(data.getBooleanExtra("is_date", false)){
+                Toast.makeText(this, Util.formatchange(ec_date)+"~"+Util.formatchange(ee_date)+" 으로 날짜 설정이 변경되었습니다.", Toast.LENGTH_SHORT).show();
+            }
             setDetailView();
         }
         else if(resultCode == 81 && requestCode == 81){

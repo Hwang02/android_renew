@@ -58,7 +58,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
     private int total_count=0;
     CustomMap customMap;
     private String banner_id, search_txt,order_kind, lat, lng, theme_id,city;
-    private TextView total_item;
+    private TextView total_item, title_text;
     private LinearLayout ll_count;
 
     @Override
@@ -84,6 +84,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
         city = intent.getStringExtra("city");
 
         ll_count = (LinearLayout) findViewById(R.id.ll_count);
+        title_text = (TextView) findViewById(R.id.title_text);
+        title_text.setText(intent.getStringExtra("title_text"));
         ll_count.setBackgroundResource(R.color.activity_cc);
         TextView total_item = (TextView)findViewById(R.id.total_item);
         Spannable spannable = new SpannableString("총 "+total_count+"개의 액티비티");

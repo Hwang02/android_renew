@@ -50,6 +50,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -661,6 +662,7 @@ public class SearchActivity extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Util.clearSearch();
         if(requestCode == 80 && resultCode == 80){
             setResult(80);
             finish();

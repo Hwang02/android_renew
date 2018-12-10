@@ -711,6 +711,20 @@ public class DetailActivityActivity extends AppCompatActivity {
                         }
                     });
 
+                    map_img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DetailActivityActivity.this, MapActivity.class);
+                            intent.putExtra("from", "pdetail");
+                            intent.putExtra("isTicket", true);
+                            intent.putExtra("tid", tid);
+                            intent.putExtra("lat", maplat);
+                            intent.putExtra("lng", maplon);
+                            intent.putExtra("deal_name", tname);
+                            startActivityForResult(intent, 81); // 81 지도보기
+                        }
+                    });
+
                     //이용 정보
                     ArrayList<TicketInfoEntry> infolist = new ArrayList<>();
 

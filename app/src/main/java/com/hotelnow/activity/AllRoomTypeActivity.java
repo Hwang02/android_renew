@@ -51,6 +51,7 @@ public class AllRoomTypeActivity extends Activity {
     private String[] selectList;
     private String lodge_type;
     private TextView date;
+    private boolean is_date = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +88,13 @@ public class AllRoomTypeActivity extends Activity {
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(is_date){
+                    Intent intent = new Intent();
+                    intent.putExtra("ec_date", ec_date);
+                    intent.putExtra("ee_date", ee_date);
+                    intent.putExtra("is_date", true);
+                    setResult(80, intent);
+                }
                 finish();
             }
         });
@@ -379,12 +387,27 @@ public class AllRoomTypeActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(is_date){
+            Intent intent = new Intent();
+            intent.putExtra("ec_date", ec_date);
+            intent.putExtra("ee_date", ee_date);
+            intent.putExtra("is_date", true);
+            setResult(80, intent);
+        }
+
+        finish();
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == 80 && requestCode == 80){
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
+            is_date = true;
             setDetailView();
         }
         else if(resultCode == 90 && requestCode == 90) {

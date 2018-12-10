@@ -86,7 +86,7 @@ public class SearchResultActivity extends AppCompatActivity {
             tabLayout.getTabAt(1).select();
         }
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
         view_pager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
