@@ -20,6 +20,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.BannerStayAllActivity;
 import com.hotelnow.activity.HotDealActivity;
 import com.hotelnow.activity.PrivateDaelAllActivity;
+import com.hotelnow.activity.ThemeSAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
@@ -31,6 +32,7 @@ import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.ViewPagerCustom;
 
 import java.util.List;
@@ -194,7 +196,14 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             themeSAdapter = new ThemeSpecialStayAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
-            holder.mMoreView.setVisibility(View.GONE);
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
+                    intent.putExtra("page", "H");
+                    mHf.startActivityForResult(intent, 70);
+                }
+            });
         }
     }
 

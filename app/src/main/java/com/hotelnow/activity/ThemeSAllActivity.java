@@ -31,7 +31,7 @@ public class ThemeSAllActivity extends Activity {
     public ArrayList<ThemeSpecialItem> mThemeSItem = new ArrayList<>();
     private ThemeSAllAdapter mAdapter;
     private DbOpenHelper dbHelper;
-
+    private String page = "0";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,12 @@ public class ThemeSAllActivity extends Activity {
         Util.setStatusColor(this);
 
         dbHelper = new DbOpenHelper(this);
+
+        page = getIntent().getStringExtra("page");
+
+        if(page == null){
+            page = "";
+        }
 
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +65,7 @@ public class ThemeSAllActivity extends Activity {
 
     private void getData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        Api.get(CONFIG.special_theme_list, new Api.HttpCallback() {
+        Api.get(CONFIG.special_theme_list+"?theme_flag="+page, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();

@@ -712,7 +712,7 @@ public class ReservationActivity extends Activity {
                         pay_pager.setOffscreenPageLimit(3);
                         pay_pager.setPageMargin(3);
 
-                        setTimer();
+//                        setTimer();
                     }
                     else{
                         pay_pager.setVisibility(View.GONE);

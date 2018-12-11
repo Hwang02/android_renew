@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:background="#66000000"
             tools:text="남은객실 4개"
-            android:textSize="10dp"
+            android:textSize="11dp"
             android:textColor="@color/white"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

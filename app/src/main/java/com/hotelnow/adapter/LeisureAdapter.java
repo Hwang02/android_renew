@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.BannerActivityAllActivity;
 import com.hotelnow.activity.HotDealActivity;
+import com.hotelnow.activity.ThemeSAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.leisure.LeisureFragment;
@@ -165,7 +166,14 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             themeSAdapter = new ThemeSpecialLeisureAdapter(mLf.getThemeSpecialData(), mLf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
-            holder.mMoreView.setVisibility(View.GONE);
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(mLf.getContext(), ThemeSAllActivity.class);
+                    intent.putExtra("page", "Q");
+                    mLf.startActivityForResult(intent, 70);
+                }
+            });
         }
     }
 
