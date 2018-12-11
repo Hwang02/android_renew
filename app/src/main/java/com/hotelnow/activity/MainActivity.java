@@ -701,6 +701,13 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    public void HomePopup(){
+        HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
+        if(fm != null) {
+            fm.setPromotionPopup();
+        }
+    }
+
     public void moveTabRefresh2(){
         HotelFragment fm = (HotelFragment) getSupportFragmentManager().findFragmentByTag("HOTELPAGE");
         if(fm != null) {
@@ -716,14 +723,18 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void mainPopup(){
-        dialogFull = new DialogFull(this, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogFull.dismiss();
-            }
-        });
-        dialogFull.show();
-        dialogFull.setCancelable(false);
+        if(_preferences.getBoolean("user_first_app", true)) {
+            dialogFull = new DialogFull(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Util.setPreferenceValues(_preferences, "user_first_app", false);
+                    dialogFull.dismiss();
+                    HomePopup();
+                }
+            });
+            dialogFull.show();
+            dialogFull.setCancelable(false);
+        }
     }
 
     @Override

@@ -9,11 +9,10 @@
     <com.hotelnow.utils.ViewPagerCustom
         android:id="@+id/autoViewPager"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:scaleType="fitXY"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="25dp"/>
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/page"
@@ -28,7 +27,7 @@
         android:paddingBottom="5dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="17dp"
         android:layout_marginRight="24dp"
         tools:text=" 3/10 + "/>
 

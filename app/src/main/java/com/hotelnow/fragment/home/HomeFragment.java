@@ -70,6 +70,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     public SharedPreferences _preferences;
     private String cookie;
     public static DialogMainFragment frgpopup = null;
+    private JSONArray mPopups;
 
     @Nullable
     @Override
@@ -450,9 +451,14 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
                     adapter.notifyDataSetChanged();
 
-                    if(obj.has("pop_ups")){
+                    if(obj.has("pop_ups") && ((MainActivity)getActivity()).dialogFull != null && !((MainActivity)getActivity()).dialogFull.isShowing() && _preferences.getBoolean("user_first_app", true)){
                         if(obj.getJSONArray("pop_ups").length() >0) {
-                            JSONArray mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+                        }
+                    }
+                    else if(obj.has("pop_ups")){
+                        if(obj.getJSONArray("pop_ups").length() >0) {
+                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
                             if(!_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                     frgpopup = new DialogMainFragment();
@@ -476,6 +482,22 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 }
             }
         });
+    }
+
+    public void setPromotionPopup(){
+        if(!_preferences.getBoolean("today_start_app", false)) {
+            if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                frgpopup = new DialogMainFragment();
+                frgpopup.mListener = HomeFragment.this;
+                frgpopup.popup_data = mPopups;
+                frgpopup.pf = HomeFragment.this;
+                frgpopup.setCancelable(false);
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.add(frgpopup, null);
+                ft.commitAllowingStateLoss();
+            }
+        }
     }
 
     public ArrayList<StayHotDealItem> getHotelData() {

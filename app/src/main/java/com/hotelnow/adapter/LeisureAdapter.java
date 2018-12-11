@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
@@ -30,7 +31,9 @@ import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 
 import java.util.List;
@@ -218,6 +221,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
                 @Override
                 public void onPageSelected(int position) {
+                    resizePager(holder.autoViewPager, position);
                     nowPosition = position;
                     markNowPosition = position % PAGES;
                     holder.page_view.setText(markNowPosition+1 +" / "+ PAGES +" +");
@@ -232,6 +236,11 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mLf.startActivityForResult(intent, 70);
                 }
             });
+
+//            RelativeLayout.LayoutParams mRelativelp = (RelativeLayout.LayoutParams) holder.page_view
+//                    .getLayoutParams();
+//            mRelativelp.setMargins(0, 0, Util.dptopixel(context,25), Util.dptopixel(context,15));
+//            holder.page_view.setLayoutParams(mRelativelp);
 
             holder.autoViewPager.startAutoScroll();
         }
@@ -408,5 +417,16 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         return count;
+    }
+
+    public void resizePager(ViewPagerCustom pager, int position) {
+        View view = pager.findViewWithTag(position);
+        if (view == null)
+            return;
+        view.measure(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        int width = view.getMeasuredWidth();
+        int height = view.getMeasuredHeight(); //The layout params must match the parent of the ViewPager
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+        pager.setLayoutParams(params);
     }
 }

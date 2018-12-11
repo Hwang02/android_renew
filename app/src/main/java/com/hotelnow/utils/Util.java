@@ -112,7 +112,7 @@ public class Util {
 
         if(_preferences.getFloat("list_height", 0) <= 0){
             int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-            int imgHeight = (int) Math.round(screenWidth/16*9);
+            int imgHeight = (int) Math.round(screenWidth/16*2);
 
             return imgHeight;
         } else {

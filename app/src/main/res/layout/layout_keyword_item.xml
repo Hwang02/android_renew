@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="117dp"
-    android:layout_height="95dp"
+    android:layout_width="102dp"
+    android:layout_height="89dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="10dp"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,7 +17,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
+            android:layout_height="59dp"
             android:layout_marginTop="1dp"
             android:scaleType="fitXY"
             app:riv_corner_radius_top_left="2dp"
