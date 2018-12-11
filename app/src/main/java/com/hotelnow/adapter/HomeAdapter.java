@@ -324,7 +324,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void BannerSubView(final BannerViewHolder holder, int type) {
         if(subbAdapter == null) {
             PAGES2 = mHf.getEbannerData().size();
-            subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData());
+            subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData(), mHf);
             holder.autoViewPager.setAdapter(subbAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
             holder.autoViewPager.setPageMargin(20);

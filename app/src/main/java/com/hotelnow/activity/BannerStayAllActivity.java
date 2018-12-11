@@ -85,7 +85,8 @@ public class BannerStayAllActivity extends Activity {
                                         entry.getString("evt_type"),
                                         entry.getString("event_id"),
                                         entry.getString("link"),
-                                        entry.getString("title")
+                                        entry.getString("title"),
+                                        entry.getString("sub_title")
                                 ));
                             }
                         }

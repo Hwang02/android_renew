@@ -294,7 +294,8 @@ public class HotelSearchActivity extends Activity {
                                         bannerentry.getString("evt_type"),
                                         bannerentry.getString("event_id"),
                                         bannerentry.getString("link"),
-                                        bannerentry.getString("title")
+                                        bannerentry.getString("title"),
+                                        bannerentry.getString("sub_title")
                                 ));
                             }
 
@@ -315,7 +316,7 @@ public class HotelSearchActivity extends Activity {
                                 public void onPageSelected(int position) {
                                     nowPosition = position;
                                     markNowPosition = position % PAGES;
-                                    page.setText(markNowPosition+1 +" / "+ PAGES +" +");
+                                    page.setText(markNowPosition+1 +" / "+ PAGES);
                                 }
 
                                 @Override
@@ -323,7 +324,7 @@ public class HotelSearchActivity extends Activity {
 
                                 }
                             });
-                            page.setText("1 / "+ mBannerItems.size()+" +");
+                            page.setText("1 / "+ mBannerItems.size());
 
                             autoViewPager.startAutoScroll();
                         }

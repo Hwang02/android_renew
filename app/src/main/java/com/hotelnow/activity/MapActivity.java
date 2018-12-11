@@ -108,7 +108,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         Intent intent = getIntent();
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");
-
+        findViewById(R.id.noselect).setVisibility(View.VISIBLE);
 
         if (intent != null) {
            isTicket = intent.getBooleanExtra("isTicket",false);
@@ -425,6 +425,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                             if (selmarker.getSnippet().equals(hid)) {
                                 info.setVisibility(View.GONE);
+                                findViewById(R.id.noselect).setVisibility(View.VISIBLE);
                                 return true;
                             }
 
@@ -492,7 +493,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                                     }
                                 });
-
+                                findViewById(R.id.noselect).setVisibility(View.GONE);
                                 info.setVisibility(View.VISIBLE);
 
                             } catch (Exception e) {

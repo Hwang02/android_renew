@@ -157,7 +157,8 @@ public class LeisureFragment extends Fragment {
                                         p_banner.getJSONObject(i).getString("evt_type"),
                                         p_banner.getJSONObject(i).getString("event_id"),
                                         p_banner.getJSONObject(i).has("link") ? p_banner.getJSONObject(i).getString("link") : "",
-                                        p_banner.getJSONObject(i).getString("title")
+                                        p_banner.getJSONObject(i).getString("title"),
+                                        ""
                                 ));
                             }
                             objects.add(mPbanerItem.get(0));

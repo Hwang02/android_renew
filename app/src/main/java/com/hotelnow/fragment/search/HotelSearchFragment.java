@@ -283,7 +283,8 @@ public class HotelSearchFragment extends Fragment {
                                             bannerentry.getString("evt_type"),
                                             bannerentry.getString("event_id"),
                                             bannerentry.getString("link"),
-                                            bannerentry.getString("title")
+                                            bannerentry.getString("title"),
+                                            bannerentry.getString("sub_title")
                                     ));
                                 }
 
@@ -304,7 +305,7 @@ public class HotelSearchFragment extends Fragment {
                                     public void onPageSelected(int position) {
                                         nowPosition = position;
                                         markNowPosition = position % PAGES;
-                                        page.setText(markNowPosition + 1 + " / " + PAGES + " +");
+                                        page.setText(markNowPosition + 1 + " / " + PAGES);
                                     }
 
                                     @Override
@@ -312,7 +313,7 @@ public class HotelSearchFragment extends Fragment {
 
                                     }
                                 });
-                                page.setText("1 / " + mBannerItems.size() + " +");
+                                page.setText("1 / " + mBannerItems.size());
 
                                 autoViewPager.startAutoScroll();
                             } else {

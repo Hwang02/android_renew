@@ -216,4 +216,18 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/noselect"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textSize="13dp"
+        android:textColor="@color/white"
+        android:background="@color/black_two"
+        android:gravity="center"
+        android:text="주변 숙소를 선택하면 상세 정보를 보실 수 있습니다"/>
+
 </RelativeLayout>

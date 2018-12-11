@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -67,6 +68,16 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
         int realPos = position % data.size();
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_search_banner_item, parent, false);
         RoundedImageView image_container = (RoundedImageView) v.findViewById(R.id.image_container);
+        TextView banner_message = (TextView) v.findViewById(R.id.banner_message);
+        TextView banner_title = (TextView) v.findViewById(R.id.banner_title);
+        banner_title.setText(data.get(realPos).getTitle());
+        if(!TextUtils.isEmpty(data.get(realPos).getSub_title())) {
+            banner_message.setVisibility(View.VISIBLE);
+            banner_message.setText(data.get(realPos).getSub_title());
+        }
+        else{
+            banner_message.setVisibility(View.GONE);
+        }
         Ion.with(image_container).load(data.get(realPos).getImage());
         image_container.setTag(realPos);
         image_container.setOnClickListener(new View.OnClickListener() {

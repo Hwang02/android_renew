@@ -42,6 +42,7 @@
     <color name="full_item_bg">#444444</color>
     <color name="white7">#b3ffffff</color>
     <color name="hotel_color">#22775032</color>
+    <color name="theme_dim">#66000000</color>
 
 
     <!--등급-->
