@@ -20,6 +20,7 @@ import android.view.View;
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
+import com.hotelnow.dialog.DialogFull;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.hotel.HotelFragment;
@@ -51,6 +52,7 @@ public class MainActivity extends FragmentActivity {
     private DbOpenHelper dbHelper;
     private int myPosition = 0;
     public static CallbackManager callbackManager;
+    public DialogFull dialogFull;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class MainActivity extends FragmentActivity {
         dbHelper = new DbOpenHelper(this);
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        mainPopup();
         // 하단 탭 버튼 동작 제거
         mbinding.navigation.enableAnimation(false);
         mbinding.navigation.enableShiftingMode(false);
@@ -711,6 +713,17 @@ public class MainActivity extends FragmentActivity {
         if(fm != null) {
             fm.allRefresh();
         }
+    }
+
+    public void mainPopup(){
+        dialogFull = new DialogFull(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogFull.dismiss();
+            }
+        });
+        dialogFull.show();
+        dialogFull.setCancelable(false);
     }
 
     @Override

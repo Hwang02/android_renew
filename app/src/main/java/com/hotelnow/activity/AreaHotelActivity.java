@@ -129,7 +129,7 @@ public class AreaHotelActivity extends Activity {
         for(int i =0; i<mRecentCity.size(); i++){
             View view_recent = LayoutInflater.from(AreaHotelActivity.this).inflate(R.layout.layout_recent_area_item, null);
             TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
-            tv_recent.setText(mRecentCity.get(i).getSel_subcity_ko());
+            tv_recent.setText(mRecentCity.get(i).getSel_city_ko()+" > "+mRecentCity.get(i).getSel_subcity_ko());
             view_recent.setTag(i);
             view_recent.setOnClickListener(new OnSingleClickListener() {
                 @Override

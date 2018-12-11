@@ -80,7 +80,7 @@
                 android:layout_marginRight="30dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:text=""
                 android:textColor="@color/termtext"/>
         </ScrollView>

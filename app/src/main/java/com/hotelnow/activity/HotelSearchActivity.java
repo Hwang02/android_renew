@@ -187,6 +187,8 @@ public class HotelSearchActivity extends Activity {
                 TextView hid = (TextView)view.findViewById(R.id.hid);
                 Intent intent = new Intent(HotelSearchActivity.this, DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());
+                intent.putExtra("ec_date", ec_date);
+                intent.putExtra("ee_date", ee_date);
                 intent.putExtra("save", true);
                 startActivityForResult(intent, 50);
             }
