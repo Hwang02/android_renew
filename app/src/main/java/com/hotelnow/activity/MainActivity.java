@@ -706,7 +706,7 @@ public class MainActivity extends FragmentActivity {
     public void HomePopup(){
         HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
         if(fm != null) {
-            fm.setPromotionPopup();
+            fm.setPopup();
         }
     }
 

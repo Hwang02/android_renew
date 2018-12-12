@@ -41,7 +41,6 @@ public class ActivityImageFragment extends Fragment {
         String url = this.getArguments().getString("url");
         ImageView niv = (ImageView)wrap.findViewById(R.id.detail_img);
         Ion.with(niv)
-                .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .load(url);
         String caption = this.getArguments().getString("caption");

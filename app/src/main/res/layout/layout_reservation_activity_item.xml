@@ -12,10 +12,10 @@
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="160dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/placeholder"/>
+        android:background="@color/holder_c"/>
 
     <TextView
         android:id="@+id/booking_status"

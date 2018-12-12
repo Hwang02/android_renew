@@ -62,7 +62,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
             holder.img_star.setVisibility(View.VISIBLE);
         }
 
-        if(data.get(position).getIs_hot_deal().equals("Y")){
+        if(data.get(position).getCoupon_count() >0){
             holder.soon_discount.setVisibility(View.VISIBLE);
         }
         else{

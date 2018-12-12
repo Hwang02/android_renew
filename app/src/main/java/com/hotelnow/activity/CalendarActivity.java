@@ -130,7 +130,7 @@ public class CalendarActivity extends Activity{
                         checkout_date.setText("날짜 선택하기");
                         checkin_date.setText(selected_checkin_date);
                         check_inout_count.setText("0박");
-                        btn_complate.setBackgroundResource(R.color.board_line);
+                        btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                         btn_complate.setClickable(false);
                     }
                     else{
@@ -138,7 +138,7 @@ public class CalendarActivity extends Activity{
                         selected_checkout_date = formatter.format(date);
                         checkout_date.setText(selected_checkout_date);
                         check_inout_count.setText(select_cnt + "박");
-                        btn_complate.setBackgroundResource(R.color.purple);
+                        btn_complate.setBackgroundResource(R.drawable.cal_active_round);
                         btn_complate.setClickable(true);
                     }
                 }
@@ -177,13 +177,13 @@ public class CalendarActivity extends Activity{
                         selected_checkout_date = formatter.format(date);
                         checkout_date.setText(selected_checkout_date);
                         check_inout_count.setText(diffofday + "박");
-                        btn_complate.setBackgroundResource(R.color.purple);
+                        btn_complate.setBackgroundResource(R.drawable.cal_active_round);
                         btn_complate.setClickable(true);
                     } else {
                         checkin_date.setText("날짜 선택하기");
                         checkout_date.setText("날짜 선택하기");
                         check_inout_count.setText("0박");
-                        btn_complate.setBackgroundResource(R.color.board_line);
+                        btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                         btn_complate.setClickable(false);
                     }
                 }
@@ -193,7 +193,7 @@ public class CalendarActivity extends Activity{
                     checkin_date.setText("날짜 선택하기");
                     checkout_date.setText("날짜 선택하기");
                     check_inout_count.setText("0박");
-                    btn_complate.setBackgroundResource(R.color.board_line);
+                    btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                     btn_complate.setClickable(false);
                 }
             }
@@ -202,7 +202,7 @@ public class CalendarActivity extends Activity{
             public void onDateUnselected(Date date) {
                 selected_checkin_date = null;
                 selected_checkout_date = null;
-                btn_complate.setBackgroundResource(R.color.board_line);
+                btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                 btn_complate.setClickable(false);
             }
         });

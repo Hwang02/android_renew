@@ -246,7 +246,12 @@ public class ReservationActivity extends Activity {
                     }
                 }
                 else{
-                    Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                    if(!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000 ) {
+                        Toast.makeText(ReservationActivity.this, "최소 1,000원부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

@@ -22,10 +22,10 @@
 
         <ImageView
             android:id="@+id/iv_img"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="160dp"
             android:scaleType="fitXY"
-            android:background="@drawable/placeholder"/>
+            android:background="@color/holder_c"/>
 
         <ImageView
             android:id="@+id/iv_favorite"
@@ -111,7 +111,8 @@
             android:background="@color/textbar"
             android:layout_toRightOf="@+id/tv_rate"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
 
         <TextView
             android:id="@+id/category"
@@ -120,7 +121,6 @@
             android:textColor="@color/termtext"
             android:layout_toRightOf="@+id/v_bar"
             android:textSize="12dp"
-            android:layout_marginLeft="8dp"
             android:layout_centerVertical="true"
             tools:text="특2급"/>
 
@@ -252,7 +252,7 @@
             android:layout_marginBottom="11dp"
             android:textSize="13dp"
             android:textColor="@color/purple"
-            android:maxLines="3"
+            android:maxLines="2"
             android:ellipsize="end"
             tools:text="선착순 5천원 할인쿠폰 프로모션 진행 중! (9/10~9/23 예약기간 내 재발급 가능)"/>
     </LinearLayout>

@@ -17,12 +17,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.home.PagerMainFragment;
 import com.hotelnow.utils.Util;
+import com.hotelnow.utils.ViewPagerCustom;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,7 +112,7 @@ public class DialogMainFragment extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ViewPager mViewPager = (ViewPager) getView().findViewById(R.id.popup_pager);
+        ViewPagerCustom mViewPager = (ViewPagerCustom) getView().findViewById(R.id.popup_pager);
 
         final CheckBox left = (CheckBox) getView().findViewById(R.id.left);
         TextView right = (TextView) getView().findViewById(R.id.right);
@@ -118,10 +120,10 @@ public class DialogMainFragment extends DialogFragment {
         mViewPager.setClipToPadding(true);
 //        mViewPager.setPadding(5, 0, 5, 0);
 
-        mPagerAdapter = new PagerAdapter(getChildFragmentManager(), getActivity(), popup_data);
+        mPagerAdapter = new PagerAdapter(getChildFragmentManager(), getActivity(), popup_data, mViewPager);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(0, true);
-        mViewPager.setOnPageChangeListener(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(mPagerAdapter);
 
         right.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,10 +159,12 @@ public class DialogMainFragment extends DialogFragment {
 
     private class PagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
         private JSONArray pdata;
+        private ViewPagerCustom autoViewPager;
 
-        public PagerAdapter(FragmentManager fm, Context context, JSONArray data) {
+        public PagerAdapter(FragmentManager fm, Context context, JSONArray data, ViewPagerCustom autoViewPager) {
             super(fm);
             pdata = data;
+            this.autoViewPager = autoViewPager;
         }
 
         @Override
@@ -177,11 +181,24 @@ public class DialogMainFragment extends DialogFragment {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
         @Override
-        public void onPageSelected(int position) {}
+        public void onPageSelected(int position) {
+//            if(autoViewPager != null)
+//                resizePager(autoViewPager, position);
+        }
 
         @Override
         public void onPageScrollStateChanged(int state) {}
 
+        public void resizePager(ViewPagerCustom pager, int position) {
+            View view = pager.findViewWithTag(position);
+            if (view == null)
+                return;
+            view.measure(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            int width = view.getMeasuredWidth();
+            int height = view.getMeasuredHeight(); //The layout params must match the parent of the ViewPager
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, Util.dptopixel(getContext(), 435));
+            pager.setLayoutParams(params);
+        }
     }
 
 }

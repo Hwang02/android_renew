@@ -218,6 +218,9 @@ public class AllRoomTypeActivity extends Activity {
                         if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
                             btn_private.setVisibility(View.GONE);
                         }
+                        if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+                            btn_private.setVisibility(View.GONE);
+                        }
                         else {
                             btn_private.setVisibility(View.VISIBLE);
                         }

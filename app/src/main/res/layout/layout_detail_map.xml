@@ -53,7 +53,7 @@
             android:id="@+id/map_img"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:src="@drawable/placeholder"
+            android:src="@color/holder_c"
             android:scaleType="centerCrop" />
 
         <ImageView

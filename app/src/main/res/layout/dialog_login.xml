@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dialog_container"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="494dp"
+    android:layout_height="match_parent"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="73dp"
+    android:layout_marginBottom="73dp"
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="435dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/white">
-
-        <com.hotelnow.utils.ViewPagerCustom
-            android:id="@+id/popup_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-
     <LinearLayout
+        android:id="@+id/buttom_view"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="59dp"
         android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:background="@color/white">
 
         <CheckBox
@@ -34,7 +24,7 @@
             android:layout_height="26dp"
             android:layout_weight="1"
             android:layout_marginLeft="20dp"
-            android:text="7일동안 열지 않기"
+            android:text="14일동안 열지 않기"
             android:button="@drawable/checkbox_icon"
             android:paddingLeft="12dp"
             android:textColor="@color/termtext"
@@ -54,4 +44,25 @@
             android:background="@color/white" />
     </LinearLayout>
 
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@id/buttom_view">
+
+        <RelativeLayout
+            android:id="@+id/popup_bg"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/popup_img"
+                android:layout_width="match_parent"
+                android:layout_height="435dp"
+                android:scaleType="centerCrop"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

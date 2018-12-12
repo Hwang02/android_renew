@@ -24,6 +24,14 @@ public class ActivityHotDealItem {
         this.coupon_count = coupon_count;
     }
 
+    public int getCoupon_count() {
+        return coupon_count;
+    }
+
+    public void setCoupon_count(int coupon_count) {
+        this.coupon_count = coupon_count;
+    }
+
     public String getIs_hot_deal() {
         return is_hot_deal;
     }

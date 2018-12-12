@@ -443,6 +443,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView mTitle;
         TextView mMoreView;
         LinearLayout main_view;
+        LinearLayout gap;
 
         HorizontalViewHolder(View itemView, final int page) {
             super(itemView);
@@ -450,6 +451,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mTitle = (TextView) itemView.findViewById(R.id.title);
             mMoreView = (TextView) itemView.findViewById(R.id.all_view);
             main_view = (LinearLayout) itemView.findViewById(R.id.main_view);
+            gap = (LinearLayout) itemView.findViewById(R.id.gap);
+
+            if(page == KEYWORD){
+                gap.setVisibility(View.GONE);
+            }else {
+                gap.setVisibility(View.VISIBLE);
+            }
 
             setTitle(mTitle, page);
         }

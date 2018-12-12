@@ -2,13 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="78dp">
 
     <com.hotelnow.utils.ViewPagerCustom
         android:id="@+id/autoViewPager"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:scaleType="fitXY"/>
+        android:layout_height="70dp" />
 
     <TextView
         android:id="@+id/page"
@@ -23,8 +22,25 @@
         android:paddingBottom="3dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginRight="16dp"
-        tools:text=" 3/10 + "/>
+        tools:text=" 3/10 "/>
+
+    <LinearLayout
+        android:id="@+id/gap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_background"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="@color/back_line"/>
+    </LinearLayout>
 
 </RelativeLayout>

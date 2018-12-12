@@ -21,6 +21,7 @@ import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
 import com.hotelnow.dialog.DialogMainFragment;
+import com.hotelnow.dialog.DialogPush;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
@@ -459,7 +460,17 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         }
                     }
                     else if(obj.has("pop_ups")){
-                        if(obj.getJSONArray("pop_ups").length() >0) {
+                        if(cookie == null) {
+                            DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
+                            dialogPush.setCancelable(false);
+                            dialogPush.show();
+                        }
+                        else if(obj.getJSONArray("pop_ups").length() >0) {
                             mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
                             if(!_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
@@ -492,8 +503,17 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         });
     }
 
-    public void setPromotionPopup(){
-        if(!_preferences.getBoolean("today_start_app", false)) {
+    public void setPopup(){
+        if(cookie == null) {
+            DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            dialogPush.setCancelable(false);
+            dialogPush.show();
+        }else if(!_preferences.getBoolean("today_start_app", false)) {
             if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                 frgpopup = new DialogMainFragment();
                 frgpopup.mListener = HomeFragment.this;

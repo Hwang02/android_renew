@@ -46,10 +46,20 @@
             android:layout_marginTop="10dp"
             android:overScrollMode="never"/>
 
-        <View
+        <LinearLayout
+            android:id="@+id/gap"
             android:layout_width="match_parent"
-            android:layout_height="7dp"
-            android:background="@color/back_line"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/back_line"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>
