@@ -4,72 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="260dp"
-            android:layout_height="150dp"
-            android:background="@drawable/img_none_result"
-            android:scaleType="fitXY"
-            android:layout_gravity="center"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="해당 키워드로 검색 된 상품이 없습니다"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:textColor="@color/termtext"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="다른 키워드 및 지역/날짜로 다시 검색해보세요"
-            android:textSize="13dp"
-            android:gravity="center"
-            android:layout_marginBottom="57dp"
-            android:textColor="@color/star_txt"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <LinearLayout
-        android:id="@+id/popular_keyword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/blacktxt"
-            android:text="호텔나우가 추천해드리는 요즘 뜨는 키워드!"/>
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_filter1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp">
-
-            <com.hotelnow.utils.FlowLayout
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/filter1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                app:elementSpacing="10dp"
-                app:flowDirection="leftToRight"
-                app:lineSpacing="10dp"
-                app:paddingStart="15dp"
-                app:paddingEnd="15dp"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="40dp"
+                android:layout_above="@id/popular_keyword"
+                android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="260dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/img_none_result"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="해당 키워드로 검색 된 상품이 없습니다"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/termtext"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="다른 키워드 및 지역/날짜로 다시 검색해보세요"
+                    android:textSize="13dp"
+                    android:gravity="center"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/star_txt"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/popular_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="85dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/blacktxt"
+                    android:text="호텔나우가 추천해드리는 요즘 뜨는 키워드!"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_filter1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp">
+
+                    <com.hotelnow.utils.FlowLayout
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/filter1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        app:elementSpacing="10dp"
+                        app:flowDirection="leftToRight"
+                        app:lineSpacing="10dp"
+                        app:paddingStart="15dp"
+                        app:paddingEnd="15dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

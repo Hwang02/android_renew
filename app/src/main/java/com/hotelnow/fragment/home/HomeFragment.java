@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -386,42 +387,43 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     if(obj.has("theme_show")){
                         if(obj.getJSONObject("theme_show").length() >0) {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
-                            JSONObject mTheme = mTheme_show.getJSONObject("theme");
-                            JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
-                            mThemeItem.clear();
-                            if(mTheme.getString("theme_flag").equals("H")) { // 호텔일때
-                                for (int i = 0; i < mItems.length(); i++) {
-                                    mThemeItem.add(new ThemeItem(
-                                            mItems.getJSONObject(i).getString("id"),
-                                            mItems.getJSONObject(i).getString("name"),
-                                            mItems.getJSONObject(i).getString("landscape"),
-                                            mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
-                                            mTheme.getString("id"),
-                                            mTheme.getString("theme_flag"),
-                                            mTheme.getString("theme_color"),
-                                            mTheme.getString("title"),
-                                            mItems.getJSONObject(i).getString("sale_price"),
-                                            mItems.getJSONObject(i).getString("normal_price")
-                                    ));
+                            if (mTheme_show.getJSONObject("theme") != null) {
+                                JSONObject mTheme = mTheme_show.getJSONObject("theme");
+                                JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
+                                mThemeItem.clear();
+                                if (mTheme.getString("theme_flag").equals("H")) { // 호텔일때
+                                    for (int i = 0; i < mItems.length(); i++) {
+                                        mThemeItem.add(new ThemeItem(
+                                                mItems.getJSONObject(i).getString("id"),
+                                                mItems.getJSONObject(i).getString("name"),
+                                                mItems.getJSONObject(i).getString("landscape"),
+                                                mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+                                                mTheme.getString("id"),
+                                                mTheme.getString("theme_flag"),
+                                                mTheme.getString("theme_color"),
+                                                mTheme.getString("title"),
+                                                mItems.getJSONObject(i).getString("sale_price"),
+                                                mItems.getJSONObject(i).getString("normal_price")
+                                        ));
+                                    }
+                                } else {
+                                    for (int i = 0; i < mItems.length(); i++) {
+                                        mThemeItem.add(new ThemeItem(
+                                                mItems.getJSONObject(i).getString("id"),
+                                                mItems.getJSONObject(i).getString("name"),
+                                                mItems.getJSONObject(i).getString("landscape"),
+                                                mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+                                                mTheme.getString("id"),
+                                                mTheme.getString("theme_flag"),
+                                                mTheme.getString("theme_color"),
+                                                mTheme.getString("title"),
+                                                mItems.getJSONObject(i).getString("sale_price"),
+                                                mItems.getJSONObject(i).getString("normal_price")
+                                        ));
+                                    }
                                 }
+                                objects.add(mThemeItem.get(0));
                             }
-                            else{
-                                for (int i = 0; i < mItems.length(); i++) {
-                                    mThemeItem.add(new ThemeItem(
-                                            mItems.getJSONObject(i).getString("id"),
-                                            mItems.getJSONObject(i).getString("name"),
-                                            mItems.getJSONObject(i).getString("landscape"),
-                                            mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
-                                            mTheme.getString("id"),
-                                            mTheme.getString("theme_flag"),
-                                            mTheme.getString("theme_color"),
-                                            mTheme.getString("title"),
-                                            mItems.getJSONObject(i).getString("sale_price"),
-                                            mItems.getJSONObject(i).getString("normal_price")
-                                    ));
-                                }
-                            }
-                            objects.add(mThemeItem.get(0));
                         }
                     }
                     if(obj.has("theme_lists")){
@@ -451,7 +453,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
                     adapter.notifyDataSetChanged();
 
-                    if(obj.has("pop_ups") && ((MainActivity)getActivity()).dialogFull != null && !((MainActivity)getActivity()).dialogFull.isShowing() && _preferences.getBoolean("user_first_app", true)){
+                    if(obj.has("pop_ups") && _preferences.getBoolean("user_first_app", true)){
                         if(obj.getJSONArray("pop_ups").length() >0) {
                             mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
                         }
@@ -475,7 +477,13 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         }
                     }
 
-                    MainActivity.hideProgress();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            MainActivity.hideProgress();
+                        }
+                    }, 500);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     MainActivity.hideProgress();

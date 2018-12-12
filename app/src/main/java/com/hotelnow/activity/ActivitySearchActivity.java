@@ -161,6 +161,7 @@ public class ActivitySearchActivity extends Activity {
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                setResult(70);
                 finish();
             }
         });
@@ -424,6 +425,10 @@ public class ActivitySearchActivity extends Activity {
         }
         else if(requestCode == 50 && responseCode == 80) {
             adapter.notifyDataSetChanged();
+        }
+        else if(responseCode == 100){
+            setResult(100);
+            finish();
         }
     }
 }

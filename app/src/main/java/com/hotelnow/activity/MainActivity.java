@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
@@ -53,6 +54,7 @@ public class MainActivity extends FragmentActivity {
     private int myPosition = 0;
     public static CallbackManager callbackManager;
     public DialogFull dialogFull;
+    private static long back_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -738,8 +740,20 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(back_pressed+2000 > System.currentTimeMillis()) {
+            Util.clearSearch();
+            super.onBackPressed();
+        }
+        else {
+            hideProgress();
+            Toast.makeText(getApplicationContext(), getString(R.string.back_button), Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if(myPosition == 0){
             moveTabRefresh();
         }
@@ -753,6 +767,8 @@ public class MainActivity extends FragmentActivity {
         if(CONFIG.Mypage_Search){
             moveTabReservation();
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
 
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }

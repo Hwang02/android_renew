@@ -377,10 +377,10 @@ public class HotelSearchFragment extends Fragment {
                             }
 
                             if (mItems.size() > 0) {
-                                btn_filter.setVisibility(View.VISIBLE);
+//                                btn_filter.setVisibility(View.VISIBLE);
                                 bt_scroll.setVisibility(View.VISIBLE);
                             } else {
-                                btn_filter.setVisibility(View.GONE);
+//                                btn_filter.setVisibility(View.GONE);
                                 bt_scroll.setVisibility(View.GONE);
                             }
 
@@ -487,7 +487,6 @@ public class HotelSearchFragment extends Fragment {
         search_txt = "";
         long count = Util.diffOfDate2(ec_date, ee_date);
         tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
-
         mItems.clear();
         getSearch();
     }

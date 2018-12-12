@@ -30,7 +30,7 @@ public class DialogFull extends Dialog {
         TextView title = (TextView) findViewById(R.id.title);
 
         Spannable spannable = new SpannableString(title.getText().toString());
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         title.setText(spannable);
 
         Button mOkButton = (Button) findViewById(R.id.ok);

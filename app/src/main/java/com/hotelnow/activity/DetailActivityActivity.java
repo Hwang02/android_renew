@@ -1209,6 +1209,7 @@ public class DetailActivityActivity extends AppCompatActivity {
             intent.putExtra("hid", data.getStringExtra("hid"));
             intent.putExtra("save", true);
             startActivityForResult(intent, 100);
+            finish();
         }
     }
 }
