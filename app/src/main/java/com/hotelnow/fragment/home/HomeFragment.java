@@ -215,6 +215,9 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 objects.clear();
                 getObject();
             }
+            else {
+                MainActivity.hideProgress();
+            }
         }
     }
 
@@ -462,14 +465,33 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     }
                     else if(obj.has("pop_ups")){
                         if(cookie == null) {
-                            DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+                            if ((_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
+                                mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+                                DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        //빈 곳
+                                    }
+                                });
+                                dialogPush.setCancelable(false);
+                                dialogPush.show();
+                            }
+                            else{
+                                mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+                                if(!_preferences.getBoolean("today_start_app", false)) {
+                                    if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                                        frgpopup = new DialogMainFragment();
+                                        frgpopup.mListener = HomeFragment.this;
+                                        frgpopup.popup_data = mPopups;
+                                        frgpopup.pf = HomeFragment.this;
+                                        frgpopup.setCancelable(false);
 
+                                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                        ft.add(frgpopup, null);
+                                        ft.commitAllowingStateLoss();
+                                    }
                                 }
-                            });
-                            dialogPush.setCancelable(false);
-                            dialogPush.show();
+                            }
                         }
                         else if(obj.getJSONArray("pop_ups").length() >0) {
                             mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
@@ -505,15 +527,30 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     }
 
     public void setPopup(){
-        if(cookie == null) {
-            DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        if(cookie == null ) {
+            if ((_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
+                DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //빈 곳
+                    }
+                });
+                dialogPush.setCancelable(false);
+                dialogPush.show();
+            }
+            else{
+                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                    frgpopup = new DialogMainFragment();
+                    frgpopup.mListener = HomeFragment.this;
+                    frgpopup.popup_data = mPopups;
+                    frgpopup.pf = HomeFragment.this;
+                    frgpopup.setCancelable(false);
 
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.add(frgpopup, null);
+                    ft.commitAllowingStateLoss();
                 }
-            });
-            dialogPush.setCancelable(false);
-            dialogPush.show();
+            }
         }else if(!_preferences.getBoolean("today_start_app", false)) {
             if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                 frgpopup = new DialogMainFragment();

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="494dp"
+    android:layout_height="wrap_content"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
-    android:gravity="center"
     android:layout_gravity="center"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/white_round">
 
         <LinearLayout
@@ -155,7 +154,7 @@
                     android:layout_height="58dp"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:background="@color/white">
+                    android:background="@drawable/style_button_bar">
 
                     <CheckBox
                         android:id="@+id/left"

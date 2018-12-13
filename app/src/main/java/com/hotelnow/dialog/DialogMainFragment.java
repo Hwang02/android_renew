@@ -68,7 +68,7 @@ public class DialogMainFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pager_main, container);
 
-        if(popup_data.length() == 0){
+        if(popup_data != null && popup_data.length() == 0){
             Toast.makeText(getActivity(),"알림이 없습니다. 리스트 새로고침 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
             getActivity().finish();
         }
@@ -128,28 +128,32 @@ public class DialogMainFragment extends DialogFragment {
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
 
                 if(left.isChecked()){
                     // 오늘 하루 닫기
-                    Calendar calendar = Calendar.getInstance();
                     Date currentTime = new Date();
                     calendar.setTime(currentTime);
                     calendar.add(Calendar.DAY_OF_YEAR, 7);
 
-                    SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    String checkdate = mSimpleDateFormat.format(calendar.getTime());
-                    if(pf != null && pf._preferences != null) {
-                        Util.setPreferenceValues(pf._preferences, "front_popup_date", checkdate);
-                    }
                     if(pf != null && pf.frgpopup != null)
                         pf.frgpopup.dismiss();
                 }
                 else {
                     // 닫기
+                    Date currentTime = new Date();
+                    calendar.setTime(currentTime);
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
                     if (pf != null && pf.frgpopup != null) {
                         pf.frgpopup.dismiss();
                         Util.setPreferenceValues(pf._preferences, "today_start_app", true);
                     }
+                }
+
+                SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String checkdate = mSimpleDateFormat.format(calendar.getTime());
+                if(pf != null && pf._preferences != null) {
+                    Util.setPreferenceValues(pf._preferences, "front_popup_date", checkdate);
                 }
             }
         });
