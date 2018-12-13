@@ -213,15 +213,19 @@ public class AllRoomTypeActivity extends Activity {
                         tv_room_info.setText(text);
 
                         if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
+                            findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                             btn_private.setVisibility(View.VISIBLE);
                         }
                         if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                            findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.GONE);
                         }
                         if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+                            findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.GONE);
                         }
                         else {
+                            findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                             btn_private.setVisibility(View.VISIBLE);
                         }
 

@@ -251,7 +251,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
                 @Override
                 public void onPageSelected(int position) {
-                    resizePager(holder.autoViewPager, position);
                     nowPosition = position;
                     markNowPosition = position % PAGES;
                     holder.page_view.setText(markNowPosition+1 +" / "+ PAGES +" +");
@@ -269,10 +268,28 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             holder.autoViewPager.startAutoScroll();
 
-//            RelativeLayout.LayoutParams mRelativelp = (RelativeLayout.LayoutParams) holder.page_view
-//                    .getLayoutParams();
-//            mRelativelp.setMargins(0, 0, Util.dptopixel(context,25), Util.dptopixel(context,15));
-//            holder.page_view.setLayoutParams(mRelativelp);
+            holder.autoViewPager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth()*0.39)+"");
+                    RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                    lparam.height = (int)(holder.autoViewPager.getChildAt(0).getWidth()*0.33); //39
+                    lparam.topMargin = Util.dptopixel(mHf.getActivity(), 15);
+                    lparam.leftMargin = Util.dptopixel(mHf.getActivity(), 16);
+                    lparam.rightMargin = Util.dptopixel(mHf.getActivity(), 16);
+
+                    holder.autoViewPager.setLayoutParams(lparam);
+
+                    RelativeLayout.LayoutParams lparam2 = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    lparam2.topMargin = -(Util.dptopixel(mHf.getActivity(), 17) - lparam.height);
+                    lparam2.rightMargin = Util.dptopixel(mHf.getActivity(), 24);
+                    lparam2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    holder.page_view.setLayoutParams(lparam2);
+                }
+            }, 100);
+
         }
     }
 
@@ -456,16 +473,5 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         return count;
-    }
-
-    public void resizePager(ViewPagerCustom pager, int position) {
-        View view = pager.findViewWithTag(position);
-        if (view == null)
-            return;
-        view.measure(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        int width = view.getMeasuredWidth();
-        int height = view.getMeasuredHeight(); //The layout params must match the parent of the ViewPager
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-        pager.setLayoutParams(params);
     }
 }

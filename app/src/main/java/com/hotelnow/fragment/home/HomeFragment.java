@@ -117,6 +117,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     }
 
     public void getRecentData(final boolean isStart){
+        MainActivity.showProgress();
         String url = CONFIG.mainRecent+"/check";
         //최근 본 상품
         mRecentItem = dbHelper.selectAllRecentItem("10");
