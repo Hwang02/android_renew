@@ -88,9 +88,19 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
                     options += "ㆍ" + entry.getmOption()[i] + "\n";
                 }
                 holder.coupon_info.setVisibility(View.VISIBLE);
-                holder.coupon_info.setText(options);
+                if (!entry.getmMin_price().equals("") && !entry.getmMin_price().equals("null")) {
+                    holder.coupon_info.setText(options+"ㆍ"+entry.getmMin_price());
+                }
+                else{
+                    holder.coupon_info.setText(options);
+                }
             } else {
-                holder.coupon_info.setVisibility(View.GONE);
+                if (!entry.getmMin_price().equals("") && !entry.getmMin_price().equals("null")) {
+                    holder.coupon_info.setText("ㆍ"+entry.getmMin_price());
+                }
+                else {
+                    holder.coupon_info.setVisibility(View.GONE);
+                }
             }
 
             if (entry.getmTarget_text() != null && !TextUtils.isEmpty(entry.getmTarget_text()))

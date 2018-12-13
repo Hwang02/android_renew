@@ -313,7 +313,7 @@
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/btn_detail_close"/>
+                android:background="@drawable/ico_info_close"/>
         </LinearLayout>
 
         <View

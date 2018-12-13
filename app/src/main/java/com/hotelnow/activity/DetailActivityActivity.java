@@ -370,11 +370,11 @@ public class DetailActivityActivity extends AppCompatActivity {
                         findViewById(R.id.ico_addpoint).setVisibility(View.GONE);
                     }
 
-                    if(instant_coupons.length() >0){
-                        findViewById(R.id.soon_discount).setVisibility(View.VISIBLE);
-                    }else {
-                        findViewById(R.id.soon_discount).setVisibility(View.GONE);
-                    }
+//                    if(instant_coupons.length() >0){
+//                        findViewById(R.id.soon_discount).setVisibility(View.VISIBLE);
+//                    }else {
+//                        findViewById(R.id.soon_discount).setVisibility(View.GONE);
+//                    }
 
                     //티켓 메인 명
                     //title 명

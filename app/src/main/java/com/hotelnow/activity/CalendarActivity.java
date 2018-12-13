@@ -45,6 +45,7 @@ public class CalendarActivity extends Activity{
     private int select_cnt = 1;
     private String lodge_type;
     private String city, city_code, subcity_code;
+    private Date today;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,12 +59,34 @@ public class CalendarActivity extends Activity{
         check_inout_count = (TextView) findViewById(R.id.check_inout_count);
         btn_complate = (Button) findViewById(R.id.btn_complate);
 
+        Date dateObj = new Date();
+
+        // 서버타임있는지 확인하고 없으면 설정
+        if (CONFIG.svr_date == null) {
+            long time = System.currentTimeMillis();
+            CONFIG.svr_date = new Date(time);
+
+            try {
+                dateObj = CONFIG.svr_date;
+            } catch (Exception e) {
+            }
+        }
+
+        SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
+        Calendar todayCal = Calendar.getInstance();
+        todayCal.setTime(dateObj);
+        today = todayCal.getTime();
+
         final Calendar nextYear = Calendar.getInstance();
         nextYear.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
 
         final Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, 0);
-
+        if (CurHourFormat.format(today).equals("00") || CurHourFormat.format(today).equals("01")) {
+            lastYear.add(Calendar.DATE, -1);
+        }
+        else {
+            lastYear.add(Calendar.DATE, 0);
+        }
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
@@ -169,6 +192,12 @@ public class CalendarActivity extends Activity{
                     if (lodge_type != null && !lodge_type.equals("Y") && calendar.getSelectedDates().size() > 2) {
                         calendar.clearSelectedDates();
                         Toast.makeText(getApplication(), "연박을 할 수 없는 상품입니다.", Toast.LENGTH_SHORT).show();
+                        sel_unday = 1;
+                    }
+
+                    if(diffofday >10){
+                        calendar.clearSelectedDates();
+                        Toast.makeText(getApplication(), "최대 10박까지 가능합니다.", Toast.LENGTH_SHORT).show();
                         sel_unday = 1;
                     }
 

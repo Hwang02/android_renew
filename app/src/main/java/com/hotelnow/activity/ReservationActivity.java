@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -48,6 +49,7 @@ import com.hotelnow.adapter.ReservationPagerAdapter;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogBillingAlert;
 import com.hotelnow.dialog.DialogBookingCaution;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogFee;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -123,7 +125,7 @@ public class ReservationActivity extends Activity {
     int save_price = 0;
     private LinearLayout ll_private;
     String mPage = ""; // nomal, private
-    private LinearLayout paytype1_background, paytype2_background, paytype3_background, paytype4_background, paytype5_background, paytype3_info, booking_save_point;
+    private LinearLayout paytype1_background, paytype2_background, paytype3_background, paytype4_background, paytype5_background, paytype3_info, booking_save_point, btn_phone;
     private LinearLayout paytype0_list;
     private TextView tv_paytype1, tv_paytype2, tv_paytype3, tv_paytype4, tv_paytype5;
     private ImageView img_paytype1, img_paytype2, img_paytype3, img_paytype4, img_paytype5;
@@ -139,6 +141,7 @@ public class ReservationActivity extends Activity {
     private boolean isReserve = false, isCoupon = false, is_sel_point = false, is_sel_coupon = false;
     private String all_coupon_id = "",cancel_fee_str="";
     private DialogFee dialogFee;
+    private DialogConfirm dialogConfirm;
 
 
     @Override
@@ -192,6 +195,7 @@ public class ReservationActivity extends Activity {
         tv_total_discount_point = (TextView) findViewById(R.id.tv_total_discount_point);
         btn_point_ok = (Button) findViewById(R.id.btn_point_ok);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
+        btn_phone = (LinearLayout) findViewById(R.id.btn_phone);
 
         cookie = _preferences.getString("userid", null);
 
@@ -436,6 +440,33 @@ public class ReservationActivity extends Activity {
                     else{
                         btn_point_total.setVisibility(View.GONE);
                     }
+
+                    btn_phone.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialogConfirm = new DialogConfirm(
+                                    getString(R.string.alert_notice),
+                                    getString(R.string.wanna_call_hotelnow)+"\n운영시간 : "+CONFIG.operation_time,
+                                    getString(R.string.alert_no),
+                                    getString(R.string.alert_connect),
+                                    ReservationActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogConfirm.dismiss();
+                                        }
+                                    },
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ReservationActivity.this.startActivity(new Intent("android.intent.action.DIAL", Uri.parse("tel:" + CONFIG.csPhoneNum)));
+                                            dialogConfirm.dismiss();
+                                        }
+                                    });
+                            dialogConfirm.setCancelable(false);
+                            dialogConfirm.show();
+                        }
+                    });
 
                     SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd(EEE)", Locale.KOREAN);
                     SimpleDateFormat DateFormat2 = new SimpleDateFormat("HH:mm", Locale.KOREAN);

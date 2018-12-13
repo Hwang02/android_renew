@@ -35,12 +35,30 @@
                     android:scaleType="fitXY"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/btn_phone"
+                android:layout_width="28dp"
+                android:layout_height="54dp"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/icon_phone"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/ico_call"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/btn_back"
+                android:layout_toLeftOf="@id/btn_phone"
                 android:singleLine="true"
                 android:maxLines="1"
                 android:textSize="16dp"

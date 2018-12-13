@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -46,6 +47,7 @@ import com.hotelnow.adapter.ReservationPagerAdapter;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogBillingAlert;
 import com.hotelnow.dialog.DialogBookingCaution;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogFee;
 import com.hotelnow.fragment.model.TicketSelEntry;
 import com.hotelnow.utils.Api;
@@ -115,7 +117,7 @@ public class ReservationActivityActivity extends Activity {
     TableLayout sub_products;
     private LinearLayout ll_private;
     String mPage = ""; // nomal, private
-    private LinearLayout paytype1_background, paytype3_background, paytype5_background, paytype3_info, booking_save_point;
+    private LinearLayout paytype1_background, paytype3_background, paytype5_background, paytype3_info, booking_save_point, btn_phone;
     private LinearLayout paytype0_list;
     private TextView tv_paytype1, tv_paytype3, tv_paytype5, tv_title_bar;
     private ImageView img_paytype1, img_paytype3, img_paytype5;
@@ -136,6 +138,7 @@ public class ReservationActivityActivity extends Activity {
     private RelativeLayout rl_all_point;
     private LinearLayout ll_coupon;
     private int save_price = 0;
+    private DialogConfirm dialogConfirm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -180,6 +183,7 @@ public class ReservationActivityActivity extends Activity {
         rl_all_point = (RelativeLayout) findViewById(R.id.rl_all_point);
         ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
+        btn_phone = (LinearLayout) findViewById(R.id.btn_phone);
 
 
         cookie = _preferences.getString("userid", null);
@@ -359,6 +363,34 @@ public class ReservationActivityActivity extends Activity {
                     }
                     JSONObject booking_data = obj.getJSONObject("booking_data");
                     JSONArray deals = booking_data.getJSONArray("deals");
+
+                    btn_phone.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialogConfirm = new DialogConfirm(
+                                    getString(R.string.alert_notice),
+                                    getString(R.string.wanna_call_hotelnow)+"\n운영시간 : "+CONFIG.operation_time,
+                                    getString(R.string.alert_no),
+                                    getString(R.string.alert_connect),
+                                    ReservationActivityActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogConfirm.dismiss();
+                                        }
+                                    },
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            ReservationActivityActivity.this.startActivity(new Intent("android.intent.action.DIAL", Uri.parse("tel:" + CONFIG.csPhoneNum)));
+                                            dialogConfirm.dismiss();
+                                        }
+                                    });
+                            dialogConfirm.setCancelable(false);
+                            dialogConfirm.show();
+                        }
+                    });
+
                     if(deals.length() > 0){
                         JSONArray options = deals.getJSONObject(0).getJSONArray("options");
                         String img_url = deals.getJSONObject(0).getString("img_url");
