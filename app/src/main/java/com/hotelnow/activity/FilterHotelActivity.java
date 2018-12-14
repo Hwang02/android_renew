@@ -42,13 +42,14 @@ import java.util.List;
 
 public class FilterHotelActivity extends Activity {
 
-    private FlowLayout filter1, filter2, filter3, filter5, filter6;
+    private FlowLayout filter1, filter2, filter3, filter5;
     private String[] orderbyarr, orderbycodearr, categorytextarr, categorycodearr, usepersonarr, ratearr, facilityarr;
     private CrystalRangeSeekbar rangeSeekbar;
     private TextView select_price;
     private Button btn_save;
     private LinearLayout btn_refresh;
     private String mOrderby = "";
+    private LinearLayout filter6_1, filter6_2, filter6_3, filter6_4, filter6_5, filter6_6, filter6_7;
     List<String> categories = new ArrayList<String>();
     List<String> configCategories = new ArrayList<String>();
     List<String> facilities = new ArrayList<String>();
@@ -74,7 +75,13 @@ public class FilterHotelActivity extends Activity {
         filter2 = (FlowLayout) findViewById(R.id.filter2); // 호텔등급 및 그외 유형
         filter3 = (FlowLayout) findViewById(R.id.filter3); // 투숙인원
         filter5 = (FlowLayout) findViewById(R.id.filter5); // 리뷰평점
-        filter6 = (FlowLayout) findViewById(R.id.filter6); // 부대시설
+        filter6_1 = (LinearLayout) findViewById(R.id.filter6_1); // 부대시설
+        filter6_2 = (LinearLayout) findViewById(R.id.filter6_2); // 부대시설
+        filter6_3 = (LinearLayout) findViewById(R.id.filter6_3); // 부대시설
+        filter6_4 = (LinearLayout) findViewById(R.id.filter6_4); // 부대시설
+        filter6_5 = (LinearLayout) findViewById(R.id.filter6_5); // 부대시설
+        filter6_6 = (LinearLayout) findViewById(R.id.filter6_6); // 부대시설
+        filter6_7 = (LinearLayout) findViewById(R.id.filter6_7); // 부대시설
 
         orderbyarr = getResources().getStringArray(R.array.list_orderby);
         categorytextarr = getResources().getStringArray(R.array.category_text);
@@ -145,14 +152,20 @@ public class FilterHotelActivity extends Activity {
                 filter2.removeAllViews();
                 filter3.removeAllViews();
                 filter5.removeAllViews();
-                filter6.removeAllViews();
+                filter6_1.removeAllViews();
+                filter6_2.removeAllViews();
+                filter6_3.removeAllViews();
+                filter6_4.removeAllViews();
+                filter6_5.removeAllViews();
+                filter6_6.removeAllViews();
+                filter6_7.removeAllViews();
                 configFacilities.clear();
                 configCategories.clear();
                 setOrderby();
                 setCategory();
                 setUsePerson();
                 setRangePrice();
-                filter6.post(new Runnable() {
+                filter6_1.post(new Runnable() {
                     @Override
                     public void run() {
                         setFacility();
@@ -211,7 +224,7 @@ public class FilterHotelActivity extends Activity {
         setUsePerson();
         setRangePrice();
         setRate();
-        filter6.post(new Runnable() {
+        filter6_1.post(new Runnable() {
             @Override
             public void run() {
                 setFacility();
@@ -428,7 +441,7 @@ public class FilterHotelActivity extends Activity {
 
         FlowLayout.LayoutParams lparam = new FlowLayout.LayoutParams(
                 FlowLayout.LayoutParams.MATCH_PARENT, FlowLayout.LayoutParams.WRAP_CONTENT);
-        lparam.width = (int) (filter6.getWidth() / 5);
+        lparam.width = (int) (filter6_1.getWidth() / 5);
         LogUtil.e("xxxx", lparam.width+"");
 
         for (int i = 0; i < facilityarr.length; i++) {
@@ -444,12 +457,68 @@ public class FilterHotelActivity extends Activity {
             child.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (filter6.getChildAt((int) v.getTag()).isSelected()) {
-                        filter6.getChildAt((int) v.getTag()).setSelected(false);
-                        facilities.remove(v.getTag().toString());
-                    } else {
-                        filter6.getChildAt((int) v.getTag()).setSelected(true);
-                        facilities.add(v.getTag().toString());
+                    if((int) v.getTag() <= 4) {
+                        if (filter6_1.getChildAt((int) v.getTag()).isSelected()) {
+                            filter6_1.getChildAt((int) v.getTag()).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_1.getChildAt((int) v.getTag()).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
+                    }
+                    else if ( (int) v.getTag() >4 && (int) v.getTag() <= 9) {
+                        if (filter6_2.getChildAt((int) v.getTag()-5).isSelected()) {
+                            filter6_2.getChildAt((int) v.getTag()-5).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_2.getChildAt((int) v.getTag()-5).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
+                    }
+                    else if ((int) v.getTag() > 9 && (int) v.getTag() <= 14) {
+                        if (filter6_3.getChildAt((int) v.getTag()-10).isSelected()) {
+                            filter6_3.getChildAt((int) v.getTag()-10).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_3.getChildAt((int) v.getTag()-10).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
+                    }
+                    else if ((int) v.getTag() > 14 && (int) v.getTag() <= 19) {
+                        if (filter6_4.getChildAt((int) v.getTag()-15).isSelected()) {
+                            filter6_4.getChildAt((int) v.getTag()-15).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_4.getChildAt((int) v.getTag()-15).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
+                    }
+                    else if ((int) v.getTag() > 19 && (int) v.getTag() <= 24) {
+                        if (filter6_5.getChildAt((int) v.getTag()-20).isSelected()) {
+                            filter6_5.getChildAt((int) v.getTag()-20).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_5.getChildAt((int) v.getTag()-20).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
+                    }
+                    else if ((int) v.getTag() > 24 && (int) v.getTag() <= 29) {
+                        if (filter6_6.getChildAt((int) v.getTag()-25).isSelected()) {
+                            filter6_6.getChildAt((int) v.getTag()-25).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_6.getChildAt((int) v.getTag()-25).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
+                    }
+                    else if ((int) v.getTag() > 29 && (int) v.getTag() <= 34) {
+                        if (filter6_7.getChildAt((int) v.getTag()-30).isSelected()) {
+                            filter6_7.getChildAt((int) v.getTag()-30).setSelected(false);
+                            facilities.remove(v.getTag().toString());
+                        } else {
+                            filter6_7.getChildAt((int) v.getTag()-30).setSelected(true);
+                            facilities.add(v.getTag().toString());
+                        }
                     }
                 }
             });
@@ -457,9 +526,31 @@ public class FilterHotelActivity extends Activity {
             // 이전 부분 적용
             if (configFacilities.contains(i + "")) {
                 child.setSelected(true);
-                facilities.add(facility_title.getText().toString());
+                facilities.add(i+"");
+
             }
-            filter6.addView(child, lparam);
+
+            if(i <= 4) {
+                filter6_1.addView(child, lparam);
+            }
+            else if ( i >4 && i <= 9) {
+                filter6_2.addView(child, lparam);
+            }
+            else if (i > 9 && i <= 14) {
+                filter6_3.addView(child, lparam);
+            }
+            else if (i > 14 && i <= 19) {
+               filter6_4.addView(child, lparam);
+            }
+            else if (i > 19 && i <= 24) {
+                filter6_5.addView(child, lparam);
+            }
+            else if (i > 24 && i <= 29) {
+                filter6_6.addView(child, lparam);
+            }
+            else if (i > 29 && i <= 34) {
+                filter6_7.addView(child, lparam);
+            }
         }
     }
 

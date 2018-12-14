@@ -197,6 +197,7 @@ public class HotelSearchActivity extends Activity {
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
                 setResult(70);
                 finish();
             }

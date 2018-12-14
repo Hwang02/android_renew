@@ -894,19 +894,19 @@ public class DetailHotelActivity extends AppCompatActivity {
                     filter3.setVisibility(View.VISIBLE);
                     filter3.addView(child, lparam);
                 }
-                else if (i > 14 && i <= 20) {
+                else if (i > 14 && i <= 19) {
                     filter4.setVisibility(View.VISIBLE);
                     filter4.addView(child, lparam);
                 }
-                else if (i > 20 && i <= 24) {
+                else if (i > 19 && i <= 24) {
                     filter5.setVisibility(View.VISIBLE);
                     filter5.addView(child, lparam);
                 }
-                else if (i > 24 && i <= 30) {
+                else if (i > 24 && i <= 29) {
                     filter6.setVisibility(View.VISIBLE);
                     filter6.addView(child, lparam);
                 }
-                else if (i > 30 && i <= 34) {
+                else if (i > 29 && i <= 34) {
                     filter7.setVisibility(View.VISIBLE);
                     filter7.addView(child, lparam);
                 }
@@ -927,7 +927,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         filter3.setVisibility(View.VISIBLE);
                         filter3.addView(btn_child, lparam);
                     }
-                    else if (i < 20) {
+                    else if (i < 19) {
                         filter4.setVisibility(View.VISIBLE);
                         filter4.addView(btn_child, lparam);
                     }
@@ -935,7 +935,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         filter5.setVisibility(View.VISIBLE);
                         filter5.addView(btn_child, lparam);
                     }
-                    else if (i < 30) {
+                    else if (i < 29) {
                         filter6.setVisibility(View.VISIBLE);
                         filter6.addView(btn_child, lparam);
                     }

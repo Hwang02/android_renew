@@ -361,17 +361,48 @@
                 android:orientation="vertical"
                 android:layout_marginTop="21dp">
 
-                <com.hotelnow.utils.FlowLayout
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/filter6"
+                <LinearLayout
+                    android:id="@+id/filter6_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    app:elementSpacing="10dp"
-                    app:flowDirection="leftToRight"
-                    app:lineSpacing="10dp"
-                    app:paddingStart="15dp"
-                    app:paddingEnd="15dp"/>
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/filter6_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/filter6_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/filter6_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/filter6_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/filter6_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/filter6_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"></LinearLayout>
             </LinearLayout>
 
             <View
