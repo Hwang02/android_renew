@@ -422,6 +422,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                         public boolean onMarkerClick(Marker selmarker) {
 
                             if (selmarker.getSnippet().equals(hid)) {
+                                findViewById(R.id.noselect).setVisibility(View.VISIBLE);
                                 info.setVisibility(View.GONE);
                                 return true;
                             }
@@ -490,7 +491,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
 
                                     }
                                 });
-
+                                findViewById(R.id.noselect).setVisibility(View.GONE);
                                 info.setVisibility(View.VISIBLE);
 
                             } catch (Exception e) {

@@ -861,6 +861,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                 }
             }
         }
+
+
     }
 
     private void setRoom(final JSONArray rdata) {

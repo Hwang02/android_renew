@@ -136,7 +136,7 @@
     <string name="reservation_user_discount_title">할인 정보</string>
     <string name="reservation_user_price_title">가격 정보</string>
     <string name="reservation_pay_title">결제방식</string>
-    <string name="reservation_payinfo_title">결제 장보</string>
+    <string name="reservation_payinfo_title">결제 정보</string>
     <string name="reservation_private">프라이빗딜 특별할인</string>
     <string name="reservation_point">적립금</string>
     <string name="reservation_coupon">사용가능쿠폰</string>

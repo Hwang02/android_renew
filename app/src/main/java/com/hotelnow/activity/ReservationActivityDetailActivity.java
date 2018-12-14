@@ -353,6 +353,16 @@ public class ReservationActivityDetailActivity extends Activity {
                         tv_pay_bank_num.setText(payment_info.getString("account_no")+"\n(터치하시면 복사됩니다.)");
                         tv_pay_bank_user_nm.setText(payment_info.getString("income_account_nm"));
 
+                        tv_pay_bank_num.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData clip = ClipData.newPlainText("label", accnum);
+                                clipboard.setPrimaryClip(clip);
+                                Toast.makeText(ReservationActivityDetailActivity.this, "계좌번호가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         if(info.getString("status").equals("inprogress")) {
                             findViewById(R.id.ll_pay_bank_user_day).setVisibility(View.VISIBLE);
                             String limitTime = payment_info.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
@@ -478,8 +488,8 @@ public class ReservationActivityDetailActivity extends Activity {
                     }
 
                     // 지도 상세보기 정보 설정
-                    String mapStr = "http://maps.googleapis.com/maps/api/staticmap?center="+info.getString("latitude")+"%2C"+info.getString("longitude")+
-                            "&markers=icon:http://d2gxin9b07oiov.cloudfront.net/web/hotel_pin.png%7C"+info.getString("latitude")+"%2C"+info.getString("longitude")+
+                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+info.getString("latitude")+"%2C"+info.getString("longitude")+
+                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+info.getString("latitude")+"%2C"+info.getString("longitude")+
                             "&scale=2&sensor=false&language=ko&size=360x220&zoom=13"+"&key="+ BuildConfig.google_map_key2;
                     ImageView mapImg = (ImageView)findViewById(R.id.map_img);
                     Ion.with(mapImg).load(mapStr);

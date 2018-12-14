@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 
 import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.fragment.model.CityItem;
@@ -640,7 +641,13 @@ public class DbOpenHelper {
     public void deleteFavoriteItem(boolean isAll, String keyid, String type) {
         open();
         if(isAll) {
-            mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, null, null);
+            if(!TextUtils.isEmpty(type)) {
+                String where = " type = '" + type + "'";
+                mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, where, null);
+            }
+            else {
+                mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, null, null);
+            }
         }
         else{
             String where = "keyid = '" + keyid + "'"

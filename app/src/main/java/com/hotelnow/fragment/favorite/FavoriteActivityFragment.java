@@ -297,7 +297,7 @@ public class FavoriteActivityFragment extends Fragment {
                         return;
                     }
 
-                    dbHelper.selectAllFavoriteActivityItem();
+                    dbHelper.deleteFavoriteItem(true, "", "A");
                     LogUtil.e("xxxx", "찜하기 전체 취소");
                     ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
                     mItems.clear();

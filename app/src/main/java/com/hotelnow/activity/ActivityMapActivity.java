@@ -302,6 +302,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
             public boolean onMarkerClick(Marker selmarker) {
 
                 if (selmarker.getSnippet().equals(hid)) {
+                    findViewById(R.id.noselect).setVisibility(View.VISIBLE);
                     info.setVisibility(View.GONE);
                     return true;
                 }
@@ -367,7 +368,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
 
                         }
                     });
-
+                    findViewById(R.id.noselect).setVisibility(View.GONE);
                     info.setVisibility(View.VISIBLE);
 
                 } catch (Exception e) {

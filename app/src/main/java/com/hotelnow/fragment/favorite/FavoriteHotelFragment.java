@@ -302,7 +302,7 @@ public class FavoriteHotelFragment extends Fragment {
                         return;
                     }
 
-                    dbHelper.selectAllFavoriteStayItem();
+                    dbHelper.deleteFavoriteItem(true, "", "H");
                     LogUtil.e("xxxx", "찜하기 전체 취소");
                     ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
                     mItems.clear();
