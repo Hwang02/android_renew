@@ -165,6 +165,7 @@ public class FilterHotelActivity extends Activity {
                 setCategory();
                 setUsePerson();
                 setRangePrice();
+                setRate();
                 filter6_1.post(new Runnable() {
                     @Override
                     public void run() {
