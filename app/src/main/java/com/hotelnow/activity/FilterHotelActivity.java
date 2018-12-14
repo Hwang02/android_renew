@@ -35,6 +35,8 @@ import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListe
 import com.hotelnow.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FlowLayout;
+import com.hotelnow.utils.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,7 +152,12 @@ public class FilterHotelActivity extends Activity {
                 setCategory();
                 setUsePerson();
                 setRangePrice();
-                setFacility();
+                filter6.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        setFacility();
+                    }
+                });
                 rangeSeekbar.setNormalizedMaxValue(120);
                 rangeSeekbar.setNormalizedMinValue(0);
                 select_price.setText("0만원 ~ 60만원 이상");
@@ -204,7 +211,12 @@ public class FilterHotelActivity extends Activity {
         setUsePerson();
         setRangePrice();
         setRate();
-        setFacility();
+        filter6.post(new Runnable() {
+            @Override
+            public void run() {
+                setFacility();
+            }
+        });
     }
 
     // 단일 선택
@@ -414,6 +426,11 @@ public class FilterHotelActivity extends Activity {
 
         int[] mFaArray = {R.drawable.facility_0, R.drawable.facility_1, R.drawable.facility_2, R.drawable.facility_3, R.drawable.facility_4, R.drawable.facility_5, R.drawable.facility_6, R.drawable.facility_7, R.drawable.facility_8, R.drawable.facility_9, R.drawable.facility_10, R.drawable.facility_11, R.drawable.facility_12, R.drawable.facility_13, R.drawable.facility_14, R.drawable.facility_15, R.drawable.facility_16, R.drawable.facility_17, R.drawable.facility_18, R.drawable.facility_19, R.drawable.facility_20, R.drawable.facility_21, R.drawable.facility_22, R.drawable.facility_23, R.drawable.facility_24, R.drawable.facility_25, R.drawable.facility_26, R.drawable.facility_27, R.drawable.facility_28, R.drawable.facility_29, R.drawable.facility_30, R.drawable.facility_31, R.drawable.facility_32, R.drawable.facility_33, R.drawable.facility_34};
 
+        FlowLayout.LayoutParams lparam = new FlowLayout.LayoutParams(
+                FlowLayout.LayoutParams.MATCH_PARENT, FlowLayout.LayoutParams.WRAP_CONTENT);
+        lparam.width = (int) (filter6.getWidth() / 5);
+        LogUtil.e("xxxx", lparam.width+"");
+
         for (int i = 0; i < facilityarr.length; i++) {
             View child = getLayoutInflater().inflate(R.layout.layout_facility_item, null);
             child.setId(i);
@@ -442,7 +459,7 @@ public class FilterHotelActivity extends Activity {
                 child.setSelected(true);
                 facilities.add(facility_title.getText().toString());
             }
-            filter6.addView(child);
+            filter6.addView(child, lparam);
         }
     }
 

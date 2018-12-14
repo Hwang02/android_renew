@@ -93,7 +93,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private AutoLinkTextView tv_recommend;
     private String[] facility;
     private String image_arr[];
-    private FlowLayout filter;
+    private LinearLayout filter, filter2, filter3, filter4, filter5, filter6, filter7;
     private String mAddress, hotel_name, city;
     private Toolbar toolbar;
     private AppBarLayout app_bar;
@@ -433,7 +433,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_recommend = (AutoLinkTextView) findViewById(R.id.tv_recommend);
                     btn_more_view = (LinearLayout) findViewById(R.id.btn_more_view);
                     rl_tv = (RelativeLayout) findViewById(R.id.rl_tv);
-                    filter = (FlowLayout) findViewById(R.id.filter);
+                    filter = (LinearLayout) findViewById(R.id.filter);
+                    filter2 = (LinearLayout) findViewById(R.id.filter2);
+                    filter3 = (LinearLayout) findViewById(R.id.filter3);
+                    filter4 = (LinearLayout) findViewById(R.id.filter4);
+                    filter5 = (LinearLayout) findViewById(R.id.filter5);
+                    filter6 = (LinearLayout) findViewById(R.id.filter6);
+                    filter7 = (LinearLayout) findViewById(R.id.filter7);
                     map_img = (ImageView) findViewById(R.id.map_img);
                     tv_address = (TextView) findViewById(R.id.tv_address);
                     mViewPager = (ToughViewPager) findViewById(R.id.img_pager);
@@ -809,7 +815,26 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void setFacility(final List<FacilitySelItem> sel_FacilityList, boolean isOpen){
         filter.removeAllViews();
+        filter2.removeAllViews();
+        filter3.removeAllViews();
+        filter4.removeAllViews();
+        filter5.removeAllViews();
+        filter6.removeAllViews();
+        filter7.removeAllViews();
+        filter.setVisibility(View.GONE);
+        filter2.setVisibility(View.GONE);
+        filter3.setVisibility(View.GONE);
+        filter4.setVisibility(View.GONE);
+        filter5.setVisibility(View.GONE);
+        filter6.setVisibility(View.GONE);
+        filter7.setVisibility(View.GONE);
+
         for(int i=0;i<sel_FacilityList.size();i++){
+
+            LinearLayout.LayoutParams lparam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lparam.width = (int) (filter.getWidth() / 5);
+
             View child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
             child.setId(i);
             child.setTag(i);
@@ -819,11 +844,24 @@ public class DetailHotelActivity extends AppCompatActivity {
             facility_icon.setImageResource(sel_FacilityList.get(i).getSel_img());
             if(!isOpen) {
                 if(sel_FacilityList.size() <= 10) {
-                    filter.addView(child);
+                    if(i <= 4) {
+                        filter.setVisibility(View.VISIBLE);
+                        filter.addView(child, lparam);
+                    }
+                    else if ( i >4 && i <= 10){
+                        filter2.setVisibility(View.VISIBLE);
+                        filter2.addView(child, lparam);
+                    }
                 }
                 else if (sel_FacilityList.size() > 10){
                     if (i < 9) {
-                        filter.addView(child);
+                        if(i <= 4) {
+                            filter.setVisibility(View.VISIBLE);
+                            filter.addView(child, lparam);
+                        } else if ( i >4 && i <= 10){
+                            filter2.setVisibility(View.VISIBLE);
+                            filter2.addView(child, lparam);
+                        }
                     }else if(i == 9){
                         View btn_child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
                         btn_child.setTag(36);
@@ -837,13 +875,41 @@ public class DetailHotelActivity extends AppCompatActivity {
                                 setFacility(sel_FacilityList,true);
                             }
                         });
-                        filter.addView(btn_child);
+                        filter.setVisibility(View.VISIBLE);
+                        filter2.addView(btn_child, lparam);
                         break;
                     }
                 }
             }
             else{
-                filter.addView(child);
+                if(i <= 4) {
+                    filter.setVisibility(View.VISIBLE);
+                    filter.addView(child, lparam);
+                }
+                else if ( i >4 && i <= 9) {
+                    filter2.setVisibility(View.VISIBLE);
+                    filter2.addView(child, lparam);
+                }
+                else if (i > 9 && i <= 14) {
+                    filter3.setVisibility(View.VISIBLE);
+                    filter3.addView(child, lparam);
+                }
+                else if (i > 14 && i <= 20) {
+                    filter4.setVisibility(View.VISIBLE);
+                    filter4.addView(child, lparam);
+                }
+                else if (i > 20 && i <= 24) {
+                    filter5.setVisibility(View.VISIBLE);
+                    filter5.addView(child, lparam);
+                }
+                else if (i > 24 && i <= 30) {
+                    filter6.setVisibility(View.VISIBLE);
+                    filter6.addView(child, lparam);
+                }
+                else if (i > 30 && i <= 34) {
+                    filter7.setVisibility(View.VISIBLE);
+                    filter7.addView(child, lparam);
+                }
                 if(i == sel_FacilityList.size()-1){
                     View btn_child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
                     btn_child.setTag(37);
@@ -857,12 +923,62 @@ public class DetailHotelActivity extends AppCompatActivity {
                             setFacility(sel_FacilityList,false);
                         }
                     });
-                    filter.addView(btn_child);
+                    if (i < 14) {
+                        filter3.setVisibility(View.VISIBLE);
+                        filter3.addView(btn_child, lparam);
+                    }
+                    else if (i < 20) {
+                        filter4.setVisibility(View.VISIBLE);
+                        filter4.addView(btn_child, lparam);
+                    }
+                    else if (i < 24) {
+                        filter5.setVisibility(View.VISIBLE);
+                        filter5.addView(btn_child, lparam);
+                    }
+                    else if (i < 30) {
+                        filter6.setVisibility(View.VISIBLE);
+                        filter6.addView(btn_child, lparam);
+                    }
+                    else if (i < 34) {
+                        filter7.setVisibility(View.VISIBLE);
+                        filter7.addView(btn_child, lparam);
+                    }
                 }
             }
         }
 
-
+//        filter.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//
+//                LogUtil.e("xxxx", lparam.width + "");
+//
+//                for(int i =0; i<filter.getChildCount(); i++) {
+//                    filter.getChildAt(i).setLayoutParams(lparam);
+//                }
+//                for(int i =0; i<filter2.getChildCount(); i++) {
+//                    filter2.getChildAt(i).setLayoutParams(lparam);
+//                }
+//                for(int i =0; i<filter3.getChildCount(); i++) {
+//                    filter3.getChildAt(i).setLayoutParams(lparam);
+//                }
+//                for(int i =0; i<filter4.getChildCount(); i++) {
+//                    filter4.getChildAt(i).setLayoutParams(lparam);
+//                }
+//                for(int i =0; i<filter5.getChildCount(); i++) {
+//                    filter5.getChildAt(i).setLayoutParams(lparam);
+//                }
+//                for(int i =0; i<filter6.getChildCount(); i++) {
+//                    filter6.getChildAt(i).setLayoutParams(lparam);
+//                }
+//                for(int i =0; i<filter7.getChildCount(); i++) {
+//                    filter7.getChildAt(i).setLayoutParams(lparam);
+//                }
+//
+//
+//            }
+//        }, 100);
     }
 
     private void setRoom(final JSONArray rdata) {
