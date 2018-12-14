@@ -231,7 +231,7 @@ public class SettingActivity extends Activity{
 
     private void setPush(){
         // 푸시 수신 상태값 저장
-        String regId = FirebaseInstanceId.getInstance().getToken();
+        String regId = _preferences.getString("gcm_registration_id", null);
         String userId = _preferences.getString("userid", null);
 
         LogUtil.e("xxxxx", regId);

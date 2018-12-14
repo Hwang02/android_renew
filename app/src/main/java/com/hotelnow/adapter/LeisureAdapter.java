@@ -212,7 +212,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setClipToPadding(false);
-            holder.autoViewPager.setOffscreenPageLimit(mLf.getPbannerData().size());
+            holder.autoViewPager.setOffscreenPageLimit(0);
             holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size() * 10);
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override

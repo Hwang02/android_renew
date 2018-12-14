@@ -526,9 +526,11 @@ public class HotelFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 80 && resultCode == 80){
-            mTopItem.clear();
-            mTopItem.add(new TopItem(data.getStringExtra("city"), data.getStringExtra("city_code"), data.getStringExtra("subcity_code"), data.getStringExtra("ec_date"), data.getStringExtra("ee_date")));
-            adapter.setHeaderRefresh();
+            if(data != null) {
+                mTopItem.clear();
+                mTopItem.add(new TopItem(data.getStringExtra("city"), data.getStringExtra("city_code"), data.getStringExtra("subcity_code"), data.getStringExtra("ec_date"), data.getStringExtra("ee_date")));
+                adapter.setHeaderRefresh();
+            }
         }
         else if(requestCode == 70){
             adapter.setAllRefresh();

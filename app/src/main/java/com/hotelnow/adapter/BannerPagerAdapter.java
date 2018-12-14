@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
@@ -22,6 +23,7 @@ import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -46,6 +48,7 @@ public class BannerPagerAdapter extends PagerAdapter {
     private static DialogAlert dialogAlert;
     private HomeFragment mHf;
     private String mTitle;
+    private RelativeLayout.LayoutParams param;
 
     public BannerPagerAdapter(Context context, ArrayList<BannerItem> data, HomeFragment mHf) {
         this.context = context;
@@ -82,6 +85,11 @@ public class BannerPagerAdapter extends PagerAdapter {
                         frontEvtId = Util.getFrontThemeId(data.get((int)v.getTag()).getLink());
                     }
                 }
+
+                param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                param.height =context.getResources().getDisplayMetrics().widthPixels/3;
+                LogUtil.e("zzzzzz", context.getResources().getDisplayMetrics().widthPixels/3+"");
+
                 if(data.get((int)v.getTag()).getEvt_type().equals("a") && !data.get((int)v.getTag()).getEvt_type().equals("")) {
                     try {
                         JSONObject obj = new JSONObject(frontMethod);
@@ -194,7 +202,7 @@ public class BannerPagerAdapter extends PagerAdapter {
                 }
             }
         });
-        parent.addView(v);
+        parent.addView(v, param);
         return v;
     }
 
@@ -217,5 +225,12 @@ public class BannerPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+    @Override
+
+    public int getItemPosition(Object object) {
+
+        return POSITION_NONE;
+
     }
 }

@@ -744,7 +744,7 @@ public class ReservationActivity extends Activity {
                         }
                         pay_adapter.notifyDataSetChanged();
                         pay_pager.setClipToPadding(false);
-                        pay_pager.setCurrentItem(banner_arr.size() * 10);
+                        pay_pager.setCurrentItem(0);
                         pay_pager.setOffscreenPageLimit(3);
                         pay_pager.setPageMargin(3);
 

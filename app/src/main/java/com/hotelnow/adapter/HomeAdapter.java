@@ -289,7 +289,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerAdapter(context, mHf.getPbannerData(), mHf);
             holder.autoViewPager.setClipToPadding(true);
-            holder.autoViewPager.setOffscreenPageLimit(mHf.getPbannerData().size());
+            holder.autoViewPager.setOffscreenPageLimit(0);
             holder.autoViewPager.setPageMargin(Util.dptopixel(mHf.getActivity(),8));
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);

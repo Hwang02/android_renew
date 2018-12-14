@@ -85,7 +85,12 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
         ll_count = (LinearLayout) findViewById(R.id.ll_count);
         title_text = (TextView) findViewById(R.id.title_text);
-        title_text.setText(intent.getStringExtra("title_text"));
+        if(TextUtils.isEmpty(intent.getStringExtra("title_text"))){
+            title_text.setText("액티비티");
+        }
+        else {
+            title_text.setText(intent.getStringExtra("title_text"));
+        }
         ll_count.setBackgroundResource(R.color.activity_cc);
         TextView total_item = (TextView)findViewById(R.id.total_item);
         Spannable spannable = new SpannableString("총 "+total_count+"개의 액티비티");
@@ -110,8 +115,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
-                .setRationaleMessage("구글 로그인을 하기 위해서는 주소록 접근 권한이 필요해요")
-                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                .setRationaleMessage("지도를 사용하기 위해서는 권한이 필요합니다.")
+                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .check();
 

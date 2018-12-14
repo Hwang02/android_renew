@@ -94,7 +94,12 @@ public class MapHotelActivity extends AppCompatActivity {
         TextView total_item = (TextView)findViewById(R.id.total_item);
         TextView title_text = (TextView)findViewById(R.id.title_text);
         TextView subtitle_text = (TextView)findViewById(R.id.subtitle_text);
-        title_text.setText(intent.getStringExtra("title_text"));
+        if(TextUtils.isEmpty(intent.getStringExtra("title_text"))){
+            title_text.setText("숙소");
+        }
+        else {
+            title_text.setText(intent.getStringExtra("title_text"));
+        }
         String sub ="";
         if(!TextUtils.isEmpty(city_name) && !city_name.equals("지역선택")){
             sub = city_name+", ";
@@ -113,7 +118,7 @@ public class MapHotelActivity extends AppCompatActivity {
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                setResult(90);
+//                setResult(90);
                 finish();
             }
         });

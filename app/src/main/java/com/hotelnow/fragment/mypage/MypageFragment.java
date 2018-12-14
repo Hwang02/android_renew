@@ -426,10 +426,6 @@ public class MypageFragment extends Fragment {
                         }
 
                         isPush = obj.getString("status").toUpperCase().equals("Y") ? true : false;
-                        SharedPreferences.Editor prefEditor = _preferences.edit();
-                        prefEditor.putString("marketing_email_yn", obj.getString("marketing_email_yn"));
-                        prefEditor.putString("marketing_sms_yn", obj.getString("marketing_sms_yn"));
-                        prefEditor.commit();
                         MainActivity.hideProgress();
                     } catch (Exception e) {
                         isPush = false;

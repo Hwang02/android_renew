@@ -26,6 +26,7 @@ import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -86,10 +87,14 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
         BannerItem entry = getItem(position);
         RelativeLayout.LayoutParams param;
         if(page == "Home") {
-            param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(mContext, 180));
+            param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            param.height =mContext.getResources().getDisplayMetrics().widthPixels/2;
+            LogUtil.e("xxxxx", mContext.getResources().getDisplayMetrics().widthPixels/2+"");
         }
         else {
-            param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(mContext, 130));
+            param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            param.height = mContext.getResources().getDisplayMetrics().widthPixels/3;
+            LogUtil.e("xxxxx", mContext.getResources().getDisplayMetrics().widthPixels/3+"");
         }
 
         if(position == 0){

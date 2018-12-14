@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -37,16 +39,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String CHANNEL_ID = "com.hotelnow";
     public static final String CHANNEL_NAME = "hotelnow";
     private JSONObject jsonObj;
+    private SharedPreferences _preferences;
 
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!(TextUtils.isEmpty(token))) {
             LogUtil.e(TAG, "newToken : " + token);
 
-//            PreferenceUtils.setPushToken(this, token);
-//            sendRegistrationToServer(token);
+            Util.setPreferenceValues(_preferences,"gcm_registration_id", token);
         }
     }
 

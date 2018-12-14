@@ -528,7 +528,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
     public void setPopup(){
         if(cookie == null ) {
-            if ((_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
+            if (!_preferences.getBoolean("user_push", false) && (_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
                 DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

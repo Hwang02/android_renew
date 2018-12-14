@@ -160,6 +160,7 @@ public class CalendarActivity extends Activity{
                         select_cnt = calendar.getSelectedDates().size();
                         selected_checkout_date = formatter.format(date);
                         if(selected_checkin_date.equals(selected_checkout_date)){
+                            calendar.clearSelectedDates();
                             checkin_date.setText("날짜 선택하기");
                             checkout_date.setText("날짜 선택하기");
                             check_inout_count.setText("0박");

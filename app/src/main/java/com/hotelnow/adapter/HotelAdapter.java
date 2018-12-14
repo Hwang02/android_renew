@@ -240,7 +240,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData());
             holder.autoViewPager.setClipToPadding(false);
-            holder.autoViewPager.setOffscreenPageLimit(mHf.getPbannerData().size());
+            holder.autoViewPager.setOffscreenPageLimit(0);
             holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
@@ -418,9 +418,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void setHeaderRefresh(){
-        if(headerAdapter != null){
-            headerAdapter.notifyDataSetChanged();
-        }
+//        if(headerAdapter != null){
+//            headerAdapter.notifyDataSetChanged();
+//        }
     }
 
     public void setAllRefresh(){
@@ -429,9 +429,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
         if(privateAdapter != null) {
             privateAdapter.notifyDataSetChanged();
-        }
-        if(hotelAdapter != null){
-            hotelAdapter.notifyDataSetChanged();
         }
     }
 
