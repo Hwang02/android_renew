@@ -42,6 +42,14 @@ public class ActLoading extends Activity {
     private SharedPreferences _preferences;
     private DialogAlert dialogAlert;
     private DialogConfirm dialogConfirm;
+    private String push_type = "";
+    private String bid;
+    private String hid;
+    private String isevt;
+    private int evtidx;
+    private String evttag ="";
+    private String sdate = "";
+    private String edate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -400,12 +408,28 @@ public class ActLoading extends Activity {
 //        finish();
         if (checkPlayServices()) {
             Intent intentLink = getIntent();
+            push_type = intentLink.getStringExtra("push_type");
+            bid = intentLink.getStringExtra("bid");
+            hid = intentLink.getStringExtra("hid");
+            isevt = intentLink.getStringExtra("isevt");
+            evtidx = intentLink.getIntExtra("evtidx", 0);
+            sdate = intentLink.getStringExtra("sdate");
+            edate = intentLink.getStringExtra("edate");
+            evttag = intentLink.getStringExtra("evttag");
             String action = intentLink.getAction();
             String data = intentLink.getDataString();
 
             Intent intent = new Intent(ActLoading.this, MainActivity.class);
             intent.putExtra("action", action);
             intent.putExtra("data", data);
+            intent.putExtra("push_type", push_type);
+            intent.putExtra("bid", bid);
+            intent.putExtra("hid", hid);
+            intent.putExtra("isevt", isevt);
+            intent.putExtra("evtidx", evtidx);
+            intent.putExtra("evttag", evttag);
+            intent.putExtra("sdate", sdate);
+            intent.putExtra("edate", edate);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

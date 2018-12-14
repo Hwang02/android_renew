@@ -13,11 +13,13 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogDiscountAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -229,9 +231,10 @@ public class SettingActivity extends Activity{
 
     private void setPush(){
         // 푸시 수신 상태값 저장
-        String regId = _preferences.getString("gcm_registration_id", null);
+        String regId = FirebaseInstanceId.getInstance().getToken();
         String userId = _preferences.getString("userid", null);
 
+        LogUtil.e("xxxxx", regId);
         if(regId != null)
             setGcmToken(this, regId, userId, cb_push.isChecked());
         else

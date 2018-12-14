@@ -159,6 +159,14 @@ public class CalendarActivity extends Activity{
                     else{
                         select_cnt = calendar.getSelectedDates().size();
                         selected_checkout_date = formatter.format(date);
+                        if(selected_checkin_date.equals(selected_checkout_date)){
+                            checkin_date.setText("날짜 선택하기");
+                            checkout_date.setText("날짜 선택하기");
+                            check_inout_count.setText("0박");
+                            btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
+                            btn_complate.setClickable(false);
+                            return;
+                        }
                         checkout_date.setText(selected_checkout_date);
                         check_inout_count.setText(select_cnt + "박");
                         btn_complate.setBackgroundResource(R.drawable.cal_active_round);

@@ -87,6 +87,9 @@ public class EventActivity extends AppCompatActivity {
 
         if(title != null)
             title_text.setText(title);
+        else{
+            title_text.setText("이벤트");
+        }
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
