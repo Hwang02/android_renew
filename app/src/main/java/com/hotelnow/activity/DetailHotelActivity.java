@@ -1102,18 +1102,22 @@ public class DetailHotelActivity extends AppCompatActivity {
                 if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                     btn_private.setVisibility(View.VISIBLE);
+                    view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
                 if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.GONE);
+                    view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
                 }
                 if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.GONE);
+                    view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
                 }
                 else {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                     btn_private.setVisibility(View.VISIBLE);
+                    view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
 
                 img_room.setTag(image_arr[0]);
