@@ -59,7 +59,7 @@ public class ActivitySearchActivity extends Activity {
     private String s_position = "", theme_id="", city="";
     private DbOpenHelper dbHelper;
     private Button bt_scroll;
-    RelativeLayout toast_layout;
+    RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
     TextView tv_toast, title_text, tv_ecategory,tv_elocation;
 
@@ -94,6 +94,7 @@ public class ActivitySearchActivity extends Activity {
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
+        title_search = (RelativeLayout) findViewById(R.id.title_search);
         HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
 
         mlist.addHeaderView(HeaderView);
@@ -162,6 +163,15 @@ public class ActivitySearchActivity extends Activity {
             @Override
             public void onSingleClick(View v) {
                 setResult(70);
+                finish();
+            }
+        });
+
+        title_search.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(ActivitySearchActivity.this, SearchActivity.class);
+                startActivityForResult(intent, 50);
                 finish();
             }
         });

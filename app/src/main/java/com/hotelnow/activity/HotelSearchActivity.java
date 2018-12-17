@@ -32,6 +32,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
@@ -73,7 +74,7 @@ public class HotelSearchActivity extends Activity {
     private static int PAGES = 0;
     private static int nowPosition = 0;
     private TextView title_text;
-    RelativeLayout toast_layout;
+    RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
     TextView tv_toast, tv_elocation, tv_edate;
 
@@ -118,6 +119,7 @@ public class HotelSearchActivity extends Activity {
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         bt_scroll = (Button) findViewById(R.id.bt_scroll);
+        title_search = (RelativeLayout) findViewById(R.id.title_search);
         tv_location.setText(intent.getStringExtra("city"));
         HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
 
@@ -191,6 +193,15 @@ public class HotelSearchActivity extends Activity {
                 intent.putExtra("edate", ee_date);
                 intent.putExtra("save", true);
                 startActivityForResult(intent, 50);
+            }
+        });
+
+        title_search.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(HotelSearchActivity.this, SearchActivity.class);
+                startActivityForResult(intent, 50);
+                finish();
             }
         });
 
@@ -415,8 +426,6 @@ public class HotelSearchActivity extends Activity {
                                 startActivityForResult(intent, 90);
                             }
                         });
-
-
 
                         total_count = obj.getInt("total_count");
                         adapter.notifyDataSetChanged();

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:layout_width="match_parent"
@@ -20,6 +21,9 @@
         android:layout_marginTop="25dp"
         android:textSize="17dp"
         android:textColor="@color/blacktxt"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:maxLength="50"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true"
@@ -35,6 +39,8 @@
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_below="@id/tv_room_title"
         tools:text="객실 예약 시 FB 3만원권 1매 증정!" />
 
@@ -47,11 +53,12 @@
         android:layout_below="@id/tv_room_sub_title"
         android:layout_marginTop="14dp">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_room"
             android:layout_width="134dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
+            app:riv_corner_radius="2dp"
             android:background="@color/purple"/>
         
         <ImageView

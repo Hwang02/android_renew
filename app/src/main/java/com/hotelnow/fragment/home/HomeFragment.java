@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
+import com.hotelnow.dialog.DialogLogin;
 import com.hotelnow.dialog.DialogMainFragment;
 import com.hotelnow.dialog.DialogPush;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
@@ -73,6 +75,9 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     private String cookie;
     public static DialogMainFragment frgpopup = null;
     private JSONArray mPopups;
+    private String important_pop_up_iamge, important_pop_up_link;
+    private int api_count = 0;
+    private boolean pushshow = false;
 
     @Nullable
     @Override
@@ -241,7 +246,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         MainActivity.hideProgress();
                         return;
                     }
-
+                    api_count++;
                     if(obj.has("promotion_banners")){
                         JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
                         mPbanerItem.clear();
@@ -457,6 +462,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     objects.add(mDefaultItem.get(0));
 
                     adapter.notifyDataSetChanged();
+                    important_pop_up_link = obj.getString("important_pop_up_link");
+                    important_pop_up_iamge = obj.getString("important_pop_up_iamge");
 
                     if(obj.has("pop_ups") && _preferences.getBoolean("user_first_app", true)){
                         if(obj.getJSONArray("pop_ups").length() >0) {
@@ -465,7 +472,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     }
                     else if(obj.has("pop_ups")){
                         if(cookie == null) {
-                            if ((_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
+                            if (!_preferences.getBoolean("user_push", false) && (_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
                                 mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
                                 DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
                                     @Override
@@ -475,6 +482,16 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                 });
                                 dialogPush.setCancelable(false);
                                 dialogPush.show();
+                            }
+                            else if(api_count == 1 &&CONFIG.sign_pro_img != null && !TextUtils.isEmpty(CONFIG.sign_pro_img) && (_preferences.getString("user_app_login_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_app_login_date", "")))){
+                                DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        //빈 곳
+                                    }
+                                }, CONFIG.sign_pro_img, "", "");
+                                dialoglogin.setCancelable(false);
+                                dialoglogin.show();
                             }
                             else{
                                 mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
@@ -537,9 +554,20 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 });
                 dialogPush.setCancelable(false);
                 dialogPush.show();
+                pushshow = true;
+            }
+            else if(!pushshow && CONFIG.sign_pro_img != null && !TextUtils.isEmpty(CONFIG.sign_pro_img) && (_preferences.getString("user_app_login_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_app_login_date", "")))){
+                DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //빈 곳
+                    }
+                }, CONFIG.sign_pro_img, "", "");
+                dialoglogin.setCancelable(false);
+                dialoglogin.show();
             }
             else{
-                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                if (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", ""))) {
                     frgpopup = new DialogMainFragment();
                     frgpopup.mListener = HomeFragment.this;
                     frgpopup.popup_data = mPopups;
@@ -551,7 +579,18 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     ft.commitAllowingStateLoss();
                 }
             }
-        }else if(!_preferences.getBoolean("today_start_app", false)) {
+        }
+        else if(api_count == 1 && !TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) || Util.showFrontPopup(_preferences.getString("info_date", ""))){
+            DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //빈 곳
+                }
+            }, important_pop_up_iamge, important_pop_up_link, "info");
+            dialoglogin.setCancelable(false);
+            dialoglogin.show();
+        }
+        else if(!_preferences.getBoolean("today_start_app", false)) {
             if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                 frgpopup = new DialogMainFragment();
                 frgpopup.mListener = HomeFragment.this;

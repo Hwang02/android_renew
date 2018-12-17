@@ -10,6 +10,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -350,8 +351,17 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(subbAdapter == null) {
             PAGES2 = mHf.getEbannerData().size();
             subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData(), mHf);
+
+            if(mHf.getEbannerData().size() == 1){
+                holder.autoViewPager.canSwipe(false);
+                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size());
+            }
+            else {
+                holder.autoViewPager.canSwipe(true);
+                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
+            }
             holder.autoViewPager.setAdapter(subbAdapter); //Auto Viewpager에 Adapter 장착
-            holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
+
             holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setOffscreenPageLimit(mHf.getEbannerData().size());
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

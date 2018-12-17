@@ -179,8 +179,8 @@ public class ActivitySearchFragment  extends Fragment {
                 public void onFailure(Response response, Exception e) {
                     if(isAdded()) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        ((SearchResultActivity)getActivity()).hideprogress();
                     }
-                    ((SearchResultActivity)getActivity()).hideprogress();
                 }
 
                 @Override
@@ -297,8 +297,8 @@ public class ActivitySearchFragment  extends Fragment {
                     } catch (Exception e) {
                         if(isAdded()) {
                             Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            ((SearchResultActivity)getActivity()).hideprogress();
                         }
-                        ((SearchResultActivity)getActivity()).hideprogress();
                     }
                 }
             });

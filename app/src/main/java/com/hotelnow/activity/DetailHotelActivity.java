@@ -63,6 +63,7 @@ import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkTextView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -608,7 +609,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                                 }
                                 else{
                                     findViewById(R.id.blur_view).setVisibility(View.VISIBLE);
-                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this,162)));
+                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this,100)));
                                     ((TextView) findViewById(R.id.tv_recommend_title)).setText(R.string.more_title);
                                     ((ImageView) findViewById(R.id.icon_recommend)).setBackgroundResource(R.drawable.btn_detail_open);
                                 }
@@ -1032,7 +1033,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
                 TextView tv_detail2 = (TextView)view_room.findViewById(R.id.tv_detail2);
                 TextView tv_detail3 = (TextView)view_room.findViewById(R.id.tv_detail3);
-                final ImageView img_room = (ImageView)view_room.findViewById(R.id.img_room);
+                final RoundedImageView img_room = (RoundedImageView)view_room.findViewById(R.id.img_room);
                 TextView tv_room_detail_price = (TextView)view_room.findViewById(R.id.tv_room_detail_price);
                 RelativeLayout btn_more = (RelativeLayout)view_room.findViewById(R.id.btn_more);
                 AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);

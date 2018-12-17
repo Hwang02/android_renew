@@ -553,6 +553,16 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case MYPAGE:{
+                if(isMove) {
+                    new Handler().postDelayed(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    setHide();
+                                    mbinding.navigation.setCurrentItem(3);
+                                }
+                            }, 100);
+                }
                 if(getSupportFragmentManager().findFragmentByTag("MYPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new MypageFragment(), "MYPAGE");
                 }

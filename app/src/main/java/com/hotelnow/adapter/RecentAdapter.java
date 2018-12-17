@@ -16,6 +16,7 @@ import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -91,9 +92,9 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
             }
         });
         holder.sel_item.setTag(position);
-        holder.sel_item.setOnClickListener(new View.OnClickListener() {
+        holder.sel_item.setOnClickListener(new OnSingleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onSingleClick(View v) {
                 LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
                 if(data.get((int)v.getTag()).getFlag().equals("1")){ // 호텔
                     Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);

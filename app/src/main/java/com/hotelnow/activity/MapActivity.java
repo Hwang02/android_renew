@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -474,7 +475,19 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                                 TextView tv_hotelname = (TextView) findViewById(R.id.tv_hotelname);
                                 TextView tv_price = (TextView) findViewById(R.id.tv_price);
                                 TextView detail_btn = (TextView) findViewById(R.id.detail_btn);
+                                TextView line_score = (TextView) findViewById(R.id.line_score);
+                                ImageView img_score = (ImageView) findViewById(R.id.img_score);
 
+                                if(grade_score.equals("0")){
+                                    tv_score.setVisibility(View.GONE);
+                                    line_score.setVisibility(View.GONE);
+                                    img_score.setVisibility(View.GONE);
+                                }
+                                else{
+                                    tv_score.setVisibility(View.VISIBLE);
+                                    line_score.setVisibility(View.VISIBLE);
+                                    img_score.setVisibility(View.VISIBLE);
+                                }
                                 tv_score.setText(grade_score);
                                 tv_catagory.setText(category_name);
                                 tv_hotelname.setText(hotel_name);

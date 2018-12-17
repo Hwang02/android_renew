@@ -153,6 +153,7 @@ public class DialogPush extends Dialog {
                                         @Override
                                         public void onClick(View v) {
                                             dialogDiscountAlert.dismiss();
+                                            ((MainActivity)mContext).HomePopup();
                                         }
                                     }
                             );

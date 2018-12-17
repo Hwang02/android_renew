@@ -30,6 +30,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkTextView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -146,7 +147,7 @@ public class AllRoomTypeActivity extends Activity {
                         TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
                         TextView tv_detail2 = (TextView)view_room.findViewById(R.id.tv_detail2);
                         TextView tv_detail3 = (TextView)view_room.findViewById(R.id.tv_detail3);
-                        final ImageView img_room = (ImageView)view_room.findViewById(R.id.img_room);
+                        final RoundedImageView img_room = (RoundedImageView)view_room.findViewById(R.id.img_room);
                         TextView tv_room_detail_price = (TextView)view_room.findViewById(R.id.tv_room_detail_price);
                         RelativeLayout btn_more = (RelativeLayout)view_room.findViewById(R.id.btn_more);
                         AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
@@ -192,7 +193,7 @@ public class AllRoomTypeActivity extends Activity {
                         more_img_list.removeAllViews();
                         for(int j=0; j<image_arr.length;j++){
                             View view_img = LayoutInflater.from(AllRoomTypeActivity.this).inflate(R.layout.layout_detail_room_img_item, null);
-                            ImageView image_container = view_img.findViewById(R.id.image_container);
+                            RoundedImageView image_container = view_img.findViewById(R.id.image_container);
                             Ion.with(image_container).load(image_arr[j]);
                             more_img_list.addView(view_img);
                         }
@@ -213,19 +214,19 @@ public class AllRoomTypeActivity extends Activity {
                         tv_room_info.setText(text);
 
                         if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
-                            findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                             btn_private.setVisibility(View.VISIBLE);
                         }
                         if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
-                            findViewById(R.id.img_room_private).setVisibility(View.GONE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.GONE);
                         }
                         if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
-                            findViewById(R.id.img_room_private).setVisibility(View.GONE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.GONE);
                         }
                         else {
-                            findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                             btn_private.setVisibility(View.VISIBLE);
                         }
 

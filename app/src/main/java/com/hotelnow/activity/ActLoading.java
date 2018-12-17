@@ -164,8 +164,8 @@ public class ActLoading extends Activity {
                         CONFIG.svr_date = new Date(time);
                     }
 
-                    if(data.has("signup_promotion_img")) {
-                        CONFIG.sign_pro_img = data.getString("signup_promotion_img");
+                    if(data.has("signup_promotion")) {
+                        CONFIG.sign_pro_img = data.getJSONObject("signup_promotion").getString("front_img");
                     }
 
                     // 적립금
