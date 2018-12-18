@@ -18,7 +18,7 @@
         android:id="@+id/title_sub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14dp"
+        android:textSize="15dp"
         android:textColorLink="@color/purple"
         android:textColor="@color/termtext"
         android:layout_marginLeft="20dp"

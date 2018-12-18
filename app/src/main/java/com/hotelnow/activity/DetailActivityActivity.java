@@ -687,7 +687,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     // 주소
                     String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+ticket_data.getString("latitude")+"%2C"+ticket_data.getString("longitude")+
                             "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+ticket_data.getString("latitude")+"%2C"+ticket_data.getString("longitude")+
-                            "&scale=2&sensor=false&language=ko&size=360x220&zoom=15"+"&key="+ BuildConfig.google_map_key2;
+                            "&scale=2&sensor=false&language=ko&size="+map_img.getWidth()/2+"x"+(int)(map_img.getWidth()*0.6)/2+"&zoom=17"+"&key="+ BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
                     mAddress = ticket_data.getString("address");
                     tv_address.setText(mAddress);
