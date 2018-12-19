@@ -51,18 +51,18 @@ public class SettingActivity extends Activity{
         tv_email = (TextView) findViewById(R.id.tv_email);
         tv_sms = (TextView) findViewById(R.id.tv_sms);
         tv_push = (TextView) findViewById(R.id.tv_push);
-        if(cookie == null){
+//        if(cookie == null){
             findViewById(R.id.ll_sms).setVisibility(View.GONE);
             findViewById(R.id.v_sms).setVisibility(View.GONE);
             findViewById(R.id.v_email).setVisibility(View.GONE);
             findViewById(R.id.ll_email).setVisibility(View.GONE);
-        }
-        else{
-            findViewById(R.id.ll_sms).setVisibility(View.VISIBLE);
-            findViewById(R.id.v_sms).setVisibility(View.VISIBLE);
-            findViewById(R.id.v_email).setVisibility(View.VISIBLE);
-            findViewById(R.id.ll_email).setVisibility(View.VISIBLE);
-        }
+//        }
+//        else{
+//            findViewById(R.id.ll_sms).setVisibility(View.VISIBLE);
+//            findViewById(R.id.v_sms).setVisibility(View.VISIBLE);
+//            findViewById(R.id.v_email).setVisibility(View.VISIBLE);
+//            findViewById(R.id.ll_email).setVisibility(View.VISIBLE);
+//        }
 
         Intent intent = getIntent();
 

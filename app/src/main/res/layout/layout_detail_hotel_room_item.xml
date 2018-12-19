@@ -203,11 +203,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="@color/privateview"
+            android:textColor="@color/white"
             android:textSize="14dp"
             android:text="@string/btn_private"
             android:gravity="center"
-            android:background="@drawable/private_round"/>
+            android:background="@drawable/reservation_private_round"/>
         <View
             android:id="@+id/line_private"
             android:layout_width="10dp"
@@ -218,7 +218,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="@color/purple"
+            android:textColor="@color/white"
             android:textSize="14dp"
             android:text="@string/btn_reservation"
             android:gravity="center"

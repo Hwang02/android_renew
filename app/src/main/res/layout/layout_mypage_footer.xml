@@ -30,8 +30,8 @@
                     android:layout_marginTop="25dp">
 
                     <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="12dp"
+                        android:layout_width="76dp"
+                        android:layout_height="22dp"
                         android:scaleType="fitXY"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/lv_more"
-                        android:textSize="9dp"
+                        android:textSize="12dp"
                         android:padding="2dp"
                         android:textColor="@color/graytxt"
                         android:layout_centerVertical="true"
@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
                     android:textColor="@color/graytxt"
                     android:text="@string/companyinfo_txt1"
                     android:visibility="gone"/>
@@ -81,10 +81,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/term_title"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:padding="2dp"
                         android:layout_marginRight="7dp"
-                        android:textColor="@color/termtext"/>
+                        android:textColor="@color/graytxt"/>
 
                     <TextView
                         android:layout_width="1dp"
@@ -97,10 +97,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/term_txt2"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:padding="2dp"
                         android:layout_marginRight="7dp"
-                        android:textColor="@color/termtext"/>
+                        android:textColor="@color/graytxt"/>
 
                     <TextView
                         android:layout_width="1dp"
@@ -113,12 +113,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/term_txt3"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:padding="2dp"
                         android:layout_marginRight="7dp"
-                        android:textColor="@color/termtext"/>
+                        android:textColor="@color/graytxt"/>
 
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(주)야놀자는 통신판매중개자로서 통신판매의 당사자가 아니며 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다."
+                    android:textSize="12dp"
+                    android:padding="2dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="7dp"
+                    android:textColor="@color/graytxt"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="26dp"

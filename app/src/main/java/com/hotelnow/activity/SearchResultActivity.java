@@ -15,11 +15,12 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.SectionsPagerAdapter;
+import com.hotelnow.utils.NonSwipeableViewPager;
 
 public class SearchResultActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
-    ViewPager view_pager;
+    NonSwipeableViewPager view_pager;
     SectionsPagerAdapter mSectionsPagerAdapter;
     int m_Selecttab = 0;
     String search_txt, banner_id;
@@ -58,7 +59,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        view_pager = (ViewPager) findViewById(R.id.view_pager);
+        view_pager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);

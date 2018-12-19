@@ -161,6 +161,8 @@ public class FilterHotelActivity extends Activity {
                 filter6_7.removeAllViews();
                 configFacilities.clear();
                 configCategories.clear();
+                configUsepersons.clear();
+                mRate = null;
                 setOrderby();
                 setCategory();
                 setUsePerson();

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -94,6 +95,9 @@ public class HotelSearchFragment extends Fragment {
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
     private String title_text;
+    private LinearLayout count_view;
+    private TextView tv_count;
+    private int filter_cnt = 1;
 
     @Nullable
     @Override
@@ -104,88 +108,6 @@ public class HotelSearchFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
-
-        search_txt = getArguments().getString("search_txt");
-        banner_id = getArguments().getString("banner_id");
-        order_kind = getArguments().getString("order_kind");
-        title_text = getArguments().getString("title_text");
-
-        mlist = (ListView) getView().findViewById(R.id.h_list);
-        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header, null, false);
-        btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_date = (RelativeLayout)HeaderView.findViewById(R.id.btn_date);
-        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
-        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
-        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
-        tv_date = (TextView) HeaderView.findViewById(R.id.tv_date);
-        bannerview = (RelativeLayout) HeaderView.findViewById(R.id.bannerview);
-        autoViewPager = (ViewPagerCustom) HeaderView.findViewById(R.id.autoViewPager);
-        page = (TextView) HeaderView.findViewById(R.id.page);
-        btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
-        bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
-
-        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
-        popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
-
-        ((ViewGroup)mlist.getParent()).addView(empty);
-        mlist.setEmptyView(empty);
-
-        ec_date = Util.setCheckinout().get(0);
-        ee_date = Util.setCheckinout().get(1);
-
-        long count = Util.diffOfDate2(ec_date, ee_date);
-        tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
-
-        mlist.addHeaderView(HeaderView);
-        adapter = new SearchResultStayAdapter(getActivity(), 0, mItems, HotelSearchFragment.this, dbHelper);
-        mlist.setAdapter(adapter);
-
-        btn_location.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
-                startActivityForResult(intent, 80);
-            }
-        });
-        btn_date.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                intent.putExtra("ec_date", ec_date);
-                intent.putExtra("ee_date", ee_date);
-                startActivityForResult(intent, 70);
-            }
-        });
-        btn_filter.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
-                startActivityForResult(intent, 60);
-            }
-        });
-        bt_scroll.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                mlist.smoothScrollToPosition(0);
-            }
-        });
-
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView)view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
-                intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 50);
-            }
-        });
-
-        getSearch();
 
     }
 
@@ -424,6 +346,7 @@ public class HotelSearchFragment extends Fragment {
                             adapter.notifyDataSetChanged();
                             Page++;
                         }
+
                         ((SearchResultActivity)getActivity()).hideprogress();
                     } catch (Exception e) {
                         if(isAdded()) {
@@ -460,6 +383,7 @@ public class HotelSearchFragment extends Fragment {
             tv.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    Util.clearSearch();
                     Intent intent = new Intent(getActivity(), SearchResultActivity.class);
                     intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
                     intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());
@@ -571,6 +495,7 @@ public class HotelSearchFragment extends Fragment {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            adapter.notifyDataSetChanged();
             getSearch();
         } else if(requestCode == 70 && responseCode == 80){
             ec_date = data.getStringExtra("ec_date");
@@ -580,25 +505,40 @@ public class HotelSearchFragment extends Fragment {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            adapter.notifyDataSetChanged();
             getSearch();
         }
         else if(requestCode == 60 && responseCode == 80){
-
+            filter_cnt = 1;
             LogUtil.e("xxxxx", CONFIG.sel_max);
             price_max = CONFIG.sel_max;
             LogUtil.e("xxxxx", CONFIG.sel_min);
             price_min = CONFIG.sel_min;
+            if(!price_max.equals("600000") || !price_min.equals("0")){
+                filter_cnt++;
+            }
             if(!TextUtils.isEmpty(CONFIG.sel_category)) {
                 LogUtil.e("xxxxx", CONFIG.sel_category);
                 category = CONFIG.sel_category.replace("|",",");
+                filter_cnt++;
+            }
+            else{
+                category="";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_facility)) {
                 LogUtil.e("xxxxx", CONFIG.sel_facility);
                 facility = CONFIG.sel_facility.replace("|", ",");
+                filter_cnt++;
+            }
+            else{
+                facility = "";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_orderby)) {
                 LogUtil.e("xxxxx", CONFIG.sel_orderby);
                 order_kind = CONFIG.sel_orderby;
+            }
+            else{
+                order_kind = "";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_rate)) {
                 LogUtil.e("xxxxx", CONFIG.sel_rate);
@@ -613,20 +553,137 @@ public class HotelSearchFragment extends Fragment {
                 else if(CONFIG.sel_rate.equals("3")){
                     score = "5";
                 }
+                filter_cnt++;
+            }
+            else {
+                score="";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_useperson)) {
                 LogUtil.e("xxxxx", CONFIG.sel_useperson);
                 person_count = CONFIG.sel_useperson.replace("0", "1").replace("3","5").replace("2", "3|4").replace("1", "2").replace("|", ",");
+                filter_cnt++;
             }
-
+            else{
+                person_count="";
+            }
+            tv_count.setText(filter_cnt +"");
             Page = 1;
             total_count = 0;
             mItems.clear();
+            adapter.notifyDataSetChanged();
             getSearch();
         }
         else if(requestCode == 50 && responseCode == 80){
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private boolean _hasLoadedOnce= false; // your boolean field
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(isFragmentVisible_);
+//        if (this.isVisible()) {
+            // we check that the fragment is becoming visible
+            if (isFragmentVisible_ && !_hasLoadedOnce) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        init();
+                    }
+                },500);
+
+                _hasLoadedOnce = true;
+            }
+//        }
+    }
+
+    private void init(){
+        // preference
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
+
+        search_txt = getArguments().getString("search_txt");
+        banner_id = getArguments().getString("banner_id");
+        order_kind = getArguments().getString("order_kind");
+        title_text = getArguments().getString("title_text");
+
+        mlist = (ListView) getView().findViewById(R.id.h_list);
+        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header, null, false);
+        btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
+        btn_date = (RelativeLayout)HeaderView.findViewById(R.id.btn_date);
+        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
+        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
+        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
+        tv_date = (TextView) HeaderView.findViewById(R.id.tv_date);
+        bannerview = (RelativeLayout) HeaderView.findViewById(R.id.bannerview);
+        autoViewPager = (ViewPagerCustom) HeaderView.findViewById(R.id.autoViewPager);
+        page = (TextView) HeaderView.findViewById(R.id.page);
+        btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
+        bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
+        count_view = (LinearLayout) getView().findViewById(R.id.count_view);
+        tv_count = (TextView) getView().findViewById(R.id.tv_count);
+
+        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
+        popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
+
+        ((ViewGroup)mlist.getParent()).addView(empty);
+        mlist.setEmptyView(empty);
+
+        ec_date = Util.setCheckinout().get(0);
+        ee_date = Util.setCheckinout().get(1);
+
+        long count = Util.diffOfDate2(ec_date, ee_date);
+        tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
+
+        mlist.addHeaderView(HeaderView);
+        adapter = new SearchResultStayAdapter(getActivity(), 0, mItems, HotelSearchFragment.this, dbHelper);
+        mlist.setAdapter(adapter);
+
+        btn_location.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
+                startActivityForResult(intent, 80);
+            }
+        });
+        btn_date.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra("ec_date", ec_date);
+                intent.putExtra("ee_date", ee_date);
+                startActivityForResult(intent, 70);
+            }
+        });
+        btn_filter.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
+                startActivityForResult(intent, 60);
+            }
+        });
+        bt_scroll.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mlist.smoothScrollToPosition(0);
+            }
+        });
+
+        tv_count.setText(filter_cnt+"");
+
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+            @Override
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView)view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                intent.putExtra("hid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 50);
+            }
+        });
+
+        getSearch();
     }
 
 }

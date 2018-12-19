@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -84,68 +85,6 @@ public class ActivitySearchFragment  extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
-
-        search_txt = getArguments().getString("search_txt");
-        banner_id = getArguments().getString("banner_id");
-        order_kind = getArguments().getString("order_kind");
-        title_text = getArguments().getString("title_text");
-
-        mlist = (ListView) getView().findViewById(R.id.h_list);
-        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
-        btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_category = (RelativeLayout)HeaderView.findViewById(R.id.btn_category);
-        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
-        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
-        tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
-        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
-        bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
-
-        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
-        popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
-
-        ((ViewGroup)mlist.getParent()).addView(empty);
-        mlist.setEmptyView(empty);
-
-        mlist.addHeaderView(HeaderView);
-        adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
-        mlist.setAdapter(adapter);
-
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView) view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
-                intent.putExtra("tid", hid.getText().toString());
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 50);
-            }
-        });
-
-        btn_location.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
-                startActivityForResult(intent, 80);
-            }
-        });
-        btn_category.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
-                startActivityForResult(intent, 70);
-            }
-        });
-        bt_scroll.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                mlist.smoothScrollToPosition(0);
-            }
-        });
-
-        getSearch();
     }
 
     public void getSearch(){
@@ -434,6 +373,7 @@ public class ActivitySearchFragment  extends Fragment {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            adapter.notifyDataSetChanged();
             getSearch();
         }
         else if(requestCode == 70 && responseCode == 80) {
@@ -442,10 +382,96 @@ public class ActivitySearchFragment  extends Fragment {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            adapter.notifyDataSetChanged();
             getSearch();
         }
         else if(requestCode == 50 && responseCode == 80) {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private boolean _hasLoadedOnce= false; // your boolean field
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(true);
+        if (this.isVisible()) {
+            // we check that the fragment is becoming visible
+            if (isFragmentVisible_ && !_hasLoadedOnce) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        init();
+                    }
+                },500);
+
+                _hasLoadedOnce = true;
+            }
+        }
+    }
+
+    private void init(){
+        // preference
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
+
+        search_txt = getArguments().getString("search_txt");
+        banner_id = getArguments().getString("banner_id");
+        order_kind = getArguments().getString("order_kind");
+        title_text = getArguments().getString("title_text");
+
+        mlist = (ListView) getView().findViewById(R.id.h_list);
+        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
+        btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
+        btn_category = (RelativeLayout)HeaderView.findViewById(R.id.btn_category);
+        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
+        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
+        tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
+        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
+        bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
+
+        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
+        popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
+
+        ((ViewGroup)mlist.getParent()).addView(empty);
+        mlist.setEmptyView(empty);
+
+        mlist.addHeaderView(HeaderView);
+        adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
+        mlist.setAdapter(adapter);
+
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+            @Override
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView) view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                intent.putExtra("tid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 50);
+            }
+        });
+
+        btn_location.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
+                startActivityForResult(intent, 80);
+            }
+        });
+        btn_category.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                startActivityForResult(intent, 70);
+            }
+        });
+        bt_scroll.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mlist.smoothScrollToPosition(0);
+            }
+        });
+
+        getSearch();
     }
 }
