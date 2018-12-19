@@ -7,6 +7,7 @@
     </data>
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/myCoordinator"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,7 +72,7 @@
             android:id="@+id/wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="gone"
             android:clickable="false"
             android:background="@android:color/transparent">
 

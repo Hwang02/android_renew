@@ -1,6 +1,5 @@
 package com.hotelnow.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +9,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -32,7 +30,7 @@ public class CardAddActivity extends Activity {
     private DialogConfirm dialogConfirm;
     private String uid = "";
 
-    @SuppressLint({ "SetJavaScriptEnabled", "NewApi" })
+//    @SuppressLint({ "SetJavaScriptEnabled", "NewApi" })
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +53,7 @@ public class CardAddActivity extends Activity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setUserAgentString(webview.getSettings().getUserAgentString()+" HOTELNOW_APP_ANDROID");
         webview.setWebViewClient(new webViewClient());
-        webview.addJavascriptInterface(new billWebInterface(), "billWebInterface");
+//        webview.addJavascriptInterface(new billWebInterface(), "billWebInterface");
         webview.setWebChromeClient(new WebChromeClient());
 
         webview.loadUrl(CONFIG.cardAddUrl+"?uid="+uid);
@@ -115,51 +113,51 @@ public class CardAddActivity extends Activity {
     }
 
     // 404 새로고침
-    private class billWebInterface
-    {
-        @JavascriptInterface
-        public void finishAlert( final String str )
-        {
-            handler.post( new Runnable() {
-                public void run()
-                {
-
-                    dialogAlert = new DialogAlert(
-                            getString(R.string.alert_notice),
-                            (str.length() <= 0)? "카드 등록을 취소하였습니다." : str,
-                            CardAddActivity.this,
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialogAlert.dismiss();
-
-                                    finish();
-                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-                                }
-                            });
-                    dialogAlert.setCancelable(false);
-                    dialogAlert.show();
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void paymentSuccess(final String id) {
-            handler.post(new Runnable() {
-                public void run() {
-                    Toast.makeText(CardAddActivity.this, "카드를 등록하였습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
-                    setResult(91, intent);
-                    finish();
-                }
-            });
-        }
-
-        @JavascriptInterface
-        public void reoladDetail(){
-            webview.loadUrl(CONFIG.cardAddUrl);
-        }
-    }
+//    private class billWebInterface
+//    {
+//        @JavascriptInterface
+//        public void finishAlert( final String str )
+//        {
+//            handler.post( new Runnable() {
+//                public void run()
+//                {
+//
+//                    dialogAlert = new DialogAlert(
+//                            getString(R.string.alert_notice),
+//                            (str.length() <= 0)? "카드 등록을 취소하였습니다." : str,
+//                            CardAddActivity.this,
+//                            new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    dialogAlert.dismiss();
+//
+//                                    finish();
+//                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+//                                }
+//                            });
+//                    dialogAlert.setCancelable(false);
+//                    dialogAlert.show();
+//                }
+//            });
+//        }
+//
+//        @JavascriptInterface
+//        public void paymentSuccess(final String id) {
+//            handler.post(new Runnable() {
+//                public void run() {
+//                    Toast.makeText(CardAddActivity.this, "카드를 등록하였습니다.", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent();
+//                    setResult(91, intent);
+//                    finish();
+//                }
+//            });
+//        }
+//
+//        @JavascriptInterface
+//        public void reoladDetail(){
+//            webview.loadUrl(CONFIG.cardAddUrl);
+//        }
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

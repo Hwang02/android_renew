@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -462,6 +464,7 @@ public class MainActivity extends FragmentActivity {
         transaction = getSupportFragmentManager().beginTransaction();
         switch (mPosition){
             case SELECTPAGE:{
+                tabStatus(true);
                 if(isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
@@ -505,6 +508,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case FAVPAGE:{
+                tabStatus(false);
                 if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
@@ -533,7 +537,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case RESERVPAGE:{
-
+                tabStatus(false);
                 if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
@@ -562,6 +566,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case MYPAGE:{
+                tabStatus(false);
                 if(isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
@@ -849,5 +854,19 @@ public class MainActivity extends FragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void tabStatus(boolean enable){
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mbinding.toolbar.getLayoutParams();
+        CoordinatorLayout.LayoutParams appBarLayoutParams = (CoordinatorLayout.LayoutParams) mbinding.appbar.getLayoutParams();
+        if(enable) {
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+            appBarLayoutParams.setBehavior(new AppBarLayout.Behavior());
+            mbinding.appbar.setLayoutParams(appBarLayoutParams);
+        } else {
+            params.setScrollFlags(0);
+            appBarLayoutParams.setBehavior(null);
+            mbinding.appbar.setLayoutParams(appBarLayoutParams);
+        }
     }
 }
