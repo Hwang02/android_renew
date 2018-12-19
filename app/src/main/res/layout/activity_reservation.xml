@@ -92,7 +92,8 @@
             <include android:id="@+id/include_user_info"
                 layout="@layout/layout_reservation_user_info" />
 
-            <include layout="@layout/layout_reservation_discount" />
+            <include android:id="@+id/include_reservation_discount"
+                layout="@layout/layout_reservation_discount" />
 
             <include layout="@layout/layout_reservation_price" />
 

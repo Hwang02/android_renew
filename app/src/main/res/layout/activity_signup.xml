@@ -115,7 +115,6 @@
                     android:layout_height="46dp"
                     android:layout_weight="1"
                     android:textSize="15dp"
-                    android:background="@drawable/style_edittext_gray_border"
                     android:spinnerMode="dropdown" />
 
                 <EditText

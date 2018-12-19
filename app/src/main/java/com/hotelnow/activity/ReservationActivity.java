@@ -1108,6 +1108,14 @@ public class ReservationActivity extends Activity {
                             }
                         }
                     });
+
+                    if(ll_private.getVisibility() == View.VISIBLE || ll_point.getVisibility() == View.VISIBLE || ll_coupon.getVisibility() == View.VISIBLE) {
+                        findViewById(R.id.include_reservation_discount).setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        findViewById(R.id.include_reservation_discount).setVisibility(View.GONE);
+                    }
+
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     LogUtil.e("xxxx", e.getMessage());
