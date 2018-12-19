@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -440,7 +441,15 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    public static void showProgress(){ mbinding.wrapper.setVisibility(View.VISIBLE); }
+    public static void showProgress(){
+        mbinding.wrapper.setVisibility(View.VISIBLE);
+        mbinding.wrapper.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+    }
     public static void hideProgress(){
         try {
             mbinding.wrapper.setVisibility(View.GONE);

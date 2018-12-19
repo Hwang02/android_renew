@@ -71,9 +71,9 @@
             android:id="@+id/wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:clickable="true"
-            android:background="@color/footerview">
+            android:visibility="visible"
+            android:clickable="false"
+            android:background="@android:color/transparent">
 
             <com.wang.avi.AVLoadingIndicatorView
                 android:id="@+id/loading_indicator"

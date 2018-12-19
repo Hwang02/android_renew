@@ -51,7 +51,6 @@ public class FavoriteFragment extends Fragment {
         mFavoriteBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         ec_date = Util.setCheckinout().get(0);
         ee_date = Util.setCheckinout().get(1);
-
         // 1번 탭 일때
         if(m_Selecttab == 0) {
             new Handler().postDelayed(
@@ -116,12 +115,12 @@ public class FavoriteFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 mFavoriteBinding.viewPager.setCurrentItem(tab.getPosition(), true);
 //                m_Selecttab = tab.getPosition();
-                if(tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
                     mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
                     mFavoriteBinding.tvDate.setVisibility(View.VISIBLE);
                     mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
                     mFavoriteBinding.tvDateTitle.setText("숙박일 선택");
-                    mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) +" - "+Util.formatchange5(ee_date));
+                    mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                     mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
@@ -131,15 +130,10 @@ public class FavoriteFragment extends Fragment {
                             startActivityForResult(intent, 80);
                         }
                     });
-                }
-                else if(tab.getPosition() == 1){
+                } else if (tab.getPosition() == 1) {
                     mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
                     mFavoriteBinding.tvDate.setVisibility(View.GONE);
                     mFavoriteBinding.btnDate.setVisibility(View.GONE);
-                }
-                if(CONFIG.TabLogin) {
-                    favoriteAdapter.notifyDataSetChanged();
-                    CONFIG.TabLogin=false;
                 }
 
                 mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {

@@ -98,6 +98,7 @@ public class HotelSearchFragment extends Fragment {
     private LinearLayout count_view;
     private TextView tv_count;
     private int filter_cnt = 1;
+    private boolean _hasLoadedOnce= false; // your boolean field
 
     @Nullable
     @Override
@@ -577,8 +578,6 @@ public class HotelSearchFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
-
-    private boolean _hasLoadedOnce= false; // your boolean field
 
     @Override
     public void setUserVisibleHint(boolean isFragmentVisible_) {

@@ -3,6 +3,7 @@ package com.hotelnow.fragment.favorite;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -56,6 +57,7 @@ public class FavoriteActivityFragment extends Fragment {
     private RelativeLayout main_view;
     private TextView btn_go_list;
     private DbOpenHelper dbHelper;
+    private boolean _hasLoadedOnce= false; // your boolean field
 
     @Nullable
     @Override
@@ -66,32 +68,6 @@ public class FavoriteActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
-
-//        search_txt = getArguments().getString("search_txt");
-//        banner_id = getArguments().getString("banner_id");
-
-        mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-        adapter = new FavoriteActivityAdapter(getActivity(), FavoriteActivityFragment.this,0, mItems);
-        mlist.setAdapter(adapter);
-        btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
-        main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
-        btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView) view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
-                intent.putExtra("tid", hid.getText().toString());
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 70);
-            }
-        });
-
-        authCheck();
     }
 
     public void authCheck() {
@@ -133,6 +109,7 @@ public class FavoriteActivityFragment extends Fragment {
                             }
                         });
                         ((FavoriteFragment)getParentFragment()).setCancelView(true);
+                        MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
                         getView().findViewById(R.id.login_view).setVisibility(View.GONE);
@@ -146,7 +123,6 @@ public class FavoriteActivityFragment extends Fragment {
                         ((FavoriteFragment)getParentFragment()).setCancelView(false);
                         getFavorite();
                     }
-                    MainActivity.hideProgress();
                 } catch (Exception e) {
                     MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
@@ -203,7 +179,12 @@ public class FavoriteActivityFragment extends Fragment {
                         }
                     }
                     adapter.notifyDataSetChanged();
-                    MainActivity.hideProgress();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            MainActivity.hideProgress();
+                        }
+                    },500);
                 } catch (Exception e) {
                     MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
@@ -223,6 +204,7 @@ public class FavoriteActivityFragment extends Fragment {
         }
         else if(requestCode == 70 && resultCode == 80){
             mItems.clear();
+            adapter.notifyDataSetChanged();
             MainActivity.showProgress();
             getFavorite();
         }
@@ -312,8 +294,62 @@ public class FavoriteActivityFragment extends Fragment {
 
     public void setDateRefresh(String ecc_date, String eee_date){
         mItems.clear();
-        getFavorite();
+        adapter.notifyDataSetChanged();
         MainActivity.showProgress();
+        getFavorite();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(isFragmentVisible_);
+        // we check that the fragment is becoming visible
+        if (isFragmentVisible_ && !_hasLoadedOnce) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    init();
+                }
+            },500);
+
+            _hasLoadedOnce = true;
+        }
+        else if(isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce){
+            CONFIG.TabLogin=false;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    init();
+                }
+            },500);
+        }
+    }
+
+    private void init(){
+        // preference
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
+
+//        search_txt = getArguments().getString("search_txt");
+//        banner_id = getArguments().getString("banner_id");
+
+        mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
+        adapter = new FavoriteActivityAdapter(getActivity(), FavoriteActivityFragment.this,0, mItems);
+        mlist.setAdapter(adapter);
+        btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
+        main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
+        btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+            @Override
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView) view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                intent.putExtra("tid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 70);
+            }
+        });
+
+        authCheck();
     }
 
 }

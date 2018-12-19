@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -54,6 +55,7 @@ public class ReservationHotelFragment extends Fragment {
     private int total_count = 0;
     private int currentPage = 1;
     private boolean isAdd = true;
+    private boolean _hasLoadedOnce= false; // your boolean field
 
     @Nullable
     @Override
@@ -65,32 +67,7 @@ public class ReservationHotelFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-        adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationHotelFragment.this);
-        mlist.setAdapter(adapter);
-        btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
-        main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
-        btn_go_reservation = (TextView) getView().findViewById(R.id.btn_go_reservation);
-        u_send = (Button) getView().findViewById(R.id.u_send);
-        back = (ImageView) getView().findViewById(R.id.back);
-        u_name = (EditText) getView().findViewById(R.id.u_name);
-        u_tel = (EditText) getView().findViewById(R.id.u_tel);
-        u_num = (EditText) getView().findViewById(R.id.u_num);
-
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView)view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
-                intent.putExtra("bid", tv.getText().toString());
-                startActivityForResult(intent, 90);
-            }
-        });
-
-        authCheck();
     }
 
     public void authCheck() {
@@ -264,7 +241,6 @@ public class ReservationHotelFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode == 80){
-
             authCheck();
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
@@ -273,6 +249,7 @@ public class ReservationHotelFragment extends Fragment {
         else if(requestCode == 90 && resultCode == 0)
         {
             mEntries.clear();
+            adapter.notifyDataSetChanged();
             currentPage = 1;
             isAdd = true;
             MainActivity.showProgress();
@@ -280,5 +257,58 @@ public class ReservationHotelFragment extends Fragment {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(isFragmentVisible_);
+        // we check that the fragment is becoming visible
+        if (isFragmentVisible_ && !_hasLoadedOnce) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    init();
+                }
+            },500);
+            _hasLoadedOnce = true;
+        }
+        else if(isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce){
+            CONFIG.TabLogin=false;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    init();
+                }
+            },500);
+        }
+    }
+
+    private void init(){
+        // preference
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
+        adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationHotelFragment.this);
+        mlist.setAdapter(adapter);
+        btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
+        main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
+        btn_go_reservation = (TextView) getView().findViewById(R.id.btn_go_reservation);
+        u_send = (Button) getView().findViewById(R.id.u_send);
+        back = (ImageView) getView().findViewById(R.id.back);
+        u_name = (EditText) getView().findViewById(R.id.u_name);
+        u_tel = (EditText) getView().findViewById(R.id.u_tel);
+        u_num = (EditText) getView().findViewById(R.id.u_num);
+
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+            @Override
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView)view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
+                intent.putExtra("bid", tv.getText().toString());
+                startActivityForResult(intent, 90);
+            }
+        });
+
+        authCheck();
     }
 }

@@ -74,6 +74,7 @@ public class ActivitySearchFragment  extends Fragment {
     private Button bt_scroll;
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
+    private boolean _hasLoadedOnce= false; // your boolean field
 
     @Nullable
     @Override
@@ -389,8 +390,6 @@ public class ActivitySearchFragment  extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
-
-    private boolean _hasLoadedOnce= false; // your boolean field
 
     @Override
     public void setUserVisibleHint(boolean isFragmentVisible_) {
