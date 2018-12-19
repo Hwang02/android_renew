@@ -635,7 +635,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     // 주소
                     String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
                             "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
-                            "&scale=2&sensor=false&language=ko&size="+map_img.getWidth()/2+"x"+(int)(map_img.getWidth()*0.6)/2+"&zoom=17"+"&key="+ BuildConfig.google_map_key2;
+                            "&scale=1&sensor=false&language=ko&size="+700+"x"+700+"&zoom=15"+"&key="+ BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
                     mAddress = hotel_data.getString("address_street");
                     tv_address.setText(mAddress);

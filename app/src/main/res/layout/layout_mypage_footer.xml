@@ -42,7 +42,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/btn_detail_close_grey"
+                        android:background="@drawable/btn_detail_open_grey"
                         android:layout_centerVertical="true"
                         android:scaleType="fitXY"/>
 

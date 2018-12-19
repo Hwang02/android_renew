@@ -120,7 +120,6 @@ public class DetailActivityActivity extends AppCompatActivity {
     private TextView tv_toast;
     private boolean isLogin = false;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +142,13 @@ public class DetailActivityActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         app_bar = (AppBarLayout) findViewById(R.id.app_bar);
         icon_zzim = (ImageView) toolbar.findViewById(R.id.icon_zzim);
+
+        findViewById(R.id.btn_kakao).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.kakaoYelloId2(DetailActivityActivity.this);
+            }
+        });
 
         findViewById(R.id.btn_back).setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -687,7 +693,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     // 주소
                     String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+ticket_data.getString("latitude")+"%2C"+ticket_data.getString("longitude")+
                             "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+ticket_data.getString("latitude")+"%2C"+ticket_data.getString("longitude")+
-                            "&scale=2&sensor=false&language=ko&size="+map_img.getWidth()/2+"x"+(int)(map_img.getWidth()*0.6)/2+"&zoom=17"+"&key="+ BuildConfig.google_map_key2;
+                            "&scale=1&sensor=false&language=ko&size="+700+"x"+700+"&zoom=15"+"&key="+ BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
                     mAddress = ticket_data.getString("address");
                     tv_address.setText(mAddress);

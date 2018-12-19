@@ -174,11 +174,11 @@ public class MypageFragment extends Fragment {
             public void onSingleClick(View v) {
                 if(mMypageBinding.footer.tvCompanyinfo.getVisibility() == View.VISIBLE){
                     mMypageBinding.footer.tvCompanyinfo.setVisibility(View.GONE);
-                    mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_close_grey);
+                    mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_open_grey);
                 }
                 else {
                     mMypageBinding.footer.tvCompanyinfo.setVisibility(View.VISIBLE);
-                    mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_open_grey);
+                    mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_close_grey);
                 }
             }
         });

@@ -41,11 +41,11 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
             public void onClick(View v) {
                 if(holder.tv_companyinfo.getVisibility() == View.VISIBLE){
                     holder.tv_companyinfo.setVisibility(View.GONE);
-                    holder.lv_more.setBackgroundResource(R.drawable.btn_detail_close_grey);
+                    holder.lv_more.setBackgroundResource(R.drawable.btn_detail_open_grey);
                 }
                 else {
                     holder.tv_companyinfo.setVisibility(View.VISIBLE);
-                    holder.lv_more.setBackgroundResource(R.drawable.btn_detail_open_grey);
+                    holder.lv_more.setBackgroundResource(R.drawable.btn_detail_close_grey);
                 }
             }
         });
