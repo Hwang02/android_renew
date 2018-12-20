@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -175,6 +176,8 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     mHf.startActivityForResult(intent, 70);
                 }
             });
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
@@ -232,6 +235,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 }
             });
+
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
@@ -305,6 +311,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     mHf.startActivityForResult(intent, 70);
                 }
             });
+
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 

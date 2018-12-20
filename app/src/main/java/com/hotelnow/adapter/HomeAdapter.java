@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -189,6 +190,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             else {
                 holder.mMoreView.setVisibility(View.GONE);
             }
+
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
@@ -238,6 +242,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
@@ -255,6 +262,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mHf.startActivityForResult(intent, 80);
                 }
             });
+
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
@@ -266,6 +276,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setBackgroundResource(R.color.footerview);
             holder.main_view.setBackgroundResource(R.color.footerview);
             holder.mMoreView.setVisibility(View.GONE);
+
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
@@ -282,6 +295,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     mHf.startActivityForResult(intent, 80);
                 }
             });
+            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 
