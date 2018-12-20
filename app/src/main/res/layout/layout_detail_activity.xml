@@ -111,6 +111,14 @@
                 android:scaleType="fitXY"
                 android:visibility="gone"
                 android:background="@drawable/tag_benefit_point" />
+
+            <ImageView
+                android:id="@+id/ico_nowdiscount"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:background="@drawable/tag_benefit_discount" />
         </LinearLayout>
 
         <RelativeLayout

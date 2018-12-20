@@ -444,7 +444,11 @@ public class DetailActivityActivity extends AppCompatActivity {
 
                     // 쿠폰
                     if(instant_coupons.length()>0) {
+                        findViewById(R.id.ico_nowdiscount).setVisibility(View.VISIBLE);
                         setCoupon(instant_coupons);
+                    }
+                    else{
+                        findViewById(R.id.ico_nowdiscount).setVisibility(View.GONE);
                     }
 
                     //가격정보

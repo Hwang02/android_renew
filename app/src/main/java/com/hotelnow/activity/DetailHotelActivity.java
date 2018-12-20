@@ -561,9 +561,11 @@ public class DetailHotelActivity extends AppCompatActivity {
                     // 쿠폰
                     if(instant_coupons.length()>0) {
                         coupon_list.setVisibility(View.VISIBLE);
+                        findViewById(R.id.ico_nowdiscount).setVisibility(View.VISIBLE);
                         setCoupon(instant_coupons);
                     }
                     else{
+                        findViewById(R.id.ico_nowdiscount).setVisibility(View.GONE);
                         coupon_list.setVisibility(View.GONE);
                     }
 
