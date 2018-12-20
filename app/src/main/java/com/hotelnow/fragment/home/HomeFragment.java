@@ -465,52 +465,36 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     important_pop_up_link = obj.getString("important_pop_up_link");
                     important_pop_up_iamge = obj.getString("important_pop_up_iamge");
 
-                    if(obj.has("pop_ups") && _preferences.getBoolean("user_first_app", true)){
-                        if(obj.getJSONArray("pop_ups").length() >0) {
-                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
-                        }
-                    }
-                    else if(obj.has("pop_ups")){
-                        if(cookie == null) {
-                            if (!_preferences.getBoolean("user_push", false) && (_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
-                                mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
-                                DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        //빈 곳
-                                    }
-                                });
-                                dialogPush.setCancelable(false);
-                                dialogPush.show();
-                            }
-                            else if(api_count == 1 &&CONFIG.sign_pro_img != null && !TextUtils.isEmpty(CONFIG.sign_pro_img) && (_preferences.getString("user_app_login_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_app_login_date", "")))){
-                                DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        //빈 곳
-                                    }
-                                }, CONFIG.sign_pro_img, "", "");
-                                dialoglogin.setCancelable(false);
-                                dialoglogin.show();
-                            }
-                            else{
-                                mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
-                                if(!_preferences.getBoolean("today_start_app", false)) {
-                                    if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
-                                        frgpopup = new DialogMainFragment();
-                                        frgpopup.mListener = HomeFragment.this;
-                                        frgpopup.popup_data = mPopups;
-                                        frgpopup.pf = HomeFragment.this;
-                                        frgpopup.setCancelable(false);
-
-                                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                        ft.add(frgpopup, null);
-                                        ft.commitAllowingStateLoss();
-                                    }
-                                }
-                            }
-                        }
-                        else if(obj.getJSONArray("pop_ups").length() >0) {
+//                    if(obj.has("pop_ups") && _preferences.getBoolean("user_first_app", true)){
+//                        if(obj.getJSONArray("pop_ups").length() >0) {
+//                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+//                        }
+//                    }
+//                    else
+                    if(obj.has("pop_ups")){
+//                        if(cookie == null) {
+//                            if (!_preferences.getBoolean("user_push", false) && (_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
+//                                mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+//                                DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        //빈 곳
+//                                    }
+//                                });
+//                                dialogPush.setCancelable(false);
+//                                dialogPush.show();
+//                            }
+//                            else if(api_count == 1 &&CONFIG.sign_pro_img != null && !TextUtils.isEmpty(CONFIG.sign_pro_img) && (_preferences.getString("user_app_login_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_app_login_date", "")))){
+//                                DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        //빈 곳
+//                                    }
+//                                }, CONFIG.sign_pro_img, "", "");
+//                                dialoglogin.setCancelable(false);
+//                                dialoglogin.show();
+//                            }
+//                            else{
                             mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
                             if(!_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
@@ -524,8 +508,25 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                     ft.add(frgpopup, null);
                                     ft.commitAllowingStateLoss();
                                 }
+//                                }
+//                            }
                             }
-                        }
+//                        else if(obj.getJSONArray("pop_ups").length() >0) {
+//                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+//                            if(!_preferences.getBoolean("today_start_app", false)) {
+//                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+//                                    frgpopup = new DialogMainFragment();
+//                                    frgpopup.mListener = HomeFragment.this;
+//                                    frgpopup.popup_data = mPopups;
+//                                    frgpopup.pf = HomeFragment.this;
+//                                    frgpopup.setCancelable(false);
+//
+//                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                                    ft.add(frgpopup, null);
+//                                    ft.commitAllowingStateLoss();
+//                                }
+//                            }
+//                        }
                     }
 
                     new Handler().postDelayed(new Runnable() {

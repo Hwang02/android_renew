@@ -113,17 +113,6 @@
         android:layout_height="1dp"
         android:background="@color/bg_background"/>
 
-    <TextView
-        android:id="@+id/tv_review_count"
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:textSize="13dp"
-        android:paddingLeft="20dp"
-        tools:text="총 12개의 객실이 있습니다."
-        android:gravity="center_vertical"
-        android:textColor="@color/detail_more_color"
-        android:background="@color/footerview"/>
-
     <RelativeLayout
         android:id="@+id/bannerview"
         android:layout_width="match_parent"
@@ -185,5 +174,16 @@
                 android:background="@color/back_line"/>
         </LinearLayout>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_review_count"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:textSize="13dp"
+        android:paddingLeft="20dp"
+        tools:text="총 12개의 객실이 있습니다."
+        android:gravity="center_vertical"
+        android:textColor="@color/detail_more_color"
+        android:background="@color/footerview"/>
 
 </LinearLayout>

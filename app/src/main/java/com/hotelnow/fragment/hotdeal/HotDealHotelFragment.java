@@ -58,6 +58,7 @@ public class HotDealHotelFragment extends Fragment {
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
+        getView().findViewById(R.id.h_filter).setVisibility(View.GONE);
 
         mlist = (ListView) getView().findViewById(R.id.h_list);
         adapter = new HotdealStayAdapter(getActivity(), 0, mHotelItem, HotDealHotelFragment.this, dbHelper);

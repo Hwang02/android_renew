@@ -135,7 +135,7 @@ public class CalendarActivity extends Activity{
             e.printStackTrace();
         }
 
-        calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("YYYY년 MM월", Locale.getDefault()))
+        calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("yyyy년 MM월", Locale.getDefault()))
                 .inMode(CalendarPickerView.SelectionMode.RANGE)
                 .withSelectedDates(arrayList)
                 .withHighlightedDates(not_dates);
@@ -204,9 +204,9 @@ public class CalendarActivity extends Activity{
                         sel_unday = 1;
                     }
 
-                    if(diffofday >10){
+                    if(diffofday >15){
                         calendar.clearSelectedDates();
-                        Toast.makeText(getApplication(), "최대 10박까지 가능합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "최대 15박까지 가능합니다.", Toast.LENGTH_SHORT).show();
                         sel_unday = 1;
                     }
 

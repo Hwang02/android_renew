@@ -121,7 +121,6 @@ public class HotelSearchActivity extends Activity {
         bt_scroll = (Button) findViewById(R.id.bt_scroll);
         title_search = (RelativeLayout) findViewById(R.id.title_search);
         tv_location.setText(intent.getStringExtra("city"));
-        HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
 
         View empty = getLayoutInflater().inflate(R.layout.layout_h_search_empty, null, false);
         tv_elocation = (TextView) empty.findViewById(R.id.tv_location);

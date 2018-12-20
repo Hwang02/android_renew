@@ -70,7 +70,8 @@ public class MainActivity extends FragmentActivity {
         dbHelper = new DbOpenHelper(this);
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mainPopup();
+        // 동의팝업
+//        mainPopup();
         // 하단 탭 버튼 동작 제거
         mbinding.navigation.enableAnimation(false);
         mbinding.navigation.enableShiftingMode(false);

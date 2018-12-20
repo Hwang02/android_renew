@@ -418,12 +418,15 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public void setHeaderRefresh(){
-//        if(headerAdapter != null){
-//            headerAdapter.notifyDataSetChanged();
-//        }
+        if(headerAdapter != null){
+            headerAdapter.notifyDataSetChanged();
+        }
     }
 
     public void setAllRefresh(){
+        if(hotelAdapter != null) {
+            hotelAdapter.notifyDataSetChanged();
+        }
         if(themeAdapter != null) {
             themeAdapter.notifyDataSetChanged();
         }

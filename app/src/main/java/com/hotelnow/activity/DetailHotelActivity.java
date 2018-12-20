@@ -708,21 +708,23 @@ public class DetailHotelActivity extends AppCompatActivity {
                         if (infolist.size() > 0) {
                             hotel_check_list.removeAllViews();
                             for (int i = 0; i < infolist.size(); i++) {
-                                View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
-                                AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
-                                TextView title = (TextView) info_view.findViewById(R.id.title);
-                                title_sub.addAutoLinkMode(
-                                        AutoLinkMode.MODE_PHONE,
-                                        AutoLinkMode.MODE_URL);
-                                title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
-                                title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
-                                Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n","")));
-                                Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
-                                title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
-                                title_sub.setText(sp);
+                                if(!infolist.get(i).getmTitle().equals("추천이유")) {
+                                    View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
+                                    AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
+                                    TextView title = (TextView) info_view.findViewById(R.id.title);
+                                    title_sub.addAutoLinkMode(
+                                            AutoLinkMode.MODE_PHONE,
+                                            AutoLinkMode.MODE_URL);
+                                    title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
+                                    title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
+                                    Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n", "")));
+                                    Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                                    title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                                    title_sub.setText(sp);
 
-                                title.setText(infolist.get(i).getmTitle());
-                                hotel_check_list.addView(info_view);
+                                    title.setText(infolist.get(i).getmTitle());
+                                    hotel_check_list.addView(info_view);
+                                }
                             }
                         }
                     }
@@ -1084,7 +1086,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     more_img_list.addView(view_img);
                 }
 
-                tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"");
+                tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"인");
                 tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃 "+rdata.getJSONObject(i).getString("checkout_time"));
                 tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");
                 tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")));

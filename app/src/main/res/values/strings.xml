@@ -86,7 +86,7 @@
     <string name="search_location_go">내 주변 바로보기</string>
     <string name="search_recent_title">최근 검색어</string>
     <string name="search_popular_title">인기 여행지</string>
-    <string name="search_hotel_activity">추천 숙소 \u0026 액티비티</string>
+    <string name="search_hotel_activity">추천 숙소 &amp; 액티비티</string>
     <string name="search_hotel">숙소</string>
     <string name="search_activity">액티비티</string>
     <string name="all_clear">전체 삭제</string>
@@ -95,7 +95,7 @@
     <string name="area_not_select">원하시는 지역을 선택해주세요</string>
     <string name="area_one_month">최근 1개월간 조회한 지역</string>
     <string name="re_search">재검색</string>
-    <string name="filter_title">필터 \u0026 정렬</string>
+    <string name="filter_title">필터 &amp; 정렬</string>
     <string name="filter_sub_title1">정렬</string>
     <string name="filter_sub_title2">호텔 등급 및 그 외 유형</string>
     <string name="filter_sub_title3">투숙 인원</string>

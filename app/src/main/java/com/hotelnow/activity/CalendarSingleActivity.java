@@ -77,7 +77,7 @@ public class CalendarSingleActivity extends Activity{
             e.printStackTrace();
         }
 
-        calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("YYYY년 MM월", Locale.getDefault()))
+        calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("yyyy MM월", Locale.getDefault()))
                 .inMode(CalendarPickerView.SelectionMode.SINGLE)
                 .withSelectedDates(arrayList);
 

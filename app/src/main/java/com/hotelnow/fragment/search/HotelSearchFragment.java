@@ -97,7 +97,7 @@ public class HotelSearchFragment extends Fragment {
     private String title_text;
     private LinearLayout count_view;
     private TextView tv_count;
-    private int filter_cnt = 1;
+    private int filter_cnt = 0;
     private boolean _hasLoadedOnce= false; // your boolean field
 
     @Nullable

@@ -81,8 +81,10 @@ public class ReservationHotelFragment extends Fragment {
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-                MainActivity.hideProgress();
-                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                if(isAdded()) {
+                    MainActivity.hideProgress();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -157,9 +159,10 @@ public class ReservationHotelFragment extends Fragment {
                         getBookingList();
                     }
                 } catch (Exception e) {
-                    if(isAdded())
+                    if(isAdded()) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                    MainActivity.hideProgress();
+                        MainActivity.hideProgress();
+                    }
                 }
             }
         });

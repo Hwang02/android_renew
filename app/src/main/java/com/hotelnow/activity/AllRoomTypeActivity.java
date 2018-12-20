@@ -198,7 +198,7 @@ public class AllRoomTypeActivity extends Activity {
                             more_img_list.addView(view_img);
                         }
 
-                        tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"");
+                        tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"인");
                         tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃 "+rdata.getJSONObject(i).getString("checkout_time"));
                         tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");
                         tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")));

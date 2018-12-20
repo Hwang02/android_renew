@@ -635,7 +635,14 @@ public class SearchActivity extends Activity{
                 tv_popular_txt.setText(mHotelActivity.get(i).getDeal_name());
             }
 
-            item_star_txt.setText(mHotelActivity.get(i).getGrade_score());
+            if(!mHotelActivity.get(i).getGrade_score().equals("0.0")) {
+                view_ha.findViewById(R.id.item_star).setVisibility(View.VISIBLE);
+                item_star_txt.setText(mHotelActivity.get(i).getGrade_score());
+            }
+            else{
+                view_ha.findViewById(R.id.item_star).setVisibility(View.GONE);
+                item_star_txt.setText("");
+            }
             view_ha.setTag(i);
             view_ha.setOnClickListener(new OnSingleClickListener() {
                 @Override
