@@ -115,22 +115,22 @@ public class ThemeSpecialHotelActivity extends Activity {
             }
         });
 
-        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)findViewById(R.id.swipe);
-        swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
-        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeView.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        isRefresh = true;
-                        swipeView.setRefreshing(false);
-                        getHotelList();
-                    }
-                }, 200);
-            }
-        });
+//        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)findViewById(R.id.swipe);
+//        swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
+//        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeView.setRefreshing(true);
+//                (new Handler()).postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        isRefresh = true;
+//                        swipeView.setRefreshing(false);
+//                        getHotelList();
+//                    }
+//                }, 200);
+//            }
+//        });
 
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,6 +16,7 @@ import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.CalendarSingleActivity;
 import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentFavoriteBinding;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.OnSingleClickListener;
@@ -28,6 +29,7 @@ public class FavoriteFragment extends Fragment {
     private FavoriteAdapter favoriteAdapter;
     private String ec_date, ee_date;
     private int m_Selecttab = 0;
+    private DialogConfirm dialogConfirm;
 
     @Nullable
     @Override
@@ -175,15 +177,29 @@ public class FavoriteFragment extends Fragment {
         super.onStop();
     }
 
-    private void allDelete(int tab){
-        if(tab == 0){
-            FavoriteHotelFragment f = (FavoriteHotelFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
-            f.setDeleteAll();
-        }
-        else{
-            FavoriteActivityFragment f = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
-            f.setDeleteAll();
-        }
+    private void allDelete(final int tab){
+
+        dialogConfirm = new DialogConfirm("삭제", "전체 관심 저장 상품을 삭제하시겠습니까?", "취소", "확인", getActivity(), new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dialogConfirm.dismiss();
+            }
+        }, new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(tab == 0){
+                    FavoriteHotelFragment f = (FavoriteHotelFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
+                    f.setDeleteAll();
+                }
+                else{
+                    FavoriteActivityFragment f = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
+                    f.setDeleteAll();
+                }
+                dialogConfirm.dismiss();
+            }
+        });
+
+        dialogConfirm.show();
     }
 
     @Override

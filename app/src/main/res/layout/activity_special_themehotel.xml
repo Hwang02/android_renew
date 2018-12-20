@@ -52,10 +52,10 @@
         android:background="@color/white">
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<android.support.v4.widget.SwipeRefreshLayout-->
+            <!--android:id="@+id/swipe"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
             <ListView
                 android:id="@+id/listview"
@@ -67,7 +67,7 @@
                 android:fadeScrollbars="true">
             </ListView>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
     </LinearLayout>
 
