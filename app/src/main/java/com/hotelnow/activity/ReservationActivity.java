@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -1796,5 +1797,19 @@ public class ReservationActivity extends Activity {
             setResult(100);
             finish();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            Rect outRect = new Rect();
+            if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+
+        }
+        return super.dispatchTouchEvent(event);
     }
 }
