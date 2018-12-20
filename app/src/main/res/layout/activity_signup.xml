@@ -330,7 +330,7 @@
                         android:layout_weight="0.7"
                         android:paddingLeft="12dp"
                         android:textSize="13dp"
-                        android:text="개인정보 취급방침 동의"
+                        android:text="개인정보처리방침 동의"
                         android:textColor="@color/blacktxt"
                         android:button="@drawable/checkbox_icon" />
 
