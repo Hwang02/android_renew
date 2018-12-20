@@ -590,8 +590,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         for(int i=0; i<hotel_data.getJSONArray("notes_array").length(); i++){
                             if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
                                 String s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
-                                        .replace("\r\n","")
-                                        .replace("</span>","");
+                                        .replace("\r\n","\n");
                                 tv_recommend.setText(Html.fromHtml(s_html));
                                 break;
                             }

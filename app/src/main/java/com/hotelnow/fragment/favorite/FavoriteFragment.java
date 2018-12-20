@@ -72,7 +72,7 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
                                 @Override
                                 public void onSingleClick(View v) {
-                                    allDelete();
+                                    allDelete(0);
                                 }
                             });
                         }
@@ -99,7 +99,7 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
                                 @Override
                                 public void onSingleClick(View v) {
-                                    allDelete();
+                                    allDelete(1);
                                 }
                             });
                         }
@@ -112,7 +112,7 @@ public class FavoriteFragment extends Fragment {
 
         mFavoriteBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(final TabLayout.Tab tab) {
                 mFavoriteBinding.viewPager.setCurrentItem(tab.getPosition(), true);
 //                m_Selecttab = tab.getPosition();
                 if (tab.getPosition() == 0) {
@@ -139,7 +139,7 @@ public class FavoriteFragment extends Fragment {
                 mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-                        allDelete();
+                        allDelete(tab.getPosition());
                     }
                 });
             }
@@ -175,8 +175,8 @@ public class FavoriteFragment extends Fragment {
         super.onStop();
     }
 
-    private void allDelete(){
-        if(m_Selecttab == 0){
+    private void allDelete(int tab){
+        if(tab == 0){
             FavoriteHotelFragment f = (FavoriteHotelFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
             f.setDeleteAll();
         }

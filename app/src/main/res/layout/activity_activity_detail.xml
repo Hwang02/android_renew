@@ -136,9 +136,10 @@
                         android:singleLine="true"
                         android:textSize="16dp"
                         android:maxLines="1"
-                        android:gravity="center"
+                        android:gravity="left|center_vertical"
+                        android:layout_marginLeft="10dp"
                         android:ellipsize="end"
-                        tools:text="xxxxxxxxxxxxxx"/>
+                        tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
 
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
