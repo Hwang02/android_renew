@@ -137,7 +137,23 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             }
 
             if(del_city){
-                dbHelper.deleteRecentCity();
+                dbHelper.deleteRecentCity("H");
+            }
+        }
+
+        if(dbHelper.selectAllRecentCity("A").size()>0) {
+            List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("A");
+            boolean del_city = true;
+            for(int j = 0; j<RecentArea.size(); j++) {
+                for (int i = 0; i < dbHelper.selectAllActivityCity().size(); i++) {
+                    if (dbHelper.selectAllActivityCity().get(i).getCity_code().equals(RecentArea.get(j).getSel_city_id())) {
+                        del_city = false;
+                        break;
+                    }
+                }
+                if (del_city) {
+                    dbHelper.deleteRecentCity("A");
+                }
             }
         }
 

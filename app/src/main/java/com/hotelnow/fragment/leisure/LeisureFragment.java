@@ -143,18 +143,6 @@ public class LeisureFragment extends Fragment {
                         List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("A");
                         s_Area = RecentArea.get(0).getSel_city_ko();
                         s_Area_id = RecentArea.get(0).getSel_city_id();
-                        boolean del_city = true;
-                        for(int i = 0; i<dbHelper.selectAllActivityCity().size(); i++){
-                            if(dbHelper.selectAllActivityCity().get(i).getCity_code().equals(s_Area_id)){
-                                del_city = false;
-                                break;
-                            }
-                        }
-
-                        if(del_city){
-                            s_Area = "전체";
-                            s_Area_id = "0";
-                        }
                     }
                     else{
                         s_Area = "전체";

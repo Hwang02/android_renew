@@ -144,27 +144,6 @@ public class HotelFragment extends Fragment {
                         s_Area = RecentArea.get(0).getSel_subcity_ko();
                         s_Area_id = RecentArea.get(0).getSel_city_id();
                         s_subArea_id = RecentArea.get(0).getSel_subcity_id();
-                        boolean del_city = true;
-                        if(RecentArea.size() > 0) {
-                            for (int i = 0; i < RecentArea.size(); i++) {
-                                for(int k = 0; k <dbHelper.selectAllSubCityMain().size(); k++) {
-                                    if (dbHelper.selectAllSubCityMain().get(k).getSubcity_code().equals(RecentArea.get(i).getSel_subcity_id())) {
-                                        del_city = false;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            del_city = true;
-                        }
-
-                        if(del_city){
-                            dbHelper.deleteRecentCity();
-                            s_Area = "서울전체";
-                            s_Area_id = "100_seoul";
-                            s_subArea_id = "100_seoul";
-                        }
                     }
                     else{
                         s_Area = "서울전체";

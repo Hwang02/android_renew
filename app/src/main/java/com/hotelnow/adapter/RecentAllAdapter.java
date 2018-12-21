@@ -66,7 +66,7 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
             holder.sdate.setText(entry.getDistance());
             holder.edate.setText(entry.getDistance_real());
             holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
-            if (entry.getItems_quantity() < 5) {
+            if (entry.getItems_quantity() < 4) {
                 if (entry.getItems_quantity() == 0) {
                     holder.room_count.setVisibility(View.GONE);
                     holder.tv_discount_rate.setVisibility(View.INVISIBLE);

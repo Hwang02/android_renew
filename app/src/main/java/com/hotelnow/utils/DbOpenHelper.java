@@ -443,6 +443,24 @@ public class DbOpenHelper {
         val.put("sel_option", sel_option);
         Cursor cur = null;
         try {
+            //기존에 있으면 삭제
+            if(sel_option.equals("H")) {
+
+                String where = "sel_option = '" + sel_option + "'"
+                        + " AND sel_subcity_id = '" + sel_subcity_id + "'";
+                mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME, where, null);
+//                String sql = "DELETE FROM " + "(select * from " + DataBases.RecentCity_CreateDB._TABLENAME + " WHERE sel_option = '" + sel_option + "' AND sel_city_id = '" + sel_city_id + "')";
+//                mDB.execSQL(sql);
+            }
+            else{
+                String where = "sel_option = '" + sel_option + "'"
+                        + " AND sel_city_id = '" + sel_city_id + "'";
+                mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME, where, null);
+
+//                String sql = "DELETE FROM " + "(select * from " + DataBases.RecentCity_CreateDB._TABLENAME + " WHERE sel_option = '" + sel_option + "' AND sel_city_id = '" + sel_city_id + "')";
+//                mDB.execSQL(sql);
+            }
+
             //10개면 삭제
             cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "created_date" }, "sel_option = '" + sel_option + "'", null, null, null, "created_date desc");
             if(cur.getCount()==10){
@@ -498,10 +516,10 @@ public class DbOpenHelper {
      *
      * @return
      */
-    public void deleteRecentCity() {
+    public void deleteRecentCity(String option) {
         open();
 
-        mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME,null, null);
+        mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME,"sel_option = '" + option + "'", null);
 
         close();
     }

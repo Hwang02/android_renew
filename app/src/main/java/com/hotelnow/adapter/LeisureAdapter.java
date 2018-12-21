@@ -422,9 +422,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     title.setText("특별한 여행 제안");
                     break;
                 case HOTDEAL_ACTIVITY:
-                    SpannableStringBuilder builder2 = new SpannableStringBuilder("단독핫딜 호텔나우 만의 최저가 상품");
-                    builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 5, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    builder2.setSpan(new RelativeSizeSpan(0.8f), 5, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    SpannableStringBuilder builder2 = new SpannableStringBuilder("단독핫딜 호텔나우만의 최저가 상품");
+                    builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 5, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder2.setSpan(new RelativeSizeSpan(0.8f), 5, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     title.setText(builder2);
                     break;
             }
