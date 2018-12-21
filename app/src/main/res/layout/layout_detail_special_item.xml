@@ -5,13 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="12dp"
     android:layout_gravity="center_horizontal"
-    android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:background="@drawable/ico_benefit_bullet"
+        android:layout_gravity="top"
+        android:layout_marginTop="3dp"
         android:scaleType="fitXY"/>
 
     <TextView
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="14dp"
-        tools:text="즉시할인 선착순 1만원 할인 쿠폰 제공"
+        android:gravity="top"
+        tools:text="즉시할인 선착순 1만원 할인 쿠폰 제공\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
         android:textColor="@color/purple"/>
 </LinearLayout>

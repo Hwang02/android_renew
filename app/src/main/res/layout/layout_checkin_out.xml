@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="65dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/border_shadow">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/bt_checkinout"
@@ -98,4 +98,9 @@
                 android:layout_toRightOf="@id/ll_out_title"/>
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_background" />
 </LinearLayout>

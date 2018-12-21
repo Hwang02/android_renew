@@ -59,7 +59,7 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:riv_corner_radius="2dp"
-            android:background="@color/purple"/>
+            android:background="@color/holder_c"/>
         
         <ImageView
             android:id="@+id/img_room_private"
@@ -263,7 +263,8 @@
         android:layout_height="1dp"
         android:background="@color/bg_background"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/btn_more"/>
+        android:layout_below="@id/btn_more"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/more_view"

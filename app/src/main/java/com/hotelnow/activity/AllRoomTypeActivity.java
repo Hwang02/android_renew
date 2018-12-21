@@ -141,7 +141,7 @@ public class AllRoomTypeActivity extends Activity {
                     lodge_type = hotel_data.getString("lodge_type");
 
                     for(int i =0; i<rdata.length(); i++){
-                        View view_room = LayoutInflater.from(AllRoomTypeActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
+                        final View view_room = LayoutInflater.from(AllRoomTypeActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
                         final TextView tv_room_title = (TextView)view_room.findViewById(R.id.tv_room_title);
                         TextView tv_room_sub_title = (TextView)view_room.findViewById(R.id.tv_room_sub_title);
                         TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
@@ -292,11 +292,13 @@ public class AllRoomTypeActivity extends Activity {
                             public void onClick(View v) {
                                 if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
                                     room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                                    view_room.findViewById(R.id.line).setVisibility(View.GONE);
                                     ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
                                     ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
                                 }
                                 else{
                                     room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                                    view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
                                     ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
                                     ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                                 }
@@ -308,11 +310,13 @@ public class AllRoomTypeActivity extends Activity {
                             public void onClick(View v) {
                                 if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
                                     room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                                    view_room.findViewById(R.id.line).setVisibility(View.GONE);
                                     ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
                                     ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
                                 }
                                 else{
                                     room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                                    view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
                                     ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
                                     ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                                 }

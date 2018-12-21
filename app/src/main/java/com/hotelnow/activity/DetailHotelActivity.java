@@ -636,7 +636,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     // 주소
                     String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
                             "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
-                            "&scale=1&sensor=false&language=ko&size="+700+"x"+700+"&zoom=15"+"&key="+ BuildConfig.google_map_key2;
+                            "&scale=1&sensor=false&language=ko&size="+500+"x"+500+"&zoom=15"+"&key="+ BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
                     mAddress = hotel_data.getString("address_street");
                     tv_address.setText(mAddress);
@@ -1030,7 +1030,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             }
 
             for (int i = 0; i < for_cnt; i++) {
-                View view_room = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
+                final View view_room = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
                 final TextView tv_room_title = (TextView)view_room.findViewById(R.id.tv_room_title);
                 TextView tv_room_sub_title = (TextView)view_room.findViewById(R.id.tv_room_sub_title);
                 TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
@@ -1185,11 +1185,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
                             room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                            view_room.findViewById(R.id.line).setVisibility(View.GONE);
                             ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
                             ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
                         }
                         else{
                             room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
                             ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
                             ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                         }
@@ -1201,11 +1203,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
                             room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                            view_room.findViewById(R.id.line).setVisibility(View.GONE);
                             ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
                             ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
                         }
                         else{
                             room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
                             ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
                             ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                         }

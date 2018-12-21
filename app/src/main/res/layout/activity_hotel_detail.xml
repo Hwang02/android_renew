@@ -249,17 +249,22 @@
                     android:orientation="vertical">
                 </LinearLayout>
 
-                <Button
+                <LinearLayout
                     android:id="@+id/btn_kakao"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:background="@drawable/img_bn_kakao"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="35dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="30dp"
-                    style="?android:attr/borderlessButtonStyle"/>
-
+                    android:gravity="center"
+                    android:background="@drawable/kakao_round">
+                    <ImageView
+                        android:layout_width="226dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/img_bn_kakao" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
