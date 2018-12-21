@@ -29,6 +29,7 @@ import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.fragment.model.PrivateDealItem;
+import com.hotelnow.fragment.model.RecentCityItem;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.RecentListItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
@@ -117,6 +118,29 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
             }
         }
+
+        if(dbHelper.selectAllRecentCity("H").size()>0) {
+            List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("H");
+            boolean del_city = true;
+            if(RecentArea.size() > 0) {
+                for (int i = 0; i < RecentArea.size(); i++) {
+                    for(int k = 0; k < dbHelper.selectAllSubCityMain().size(); k++) {
+                        if (dbHelper.selectAllSubCityMain().get(k).getSubcity_code().equals(RecentArea.get(i).getSel_subcity_id())) {
+                            del_city = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else {
+                del_city = true;
+            }
+
+            if(del_city){
+                dbHelper.deleteRecentCity();
+            }
+        }
+
         getRecentData(true);
 
     }

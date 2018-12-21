@@ -310,6 +310,39 @@ public class DbOpenHelper {
     }
 
     /**
+     * 지역서브 리스트 - SELECT ALL
+     *
+     * @return
+     */
+    public List<SubCityItem> selectAllSubCityMain() {
+        open();
+        List<SubCityItem> items = new ArrayList<SubCityItem>();
+        Cursor cur = null;
+        try {
+            cur = mDB.query(DataBases.SubCity_CreateDB._TABLENAME, new String[] { "city_code", "subcity_ko", "subcity_code" }, null, null, null, null, null);
+
+            if(cur.moveToFirst()) {
+                do {
+                    items.add(new SubCityItem(
+                            cur.getString(cur.getColumnIndex("city_code")),
+                            cur.getString(cur.getColumnIndex("subcity_ko")),
+                            cur.getString(cur.getColumnIndex("subcity_code"))
+                    ));
+                }
+                while(cur.moveToNext());
+            }
+        }
+        catch(Exception ex) {}
+        finally {
+            if(cur != null) {
+                cur.close();
+            }
+            close();
+        }
+        return items;
+    }
+
+    /**
      * 지역서브 - INSERT
      *
      * @param subcity_ko 지역명
@@ -410,6 +443,7 @@ public class DbOpenHelper {
         val.put("sel_option", sel_option);
         Cursor cur = null;
         try {
+            //10개면 삭제
             cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "created_date" }, "sel_option = '" + sel_option + "'", null, null, null, "created_date desc");
             if(cur.getCount()==10){
                 String sql = "DELETE FROM "+ DataBases.RecentCity_CreateDB._TABLENAME+" WHERE created_date = "
@@ -457,6 +491,19 @@ public class DbOpenHelper {
             close();
         }
         return items;
+    }
+
+    /**
+     * 최근 선택 지역 리스트 - DELETE
+     *
+     * @return
+     */
+    public void deleteRecentCity() {
+        open();
+
+        mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME,null, null);
+
+        close();
     }
 
     /**

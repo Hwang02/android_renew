@@ -22,6 +22,7 @@ import com.hotelnow.databinding.FragmentHotelBinding;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.fragment.model.PrivateDealItem;
+import com.hotelnow.fragment.model.RecentCityItem;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.StayHotDealItem;
 import com.hotelnow.fragment.model.ThemeItem;
@@ -39,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +64,9 @@ public class HotelFragment extends Fragment {
     private String strdate, strdate2;
     private SharedPreferences _preferences;
     private String cookie;
+    private  String s_Area = "";
+    private String s_Area_id = "";
+    private String s_subArea_id = "";
 
     @Nullable
     @Override
@@ -134,8 +139,41 @@ public class HotelFragment extends Fragment {
                         return;
                     }
 
+                    if(dbHelper.selectAllRecentCity("H").size()>0) {
+                        List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("H");
+                        s_Area = RecentArea.get(0).getSel_subcity_ko();
+                        s_Area_id = RecentArea.get(0).getSel_city_id();
+                        s_subArea_id = RecentArea.get(0).getSel_subcity_id();
+                        boolean del_city = true;
+                        if(RecentArea.size() > 0) {
+                            for (int i = 0; i < RecentArea.size(); i++) {
+                                for(int k = 0; k <dbHelper.selectAllSubCityMain().size(); k++) {
+                                    if (dbHelper.selectAllSubCityMain().get(k).getSubcity_code().equals(RecentArea.get(i).getSel_subcity_id())) {
+                                        del_city = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            del_city = true;
+                        }
+
+                        if(del_city){
+                            dbHelper.deleteRecentCity();
+                            s_Area = "서울전체";
+                            s_Area_id = "100_seoul";
+                            s_subArea_id = "100_seoul";
+                        }
+                    }
+                    else{
+                        s_Area = "서울전체";
+                        s_Area_id = "100_seoul";
+                        s_subArea_id = "100_seoul";
+                    }
+
                     mTopItem.clear();
-                    mTopItem.add(new TopItem("서울전체","100_seoul","100_seoul",strdate, strdate2));
+                    mTopItem.add(new TopItem(s_Area, s_Area_id, s_subArea_id, strdate, strdate2));
                     objects.add(mTopItem.get(0));
 
                     if(obj.has("promotion_banners")){

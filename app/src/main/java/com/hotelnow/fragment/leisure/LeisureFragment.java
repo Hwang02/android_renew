@@ -23,6 +23,7 @@ import com.hotelnow.databinding.FragmentLeisureBinding;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.DefaultItem;
+import com.hotelnow.fragment.model.RecentCityItem;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.fragment.model.ThemeItem;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
@@ -63,6 +64,8 @@ public class LeisureFragment extends Fragment {
     public String sel_location = "",sel_location_id ="", sel_theme ="", sel_theme_id ="";
     private SharedPreferences _preferences;
     private String cookie;
+    private  String s_Area = "";
+    private String s_Area_id = "";
 
 
     @Nullable
@@ -136,8 +139,30 @@ public class LeisureFragment extends Fragment {
                         return;
                     }
 
+                    if(dbHelper.selectAllRecentCity("A").size()>0) {
+                        List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("A");
+                        s_Area = RecentArea.get(0).getSel_city_ko();
+                        s_Area_id = RecentArea.get(0).getSel_city_id();
+                        boolean del_city = true;
+                        for(int i = 0; i<dbHelper.selectAllActivityCity().size(); i++){
+                            if(dbHelper.selectAllActivityCity().get(i).getCity_code().equals(s_Area_id)){
+                                del_city = false;
+                                break;
+                            }
+                        }
+
+                        if(del_city){
+                            s_Area = "전체";
+                            s_Area_id = "0";
+                        }
+                    }
+                    else{
+                        s_Area = "전체";
+                        s_Area_id = "0";
+                    }
+
                     mTopItem.clear();
-                   mTopItem.add(new TopItem("전체","0","0","테마전체", ""));
+                    mTopItem.add(new TopItem(s_Area, s_Area_id, "","테마전체", ""));
                     sel_location = "전체";
                     sel_theme = "테마전체";
                     objects.add(mTopItem.get(0));
