@@ -24,6 +24,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -71,6 +72,13 @@ public class HotDealHotelFragment extends Fragment {
                 intent.putExtra("hid", hid.getText().toString());
                 intent.putExtra("save", true);
                 startActivityForResult(intent, 50);
+            }
+        });
+
+        getView().findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mlist.smoothScrollToPosition(0);
             }
         });
         getData();
@@ -129,7 +137,11 @@ public class HotDealHotelFragment extends Fragment {
                                                     i == 0 ? true : false
                                     ));
                                 }
+                                getView().findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
                                 adapter.notifyDataSetChanged();
+                            }
+                            else{
+                                getView().findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                             }
                         }
 

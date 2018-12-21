@@ -65,7 +65,7 @@ public class HotdaelActivityAdapter extends ArrayAdapter<SearchResultItem> {
         holder.hotel_name.setText(entry.getName());
         holder.tv_nearlocation.setText(entry.getStreet1());
         Ion.with(holder.iv_img).load(entry.getLandscape());
-
+        holder.iv_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.room_count.setVisibility(View.GONE);
         holder.tv_soldout.setVisibility(View.GONE);
 

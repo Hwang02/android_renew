@@ -219,6 +219,8 @@ public class ActivitySearchActivity extends Activity {
 
                         final JSONArray list = obj.getJSONArray("lists");
                         JSONObject entry = null;
+                        if (Page == 1)
+                            s_position="";
 
                         final String total_cnt = "총 " + obj.getString("total_count") + "개의 객실이 있습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
@@ -270,7 +272,7 @@ public class ActivitySearchActivity extends Activity {
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
                                 s_position +
-                                "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
+                                "&scale=2&sensor=false&language=ko&size=700x260" + "&key=" + BuildConfig.google_map_key2;
                         Ion.with(map_img).load(mapStr);
 
                         map_img.setOnClickListener(new OnSingleClickListener() {

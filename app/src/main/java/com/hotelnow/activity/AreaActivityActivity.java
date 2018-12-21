@@ -81,22 +81,30 @@ public class AreaActivityActivity extends Activity {
     public void getMonthList(){
         month_list.removeAllViews();
         mRecentCity = dbHelper.selectAllRecentCity("A");
-        for(int i =0; i<mRecentCity.size(); i++){
+        if(mRecentCity.size()>0) {
+            for (int i = 0; i < mRecentCity.size(); i++) {
+                View view_recent = LayoutInflater.from(AreaActivityActivity.this).inflate(R.layout.layout_recent_area_item, null);
+                TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
+                tv_recent.setText(mRecentCity.get(i).getSel_city_ko());
+                view_recent.setTag(i);
+                view_recent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        LogUtil.e("xxxxx", (int) v.getTag() + "");
+                        Intent intent = new Intent();
+                        intent.putExtra("id", mRecentCity.get((int) v.getTag()).getSel_city_id());
+                        intent.putExtra("name", mRecentCity.get((int) v.getTag()).getSel_city_ko());
+                        setResult(80, intent);
+                        finish();
+                    }
+                });
+                month_list.addView(view_recent);
+            }
+        }
+        else{
             View view_recent = LayoutInflater.from(AreaActivityActivity.this).inflate(R.layout.layout_recent_area_item, null);
             TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
-            tv_recent.setText(mRecentCity.get(i).getSel_city_ko());
-            view_recent.setTag(i);
-            view_recent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LogUtil.e("xxxxx", (int)v.getTag()+"");
-                    Intent intent = new Intent();
-                    intent.putExtra("id", mRecentCity.get((int)v.getTag()).getSel_city_id());
-                    intent.putExtra("name", mRecentCity.get((int)v.getTag()).getSel_city_ko());
-                    setResult(80, intent);
-                    finish();
-                }
-            });
+            tv_recent.setText("최근 조회 지역이 없습니다");
             month_list.addView(view_recent);
         }
     }

@@ -23,6 +23,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -107,6 +108,12 @@ public class RecentAllActivity extends Activity {
             }
         });
 
+        findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Listview.smoothScrollToPosition(0);
+            }
+        });
 
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,6 +235,10 @@ public class RecentAllActivity extends Activity {
                                             ));
                                         }
                                     }
+                                    findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
+                                }
+                                else{
+                                    findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                                 }
                             }
                             mAdapter.notifyDataSetChanged();

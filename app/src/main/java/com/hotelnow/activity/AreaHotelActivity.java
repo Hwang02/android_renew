@@ -126,25 +126,34 @@ public class AreaHotelActivity extends Activity {
     public void getMonthList(){
         month_list.removeAllViews();
         mRecentCity = dbHelper.selectAllRecentCity("H");
-        for(int i =0; i<mRecentCity.size(); i++){
+        if(mRecentCity.size() >0) {
+            for (int i = 0; i < mRecentCity.size(); i++) {
+                View view_recent = LayoutInflater.from(AreaHotelActivity.this).inflate(R.layout.layout_recent_area_item, null);
+                TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
+                tv_recent.setText(mRecentCity.get(i).getSel_city_ko() + " > " + mRecentCity.get(i).getSel_subcity_ko());
+                view_recent.setTag(i);
+                view_recent.setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        LogUtil.e("xxxxx", (int) v.getTag() + "");
+                        Intent intent = new Intent();
+                        intent.putExtra("city", mRecentCity.get((int) v.getTag()).getSel_subcity_ko());
+                        intent.putExtra("city_code", mRecentCity.get((int) v.getTag()).getSel_city_id());
+                        intent.putExtra("subcity_code", mRecentCity.get((int) v.getTag()).getSel_subcity_id());
+                        intent.putExtra("ec_date", TextUtils.isEmpty(strdate) ? "" : strdate);
+                        intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
+                        setResult(80, intent);
+                        finish();
+                    }
+                });
+                month_list.addView(view_recent);
+            }
+        }
+        else {
+//            최근 조회 지역이 없습니다
             View view_recent = LayoutInflater.from(AreaHotelActivity.this).inflate(R.layout.layout_recent_area_item, null);
             TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
-            tv_recent.setText(mRecentCity.get(i).getSel_city_ko()+" > "+mRecentCity.get(i).getSel_subcity_ko());
-            view_recent.setTag(i);
-            view_recent.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    LogUtil.e("xxxxx", (int)v.getTag()+"");
-                    Intent intent  = new Intent();
-                    intent.putExtra("city", mRecentCity.get((int)v.getTag()).getSel_subcity_ko());
-                    intent.putExtra("city_code", mRecentCity.get((int)v.getTag()).getSel_city_id());
-                    intent.putExtra("subcity_code", mRecentCity.get((int)v.getTag()).getSel_subcity_id());
-                    intent.putExtra("ec_date", TextUtils.isEmpty(strdate) ? "" : strdate);
-                    intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
-                    setResult(80,intent);
-                    finish();
-                }
-            });
+            tv_recent.setText("최근 조회 지역이 없습니다");
             month_list.addView(view_recent);
         }
     }

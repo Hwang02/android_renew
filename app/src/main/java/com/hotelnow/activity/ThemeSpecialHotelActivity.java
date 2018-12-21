@@ -22,6 +22,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -112,6 +113,13 @@ public class ThemeSpecialHotelActivity extends Activity {
                     intent.putExtra("save", true);
                     startActivityForResult(intent,80);
                 }
+            }
+        });
+
+        findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                hotelListview.smoothScrollToPosition(0);
             }
         });
 

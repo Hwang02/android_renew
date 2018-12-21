@@ -13,6 +13,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -60,6 +61,14 @@ public class ThemeSAllActivity extends Activity {
         mAdapter = new ThemeSAllAdapter(this, 0, mThemeSItem, dbHelper);
         listview.setAdapter(mAdapter);
 
+        findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                listview.smoothScrollToPosition(0);
+            }
+        });
+
+
         getData();
     }
 
@@ -99,7 +108,11 @@ public class ThemeSAllActivity extends Activity {
                                         mThemeS.getJSONObject(i).getString("img_background")
                                 ));
                             }
+                            findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
                           mAdapter.notifyDataSetChanged();
+                        }
+                        else{
+                            findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                         }
                     }
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

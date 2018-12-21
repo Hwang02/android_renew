@@ -411,7 +411,7 @@ public class DbOpenHelper {
         Cursor cur = null;
         try {
             cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "created_date" }, "sel_option = '" + sel_option + "'", null, null, null, "created_date desc");
-            if(cur.getCount()==5){
+            if(cur.getCount()==10){
                 String sql = "DELETE FROM "+ DataBases.RecentCity_CreateDB._TABLENAME+" WHERE created_date = "
                         + "(select MIN(created_date) from "+DataBases.RecentCity_CreateDB._TABLENAME+" WHERE sel_option = '" + sel_option + "')";
                 mDB.execSQL(sql);
