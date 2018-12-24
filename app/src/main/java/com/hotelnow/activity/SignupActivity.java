@@ -620,6 +620,9 @@ public class SignupActivity extends Activity {
                 //인증번호 발급버튼 활성화
                 btn_auth.setBackgroundResource(R.color.purple);
                 btn_auth.setClickable(true);
+
+                auth_count.setText("시간 초과");
+                remain_count.setText("입력시간을 초과했습니다 다시 시도해주세요.");
             }
             @Override
             public void onTick(long millisUntilFinished)

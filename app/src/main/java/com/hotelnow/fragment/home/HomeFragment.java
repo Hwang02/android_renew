@@ -21,6 +21,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.HomeAdapter;
 import com.hotelnow.databinding.FragmentHomeBinding;
+import com.hotelnow.dialog.DialogFull;
 import com.hotelnow.dialog.DialogLogin;
 import com.hotelnow.dialog.DialogMainFragment;
 import com.hotelnow.dialog.DialogPush;
@@ -79,6 +80,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     private String important_pop_up_iamge, important_pop_up_link;
     private int api_count = 0;
     private boolean pushshow = false;
+    public DialogFull dialogFull;
 
     @Nullable
     @Override
@@ -535,38 +537,25 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 //                                dialoglogin.show();
 //                            }
 //                            else{
-                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
-                            if(!_preferences.getBoolean("today_start_app", false)) {
-                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
-                                    frgpopup = new DialogMainFragment();
-                                    frgpopup.mListener = HomeFragment.this;
-                                    frgpopup.popup_data = mPopups;
-                                    frgpopup.pf = HomeFragment.this;
-                                    frgpopup.setCancelable(false);
+                        mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
 
-                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                                    ft.add(frgpopup, null);
-                                    ft.commitAllowingStateLoss();
-                                }
-//                                }
-//                            }
+                        if(_preferences.getBoolean("user_first_app", true)) {
+                            // 동의팝업
+                            mainPopup();
+                        }
+                        else {
+                            if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                                frgpopup = new DialogMainFragment();
+                                frgpopup.mListener = HomeFragment.this;
+                                frgpopup.popup_data = mPopups;
+                                frgpopup.pf = HomeFragment.this;
+                                frgpopup.setCancelable(false);
+
+                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                ft.add(frgpopup, null);
+                                ft.commitAllowingStateLoss();
                             }
-//                        else if(obj.getJSONArray("pop_ups").length() >0) {
-//                            mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
-//                            if(!_preferences.getBoolean("today_start_app", false)) {
-//                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
-//                                    frgpopup = new DialogMainFragment();
-//                                    frgpopup.mListener = HomeFragment.this;
-//                                    frgpopup.popup_data = mPopups;
-//                                    frgpopup.pf = HomeFragment.this;
-//                                    frgpopup.setCancelable(false);
-//
-//                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                                    ft.add(frgpopup, null);
-//                                    ft.commitAllowingStateLoss();
-//                                }
-//                            }
-//                        }
+                        }
                     }
 
                     new Handler().postDelayed(new Runnable() {
@@ -584,54 +573,81 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         });
     }
 
-    public void setPopup(){
-        if(cookie == null ) {
-            if (!_preferences.getBoolean("user_push", false) && (_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
-                DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //빈 곳
-                    }
-                });
-                dialogPush.setCancelable(false);
-                dialogPush.show();
-                pushshow = true;
-            }
-            else if(!pushshow && CONFIG.sign_pro_img != null && !TextUtils.isEmpty(CONFIG.sign_pro_img) && (_preferences.getString("user_app_login_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_app_login_date", "")))){
-                DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //빈 곳
-                    }
-                }, CONFIG.sign_pro_img, "", "");
-                dialoglogin.setCancelable(false);
-                dialoglogin.show();
-            }
-            else{
-                if (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", ""))) {
-                    frgpopup = new DialogMainFragment();
-                    frgpopup.mListener = HomeFragment.this;
-                    frgpopup.popup_data = mPopups;
-                    frgpopup.pf = HomeFragment.this;
-                    frgpopup.setCancelable(false);
-
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.add(frgpopup, null);
-                    ft.commitAllowingStateLoss();
-                }
-            }
-        }
-        else if(api_count == 1 && !TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) || Util.showFrontPopup(_preferences.getString("info_date", ""))){
-            DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+    public void mainPopup(){
+        if(_preferences.getBoolean("user_first_app", true)) {
+            dialogFull = new DialogFull(getActivity(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //빈 곳
+                    Util.setPreferenceValues(_preferences, "user_first_app", false);
+                    dialogFull.dismiss();
+                    if(!_preferences.getBoolean("today_start_app", false)) {
+                        if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                            frgpopup = new DialogMainFragment();
+                            frgpopup.mListener = HomeFragment.this;
+                            frgpopup.popup_data = mPopups;
+                            frgpopup.pf = HomeFragment.this;
+                            frgpopup.setCancelable(false);
+
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.add(frgpopup, null);
+                            ft.commitAllowingStateLoss();
+                        }
+                    }
                 }
-            }, important_pop_up_iamge, important_pop_up_link, "info");
-            dialoglogin.setCancelable(false);
-            dialoglogin.show();
+            });
+            dialogFull.show();
+            dialogFull.setCancelable(false);
         }
-        else if(!_preferences.getBoolean("today_start_app", false)) {
+    }
+
+    public void setPopup(){
+//        if(cookie == null ) {
+//            if (!_preferences.getBoolean("user_push", false) && (_preferences.getString("user_push_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_push_date", "")))) {
+//                DialogPush dialogPush = new DialogPush(getActivity(), new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        //빈 곳
+//                    }
+//                });
+//                dialogPush.setCancelable(false);
+//                dialogPush.show();
+//                pushshow = true;
+//            }
+//            else if(!pushshow && CONFIG.sign_pro_img != null && !TextUtils.isEmpty(CONFIG.sign_pro_img) && (_preferences.getString("user_app_login_date", "").equals("") || Util.showFrontPopup(_preferences.getString("user_app_login_date", "")))){
+//                DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        //빈 곳
+//                    }
+//                }, CONFIG.sign_pro_img, "", "");
+//                dialoglogin.setCancelable(false);
+//                dialoglogin.show();
+//            }
+//            else{
+//                if (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", ""))) {
+//                    frgpopup = new DialogMainFragment();
+//                    frgpopup.mListener = HomeFragment.this;
+//                    frgpopup.popup_data = mPopups;
+//                    frgpopup.pf = HomeFragment.this;
+//                    frgpopup.setCancelable(false);
+//
+//                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                    ft.add(frgpopup, null);
+//                    ft.commitAllowingStateLoss();
+//                }
+//            }
+//        }
+//        else if(api_count == 1 && !TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) || Util.showFrontPopup(_preferences.getString("info_date", ""))){
+//            DialogLogin dialoglogin = new DialogLogin(getActivity(), new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //빈 곳
+//                }
+//            }, important_pop_up_iamge, important_pop_up_link, "info");
+//            dialoglogin.setCancelable(false);
+//            dialoglogin.show();
+//        }
+//        else if(!_preferences.getBoolean("today_start_app", false)) {
             if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                 frgpopup = new DialogMainFragment();
                 frgpopup.mListener = HomeFragment.this;
@@ -643,7 +659,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 ft.add(frgpopup, null);
                 ft.commitAllowingStateLoss();
             }
-        }
+//        }
     }
 
     public ArrayList<StayHotDealItem> getHotelData() {

@@ -10,34 +10,60 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:fillViewport="true"
-            android:overScrollMode="never">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:layout_marginLeft="43dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="67dp"
+                android:letterSpacing="-0.02"
+                android:gravity="center_horizontal"
+                android:text="호텔나우 앱에서 사용하는 권한을 안내해드립니다"
+                android:textColor="@color/purple"/>
 
+            <LinearLayout
+                android:id="@+id/btn_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="30dp"
+                android:layout_alignParentBottom="true">
+
+                <Button
+                    android:id="@+id/ok"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:text="@string/alert_confrim"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:background="@color/purple"
+                    android:layout_gravity="center"
+                    style="?android:attr/borderlessButtonStyle"/>
+            </LinearLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:fillViewport="true"
+                android:layout_below="@id/title"
+                android:layout_above="@id/btn_ok"
+                android:overScrollMode="never">
                 <LinearLayout
                     android:id="@+id/main_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="24dp"
-                        android:layout_marginLeft="43dp"
-                        android:layout_marginRight="42dp"
-                        android:layout_marginTop="67dp"
-                        android:letterSpacing="-0.02"
-                        android:gravity="center_horizontal"
-                        android:text="호텔나우 앱에서 사용하는 권한을 안내해드립니다"
-                        android:textColor="@color/purple"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -173,31 +199,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/termtext" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_below="@id/main_view"
-                    android:layout_alignParentBottom="true">
-
-                    <Button
-                        android:id="@+id/ok"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight=".5"
-                        android:gravity="center"
-                        android:text="@string/alert_confrim"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:background="@color/purple"
-                        android:layout_gravity="center"
-                        style="?android:attr/borderlessButtonStyle"/>
-
-                </LinearLayout>
-            </RelativeLayout>
-        </ScrollView>
+            </ScrollView>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

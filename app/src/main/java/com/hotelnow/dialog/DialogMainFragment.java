@@ -146,7 +146,6 @@ public class DialogMainFragment extends DialogFragment {
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
                     if (pf != null && pf.frgpopup != null) {
                         pf.frgpopup.dismiss();
-                        Util.setPreferenceValues(pf._preferences, "today_start_app", true);
                     }
                 }
 

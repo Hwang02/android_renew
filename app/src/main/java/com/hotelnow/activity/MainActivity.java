@@ -56,7 +56,6 @@ public class MainActivity extends FragmentActivity {
     private DbOpenHelper dbHelper;
     private int myPosition = 0;
     public static CallbackManager callbackManager;
-    public DialogFull dialogFull;
     private static long back_pressed;
 
     @Override
@@ -70,8 +69,6 @@ public class MainActivity extends FragmentActivity {
         dbHelper = new DbOpenHelper(this);
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        // 동의팝업
-//        mainPopup();
         // 하단 탭 버튼 동작 제거
         mbinding.navigation.enableAnimation(false);
         mbinding.navigation.enableShiftingMode(false);
@@ -805,21 +802,6 @@ public class MainActivity extends FragmentActivity {
         LeisureFragment fm = (LeisureFragment) getSupportFragmentManager().findFragmentByTag("LEISUREPAGE");
         if(fm != null) {
             fm.allRefresh();
-        }
-    }
-
-    public void mainPopup(){
-        if(_preferences.getBoolean("user_first_app", true)) {
-            dialogFull = new DialogFull(this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Util.setPreferenceValues(_preferences, "user_first_app", false);
-                    dialogFull.dismiss();
-                    HomePopup();
-                }
-            });
-            dialogFull.show();
-            dialogFull.setCancelable(false);
         }
     }
 
