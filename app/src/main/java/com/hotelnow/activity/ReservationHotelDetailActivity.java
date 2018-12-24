@@ -466,7 +466,12 @@ public class ReservationHotelDetailActivity extends Activity {
 
                     if(_preferences.getString("userid", null) != null){
                         findViewById(R.id.ll_save_point).setVisibility(View.VISIBLE);
-                        tv_save_point.setText(Util.numberFormat(buy_reward.getInt("buy_reserve_monay"))+"원");
+                        if(buy_reward.getInt("buy_reserve_monay") != 0) {
+                            tv_save_point.setText(Util.numberFormat(buy_reward.getInt("buy_reserve_monay")) + "원");
+                        }
+                        else{
+                            findViewById(R.id.ll_save_point).setVisibility(View.GONE);
+                        }
                     }
                     else{
                         findViewById(R.id.ll_save_point).setVisibility(View.GONE);

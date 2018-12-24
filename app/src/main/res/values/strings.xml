@@ -186,7 +186,7 @@
     <string name="appinfo_txt1">앱 버전 정보</string>
     <string name="notice">공지사항</string>
     <string name="no_email_program">email을 전송 할 수 있는 프로그램이 없습니다.</string>
-    <string name="wanna_call_hotelnow">궁금하신 사항을 호텔나우와 상담하세요.</string>
+    <string name="wanna_call_hotelnow">궁금하신 사항을 호텔나우에 문의하세요.</string>
     <string name="wanna_kakao_hotelnow">궁금하신 사항을 카카오톡으로 상담하세요.</string>
     <string name="alert_connect">연결하기</string>
     <string name="logout"><u>로그아웃</u></string>

@@ -16,7 +16,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="@drawable/white_bottom_round">
 
         <CheckBox
             android:id="@+id/left"
@@ -47,7 +47,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_above="@id/buttom_view">
 
@@ -55,12 +55,12 @@
             android:id="@+id/popup_bg"
             android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/popup_img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"/>
 
         </RelativeLayout>
