@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/footerview">
+    android:background="@color/footerview"
+    android:id="@+id/layout_recommend">
 
     <TextView
         android:layout_width="match_parent"

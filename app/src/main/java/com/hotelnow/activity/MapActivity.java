@@ -496,13 +496,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                                 detail_btn.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent returnIntent = new Intent();
+//                                        Intent returnIntent = new Intent();
+//
+//                                        setResult(81, returnIntent);
+//                                        finish();
+                                        Intent returnIntent = new Intent(MapActivity.this, DetailHotelActivity.class);
                                         returnIntent.putExtra("hid", sel_hotel_id);
                                         returnIntent.putExtra("ec_date", ec_date);
                                         returnIntent.putExtra("ee_date", ee_date);
                                         returnIntent.putExtra("evt", "N");
-                                        setResult(81, returnIntent);
-                                        finish();
+                                        returnIntent.putExtra("save", true);
+                                        startActivity(returnIntent);
 
                                     }
                                 });

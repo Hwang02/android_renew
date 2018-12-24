@@ -589,13 +589,20 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     // 추천이유
                     if(hotel_data.has("notes_array")){
+                        boolean iscontent = false;
                         for(int i=0; i<hotel_data.getJSONArray("notes_array").length(); i++){
                             if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
                                 String s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
                                         .replace("\r\n","\n");
                                 tv_recommend.setText(Html.fromHtml(s_html));
+                                iscontent = true;
+                                findViewById(R.id.layout_recommend).setVisibility(View.VISIBLE);
                                 break;
                             }
+                        }
+
+                        if(!iscontent){
+                            findViewById(R.id.layout_recommend).setVisibility(View.GONE);
                         }
 
                         btn_more_view.setOnClickListener(new View.OnClickListener() {
