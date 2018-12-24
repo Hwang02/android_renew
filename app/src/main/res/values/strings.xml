@@ -215,7 +215,7 @@
     <string name="coupon_regist">등록</string>
     <string name="login_title">로그인</string>
     <string name="login_email">이메일 주소</string>
-    <string name="login_pw">비밀번호</string>
+    <string name="login_pw">비밀번호 4자이상 ~ 20자이하</string>
     <string name="login_sns">SNS계정으로 로그인</string>
     <string name="login_kakao">카카오</string>
     <string name="login_facebook">페이스북</string>
