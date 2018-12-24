@@ -1559,6 +1559,7 @@ public class ReservationActivity extends Activity {
                     if(countDownTimer != null) {
                         countDownTimer.cancel();
                     }
+                    Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                     is_auth = "Y";
 
                 } catch (JSONException e) {

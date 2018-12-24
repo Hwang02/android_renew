@@ -336,7 +336,7 @@ public class SignupActivity extends Activity {
                                 countDownTimer.cancel();
                             }
                             auth_layout.setVisibility(View.GONE);
-
+                            Toast.makeText(SignupActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             is_auth = "Y";
 
                         } catch (JSONException e) {
