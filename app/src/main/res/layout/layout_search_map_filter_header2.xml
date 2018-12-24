@@ -112,6 +112,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/bg_background"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@color/back_line"/>
 
     <TextView
         android:id="@+id/tv_review_count"
