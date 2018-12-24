@@ -570,6 +570,11 @@ public class ReservationActivityActivity extends Activity {
                                             btn_auth.setBackgroundColor(Color.parseColor("#e1e1e1"));
                                             btn_auth.setClickable(false);
 
+                                            // 번호 비활성화
+                                            setUseableEditText(pnum2, false);
+                                            setUseableEditText(pnum3, false);
+                                            setUseableSpinner(pnum1, false);
+
                                             //카운트, 타이머 show
                                             auth_count.setVisibility(View.VISIBLE);
                                             remain_count.setText("인증번호가 발송되었습니다 ( 남은횟수 "+obj.getString("remain_count")+"회 )");
@@ -1144,6 +1149,9 @@ public class ReservationActivityActivity extends Activity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReservationActivityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        setUseableEditText(pnum2, true);
+                        setUseableEditText(pnum3, true);
+                        setUseableSpinner(pnum1, true);
                         return;
                     }
 

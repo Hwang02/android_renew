@@ -238,6 +238,11 @@ public class SignupActivity extends Activity {
 //                            auth_ok.setBackgroundColor(Color.parseColor("#4f2680"));
 //                            auth_ok.setClickable(true);
 
+                            // 번호 비활성화
+                            setUseableEditText(phone_num_2, false);
+                            setUseableEditText(phone_num_3, false);
+                            setUseableSpinner(phone_first, false);
+
                             //인증번호 발급버튼 비활성화
                             btn_auth.setBackgroundResource(R.color.board_line);
                             btn_auth.setClickable(false);
@@ -305,6 +310,9 @@ public class SignupActivity extends Activity {
 
                             if (!obj.getString("result").equals("success")) {
                                 Toast.makeText(SignupActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                setUseableEditText(phone_num_2, true);
+                                setUseableEditText(phone_num_3, true);
+                                setUseableSpinner(phone_first, true);
                                 return;
                             }
                             // 인증하기 버튼 비활성화
@@ -570,9 +578,9 @@ public class SignupActivity extends Activity {
             et.setFocusable(useable);
             et.setFocusableInTouchMode(useable);
             if (useable) {
-                et.setBackgroundResource(R.color.white);
+                et.setBackgroundResource(R.drawable.style_bordcolor_status);
             } else {
-                et.setBackgroundResource(R.color.edit_back);
+                et.setBackgroundResource(R.drawable.style_bordcolor_grey);
             }
         }
     }
