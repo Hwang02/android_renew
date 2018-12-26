@@ -145,13 +145,13 @@ public class LeisureFragment extends Fragment {
                         s_Area_id = RecentArea.get(0).getSel_city_id();
                     }
                     else{
-                        s_Area = "전체";
-                        s_Area_id = "0";
+                        s_Area = "서울";
+                        s_Area_id = "10000";
                     }
 
                     mTopItem.clear();
                     mTopItem.add(new TopItem(s_Area, s_Area_id, "","테마전체", ""));
-                    sel_location = "전체";
+                    sel_location = "서울";
                     sel_theme = "테마전체";
                     objects.add(mTopItem.get(0));
 

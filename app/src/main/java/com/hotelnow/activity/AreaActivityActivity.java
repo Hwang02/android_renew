@@ -53,21 +53,27 @@ public class AreaActivityActivity extends Activity {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 int tabPostion = select_view.getCheckedItemPosition();
-                String cityCode = mCity.get(tabPostion).getCity_code();
-                String cityKo = mCity.get(tabPostion).getCity_ko();
-                String subCityCode = "x";
-                String subCityKo = "x";
-                String option = "A";
-                dbHelper.insertRecentCity(cityCode, cityKo, subCityCode, subCityKo, option);
+                if(mCity.get(tabPostion).getCity_code().equals("0")){
+                    getMonthList();
+                }
+                else {
+                    String cityCode = mCity.get(tabPostion).getCity_code();
+                    String cityKo = mCity.get(tabPostion).getCity_ko();
+                    String subCityCode = "x";
+                    String subCityKo = "x";
+                    String option = "A";
+                    dbHelper.insertRecentCity(cityCode, cityKo, subCityCode, subCityKo, option);
 
-                Intent intent = new Intent();
-                intent.putExtra("id", cityCode);
-                intent.putExtra("name", cityKo);
-                setResult(80, intent);
-                finish();
+                    Intent intent = new Intent();
+                    intent.putExtra("id", cityCode);
+                    intent.putExtra("name", cityKo);
+                    setResult(80, intent);
+                    finish();
+                }
             }
         });
 
+        select_view.performItemClick(select_view,0, select_view.getAdapter().getItemId(0));
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

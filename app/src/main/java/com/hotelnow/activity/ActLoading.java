@@ -146,10 +146,18 @@ public class ActLoading extends Activity {
                     if(data.has("q_city")) {
                         dbHelper.deleteActivityCity();
                         for(int i =0; i<data.getJSONArray("q_city").length(); i++) {
-                            dbHelper.insertActivityCity(
-                                    data.getJSONArray("q_city").getJSONObject(i).getString("name"),
-                                    data.getJSONArray("q_city").getJSONObject(i).getString("id")
-                            );
+                            if(!data.getJSONArray("q_city").getJSONObject(i).getString("id").equals("0")) {
+                                dbHelper.insertActivityCity(
+                                        data.getJSONArray("q_city").getJSONObject(i).getString("name"),
+                                        data.getJSONArray("q_city").getJSONObject(i).getString("id")
+                                );
+                            }
+                            else{
+                                dbHelper.insertActivityCity(
+                                        "최근지역",
+                                        "0"
+                                );
+                            }
                         }
                     }
 
