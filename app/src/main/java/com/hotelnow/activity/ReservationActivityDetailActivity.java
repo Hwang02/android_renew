@@ -651,8 +651,8 @@ public class ReservationActivityDetailActivity extends Activity {
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
                                     getString(R.string.booking_hide_ask),
-                                    getString(R.string.alert_no),
-                                    getString(R.string.alert_yes),
+                                    getString(R.string.booking_hide_cancel),
+                                    getString(R.string.booking_hide),
                                     ReservationActivityDetailActivity.this,
                                     new View.OnClickListener() {
                                         @Override

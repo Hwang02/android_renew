@@ -783,7 +783,7 @@
                         android:background="@drawable/delete_round"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="5dp"
-                        android:text="숙박내역 삭제"
+                        android:text="액티비티내역 삭제"
                         style="?android:attr/borderlessButtonStyle"/>
                     <Button
                         android:id="@+id/booking_receipt"

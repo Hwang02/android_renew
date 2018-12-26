@@ -30,6 +30,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_below="@+id/toolbar"
+        android:scrollbars="none"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp">
 

@@ -327,7 +327,7 @@ public class LoginActivity extends Activity{
             });
         }
         else{ // 예약 조회
-            btn_nocookie.setText(getResources().getText(R.string.login_user_search));
+            btn_nocookie.setText(getResources().getText(R.string.login_user_search2));
 
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
                 @Override

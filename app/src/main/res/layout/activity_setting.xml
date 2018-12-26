@@ -212,6 +212,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:textColor="@color/termtext"
+                android:visibility="gone"
                 android:text="@string/setting_message2"/>
         </LinearLayout>
     </LinearLayout>

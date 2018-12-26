@@ -1457,8 +1457,10 @@ public class ReservationActivityActivity extends Activity {
             View v = getCurrentFocus();
             Rect outRect = new Rect();
             if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                if(v != null) {
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
             }
 
         }

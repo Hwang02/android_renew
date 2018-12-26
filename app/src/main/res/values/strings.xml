@@ -26,6 +26,8 @@
     <string name="error_coupon_money">쿠폰 정보를 읽어올 수 없습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="error_review_regist">리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="booking_hide_success">예약내역을 삭제하였습니다.</string>
+    <string name="booking_hide">삭제</string>
+    <string name="booking_hide_cancel">취소</string>
     <string name="not_recent_search">최근 검색내역이 없습니다.</string>
     <string name="cancel_rule">취소규정 안내</string>
     <string name="agree">동의</string>
@@ -74,7 +76,7 @@
     <string name="booking_review_hint">여러분이 남겨주신 객관적이고 솔직한 평가는 다른 고객들의 선택에 큰 도움이 될 수 있습니다.\n\n여러분의 경험을 공유해주세요.\n(5자 이상)</string>
     <string name="review_ynj_hn_msg">허위 사실이나 비속어, 욕설이 포함된 글은 운영자에 의해 강제 삭제 될 수 있습니다.\n작성된 리뷰는 호텔나우 제휴(야놀자, 야놀자펜션, 가자고) 채널에서 노출 될 수 있습니다. 고객님의 이름은 직접 노출되지 않으며, 평가 점수와 내용이 보여집니다.</string>
     <string name="need_review_msg">내용을 입력해 주세요.</string>
-    <string name="need_review_msg2">텍스트 리뷰를 5자 이상 작성해주세요.</string>
+    <string name="need_review_msg2">텍스트 리뷰를 10자 이상 작성해주세요.</string>
     <string name="need_review_msg3">별점을 선택하여 주십시요.</string>
 
     <string name="companyinfo_txt1">\n(주)야놀자   |   대표자 이수진\n\n서울특별시 강남구 테헤란로 108길 42(대치동, 엠디엠타워)\n사업자 번호 : 220-87-42885, 통신 판매업 신고 : 강남-14211호\n관광사업자 등록번호 : 제2016-31호\n대표전화 : 1670-6864, 이메일 : help@yanolja.com</string>
@@ -307,7 +309,7 @@
     <string name="get_reserve_money">예약시 적립금으로 할인받아보세요!</string>
     <string name="not_user_reservation">본 예약은 비회원 예약으로 이후 예약 확인을 위해 예약번호, 예약자명, 전화번호를 꼭 숙지 해주시기 바랍니다</string>
 
-    <string name="setting_message">- 단독 특가 알림, 깜짝 이벤트 등 호텔나우의 실속있는 혜택을 누구보다 빠르게 받아볼 수 있습니다.</string>
+    <string name="setting_message">- 단독 특가, 깜짝 이벤트, 할인쿠폰 등 호텔나우의 실속있는 혜택을 누구보다 빠르게 받아볼 수 있습니다.</string>
     <string name="setting_message2">- 동의해주신 채널에 따라 메시지가 발송됩니다. 원하지 않는 경우 각 채널별 수신동의를 해제해주시기 바랍니다.</string>
     <string name="back_button">\'뒤로\' 버튼을 한번 더 누르시면 앱이 종료됩니다.</string>
 
