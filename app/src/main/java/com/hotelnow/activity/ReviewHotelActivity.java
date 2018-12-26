@@ -253,10 +253,10 @@ public class ReviewHotelActivity extends Activity{
                                     ));
                                 }
                                 mListAdapter.notifyDataSetChanged();
-                                findViewById(R.id.wrapper).setVisibility(View.GONE);
                             } else {
                                 isAdd = false;
                             }
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         }
 
                     } catch (JSONException e) {
@@ -266,6 +266,9 @@ public class ReviewHotelActivity extends Activity{
                     }
                 }
             });
+        }
+        else{
+            findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
 }

@@ -551,6 +551,10 @@ public class HotelFragment extends Fragment {
         }
         else if(requestCode == 70){
             adapter.setAllRefresh();
+            if(resultCode == 110){
+                ((MainActivity)getActivity()).setTitle();
+                ((MainActivity)getActivity()).setTapdelete("MYPAGE");
+            }
         }
         else if(resultCode == 110){
             ((MainActivity)getActivity()).setTitle();

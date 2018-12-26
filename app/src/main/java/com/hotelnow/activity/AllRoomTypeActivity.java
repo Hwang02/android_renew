@@ -52,7 +52,7 @@ public class AllRoomTypeActivity extends Activity {
     private String[] selectList;
     private String lodge_type;
     private TextView date;
-    private boolean is_date = false;
+    private boolean is_date = false, isLogin = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -407,6 +407,10 @@ public class AllRoomTypeActivity extends Activity {
             intent.putExtra("is_date", true);
             setResult(80, intent);
         }
+        else if(isLogin){
+            Intent intent = new Intent();
+            setResult(80, intent);
+        }
 
         finish();
         super.onBackPressed();
@@ -432,6 +436,10 @@ public class AllRoomTypeActivity extends Activity {
         else if(resultCode == 100 && requestCode == 80) {
             setResult(100);
             finish();
+        }
+        else if(resultCode == 80 && requestCode == 90) {
+            isLogin = true;
+            cookie = _preferences.getString("userid", null);
         }
     }
 }

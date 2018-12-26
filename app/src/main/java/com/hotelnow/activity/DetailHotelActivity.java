@@ -1550,6 +1550,10 @@ public class DetailHotelActivity extends AppCompatActivity {
             if(data.getBooleanExtra("is_date", false)){
                 Toast.makeText(this, Util.formatchange(ec_date)+"~"+Util.formatchange(ee_date)+" 으로 날짜 설정이 변경되었습니다.", Toast.LENGTH_SHORT).show();
             }
+            cookie = _preferences.getString("userid", null);
+            if(cookie != null){
+                isLogin = true;
+            }
             setDetailView();
         }
         else if(resultCode == 81 && requestCode == 81){

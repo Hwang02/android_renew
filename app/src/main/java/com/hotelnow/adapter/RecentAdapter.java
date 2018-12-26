@@ -45,7 +45,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tv_keyword.setText(data.get(position).getName());
-        Ion.with(holder.iv_image).load(data.get(position).getImg_url());
+        Ion.with(holder.iv_image).placeholder(R.drawable.img_holder).load(data.get(position).getImg_url());
 
         if(data.get(position).getFlag().equals("1")) { // 호텔
             if(dbHelper.selectAllFavoriteStayItem().size() > 0) {

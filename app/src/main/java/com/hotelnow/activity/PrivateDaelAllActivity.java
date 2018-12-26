@@ -22,6 +22,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -41,7 +42,8 @@ public class PrivateDaelAllActivity extends Activity{
     private RelativeLayout toast_layout;
     private ImageView ico_favorite;
     private TextView tv_toast;
-
+    private String cookie;
+    private boolean isLogin= false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +71,28 @@ public class PrivateDaelAllActivity extends Activity{
                 startActivityForResult(intent, 50);
             }
         });
+
+        findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                finished();
+            }
+        });
         getData();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        finished();
+        super.onBackPressed();
+    }
+
+    public void finished(){
+        if(isLogin){
+            setResult(110);
+        }
+        finish();
     }
 
     private void getData(){
@@ -246,6 +269,12 @@ public class PrivateDaelAllActivity extends Activity{
         }
         else if(requestCode == 50 && responseCode == 80){
             adapter.notifyDataSetChanged();
+        }
+        else{
+            cookie = _preferences.getString("userid", null);
+            if(cookie != null){
+                isLogin = true;
+            }
         }
     }
 }
