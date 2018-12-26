@@ -924,7 +924,7 @@ public class ReservationActivity extends Activity {
                                 return;
                             }
 
-                            if (useremail.getText().toString().contains("@") != true || useremail.getText().toString().contains(".") != true || !Util.isValidEmail(useremail.getText().toString())) {
+                            if (cookie == null && (useremail.getText().toString().contains("@") != true || useremail.getText().toString().contains(".") != true || !Util.isValidEmail(useremail.getText().toString()))) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.validator_email_invalid), Toast.LENGTH_SHORT).show();
                                 useremail.requestFocus();
                                 return;

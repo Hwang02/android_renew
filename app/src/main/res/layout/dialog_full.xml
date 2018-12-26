@@ -152,7 +152,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="현재위치 기준 숙소 거리순 정렬"
+                                android:text="내주변 바로보기, 숙소 거리순 정렬"
                                 android:textSize="15dp"
                                 android:layout_marginTop="6dp"
                                 android:textColor="@color/termtext" />
