@@ -477,9 +477,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     if (!options.getJSONObject(i).getString("group_id").equals("null")) {
                                         if (deal_option_group.getJSONObject(j).getInt("id") == options.getJSONObject(i).getInt("group_id")) {
                                             minus.setTag(i);
-                                            minus.setOnClickListener(new OnSingleClickListener() {
+                                            minus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
-                                                public void onSingleClick(View v) {
+                                                public void onClick(View v) {
                                                     if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
                                                         int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
                                                         if(cnt == 0){
