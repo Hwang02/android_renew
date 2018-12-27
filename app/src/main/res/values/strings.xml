@@ -210,7 +210,7 @@
     <string name="card_subtitle2">내 결제카드 리스트</string>
     <string name="save_money_my_title">나의 적립금</string>
     <string name="save_money_disable_money">14일 이내 소멸 예정</string>
-    <string name="save_money_list_info">- 최소 1,000원부터 적립금 사용 가능, 사용 금액에 제한이 없습 니다.\n- 구매보상, 리뷰보상 적립금의 유효기간은 지급일로부터 1년 이며, 그 외에는 지급 유형에 따라 유효기간이 다를 수 있습니다.\n- 유효기간이 만료 된 적립금은 자동 소멸됩니다.</string>
+    <string name="save_money_list_info">- 최소 1,000원부터 적립금 사용 가능, 사용 금액에 제한이 없습니다.\n- 구매보상, 리뷰보상 적립금의 유효기간은 지급일로부터 1년이며, 그 외에는 지급 유형에 따라 유효기간이 다를 수 있습니다.\n- 유효기간이 만료 된 적립금은 자동 소멸됩니다.</string>
     <string name="coupon_list_info">- 쿠폰별 유효기간이 상이하며, 기간 만료시 사용이 불가합니다.\n- 쿠폰에 따라 최소 결제 금액, 할인 적용 상품 등 쿠폰 사용 기준이  다르므로 확인 후 이용해주시기 바랍니다.</string>
     <string name="card_list_info">자주 사용하시는 카드를 최초 1회 등록 하시면, 서명 한번으로 편하게 결제하실 수 있는 결제 수단입니다.</string>
     <string name="coupon_hint">쿠폰명을 입력하세요.</string>

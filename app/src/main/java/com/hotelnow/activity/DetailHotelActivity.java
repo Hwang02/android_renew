@@ -60,6 +60,7 @@ import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
+import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -78,7 +79,7 @@ import java.util.Map;
 
 public class DetailHotelActivity extends AppCompatActivity {
 
-    private ToughViewPager mViewPager;
+    private ViewPagerCustom mViewPager;
     private TextView m_countView, m_img_title,tv_category, tv_hotelname,
             tv_minprice, tv_maxprice, tv_per, tv_review_rate, review_message,
             tv_review_count, tv_special_title, tv_checkin, tv_checkout, tv_total_count, tv_address;
@@ -443,7 +444,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     filter7 = (LinearLayout) findViewById(R.id.filter7);
                     map_img = (ImageView) findViewById(R.id.map_img);
                     tv_address = (TextView) findViewById(R.id.tv_address);
-                    mViewPager = (ToughViewPager) findViewById(R.id.img_pager);
+                    mViewPager = (ViewPagerCustom) findViewById(R.id.img_pager);
                     m_countView = (TextView) findViewById(R.id.page);
                     m_img_title = (TextView) findViewById(R.id.img_title);
                     bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
@@ -777,6 +778,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             mViewPager.addOnPageChangeListener(mPagerAdapter);
             mViewPager.setCurrentItem(FIRST_PAGE, true);
             mViewPager.setOffscreenPageLimit(3);
+            mViewPager.startAutoScroll();
             mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageSelected(int position) {

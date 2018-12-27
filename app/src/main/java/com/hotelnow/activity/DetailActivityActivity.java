@@ -54,6 +54,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
+import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -89,7 +90,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     public static int markNowPosition = 0;
     public static int markPrevPosition = 0;
     private TicketPagerAdapter mPagerAdapter;
-    private ToughViewPager mViewPager;
+    private ViewPagerCustom mViewPager;
     private LinearLayout room_list, coupon_list, btn_more_detail, info_list, btn_more_review;
     private int ticket_count = 0;
     private List<TicketSelEntry> sel_list = new ArrayList<TicketSelEntry>();
@@ -340,7 +341,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     final JSONArray instant_coupons = obj.getJSONArray("instant_coupons");
 
                     tv_special_title = (TextView) findViewById(R.id.tv_special_title);
-                    mViewPager = (ToughViewPager) findViewById(R.id.img_pager);
+                    mViewPager = (ViewPagerCustom) findViewById(R.id.img_pager);
                     m_countView = (TextView) findViewById(R.id.page);
                     m_img_title = (TextView) findViewById(R.id.img_title);
                     room_list = (LinearLayout) findViewById(R.id.room_list);
@@ -977,6 +978,7 @@ public class DetailActivityActivity extends AppCompatActivity {
             mViewPager.addOnPageChangeListener(mPagerAdapter);
             mViewPager.setCurrentItem(FIRST_PAGE, true);
             mViewPager.setOffscreenPageLimit(3);
+            mViewPager.startAutoScroll();
             mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageSelected(int position) {

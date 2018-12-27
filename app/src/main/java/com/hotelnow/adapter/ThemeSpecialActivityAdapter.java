@@ -71,6 +71,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             holder.hotel_name.setText(entry.getName());
             holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
             Ion.with(holder.iv_img).load(entry.getLandscape());
+            holder.show_text.setText(entry.getStreet2());
 
 //            if(entry.getItems_quantity() < 5){
 //                if(entry.getItems_quantity() == 0) {
@@ -200,7 +201,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
 
     private class ViewHolder {
         ImageView iv_img, iv_favorite, ico_private, ico_hotdeal, soon_discount, soon_point, iv_top, img_star;
-        TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, tv_subject, tv_detail, pid, hid;
+        TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, tv_subject, tv_detail, pid, hid, show_text;
         LinearLayout special_msg, layout_item;
         RelativeLayout layout_top;
         boolean islike = false;
@@ -237,6 +238,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
 
             text_bar = (View) v.findViewById(R.id.v_bar);
             img_star = (ImageView) v.findViewById(R.id.ico_star);
+            show_text = (TextView) v.findViewById(R.id.show_text);
 
             v.setTag(R.id.id_holder);
         }

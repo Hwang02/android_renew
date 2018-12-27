@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -188,7 +189,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                                 head.getString("title"),
                                 "-1",
                                 head.getString("sub_title"),
-                                "null",
+                                TextUtils.isEmpty(head.getString("notice")) ? "할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다." : head.getString("notice"),
                                 "null",
                                 "null",
                                 "null",

@@ -32,7 +32,7 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="1">
 
-                <com.hotelnow.utils.ToughViewPager
+                <com.hotelnow.utils.ViewPagerCustom
                     android:id="@+id/img_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

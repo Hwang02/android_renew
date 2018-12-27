@@ -39,6 +39,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.EndEventScrollView;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -608,6 +609,18 @@ public class ReservationHotelDetailActivity extends Activity {
                     findViewById(R.id.btn_address_near).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Intent intent = new Intent(ReservationHotelDetailActivity.this, ActivityMapActivity.class);
+                            intent.putExtra("hid", hotel_id);
+                            intent.putExtra("lat", lat);
+                            intent.putExtra("lng", lon);
+                            intent.putExtra("deal_name", h_name);
+                            startActivity(intent);
+                        }
+                    });
+
+                    mapImg.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
                             Intent intent = new Intent(ReservationHotelDetailActivity.this, ActivityMapActivity.class);
                             intent.putExtra("hid", hotel_id);
                             intent.putExtra("lat", lat);
