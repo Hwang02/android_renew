@@ -549,7 +549,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             // 동의팝업
                             mainPopup();
                         }
-                        else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && Util.showFrontPopup(_preferences.getString("info_date", ""))){
+                        else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))){
                             importantPopup();
                             // 회원가입팝업
 //                            else{
@@ -614,6 +614,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             }
                         }
                     }
+                    else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))){
+                        importantPopup();
+
+                    }
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -646,7 +650,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     }
 
     public void importantPopup(){
-        if(!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && Util.showFrontPopup(_preferences.getString("info_date", "")))
+        if(!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", ""))))
         {
             dialoglogin = new DialogLogin(getActivity(),
                     new View.OnClickListener() {

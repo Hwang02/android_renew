@@ -497,7 +497,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     showPager();
 
                     // 카테고리
-                    tv_category.setText(Util.getCategory(DetailHotelActivity.this, hotel_data.getString("category")));
+                    tv_category.setText(Util.getCategory(DetailHotelActivity.this, hotel_data.getString("category_code")));
 
                     hotel_name = hotel_data.getString("name");
                     city = hotel_data.getString("city_name");

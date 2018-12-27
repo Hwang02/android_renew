@@ -315,7 +315,7 @@ public class SearchActivity extends Activity{
                                 activity.getJSONObject(i).getString("name"),
                                 activity.getJSONObject(i).getString("city"),
                                 activity.getJSONObject(i).getString("sub_city"),
-                                hotel.getJSONObject(i).getString("name_sub_city")
+                                activity.getJSONObject(i).getString("name_sub_city")
                         ));
                     }
 
@@ -353,95 +353,93 @@ public class SearchActivity extends Activity{
 
     private void setAutoH(){
         hotel_list.removeAllViews();
-        for(int i =0; i<mHotelAuto.size(); i++) {
-            View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
-            final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
-            final TextView hid = (TextView)view.findViewById(R.id.hid);
-            ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
+        if(mHotelAuto.size()>0) {
+            for (int i = 0; i < mHotelAuto.size(); i++) {
+                View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
+                final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+                final TextView hid = (TextView) view.findViewById(R.id.hid);
+                ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
 
-            if(mHotelAuto.get(i).getFlag().equals("region_hotel")){
-                ico_item.setBackgroundResource(R.drawable.ico_search_location);
-            }
-            else if(mHotelAuto.get(i).getFlag().equals("N")){
-                ico_item.setVisibility(View.GONE);
-            }
-            else{
-                ico_item.setBackgroundResource(R.drawable.ico_search_hotel);
-            }
+                if (mHotelAuto.get(i).getFlag().equals("region_hotel")) {
+                    ico_item.setBackgroundResource(R.drawable.ico_search_location);
+                } else if (mHotelAuto.get(i).getFlag().equals("N")) {
+                    ico_item.setVisibility(View.GONE);
+                } else {
+                    ico_item.setBackgroundResource(R.drawable.ico_search_hotel);
+                }
 
-            hid.setText(mHotelAuto.get(i).getId());
-            tv_recent_txt.setTag(i);
-            tv_recent_txt.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    if(!mHotelAuto.get((int)v.getTag()).getFlag().equals("N")) {
-                        if(!mHotelAuto.get((int)v.getTag()).getFlag().equals("region_hotel")) {
-                            Intent intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
-                            intent.putExtra("hid", hid.getText().toString());
-                            intent.putExtra("save", true);
-                            startActivity(intent);
-                        }
-                        else {
-                            Intent intent = new Intent(SearchActivity.this, HotelSearchActivity.class);
-                            intent.putExtra("tab", 0);
-                            intent.putExtra("city_code", mHotelAuto.get((int)v.getTag()).getCity());
-                            intent.putExtra("subcity_code", mHotelAuto.get((int)v.getTag()).getSub_city());
-                            intent.putExtra("city", mHotelAuto.get((int)v.getTag()).getName_sub_city());
-                            startActivity(intent);
+                hid.setText(mHotelAuto.get(i).getId());
+                tv_recent_txt.setTag(i);
+                tv_recent_txt.setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        if (!mHotelAuto.get((int) v.getTag()).getFlag().equals("N")) {
+                            if (!mHotelAuto.get((int) v.getTag()).getFlag().equals("region_hotel")) {
+                                Intent intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
+                                intent.putExtra("hid", hid.getText().toString());
+                                intent.putExtra("save", true);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(SearchActivity.this, HotelSearchActivity.class);
+                                intent.putExtra("tab", 0);
+                                intent.putExtra("city_code", mHotelAuto.get((int) v.getTag()).getCity());
+                                intent.putExtra("subcity_code", mHotelAuto.get((int) v.getTag()).getSub_city());
+                                intent.putExtra("city", mHotelAuto.get((int) v.getTag()).getName_sub_city());
+                                startActivity(intent);
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            tv_recent_txt.setText(mHotelAuto.get(i).getName());
-            hotel_list.addView(view);
+                tv_recent_txt.setText(mHotelAuto.get(i).getName());
+                hotel_list.addView(view);
+            }
         }
     }
 
     private void setAutoA(){
         activity_list.removeAllViews();
-        for(int i =0; i<mActivityAuto.size(); i++) {
-            View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
-            final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
-            final TextView hid = (TextView)view.findViewById(R.id.hid);
-            ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
+        if(mActivityAuto.size()>0) {
+            for (int i = 0; i < mActivityAuto.size(); i++) {
+                View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
+                final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
+                final TextView hid = (TextView) view.findViewById(R.id.hid);
+                ImageView ico_item = (ImageView) view.findViewById(R.id.ico_item);
 
-            if(mActivityAuto.get(i).getFlag().equals("region_activity")){
-                ico_item.setBackgroundResource(R.drawable.ico_search_location);
-            }
-            else if(mActivityAuto.get(i).getFlag().equals("N")){
-                ico_item.setVisibility(View.GONE);
-            }
-            else{
-                ico_item.setBackgroundResource(R.drawable.ico_search_activity);
-            }
+                if (mActivityAuto.get(i).getFlag().equals("region_activity")) {
+                    ico_item.setBackgroundResource(R.drawable.ico_search_location);
+                } else if (mActivityAuto.get(i).getFlag().equals("N")) {
+                    ico_item.setVisibility(View.GONE);
+                } else {
+                    ico_item.setBackgroundResource(R.drawable.ico_search_activity);
+                }
 
-            hid.setText(mActivityAuto.get(i).getId());
-            tv_recent_txt.setTag(i);
-            tv_recent_txt.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    if(!mActivityAuto.get((int)v.getTag()).getFlag().equals("N")) {
-                        if(!mActivityAuto.get((int)v.getTag()).getFlag().equals("region_activity")) {
-                            Intent intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
-                            intent.putExtra("tid", hid.getText().toString());
-                            intent.putExtra("save", true);
-                            startActivity(intent);
-                        }
-                        else {
-                            Intent intent = new Intent(SearchActivity.this, ActivitySearchActivity.class);
-                            intent.putExtra("tab", 1);
-                            intent.putExtra("location_id", mActivityAuto.get((int)v.getTag()).getCity());
-                            intent.putExtra("location", mActivityAuto.get((int)v.getTag()).getName());
-                            intent.putExtra("theme", "테마전체");
-                            startActivity(intent);
+                hid.setText(mActivityAuto.get(i).getId());
+                tv_recent_txt.setTag(i);
+                tv_recent_txt.setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        if (!mActivityAuto.get((int) v.getTag()).getFlag().equals("N")) {
+                            if (!mActivityAuto.get((int) v.getTag()).getFlag().equals("region_activity")) {
+                                Intent intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
+                                intent.putExtra("tid", hid.getText().toString());
+                                intent.putExtra("save", true);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(SearchActivity.this, ActivitySearchActivity.class);
+                                intent.putExtra("tab", 1);
+                                intent.putExtra("location_id", mActivityAuto.get((int) v.getTag()).getCity());
+                                intent.putExtra("location", mActivityAuto.get((int) v.getTag()).getName());
+                                intent.putExtra("theme", "테마전체");
+                                startActivity(intent);
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            tv_recent_txt.setText(mActivityAuto.get(i).getName());
-            activity_list.addView(view);
+                tv_recent_txt.setText(mActivityAuto.get(i).getName());
+                activity_list.addView(view);
+            }
         }
     }
 

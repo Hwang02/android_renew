@@ -63,7 +63,7 @@ public class SearchResultActivityAdapter extends ArrayAdapter<SearchResultItem> 
         final SearchResultItem entry = getItem(position);
 
         holder.hotel_name.setText(entry.getName());
-        holder.tv_nearlocation.setText(entry.getStreet1());
+        holder.tv_nearlocation.setText(entry.getCity());
         Ion.with(holder.iv_img).load(entry.getLandscape());
         holder.iv_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
