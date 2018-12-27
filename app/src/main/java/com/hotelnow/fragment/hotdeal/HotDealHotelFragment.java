@@ -3,6 +3,7 @@ package com.hotelnow.fragment.hotdeal;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,8 @@ public class HotDealHotelFragment extends Fragment {
     private SharedPreferences _preferences;
     private ArrayList<SearchResultItem> mHotelItem = new ArrayList<>();
     private ListView mlist;
+    private boolean _hasLoadedOnce= false; // your boolean field
+    private RelativeLayout wrapper;
 
     @Nullable
     @Override
@@ -55,40 +59,15 @@ public class HotDealHotelFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
-        getView().findViewById(R.id.h_filter).setVisibility(View.GONE);
-
-        mlist = (ListView) getView().findViewById(R.id.h_list);
-        adapter = new HotdealStayAdapter(getActivity(), 0, mHotelItem, HotDealHotelFragment.this, dbHelper);
-        mlist.setAdapter(adapter);
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView)view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
-                intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 50);
-            }
-        });
-
-        getView().findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                mlist.smoothScrollToPosition(0);
-            }
-        });
-        getData();
     }
 
     private void getData(){
+        wrapper.setVisibility(View.VISIBLE);
         Api.get(CONFIG.hotdeal_list + "/stay_hot_deals", new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                wrapper.setVisibility(View.GONE);
             }
 
             @Override
@@ -98,6 +77,7 @@ public class HotDealHotelFragment extends Fragment {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        wrapper.setVisibility(View.GONE);
                         return;
                     }
                     if (isAdded()) {
@@ -144,12 +124,13 @@ public class HotDealHotelFragment extends Fragment {
                                 getView().findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                             }
                         }
-
                     }
+                    wrapper.setVisibility(View.GONE);
                 }
                 catch (Exception e){
                     if(isAdded()) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        wrapper.setVisibility(View.GONE);
                     }
                 }
             }
@@ -229,5 +210,54 @@ public class HotDealHotelFragment extends Fragment {
         else if(requestCode == 50 && responseCode == 80){
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isFragmentVisible_) {
+        super.setUserVisibleHint(isFragmentVisible_);
+//        if (this.isVisible()) {
+        // we check that the fragment is becoming visible
+        if (isFragmentVisible_ && !_hasLoadedOnce) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    init();
+                }
+            },500);
+
+            _hasLoadedOnce = true;
+        }
+//        }
+    }
+
+    private void init(){
+        // preference
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
+        getView().findViewById(R.id.h_filter).setVisibility(View.GONE);
+
+        mlist = (ListView) getView().findViewById(R.id.h_list);
+        adapter = new HotdealStayAdapter(getActivity(), 0, mHotelItem, HotDealHotelFragment.this, dbHelper);
+        mlist.setAdapter(adapter);
+        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+            @Override
+            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView hid = (TextView)view.findViewById(R.id.hid);
+                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                intent.putExtra("hid", hid.getText().toString());
+                intent.putExtra("save", true);
+                startActivityForResult(intent, 50);
+            }
+        });
+
+        wrapper = getView().findViewById(R.id.wrapper);
+
+        getView().findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mlist.smoothScrollToPosition(0);
+            }
+        });
+        getData();
     }
 }
