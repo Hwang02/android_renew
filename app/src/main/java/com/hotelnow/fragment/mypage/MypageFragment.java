@@ -468,6 +468,20 @@ public class MypageFragment extends Fragment {
                         expire_money = Util.numberFormat(data.getInt("expire_amount"));
                         mMypageBinding.join.disableMoney.setText(expire_money+"원");
                         mMypageBinding.join.disableCoupon.setText(data.getInt("expire_coupon_cnt")+"장");
+                        if(expire_money.equals("0")) {
+                            mMypageBinding.join.layoutDiscountMoney.setVisibility(View.GONE);
+                        }
+                        else {
+                            mMypageBinding.join.layoutDiscountMoney.setVisibility(View.VISIBLE);
+                        }
+
+                        if(data.getInt("expire_coupon_cnt") == 0){
+                            mMypageBinding.join.layoutDisableCoupon.setVisibility(View.GONE);
+                        }
+                        else{
+                            mMypageBinding.join.layoutDisableCoupon.setVisibility(View.VISIBLE);
+                        }
+
 
                         SharedPreferences.Editor prefEditor = _preferences.edit();
                         prefEditor.putString("marketing_email_yn", obj.getString("marketing_email_yn"));
