@@ -62,7 +62,7 @@ public class ActivitySearchActivity extends Activity {
     private Button bt_scroll;
     RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
-    TextView tv_toast, title_text, tv_ecategory,tv_elocation;
+    TextView tv_toast, title_text, tv_ecategory,tv_elocation, empty_title, empty_sub;
 
 
     @Override
@@ -106,8 +106,13 @@ public class ActivitySearchActivity extends Activity {
         ((TextView)empty.findViewById(R.id.sub)).setText("다른 지역이나 테마로 검색해보세요");
         tv_ecategory = (TextView) empty.findViewById(R.id.tv_category);
         tv_elocation = (TextView) empty.findViewById(R.id.tv_location);
+        empty_title = (TextView) empty.findViewById(R.id.title);
+        empty_sub = (TextView) empty.findViewById(R.id.sub);
         ((ViewGroup)mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
+
+        empty_title.setVisibility(View.GONE);
+        empty_sub.setVisibility(View.GONE);
 
         tv_location.setText(intent.getStringExtra("location"));
         tv_category.setText(intent.getStringExtra("theme"));
@@ -266,9 +271,13 @@ public class ActivitySearchActivity extends Activity {
 
                         if(mItems.size()>0){
                             bt_scroll.setVisibility(View.VISIBLE);
+                            empty_title.setVisibility(View.GONE);
+                            empty_sub.setVisibility(View.GONE);
                         }
                         else {
                             bt_scroll.setVisibility(View.GONE);
+                            empty_title.setVisibility(View.VISIBLE);
+                            empty_sub.setVisibility(View.VISIBLE);
                         }
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -425,6 +434,8 @@ public class ActivitySearchActivity extends Activity {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            empty_title.setVisibility(View.GONE);
+            empty_sub.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 70 && responseCode == 80) {
@@ -434,6 +445,8 @@ public class ActivitySearchActivity extends Activity {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            empty_title.setVisibility(View.GONE);
+            empty_sub.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 50 && responseCode == 80) {

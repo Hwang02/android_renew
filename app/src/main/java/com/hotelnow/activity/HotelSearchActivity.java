@@ -76,7 +76,7 @@ public class HotelSearchActivity extends Activity {
     private TextView title_text;
     RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
-    TextView tv_toast, tv_elocation, tv_edate;
+    TextView tv_toast, tv_elocation, tv_edate, empty_title, empty_sub;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,6 +126,8 @@ public class HotelSearchActivity extends Activity {
         tv_elocation = (TextView) empty.findViewById(R.id.tv_location);
         tv_elocation.setText(intent.getStringExtra("city"));
         tv_edate = (TextView) empty.findViewById(R.id.tv_date);
+        empty_title = (TextView) empty.findViewById(R.id.title);
+        empty_sub = (TextView) empty.findViewById(R.id.sub);
         ((ViewGroup)mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
 
@@ -136,6 +138,10 @@ public class HotelSearchActivity extends Activity {
         mlist.addHeaderView(HeaderView);
         adapter = new SearchStayAdapter(this, 0, mItems, dbHelper);
         mlist.setAdapter(adapter);
+
+        empty_title.setVisibility(View.GONE);
+        empty_sub.setVisibility(View.GONE);
+
         tv_elocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -389,10 +395,14 @@ public class HotelSearchActivity extends Activity {
                         if(mItems.size()>0){
                             bt_scroll.setVisibility(View.VISIBLE);
                             btn_filter.setVisibility(View.VISIBLE);
+                            empty_title.setVisibility(View.GONE);
+                            empty_sub.setVisibility(View.GONE);
                         }
                         else {
                             bt_scroll.setVisibility(View.GONE);
                             btn_filter.setVisibility(View.GONE);
+                            empty_title.setVisibility(View.VISIBLE);
+                            empty_sub.setVisibility(View.VISIBLE);
                         }
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -534,6 +544,8 @@ public class HotelSearchActivity extends Activity {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            empty_title.setVisibility(View.GONE);
+            empty_sub.setVisibility(View.GONE);
             getSearch();
         } else if(requestCode == 70 && responseCode == 80){
             ec_date = data.getStringExtra("ec_date");
@@ -544,6 +556,8 @@ public class HotelSearchActivity extends Activity {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            empty_title.setVisibility(View.GONE);
+            empty_sub.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 60 && responseCode == 80){
@@ -586,6 +600,8 @@ public class HotelSearchActivity extends Activity {
             Page = 1;
             total_count = 0;
             mItems.clear();
+            empty_title.setVisibility(View.GONE);
+            empty_sub.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 50 && responseCode == 80){

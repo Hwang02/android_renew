@@ -72,7 +72,7 @@ public class HotelSearchFragment extends Fragment {
     private View HeaderView;
     private ImageView map_img;
     private TextView tv_review_count;
-    private RelativeLayout btn_location, btn_date;
+    private RelativeLayout btn_location, btn_date, btn_location2, btn_date2;
     private ArrayList<SearchResultItem> mItems = new ArrayList<>();
     private SearchResultStayAdapter adapter;
     private String banner_id, search_txt;
@@ -81,7 +81,7 @@ public class HotelSearchFragment extends Fragment {
     private int total_count;
     private String s_position = "",city = "",sub_city = "";
     private DbOpenHelper dbHelper;
-    private TextView tv_location, tv_date, page;
+    private TextView tv_location, tv_date, page, tv_location2, tv_date2;
     private String ec_date ="", ee_date="";
     private Button bt_scroll;
     private String category ="", facility="", price_min="", person_count="", price_max="", order_kind="", score="";
@@ -95,7 +95,7 @@ public class HotelSearchFragment extends Fragment {
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
     private String title_text;
-    private LinearLayout count_view;
+    private LinearLayout count_view, empty_image, layout_popular;
     private TextView tv_count;
     private int filter_cnt = 0;
     private boolean _hasLoadedOnce= false; // your boolean field
@@ -302,9 +302,13 @@ public class HotelSearchFragment extends Fragment {
                             if (mItems.size() > 0) {
 //                                btn_filter.setVisibility(View.VISIBLE);
                                 bt_scroll.setVisibility(View.VISIBLE);
+                                empty_image.setVisibility(View.GONE);
+                                layout_popular.setVisibility(View.GONE);
                             } else {
 //                                btn_filter.setVisibility(View.GONE);
                                 bt_scroll.setVisibility(View.GONE);
+                                empty_image.setVisibility(View.VISIBLE);
+                                layout_popular.setVisibility(View.VISIBLE);
                             }
 
                             String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -409,9 +413,11 @@ public class HotelSearchFragment extends Fragment {
         category = "";
         facility = "";
         tv_location.setText("지역선택");
+        tv_location2.setText("지역선택");
         search_txt = "";
         long count = Util.diffOfDate2(ec_date, ee_date);
         tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
+        tv_date2.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
         mItems.clear();
         getSearch();
     }
@@ -488,6 +494,7 @@ public class HotelSearchFragment extends Fragment {
         }
         if(requestCode == 80 && responseCode == 80){
             tv_location.setText(data.getStringExtra("city"));
+            tv_location2.setText(data.getStringExtra("city"));
             city = data.getStringExtra("city_code");
             sub_city = data.getStringExtra("subcity_code");
             if(city.equals(sub_city)){
@@ -497,16 +504,21 @@ public class HotelSearchFragment extends Fragment {
             total_count = 0;
             mItems.clear();
             adapter.notifyDataSetChanged();
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
             getSearch();
         } else if(requestCode == 70 && responseCode == 80){
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             long gap = Util.diffOfDate2(ec_date, ee_date);
             tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+gap+"박");
+            tv_date2.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+gap+"박");
             Page = 1;
             total_count = 0;
             mItems.clear();
             adapter.notifyDataSetChanged();
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 60 && responseCode == 80){
@@ -578,6 +590,8 @@ public class HotelSearchFragment extends Fragment {
             total_count = 0;
             mItems.clear();
             adapter.notifyDataSetChanged();
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 50 && responseCode == 80){
@@ -632,6 +646,13 @@ public class HotelSearchFragment extends Fragment {
         View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
         popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
 
+        tv_location2 = empty.findViewById(R.id.tv_location);
+        tv_date2 = empty.findViewById(R.id.tv_date);
+        btn_location2 = (RelativeLayout) empty.findViewById(R.id.btn_location);
+        btn_date2 = (RelativeLayout) empty.findViewById(R.id.btn_date);
+        empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
+        layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
+
         ((ViewGroup)mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
 
@@ -640,10 +661,13 @@ public class HotelSearchFragment extends Fragment {
 
         long count = Util.diffOfDate2(ec_date, ee_date);
         tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
+        tv_date2.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
 
         mlist.addHeaderView(HeaderView);
         adapter = new SearchResultStayAdapter(getActivity(), 0, mItems, HotelSearchFragment.this, dbHelper);
         mlist.setAdapter(adapter);
+        empty_image.setVisibility(View.GONE);
+        layout_popular.setVisibility(View.GONE);
 
         btn_location.setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -653,6 +677,22 @@ public class HotelSearchFragment extends Fragment {
             }
         });
         btn_date.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra("ec_date", ec_date);
+                intent.putExtra("ee_date", ee_date);
+                startActivityForResult(intent, 70);
+            }
+        });
+        btn_location2.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
+                startActivityForResult(intent, 80);
+            }
+        });
+        btn_date2.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), CalendarActivity.class);

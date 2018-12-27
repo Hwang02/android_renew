@@ -328,7 +328,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
             holder.page_view.setText("1 / "+ mHf.getPbannerData().size()+" +");
-            holder.autoViewPager.startAutoScroll();
+            if(mHf.getPbannerData().size() >1)
+                holder.autoViewPager.startAutoScroll();
 
             holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override

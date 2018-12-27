@@ -66,7 +66,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/btn_date"
+                    android:id="@+id/btn_category"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
                     android:layout_marginTop="7dp"
@@ -76,14 +76,14 @@
                     android:background="@drawable/style_edittext_gray_border">
 
                     <ImageView
-                        android:id="@+id/iv_date"
+                        android:id="@+id/iv_category"
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_marginLeft="8dp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_input_calendar"/>
+                        android:background="@drawable/ico_input_category"/>
 
                     <ImageView
                         android:id="@+id/iv_open2"
@@ -96,18 +96,18 @@
                         android:background="@drawable/btn_detail_open"/>
 
                     <TextView
-                        android:id="@+id/tv_date"
+                        android:id="@+id/tv_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/iv_open2"
-                        android:layout_toRightOf="@+id/iv_date"
+                        android:layout_toRightOf="@+id/iv_category"
                         android:textSize="13dp"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:layout_marginLeft="8dp"
                         android:layout_centerVertical="true"
                         android:textColor="@color/graytxt"
-                        tools:text="9/21/~9/22" />
+                        android:text="테마선택" />
                 </RelativeLayout>
             </LinearLayout>
 

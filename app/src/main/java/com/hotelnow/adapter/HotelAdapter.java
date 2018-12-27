@@ -272,8 +272,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
             });
 
-            holder.autoViewPager.startAutoScroll();
-
+            if(mHf.getPbannerData().size() >1) {
+                holder.autoViewPager.startAutoScroll();
+            }
             holder.autoViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {

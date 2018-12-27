@@ -262,7 +262,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             }, 100);
 
-            holder.autoViewPager.startAutoScroll();
+            if(mLf.getPbannerData().size() >1) {
+                holder.autoViewPager.startAutoScroll();
+            }
         }
     }
 

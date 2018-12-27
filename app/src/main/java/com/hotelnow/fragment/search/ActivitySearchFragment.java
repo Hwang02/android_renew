@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,8 +64,8 @@ public class ActivitySearchFragment  extends Fragment {
     private View EmptyView;
     private View HeaderView;
     private ImageView map_img;
-    private TextView tv_review_count, tv_category, tv_location;
-    private RelativeLayout btn_location, btn_category;
+    private TextView tv_review_count, tv_category, tv_location, tv_location2, tv_category2;
+    private RelativeLayout btn_location, btn_category, btn_location2, btn_category2;
     private ArrayList<SearchResultItem> mItems = new ArrayList<>();
     private SearchResultActivityAdapter adapter;
     private String banner_id, search_txt, order_kind;
@@ -76,6 +77,7 @@ public class ActivitySearchFragment  extends Fragment {
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
     private boolean _hasLoadedOnce= false; // your boolean field
+    private LinearLayout empty_image, layout_popular;
 
     @Nullable
     @Override
@@ -201,9 +203,13 @@ public class ActivitySearchFragment  extends Fragment {
 
                         if(mItems.size() > 0){
                             bt_scroll.setVisibility(View.VISIBLE);
+                            empty_image.setVisibility(View.GONE);
+                            layout_popular.setVisibility(View.GONE);
                         }
                         else {
                             bt_scroll.setVisibility(View.GONE);
+                            empty_image.setVisibility(View.VISIBLE);
+                            layout_popular.setVisibility(View.VISIBLE);
                         }
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -291,6 +297,8 @@ public class ActivitySearchFragment  extends Fragment {
         search_txt = "";
         theme_id = "";
         tv_category.setText("테마선택");
+        tv_category2.setText("테마선택");
+        tv_location2.setText("지역선택");
 
         mItems.clear();
         getSearch();
@@ -372,19 +380,25 @@ public class ActivitySearchFragment  extends Fragment {
         else if(requestCode == 80 && responseCode == 80) {
             city = data.getStringExtra("id");
             tv_location.setText(data.getStringExtra("name"));
+            tv_location2.setText(data.getStringExtra("name"));
             Page = 1;
             total_count = 0;
             mItems.clear();
             adapter.notifyDataSetChanged();
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 70 && responseCode == 80) {
             theme_id = data.getStringExtra("id");
             tv_category.setText(data.getStringExtra("name"));
+            tv_category2.setText(data.getStringExtra("name"));
             Page = 1;
             total_count = 0;
             mItems.clear();
             adapter.notifyDataSetChanged();
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
             getSearch();
         }
         else if(requestCode == 50 && responseCode == 80) {
@@ -430,8 +444,15 @@ public class ActivitySearchFragment  extends Fragment {
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
         bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
 
-        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
+        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty2, null, false);
         popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
+
+        tv_location2 = empty.findViewById(R.id.tv_location);
+        tv_category2 = empty.findViewById(R.id.tv_category);
+        btn_location2 = (RelativeLayout) empty.findViewById(R.id.btn_location);
+        btn_category2 = (RelativeLayout) empty.findViewById(R.id.btn_category);
+        empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
+        layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
 
         ((ViewGroup)mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
@@ -439,6 +460,9 @@ public class ActivitySearchFragment  extends Fragment {
         mlist.addHeaderView(HeaderView);
         adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
         mlist.setAdapter(adapter);
+        empty_image.setVisibility(View.GONE);
+        layout_popular.setVisibility(View.GONE);
+
 
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
@@ -448,6 +472,21 @@ public class ActivitySearchFragment  extends Fragment {
                 intent.putExtra("tid", hid.getText().toString());
                 intent.putExtra("save", true);
                 startActivityForResult(intent, 50);
+            }
+        });
+
+        btn_location2.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
+                startActivityForResult(intent, 80);
+            }
+        });
+        btn_category2.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                startActivityForResult(intent, 70);
             }
         });
 
