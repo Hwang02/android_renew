@@ -111,8 +111,8 @@ public class MapHotelActivity extends AppCompatActivity {
 
         subtitle_text.setText(sub);
 
-        Spannable spannable = new SpannableString("총 "+total_count+"개의 숙소");
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(total_count+"").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Spannable spannable = new SpannableString("총 "+Util.numberFormat(total_count)+"개의 숙소");
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {

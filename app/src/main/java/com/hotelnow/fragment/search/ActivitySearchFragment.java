@@ -43,6 +43,7 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -137,7 +138,7 @@ public class ActivitySearchFragment  extends Fragment {
                         final JSONArray list = obj.getJSONArray("lists");
                         JSONObject entry = null;
 
-                        final String total_cnt = "총 " + obj.getString("total_count") + "개의 액티비티가 있습니다";
+                        final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 액티비티가 있습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                         builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_review_count.setText(builder);

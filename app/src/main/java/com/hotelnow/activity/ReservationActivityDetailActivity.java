@@ -398,7 +398,7 @@ public class ReservationActivityDetailActivity extends Activity {
                             tv_pay_num.setText(payment_info.getString("app_no"));
                         }
                         if(payment_info.has("card_name")) {
-                            findViewById(R.id.ll_pay_tel_com).setVisibility(View.VISIBLE);
+                            findViewById(R.id.ll_pay_tel_com).setVisibility(View.GONE);
                             tv_pay_tel_com.setText(payment_info.getString("card_name"));
                         }
                     }

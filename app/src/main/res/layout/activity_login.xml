@@ -71,6 +71,7 @@
                     android:textColorHint="@color/coupon_dis"
                     android:inputType="textPassword"
                     android:textSize="17dp"
+                    android:maxLength="20"
                     android:theme="@style/EditTheme"
                     android:textColor="@color/blacktxt" />
 

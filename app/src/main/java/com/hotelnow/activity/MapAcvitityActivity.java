@@ -35,6 +35,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.SmoothPager;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.customstyledmap.CustomMap;
 import com.thebrownarrow.model.SearchResultItem;
@@ -93,8 +94,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
         }
         ll_count.setBackgroundResource(R.color.activity_cc);
         TextView total_item = (TextView)findViewById(R.id.total_item);
-        Spannable spannable = new SpannableString("총 "+total_count+"개의 액티비티");
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(total_count+"").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Spannable spannable = new SpannableString("총 "+ Util.numberFormat(total_count)+"개의 액티비티");
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
         PermissionListener permissionlistener = new PermissionListener() {

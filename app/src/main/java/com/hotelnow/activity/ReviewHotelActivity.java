@@ -19,6 +19,7 @@ import com.hotelnow.adapter.DetailReviewAdapter;
 import com.hotelnow.fragment.model.ReviewItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -225,7 +226,7 @@ public class ReviewHotelActivity extends Activity{
                             return;
                         }
                         if (mPage == 1) {
-                            String total_cnt = "총 " + obj.getJSONObject("info").getJSONObject("data").getString("cnt") + "개의 리뷰";
+                            String total_cnt = "총 " + Util.numberFormat(obj.getJSONObject("info").getJSONObject("data").getInt("cnt")) + "개의 리뷰";
                             SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                             builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 2, 2 + obj.getJSONObject("info").getJSONObject("data").getString("cnt").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             tv_review_count.append(builder);
