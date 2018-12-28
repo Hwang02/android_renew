@@ -144,6 +144,7 @@ public class ReservationActivityDetailActivity extends Activity {
         setContentView(R.layout.activity_reservation_activity_detail);
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        cookie = _preferences.getString("userid", null);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
         scrollview = (EndEventScrollView) findViewById(R.id.scrollview);
         scrollview.setHandler(mEndHandler);

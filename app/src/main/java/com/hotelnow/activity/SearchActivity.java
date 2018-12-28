@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.fragment.model.KeyWordProductItem;
 import com.hotelnow.fragment.model.SearchAutoitem;
@@ -79,6 +80,7 @@ public class SearchActivity extends Activity{
     LocationListener locationListener; // 위치 정보가 업데이트시 동작
     String lat ="", lng="";
     ProgressDialog dialog;
+    private DialogConfirm dialogConfirm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -203,35 +205,50 @@ public class SearchActivity extends Activity{
             @Override
             public void onSingleClick(View v) {
 
-                locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                locationListener = new LocationListener() {
+                dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
+                new View.OnClickListener() {
                     @Override
-                    public void onLocationChanged(Location location) {
-                        locManager.removeUpdates(locationListener);
-                        CONFIG.lat = location.getLatitude()+"";
-                        CONFIG.lng = location.getLongitude()+"";
-                        dialog.dismiss();
-                        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                        intent.putExtra("order_kind", "distance");
-                        startActivityForResult(intent, 80);
+                    public void onClick(View v) {
+                        dialogConfirm.dismiss();
                     }
-
+                },
+                new View.OnClickListener() {
                     @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                    public void onClick(View v) {
+                        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                        locationListener = new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+                                locManager.removeUpdates(locationListener);
+                                CONFIG.lat = location.getLatitude()+"";
+                                CONFIG.lng = location.getLongitude()+"";
+                                dialog.dismiss();
+                                Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                                intent.putExtra("order_kind", "distance");
+                                startActivityForResult(intent, 80);
+                            }
 
+                            @Override
+                            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                            }
+
+                            @Override
+                            public void onProviderEnabled(String provider) {
+
+                            }
+
+                            @Override
+                            public void onProviderDisabled(String provider) {
+
+                            }
+                        };
+                        getMyLocation();
+                        dialogConfirm.dismiss();
                     }
+                });
 
-                    @Override
-                    public void onProviderEnabled(String provider) {
-
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-
-                    }
-                };
-                getMyLocation();
+                dialogConfirm.show();
             }
         });
 
@@ -679,7 +696,7 @@ public class SearchActivity extends Activity{
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(SearchActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SearchActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
                 if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
@@ -714,8 +731,6 @@ public class SearchActivity extends Activity{
 
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
-                .setRationaleMessage("현재 위치값을 얻어오기 위해 권한이 필요합니다.")
-                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있어요.")
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .check();
     }

@@ -85,7 +85,7 @@ public class HotelSearchFragment extends Fragment {
     private String ec_date ="", ee_date="";
     private Button bt_scroll;
     private String category ="", facility="", price_min="", person_count="", price_max="", order_kind="", score="";
-    private RelativeLayout bannerview;
+    private RelativeLayout bannerview, h_filter;
     private ArrayList<BannerItem> mBannerItems = new ArrayList<>();
     private ViewPagerCustom autoViewPager;
     private SearchBannerPagerAdapter bannerAdapter;
@@ -188,7 +188,7 @@ public class HotelSearchFragment extends Fragment {
 
                             final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 객실이 있습니다";
                             SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
-                            builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + + Util.numberFormat(obj.getInt("total_count")).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             tv_review_count.setText(builder);
 
                             if (bannerlist.length() > 0) {
@@ -309,6 +309,7 @@ public class HotelSearchFragment extends Fragment {
                                 bt_scroll.setVisibility(View.GONE);
                                 empty_image.setVisibility(View.VISIBLE);
                                 layout_popular.setVisibility(View.VISIBLE);
+                                h_filter.bringToFront();
                             }
 
                             String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -372,7 +373,6 @@ public class HotelSearchFragment extends Fragment {
         ColorStateList myColorStateList = new ColorStateList(
                 new int[][]{ new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
                 new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
-
         for(int i=0;i<mKeywordList.size();i++){
             TextView tv = new TextView(getActivity());
             tv.setId(i);
@@ -652,7 +652,7 @@ public class HotelSearchFragment extends Fragment {
         btn_date2 = (RelativeLayout) empty.findViewById(R.id.btn_date);
         empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
         layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
-
+        h_filter = (RelativeLayout)getView().findViewById(R.id.h_filter);
         ((ViewGroup)mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
 
