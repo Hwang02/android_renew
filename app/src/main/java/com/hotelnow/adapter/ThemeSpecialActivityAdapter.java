@@ -69,7 +69,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             holder.pid.setText(entry.getId());
             holder.hid.setText(entry.getId());
             holder.hotel_name.setText(entry.getName());
-            holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
+            holder.tv_nearlocation.setText(entry.getCity());
             Ion.with(holder.iv_img).load(entry.getLandscape());
             holder.show_text.setText(entry.getStreet2());
 

@@ -93,6 +93,7 @@ public class MyCouponActivity extends Activity{
         String inputCode = code.getText().toString().trim();
 
         if(inputCode.equals("") || inputCode.equals(null)){
+            Toast.makeText(MyCouponActivity.this, "쿠폰명을 입력하여 주십시요", Toast.LENGTH_SHORT).show();
             return;
         }
 
