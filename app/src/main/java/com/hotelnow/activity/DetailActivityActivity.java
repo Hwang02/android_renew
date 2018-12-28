@@ -928,6 +928,7 @@ public class DetailActivityActivity extends AppCompatActivity {
 
                     showCouponDialog(obj.getString("msg"));
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
+                    isLogin = true;
                 } catch (Exception e) {
                     Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

@@ -1332,6 +1332,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
 
                     showCouponDialog(obj.getString("msg"));
+                    isLogin = true;
                 } catch (Exception e) {
                     Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }

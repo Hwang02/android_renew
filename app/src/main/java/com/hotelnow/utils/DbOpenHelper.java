@@ -78,7 +78,11 @@ public class DbOpenHelper {
         val.put("keyid", keyid);
         Cursor cur = null;
         try {
+            String where = "keyword = '" + keyword + "'";
+            mDB.delete(DataBases.Keyword_CreateDB._TABLENAME, where, null);
+
             cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword" }, null, null, null, null, _ID+" desc");
+
             if(cur.getCount()==5){
                 String sql = "DELETE FROM "+ DataBases.Keyword_CreateDB._TABLENAME+" WHERE _id = "
                         + "(select MIN(_id) from "+DataBases.Keyword_CreateDB._TABLENAME+ " )";
