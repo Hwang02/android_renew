@@ -140,7 +140,7 @@ public class ActivitySearchFragment  extends Fragment {
                         final JSONArray list = obj.getJSONArray("lists");
                         JSONObject entry = null;
 
-                        final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 액티비티가 있습니다";
+                        final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 감섹되었습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                         builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + Util.numberFormat(obj.getInt("total_count")).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_review_count.setText(builder);

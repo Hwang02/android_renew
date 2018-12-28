@@ -228,7 +228,7 @@ public class ActivitySearchActivity extends Activity {
                         if (Page == 1)
                             s_position="";
 
-                        final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 객실이 있습니다";
+                        final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_review_count.setText(builder);

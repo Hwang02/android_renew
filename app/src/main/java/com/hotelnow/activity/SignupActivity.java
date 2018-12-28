@@ -601,6 +601,10 @@ public class SignupActivity extends Activity {
         if(countDownTimer != null) {
             countDownTimer.cancel();
         }
+
+        setUseableEditText(phone_num_2, true);
+        setUseableEditText(phone_num_3, true);
+        setUseableSpinner(phone_first, true);
     }
 
     // 인증번호 타이머

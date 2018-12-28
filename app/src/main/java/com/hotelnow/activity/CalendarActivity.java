@@ -58,6 +58,9 @@ public class CalendarActivity extends Activity{
         checkout_date = (TextView) findViewById(R.id.checkout_date);
         check_inout_count = (TextView) findViewById(R.id.check_inout_count);
         btn_complate = (Button) findViewById(R.id.btn_complate);
+        btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
+        btn_complate.setClickable(false);
+        btn_complate.setEnabled(false);
 
         Date dateObj = new Date();
 
@@ -155,6 +158,7 @@ public class CalendarActivity extends Activity{
                         check_inout_count.setText("0박");
                         btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                         btn_complate.setClickable(false);
+                        btn_complate.setEnabled(false);
                     }
                     else{
                         select_cnt = calendar.getSelectedDates().size();
@@ -166,12 +170,14 @@ public class CalendarActivity extends Activity{
                             check_inout_count.setText("0박");
                             btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                             btn_complate.setClickable(false);
+                            btn_complate.setEnabled(false);
                             return;
                         }
                         checkout_date.setText(selected_checkout_date);
                         check_inout_count.setText(select_cnt + "박");
                         btn_complate.setBackgroundResource(R.drawable.cal_active_round);
                         btn_complate.setClickable(true);
+                        btn_complate.setEnabled(true);
                     }
                 }
                 else if(calendar.getSelectedDates().size() > 1) {
@@ -217,12 +223,14 @@ public class CalendarActivity extends Activity{
                         check_inout_count.setText(diffofday + "박");
                         btn_complate.setBackgroundResource(R.drawable.cal_active_round);
                         btn_complate.setClickable(true);
+                        btn_complate.setEnabled(true);
                     } else {
                         checkin_date.setText("날짜 선택하기");
                         checkout_date.setText("날짜 선택하기");
                         check_inout_count.setText("0박");
                         btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                         btn_complate.setClickable(false);
+                        btn_complate.setEnabled(false);
                     }
                 }
                 else {
@@ -233,6 +241,7 @@ public class CalendarActivity extends Activity{
                     check_inout_count.setText("0박");
                     btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                     btn_complate.setClickable(false);
+                    btn_complate.setEnabled(false);
                 }
             }
 
@@ -242,6 +251,7 @@ public class CalendarActivity extends Activity{
                 selected_checkout_date = null;
                 btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                 btn_complate.setClickable(false);
+                btn_complate.setFocusable(false);
             }
         });
 
@@ -256,6 +266,7 @@ public class CalendarActivity extends Activity{
         btn_complate.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+
                 Intent intent = new Intent();
                 intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
                 intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));

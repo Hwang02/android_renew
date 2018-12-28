@@ -1626,6 +1626,10 @@ public class ReservationActivity extends Activity {
         if(countDownTimer != null) {
             countDownTimer.cancel();
         }
+
+        setUseableEditText(pnum2, true);
+        setUseableEditText(pnum3, true);
+        setUseableSpinner(pnum1, true);
     }
 
     private void setUseableEditText(EditText et, boolean useable) {
