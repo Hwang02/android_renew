@@ -601,10 +601,6 @@ public class SignupActivity extends Activity {
         if(countDownTimer != null) {
             countDownTimer.cancel();
         }
-
-        setUseableEditText(phone_num_2, true);
-        setUseableEditText(phone_num_3, true);
-        setUseableSpinner(phone_first, true);
     }
 
     // 인증번호 타이머
@@ -627,6 +623,10 @@ public class SignupActivity extends Activity {
 
                 auth_count.setText("시간 초과");
                 remain_count.setText("입력시간을 초과했습니다 다시 시도해주세요.");
+
+                setUseableEditText(phone_num_2, true);
+                setUseableEditText(phone_num_3, true);
+                setUseableSpinner(phone_first, true);
             }
             @Override
             public void onTick(long millisUntilFinished)

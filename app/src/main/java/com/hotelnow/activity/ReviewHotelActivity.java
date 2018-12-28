@@ -40,6 +40,7 @@ public class ReviewHotelActivity extends Activity{
     DetailReviewAdapter mListAdapter;
     private ArrayList<ReviewItem> reviewEntries = new ArrayList<ReviewItem>();
     private boolean isAdd = true;
+    private boolean is_q = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +104,7 @@ public class ReviewHotelActivity extends Activity{
         tv_review_rate.setText(mAvg+"");
 
         hid = intent.getStringExtra("hid");
+        is_q = intent.getBooleanExtra("is_q", false);
 
         setStar(intent.getDoubleExtra("r1",0), sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
         setStar(intent.getDoubleExtra("r2",0), ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
@@ -116,7 +118,7 @@ public class ReviewHotelActivity extends Activity{
             }
         });
 
-        mListAdapter = new DetailReviewAdapter( this, 0, reviewEntries);
+        mListAdapter = new DetailReviewAdapter( this, 0, reviewEntries, is_q);
         lv_list.setAdapter(mListAdapter);
 
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
@@ -204,7 +206,13 @@ public class ReviewHotelActivity extends Activity{
 
     public void getReviewList(){
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.reviewListUrl + "/" + mPage+ "/" + mPer_page + "/" + hid;
+        String url;
+        if(is_q){
+            url = CONFIG.qreviewListUrl + "/" + mPage + "/" + hid;
+        }
+        else {
+            url = CONFIG.reviewListUrl + "/" + mPage + "/" + mPer_page + "/" + hid;
+        }
         if(isAdd) {
             Api.get(url, new Api.HttpCallback() {
 
@@ -241,14 +249,14 @@ public class ReviewHotelActivity extends Activity{
                                 for (int i = 0; i < r_list.length(); i++) {
                                     entry = r_list.getJSONObject(i);
                                     reviewEntries.add(new ReviewItem(
-                                            entry.getString("hotel_name"),
+                                            entry.has("hotel_name") ? entry.getString("hotel_name") : "",
                                             entry.getString("masked_name"),
                                             entry.getString("total_rating"),
                                             entry.getString("view_yn"),
                                             entry.getString("comment"),
                                             entry.getString("owner_comment"),
-                                            entry.getString("room_name"),
-                                            entry.getString("stay_cnt"),
+                                            entry.has("room_name") ? entry.getString("room_name") : "",
+                                            entry.has("stay_cnt") ? entry.getString("stay_cnt") : "",
                                             entry.getString("created_at"),
                                             entry.getString("updated_at")
                                     ));

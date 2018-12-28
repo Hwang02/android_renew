@@ -736,6 +736,9 @@ public class MainActivity extends FragmentActivity {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
                 }, 2000);
+
+        moveTabRefresh2();
+        moveTabRefresh3();
     }
 
     public void showIconToast(String msg, boolean is_fav){
@@ -757,6 +760,9 @@ public class MainActivity extends FragmentActivity {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
                 }, 2000);
+
+        moveTabRefresh2();
+        moveTabRefresh3();
     }
 
     public void moveTabReservation(){

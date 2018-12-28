@@ -179,8 +179,8 @@ public class FavoriteHotelAdapter extends ArrayAdapter<FavoriteStayItem> {
 
             special_msg = (LinearLayout) v.findViewById(R.id.special_msg);
 
-            text_bar = (View)v.findViewById(R.id.text_bar);
-            img_star = (ImageView)v.findViewById(R.id.img_star);
+            text_bar = (View)v.findViewById(R.id.v_bar);
+            img_star = (ImageView)v.findViewById(R.id.ico_star);
 
             v.setTag(R.id.id_holder);
         }

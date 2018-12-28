@@ -19,11 +19,13 @@ import java.util.List;
 public class DetailReviewAdapter extends ArrayAdapter<ReviewItem> {
     private Context mContext;
     List<ReviewItem> mlist;
+    boolean is_q =false;
 
-    public DetailReviewAdapter(Context context, int textViewResourceId, List<ReviewItem> objects) {
+    public DetailReviewAdapter(Context context, int textViewResourceId, List<ReviewItem> objects, boolean is_q) {
         super(context, textViewResourceId, objects);
         mContext = context;
         mlist = objects;
+        this.is_q = is_q;
     }
 
     @Override
@@ -44,17 +46,26 @@ public class DetailReviewAdapter extends ArrayAdapter<ReviewItem> {
 
         ReviewItem entry = getItem(position);
 
-        holder.review_rate.setText(entry.getTotal_rating().substring(0,3));
-        holder.review_info.setText(entry.getRoom_name()+", "+entry.getStay_cnt()+"박");
-        holder.review_message.setText(entry.getComment());
-        holder.review_user.setText(entry.getMasked_name()+" | "+Util.formatchange4(entry.getCreated_at()));
-        holder.hotel_answer.setVisibility(View.GONE);
+        if(!is_q) {
+            holder.review_rate.setText(entry.getTotal_rating().substring(0, 3));
+            holder.review_info.setText(entry.getRoom_name() + ", " + entry.getStay_cnt() + "박");
+            holder.review_message.setText(entry.getComment());
+            holder.review_user.setText(entry.getMasked_name() + " | " + Util.formatchange4(entry.getCreated_at()));
+            holder.hotel_answer.setVisibility(View.GONE);
 
-        if(!entry.getOwner_comment().equals("null")){
-            holder.hotel_answer.setVisibility(View.VISIBLE);
-            holder.tv_hotel_name.setText(entry.getHotel_name());
-            holder.tv_hotel_date.setText(" |    "+Util.formatchange4(entry.getUpdated_at()));
-            holder.hotel_message.setText(Html.fromHtml(entry.getOwner_comment()));
+            if (!entry.getOwner_comment().equals("null")) {
+                holder.hotel_answer.setVisibility(View.VISIBLE);
+                holder.tv_hotel_name.setText(entry.getHotel_name());
+                holder.tv_hotel_date.setText(" |    " + Util.formatchange4(entry.getUpdated_at()));
+                holder.hotel_message.setText(Html.fromHtml(entry.getOwner_comment()));
+            }
+        }
+        else{
+            holder.review_rate.setText(entry.getTotal_rating().substring(0, 3));
+            holder.review_info.setVisibility(View.GONE);
+            holder.review_message.setText(entry.getComment());
+            holder.review_user.setText(entry.getMasked_name() + " | " + Util.formatchange4(entry.getCreated_at()));
+            holder.hotel_answer.setVisibility(View.GONE);
         }
 
         if(mlist.size() == position+2){

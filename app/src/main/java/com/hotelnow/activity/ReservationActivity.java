@@ -1590,6 +1590,10 @@ public class ReservationActivity extends Activity {
 
                 auth_count.setText("시간 초과");
                 remain_count.setText("입력시간을 초과했습니다 다시 시도해주세요.");
+
+                setUseableEditText(pnum2, true);
+                setUseableEditText(pnum3, true);
+                setUseableSpinner(pnum1, true);
             }
             @Override
             public void onTick(long millisUntilFinished)
@@ -1626,10 +1630,6 @@ public class ReservationActivity extends Activity {
         if(countDownTimer != null) {
             countDownTimer.cancel();
         }
-
-        setUseableEditText(pnum2, true);
-        setUseableEditText(pnum3, true);
-        setUseableSpinner(pnum1, true);
     }
 
     private void setUseableEditText(EditText et, boolean useable) {

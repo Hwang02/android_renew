@@ -14,7 +14,36 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
+
+#테스트
+#-keep class android.support.v4.app.** { *; }
+#-keep interface android.support.v4.app.** { *; }
+#-keep class android.support.v7.app.** { *; }
+#-keep interface android.support.v7.app.** { *; }
+#
+#
+#-keep class com.kakao.** { *; }
+#-keepattributes Signature
+#-keepclassmembers class * {
+#public static *;
+#public *;
+#}
+#
 #-keepattributes SourceFile,LineNumberTable
+#-keepattributes Signature
+#-keepattributes *Annotation*
+#
+#-keep class com.savvi.rangedatepicker.**{*;}
+#-keep class com.thebrownarrow.**{*;}
+#-dontwarn okio.**
+#-dontwarn org.apache.lang.**
+#-dontwarn java.io.**
+#
+#-renamesourcefileattribute SourceFile
+#-keepattributes  Signature,SourceFile,LineNumberTable
+#-keep public class * extends android.app.Application
+
+
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.

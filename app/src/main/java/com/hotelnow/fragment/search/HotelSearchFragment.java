@@ -549,6 +549,9 @@ public class HotelSearchFragment extends Fragment {
             if(!TextUtils.isEmpty(CONFIG.sel_orderby)) {
                 LogUtil.e("xxxxx", CONFIG.sel_orderby);
                 order_kind = CONFIG.sel_orderby;
+                if(!order_kind.equals("recommendation")){
+                    filter_cnt++;
+                }
             }
             else{
                 order_kind = "";
@@ -625,6 +628,10 @@ public class HotelSearchFragment extends Fragment {
         search_txt = getArguments().getString("search_txt");
         banner_id = getArguments().getString("banner_id");
         order_kind = getArguments().getString("order_kind");
+        if(order_kind.equals("distance")){
+            CONFIG.sel_orderby = order_kind;
+            filter_cnt = 1;
+        }
         title_text = getArguments().getString("title_text");
 
         mlist = (ListView) getView().findViewById(R.id.h_list);

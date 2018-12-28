@@ -452,6 +452,21 @@ public class DetailActivityActivity extends AppCompatActivity {
                         findViewById(R.id.ico_nowdiscount).setVisibility(View.GONE);
                     }
 
+//                    btn_more_review.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(DetailActivityActivity.this, ReviewHotelActivity.class);
+//                            intent.putExtra("avg", avg);
+//                            intent.putExtra("r1", r1);
+//                            intent.putExtra("r2", r2);
+//                            intent.putExtra("r3", r3);
+//                            intent.putExtra("r4", r4);
+//                            intent.putExtra("hid", tid);
+//                            intent.putExtra("title", tv_hotelname.getText());
+//                            intent.putExtra("is_q", true);
+//                            startActivity(intent);
+//                        }
+//                    });
                     //가격정보
                     //그룹일경우
                     if(deal_option_group.length() > 0){

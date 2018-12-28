@@ -66,6 +66,7 @@ public class CONFIG {
     public final static String reviewCreateUrl = domain+"/review/create";					//	리뷰쓰기
     public final static String reviewCreateUrl_v2 = domain+"/review/create_v2";					//	리뷰쓰기
     public final static String reviewListUrl = domain+"/review/list_v2";					//	리뷰리스트 param1 : page_num , param2 : count , param3 : hotel
+    public final static String qreviewListUrl = domain+"/q/review/list_v2";					//	리뷰리스트 param1 : page_num , param2 : count , param3 : hotel
     public final static String eventWebUrl = domain2+"/popup_event";							//	이벤트 웹 url
 
     public final static String ticketUrl = domain+"/activity";                           //  티켓리스트
