@@ -256,6 +256,34 @@ public class SearchActivity extends Activity{
                     dialogConfirm.show();
                 }
                 else{
+                    locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    locationListener = new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            locManager.removeUpdates(locationListener);
+                            CONFIG.lat = location.getLatitude() + "";
+                            CONFIG.lng = location.getLongitude() + "";
+                            dialog.dismiss();
+                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                            intent.putExtra("order_kind", "distance");
+                            startActivityForResult(intent, 80);
+                        }
+
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String provider) {
+
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String provider) {
+
+                        }
+                    };
                     getMyLocation();
                 }
             }
