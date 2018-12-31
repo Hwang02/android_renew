@@ -30,6 +30,9 @@
 #-dontwarn com.hotelnow.utils.**
 #-keep class android.databinding.** { *; }
 #-keepnames class * implements java.io.Serializable
+#-dontobfuscate
+#-keepattributes SoureFile,LineNumberTable   #소스파일, 라인 전보 유지
+#-dontwarn okio.**
 
 
 # If you keep the line number information, uncomment this to

@@ -30,6 +30,7 @@ import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,7 +65,34 @@ public class ActLoading extends Activity {
         // preference 할당
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        if(existRootingFile()){
+            dialogAlert = new DialogAlert("알림", "루팅된 단말입니다. 앱을 종료 합니다.", this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogAlert.dismiss();
+                    finish();
+                }
+            });
+            dialogAlert.show();
+            return;
+        }
         checkSeverInfo();
+    }
+
+    private boolean existRootingFile(){
+        boolean found = false;
+        if (!found) {
+            String[] places = { "/sbin/", "/system/bin/", "/system/xbin/",
+                    "/data/local/xbin/", "/data/local/bin/",
+                    "/system/sd/xbin/", "/system/bin/failsafe/", "/data/local/" };
+            for (String where : places) {
+                if (new File(where + "su").exists()) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        return found;
     }
 
     private void checkSeverInfo() {

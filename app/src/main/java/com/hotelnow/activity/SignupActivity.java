@@ -19,6 +19,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -65,7 +66,7 @@ public class SignupActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_signup);
 
         Util.setStatusColor(this);
@@ -520,7 +521,7 @@ public class SignupActivity extends Activity {
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
 
                             prefEditor.commit();
-
+                            passwd.setText("");
                             // 디바이스 정보 서버에 있는지 체크 후 적립금 띄우든가 말든가
                             if (obj.getString("device_exist").equals("Y")) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
