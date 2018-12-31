@@ -73,7 +73,7 @@
 
     <!-- ActLogin -->
     <string name="not_support_device">지도보기를 지원하지 않는 기기입니다.</string>
-    <string name="booking_review_hint">여러분이 남겨주신 객관적이고 솔직한 평가는 다른 고객들의 선택에 큰 도움이 될 수 있습니다.\n\n여러분의 경험을 공유해주세요.\n(5자 이상)</string>
+    <string name="booking_review_hint">여러분이 남겨주신 객관적이고 솔직한 평가는 다른 고객들의 선택에 큰 도움이 될 수 있습니다.\n\n여러분의 경험을 공유해주세요.\n(10자 이상)</string>
     <string name="review_ynj_hn_msg">허위 사실이나 비속어, 욕설이 포함된 글은 운영자에 의해 강제 삭제 될 수 있습니다.\n작성된 리뷰는 호텔나우 제휴(야놀자, 야놀자펜션, 가자고) 채널에서 노출 될 수 있습니다. 고객님의 이름은 직접 노출되지 않으며, 평가 점수와 내용이 보여집니다.</string>
     <string name="need_review_msg">내용을 입력해 주세요.</string>
     <string name="need_review_msg2">텍스트 리뷰를 10자 이상 작성해주세요.</string>
