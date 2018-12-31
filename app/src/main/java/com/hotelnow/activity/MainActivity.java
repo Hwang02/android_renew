@@ -402,9 +402,11 @@ public class MainActivity extends FragmentActivity {
                     // ticket tab
                     setTapMove(LEISUREPAGE, true);
                 } else if (recipeStr1.contains("move_coupon")) {
+                    setTapMove(MYPAGE, false);
                     Intent intentEvt = new Intent(this, MyCouponActivity.class);
                     startActivityForResult(intentEvt, 80);
                 } else if (recipeStr1.contains("move_theme_list")) {
+                    setTapMove(SELECTPAGE, false);
                     Intent intent = new Intent(this, ThemeSAllActivity.class);
                     startActivityForResult(intent, 80);
                 } else if (recipeStr1.contains("move_booking_list")) {

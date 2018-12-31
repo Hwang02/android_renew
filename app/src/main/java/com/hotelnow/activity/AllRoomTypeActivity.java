@@ -216,19 +216,52 @@ public class AllRoomTypeActivity extends Activity {
                         if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                             btn_private.setVisibility(View.VISIBLE);
+                            btn_private.setText("가격제안");
+                            view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                         }
-                        if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
-                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
-                            btn_private.setVisibility(View.GONE);
+                        else if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                            btn_private.setText("제안완료");
+                            view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                         }
-                        if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+                        else if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
-                            btn_private.setVisibility(View.GONE);
+                            btn_private.setVisibility(View.VISIBLE);
+                            btn_private.setText("판매완료");
+                            view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                         }
                         else {
-                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
-                            btn_private.setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
+                            btn_private.setVisibility(View.GONE);
+                            view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
                         }
+
+                        if(rdata.getJSONObject(i).getInt("inven_count")<=0){
+                            btn_reservation.setText("판매완료");
+                            btn_reservation.setBackgroundResource(R.drawable.gray_round);
+                            btn_reservation.setEnabled(false);
+                        }
+                        else {
+                            btn_reservation.setText("예약하기");
+                            btn_reservation.setBackgroundResource(R.drawable.reservation_round);
+                            btn_reservation.setEnabled(true);
+                        }
+//                        if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
+//                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+//                            btn_private.setVisibility(View.VISIBLE);
+//                        }
+//                        if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+//                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
+//                            btn_private.setVisibility(View.GONE);
+//                        }
+//                        if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+//                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
+//                            btn_private.setVisibility(View.GONE);
+//                        }
+//                        else {
+//                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+//                            btn_private.setVisibility(View.VISIBLE);
+//                        }
 
                         img_room.setTag(image_arr[0]);
                         tv_room_title.setTag(i);

@@ -204,12 +204,10 @@ public class ActivitySearchFragment  extends Fragment {
                         if(mItems.size() > 0){
                             bt_scroll.setVisibility(View.VISIBLE);
                             empty_image.setVisibility(View.GONE);
-                            layout_popular.setVisibility(View.GONE);
                         }
                         else {
                             bt_scroll.setVisibility(View.GONE);
                             empty_image.setVisibility(View.VISIBLE);
-                            layout_popular.setVisibility(View.VISIBLE);
                         }
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -261,31 +259,37 @@ public class ActivitySearchFragment  extends Fragment {
                 new int[][]{ new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
                 new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
 
-        for(int i=0;i<mKeywordList.size();i++){
-            TextView tv = new TextView(getActivity());
-            tv.setId(i);
-            tv.setTag(i);
-            tv.setText(mKeywordList.get(i).getKeyword());
-            tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            tv.setTextColor(getResources().getColor(R.color.termtext));
-            tv.setGravity(Gravity.LEFT);
-            tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
+        if(mKeywordList.size()>0) {
+            layout_popular.setVisibility(View.VISIBLE);
+            for (int i = 0; i < mKeywordList.size(); i++) {
+                TextView tv = new TextView(getActivity());
+                tv.setId(i);
+                tv.setTag(i);
+                tv.setText(mKeywordList.get(i).getKeyword());
+                tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                tv.setTextColor(getResources().getColor(R.color.termtext));
+                tv.setGravity(Gravity.LEFT);
+                tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
 //            tv.setButtonDrawable(android.R.color.transparent);
-            tv.setTextColor(myColorStateList);
-            tv.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    Intent intent = new Intent(getActivity(), SearchResultActivity.class);
-                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
-                    intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());
-                    intent.putExtra("tab", 1);
-                    startActivityForResult(intent, 80);
-                    getActivity().finish();
-                }
-            });
+                tv.setTextColor(myColorStateList);
+                tv.setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+                        intent.putExtra("banner_id", mKeywordList.get((int) v.getTag()).getId());
+                        intent.putExtra("banner_name", mKeywordList.get((int) v.getTag()).getLink());
+                        intent.putExtra("tab", 1);
+                        startActivityForResult(intent, 80);
+                        getActivity().finish();
+                    }
+                });
 
-            popular_keyword.addView(tv);
+                popular_keyword.addView(tv);
+            }
+        }
+        else{
+            layout_popular.setVisibility(View.GONE);
         }
     }
 

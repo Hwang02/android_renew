@@ -57,7 +57,7 @@
     <string name="alert_notice">알림</string>
     <string name="alert_account_msg">인터넷뱅킹을 이용해 입금자명[%1$s]으로 입력해 주시면, (%2$s)님 이름으로 실시간 예약이 완료됩니다.\n\n입금기한: %3$s 까지</string>
     <string name="review_save_title">리뷰 작성은 숙박 후 10일간만 가능하며,\n정상 등록시 적립금 500원이 바로 지급됩니다.</string>
-    <string name="review_save_title2">리뷰 작성은 구매 티켓 사용 일 이후 10일간 가능합니다.</string>
+    <string name="review_save_title2">리뷰 작성은 구매 티켓 사용 일 이후 10일간만 가능합니다.</string>
 
     <string name="alert_yes">예</string>
     <string name="alert_no">아니오</string>
@@ -283,7 +283,7 @@
     <string name="validator_recommend_fail">적립금 지급에 실패하였습니다. 고객센터로 문의바랍니다.</string>
     <string name="info_reservation">최근 12개월간의 예약/취소 내역입니다</string>
     <string name="info_review">리뷰 작성하고 500원 받기</string>
-    <string name="info_review2">(체크아웃 이후 단, 10일간 작성 가능)</string>
+    <string name="info_review2">(체크아웃 이후 단, 10일간만 작성 가능)</string>
     <!-- Member Join Validator -->
     <string name="save_point_info">* 정상 구매건에 한하여  체크아웃 이후 자동 지급</string>
 

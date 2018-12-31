@@ -334,7 +334,7 @@ public class LoginActivity extends Activity{
                 public void onClick(View v) {
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    CONFIG.Mypage_Search = true;
+                    CONFIG.Mypage_Search = false;
                     setResult(90, new Intent());
                     finish();
                 }

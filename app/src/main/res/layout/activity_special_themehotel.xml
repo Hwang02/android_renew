@@ -64,7 +64,8 @@
                 android:dividerHeight="0dp"
                 android:background="@color/white"
                 android:divider="#000000"
-                android:fadeScrollbars="true">
+                android:fadeScrollbars="true"
+                android:listSelector="@android:color/transparent">
             </ListView>
 
         <!--</android.support.v4.widget.SwipeRefreshLayout>-->

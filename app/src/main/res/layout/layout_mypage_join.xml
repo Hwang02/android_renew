@@ -19,30 +19,41 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layout_username"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/purple"
-                android:layout_marginTop="22dp"
-                android:textSize="20dp"
-                tools:text="김나우"/>
+                android:layout_toLeftOf="@+id/iv_logout"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/purple"
-                android:layout_marginTop="27dp"
-                android:layout_toRightOf="@id/user_name"
-                android:textSize="14dp"
-                android:text="님"/>
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:layout_marginTop="22dp"
+                    android:textSize="20dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    tools:text="김나우"/>
+
+                <TextView
+                    android:id="@+id/nim"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:layout_marginTop="27dp"
+                    android:textSize="14dp"
+                    android:text="님"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/user_email"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/graytxt"
-                android:layout_below="@id/user_name"
+                android:layout_below="@id/layout_username"
+                android:layout_toLeftOf="@+id/iv_logout"
                 android:textSize="14dp"
                 tools:text="nowkim@now.co.kr"/>
 
@@ -55,6 +66,7 @@
                 android:layout_centerVertical="true"/>
 
             <ImageView
+                android:id="@+id/iv_logout"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:background="@drawable/ico_logout"

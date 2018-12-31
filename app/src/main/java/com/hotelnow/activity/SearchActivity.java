@@ -531,31 +531,40 @@ public class SearchActivity extends Activity{
         ColorStateList myColorStateList = new ColorStateList(
                 new int[][]{ new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
                 new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
-
-        for(int i=0;i<mKeywordList.size();i++){
-            TextView tv = new TextView(this);
-            tv.setId(i);
-            tv.setTag(i);
-            tv.setText(mKeywordList.get(i).getKeyword());
-            tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            tv.setTextColor(getResources().getColor(R.color.termtext));
-            tv.setGravity(Gravity.LEFT);
-            tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
+        if(mKeywordList.size() >0) {
+            tv_popular_title.setVisibility(View.VISIBLE);
+            ll_popular.setVisibility(View.VISIBLE);
+            findViewById(R.id.underline2).setVisibility(View.VISIBLE);
+            for (int i = 0; i < mKeywordList.size(); i++) {
+                TextView tv = new TextView(this);
+                tv.setId(i);
+                tv.setTag(i);
+                tv.setText(mKeywordList.get(i).getKeyword());
+                tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                tv.setTextColor(getResources().getColor(R.color.termtext));
+                tv.setGravity(Gravity.LEFT);
+                tv.setBackgroundResource(R.drawable.style_checkbox_keyword);
 //            tv.setButtonDrawable(android.R.color.transparent);
-            tv.setTextColor(myColorStateList);
-            tv.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                    intent.putExtra("banner_id", mKeywordList.get((int)v.getTag()).getId());
-                    intent.putExtra("banner_name", mKeywordList.get((int)v.getTag()).getLink());
-                    startActivityForResult(intent, 80);
+                tv.setTextColor(myColorStateList);
+                tv.setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                        intent.putExtra("banner_id", mKeywordList.get((int) v.getTag()).getId());
+                        intent.putExtra("banner_name", mKeywordList.get((int) v.getTag()).getLink());
+                        startActivityForResult(intent, 80);
 
-                }
-            });
+                    }
+                });
 
-            popular_keyword.addView(tv);
+                popular_keyword.addView(tv);
+            }
+        }
+        else{
+            tv_popular_title.setVisibility(View.GONE);
+            ll_popular.setVisibility(View.GONE);
+            findViewById(R.id.underline2).setVisibility(View.GONE);
         }
     }
 
@@ -633,52 +642,59 @@ public class SearchActivity extends Activity{
 
     public void getHotelActivity(){
         hq_list.removeAllViews();
-        for (int i=0; i<mHotelActivity.size(); i++) {
-            View view_ha = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_hotel_activity_item, null);
-            TextView item_star_txt = (TextView) view_ha.findViewById(R.id.item_star_txt);
-            TextView tv_popular_txt = (TextView) view_ha.findViewById(R.id.tv_popular_txt);
-            TextView tv_select_id = (TextView) view_ha.findViewById(R.id.tv_select_id);
-            ImageView ico_popular = (ImageView) view_ha.findViewById(R.id.ico_popular);
+        if(mHotelActivity.size()>0) {
+            findViewById(R.id.tv_hq_title).setVisibility(View.VISIBLE);
+            findViewById(R.id.hq_list).setVisibility(View.VISIBLE);
+            findViewById(R.id.underline2).setVisibility(View.VISIBLE);
+            for (int i = 0; i < mHotelActivity.size(); i++) {
+                View view_ha = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_hotel_activity_item, null);
+                TextView item_star_txt = (TextView) view_ha.findViewById(R.id.item_star_txt);
+                TextView tv_popular_txt = (TextView) view_ha.findViewById(R.id.tv_popular_txt);
+                TextView tv_select_id = (TextView) view_ha.findViewById(R.id.tv_select_id);
+                ImageView ico_popular = (ImageView) view_ha.findViewById(R.id.ico_popular);
 
-            //ico_search_hotel, ico_search_activity 둘중하나로...
+                //ico_search_hotel, ico_search_activity 둘중하나로...
 
-            if(mHotelActivity.get(i).getCategory().equals("popular_product_stay")){
-                ico_popular.setBackgroundResource(R.drawable.ico_search_hotel);
-                tv_popular_txt.setText(mHotelActivity.get(i).getHotel_name());
-            }
-            else{
-                ico_popular.setBackgroundResource(R.drawable.ico_search_activity);
-                tv_popular_txt.setText(mHotelActivity.get(i).getDeal_name());
-            }
-
-            if(!mHotelActivity.get(i).getGrade_score().equals("0.0")) {
-                view_ha.findViewById(R.id.item_star).setVisibility(View.VISIBLE);
-                item_star_txt.setText(mHotelActivity.get(i).getGrade_score());
-            }
-            else{
-                view_ha.findViewById(R.id.item_star).setVisibility(View.GONE);
-                item_star_txt.setText("");
-            }
-            view_ha.setTag(i);
-            view_ha.setOnClickListener(new OnSingleClickListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    Intent intent = null;
-                    if(mHotelActivity.get((int)v.getTag()).getCategory().equals("popular_product_stay")) {
-                        intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
-                        intent.putExtra("hid", mHotelActivity.get((int)v.getTag()).getHotel_id());
-                        intent.putExtra("save", true);
-                        startActivityForResult(intent, 80);
-                    }
-                    else {
-                        intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
-                        intent.putExtra("tid", mHotelActivity.get((int)v.getTag()).getDeal_id());
-                        intent.putExtra("save", true);
-                        startActivityForResult(intent, 80);
-                    }
+                if (mHotelActivity.get(i).getCategory().equals("popular_product_stay")) {
+                    ico_popular.setBackgroundResource(R.drawable.ico_search_hotel);
+                    tv_popular_txt.setText(mHotelActivity.get(i).getHotel_name());
+                } else {
+                    ico_popular.setBackgroundResource(R.drawable.ico_search_activity);
+                    tv_popular_txt.setText(mHotelActivity.get(i).getDeal_name());
                 }
-            });
-            hq_list.addView(view_ha);
+
+                if (!mHotelActivity.get(i).getGrade_score().equals("0.0")) {
+                    view_ha.findViewById(R.id.item_star).setVisibility(View.VISIBLE);
+                    item_star_txt.setText(mHotelActivity.get(i).getGrade_score());
+                } else {
+                    view_ha.findViewById(R.id.item_star).setVisibility(View.GONE);
+                    item_star_txt.setText("");
+                }
+                view_ha.setTag(i);
+                view_ha.setOnClickListener(new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        Intent intent = null;
+                        if (mHotelActivity.get((int) v.getTag()).getCategory().equals("popular_product_stay")) {
+                            intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
+                            intent.putExtra("hid", mHotelActivity.get((int) v.getTag()).getHotel_id());
+                            intent.putExtra("save", true);
+                            startActivityForResult(intent, 80);
+                        } else {
+                            intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
+                            intent.putExtra("tid", mHotelActivity.get((int) v.getTag()).getDeal_id());
+                            intent.putExtra("save", true);
+                            startActivityForResult(intent, 80);
+                        }
+                    }
+                });
+                hq_list.addView(view_ha);
+            }
+        }
+        else{
+            findViewById(R.id.tv_hq_title).setVisibility(View.GONE);
+            findViewById(R.id.hq_list).setVisibility(View.GONE);
+            findViewById(R.id.underline2).setVisibility(View.GONE);
         }
     }
 

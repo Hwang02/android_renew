@@ -977,13 +977,15 @@ public class DetailActivityActivity extends AppCompatActivity {
         m_countView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailActivityActivity.this, FullImageViewActivityActivity.class);
-                intent.putExtra("tid", tid);
-                intent.putExtra("idx", markNowPosition);
-                intent.putExtra("imgs", PagerImgs);
-                intent.putExtra("name", tname);
-                intent.putExtra("total", pager_cnt);
-                startActivity(intent);
+                if(pager_cnt>0) {
+                    Intent intent = new Intent(DetailActivityActivity.this, FullImageViewActivityActivity.class);
+                    intent.putExtra("tid", tid);
+                    intent.putExtra("idx", markNowPosition);
+                    intent.putExtra("imgs", PagerImgs);
+                    intent.putExtra("name", tname);
+                    intent.putExtra("total", pager_cnt);
+                    startActivity(intent);
+                }
             }
         });
 

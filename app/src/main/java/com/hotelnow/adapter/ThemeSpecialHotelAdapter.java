@@ -70,7 +70,6 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
             holder.hotel_name.setText(entry.getName());
             holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
             Ion.with(holder.iv_img).load(entry.getLandscape());
-            holder.show_text.setText(entry.getStreet2());
 
             if(entry.getItems_quantity() < 4){
                 if(entry.getItems_quantity() == 0) {
@@ -191,6 +190,7 @@ public class ThemeSpecialHotelAdapter extends ArrayAdapter<ThemeSItem> {
             holder.tv_detail.setMaxLines(4);
             holder.tv_detail.setEllipsize(TextUtils.TruncateAt.END);
             holder.tv_detail.setText(entry.getStreet1());
+            holder.show_text.setText(entry.getStreet2());
         }
 
         return v;

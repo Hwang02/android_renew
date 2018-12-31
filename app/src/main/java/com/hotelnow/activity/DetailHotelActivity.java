@@ -472,7 +472,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     // 선택 될 날짜
                     if(ec_date == null && ee_date==null) {
                         ec_date = avail_dates.get(0).toString();
-                        ee_date = avail_dates.get(1).toString();
+                        ee_date = Util.getNextDateStr(avail_dates.get(0).toString());
                     }
                     selectList = new String[avail_dates.length()];
                     for(int i =0; i<avail_dates.length(); i++){
@@ -757,11 +757,13 @@ public class DetailHotelActivity extends AppCompatActivity {
         m_countView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailHotelActivity.this, FullImageViewActivity.class);
-                intent.putExtra("hid", hid);
-                intent.putExtra("idx", markNowPosition);
-                intent.putExtra("name", hotel_name);
-                startActivity(intent);
+                if(landscapeImgs.length>0) {
+                    Intent intent = new Intent(DetailHotelActivity.this, FullImageViewActivity.class);
+                    intent.putExtra("hid", hid);
+                    intent.putExtra("idx", markNowPosition);
+                    intent.putExtra("name", hotel_name);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -1114,22 +1116,35 @@ public class DetailHotelActivity extends AppCompatActivity {
                 if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") != -999){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                     btn_private.setVisibility(View.VISIBLE);
+                    btn_private.setText("가격제안");
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
-                if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
-                    view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
-                    btn_private.setVisibility(View.GONE);
-                    view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
+                else if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                    view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                    btn_private.setText("제안완료");
+                    view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
-                if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
-                    view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
-                    btn_private.setVisibility(View.GONE);
-                    view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
-                }
-                else {
+                else if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                     btn_private.setVisibility(View.VISIBLE);
+                    btn_private.setText("판매완료");
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
+                }
+                else {
+                    view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
+                    btn_private.setVisibility(View.GONE);
+                    view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
+                }
+
+                if(rdata.getJSONObject(i).getInt("inven_count")<=0){
+                    btn_reservation.setText("판매완료");
+                    btn_reservation.setBackgroundResource(R.drawable.gray_round);
+                    btn_reservation.setEnabled(false);
+                }
+                else {
+                    btn_reservation.setText("예약하기");
+                    btn_reservation.setBackgroundResource(R.drawable.reservation_round);
+                    btn_reservation.setEnabled(true);
                 }
 
                 img_room.setTag(image_arr[0]);
