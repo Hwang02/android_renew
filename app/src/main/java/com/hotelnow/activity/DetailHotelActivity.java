@@ -1119,12 +1119,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                     btn_private.setText("가격제안");
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
-                else if(!rdata.getJSONObject(i).has("privatedeal_proposal_yn") || rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                else if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                     btn_private.setText("제안완료");
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
-                else if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+                else if(rdata.getJSONObject(i).getString("privateDealYN").equals("Y") && rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
                     btn_private.setVisibility(View.VISIBLE);
                     btn_private.setText("판매완료");

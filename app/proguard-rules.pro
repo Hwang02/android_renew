@@ -16,33 +16,20 @@
 # debugging stack traces.
 
 #테스트
-#-keep class android.support.v4.app.** { *; }
-#-keep interface android.support.v4.app.** { *; }
-#-keep class android.support.v7.app.** { *; }
-#-keep interface android.support.v7.app.** { *; }
-#
-#
-#-keep class com.kakao.** { *; }
-#-keepattributes Signature
-#-keepclassmembers class * {
-#public static *;
-#public *;
-#}
-#
-#-keepattributes SourceFile,LineNumberTable
-#-keepattributes Signature
-#-keepattributes *Annotation*
-#
-#-keep class com.savvi.rangedatepicker.**{*;}
-#-keep class com.thebrownarrow.**{*;}
+#-dontwarn android.support.**
+#-dontwarn com.squareup.okhttp.**
+#-keep class com.savvi.rangedatepicker.**
+#-keep class com.thebrownarrow.**
+#-keep class com.ittianyu.bottomnavigationviewex.**
+#-keep class com.gun0912.tedpermission.**
+#-keep class com.koushikdutta.**
 #-dontwarn okio.**
 #-dontwarn org.apache.lang.**
 #-dontwarn java.io.**
-#
-#-renamesourcefileattribute SourceFile
-#-keepattributes  Signature,SourceFile,LineNumberTable
-#-keep public class * extends android.app.Application
-
+#-dontwarn android.support.design.**
+#-dontwarn com.hotelnow.utils.**
+#-keep class android.databinding.** { *; }
+#-keepnames class * implements java.io.Serializable
 
 
 # If you keep the line number information, uncomment this to
