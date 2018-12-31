@@ -72,11 +72,11 @@ public class MySaveAdapter extends ArrayAdapter<MySaveMoneyItem> {
             if(TextUtils.isEmpty(m_end)){
                 holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10));
             }else {
-                if (type.equals("withdraw") && type.equals("expired")) {
-                    holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + " 만료)");
+                if (!status.equals("적립")) {
+                    holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + ")");
                 }
                 else {
-                    holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + ")");
+                    holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + " 만료)");
                 }
             }
             holder.tv_save_status.setText(status);

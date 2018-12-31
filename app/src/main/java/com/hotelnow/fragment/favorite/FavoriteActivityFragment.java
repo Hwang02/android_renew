@@ -108,7 +108,6 @@ public class FavoriteActivityFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
-                        ((FavoriteFragment)getParentFragment()).setCancelView(true);
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
@@ -120,7 +119,7 @@ public class FavoriteActivityFragment extends Fragment {
                                 ((MainActivity)getActivity()).setTapMove(6, true);
                             }
                         });
-                        ((FavoriteFragment)getParentFragment()).setCancelView(false);
+                        ((FavoriteFragment)getParentFragment()).isdelete(false);
                         getFavorite();
                     }
                 } catch (Exception e) {
@@ -177,6 +176,10 @@ public class FavoriteActivityFragment extends Fragment {
                                     entry.getInt("coupon_count")
                             ));
                         }
+                        ((FavoriteFragment)getParentFragment()).isdelete(true);
+                    }
+                    else{
+                        ((FavoriteFragment)getParentFragment()).isdelete(false);
                     }
                     adapter.notifyDataSetChanged();
                     new Handler().postDelayed(new Runnable() {
@@ -321,6 +324,13 @@ public class FavoriteActivityFragment extends Fragment {
                     init();
                 }
             },500);
+        }
+        if(((FavoriteFragment)getParentFragment()) != null) {
+            if (adapter != null && adapter.getCount() > 0) {
+                ((FavoriteFragment) getParentFragment()).isdelete(true);
+            } else {
+                ((FavoriteFragment) getParentFragment()).isdelete(false);
+            }
         }
     }
 

@@ -158,15 +158,6 @@ public class FavoriteFragment extends Fragment {
         });
     }
 
-    public void setCancelView(boolean isEmpty){
-        if(isEmpty) {
-            mFavoriteBinding.btnCancel.setVisibility(View.GONE);
-        }
-        else{
-            mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
-        }
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -175,6 +166,15 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public void isdelete(boolean isdelete){
+        if(isdelete){
+            mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
+        }
+        else{
+            mFavoriteBinding.btnCancel.setVisibility(View.GONE);
+        }
     }
 
     private void allDelete(final int tab){

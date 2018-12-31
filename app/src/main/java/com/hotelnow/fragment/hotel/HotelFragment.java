@@ -548,6 +548,9 @@ public class HotelFragment extends Fragment {
                 mTopItem.add(new TopItem(data.getStringExtra("city"), data.getStringExtra("city_code"), data.getStringExtra("subcity_code"), data.getStringExtra("ec_date"), data.getStringExtra("ee_date")));
                 adapter.setHeaderRefresh();
             }
+            else {
+                allRefresh();
+            }
         }
         else if(requestCode == 70){
             adapter.setAllRefresh();

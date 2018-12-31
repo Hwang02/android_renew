@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Rect;
@@ -12,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
@@ -81,6 +83,7 @@ public class SearchActivity extends Activity{
     String lat ="", lng="";
     ProgressDialog dialog;
     private DialogConfirm dialogConfirm;
+    private SharedPreferences _preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +91,7 @@ public class SearchActivity extends Activity{
 
         setContentView(R.layout.activity_search);
 
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         et_search = (EditText) findViewById(R.id.et_search);
         tv_search_word = (TextView) findViewById(R.id.tv_search_word);
         tv_popular_title = (TextView) findViewById(R.id.tv_popular_title);
@@ -204,51 +208,56 @@ public class SearchActivity extends Activity{
         lv_location.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                if(!_preferences.getBoolean("sel_push", false)) {
+                    dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialogConfirm.dismiss();
+                                }
+                            },
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                                    locationListener = new LocationListener() {
+                                        @Override
+                                        public void onLocationChanged(Location location) {
+                                            locManager.removeUpdates(locationListener);
+                                            CONFIG.lat = location.getLatitude() + "";
+                                            CONFIG.lng = location.getLongitude() + "";
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                                            intent.putExtra("order_kind", "distance");
+                                            startActivityForResult(intent, 80);
+                                        }
 
-                dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogConfirm.dismiss();
-                    }
-                },
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                        locationListener = new LocationListener() {
-                            @Override
-                            public void onLocationChanged(Location location) {
-                                locManager.removeUpdates(locationListener);
-                                CONFIG.lat = location.getLatitude()+"";
-                                CONFIG.lng = location.getLongitude()+"";
-                                dialog.dismiss();
-                                Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                                intent.putExtra("order_kind", "distance");
-                                startActivityForResult(intent, 80);
-                            }
+                                        @Override
+                                        public void onStatusChanged(String provider, int status, Bundle extras) {
 
-                            @Override
-                            public void onStatusChanged(String provider, int status, Bundle extras) {
+                                        }
 
-                            }
+                                        @Override
+                                        public void onProviderEnabled(String provider) {
 
-                            @Override
-                            public void onProviderEnabled(String provider) {
+                                        }
 
-                            }
+                                        @Override
+                                        public void onProviderDisabled(String provider) {
 
-                            @Override
-                            public void onProviderDisabled(String provider) {
+                                        }
+                                    };
+                                    getMyLocation();
+                                    dialogConfirm.dismiss();
+                                    Util.setPreferenceValues(_preferences, "sel_push", true);
+                                }
+                            });
 
-                            }
-                        };
-                        getMyLocation();
-                        dialogConfirm.dismiss();
-                    }
-                });
-
-                dialogConfirm.show();
+                    dialogConfirm.show();
+                }
+                else{
+                    getMyLocation();
+                }
             }
         });
 
