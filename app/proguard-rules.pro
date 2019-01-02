@@ -31,10 +31,14 @@
 #-keep class android.databinding.** { *; }
 #-keepnames class * implements java.io.Serializable
 #-dontobfuscate
-#-keepattributes SoureFile,LineNumberTable   #소스파일, 라인 전보 유지
-#-dontwarn okio.**
-
-
+-keepattributes SoureFile,LineNumberTable   #소스파일, 라인 전보 유지
+-dontwarn okio.**
+-dontwarn com.squareup.okhttp.**
+-dontwarn com.squareup.picasso.Transformation
+-keep public class android.support.design.widget.BottomNavigationView { *; }
+-keep public class android.support.design.internal.BottomNavigationMenuView { *; }
+-keep public class android.support.design.internal.BottomNavigationPresenter { *; }
+-keep public class android.support.design.internal.BottomNavigationItemView { *; }
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile

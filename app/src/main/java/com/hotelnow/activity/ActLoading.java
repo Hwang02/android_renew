@@ -84,7 +84,7 @@ public class ActLoading extends Activity {
         if (!found) {
             String[] places = { "/sbin/", "/system/bin/", "/system/xbin/",
                     "/data/local/xbin/", "/data/local/bin/",
-                    "/system/sd/xbin/", "/system/bin/failsafe/", "/data/local/" };
+                    "/system/sd/xbin/", "/system/bin/failsafe/"};
             for (String where : places) {
                 if (new File(where + "su").exists()) {
                     found = true;

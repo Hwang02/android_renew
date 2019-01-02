@@ -19,13 +19,13 @@ android {
         applicationId "com.hotelnow"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 230
-        versionName "4.31"
+        versionCode 231
+        versionName "4.32"
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug{
