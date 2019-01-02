@@ -1007,7 +1007,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                         m_countView.setText(markNowPosition+1+"/"+PAGES+" + ");
                         markPrevPosition = markNowPosition;
                     } catch (Exception e) {
-                        Util.doRestart(getApplicationContext());
+//                        Util.doRestart(getApplicationContext());
                     }
                 }
 
@@ -1023,7 +1023,7 @@ public class DetailActivityActivity extends AppCompatActivity {
             });
         } catch (Exception e) {
             e.getStackTrace();
-            Util.doRestart(getApplicationContext());
+//            Util.doRestart(getApplicationContext());
         }
 
         nowPosition = FIRST_PAGE;

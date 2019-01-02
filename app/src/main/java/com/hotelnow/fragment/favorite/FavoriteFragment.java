@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.hotelnow.R;
 import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.CalendarSingleActivity;
+import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentFavoriteBinding;
 import com.hotelnow.dialog.DialogConfirm;

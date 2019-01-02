@@ -257,7 +257,6 @@ public class MainActivity extends FragmentActivity {
                     Intent intentticket = new Intent(this, DetailActivityActivity.class);
                     intentticket.putExtra("tid", String.valueOf(evtidx));
                     intentticket.putExtra("save", true);
-                    startActivityForResult(intentticket, 80);
                     startActivity(intentticket);
                 }
             }
@@ -453,11 +452,7 @@ public class MainActivity extends FragmentActivity {
         });
     }
     public static void hideProgress(){
-        try {
-            mbinding.wrapper.setVisibility(View.GONE);
-        } catch (Exception e){
-            Util.doRestart(mContext);
-        }
+        mbinding.wrapper.setVisibility(View.GONE);
     }
 
     public void setTapMove(int mPosition, boolean isMove){

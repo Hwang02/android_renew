@@ -108,6 +108,7 @@ public class ReservationHotelFragment extends Fragment {
                             mlist.setEmptyView(getView().findViewById(R.id.reserv_view));
                             getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
                             getView().findViewById(R.id.login_view).setVisibility(View.GONE);
+                            CONFIG.Mypage_Search = false;
                         }
                         main_view.setBackgroundResource(R.color.white);
                         btn_go_login.setOnClickListener(new OnSingleClickListener() {

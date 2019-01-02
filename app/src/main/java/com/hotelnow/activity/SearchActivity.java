@@ -377,7 +377,7 @@ public class SearchActivity extends Activity{
                         mHotelAuto.add(new SearchAutoitem(
                                 "N",
                                 "",
-                                "검색 결과가 없습니다.",
+                                "일치하는 상품이 없습니다.",
                                 "",
                                 "",
                                 ""
@@ -387,7 +387,7 @@ public class SearchActivity extends Activity{
                         mActivityAuto.add(new SearchAutoitem(
                                 "N",
                                 "",
-                                "검색 결과가 없습니다.",
+                                "일치하는 상품이 없습니다.",
                                 "",
                                 "",
                                 ""

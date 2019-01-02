@@ -133,7 +133,7 @@ public class MapHotelActivity extends AppCompatActivity {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(MapHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
 
             }
 

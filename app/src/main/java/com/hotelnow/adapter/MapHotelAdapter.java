@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,8 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.thebrownarrow.model.SearchResultItem;
@@ -94,6 +98,16 @@ public class MapHotelAdapter  extends PagerAdapter {
             }
         });
         container.addView(itemView);
+
+        main_board.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(context, DetailHotelActivity.class);
+                intent.putExtra("hid", arr_LocationList.get(position).getHotel_id());
+                intent.putExtra("save", true);
+                context.startActivity(intent);
+            }
+        });
 
         if(position == arr_LocationList.size()-2){
             ((MapHotelActivity)context).getSearch();

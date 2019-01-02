@@ -101,7 +101,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(MapAcvitityActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MapAcvitityActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -203,6 +203,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
     }
 
     public void getSearch(){
@@ -329,10 +330,12 @@ public class MapAcvitityActivity extends AppCompatActivity {
                     if (event_pager.getVisibility() != View.VISIBLE) {
 
                         event_pager.startAnimation(slide_in_up);
+                        ll_count.startAnimation(slide_in_up);
                         slide_in_up.setAnimationListener(new Animation.AnimationListener() {
                             @Override
                             public void onAnimationStart(Animation arg0) {
                                 event_pager.setVisibility(View.VISIBLE);
+                                ll_count.setVisibility(View.VISIBLE);
                             }
 
                             @Override
@@ -360,7 +363,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
                     if (event_pager.getVisibility() == View.VISIBLE) {
                         event_pager.startAnimation(slide_out_down);
-
+                        ll_count.startAnimation(slide_out_down);
                         slide_out_down.setAnimationListener(new Animation.AnimationListener() {
                             @Override
                             public void onAnimationStart(Animation arg0) {
@@ -375,6 +378,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
                             @Override
                             public void onAnimationEnd(Animation arg0) {
                                 event_pager.setVisibility(View.GONE);
+                                ll_count.setVisibility(View.GONE);
+                                ll_count.clearAnimation();
                                 event_pager.clearAnimation();
                             }
                         });
