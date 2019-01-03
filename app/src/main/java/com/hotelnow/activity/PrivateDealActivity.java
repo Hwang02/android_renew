@@ -130,6 +130,7 @@ public class PrivateDealActivity extends FragmentActivity {
             intent.putExtra("accepted_price", accepted_price);
             intent.putExtra("bid_id", bid_id);
             startActivityForResult(intent, 100);
+            finish();
         }
 
         @JavascriptInterface
@@ -175,16 +176,16 @@ public class PrivateDealActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
+        super.onBackPressed();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK){
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     @Override
     public void onStart() {

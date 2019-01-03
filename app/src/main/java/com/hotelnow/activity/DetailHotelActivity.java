@@ -99,12 +99,12 @@ public class DetailHotelActivity extends AppCompatActivity {
     private String mAddress, hotel_name, city;
     private Toolbar toolbar;
     private AppBarLayout app_bar;
-    private static int PAGES = 0;
-    private static int LOOPS = 1000;
-    private static int FIRST_PAGE = 0;
-    private static int nowPosition = 0;
-    public static int markNowPosition = 0;
-    private static int markPrevPosition = 0;
+    private int PAGES = 0;
+    private int LOOPS = 1000;
+    private int FIRST_PAGE = 0;
+    private int nowPosition = 0;
+    private int markNowPosition = 0;
+    private int markPrevPosition = 0;
     private MyPagerAdapter mPagerAdapter;
     private SharedPreferences _preferences;
     private String cookie;
@@ -1557,6 +1557,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         else if(isLogin){
             setResult(110);
         }
+        mViewPager.stopAutoScroll();
         finish();
     }
 

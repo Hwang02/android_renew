@@ -28,7 +28,7 @@
 				android:textColor="@color/purple"
 				android:gravity="center"
 				android:ellipsize="end"
-				android:text="예약 내역" />
+				android:text="예약내역" />
 
 			<View
 				android:layout_width="match_parent"

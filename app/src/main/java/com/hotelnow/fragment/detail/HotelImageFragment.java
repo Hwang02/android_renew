@@ -24,7 +24,7 @@ public class HotelImageFragment extends Fragment {
         b.putString("url", url);
         b.putString("hid", hid);
         b.putString("caption", caption);
-
+        b.putInt("pos", pos);
         return Fragment.instantiate(context, HotelImageFragment.class.getName(), b);
     }
 
@@ -44,7 +44,7 @@ public class HotelImageFragment extends Fragment {
         String caption = this.getArguments().getString("caption");
 
         hid = this.getArguments().getString("hid");
-        idx = DetailHotelActivity.markNowPosition;
+        idx = this.getArguments().getInt("pos");
 
         return wrap;
     }

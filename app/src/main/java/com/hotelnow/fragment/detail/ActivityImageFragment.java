@@ -26,6 +26,7 @@ public class ActivityImageFragment extends Fragment {
         b.putString("tid", tid);
         b.putStringArray("imgs", imgs);
         b.putInt("img_size",total_cnt);
+        b.putInt("pos",pos);
 
         return Fragment.instantiate(context, ActivityImageFragment.class.getName(), b);
     }
@@ -47,7 +48,7 @@ public class ActivityImageFragment extends Fragment {
         niv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         hid = this.getArguments().getString("hid");
-        idx = DetailHotelActivity.markNowPosition;
+        idx = this.getArguments().getInt("pos");
 
         return wrap;
     }

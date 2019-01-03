@@ -243,8 +243,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
-            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
-            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
+//            LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+//            linearSnapHelper.attachToRecyclerView(holder.recyclerView);
         }
     }
 

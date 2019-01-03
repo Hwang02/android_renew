@@ -83,12 +83,12 @@ public class DetailActivityActivity extends AppCompatActivity {
     private String InfoImgs[];
     private int pager_cnt=0;
     private int info_cnt=0;
-    public static int PAGES = 0;
-    public static int LOOPS = 1000;
-    public static int FIRST_PAGE = 0;
-    public static int nowPosition = 0;
-    public static int markNowPosition = 0;
-    public static int markPrevPosition = 0;
+    private int PAGES = 0;
+    private int LOOPS = 1000;
+    private int FIRST_PAGE = 0;
+    private int nowPosition = 0;
+    private int markNowPosition = 0;
+    private int markPrevPosition = 0;
     private TicketPagerAdapter mPagerAdapter;
     private ViewPagerCustom mViewPager;
     private LinearLayout room_list, coupon_list, btn_more_detail, info_list, btn_more_review;
@@ -491,41 +491,41 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     TextView group_info = (TextView) view_product.findViewById(R.id.group_info);
                                     if (!options.getJSONObject(i).getString("group_id").equals("null")) {
                                         if (deal_option_group.getJSONObject(j).getInt("id") == options.getJSONObject(i).getInt("group_id")) {
-                                            minus.setTag(j);
+                                            minus.setTag(i);
                                             minus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                                    int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
-                                                    if(cnt == 0){
-                                                        item_cnt.setText(0 + "장");
-                                                        sel_list.get((int)v.getTag()).setmCnt(0);
-                                                        v.setBackgroundResource(R.drawable.numeric_m_disabled);
-                                                    }else if(cnt > 0) {
-                                                        item_cnt.setText(cnt + "장");
-                                                        sel_list.get((int) v.getTag()).setmCnt(cnt);
-                                                        plus.setBackgroundResource(R.drawable.numeric_p_enabled);
+                                                    if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
+                                                        int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
+                                                        if(cnt == 0){
+                                                            item_cnt.setText(0 + "장");
+                                                            sel_list.get((int)v.getTag()).setmCnt(0);
+                                                            v.setBackgroundResource(R.drawable.numeric_m_disabled);
+                                                        }else if(cnt > 0) {
+                                                            item_cnt.setText(cnt + "장");
+                                                            sel_list.get((int) v.getTag()).setmCnt(cnt);
+                                                            plus.setBackgroundResource(R.drawable.numeric_p_enabled);
+                                                        }
                                                     }
                                                 }
-                                                }
                                             });
-                                            plus.setTag(j);
+                                            plus.setTag(i);
                                             plus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                                    int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
-                                                    if(cnt == 10){
-                                                        item_cnt.setText(10 + "장");
-                                                        sel_list.get((int)v.getTag()).setmCnt(10);
-                                                        v.setBackgroundResource(R.drawable.numeric_p_disabled);
+                                                    if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
+                                                        int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
+                                                        if(cnt == 10){
+                                                            item_cnt.setText(10 + "장");
+                                                            sel_list.get((int)v.getTag()).setmCnt(10);
+                                                            v.setBackgroundResource(R.drawable.numeric_p_disabled);
+                                                        }
+                                                        else if(cnt < 11){
+                                                            item_cnt.setText(cnt + "장");
+                                                            sel_list.get((int) v.getTag()).setmCnt(cnt);
+                                                            minus.setBackgroundResource(R.drawable.numeric_m_enabled);
+                                                        }
                                                     }
-                                                    else if(cnt < 11){
-                                                        item_cnt.setText(cnt + "장");
-                                                        sel_list.get((int) v.getTag()).setmCnt(cnt);
-                                                        minus.setBackgroundResource(R.drawable.numeric_m_enabled);
-                                                    }
-                                                }
                                                 }
                                             });
 

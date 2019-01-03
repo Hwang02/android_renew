@@ -142,6 +142,7 @@ public class ReservationActivityActivity extends Activity {
     private LinearLayout ll_coupon;
     private int save_price = 0;
     private DialogConfirm dialogConfirm;
+    private TextView real_title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -187,7 +188,9 @@ public class ReservationActivityActivity extends Activity {
         ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
         btn_phone = (LinearLayout) findViewById(R.id.btn_phone);
+        real_title = (TextView) findViewById(R.id.real_title);
 
+        real_title.setText("상품가");
 
         cookie = _preferences.getString("userid", null);
 
@@ -423,7 +426,7 @@ public class ReservationActivityActivity extends Activity {
 
                         int real_price = booking_data.getInt("total_normal_price");
                         sale_price = booking_data.getInt("total_sale_price");
-                        save_price = real_price - sale_price;
+//                        save_price = real_price - sale_price;
 
                         TextView fee_text = (TextView)findViewById(R.id.fee_text);
                         Spanned fee_tmp = Html.fromHtml(booking_data.getString("fee").replaceAll("\n", "<br>"));
@@ -749,8 +752,8 @@ public class ReservationActivityActivity extends Activity {
                         }
 
                         // 금액
-                        tv_discount_price.setText("-"+nf.format(save_price)+"원");
-                        tv_real_price.setText(nf.format(real_price)+"원");
+                        tv_discount_price.setText("-0원");
+                        tv_real_price.setText(nf.format(sale_price)+"원");
                         tv_total_price.setText(nf.format(sale_price)+"원");
 
                         // 결제 정보

@@ -236,12 +236,12 @@ public class ReservationActivity extends Activity {
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000 ) {
                     if(reserve_money < Integer.parseInt(point_discount.getText().toString())){
-                        point_discount.setText("");
+                        point_discount.setText(reserve_money+"");
                         Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(sale_price < Integer.parseInt(point_discount.getText().toString())){
-                        point_discount.setText("");
+                        point_discount.setText(sale_price+"");
                         Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -442,6 +442,7 @@ public class ReservationActivity extends Activity {
                         private_money = private_sale_price;
                         private_discount.setText("-"+Util.numberFormat(private_money) + "원");
                         save_price = private_money;
+                        sale_price = sale_price - private_money;
                     }
                     else {
                         ll_private.setVisibility(View.GONE);
