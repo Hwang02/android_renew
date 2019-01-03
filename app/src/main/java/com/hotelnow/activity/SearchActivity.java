@@ -208,7 +208,7 @@ public class SearchActivity extends Activity{
         lv_location.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if(!_preferences.getBoolean("sel_push", false)) {
+                if(!_preferences.getBoolean("sel_location", false)) {
                     dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
                             new View.OnClickListener() {
                                 @Override
@@ -249,7 +249,7 @@ public class SearchActivity extends Activity{
                                     };
                                     getMyLocation();
                                     dialogConfirm.dismiss();
-                                    Util.setPreferenceValues(_preferences, "sel_push", true);
+                                    Util.setPreferenceValues(_preferences, "sel_location", true);
                                 }
                             });
 
@@ -776,7 +776,7 @@ public class SearchActivity extends Activity{
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(SearchActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SearchActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
                 CONFIG.lat = "37.506799";
                 CONFIG.lng = "127.066288";
             }

@@ -154,7 +154,7 @@ public class HotelSearchFragment extends Fragment {
         if(!TextUtils.isEmpty(order_kind)){
             url +="&order_kind="+order_kind;
             if(order_kind.equals("distance")){
-                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng+"&location_go=Y";
             }
         }
 

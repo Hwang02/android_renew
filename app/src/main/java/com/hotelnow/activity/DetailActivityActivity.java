@@ -491,41 +491,41 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     TextView group_info = (TextView) view_product.findViewById(R.id.group_info);
                                     if (!options.getJSONObject(i).getString("group_id").equals("null")) {
                                         if (deal_option_group.getJSONObject(j).getInt("id") == options.getJSONObject(i).getInt("group_id")) {
-                                            minus.setTag(i);
+                                            minus.setTag(j);
                                             minus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                                        int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
-                                                        if(cnt == 0){
-                                                            item_cnt.setText(0 + "장");
-                                                            sel_list.get((int)v.getTag()).setmCnt(0);
-                                                            v.setBackgroundResource(R.drawable.numeric_m_disabled);
-                                                        }else if(cnt > 0) {
-                                                            item_cnt.setText(cnt + "장");
-                                                            sel_list.get((int) v.getTag()).setmCnt(cnt);
-                                                            plus.setBackgroundResource(R.drawable.numeric_p_enabled);
-                                                        }
+                                                if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
+                                                    int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
+                                                    if(cnt == 0){
+                                                        item_cnt.setText(0 + "장");
+                                                        sel_list.get((int)v.getTag()).setmCnt(0);
+                                                        v.setBackgroundResource(R.drawable.numeric_m_disabled);
+                                                    }else if(cnt > 0) {
+                                                        item_cnt.setText(cnt + "장");
+                                                        sel_list.get((int) v.getTag()).setmCnt(cnt);
+                                                        plus.setBackgroundResource(R.drawable.numeric_p_enabled);
                                                     }
                                                 }
+                                                }
                                             });
-                                            plus.setTag(i);
+                                            plus.setTag(j);
                                             plus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                                        int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
-                                                        if(cnt == 10){
-                                                            item_cnt.setText(10 + "장");
-                                                            sel_list.get((int)v.getTag()).setmCnt(10);
-                                                            v.setBackgroundResource(R.drawable.numeric_p_disabled);
-                                                        }
-                                                        else if(cnt < 11){
-                                                            item_cnt.setText(cnt + "장");
-                                                            sel_list.get((int) v.getTag()).setmCnt(cnt);
-                                                            minus.setBackgroundResource(R.drawable.numeric_m_enabled);
-                                                        }
+                                                if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
+                                                    int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
+                                                    if(cnt == 10){
+                                                        item_cnt.setText(10 + "장");
+                                                        sel_list.get((int)v.getTag()).setmCnt(10);
+                                                        v.setBackgroundResource(R.drawable.numeric_p_disabled);
                                                     }
+                                                    else if(cnt < 11){
+                                                        item_cnt.setText(cnt + "장");
+                                                        sel_list.get((int) v.getTag()).setmCnt(cnt);
+                                                        minus.setBackgroundResource(R.drawable.numeric_m_enabled);
+                                                    }
+                                                }
                                                 }
                                             });
 

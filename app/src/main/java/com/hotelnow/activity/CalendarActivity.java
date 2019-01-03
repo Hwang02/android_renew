@@ -46,6 +46,7 @@ public class CalendarActivity extends Activity{
     private String lodge_type;
     private String city, city_code, subcity_code;
     private Date today;
+    private String strdate, strdate2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,9 +59,9 @@ public class CalendarActivity extends Activity{
         checkout_date = (TextView) findViewById(R.id.checkout_date);
         check_inout_count = (TextView) findViewById(R.id.check_inout_count);
         btn_complate = (Button) findViewById(R.id.btn_complate);
-        btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
-        btn_complate.setClickable(false);
-        btn_complate.setEnabled(false);
+//        btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
+//        btn_complate.setClickable(false);
+//        btn_complate.setEnabled(false);
 
         Date dateObj = new Date();
 
@@ -95,8 +96,8 @@ public class CalendarActivity extends Activity{
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         Intent intent = getIntent();
 
-        String strdate = intent.getStringExtra("ec_date");
-        String strdate2 = intent.getStringExtra("ee_date");
+        strdate = intent.getStringExtra("ec_date");
+        strdate2 = intent.getStringExtra("ee_date");
         selectList = intent.getStringArrayExtra("selectList");
         lodge_type = intent.getStringExtra("lodge_type");
 
@@ -268,8 +269,14 @@ public class CalendarActivity extends Activity{
             public void onSingleClick(View v) {
 
                 Intent intent = new Intent();
-                intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
-                intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
+                if(TextUtils.isEmpty(selected_checkin_date) || TextUtils.isEmpty(selected_checkout_date)){
+                    intent.putExtra("ec_date", strdate);
+                    intent.putExtra("ee_date", strdate2);
+                }
+                else {
+                    intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
+                    intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
+                }
                 intent.putExtra("city", TextUtils.isEmpty(city) ? "" : city);
                 intent.putExtra("city_code", TextUtils.isEmpty(city_code) ? "" : city_code);
                 intent.putExtra("subcity_code", TextUtils.isEmpty(subcity_code) ? "" : subcity_code);

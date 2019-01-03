@@ -229,7 +229,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:text="@string/calendar_complate"
-            android:background="@drawable/cal_unactive_round"
+            android:background="@drawable/cal_active_round"
             android:textColor="@color/white"
             style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>

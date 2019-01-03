@@ -236,7 +236,12 @@ public class ReservationActivity extends Activity {
             public void onClick(View v) {
                 if(!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000 ) {
                     if(reserve_money < Integer.parseInt(point_discount.getText().toString())){
-                        point_discount.setText(reserve_money+"");
+                        point_discount.setText("");
+                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(sale_price < Integer.parseInt(point_discount.getText().toString())){
+                        point_discount.setText("");
                         Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }

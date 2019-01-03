@@ -234,8 +234,8 @@ public class ReservationActivityDetailActivity extends Activity {
                     hotel_name.setText(info.getString("deal_name"));
                     hotel_room_name.setText(info.getString("total_ticket_count_display"));
                     Ion.with(iv_img).load(info.getString("img_url"));
-                    tv_username.setText(booking_info.getString("user_name"));
-                    tv_usertel.setText(booking_info.getString("user_phone"));
+                    tv_username.setText(booking_info.getString("use_user_name"));
+                    tv_usertel.setText(booking_info.getString("use_user_phone"));
 
                     hotel_id = info.getString("deal_id");
                     lat = info.getString("latitude");
