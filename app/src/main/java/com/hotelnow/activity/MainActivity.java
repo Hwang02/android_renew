@@ -459,7 +459,6 @@ public class MainActivity extends FragmentActivity {
         transaction = getSupportFragmentManager().beginTransaction();
         switch (mPosition){
             case SELECTPAGE:{
-                moveTabRefresh();
                 tabStatus(true);
                 if(isMove) {
                     new Handler().postDelayed(
@@ -505,6 +504,7 @@ public class MainActivity extends FragmentActivity {
             }
             case FAVPAGE:{
                 tabStatus(false);
+                CONFIG.isRecent = true;
                 if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
