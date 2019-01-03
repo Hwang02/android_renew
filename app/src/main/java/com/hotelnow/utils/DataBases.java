@@ -61,7 +61,7 @@ public class DataBases {
                         +_ID+" integer primary key autoincrement, "
                         +sel_id+" text not null , "
                         +sel_option+" text not null , "
-                        +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
+                        +created_date+" DATETIME DEFAULT (datetime('now','localtime')));";
     }
 
     // 최근 본 지역 리스트
@@ -80,7 +80,7 @@ public class DataBases {
                         +sel_subcity_id+" text , "
                         +sel_subcity_ko+" text , "
                         +sel_option+" text not null , "
-                        +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
+                        +created_date+" DATETIME DEFAULT (datetime('now','localtime')));";
     }
 
     // 최근 검색어
@@ -94,7 +94,7 @@ public class DataBases {
                         +_ID+" integer primary key autoincrement, "
                         +keyid+" text not null , "
                         +keyword+" text not null , "
-                        +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
+                        +created_date+" DATETIME DEFAULT (datetime('now','localtime')));";
     }
 
     // 관심상품
@@ -108,7 +108,7 @@ public class DataBases {
                         +_ID+" integer primary key autoincrement, "
                         +keyid+" text not null , "
                         +type+" text not null , "
-                        +created_date+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";
+                        +created_date+" DATETIME DEFAULT (datetime('now','localtime')));";
     }
 
 }

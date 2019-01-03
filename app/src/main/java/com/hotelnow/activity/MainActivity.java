@@ -459,6 +459,7 @@ public class MainActivity extends FragmentActivity {
         transaction = getSupportFragmentManager().beginTransaction();
         switch (mPosition){
             case SELECTPAGE:{
+                moveTabRefresh();
                 tabStatus(true);
                 if(isMove) {
                     new Handler().postDelayed(

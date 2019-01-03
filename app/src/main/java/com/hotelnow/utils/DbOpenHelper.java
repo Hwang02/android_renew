@@ -104,14 +104,27 @@ public class DbOpenHelper {
         List<SearchKeyWordItem> items = new ArrayList<SearchKeyWordItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword", "keyid" }, null, null, null, null, _ID+" desc");
-
+            //1시간 뒤 2019-01-03 08:22:34
+//            String where = "created_date > datetime('now', 'localtime', '-1 hour')";
+//            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword", "keyid","created_date" }, where, null, null, null, _ID+" desc");
+//            SELECT _id, keyword, keyid, created_date FROM search_recent WHERE created_date > datetime('now', 'localtime', '-1 hour') ORDER BY _id desc
+//            String sql = "DELETE FROM "+ DataBases.Keyword_CreateDB._TABLENAME +" WHERE created_date < Datetime('now', 'localtime', '-30 minute')";
+//            mDB.execSQL(sql);
+//            String where = "created_date < '" + Util.getCheckTime() + "'";
+//            mDB.delete(DataBases.Keyword_CreateDB._TABLENAME, where, null);
+            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword", "keyid", "created_date" }, null, null, null, null, _ID+" desc");
+//
             if(cur.moveToFirst()) {
                 do {
-                    items.add(new SearchKeyWordItem(
-                            cur.getInt(cur.getColumnIndex(_ID)),
-                            cur.getString(cur.getColumnIndex("keyword"))
-                    ));
+                    if(Util.getCheckTime() > Util.getStringToLong(cur.getString(cur.getColumnIndex("created_date")))) {
+                        deleteKeyword(String.valueOf(cur.getInt(cur.getColumnIndex(_ID))),false);
+                    }
+                    else {
+                        items.add(new SearchKeyWordItem(
+                                cur.getInt(cur.getColumnIndex(_ID)),
+                                cur.getString(cur.getColumnIndex("keyword"))
+                        ));
+                    }
                 }
                 while(cur.moveToNext());
             }
@@ -489,18 +502,28 @@ public class DbOpenHelper {
         List<RecentCityItem> items = new ArrayList<RecentCityItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "sel_city_id", "sel_city_ko", "sel_subcity_id", "sel_subcity_ko", "sel_option" }, "sel_option = '" + option + "'",
+            cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "sel_city_id", "sel_city_ko", "sel_subcity_id", "sel_subcity_ko", "sel_option", "created_date" }, "sel_option = '" + option + "'",
                     null, null, null, "created_date desc");
 
             if(cur.moveToFirst()) {
                 do {
-                    items.add(new RecentCityItem(
-                            cur.getString(cur.getColumnIndex("sel_city_id")),
-                            cur.getString(cur.getColumnIndex("sel_city_ko")),
-                            cur.getString(cur.getColumnIndex("sel_subcity_id")),
-                            cur.getString(cur.getColumnIndex("sel_subcity_ko")),
-                            cur.getString(cur.getColumnIndex("sel_option"))
-                    ));
+                    if(Util.getCheckTime() > Util.getStringToLong(cur.getString(cur.getColumnIndex("created_date")))) {
+                        if(option.equals("H")) {
+                            deleteRecentCity2(cur.getString(cur.getColumnIndex("sel_subcity_id")));
+                        }
+                        else{
+                            deleteRecentCity2(cur.getString(cur.getColumnIndex("sel_city_id")));
+                        }
+                    }
+                    else {
+                        items.add(new RecentCityItem(
+                                cur.getString(cur.getColumnIndex("sel_city_id")),
+                                cur.getString(cur.getColumnIndex("sel_city_ko")),
+                                cur.getString(cur.getColumnIndex("sel_subcity_id")),
+                                cur.getString(cur.getColumnIndex("sel_subcity_ko")),
+                                cur.getString(cur.getColumnIndex("sel_option"))
+                        ));
+                    }
                 }
                 while(cur.moveToNext());
             }
@@ -513,6 +536,19 @@ public class DbOpenHelper {
             close();
         }
         return items;
+    }
+
+    /**
+     * 최근 선택 지역 리스트 - DELETE
+     *
+     * @return
+     */
+    public void deleteRecentCity2(String sel_subcity_id) {
+        open();
+
+        mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME,"sel_subcity_id = '" + sel_subcity_id + "'", null);
+
+        close();
     }
 
     /**
@@ -573,17 +609,20 @@ public class DbOpenHelper {
         List<RecentItem> items = new ArrayList<RecentItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id", "sel_option"}, null,
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id", "sel_option", "created_date"}, null,
                     null, null, null, "created_date desc", count);
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
-                    items.add(new RecentItem(
-                            cur.getString(cur.getColumnIndex("sel_id")),
-                            cur.getString(cur.getColumnIndex("sel_option"))
-                    ));
-                }
-                while(cur.moveToNext());
+                    if (Util.getCheckTime() > Util.getStringToLong(cur.getString(cur.getColumnIndex("created_date")))) {
+                        deleteRecentItem(cur.getString(cur.getColumnIndex("sel_id")));
+                    } else {
+                        items.add(new RecentItem(
+                                cur.getString(cur.getColumnIndex("sel_id")),
+                                cur.getString(cur.getColumnIndex("sel_option"))
+                        ));
+                    }
+                } while (cur.moveToNext());
             }
         }
         catch(Exception ex) {}
@@ -594,6 +633,19 @@ public class DbOpenHelper {
             close();
         }
         return items;
+    }
+
+    /**
+     *  최근 본 상품 - DELETE
+     *
+     * @return
+     */
+    public void deleteRecentItem(String sel_id) {
+        open();
+        String where = " sel_id = '" + sel_id + "'";
+        mDB.delete(DataBases.RecentList_CreateDB._TABLENAME,where, null);
+
+        close();
     }
 
     /**
