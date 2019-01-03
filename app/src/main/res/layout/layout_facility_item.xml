@@ -14,8 +14,8 @@
         android:background="@drawable/style_checkbox_filter">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="center"
             android:id="@+id/facility_icon"
             android:scaleType="fitXY"

@@ -469,6 +469,7 @@ public class DetailActivityActivity extends AppCompatActivity {
 //                    });
                     //가격정보
                     //그룹일경우
+                    int sel_count = 0;
                     if(deal_option_group.length() > 0){
                         View view_product = null;
                         room_list.removeAllViews();
@@ -491,7 +492,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                     TextView group_info = (TextView) view_product.findViewById(R.id.group_info);
                                     if (!options.getJSONObject(i).getString("group_id").equals("null")) {
                                         if (deal_option_group.getJSONObject(j).getInt("id") == options.getJSONObject(i).getInt("group_id")) {
-                                            minus.setTag(i);
+                                            minus.setTag(sel_count);
                                             minus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -509,7 +510,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                                     }
                                                 }
                                             });
-                                            plus.setTag(i);
+                                            plus.setTag(sel_count);
                                             plus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -528,7 +529,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                                     }
                                                 }
                                             });
-
+                                            sel_count++;
                                             NumberFormat nf = NumberFormat.getNumberInstance();
                                             item_name.setText(options.getJSONObject(i).getString("name"));
                                             item_price.setText(nf.format(Integer.valueOf(options.getJSONObject(i).getString("sale_price"))) + "원 ");
