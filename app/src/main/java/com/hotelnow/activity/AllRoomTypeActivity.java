@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +56,7 @@ public class AllRoomTypeActivity extends Activity {
     private String lodge_type;
     private TextView date;
     private boolean is_date = false, isLogin = false;
+    private TextView tv_review_count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class AllRoomTypeActivity extends Activity {
 
         room_list = (LinearLayout) findViewById(R.id.room_list);
         bt_calendar = (RelativeLayout) findViewById(R.id.bt_calendar);
+        tv_review_count = (TextView) findViewById(R.id.tv_review_count);
 
         Intent intent  = getIntent();
         ec_date = intent.getStringExtra("sdate");
@@ -136,6 +141,11 @@ public class AllRoomTypeActivity extends Activity {
                     for(int i =0; i<avail_dates.length(); i++){
                         selectList[i] = avail_dates.get(i).toString();
                     }
+
+                    final String total_cnt = "총 " + Util.numberFormat(rdata.length()) + "개의 객실이 있습니다";
+                    SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
+                    builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 2, 2 + Util.numberFormat(rdata.length()).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tv_review_count.setText(builder);
 
                     privatedeal_status = obj.getInt("privatedeal_booking_status");
                     lodge_type = hotel_data.getString("lodge_type");

@@ -825,7 +825,9 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(myPosition == 0){
-            moveTabRefresh();
+            if(CONFIG.isRecent) {
+                moveTabRefresh();
+            }
         }
         else if(myPosition == 1) {
             moveTabRefresh2();

@@ -721,15 +721,20 @@ public class DetailHotelActivity extends AppCompatActivity {
                                     View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
                                     AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                                     TextView title = (TextView) info_view.findViewById(R.id.title);
-                                    title_sub.addAutoLinkMode(
-                                            AutoLinkMode.MODE_PHONE,
-                                            AutoLinkMode.MODE_URL);
-                                    title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
-                                    title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
-                                    Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n", "")));
-                                    Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
-                                    title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
-                                    title_sub.setText(sp);
+                                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                                        title_sub.addAutoLinkMode(
+                                                AutoLinkMode.MODE_PHONE,
+                                                AutoLinkMode.MODE_URL);
+                                        title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
+                                        title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
+                                        Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n", "")));
+                                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                                        title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                                        title_sub.setText(sp);
+                                    }
+                                    else{
+                                        title_sub.setText(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n", "")));
+                                    }
 
                                     title.setText(infolist.get(i).getmTitle());
                                     hotel_check_list.addView(info_view);

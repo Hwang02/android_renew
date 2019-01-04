@@ -263,8 +263,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             }
         } else{
             CONFIG.isRecent = false;
-            adapter.allRefresh(false);
-            if(isStart){
+            mRecentListItem.clear();
+            adapter.allRefresh(true);
+            if(isStart || mRecentItem.size() == 0){
+                mRecentListItem.clear();
                 objects.clear();
                 getObject();
             }

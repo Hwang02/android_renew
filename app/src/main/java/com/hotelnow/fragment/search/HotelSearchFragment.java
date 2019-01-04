@@ -580,7 +580,8 @@ public class HotelSearchFragment extends Fragment {
             }
             if(!TextUtils.isEmpty(CONFIG.sel_useperson)) {
                 LogUtil.e("xxxxx", CONFIG.sel_useperson);
-                person_count = CONFIG.sel_useperson.replace("0", "1").replace("3","5").replace("2", "3|4").replace("1", "2").replace("|", ",");
+
+                person_count = CONFIG.sel_useperson.replace("3","5").replace("2", "3|4").replace("1", "2").replace("0", "1").replace("|", ",");
                 filter_cnt++;
             }
             else{

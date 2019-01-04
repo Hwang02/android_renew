@@ -134,9 +134,7 @@ public class FavoriteFragment extends Fragment {
                         }
                     });
                 } else if (tab.getPosition() == 1) {
-                    mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
-                    mFavoriteBinding.tvDate.setVisibility(View.GONE);
-                    mFavoriteBinding.btnDate.setVisibility(View.GONE);
+                    mFavoriteBinding.viewFilter.setVisibility(View.GONE);
                 }
 
                 mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
@@ -171,10 +169,10 @@ public class FavoriteFragment extends Fragment {
 
     public void isdelete(boolean isdelete){
         if(isdelete){
-            mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
+            mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
         }
         else{
-            mFavoriteBinding.btnCancel.setVisibility(View.GONE);
+            mFavoriteBinding.viewFilter.setVisibility(View.GONE);
         }
     }
 

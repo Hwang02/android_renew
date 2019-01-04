@@ -96,7 +96,7 @@ public class ActivitySearchActivity extends Activity {
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         title_search = (RelativeLayout) findViewById(R.id.title_search);
-        HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
+//        HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
 
         mlist.addHeaderView(HeaderView);
         adapter = new SearchLeisureAdapter(ActivitySearchActivity.this, 0, mItems, dbHelper);

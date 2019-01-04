@@ -880,31 +880,31 @@ public class Util {
         return format.format(calendar.getTime());
     }
 
-    // -1분전
-    public static long getCheckTime() {
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.MINUTE, -1);
-        cal.add(Calendar.DATE, 0);
-
-        return cal.getTime().getTime();
-    }
-
-    // -1분전
-    public static long getStringToLong(String st) {
-        final Calendar calendar = Calendar.getInstance();
-        final SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        final Date date;
-
-        try {
-            date = sdformat.parse(st);
-            calendar.setTime(date);
-            calendar.add(Calendar.DAY_OF_YEAR, 0);
-        } catch (Exception e) {}
-
-        return calendar.getTime().getTime();
-    }
+//    // -1분전
+//    public static long getCheckTime() {
+//        Date date = new Date();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(date);
+//        cal.add(Calendar.MINUTE, -1);
+//        cal.add(Calendar.DATE, 0);
+//
+//        return cal.getTime().getTime();
+//    }
+//
+//    // -1분전
+//    public static long getStringToLong(String st) {
+//        final Calendar calendar = Calendar.getInstance();
+//        final SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        final Date date;
+//
+//        try {
+//            date = sdformat.parse(st);
+//            calendar.setTime(date);
+//            calendar.add(Calendar.DAY_OF_YEAR, 0);
+//        } catch (Exception e) {}
+//
+//        return calendar.getTime().getTime();
+//    }
 
     public static void clearSearch(){
         CONFIG.sel_category = null;														// 검색가테고리

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -789,15 +790,21 @@ public class DetailActivityActivity extends AppCompatActivity {
                             View info_view = LayoutInflater.from(DetailActivityActivity.this).inflate(R.layout.layout_ticket_info, null);
                             AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                             TextView title = (TextView) info_view.findViewById(R.id.title);
-                            title_sub.addAutoLinkMode(
-                                    AutoLinkMode.MODE_PHONE,
-                                    AutoLinkMode.MODE_URL);
-                            title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
-                            title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
-                            Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
-                            Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
-                            title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
-                            title_sub.setText(sp);
+                            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                                title_sub.addAutoLinkMode(
+                                        AutoLinkMode.MODE_PHONE,
+                                        AutoLinkMode.MODE_URL);
+                                title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
+                                title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
+                                Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+                                Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                                title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                                title_sub.setText(sp);
+
+                            }
+                            else{
+                                title_sub.setText(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+                            }
                             title.setText(infolist.get(i).getmTitle());
 
                             info_list.addView(info_view);
