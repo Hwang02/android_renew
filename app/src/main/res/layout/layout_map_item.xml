@@ -96,12 +96,27 @@
                 android:textColor="@color/blacktxt"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/img_hotel"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:scaleType="fitXY"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/img_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/ico_titbar_favorite_active"/>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

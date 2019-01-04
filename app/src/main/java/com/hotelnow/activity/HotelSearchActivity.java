@@ -611,6 +611,10 @@ public class HotelSearchActivity extends Activity {
             setResult(100);
             finish();
         }
+
+        else if(requestCode == 90 && responseCode == 3000){
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void showToast(String msg){

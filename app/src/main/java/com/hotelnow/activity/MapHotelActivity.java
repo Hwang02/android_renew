@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ import com.hotelnow.R;
 import com.hotelnow.adapter.MapHotelAdapter;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.SmoothPager;
@@ -41,6 +45,7 @@ import com.thebrownarrow.customstyledmap.CustomMap;
 import com.thebrownarrow.model.SearchResultItem;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -63,12 +68,17 @@ public class MapHotelActivity extends AppCompatActivity {
     private int total_count=0;
     private String city, sub_city, search_txt, banner_id, ec_date, ee_date,category,facility,price_min,person_count,price_max,score,order_kind,city_name;
     private TextView title_text, subtitle_text;
+    DbOpenHelper dbHelper;
+    RelativeLayout toast_layout;
+    ImageView ico_favorite;
+    TextView tv_toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        dbHelper = new DbOpenHelper(this);
         Intent intent = getIntent();
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
@@ -94,6 +104,10 @@ public class MapHotelActivity extends AppCompatActivity {
         TextView total_item = (TextView)findViewById(R.id.total_item);
         TextView title_text = (TextView)findViewById(R.id.title_text);
         TextView subtitle_text = (TextView)findViewById(R.id.subtitle_text);
+        toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
+        ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
+        tv_toast = (TextView) findViewById(R.id.tv_toast);
+
         if(TextUtils.isEmpty(intent.getStringExtra("title_text"))){
             title_text.setText("숙소");
         }
@@ -118,7 +132,7 @@ public class MapHotelActivity extends AppCompatActivity {
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-//                setResult(90);
+                setResult(3000);
                 finish();
             }
         });
@@ -179,7 +193,7 @@ public class MapHotelActivity extends AppCompatActivity {
 
                 handleMap();
                 customMap.addCustomPin();
-                mapAdapter = new MapHotelAdapter(MapHotelActivity.this, latLngsArrayList);
+                mapAdapter = new MapHotelAdapter(MapHotelActivity.this, latLngsArrayList, dbHelper);
                 event_pager.setAdapter(mapAdapter);
                 event_pager.setClipToPadding(false);
                 event_pager.setOffscreenPageLimit(4);
@@ -443,5 +457,102 @@ public class MapHotelActivity extends AppCompatActivity {
             });
 
         }
+    }
+
+    public void setLike(final String s_id, boolean islike){
+        final String sel_id = s_id;
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("type", "stay");
+            paramObj.put("id", sel_id);
+        } catch(Exception e){
+            Log.e(CONFIG.TAG, e.toString());
+        }
+        if(islike){// 취소
+            Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(MapHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        LogUtil.e("xxxx", "찜하기 취소");
+                        showIconToast("관심 상품 담기 취소", false);
+                        mapAdapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+        else{// 성공
+            Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                @Override
+                public void onFailure(Response response, Exception throwable) {
+                    Toast.makeText(MapHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onSuccess(Map<String, String> headers, String body) {
+                    try {
+                        JSONObject obj = new JSONObject(body);
+                        if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                            showToast("로그인 후 이용해주세요");
+                            return;
+                        }
+
+                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        LogUtil.e("xxxx", "찜하기 성공");
+                        showIconToast("관심 상품 담기 성공", true);
+                        mapAdapter.notifyDataSetChanged();
+                    }catch (JSONException e){
+
+                    }
+                }
+            });
+        }
+    }
+
+    public void showToast(String msg){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+        findViewById(R.id.ico_favorite).setVisibility(View.GONE);
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
+    }
+
+    public void showIconToast(String msg, boolean is_fav){
+        toast_layout.setVisibility(View.VISIBLE);
+        tv_toast.setText(msg);
+
+        if(is_fav) { // 성공
+            ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+        }
+        else{ // 취소
+            ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
+        }
+        ico_favorite.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        toast_layout.setVisibility(View.GONE);
+                    }
+                }, 2000);
     }
 }

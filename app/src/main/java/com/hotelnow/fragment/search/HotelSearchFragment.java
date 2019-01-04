@@ -605,6 +605,10 @@ public class HotelSearchFragment extends Fragment {
         else if(requestCode == 50 && responseCode == 80){
             adapter.notifyDataSetChanged();
         }
+
+        else if(requestCode == 90 && responseCode == 3000){
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

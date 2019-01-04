@@ -15,6 +15,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.MapHotelActivity;
+import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
@@ -27,10 +28,12 @@ public class MapHotelAdapter  extends PagerAdapter {
 
     ArrayList<SearchResultItem> arr_LocationList;
     Context context;
+    DbOpenHelper dbHelper;
 
-    public MapHotelAdapter(Context context, ArrayList<SearchResultItem> arr_ExploreList) {
+    public MapHotelAdapter(Context context, ArrayList<SearchResultItem> arr_ExploreList, DbOpenHelper dbHelper) {
         this.context = context;
         this.arr_LocationList = arr_ExploreList;
+        this.dbHelper = dbHelper;
     }
 
     @Override
@@ -62,6 +65,8 @@ public class MapHotelAdapter  extends PagerAdapter {
         ImageView img_hotel = (ImageView) itemView.findViewById(R.id.img_hotel);
         View text_bar = (View) itemView.findViewById(R.id.text_bar);
         ImageView img_star = (ImageView) itemView.findViewById(R.id.img_star);
+        ImageView iv_favorite = (ImageView) itemView.findViewById(R.id.iv_favorite);
+        boolean islike = false;
 
         tv_name.setText(arr_LocationList.get(position).getName());
         tv_score.setText(arr_LocationList.get(position).getGrade_score());
@@ -98,6 +103,32 @@ public class MapHotelAdapter  extends PagerAdapter {
             }
         });
         container.addView(itemView);
+
+        if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+            for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
+                if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(arr_LocationList.get(position).getId())) {
+                    iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                    islike = true;
+                    break;
+                } else {
+                    iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+                    islike = false;
+                }
+            }
+        }
+        else{
+            iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
+            islike = false;
+        }
+
+        final boolean finalIslike = islike;
+        iv_favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.e("ggggg", arr_LocationList.get(position).getId()+"");
+                ((MapHotelActivity)context).setLike(arr_LocationList.get(position).getId(), finalIslike);
+            }
+        });
 
         main_board.setOnClickListener(new OnSingleClickListener() {
             @Override

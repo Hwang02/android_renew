@@ -320,7 +320,7 @@ public class ReservationActivity extends Activity {
                         point_discount.setText("");
                         save_price = private_money;
                         tv_discount_price.setText("-"+nf.format(save_price) +"원");
-                        tv_total_price.setText(nf.format(sale_price)+"원");
+                        tv_total_price.setText(nf.format(sale_price - save_price)+"원");
                         is_sel_point = false;
                         is_sel_coupon = false;
                         setSavePoint("","");
@@ -442,7 +442,6 @@ public class ReservationActivity extends Activity {
                         private_money = private_sale_price;
                         private_discount.setText("-"+Util.numberFormat(private_money) + "원");
                         save_price = private_money;
-                        sale_price = sale_price - private_money;
                     }
                     else {
                         ll_private.setVisibility(View.GONE);
@@ -696,7 +695,7 @@ public class ReservationActivity extends Activity {
                     // 금액
                     tv_discount_price.setText("-"+nf.format(save_price)+"원");
                     tv_real_price.setText(nf.format(sale_price)+"원");
-                    tv_total_price.setText(nf.format(sale_price)+"원");
+                    tv_total_price.setText(nf.format(sale_price - private_money)+"원");
 
                     // 적립금 포인트 지급관련
                     LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
