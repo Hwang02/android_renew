@@ -419,7 +419,13 @@ public class Util {
 
         return mDay;
     }
-//
+
+    public static String DateToString(Date date){
+        Date from = date;
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String to = transFormat.format(from);
+        return to;
+    }
 //    public static String todayFormat2(){
 //        String mDay = "";
 //        try {

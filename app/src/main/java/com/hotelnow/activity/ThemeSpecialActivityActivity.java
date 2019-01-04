@@ -171,10 +171,10 @@ public class ThemeSpecialActivityActivity extends Activity {
                         mThemeItem.add(new SearchResultItem(
                                 head.getString("id"),
                                 "",
-                                head.getString("title"),
+                                head.getString("subject"),
                                 "",
                                 "-1",
-                                head.getString("sub_title"),
+                                head.getString("detail"),
                                 "",
                                0,
                                 0,

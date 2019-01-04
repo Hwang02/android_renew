@@ -80,15 +80,28 @@ public class SearchResultActivity extends AppCompatActivity {
             title_text.setText("내 주변 바로보기");
         }
 
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
+        view_pager.setAdapter(mSectionsPagerAdapter);
+
         if(m_Selecttab == 0) {
             tabLayout.getTabAt(0).select();
+            view_pager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view_pager.setCurrentItem(0);
+                }
+            },100);
+
         }
         else {
             tabLayout.getTabAt(1).select();
+            view_pager.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view_pager.setCurrentItem(1);
+                }
+            },100);
         }
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
-        view_pager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

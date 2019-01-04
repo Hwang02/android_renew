@@ -234,20 +234,20 @@ public class MyCouponActivity extends Activity{
 
     public void getEmptyHeight(View empty_item){
 
-        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-        int height = dm.heightPixels;
-
-        header.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        footer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        (findViewById(R.id.toolbar)).measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int heightTop = header.getHeight();
-        int heightBottom = footer.getHeight();
-        int heightBar = (findViewById(R.id.toolbar)).getHeight();
-
-        int realHeight = height - heightTop - heightBottom - heightBar- Util.dptopixel(this, 26);
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) empty_item.getLayoutParams();
-        lp.height = realHeight;
-        empty_item.setLayoutParams(lp);
+//        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+//        int height = dm.heightPixels;
+//
+//        header.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        footer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        (findViewById(R.id.toolbar)).measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        int heightTop = header.getHeight();
+//        int heightBottom = footer.getHeight();
+//        int heightBar = (findViewById(R.id.toolbar)).getHeight();
+//
+//        int realHeight = height - heightTop - heightBottom - heightBar- Util.dptopixel(this, 26);
+//        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) empty_item.getLayoutParams();
+//        lp.height = realHeight;
+//        empty_item.setLayoutParams(lp);
     }
 
     @Override
