@@ -423,7 +423,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         tv_pay_bank_nm.setText(payment_info.getString("bank_name"));
                     }
                     else if(payment_info.getString("pay_type").equals("RESERVE")){
-                        tv_pay_type.setText("적립금");
+                        tv_pay_type.setText("적립금결제");
                     }
                     else if(payment_info.getString("pay_type").equals("FREE")){
                         tv_pay_type.setText("이벤트");

@@ -155,7 +155,7 @@
     <string name="paytype0">간편결제</string>
     <string name="paytype0_info_title">간편결제란?</string>
     <string name="paytype0_info_message"><font fgcolor="#4d267f">최초 1회 카드 등록</font> 후 결제하시면 이후 구매부터는 서명 한번으로 편하게 결제하실 수 있는 결제수단입니다\n\n 내정보에서 카드를 등록하여 사용하세요</string>
-    <string name="paytype3_info_message">법인, 일반 카드 결제 가능 <font fgcolor="#4d267f">(해외카드 제외)</font></string>
+    <string name="paytype3_info_message">법인, 일반 카드 결제 가능 (해외카드 제외)</string>
     <string name="paytype1">신용카드</string>
     <string name="paytype2">휴대폰결제</string>
     <string name="paytype3">ARS 결제</string>
@@ -217,7 +217,7 @@
     <string name="coupon_regist">등록</string>
     <string name="login_title">로그인</string>
     <string name="login_email">이메일 주소</string>
-    <string name="login_pw">비밀번호 4자이상 ~ 20자이하</string>
+    <string name="login_pw">비밀번호</string>
     <string name="login_sns">SNS계정으로 로그인</string>
     <string name="login_kakao">카카오</string>
     <string name="login_facebook">페이스북</string>
@@ -262,8 +262,8 @@
     <string name="coupon_title2">축하합니다!</string>
 
     <!-- Member Join Validator -->
-    <string name="validator_name_length">2글자 이상의 이름을 입력해 주세요.</string>
-    <string name="validator_name_emoji">이름에 특수문자를 입력할 수 없습니다.</string>
+    <string name="validator_name_length">이름에 2글자 이상 입력해주세요.</string>
+    <string name="validator_name_emoji">이름에 특수문자를 입력 할 수 없습니다.</string>
     <string name="validator_account_name_length">2글자 이상의 입금자 이름을 입력해 주세요.</string>
     <string name="validator_auth">휴대폰 인증이 필요합니다.</string>
     <string name="validator_pnum">전화번호를 입력해 주세요.</string>

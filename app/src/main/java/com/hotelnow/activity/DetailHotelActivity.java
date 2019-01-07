@@ -54,11 +54,9 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.DbOpenHelper;
-import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -532,7 +530,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     btn_more_review.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(DetailHotelActivity.this, ReviewHotelActivity.class);
+                            Intent intent = new Intent(DetailHotelActivity.this, ReviewDetailActivity.class);
                             intent.putExtra("avg", avg);
                             intent.putExtra("r1", r1);
                             intent.putExtra("r2", r2);
@@ -593,8 +591,15 @@ public class DetailHotelActivity extends AppCompatActivity {
                         boolean iscontent = false;
                         for(int i=0; i<hotel_data.getJSONArray("notes_array").length(); i++){
                             if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
-                                String s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
-                                        .replace("\r\n","\n");
+                                String s_html ="";
+                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                                    s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
+                                            .replace("\r\n", "");
+                                }
+                                else {
+                                    s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
+                                            .replace("\r\n", "</br>");
+                                }
                                 tv_recommend.setText(Html.fromHtml(s_html));
                                 iscontent = true;
                                 findViewById(R.id.layout_recommend).setVisibility(View.VISIBLE);
@@ -727,13 +732,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                                                 AutoLinkMode.MODE_URL);
                                         title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
                                         title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
-                                        Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n", "")));
+                                        Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "")));
                                         Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
                                         title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
                                         title_sub.setText(sp);
                                     }
                                     else{
-                                        title_sub.setText(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp", "").replace("• ", "ㆍ").replace("\n\n", "")));
+                                        title_sub.setText(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "</br>")));
                                     }
 
                                     title.setText(infolist.get(i).getmTitle());
@@ -1043,6 +1048,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                         startActivityForResult(intent, 80);
                     }
                 });
+            }
+
+            if(rdata.length() == 0){
+                btn_more_view.setVisibility(View.GONE);
+            }
+            else {
+                btn_more_view.setVisibility(View.VISIBLE);
             }
 
             for (int i = 0; i < for_cnt; i++) {

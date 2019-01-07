@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ReviewHotelActivity extends Activity{
+public class ReviewDetailActivity extends Activity{
 
     int mPage = 1;
     final int mPer_page = 20;
@@ -41,6 +41,7 @@ public class ReviewHotelActivity extends Activity{
     private ArrayList<ReviewItem> reviewEntries = new ArrayList<ReviewItem>();
     private boolean isAdd = true;
     private boolean is_q = false;
+    private TextView tv_checktitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class ReviewHotelActivity extends Activity{
         tv_title_hotel = (TextView) findViewById(R.id.tv_title_hotel);
         bt_scroll = (Button) findViewById(R.id.bt_scroll);
         lv_list = (ListView) findViewById(R.id.lv_list);
+        tv_checktitle = (TextView) findViewById(R.id.tv_checktitle);
 
         Double mAvg = intent.getDoubleExtra("avg",0);
         if(intent.getDoubleExtra("avg",0)>4) {
@@ -105,6 +107,13 @@ public class ReviewHotelActivity extends Activity{
 
         hid = intent.getStringExtra("hid");
         is_q = intent.getBooleanExtra("is_q", false);
+
+        if(is_q){
+            tv_checktitle.setText("안전성");
+        }
+        else {
+            tv_checktitle.setText("청결도");
+        }
 
         setStar(intent.getDoubleExtra("r1",0), sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
         setStar(intent.getDoubleExtra("r2",0), ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
@@ -218,7 +227,7 @@ public class ReviewHotelActivity extends Activity{
 
                 @Override
                 public void onFailure(Response response, Exception throwable) {
-                    Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReviewDetailActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
 
@@ -229,7 +238,7 @@ public class ReviewHotelActivity extends Activity{
                         JSONObject obj = new JSONObject(body);
 
                         if (!obj.getJSONObject("reviews").getString("result").equals("success")) {
-                            Toast.makeText(ReviewHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReviewDetailActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
@@ -269,7 +278,7 @@ public class ReviewHotelActivity extends Activity{
                         }
 
                     } catch (JSONException e) {
-                        Toast.makeText(ReviewHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReviewDetailActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }

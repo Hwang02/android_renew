@@ -130,7 +130,7 @@ public class ReservationActivity extends Activity {
     String mPage = ""; // nomal, private
     private LinearLayout paytype1_background, paytype2_background, paytype3_background, paytype4_background, paytype5_background, paytype3_info, booking_save_point, btn_phone;
     private LinearLayout paytype0_list;
-    private TextView tv_paytype1, tv_paytype2, tv_paytype3, tv_paytype4, tv_paytype5;
+    private TextView tv_paytype1, tv_paytype2, tv_paytype3, tv_paytype4, tv_paytype5, paytype3_txt;
     private ImageView img_paytype1, img_paytype2, img_paytype3, img_paytype4, img_paytype5;
     private HashMap<Integer, JSONObject> billmap;
     private CheckBox agree_policy;
@@ -199,6 +199,7 @@ public class ReservationActivity extends Activity {
         btn_point_ok = (Button) findViewById(R.id.btn_point_ok);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
         btn_phone = (LinearLayout) findViewById(R.id.btn_phone);
+        paytype3_txt = (TextView) findViewById(R.id.paytype3_txt);
 
         cookie = _preferences.getString("userid", null);
 
@@ -349,6 +350,10 @@ public class ReservationActivity extends Activity {
                 finish();
             }
         });
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(getResources().getText(R.string.paytype3_info_message));
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 16, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        paytype3_txt.setText(builder);
 
         authCheck();
     }

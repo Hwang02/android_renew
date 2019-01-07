@@ -89,7 +89,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.FullImageViewActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ReviewHotelActivity"
+        <activity android:name=".activity.ReviewDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.AllRoomTypeActivity"
             android:screenOrientation="portrait"/>

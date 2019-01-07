@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.ReviewHotelActivity;
+import com.hotelnow.activity.ReviewDetailActivity;
 import com.hotelnow.fragment.model.ReviewItem;
 import com.hotelnow.utils.Util;
 
@@ -69,7 +69,7 @@ public class DetailReviewAdapter extends ArrayAdapter<ReviewItem> {
         }
 
         if(mlist.size() == position+2){
-            ((ReviewHotelActivity)mContext).getReviewList();
+            ((ReviewDetailActivity)mContext).getReviewList();
         }
 
         return v;

@@ -122,7 +122,7 @@ public class ReservationActivityActivity extends Activity {
     String mPage = ""; // nomal, private
     private LinearLayout paytype1_background, paytype3_background, paytype5_background, paytype3_info, booking_save_point, btn_phone;
     private LinearLayout paytype0_list;
-    private TextView tv_paytype1, tv_paytype3, tv_paytype5, tv_title_bar;
+    private TextView tv_paytype1, tv_paytype3, tv_paytype5, tv_title_bar, paytype3_txt;
     private ImageView img_paytype1, img_paytype3, img_paytype5;
     private HashMap<Integer, JSONObject> billmap;
     private CheckBox agree_policy;
@@ -189,6 +189,7 @@ public class ReservationActivityActivity extends Activity {
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
         btn_phone = (LinearLayout) findViewById(R.id.btn_phone);
         real_title = (TextView) findViewById(R.id.real_title);
+        paytype3_txt = (TextView) findViewById(R.id.paytype3_txt);
 
         real_title.setText("상품가");
 
@@ -304,6 +305,21 @@ public class ReservationActivityActivity extends Activity {
                 finish();
             }
         });
+
+        findViewById(R.id.show_policy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReservationActivityActivity.this, WebviewActivity.class);
+                intent.putExtra("url", CONFIG.info_provide1);
+                intent.putExtra("title", getString(R.string.caution_agreement_checkbox));
+                startActivity(intent);
+            }
+        });
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(getResources().getText(R.string.paytype3_info_message));
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 16, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        paytype3_txt.setText(builder);
+
 
         authCheck();
     }

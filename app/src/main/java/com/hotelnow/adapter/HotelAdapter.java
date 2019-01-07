@@ -168,6 +168,14 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             hotelAdapter = new HotelHotDealStayAdapter(mHf.getHotelData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
+
+            if(mHf.getHotelData().size()>1){
+                holder.mMoreView.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.mMoreView.setVisibility(View.GONE);
+            }
+
             holder.mMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -305,6 +313,13 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             privateAdapter = new PrivateDealHotelAdapter(mHf.getPrivateDealItem(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(privateAdapter);
+            if(mHf.getPrivateDealItem().size()>1){
+                holder.mMoreView.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.mMoreView.setVisibility(View.GONE);
+            }
+
             holder.mMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

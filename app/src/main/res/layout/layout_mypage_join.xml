@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/iv_logout"
+                android:layout_marginTop="22dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -31,7 +32,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple"
-                    android:layout_marginTop="22dp"
                     android:textSize="20dp"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -42,7 +42,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple"
-                    android:layout_marginTop="27dp"
                     android:textSize="14dp"
                     android:text="님"/>
             </LinearLayout>

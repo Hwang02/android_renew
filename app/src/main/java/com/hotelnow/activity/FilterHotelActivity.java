@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -63,6 +64,7 @@ public class FilterHotelActivity extends Activity {
     LocationListener locationListener; // 위치 정보가 업데이트시 동작
     String lat ="", lng="";
     ProgressDialog dialog;
+    private boolean is_reset = false;
 
 
     @Override
@@ -132,6 +134,7 @@ public class FilterHotelActivity extends Activity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
                 CONFIG.sel_orderby = mOrderby;
                 CONFIG.sel_category = (categories != null && categories.size() > 0) ? TextUtils.join("|", categories) : null;
                 CONFIG.sel_facility = (facilities != null && facilities.size() > 0) ? TextUtils.join("|", facilities) : null;
@@ -140,7 +143,9 @@ public class FilterHotelActivity extends Activity {
                 CONFIG.sel_min = minVal;
                 CONFIG.sel_rate = mRate;
 
-                setResult(80);
+//                if(is_reset)
+//                    intent.putExtra("is_reset", is_reset);
+                setResult(80, intent);
                 finish();
             }
         });
@@ -148,6 +153,15 @@ public class FilterHotelActivity extends Activity {
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CONFIG.sel_orderby = "recommendation";
+                CONFIG.sel_category = null;
+                CONFIG.sel_facility = null;
+                CONFIG.sel_useperson = null;
+                CONFIG.sel_max = "600000";
+                maxVal = "600000";
+                minVal = "0";
+                CONFIG.sel_min = "0";
+                CONFIG.sel_rate = null;
                 filter1.removeAllViews();
                 filter2.removeAllViews();
                 filter3.removeAllViews();
@@ -159,10 +173,16 @@ public class FilterHotelActivity extends Activity {
                 filter6_5.removeAllViews();
                 filter6_6.removeAllViews();
                 filter6_7.removeAllViews();
+                categories.clear();
+                facilities.clear();
+                usepersons.clear();
                 configFacilities.clear();
                 configCategories.clear();
                 configUsepersons.clear();
                 mRate = null;
+                mOrderby = "recommendation";
+                rangeSeekbar.setNormalizedMinValue(Integer.valueOf("0"));
+                rangeSeekbar.setNormalizedMaxValue(Integer.valueOf("100"));
                 setOrderby();
                 setCategory();
                 setUsePerson();
@@ -174,10 +194,9 @@ public class FilterHotelActivity extends Activity {
                         setFacility();
                     }
                 });
-                rangeSeekbar.setNormalizedMaxValue(120);
-                rangeSeekbar.setNormalizedMinValue(0);
-                select_price.setText("0만원 ~ 60만원 이상");
 
+                select_price.setText("0만원 ~ 60만원 이상");
+                is_reset = true;
             }
         });
 
@@ -275,6 +294,8 @@ public class FilterHotelActivity extends Activity {
                         mOrderby = "price_low";
                     else if ((int) v.getTag() == 4)
                         mOrderby = "price_high";
+
+                    is_reset = false;
                 }
             });
             // 이전 부분 적용
@@ -320,6 +341,7 @@ public class FilterHotelActivity extends Activity {
                     } else {
                         categories.remove(v.getTag().toString());
                     }
+                    is_reset = false;
                 }
             });
             // 이전 부분 적용
@@ -358,6 +380,7 @@ public class FilterHotelActivity extends Activity {
                     } else {
                         usepersons.remove(v.getTag().toString());
                     }
+                    is_reset = false;
                 }
             });
             // 이전 부분 적용
@@ -385,6 +408,7 @@ public class FilterHotelActivity extends Activity {
                 else
                     minVal = String.valueOf(minValue) + "0000";
 
+                is_reset = false;
             }
         });
 
@@ -423,6 +447,7 @@ public class FilterHotelActivity extends Activity {
                         filter5.getChildAt((int) v.getTag()).setSelected(true);
                         mRate = v.getTag().toString();
                     }
+                    is_reset = false;
                 }
             });
             // 이전 부분 적용
@@ -523,6 +548,7 @@ public class FilterHotelActivity extends Activity {
                             facilities.add(v.getTag().toString());
                         }
                     }
+                    is_reset = false;
                 }
             });
 

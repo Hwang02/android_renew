@@ -59,6 +59,8 @@
                 android:textSize="15dp"
                 android:textColor="@color/blacktxt"
                 android:layout_alignParentLeft="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_toLeftOf="@id/tv_save_money"
                 tools:text="그랜드 워커힐 더글라스 하우스"/>
         </RelativeLayout>

@@ -530,7 +530,24 @@ public class HotelSearchFragment extends Fragment {
         }
         else if(requestCode == 60 && responseCode == 80){
             filter_cnt = 0;
+//            if(data.getBooleanExtra("is_reset", false)){
+//                filter_cnt = 0;
+//                CONFIG.sel_orderby = "recommendation";
+//                CONFIG.sel_category = null;
+//                CONFIG.sel_facility = null;
+//                CONFIG.sel_useperson = null;
+//                CONFIG.sel_max = "600000";
+//                CONFIG.sel_min = "0";
+//                CONFIG.sel_rate = null;
+//            }
             LogUtil.e("xxxxx", CONFIG.sel_max);
+            price_max ="";
+            price_min = "";
+            facility = "";
+            order_kind = "recommendation";
+            score = "";
+            person_count = "";
+
             price_max = CONFIG.sel_max;
             LogUtil.e("xxxxx", CONFIG.sel_min);
             price_min = CONFIG.sel_min;
@@ -590,6 +607,7 @@ public class HotelSearchFragment extends Fragment {
             else{
                 person_count="";
             }
+
             if(filter_cnt == 0){
                 count_view.setVisibility(View.GONE);
             }

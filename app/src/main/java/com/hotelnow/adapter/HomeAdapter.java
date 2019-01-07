@@ -177,7 +177,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             recentAdapter = new RecentAdapter(mHf.getRecentListItem(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(recentAdapter);
-            if(mHf.getRecentListItem().size()>0){
+            if(mHf.getRecentListItem().size()>1){
                 holder.mMoreView.setVisibility(View.VISIBLE);
                 holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                     @Override
@@ -226,7 +226,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.recyclerView.setAdapter(themeAdapter);
             holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mHf.getThemeData().get(0).getMain_title());
-
             holder.btn_moreproduct.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
@@ -253,6 +252,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             hotelAdapter = new HotelHotDealAdapter(mHf.getHotelData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
+
+            if(mHf.getHotelData().size()>1){
+                holder.mMoreView.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.mMoreView.setVisibility(View.GONE);
+            }
 
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
@@ -287,6 +293,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             acitivityAdapter = new ActivityHotDealAdapter(mHf.getActivityData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
+
+            if(mHf.getActivityData().size()>1){
+                holder.mMoreView.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.mMoreView.setVisibility(View.GONE);
+            }
+
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {

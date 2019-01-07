@@ -2,21 +2,35 @@ package com.hotelnow.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
+import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.HotelSearchActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.TopItem;
+import com.hotelnow.utils.Api;
+import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 
 public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHolder> {
@@ -44,14 +58,35 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
         holder.btn_date.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(fm.getActivity(), CalendarActivity.class);
-                intent.putExtra("ec_date", data.get(0).getEc_date());
-                intent.putExtra("ee_date", data.get(0).getEe_date());
-                intent.putExtra("city", data.get(0).getLocation());
-                intent.putExtra("city_code", data.get(0).getLocation_id());
-                intent.putExtra("subcity_code", data.get(0).getLocation_subid());
-                intent.putExtra("lodge_type", "Y");
-                fm.startActivityForResult(intent, 80);
+                Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                    @Override
+                    public void onFailure(Response response, Exception throwable) {
+                        Toast.makeText(fm.getActivity(), fm.getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String body) {
+                        try {
+                            JSONObject obj = new JSONObject(body);
+                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                long time = obj.getInt("server_time") * (long) 1000;
+
+                                CONFIG.svr_date = new Date(time);
+
+                                Intent intent = new Intent(fm.getActivity(), CalendarActivity.class);
+                                intent.putExtra("ec_date", data.get(0).getEc_date());
+                                intent.putExtra("ee_date", data.get(0).getEe_date());
+                                intent.putExtra("city", data.get(0).getLocation());
+                                intent.putExtra("city_code", data.get(0).getLocation_id());
+                                intent.putExtra("subcity_code", data.get(0).getLocation_subid());
+                                intent.putExtra("lodge_type", "Y");
+                                fm.startActivityForResult(intent, 80);
+                            }
+                        }
+                        catch (Exception e){}
+                    }
+                });
             }
         });
 

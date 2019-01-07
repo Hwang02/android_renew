@@ -53,7 +53,6 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.ToughViewPager;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -453,21 +452,21 @@ public class DetailActivityActivity extends AppCompatActivity {
                         findViewById(R.id.ico_nowdiscount).setVisibility(View.GONE);
                     }
 
-//                    btn_more_review.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(DetailActivityActivity.this, ReviewHotelActivity.class);
-//                            intent.putExtra("avg", avg);
-//                            intent.putExtra("r1", r1);
-//                            intent.putExtra("r2", r2);
-//                            intent.putExtra("r3", r3);
-//                            intent.putExtra("r4", r4);
-//                            intent.putExtra("hid", tid);
-//                            intent.putExtra("title", tv_hotelname.getText());
-//                            intent.putExtra("is_q", true);
-//                            startActivity(intent);
-//                        }
-//                    });
+                    btn_more_review.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(DetailActivityActivity.this, ReviewDetailActivity.class);
+                            intent.putExtra("avg", avg);
+                            intent.putExtra("r1", r1);
+                            intent.putExtra("r2", r2);
+                            intent.putExtra("r3", r3);
+                            intent.putExtra("r4", r4);
+                            intent.putExtra("hid", tid);
+                            intent.putExtra("title", tv_hotelname.getText());
+                            intent.putExtra("is_q", true);
+                            startActivity(intent);
+                        }
+                    });
                     //가격정보
                     //그룹일경우
                     int sel_count = 0;
@@ -703,7 +702,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     //이미지 정보
 
                     //상품소개
-                    if(ticket_data.has("deal_introduce")&&!ticket_data.getString("deal_introduce").equals("null")) {
+                    if(ticket_data.has("deal_introduce")&& !TextUtils.isEmpty(ticket_data.getString("deal_introduce"))) {
                         findViewById(R.id.product_info).setVisibility(View.VISIBLE);
                         tv_product_info.setText(ticket_data.getString("deal_introduce"));
                     }
@@ -762,26 +761,26 @@ public class DetailActivityActivity extends AppCompatActivity {
                     //이용 정보
                     ArrayList<TicketInfoEntry> infolist = new ArrayList<>();
 
-                    if(ticket_data.has("deal_info") && !ticket_data.getString("deal_info").equals("null")) {
+                    if(ticket_data.has("deal_info") && !TextUtils.isEmpty(ticket_data.getString("deal_info"))) {
                         infolist.add(new TicketInfoEntry("상품 정보", ticket_data.getString("deal_info")));
                     }
-                    if(ticket_data.has("refund_info") &&!ticket_data.getString("refund_info").equals("null")){
+                    if(ticket_data.has("refund_info") && !TextUtils.isEmpty(ticket_data.getString("refund_info"))){
                         infolist.add(new TicketInfoEntry("환불 정보", ticket_data.getString("refund_info")));
                     }
 
-                    if(ticket_data.has("usage_info")&&!ticket_data.getString("usage_info").equals("null")){
+                    if(ticket_data.has("usage_info")&& !TextUtils.isEmpty(ticket_data.getString("usage_info"))){
                         infolist.add(new TicketInfoEntry("사용 정보", ticket_data.getString("usage_info")));
                     }
 
-                    if(ticket_data.has("store_info")&&!ticket_data.getString("store_info").equals("null")){
+                    if(ticket_data.has("store_info")&& !TextUtils.isEmpty(ticket_data.getString("store_info"))){
                         infolist.add(new TicketInfoEntry("시설사 정보", ticket_data.getString("store_info")));
                     }
 
-                    if(ticket_data.has("notice_info")&&!ticket_data.getString("notice_info").equals("null")){
+                    if(ticket_data.has("notice_info")&& !TextUtils.isEmpty(ticket_data.getString("notice_info"))){
                         infolist.add(new TicketInfoEntry("공지 정보", ticket_data.getString("notice_info")));
                     }
 
-                    if(ticket_data.has("cs_info")&&!ticket_data.getString("cs_info").equals("null")){
+                    if(ticket_data.has("cs_info")&&!TextUtils.isEmpty(ticket_data.getString("cs_info"))){
                         infolist.add(new TicketInfoEntry("제공 정보", ticket_data.getString("cs_info")));
                     }
                     if(infolist.size()>0) {
@@ -790,21 +789,21 @@ public class DetailActivityActivity extends AppCompatActivity {
                             View info_view = LayoutInflater.from(DetailActivityActivity.this).inflate(R.layout.layout_ticket_info, null);
                             AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                             TextView title = (TextView) info_view.findViewById(R.id.title);
-                            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-                                title_sub.addAutoLinkMode(
-                                        AutoLinkMode.MODE_PHONE,
-                                        AutoLinkMode.MODE_URL);
-                                title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
-                                title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
-                                Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
-                                Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
-                                title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
-                                title_sub.setText(sp);
+//                            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                            title_sub.addAutoLinkMode(
+                                    AutoLinkMode.MODE_PHONE,
+                                    AutoLinkMode.MODE_URL);
+                            title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
+                            title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
+                            Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+                            Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                            title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                            title_sub.setText(sp);
 
-                            }
-                            else{
-                                title_sub.setText(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
-                            }
+//                            }
+//                            else{
+//                                title_sub.setText(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+//                            }
                             title.setText(infolist.get(i).getmTitle());
 
                             info_list.addView(info_view);

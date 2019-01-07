@@ -273,6 +273,14 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             acitivityAdapter = new ActivityHotDealLeisureAdapter(mLf.getActivityData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
+
+            if(mLf.getActivityData().size()>1){
+                holder.mMoreView.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.mMoreView.setVisibility(View.GONE);
+            }
+
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
