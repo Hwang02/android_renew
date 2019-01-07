@@ -49,6 +49,13 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         holder.tv_hotelname.setText(data.get(position).getName());
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getImg_url());
+
+        if(data.get(position).getSale_rate().equals("0")){
+            holder.tv_per.setVisibility(View.GONE);
+        }
+        else{
+            holder.tv_per.setVisibility(View.VISIBLE);
+        }
         holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
 
         if(data.get(position).getGrade_score().equals("0.0")){

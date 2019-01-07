@@ -81,7 +81,12 @@ public class MapHotelAdapter  extends PagerAdapter {
             text_bar.setVisibility(View.VISIBLE);
             img_star.setVisibility(View.VISIBLE);
         }
-
+        if(arr_LocationList.get(position).getSale_rate().equals("0")){
+            tv_discount.setVisibility(View.GONE);
+        }
+        else{
+            tv_discount.setVisibility(View.VISIBLE);
+        }
         tv_category.setText(arr_LocationList.get(position).getCategory());
         tv_discount.setText(arr_LocationList.get(position).getSale_rate()+"%↓");
         Ion.with(img_hotel).load(arr_LocationList.get(position).getLandscape());

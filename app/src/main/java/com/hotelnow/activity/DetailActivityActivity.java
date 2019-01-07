@@ -394,6 +394,14 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                    if(ticket_data.getInt("sale_rate") == 0){
+                        findViewById(R.id.tv_main_discount).setVisibility(View.GONE);
+                    }
+                    else{
+                        findViewById(R.id.tv_main_discount).setVisibility(View.VISIBLE);
+                    }
+
                     tv_per.setText(ticket_data.getString("sale_rate"));
                     mAvg = review_data.getDouble("avg");
                     tv_review_rate.setText(mAvg+"");

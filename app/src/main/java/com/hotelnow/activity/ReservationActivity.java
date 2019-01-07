@@ -428,6 +428,14 @@ public class ReservationActivity extends Activity {
                     Ion.with(img_room).load(data.getString("room_img"));
                     tv_room_detail_price.setText(Util.numberFormat(data.getInt("sale_price")));
                     tv_detail3.setText(data.getString("room_name"));
+
+                    if(data.getString("sale_rate").equals("0")){
+                        tv_detail_per.setVisibility(View.GONE);
+                    }
+                    else{
+                        tv_detail_per.setVisibility(View.VISIBLE);
+                    }
+
                     tv_detail_per.setText(data.getString("sale_rate")+"%↓");
                     checkin_date = data.getString("checkin_date");
                     checkout_date = data.getString("checkout_date");

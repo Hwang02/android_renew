@@ -169,6 +169,9 @@ public class ReservationHotelDetailActivity extends Activity {
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
+                intent.putExtra("reservation", isReservation);
+                startActivity(intent);
                 finish();
             }
         });
@@ -705,12 +708,17 @@ public class ReservationHotelDetailActivity extends Activity {
                                                         }
 
                                                         Toast.makeText(ReservationHotelDetailActivity.this, getString(R.string.booking_hide_success), Toast.LENGTH_SHORT).show();
-
-                                                        Intent returnIntent = new Intent();
-                                                        setResult(88, returnIntent);
-                                                        finish();
-                                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-
+                                                        if(isReservation){
+                                                            Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
+                                                            intent.putExtra("reservation", isReservation);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                        else {
+                                                            Intent returnIntent = new Intent();
+                                                            setResult(88, returnIntent);
+                                                            finish();
+                                                        }
                                                     } catch (Exception e) {
                                                         Toast.makeText(ReservationHotelDetailActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                                     }
@@ -806,6 +814,20 @@ public class ReservationHotelDetailActivity extends Activity {
             is_review = true;
             setData();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isReservation){
+            Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
+            intent.putExtra("reservation", isReservation);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            finish();
+        }
+        super.onBackPressed();
     }
 
     @Override

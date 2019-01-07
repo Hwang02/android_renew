@@ -267,8 +267,10 @@ public class PaymentActivity extends Activity {
                                         Intent intent = new Intent(PaymentActivity.this, ReservationActivityDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("tid", bid);
-                                        setResult(80);
-                                        finish();
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                     }
                                     else { // 링크 변경
@@ -278,8 +280,10 @@ public class PaymentActivity extends Activity {
                                         intent.putExtra("user_phone", up);
                                         intent.putExtra("tid", bid);
                                         intent.putExtra("title", "비회원 예약조회");
-                                        setResult(80);
-                                        finish();
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
 
                                     }
@@ -378,8 +382,10 @@ public class PaymentActivity extends Activity {
                                         Intent intent = new Intent(PaymentActivity.this, ReservationHotelDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("bid", bid);
-                                        setResult(80);
-                                        finish();
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                     }
                                     else {
@@ -389,8 +395,10 @@ public class PaymentActivity extends Activity {
                                         intent.putExtra("user_phone", up);
                                         intent.putExtra("bid", bid);
                                         intent.putExtra("title", "비회원 예약조회");
-                                        setResult(80);
-                                        finish();
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                     }
                                     if (!obj.has("pay_type")) {

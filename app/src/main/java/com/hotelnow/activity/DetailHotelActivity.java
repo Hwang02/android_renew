@@ -128,6 +128,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private boolean isLogin = false;
     private NestedScrollView scroll;
     private LinearLayout hotel_check_list;
+    private LinearLayout tv_main_discount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -447,6 +448,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     m_img_title = (TextView) findViewById(R.id.img_title);
                     bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
                     hotel_check_list = (LinearLayout) findViewById(R.id.hotel_check_list);
+                    tv_main_discount = (LinearLayout) findViewById(R.id.tv_main_discount);
 
                     if(hotel_data.getString("is_private_deal").equals("Y")){
                         findViewById(R.id.ico_private).setVisibility(View.VISIBLE);
@@ -505,6 +507,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                     //원 금액
                     tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                    if(hotel_data.getInt("sale_rate") != 0) {
+                        tv_main_discount.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        tv_main_discount.setVisibility(View.GONE);
+                    }
 
                     tv_per.setText(hotel_data.getString("sale_rate"));
 
@@ -1119,7 +1128,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                 else {
                     more_img_list.setVisibility(View.GONE);
                 }
-
+                if(rdata.getJSONObject(i).getInt("sale_rate") == 0){
+                    tv_detail_per.setVisibility(View.GONE);
+                }
+                else{
+                    tv_detail_per.setVisibility(View.VISIBLE);
+                }
                 tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"인");
                 tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃 "+rdata.getJSONObject(i).getString("checkout_time"));
                 tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");

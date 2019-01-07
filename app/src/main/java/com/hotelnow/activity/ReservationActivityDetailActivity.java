@@ -701,10 +701,17 @@ public class ReservationActivityDetailActivity extends Activity {
 
                                                         Toast.makeText(ReservationActivityDetailActivity.this, getString(R.string.booking_hide_success), Toast.LENGTH_SHORT).show();
 
-                                                        Intent returnIntent = new Intent();
-                                                        setResult(88, returnIntent);
-                                                        finish();
-                                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                                                        if(isReservation){
+                                                            Intent intent = new Intent(ReservationActivityDetailActivity.this, MainActivity.class);
+                                                            intent.putExtra("reservation", isReservation);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                        else {
+                                                            Intent returnIntent = new Intent();
+                                                            setResult(88, returnIntent);
+                                                            finish();
+                                                        }
 
                                                     } catch (Exception e) {
                                                         Toast.makeText(ReservationActivityDetailActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -791,6 +798,20 @@ public class ReservationActivityDetailActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isReservation){
+            Intent intent = new Intent(ReservationActivityDetailActivity.this, MainActivity.class);
+            intent.putExtra("reservation", isReservation);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            finish();
+        }
+        super.onBackPressed();
     }
 
     @Override

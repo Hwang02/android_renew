@@ -437,7 +437,12 @@ public class MainActivity extends FragmentActivity {
                     setTapMove(SELECTPAGE, false);
                 }
             } else {
-                setTapMove(SELECTPAGE, false);
+                if(getIntent().getBooleanExtra("reservation", false)){
+                    mbinding.navigation.setCurrentItem(RESERVPAGE);
+                }
+                else {
+                    setTapMove(SELECTPAGE, false);
+                }
             }
         }
     }
@@ -534,6 +539,17 @@ public class MainActivity extends FragmentActivity {
             }
             case RESERVPAGE:{
                 tabStatus(false);
+//                if(isMove) {
+//                    new Handler().postDelayed(
+//                            new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    setHide();
+//                                    mbinding.navigation.setCurrentItem(2);
+//                                    return;
+//                                }
+//                            }, 100);
+//                }
                 if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }

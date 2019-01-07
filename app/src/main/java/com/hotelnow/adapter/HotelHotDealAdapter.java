@@ -89,6 +89,14 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
             holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             holder.islike = false;
         }
+
+        if(data.get(position).getSale_rate().equals("0")){
+            holder.tv_per.setVisibility(View.GONE);
+        }
+        else{
+            holder.tv_per.setVisibility(View.VISIBLE);
+        }
+
         holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
 
         holder.btn_favorite.setTag(position);
