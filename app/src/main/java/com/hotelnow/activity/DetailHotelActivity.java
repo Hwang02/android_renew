@@ -72,6 +72,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -584,12 +585,31 @@ public class DetailHotelActivity extends AppCompatActivity {
                     bt_checkinout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(DetailHotelActivity.this, CalendarActivity.class);
-                            intent.putExtra("ec_date", ec_date);
-                            intent.putExtra("ee_date", ee_date);
-                            intent.putExtra("selectList", selectList);
-                            intent.putExtra("lodge_type", lodge_type);
-                            startActivityForResult(intent, 80);
+                            Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                                @Override
+                                public void onFailure(Response response, Exception throwable) {
+                                    Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                @Override
+                                public void onSuccess(Map<String, String> headers, String body) {
+                                    try {
+                                        JSONObject obj = new JSONObject(body);
+                                        if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                            long time = obj.getInt("server_time") * (long) 1000;
+                                            CONFIG.svr_date = new Date(time);
+                                            Intent intent = new Intent(DetailHotelActivity.this, CalendarActivity.class);
+                                            intent.putExtra("ec_date", ec_date);
+                                            intent.putExtra("ee_date", ee_date);
+                                            intent.putExtra("selectList", selectList);
+                                            intent.putExtra("lodge_type", lodge_type);
+                                            startActivityForResult(intent, 80);
+                                        }
+                                    }
+                                    catch (Exception e){}
+                                }
+                            });
                         }
                     });
 

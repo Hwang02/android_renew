@@ -7,9 +7,11 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.CalendarActivity;
@@ -18,10 +20,17 @@ import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentFavoriteBinding;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONObject;
+
+import java.util.Date;
+import java.util.Map;
 
 public class FavoriteFragment extends Fragment {
 
@@ -66,10 +75,30 @@ public class FavoriteFragment extends Fragment {
                             mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                                 @Override
                                 public void onSingleClick(View v) {
-                                    Intent intent = new Intent(getContext(), CalendarActivity.class);
-                                    intent.putExtra("ec_date", ec_date);
-                                    intent.putExtra("ee_date", ee_date);
-                                    startActivityForResult(intent, 80);
+                                    Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                                        @Override
+                                        public void onFailure(Response response, Exception throwable) {
+                                            Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+                                        @Override
+                                        public void onSuccess(Map<String, String> headers, String body) {
+                                            try {
+                                                JSONObject obj = new JSONObject(body);
+                                                if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                                    long time = obj.getInt("server_time") * (long) 1000;
+
+                                                    CONFIG.svr_date = new Date(time);
+                                                    Intent intent = new Intent(getContext(), CalendarActivity.class);
+                                                    intent.putExtra("ec_date", ec_date);
+                                                    intent.putExtra("ee_date", ee_date);
+                                                    startActivityForResult(intent, 80);
+                                                }
+                                            }
+                                            catch (Exception e){}
+                                        }
+                                    });
                                 }
                             });
                             mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
@@ -127,10 +156,29 @@ public class FavoriteFragment extends Fragment {
                     mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
-                            Intent intent = new Intent(getContext(), CalendarActivity.class);
-                            intent.putExtra("ec_date", ec_date);
-                            intent.putExtra("ee_date", ee_date);
-                            startActivityForResult(intent, 80);
+                            Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                                @Override
+                                public void onFailure(Response response, Exception throwable) {
+                                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                @Override
+                                public void onSuccess(Map<String, String> headers, String body) {
+                                    try {
+                                        JSONObject obj = new JSONObject(body);
+                                        if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                            long time = obj.getInt("server_time") * (long) 1000;
+                                            CONFIG.svr_date = new Date(time);
+                                            Intent intent = new Intent(getContext(), CalendarActivity.class);
+                                            intent.putExtra("ec_date", ec_date);
+                                            intent.putExtra("ee_date", ee_date);
+                                            startActivityForResult(intent, 80);
+                                        }
+                                    }
+                                    catch (Exception e){}
+                                }
+                            });
                         }
                     });
                 }

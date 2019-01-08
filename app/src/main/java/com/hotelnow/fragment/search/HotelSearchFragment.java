@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.activity.AllRoomTypeActivity;
 import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.DetailHotelActivity;
@@ -59,6 +60,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -716,10 +718,29 @@ public class HotelSearchFragment extends Fragment {
         btn_date.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                intent.putExtra("ec_date", ec_date);
-                intent.putExtra("ee_date", ee_date);
-                startActivityForResult(intent, 70);
+                Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                    @Override
+                    public void onFailure(Response response, Exception throwable) {
+                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String body) {
+                        try {
+                            JSONObject obj = new JSONObject(body);
+                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                long time = obj.getInt("server_time") * (long) 1000;
+                                CONFIG.svr_date = new Date(time);
+                                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                                intent.putExtra("ec_date", ec_date);
+                                intent.putExtra("ee_date", ee_date);
+                                startActivityForResult(intent, 70);
+                            }
+                        }
+                        catch (Exception e){}
+                    }
+                });
             }
         });
         btn_location2.setOnClickListener(new OnSingleClickListener() {
@@ -732,10 +753,29 @@ public class HotelSearchFragment extends Fragment {
         btn_date2.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                intent.putExtra("ec_date", ec_date);
-                intent.putExtra("ee_date", ee_date);
-                startActivityForResult(intent, 70);
+                Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                    @Override
+                    public void onFailure(Response response, Exception throwable) {
+                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String body) {
+                        try {
+                            JSONObject obj = new JSONObject(body);
+                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                long time = obj.getInt("server_time") * (long) 1000;
+                                CONFIG.svr_date = new Date(time);
+                                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                                intent.putExtra("ec_date", ec_date);
+                                intent.putExtra("ee_date", ee_date);
+                                startActivityForResult(intent, 70);
+                            }
+                        }
+                        catch (Exception e){}
+                    }
+                });
             }
         });
         btn_filter.setOnClickListener(new OnSingleClickListener() {

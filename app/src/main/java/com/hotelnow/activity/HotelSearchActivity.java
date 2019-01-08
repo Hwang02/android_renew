@@ -43,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 public class HotelSearchActivity extends Activity {
@@ -152,10 +153,29 @@ public class HotelSearchActivity extends Activity {
         tv_edate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HotelSearchActivity.this, CalendarActivity.class);
-                intent.putExtra("ec_date", ec_date);
-                intent.putExtra("ee_date", ee_date);
-                startActivityForResult(intent, 70);
+                Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                    @Override
+                    public void onFailure(Response response, Exception throwable) {
+                        Toast.makeText(HotelSearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String body) {
+                        try {
+                            JSONObject obj = new JSONObject(body);
+                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                long time = obj.getInt("server_time") * (long) 1000;
+                                CONFIG.svr_date = new Date(time);
+                                Intent intent = new Intent(HotelSearchActivity.this, CalendarActivity.class);
+                                intent.putExtra("ec_date", ec_date);
+                                intent.putExtra("ee_date", ee_date);
+                                startActivityForResult(intent, 70);
+                            }
+                        }
+                        catch (Exception e){}
+                    }
+                });
             }
         });
         btn_location.setOnClickListener(new View.OnClickListener() {
@@ -168,10 +188,29 @@ public class HotelSearchActivity extends Activity {
         btn_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HotelSearchActivity.this, CalendarActivity.class);
-                intent.putExtra("ec_date", ec_date);
-                intent.putExtra("ee_date", ee_date);
-                startActivityForResult(intent, 70);
+                Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                    @Override
+                    public void onFailure(Response response, Exception throwable) {
+                        Toast.makeText(HotelSearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String body) {
+                        try {
+                            JSONObject obj = new JSONObject(body);
+                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                long time = obj.getInt("server_time") * (long) 1000;
+                                CONFIG.svr_date = new Date(time);
+                                Intent intent = new Intent(HotelSearchActivity.this, CalendarActivity.class);
+                                intent.putExtra("ec_date", ec_date);
+                                intent.putExtra("ee_date", ee_date);
+                                startActivityForResult(intent, 70);
+                            }
+                        }
+                        catch (Exception e){}
+                    }
+                });
             }
         });
         btn_filter.setOnClickListener(new View.OnClickListener() {

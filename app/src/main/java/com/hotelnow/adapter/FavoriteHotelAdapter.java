@@ -102,7 +102,7 @@ public class FavoriteHotelAdapter extends ArrayAdapter<FavoriteStayItem> {
         }
 
         holder.category.setText(entry.getCategory());
-        if(entry.getSale_rate().equals("0")){
+        if(entry.getItems_quantity() == 0 || entry.getSale_rate().equals("0")){
             holder.tv_discount_rate.setVisibility(View.GONE);
         }
         else{

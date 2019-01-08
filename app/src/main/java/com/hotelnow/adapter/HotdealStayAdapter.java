@@ -125,7 +125,7 @@ public class HotdealStayAdapter extends ArrayAdapter<SearchResultItem> {
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
-        if(entry.getSale_rate().equals("0")){
+        if(entry.getItems_quantity() == 0 || entry.getSale_rate().equals("0")){
             holder.tv_discount_rate.setVisibility(View.GONE);
         }
         else{
