@@ -56,14 +56,14 @@
                 android:layout_height="14dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:background="@drawable/ico_input_calendar"
+                android:background="@drawable/ico_input_calendar2"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitXY"/>
 
             <ImageView
                 android:id="@+id/icon1"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
@@ -75,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:textColor="@color/purple"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/icon"
                 android:layout_toLeftOf="@+id/icon1"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="154dp"
+    android:layout_width="190dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="10dp"
@@ -9,13 +9,13 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="154dp"
+        android:layout_width="190dp"
         android:layout_height="wrap_content">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_image"
-            android:layout_width="154dp"
-            android:layout_height="90dp"
+            android:layout_width="190dp"
+            android:layout_height="106dp"
             android:scaleType="fitXY"
             app:riv_corner_radius="2dp"/>
 
@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="13dp"
+            android:textSize="16dp"
             android:maxLines="1"
             android:ellipsize="end"
             android:background="@android:color/transparent"
@@ -52,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -59,7 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|bottom"
-                android:textSize="14dp"
+                android:textSize="15dp"
+                android:textStyle="bold"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"
                 tools:text="205,700" />
@@ -68,12 +70,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|bottom"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="2dp"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/white"
-                android:text="원 ~" />
+                android:textStyle="bold"
+                android:text="원~" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="5dp"
-            android:layout_weight="0.9">
+            android:layout_weight="0.95">
 
             <TextView
                 android:layout_width="match_parent"
@@ -32,9 +32,9 @@
                 android:id="@+id/tv_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blacktxt"
+                android:textColor="@color/purple"
                 android:layout_marginTop="7dp"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:text="서울 전체"/>
 
             <View
@@ -64,9 +64,9 @@
                 android:id="@+id/tv_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blacktxt"
+                android:textColor="@color/purple"
                 android:layout_marginTop="7dp"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 tools:text="12/22 - 12/23, 2박"/>
 
             <View

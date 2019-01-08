@@ -158,9 +158,9 @@ public class HotelSearchFragment extends Fragment {
         }
         if(!TextUtils.isEmpty(order_kind)){
             url +="&order_kind="+order_kind;
-            if(order_kind.equals("distance")){
-                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
-            }
+//            if(order_kind.equals("distance")){
+            url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+//            }
         }
         if(!TextUtils.isEmpty(title_text) && title_text.equals("내 주변 바로보기")){
             url+="&location_go=Y";

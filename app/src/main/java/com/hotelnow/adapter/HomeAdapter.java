@@ -523,14 +523,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         RecyclerView recyclerView;
         TextView mTitle;
         LinearLayout background_view;
-        LinearLayout btn_moreproduct;
+        TextView btn_moreproduct;
 
         HorizontalThemeViewHolder(View itemView, final int page) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
             background_view = (LinearLayout) itemView.findViewById(R.id.background_view);
-            btn_moreproduct = (LinearLayout) itemView.findViewById(R.id.btn_moreproduct);
+            btn_moreproduct = (TextView) itemView.findViewById(R.id.btn_moreproduct);
 
         }
     }

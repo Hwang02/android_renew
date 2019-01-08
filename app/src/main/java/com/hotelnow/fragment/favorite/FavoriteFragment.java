@@ -219,8 +219,9 @@ public class FavoriteFragment extends Fragment {
                 mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
                 mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
                 mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+                mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
             } else {
-                mFavoriteBinding.viewFilter.setVisibility(View.GONE);
+                mFavoriteBinding.btnCancel.setVisibility(View.GONE);
             }
         }
         else {
@@ -228,8 +229,9 @@ public class FavoriteFragment extends Fragment {
                 mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
                 mFavoriteBinding.btnDate.setVisibility(View.GONE);
                 mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+                mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
             } else {
-                mFavoriteBinding.viewFilter.setVisibility(View.GONE);
+                mFavoriteBinding.btnCancel.setVisibility(View.GONE);
             }
         }
     }

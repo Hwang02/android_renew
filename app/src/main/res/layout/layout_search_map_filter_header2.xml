@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_input_pin"/>
+                android:background="@drawable/ico_input_pin2"/>
 
             <ImageView
                 android:id="@+id/iv_open"
@@ -51,7 +51,7 @@
                 android:ellipsize="end"
                 android:layout_marginLeft="8dp"
                 android:layout_centerVertical="true"
-                android:textColor="@color/graytxt"
+                android:textColor="@color/purple"
                 android:text="지역선택" />
         </RelativeLayout>
 
@@ -73,7 +73,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_input_category"/>
+                android:background="@drawable/ico_input_category2"/>
 
             <ImageView
                 android:id="@+id/iv_open2"
@@ -96,7 +96,7 @@
                 android:ellipsize="end"
                 android:layout_marginLeft="8dp"
                 android:layout_centerVertical="true"
-                android:textColor="@color/graytxt"
+                android:textColor="@color/purple"
                 android:text="테마선택" />
         </RelativeLayout>
     </LinearLayout>

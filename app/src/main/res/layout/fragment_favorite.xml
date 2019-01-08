@@ -72,7 +72,7 @@
 			android:layout_marginLeft="15dp"
 			android:layout_centerVertical="true"
 			android:layout_toRightOf="@+id/tv_date_title"
-			android:visibility="gone"
+			android:visibility="visible"
 			android:background="@drawable/style_edittext_gray_border">
 
 			<ImageView
@@ -83,7 +83,7 @@
 				android:layout_centerVertical="true"
 				android:layout_alignParentLeft="true"
 				android:scaleType="fitXY"
-				android:background="@drawable/ico_input_calendar"/>
+				android:background="@drawable/ico_input_calendar2"/>
 
 			<ImageView
 				android:id="@+id/iv_open2"
@@ -106,7 +106,7 @@
 				android:ellipsize="end"
 				android:layout_marginLeft="8dp"
 				android:layout_centerVertical="true"
-				android:textColor="@color/graytxt"
+				android:textColor="@color/purple"
 				tools:text="9/21/~9/22" />
 		</RelativeLayout>
 

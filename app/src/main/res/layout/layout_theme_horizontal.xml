@@ -17,16 +17,28 @@
         android:layout_height="wrap_content"
         android:background="@color/graytxt">
 
-        <TextView
-            android:id="@+id/title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TitleText"
-            android:layout_marginRight="16dp"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_toLeftOf="@id/all_view"
-            tools:text="ㅎㅎㅎㅎㅎ"/>
+            android:layout_marginTop="7dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TitleText"
+                android:textColor="@color/white"
+                android:layout_toLeftOf="@id/all_view"
+                tools:text="ㅎㅎㅎㅎㅎ"/>
+
+            <TextView
+                android:id="@+id/btn_moreproduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                style="@style/MoreText" />
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/inner_recyclerView"
@@ -35,44 +47,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             android:overScrollMode="never"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@color/white" />
-
-            <LinearLayout
-                android:id="@+id/btn_moreproduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="12dp"
-                    android:text="@string/theme_more_txt" />
-
-                <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="4dp"
-                    android:background="@drawable/ico_more_light"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-        </LinearLayout>
 
     </LinearLayout>
 </layout>
