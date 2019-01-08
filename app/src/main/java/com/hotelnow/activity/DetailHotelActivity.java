@@ -74,6 +74,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 public class DetailHotelActivity extends AppCompatActivity {
 
@@ -607,9 +608,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                                 }
                                 else {
                                     s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
-                                            .replace("\r\n", "</br>");
+                                            .replace("\r\n", "").replace("<li>", "ㆍ").replace("</li>", "<br><br>");
                                 }
-                                tv_recommend.setText(Html.fromHtml(s_html));
+                                tv_recommend.setText(Html.fromHtml(s_html), TextView.BufferType.SPANNABLE);
                                 iscontent = true;
                                 findViewById(R.id.layout_recommend).setVisibility(View.VISIBLE);
                                 break;
@@ -735,20 +736,40 @@ public class DetailHotelActivity extends AppCompatActivity {
                                     View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
                                     AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                                     TextView title = (TextView) info_view.findViewById(R.id.title);
+                                    title_sub.addAutoLinkMode(
+                                            AutoLinkMode.MODE_PHONE,
+                                            AutoLinkMode.MODE_URL);
+                                    title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
+                                    title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
+                                    Spannable sp;
                                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-                                        title_sub.addAutoLinkMode(
-                                                AutoLinkMode.MODE_PHONE,
-                                                AutoLinkMode.MODE_URL);
-                                        title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
-                                        title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
-                                        Spannable sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "")));
-                                        Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
-                                        title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
-                                        title_sub.setText(sp);
+                                        sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "")));
                                     }
                                     else{
-                                        title_sub.setText(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "</br>")));
+                                        sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage()
+                                                        .replace("&nbsp;", "")
+                                                        .replace("• ", "ㆍ")
+                                                        .replace("<li>", "ㆍ")
+                                                        .replace("</li>", "<br>")
+                                                        .replace("<span style=\"", "<font ")
+                                                        .replace("<font color:", "<font color=")
+                                                        .replace(";\">", ">")
+                                                        .replace("</span>","</font>")));
                                     }
+
+                                    Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                                    Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
+
+                                        @Override
+                                        public String transformUrl(Matcher match, String url) {
+
+                                            return url;
+
+                                        }
+                                    };
+                                    Linkify.addLinks(sp, Patterns.WEB_URL, "", null, transformFilter);
+                                    title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                                    title_sub.setText(sp, TextView.BufferType.SPANNABLE);
 
                                     title.setText(infolist.get(i).getmTitle());
                                     hotel_check_list.addView(info_view);
@@ -1600,7 +1621,9 @@ public class DetailHotelActivity extends AppCompatActivity {
         else if(isLogin){
             setResult(110);
         }
-        mViewPager.stopAutoScroll();
+        if(mViewPager != null) {
+            mViewPager.stopAutoScroll();
+        }
         finish();
     }
 

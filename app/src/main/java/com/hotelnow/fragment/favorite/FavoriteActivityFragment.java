@@ -325,7 +325,7 @@ public class FavoriteActivityFragment extends Fragment {
                 }
             },500);
         }
-        if(((FavoriteFragment)getParentFragment()) != null) {
+        if(isFragmentVisible_ && ((FavoriteFragment)getParentFragment()) != null) {
             if (adapter != null && adapter.getCount() > 0) {
                 ((FavoriteFragment) getParentFragment()).isdelete(true);
             } else {

@@ -166,7 +166,15 @@ public class ReservationActivityDetailActivity extends Activity {
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if(isReservation) {
+                    Intent intent = new Intent(ReservationActivityDetailActivity.this, MainActivity.class);
+                    intent.putExtra("reservation", isReservation);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    finish();
+                }
             }
         });
 

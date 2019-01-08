@@ -39,6 +39,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.EndEventScrollView;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
@@ -169,10 +170,15 @@ public class ReservationHotelDetailActivity extends Activity {
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
-                intent.putExtra("reservation", isReservation);
-                startActivity(intent);
-                finish();
+                if(isReservation) {
+                    Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
+                    intent.putExtra("reservation", isReservation);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    finish();
+                }
             }
         });
 
@@ -263,7 +269,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     r_name = info.getString("room_name");
                     tv_real_price.setText(Util.numberFormat(price_info.getInt("price")) + "원");
 
-                    if(cookie != null) {
+                    if (cookie != null) {
                         if (info.getString("is_review_writable").equals("Y") && info.getInt("review_count") == 0) {
                             btn_review.setVisibility(View.VISIBLE);
                             btn_review.setText("리뷰 작성하기");
@@ -295,69 +301,62 @@ public class ReservationHotelDetailActivity extends Activity {
                         } else {
                             btn_review.setVisibility(View.GONE);
                         }
-                    }
-                    else{
+                    } else {
                         btn_review.setVisibility(View.GONE);
                         findViewById(R.id.not_user_reserid).setVisibility(View.VISIBLE);
                         findViewById(R.id.not_user_info).setVisibility(View.VISIBLE);
-                        Spannable spannable = new SpannableString("예약번호 "+info.getString("booking_id"));
-                        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 5, info.getString("booking_id").length()+5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        ((TextView)findViewById(R.id.not_user_reserid)).setText(spannable);
+                        Spannable spannable = new SpannableString("예약번호 " + info.getString("booking_id"));
+                        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 5, info.getString("booking_id").length() + 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        ((TextView) findViewById(R.id.not_user_reserid)).setText(spannable);
                     }
 
-                    if(info.getString("status_detail").equals("inprogress")){
+                    if (info.getString("status_detail").equals("inprogress")) {
                         // 대기
                         booking_status.setBackgroundResource(R.drawable.bg_round_status_inpro);
-                    }
-                    else if(info.getString("status_detail").equals("used") || info.getString("status_detail").equals("cancel") || info.getString("status_detail").equals("expiration")){
+                    } else if (info.getString("status_detail").equals("used") || info.getString("status_detail").equals("cancel") || info.getString("status_detail").equals("expiration")) {
                         // 사용완료
                         booking_status.setBackgroundResource(R.drawable.bg_round_status_can_comple);
-                    }
-                    else {
+                    } else {
                         //결제만료
                         booking_status.setBackgroundResource(R.drawable.bg_round_status_book);
                     }
 
                     booking_status.setText(info.getString("status_display"));
 
-                    if(price_info.getInt("privatedeal_money") <= 0){
+                    if (price_info.getInt("privatedeal_money") <= 0) {
                         ll_private.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         ll_private.setVisibility(View.VISIBLE);
-                        tv_private_price.setText("-"+Util.numberFormat(price_info.getInt("privatedeal_money"))+"원");
+                        tv_private_price.setText("-" + Util.numberFormat(price_info.getInt("privatedeal_money")) + "원");
                     }
 
-                    if(price_info.getInt("reserve_money") <= 0){
+                    if (price_info.getInt("reserve_money") <= 0) {
                         ll_reservation.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         ll_reservation.setVisibility(View.VISIBLE);
-                        tv_reserve_price.setText("-"+Util.numberFormat(price_info.getInt("reserve_money"))+"원");
+                        tv_reserve_price.setText("-" + Util.numberFormat(price_info.getInt("reserve_money")) + "원");
                     }
 
-                    if(price_info.getInt("promotion_money") <= 0){
+                    if (price_info.getInt("promotion_money") <= 0) {
                         ll_coupon.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         ll_coupon.setVisibility(View.VISIBLE);
-                        tv_coupon_price.setText("-"+Util.numberFormat(price_info.getInt("promotion_money"))+"원");
+                        tv_coupon_price.setText("-" + Util.numberFormat(price_info.getInt("promotion_money")) + "원");
                     }
 
-                    tv_total_price.setText(Util.numberFormat(price_info.getInt("total_price"))+"원");
+                    tv_total_price.setText(Util.numberFormat(price_info.getInt("total_price")) + "원");
 
                     if (price_info.has("sub_bookings") == true) {
                         SimpleDateFormat p_DateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         SimpleDateFormat p_CurDateFormat = new SimpleDateFormat(getString(R.string.year_month_day_weekday_format3), Locale.KOREAN);
                         JSONArray products = price_info.getJSONArray("sub_bookings");
 
-                        if(products.length() > 1) {
+                        if (products.length() > 1) {
                             sub_products.setVisibility(View.VISIBLE);
 
                             //	sub_products 아래에 할당할 상품 정보들
                             for (int i = 0; i < products.length(); i++) {
-                                if(i == 0)
-                                {
+                                if (i == 0) {
                                     View t = new View(ReservationHotelDetailActivity.this);
                                     t.setBackgroundResource(R.color.bg_background);
                                     t.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 2));
@@ -372,7 +371,7 @@ public class ReservationHotelDetailActivity extends Activity {
 
                                 String bf = tobj.getString("breakfast");
 
-                                if(bf.equals("0")) bf = "불포함";
+                                if (bf.equals("0")) bf = "불포함";
                                 else bf = "포함";
 
                                 sub_date.setText(tobj.getString("checkin_date_format"));
@@ -385,7 +384,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     }
 
                     // 수단별 결제정보
-                    if(payment_info.getString("pay_type").equals("VBANK_KCP")){
+                    if (payment_info.getString("pay_type").equals("VBANK_KCP")) {
                         findViewById(R.id.ll_pay_bank_nm).setVisibility(View.VISIBLE);
                         findViewById(R.id.ll_pay_bank_num).setVisibility(View.VISIBLE);
                         findViewById(R.id.ll_pay_bank_user_nm).setVisibility(View.VISIBLE);
@@ -393,7 +392,7 @@ public class ReservationHotelDetailActivity extends Activity {
 
                         tv_pay_type.setText("가상계좌");
                         tv_pay_bank_nm.setText(payment_info.getString("bank_name"));
-                        tv_pay_bank_num.setText(payment_info.getString("account_no")+"\n(터치하시면 복사됩니다.)");
+                        tv_pay_bank_num.setText(payment_info.getString("account_no") + "\n(터치하시면 복사됩니다.)");
                         tv_pay_bank_user_nm.setText(payment_info.getString("income_account_nm"));
 
                         tv_pay_bank_num.setOnClickListener(new View.OnClickListener() {
@@ -405,79 +404,70 @@ public class ReservationHotelDetailActivity extends Activity {
                                 Toast.makeText(ReservationHotelDetailActivity.this, "계좌번호가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        if(info.getString("status").equals("inprogress")) {
+                        if (info.getString("status").equals("inprogress")) {
                             findViewById(R.id.ll_pay_bank_user_day).setVisibility(View.VISIBLE);
                             String limitTime = payment_info.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
                             tv_pay_bank_user_day.setText(limitTime);
                         }
-                    }
-                    else if(payment_info.getString("pay_type").equals("ARS")){
+                    } else if (payment_info.getString("pay_type").equals("ARS")) {
                         tv_pay_type.setText("ARS");
 
-                        if(info.getString("status").equals("inprogress")) {
+                        if (info.getString("status").equals("inprogress")) {
                             findViewById(R.id.ll_pay_income_day).setVisibility(View.VISIBLE);
                             String limitTime = payment_info.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
                             tv_pay_income_day.setText(limitTime);
                         }
-                    }
-                    else if(payment_info.getString("pay_type").equals("ABANK")){
+                    } else if (payment_info.getString("pay_type").equals("ABANK")) {
                         findViewById(R.id.ll_pay_bank_nm).setVisibility(View.VISIBLE);
                         tv_pay_type.setText("계좌이체");
                         tv_pay_bank_nm.setText(payment_info.getString("bank_name"));
-                    }
-                    else if(payment_info.getString("pay_type").equals("RESERVE")){
+                    } else if (payment_info.getString("pay_type").equals("RESERVE")) {
                         tv_pay_type.setText("적립금결제");
-                    }
-                    else if(payment_info.getString("pay_type").equals("FREE")){
+                    } else if (payment_info.getString("pay_type").equals("FREE")) {
                         tv_pay_type.setText("이벤트");
-                    }
-                    else if(payment_info.getString("pay_type").equals("PHONE")){
+                    } else if (payment_info.getString("pay_type").equals("PHONE")) {
                         tv_pay_type.setText("휴대폰");
 
-                        if(payment_info.has("app_no")) {
+                        if (payment_info.has("app_no")) {
                             findViewById(R.id.ll_pay_num).setVisibility(View.VISIBLE);
                             tv_pay_num.setText(payment_info.getString("app_no"));
                         }
-                        if(payment_info.has("card_name")) {
+                        if (payment_info.has("card_name")) {
                             findViewById(R.id.ll_pay_tel_com).setVisibility(View.GONE);
                             tv_pay_tel_com.setText(payment_info.getString("card_name"));
                         }
-                    }
-                    else if(payment_info.getString("pay_type").equals("BCARD")) {
+                    } else if (payment_info.getString("pay_type").equals("BCARD")) {
                         tv_pay_type.setText("간편결제");
 
-                        if(payment_info.has("app_no")) {
+                        if (payment_info.has("app_no")) {
                             findViewById(R.id.ll_pay_num).setVisibility(View.VISIBLE);
                             tv_pay_num.setText(payment_info.getString("app_no"));
                         }
-                        if(payment_info.has("card_name")) {
+                        if (payment_info.has("card_name")) {
                             findViewById(R.id.ll_pay_card_com).setVisibility(View.VISIBLE);
                             tv_pay_card_com.setText(payment_info.getString("card_name"));
                         }
-                    }
-                    else {
+                    } else {
                         tv_pay_type.setText("신용카드");
 
-                        if(payment_info.has("app_no")) {
+                        if (payment_info.has("app_no")) {
                             findViewById(R.id.ll_pay_num).setVisibility(View.VISIBLE);
                             tv_pay_num.setText(payment_info.getString("app_no"));
                         }
-                        if(payment_info.has("card_name")) {
+                        if (payment_info.has("card_name")) {
                             findViewById(R.id.ll_pay_card_com).setVisibility(View.VISIBLE);
                             tv_pay_card_com.setText(payment_info.getString("card_name"));
                         }
                     }
 
-                    if(_preferences.getString("userid", null) != null){
+                    if (_preferences.getString("userid", null) != null) {
                         findViewById(R.id.ll_save_point).setVisibility(View.VISIBLE);
-                        if(buy_reward.getInt("buy_reserve_monay") != 0) {
+                        if (buy_reward.getInt("buy_reserve_monay") != 0) {
                             tv_save_point.setText(Util.numberFormat(buy_reward.getInt("buy_reserve_monay")) + "원");
-                        }
-                        else{
+                        } else {
                             findViewById(R.id.ll_save_point).setVisibility(View.GONE);
                         }
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ll_save_point).setVisibility(View.GONE);
                     }
 
@@ -485,15 +475,20 @@ public class ReservationHotelDetailActivity extends Activity {
 
                     String webData =
                             confirm_info.getString("confirm_check").replace("<ul>", "").replace("</ul>", "").replace("<li>", "<div>• ").replace("</li>", "</div>")
-                            +confirm_info.getString("cancel_fee").replace("\n","<br>");
+                                    + confirm_info.getString("cancel_fee").replace("\n", "<br>");
 
+                    if(android.os.Build.VERSION.SDK_INT <= 19) {
+                        webData = webData.replace("<span style=\"", "<font ")
+                                .replace("<font color:", "<font color=")
+                                .replace(";\">", ">");
+                    }
+                    LogUtil.e("xxxxxxx", webData);
                     Spannable sp = new SpannableString(Html.fromHtml(webData));
-//                    Linkify.addLinks(sp, Linkify.PHONE_NUMBERS);
                     Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
                             Linkify.sPhoneNumberTransformFilter);
                     final String html = Html.toHtml(sp);
 
-                    if(android.os.Build.VERSION.SDK_INT < 16) {
+                    if(android.os.Build.VERSION.SDK_INT < 19) {
                         info_view.loadData("<div style='font-size:12px'>"+html+"</div>", "text/html", "UTF-8"); // Android 4.0 이하 버전
                     }else {
                         info_view.loadData("<div style='font-size:12px'>"+html+"</div>", "text/html; charset=UTF-8", null); // Android 4.1 이상 버전

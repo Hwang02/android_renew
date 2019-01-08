@@ -133,8 +133,6 @@ public class FavoriteFragment extends Fragment {
                             startActivityForResult(intent, 80);
                         }
                     });
-                } else if (tab.getPosition() == 1) {
-                    mFavoriteBinding.viewFilter.setVisibility(View.GONE);
                 }
 
                 mFavoriteBinding.btnCancel.setOnClickListener(new OnSingleClickListener() {
@@ -168,11 +166,23 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void isdelete(boolean isdelete){
-        if(isdelete){
-            mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+        if(mFavoriteBinding.tabLayout.getSelectedTabPosition() == 0) {
+            if (isdelete) {
+                mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
+                mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
+                mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+            } else {
+                mFavoriteBinding.viewFilter.setVisibility(View.GONE);
+            }
         }
-        else{
-            mFavoriteBinding.viewFilter.setVisibility(View.GONE);
+        else {
+            if (isdelete) {
+                mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
+                mFavoriteBinding.btnDate.setVisibility(View.GONE);
+                mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+            } else {
+                mFavoriteBinding.viewFilter.setVisibility(View.GONE);
+            }
         }
     }
 

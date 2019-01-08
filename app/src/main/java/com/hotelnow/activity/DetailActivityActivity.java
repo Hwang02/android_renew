@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -69,6 +70,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 public class DetailActivityActivity extends AppCompatActivity {
 
@@ -710,7 +712,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     //이미지 정보
 
                     //상품소개
-                    if(ticket_data.has("deal_introduce")&& !TextUtils.isEmpty(ticket_data.getString("deal_introduce"))) {
+                    if(ticket_data.has("deal_introduce")&& !TextUtils.isEmpty(ticket_data.getString("deal_introduce")) && !ticket_data.getString("deal_introduce").equals("null")) {
                         findViewById(R.id.product_info).setVisibility(View.VISIBLE);
                         tv_product_info.setText(ticket_data.getString("deal_introduce"));
                     }
@@ -769,26 +771,26 @@ public class DetailActivityActivity extends AppCompatActivity {
                     //이용 정보
                     ArrayList<TicketInfoEntry> infolist = new ArrayList<>();
 
-                    if(ticket_data.has("deal_info") && !TextUtils.isEmpty(ticket_data.getString("deal_info"))) {
+                    if(ticket_data.has("deal_info") && !TextUtils.isEmpty(ticket_data.getString("deal_info")) && !ticket_data.getString("deal_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("상품 정보", ticket_data.getString("deal_info")));
                     }
-                    if(ticket_data.has("refund_info") && !TextUtils.isEmpty(ticket_data.getString("refund_info"))){
+                    if(ticket_data.has("refund_info") && !TextUtils.isEmpty(ticket_data.getString("refund_info")) && !ticket_data.getString("refund_info").equals("null")){
                         infolist.add(new TicketInfoEntry("환불 정보", ticket_data.getString("refund_info")));
                     }
 
-                    if(ticket_data.has("usage_info")&& !TextUtils.isEmpty(ticket_data.getString("usage_info"))){
+                    if(ticket_data.has("usage_info")&& !TextUtils.isEmpty(ticket_data.getString("usage_info")) && !ticket_data.getString("usage_info").equals("null")){
                         infolist.add(new TicketInfoEntry("사용 정보", ticket_data.getString("usage_info")));
                     }
 
-                    if(ticket_data.has("store_info")&& !TextUtils.isEmpty(ticket_data.getString("store_info"))){
+                    if(ticket_data.has("store_info")&& !TextUtils.isEmpty(ticket_data.getString("store_info")) && !ticket_data.getString("store_info").equals("null")){
                         infolist.add(new TicketInfoEntry("시설사 정보", ticket_data.getString("store_info")));
                     }
 
-                    if(ticket_data.has("notice_info")&& !TextUtils.isEmpty(ticket_data.getString("notice_info"))){
+                    if(ticket_data.has("notice_info")&& !TextUtils.isEmpty(ticket_data.getString("notice_info")) && !ticket_data.getString("notice_info").equals("null")){
                         infolist.add(new TicketInfoEntry("공지 정보", ticket_data.getString("notice_info")));
                     }
 
-                    if(ticket_data.has("cs_info")&&!TextUtils.isEmpty(ticket_data.getString("cs_info"))){
+                    if(ticket_data.has("cs_info")&&!TextUtils.isEmpty(ticket_data.getString("cs_info")) && !ticket_data.getString("cs_info").equals("null")){
                         infolist.add(new TicketInfoEntry("제공 정보", ticket_data.getString("cs_info")));
                     }
                     if(infolist.size()>0) {
@@ -797,21 +799,29 @@ public class DetailActivityActivity extends AppCompatActivity {
                             View info_view = LayoutInflater.from(DetailActivityActivity.this).inflate(R.layout.layout_ticket_info, null);
                             AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                             TextView title = (TextView) info_view.findViewById(R.id.title);
-//                            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+
                             title_sub.addAutoLinkMode(
                                     AutoLinkMode.MODE_PHONE,
                                     AutoLinkMode.MODE_URL);
                             title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
                             title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
-                            Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
-                            Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
-                            title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
-                            title_sub.setText(sp);
 
-//                            }
-//                            else{
-//                                title_sub.setText(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
-//                            }
+                            Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
+
+                            Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                            Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
+
+                                @Override
+                                public String transformUrl(Matcher match, String url) {
+
+                                    return url;
+
+                                }
+                            };
+                            Linkify.addLinks(sp, Patterns.WEB_URL, "", null, transformFilter);
+                            title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
+                            title_sub.setText(sp, TextView.BufferType.SPANNABLE);
+
                             title.setText(infolist.get(i).getmTitle());
 
                             info_list.addView(info_view);

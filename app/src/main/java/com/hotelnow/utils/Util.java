@@ -543,7 +543,7 @@ public class Util {
             for (int i = start; i < end; i++) {
                 if (Character.isDigit(s.charAt(i))) {
                     digitCount++;
-                    if (digitCount >= 8) {
+                    if (digitCount >= 10) {
                         return true;
                     }
                 }
