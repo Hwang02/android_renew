@@ -27,6 +27,7 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
 import com.hotelnow.adapter.SearchStayAdapter;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -78,6 +79,7 @@ public class HotelSearchActivity extends Activity {
     RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
     TextView tv_toast, tv_elocation, tv_edate, empty_title, empty_sub;
+    private DialogAlert dialogAlert;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -388,7 +390,7 @@ public class HotelSearchActivity extends Activity {
                             });
                             page.setText("1 / "+ mBannerItems.size());
 
-                            autoViewPager.startAutoScroll();
+//                            autoViewPager.startAutoScroll();
                         }
                         else {
                             bannerview.setVisibility(View.GONE);
@@ -442,6 +444,20 @@ public class HotelSearchActivity extends Activity {
                             btn_filter.setVisibility(View.GONE);
                             empty_title.setVisibility(View.VISIBLE);
                             empty_sub.setVisibility(View.VISIBLE);
+                            if(obj.has("previous_date_msg")){
+                                dialogAlert = new DialogAlert(
+                                        getString(R.string.alert_notice),
+                                        obj.getString("previous_date_msg"),
+                                        HotelSearchActivity.this,
+                                        new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialogAlert.dismiss();
+                                            }
+                                        });
+                                dialogAlert.setCancelable(false);
+                                dialogAlert.show();
+                            }
                         }
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
@@ -481,6 +497,7 @@ public class HotelSearchActivity extends Activity {
                         total_count = obj.getInt("total_count");
                         adapter.notifyDataSetChanged();
                         Page++;
+
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();

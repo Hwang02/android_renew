@@ -35,10 +35,12 @@ import com.hotelnow.activity.AreaHotelActivity;
 import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.FilterHotelActivity;
+import com.hotelnow.activity.HotelSearchActivity;
 import com.hotelnow.activity.MapHotelActivity;
 import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
 import com.hotelnow.adapter.SearchResultStayAdapter;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.utils.Api;
@@ -101,6 +103,7 @@ public class HotelSearchFragment extends Fragment {
     private TextView tv_count;
     private int filter_cnt = 0;
     private boolean _hasLoadedOnce= false; // your boolean field
+    private DialogAlert dialogAlert;
 
     @Nullable
     @Override
@@ -243,7 +246,7 @@ public class HotelSearchFragment extends Fragment {
                                 });
                                 page.setText("1 / " + mBannerItems.size());
 
-                                autoViewPager.startAutoScroll();
+//                                autoViewPager.startAutoScroll();
                             } else {
                                 bannerview.setVisibility(View.GONE);
                                 autoViewPager.stopAutoScroll();
@@ -313,6 +316,20 @@ public class HotelSearchFragment extends Fragment {
                                 bt_scroll.setVisibility(View.GONE);
                                 empty_image.setVisibility(View.VISIBLE);
                                 h_filter.bringToFront();
+                                if(obj.has("previous_date_msg")){
+                                    dialogAlert = new DialogAlert(
+                                            getString(R.string.alert_notice),
+                                            obj.getString("previous_date_msg"),
+                                            getActivity(),
+                                            new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialogAlert.dismiss();
+                                                }
+                                            });
+                                    dialogAlert.setCancelable(false);
+                                    dialogAlert.show();
+                                }
                             }
 
                             String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +

@@ -797,6 +797,22 @@ public class DetailHotelActivity extends AppCompatActivity {
                             }
                         }
                     }
+
+                    if(obj.has("previous_date_msg")){
+                        dialogAlert = new DialogAlert(
+                                getString(R.string.alert_notice),
+                                obj.getString("previous_date_msg"),
+                                DetailHotelActivity.this,
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogAlert.dismiss();
+                                    }
+                                });
+                        dialogAlert.setCancelable(false);
+                        dialogAlert.show();
+                    }
+
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
                 catch (Exception e) {
@@ -1285,6 +1301,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                         Intent intent = new Intent(DetailHotelActivity.this, ReservationActivity.class);
                         intent.putExtra("ec_date", ec_date);
                         intent.putExtra("ee_date", ee_date);
+//                                                        intent.putExtra("ec_date", "2019-01-07");
+//                                intent.putExtra("ee_date", "2019-01-08");
                         intent.putExtra("pid", pid.getText());
                         intent.putExtra("page", "detailH");
                         startActivityForResult(intent,80);

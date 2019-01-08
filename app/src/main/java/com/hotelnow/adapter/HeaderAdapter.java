@@ -77,6 +77,8 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
                                 Intent intent = new Intent(fm.getActivity(), CalendarActivity.class);
                                 intent.putExtra("ec_date", data.get(0).getEc_date());
                                 intent.putExtra("ee_date", data.get(0).getEe_date());
+//                                intent.putExtra("ec_date", "2019-01-07");
+//                                intent.putExtra("ee_date", "2019-01-08");
                                 intent.putExtra("city", data.get(0).getLocation());
                                 intent.putExtra("city_code", data.get(0).getLocation_id());
                                 intent.putExtra("subcity_code", data.get(0).getLocation_subid());
@@ -110,6 +112,8 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
                 Intent intent = new Intent(fm.getActivity(), HotelSearchActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());
+//                intent.putExtra("ec_date", "2019-01-07");
+//                intent.putExtra("ee_date", "2019-01-08");
                 intent.putExtra("city", data.get(0).getLocation());
                 intent.putExtra("city_code", data.get(0).getLocation_id());
                 intent.putExtra("subcity_code", data.get(0).getLocation_subid());

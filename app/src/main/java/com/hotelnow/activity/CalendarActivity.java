@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.savvi.rangedatepicker.CalendarPickerView;
@@ -124,6 +125,7 @@ public class CalendarActivity extends Activity{
             strdate = Util.setCheckinout().get(0);
             strdate2 = Util.setCheckinout().get(1);
         }
+
         checkin_date.setText(Util.formatchange2(strdate));
         checkout_date.setText(Util.formatchange2(strdate2));
         check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", ""))+"박");
@@ -135,6 +137,25 @@ public class CalendarActivity extends Activity{
             newdate2 = dateformat.parse(strdate2);
             arrayList.add(newdate);
             arrayList.add(newdate2);
+            // 달력에 뿌려지는 날짜가 달력진입시 날짜보다 작을때
+            if(Util.diffOfDate2(Util.DateToString(lastYear.getTime()), Util.DateToString(newdate)) < 0){
+                LogUtil.e("xxxxxx", "작다");
+                arrayList.clear();
+                strdate = Util.setCheckinout().get(0);
+                strdate2 = Util.setCheckinout().get(1);
+
+                try {
+                    newdate = dateformat.parse(strdate);
+                    newdate2 = dateformat.parse(strdate2);
+                    arrayList.add(newdate);
+                    arrayList.add(newdate2);
+                    checkin_date.setText(Util.formatchange2(strdate));
+                    checkout_date.setText(Util.formatchange2(strdate2));
+                    check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", ""))+"박");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }

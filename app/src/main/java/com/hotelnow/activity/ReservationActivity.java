@@ -417,7 +417,20 @@ public class ReservationActivity extends Activity {
                     boolean isPrivate = false;
                     JSONObject obj = new JSONObject(body);
                     if (!obj.getString("result").equals("success")) {
-                        Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        dialogAlert = new DialogAlert(
+                                getString(R.string.alert_notice),
+                                obj.getString("msg"),
+                                ReservationActivity.this,
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogAlert.dismiss();
+                                        finish();
+                                    }
+                                });
+                        dialogAlert.setCancelable(false);
+                        dialogAlert.show();
+
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
