@@ -1105,19 +1105,19 @@ public class DetailActivityActivity extends AppCompatActivity {
         sc_star5 = (ImageView) findViewById(R.id.sc_star5);
 
         if(rate>4) {
-            review_message.setText("최고에요! 강추!");
+            review_message.setText("최고에요!");
         }
         else if(rate>=3.5) {
-            review_message.setText("좋았어요! 추천해요!");
+            review_message.setText("아주 좋아요");
         }
         else if(rate>=3) {
-            review_message.setText("좋았어요!");
+            review_message.setText("좋아요");
         }
         else if(rate>=2) {
-            review_message.setText("보통이에요.");
+            review_message.setText("보통입니다");
         }
         else {
-            review_message.setText("그럭저럭");
+            review_message.setText("별로에요");
         }
         setStar(rate, sc_star1, sc_star2,sc_star3 ,sc_star4,sc_star5);
     }

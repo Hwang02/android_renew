@@ -133,7 +133,12 @@ public class AllRoomTypeActivity extends Activity {
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
 
         try {
-            url += "&user_id="+Util.decode(cookie.replace("HN|",""));
+            if(cookie != null) {
+                url += "&user_id=" + Util.decode(cookie.replace("HN|", ""));
+            }
+            else{
+                url += "&user_id=" + cookie;
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -266,7 +271,7 @@ public class AllRoomTypeActivity extends Activity {
                             view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
                         }
                         else if(rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
-                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setText("제안완료");
                             btn_private.setBackgroundResource(R.drawable.reservation_private_round);
                             view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
@@ -280,10 +285,10 @@ public class AllRoomTypeActivity extends Activity {
                             r_soldout = r_soldout+1;
                         }
                         else {
-                            view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                            view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.VISIBLE);
                             btn_private.setBackgroundResource(R.drawable.reservation_private_round);
-                            btn_private.setText("가격제안");
+                            btn_private.setText("프라이빗딜");
                             view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                         }
 

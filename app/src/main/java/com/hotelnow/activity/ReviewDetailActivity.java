@@ -86,19 +86,19 @@ public class ReviewDetailActivity extends Activity{
 
         Double mAvg = intent.getDoubleExtra("avg",0);
         if(intent.getDoubleExtra("avg",0)>4) {
-            tv_review_rate_message.setText("최고에요! 강추!");
+            tv_review_rate_message.setText("최고에요!");
         }
         else if(intent.getDoubleExtra("avg",0)>=3.5) {
-            tv_review_rate_message.setText("좋았어요! 추천해요!");
+            tv_review_rate_message.setText("아주 좋아요");
         }
         else if(intent.getDoubleExtra("avg",0)>=3) {
-            tv_review_rate_message.setText("좋았어요!");
+            tv_review_rate_message.setText("좋아요");
         }
         else if(intent.getDoubleExtra("avg",0)>=2) {
-            tv_review_rate_message.setText("보통이에요.");
+            tv_review_rate_message.setText("보통입니다");
         }
         else {
-            tv_review_rate_message.setText("그럭저럭");
+            tv_review_rate_message.setText("별로에요");
         }
 
         tv_title_hotel.setText(intent.getStringExtra("title"));

@@ -29,7 +29,7 @@
             android:textColor="@color/graytxt"
             android:layout_marginTop="5dp"
             android:padding="1dp"
-            android:text="호텔나우가 추천하는 숙소를 보러 가시겠어요?"
+            android:text="호텔나우가 추천하는 인기 숙소를 지금 확인하세요"
             android:textSize="14dp"
             android:gravity="center"/>
     </LinearLayout>

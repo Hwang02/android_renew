@@ -470,19 +470,17 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     title.setText("제목 받아서");
                     break;
                 case SPECIAL:
-                    title.setText("특별한 여행 제안");
+                    title.setText("호텔나우 추천 테마");
                     break;
                 case PRIVATEDEAL:
-                    SpannableStringBuilder builder = new SpannableStringBuilder("오늘의 프라이빗딜 원하는 가격을 직접 제안!");
+                    SpannableStringBuilder builder = new SpannableStringBuilder("오늘의 프라이빗딜 최대 60% 추가 할인");
                     builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.privateview)), 4, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 10, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    builder.setSpan(new RelativeSizeSpan(0.8f), 10, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 10, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new RelativeSizeSpan(0.8f), 10, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     title.setText(builder);
                     break;
                 case HOTDEAL_HOTEL:
-                    SpannableStringBuilder builder2 = new SpannableStringBuilder("단독핫딜 호텔나우만의 최저가 상품");
-                    builder2.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.graytxt)), 5, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    builder2.setSpan(new RelativeSizeSpan(0.8f), 5, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    SpannableStringBuilder builder2 = new SpannableStringBuilder("NOW핫딜");
                     title.setText(builder2);
                     break;
             }

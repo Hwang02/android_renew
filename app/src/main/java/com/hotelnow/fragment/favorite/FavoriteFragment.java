@@ -218,7 +218,7 @@ public class FavoriteFragment extends Fragment {
             mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
             if (mFavoriteBinding.tabLayout.getSelectedTabPosition() == 0) {
                 if (isdelete) {
-                    mFavoriteBinding.tvDateTitle.setText("숙박일 선택");
+                    mFavoriteBinding.tvDateTitle.setText("날짜 선택");
                     mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                     mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
                     mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);

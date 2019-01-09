@@ -39,7 +39,7 @@
             android:textColor="@color/graytxt"
             android:layout_marginTop="5dp"
             android:padding="1dp"
-            android:text="관심 상품을 저장하고 편리하게 이용해보세요"
+            android:text="관심 상품을 추가하고 편리하게 이용해보세요"
             android:textSize="14dp"
             android:gravity="center"/>
     </LinearLayout>

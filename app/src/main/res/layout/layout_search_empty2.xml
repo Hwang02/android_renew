@@ -158,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="@color/blacktxt"
-                    android:text="호텔나우가 추천해드리는 요즘 뜨는 키워드!"/>
+                    android:text="호텔나우가 추천하는 인기 키워드!"/>
 
                 <LinearLayout
                     android:id="@+id/ll_filter1"

@@ -69,6 +69,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1026,7 +1027,7 @@ public class ReservationActivity extends Activity {
                             if (paytype <= 0) {
                                 dialogAlert = new DialogAlert(
                                         getString(R.string.alert_notice),
-                                        "결제방식을 선택하세요.",
+                                        "결제방식을 선택하여 주십시오",
                                         ReservationActivity.this,
                                         new View.OnClickListener() {
                                             @Override
@@ -1535,7 +1536,16 @@ public class ReservationActivity extends Activity {
         try{
             paramObj.put("phone_number", phone_number_ful);
             paramObj.put("phone_auth_code", auth_string.getText().toString());
-            paramObj.put("user_id", cookie);
+            if(cookie != null) {
+                try {
+                    paramObj.put("user_id", Util.decode(cookie.replace("HN|","")));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                paramObj.put("user_id", cookie);
+            }
             paramObj.put("uuid", Util.getAndroidId(ReservationActivity.this));
         } catch (JSONException e) {}
 

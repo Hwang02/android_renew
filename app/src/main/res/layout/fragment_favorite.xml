@@ -58,7 +58,7 @@
 			android:id="@+id/tv_date_title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="숙박일 선택"
+			android:text="날짜 선택"
 			android:layout_centerVertical="true"
 			android:layout_marginLeft="16dp"
 			android:textSize="13dp"

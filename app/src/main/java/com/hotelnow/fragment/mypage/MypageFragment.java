@@ -119,7 +119,7 @@ public class MypageFragment extends Fragment {
             public void onSingleClick(View v) {
                 String userId = "";
                 try {
-                    userId = Util.decode(_preferences.getString("userid", null).replace("HN|",""));
+                    userId = _preferences.getString("userid", null) == null ? null : Util.decode(_preferences.getString("userid", null).replace("HN|",""));
                 } catch (UnsupportedEncodingException e) {
                     userId ="";
                     e.printStackTrace();

@@ -110,7 +110,7 @@
         android:layout_marginTop="231dp"
         android:gravity="center"
         android:textSize="15dp"
-        android:text="해당 지역에 판매중인 상품이 없습니다"/>
+        android:text="검색하신 조건으로 예약 가능한 상품이 없습니다"/>
 
     <TextView
         android:id="@+id/sub"

@@ -365,7 +365,10 @@ public class DetailHotelActivity extends AppCompatActivity {
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
 
         try {
-            url += "&user_id="+Util.decode(cookie.replace("HN|",""));
+            if(cookie != null)
+                url += "&user_id="+Util.decode(cookie.replace("HN|",""));
+            else
+                url += "&user_id="+cookie;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -1220,7 +1223,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
                 }
                 else if(rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
-                    view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                    view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setText("제안완료");
                     btn_private.setBackgroundResource(R.drawable.reservation_private_round);
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
@@ -1234,10 +1237,10 @@ public class DetailHotelActivity extends AppCompatActivity {
                     r_soldout = r_soldout+1;
                 }
                 else {
-                    view_room.findViewById(R.id.img_room_private).setVisibility(View.VISIBLE);
+                    view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.VISIBLE);
                     btn_private.setBackgroundResource(R.drawable.reservation_private_round);
-                    btn_private.setText("가격제안");
+                    btn_private.setText("프라이빗딜");
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
 
@@ -1494,19 +1497,19 @@ public class DetailHotelActivity extends AppCompatActivity {
         sc_star5 = (ImageView) findViewById(R.id.sc_star5);
 
         if(rate>4) {
-            review_message.setText("최고에요! 강추!");
+            review_message.setText("최고에요!");
         }
         else if(rate>=3.5) {
-            review_message.setText("좋았어요! 추천해요!");
+            review_message.setText("아주 좋아요");
         }
         else if(rate>=3) {
-            review_message.setText("좋았어요!");
+            review_message.setText("좋아요");
         }
         else if(rate>=2) {
-            review_message.setText("보통이에요.");
+            review_message.setText("보통입니다");
         }
         else {
-            review_message.setText("그럭저럭");
+            review_message.setText("별로에요");
         }
         setStar(rate, sc_star1, sc_star2,sc_star3 ,sc_star4,sc_star5);
     }

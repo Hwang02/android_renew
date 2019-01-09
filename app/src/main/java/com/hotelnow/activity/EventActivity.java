@@ -109,7 +109,11 @@ public class EventActivity extends AppCompatActivity {
 
                 if(cookie != null){
                     try {
-                        webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                        if(cookie != null)
+                            webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                        else{
+                            webView.loadUrl("javascript:func_from_native('" + cookie + "')");
+                        }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -276,7 +280,10 @@ public class EventActivity extends AppCompatActivity {
                     evtObj = new JSONObject(obj);
                     linkUrl = CONFIG.eventWebUrl+"/"+evtObj.getString("id");
                 }
-                linkUrl +="?uid="+Util.decode(uid.replace("HN|",""));
+                if(uid != null)
+                    linkUrl +="?uid="+Util.decode(uid.replace("HN|",""));
+                else
+                    linkUrl +="?uid="+uid;
             } catch (JSONException e) {
                 webView.loadUrl("file:///android_asset/404.html");
                 e.printStackTrace();
@@ -325,7 +332,10 @@ public class EventActivity extends AppCompatActivity {
             cookie = _preferences.getString("userid", null);
             if(cookie != null){
                 try {
-                    webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                    if(cookie != null)
+                        webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                    else
+                        webView.loadUrl("javascript:func_from_native('" + cookie + "')");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

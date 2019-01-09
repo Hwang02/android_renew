@@ -37,12 +37,12 @@
     <!-- title -->
     <string name="banner">베너</string>
     <string name="small_banner">작은배너</string>
-    <string name="keyword">요즘 뜨는 키워드</string>
+    <string name="keyword">인기 키워드</string>
     <string name="recent">최근 본 상품</string>
-    <string name="hotdeal_hotel">숙소 단독 핫딜</string>
-    <string name="hotdeal_activity">액티비티 단독 핫딜</string>
+    <string name="hotdeal_hotel">NOW핫딜 숙소</string>
+    <string name="hotdeal_activity">NOW핫딜 액티비티</string>
     <string name="promotion">제목 받아서</string>
-    <string name="theme_special">특별한 여행 제안</string>
+    <string name="theme_special">호텔나우 추천 테마</string>
     <!-- end title -->
 
     <!-- ActLoading -->
@@ -84,7 +84,7 @@
     <string name="term_txt1">서비스 이용약관</string>
     <string name="term_txt2">개인정보처리방침</string>
     <string name="term_txt3">위치정보 이용약관</string>
-    <string name="search_hint">검색어를 입력해주세요</string>
+    <string name="search_hint">지역, 상품명을 입력해주세요.</string>
     <string name="search_location_go">내 주변 바로보기</string>
     <string name="search_recent_title">최근 검색어</string>
     <string name="search_popular_title">인기 여행지</string>
@@ -139,7 +139,7 @@
     <string name="reservation_user_price_title">가격 정보</string>
     <string name="reservation_pay_title">결제방식</string>
     <string name="reservation_payinfo_title">결제 정보</string>
-    <string name="reservation_private">프라이빗딜 특별할인</string>
+    <string name="reservation_private">프라이빗딜 추가 할인</string>
     <string name="reservation_point">적립금</string>
     <string name="reservation_coupon">사용가능쿠폰</string>
     <string name="reservation_point_total"><u>전액사용</u></string>
@@ -170,10 +170,10 @@
     <string name="reservation_ok">결제하기</string>
     <string name="mypage_title">내정보</string>
     <string name="mypage_not_join">아직 회원이 아니신가요?</string>
-    <string name="mypage_not_join2">회원가입하시고, 호텔나우만의 특별한 혜택을 누리세요!</string>
-    <string name="mypage_not_sub_join">숙소 전상품 구매시 적립금 0.5% 제공</string>
-    <string name="mypage_not_sub_join2">최대 10만원 상당의 즉시 할인 쿠폰</string>
-    <string name="mypage_not_sub_join3">나만의 가격을 제안하는 프라이빗 딜 찬스</string>
+    <string name="mypage_not_join2">지금 회원가입하고, 호텔나우만의 특별한 혜택을 만나보세요!</string>
+    <string name="mypage_not_sub_join">모든 숙소 예약 시 구매 적립금 제공</string>
+    <string name="mypage_not_sub_join2">최대 60% 추가 할인  프라이빗딜</string>
+    <string name="mypage_not_sub_join3">관심 상품 특가 알림 서비스</string>
     <string name="mypage_join">회원가입</string>
     <string name="mypage_login">로그인</string>
     <string name="cs_title">고객지원</string>
@@ -198,7 +198,7 @@
     <string name="card">결제카드</string>
     <string name="card_manager">결제카드 관리</string>
     <string name="save_title">적립금 내역</string>
-    <string name="save_subtitle">적립금 적립 / 사용 내역</string>
+    <string name="save_subtitle">적립 / 사용</string>
     <string name="coupon_title">쿠폰함</string>
     <string name="info_title">확인사항</string>
     <string name="coupon_savecoupon">보유중인 쿠폰</string>
@@ -310,7 +310,7 @@
     <string name="not_user_reservation">본 예약은 비회원 예약으로 이후 예약 확인을 위해 예약번호, 예약자명, 전화번호를 꼭 숙지 해주시기 바랍니다</string>
 
     <string name="setting_message">- 단독 특가, 깜짝 이벤트, 할인쿠폰 등 호텔나우의 실속있는 혜택을 누구보다 빠르게 받아볼 수 있습니다.</string>
-    <string name="setting_message2">- 동의해주신 채널에 따라 메시지가 발송됩니다. 원하지 않는 경우 각 채널별 수신동의를 해제해주시기 바랍니다.</string>
+    <string name="setting_message2">- 알림 설정에 미동의 하셔도 예약 완료 / 취소 등의 필수 정보 안내는 받아볼 수 있습니다</string>
     <string name="back_button">\'뒤로\' 버튼을 한번 더 누르시면 앱이 종료됩니다.</string>
 
 </resources>
