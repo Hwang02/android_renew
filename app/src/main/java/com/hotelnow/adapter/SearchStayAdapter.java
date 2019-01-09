@@ -84,6 +84,9 @@ public class SearchStayAdapter extends ArrayAdapter<SearchResultItem> {
         else{
             holder.room_count.setVisibility(View.GONE);
             holder.tv_soldout.setVisibility(View.GONE);
+            holder.tv_discount_rate.setVisibility(View.VISIBLE);
+            holder.sale_price.setVisibility(View.VISIBLE);
+            holder.won.setVisibility(View.VISIBLE);
         }
 
         if(dbHelper.selectAllFavoriteStayItem().size() > 0) {

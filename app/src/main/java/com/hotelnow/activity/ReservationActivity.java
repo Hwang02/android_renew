@@ -248,9 +248,9 @@ public class ReservationActivity extends Activity {
                     }
 
                     if(!is_sel_point) {
-                        save_price = save_price + Integer.parseInt(point_discount.getText().toString());
-                        int m_total = sale_price - save_price;
-                        tv_discount_price.setText("-" + nf.format(save_price) + "원");
+                        save_price = save_price - Integer.parseInt(point_discount.getText().toString());
+                        int m_total = save_price - sale_price;
+                        tv_discount_price.setText( nf.format(save_price) + "원");
                         tv_total_price.setText(nf.format(m_total) + "원");
                         is_sel_point = true;
                         is_sel_coupon = false;
@@ -279,13 +279,13 @@ public class ReservationActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(reserve_money > sale_price){
-                    point_discount.setText(sale_price-private_money+"");
+                    point_discount.setText(sale_price+private_money+"");
                     return;
-                }else if(reserve_money < sale_price && reserve_money>=1000){
-                    point_discount.setText(reserve_money-private_money+"");
+                }else if((reserve_money < sale_price) && (reserve_money>=1000)){
+                    point_discount.setText(reserve_money+private_money+"");
                     return;
                 }
-                point_discount.setText(reserve_money-private_money+"");
+                point_discount.setText(reserve_money+private_money+"");
             }
         });
 
@@ -320,7 +320,7 @@ public class ReservationActivity extends Activity {
                         // your action here
                         point_discount.setText("");
                         save_price = private_money;
-                        tv_discount_price.setText("-"+nf.format(save_price) +"원");
+                        tv_discount_price.setText(nf.format(save_price) +"원");
                         tv_total_price.setText(nf.format(sale_price - save_price)+"원");
                         is_sel_point = false;
                         is_sel_coupon = false;
@@ -464,10 +464,10 @@ public class ReservationActivity extends Activity {
                         ll_private.setVisibility(View.VISIBLE);
                         //프라이빗 할인금액
                         isPrivate = true;
-                        int private_sale_price = sale_price - accepted_price;
+                        int private_sale_price = accepted_price - sale_price;
                         private_money = private_sale_price;
-                        private_discount.setText("-"+Util.numberFormat(private_money) + "원");
-                        save_price = private_money;
+                        private_discount.setText(Util.numberFormat(private_money) + "원");
+                        save_price = private_sale_price;
                     }
                     else {
                         ll_private.setVisibility(View.GONE);
@@ -719,9 +719,9 @@ public class ReservationActivity extends Activity {
                     }
 
                     // 금액
-                    tv_discount_price.setText("-"+nf.format(save_price)+"원");
+                    tv_discount_price.setText(nf.format(save_price)+"원");
                     tv_real_price.setText(nf.format(sale_price)+"원");
-                    tv_total_price.setText(nf.format(sale_price - private_money)+"원");
+                    tv_total_price.setText(nf.format(sale_price + private_money)+"원");
 
                     // 적립금 포인트 지급관련
                     LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
@@ -1297,9 +1297,9 @@ public class ReservationActivity extends Activity {
                                         int final_price = 0;
                                         int final_save = 0;
 
-                                        final_save = (save_price + coupon_value);
+                                        final_save = (save_price - coupon_value);
 
-                                        final_price = sale_price - final_save;
+                                        final_price = sale_price + final_save;
 
                                         if (coupon_value == 0) {
                                             if (parentView.getChildAt(0) != null)
@@ -1309,7 +1309,7 @@ public class ReservationActivity extends Activity {
                                                 ((TextView) parentView.getChildAt(0)).setText(getString(R.string.price, nf.format(coupon_value)));
                                         }
 
-                                        tv_discount_price.setText("-" + nf.format(final_save) + "원");
+                                        tv_discount_price.setText(nf.format(final_save) + "원");
                                         tv_total_price.setText(nf.format(final_price) + "원");
                                         is_sel_coupon = true;
                                         setSavePoint(pcode, apply_reserve_money);
