@@ -20,6 +20,8 @@ import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by susia on 16. 6. 2..
  */
@@ -56,7 +58,11 @@ public class CardAddActivity extends Activity {
 //        webview.addJavascriptInterface(new billWebInterface(), "billWebInterface");
         webview.setWebChromeClient(new WebChromeClient());
 
-        webview.loadUrl(CONFIG.cardAddUrl+"?uid="+uid);
+        try {
+            webview.loadUrl(CONFIG.cardAddUrl+"?uid="+Util.decode(uid.replace("HN|","")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override

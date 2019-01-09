@@ -66,6 +66,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -327,7 +328,7 @@ public class ReservationActivityActivity extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", _preferences.getString("userid", null));
+            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
         } catch(Exception e){ }
 
@@ -1160,9 +1161,11 @@ public class ReservationActivityActivity extends Activity {
         try{
             paramObj.put("phone_number", phone_number_ful);
             paramObj.put("phone_auth_code", auth_string.getText().toString());
-            paramObj.put("user_id", cookie);
+            paramObj.put("user_id", Util.decode(cookie.replace("HN|","")));
             paramObj.put("uuid", Util.getAndroidId(ReservationActivityActivity.this));
-        } catch (JSONException e) {}
+        }
+        catch (JSONException e) {}
+        catch (UnsupportedEncodingException e) {}
 
         Api.post(CONFIG.phone_auth_check, paramObj.toString(), new Api.HttpCallback() {
 

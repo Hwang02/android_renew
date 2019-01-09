@@ -20,6 +20,7 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
@@ -150,7 +151,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         try {
             paramObj.put("hotel_id", hotel_id);
             paramObj.put("room_id", room_id);
-            paramObj.put("user_id", userid);
+            paramObj.put("user_id", Util.decode(userid.replace("HN|","")));
             paramObj.put("comment", review_edittext.getText());
             paramObj.put("booking_id", bid);
             paramObj.put("rating_1", sc_count);

@@ -69,6 +69,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -361,7 +362,14 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void setDetailView(){
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
+        String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
+
+        try {
+            url += "&user_id="+Util.decode(cookie.replace("HN|",""));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";
         }

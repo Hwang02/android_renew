@@ -34,6 +34,8 @@ import com.squareup.okhttp.Response;
 import com.tune.TuneEventItem;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
@@ -85,7 +87,11 @@ public class PaymentActivity extends Activity {
         is_payco = intent.getBooleanExtra("is_payco", false);
 
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        uid = _preferences.getString("userid", null);
+        try {
+            uid = _preferences.getString("userid", null) == null ? null : Util.decode(_preferences.getString("userid", null).replace("HN|",""));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         if(uid == null){
             uid="0";
@@ -160,6 +166,7 @@ public class PaymentActivity extends Activity {
                                     public void onClick(View v) {
                                         dialogAlert.dismiss();
 
+                                        uid ="";
                                         finish();
                                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                     }
@@ -205,7 +212,7 @@ public class PaymentActivity extends Activity {
                                                     @Override
                                                     public void onClick(View v) {
                                                         dialogAlert.dismiss();
-
+                                                        uid ="";
                                                         finish();
                                                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                                     }
@@ -264,6 +271,7 @@ public class PaymentActivity extends Activity {
                                     }
                                     //예약 상세 페이지
                                     if (!uid.equals("0")) {
+                                        uid ="";
                                         Intent intent = new Intent(PaymentActivity.this, ReservationActivityDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("tid", bid);
@@ -274,6 +282,7 @@ public class PaymentActivity extends Activity {
                                         startActivity(intent);
                                     }
                                     else { // 링크 변경
+                                        uid ="";
                                         Intent intent = new Intent(PaymentActivity.this, ReservationActivityDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("user_name", un);
@@ -294,6 +303,7 @@ public class PaymentActivity extends Activity {
                                     }
                                 } catch (JSONException e) {
                                     Toast.makeText(getApplicationContext(), "결제를 성공했지만 예약 처리가 되지 않았습니다. 호텔 나우로 연락 부탁드립니다.", Toast.LENGTH_LONG).show();
+                                    uid ="";
                                     finish();
                                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                 }
@@ -379,6 +389,7 @@ public class PaymentActivity extends Activity {
 //                        					Log.e("HOTELNOW_LOG : error ????",e.toString());
                                     }
                                     if (!uid.equals("0")) {
+                                        uid ="";
                                         Intent intent = new Intent(PaymentActivity.this, ReservationHotelDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("bid", bid);
@@ -389,6 +400,7 @@ public class PaymentActivity extends Activity {
                                         startActivity(intent);
                                     }
                                     else {
+                                        uid ="";
                                         Intent intent = new Intent(PaymentActivity.this, ReservationHotelDetailActivity.class);
                                         intent.putExtra("reservation", true);
                                         intent.putExtra("user_name", un);
@@ -406,6 +418,7 @@ public class PaymentActivity extends Activity {
                                     }
                                 } catch (JSONException e) {
                                     Toast.makeText(getApplicationContext(), "결제를 성공했지만 예약 처리가 되지 않았습니다. 호텔 나우로 연락 부탁드립니다.", Toast.LENGTH_LONG).show();
+                                    uid ="";
                                     finish();
                                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                 }
@@ -597,7 +610,7 @@ public class PaymentActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        uid ="";
         if(webView != null){
             webView.destroy();
         }

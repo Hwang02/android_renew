@@ -42,7 +42,7 @@
         
         <RelativeLayout
             android:id="@+id/bt_calendar"
-            android:layout_width="130dp"
+            android:layout_width="140dp"
             android:layout_height="34dp"
             android:orientation="horizontal"
             android:layout_marginRight="10dp"

@@ -26,6 +26,7 @@ import com.squareup.okhttp.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class SettingActivity extends Activity{
@@ -256,8 +257,9 @@ public class SettingActivity extends Activity{
             if(flag != null) {
                 paramObj.put("use_yn", ((flag == true)? "Y":"N"));
             }
-            if(userId != null) paramObj.put("user_id", userId);
+            if(userId != null) paramObj.put("user_id", Util.decode(userId.replace("HN|","")));
         } catch (JSONException e) {}
+        catch (UnsupportedEncodingException e) {}
 
         Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override

@@ -42,6 +42,7 @@ import com.squareup.okhttp.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class SignupActivity extends Activity {
@@ -516,7 +517,7 @@ public class SignupActivity extends Activity {
                             prefEditor.putString("email", email.getText().toString().trim());
                             prefEditor.putString("username", username);
                             prefEditor.putString("phone", phone);
-                            prefEditor.putString("userid", userid);
+                            prefEditor.putString("userid", "HN|"+Base64.encodeToString(userid.getBytes(),Base64.NO_WRAP));
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
 
@@ -661,8 +662,10 @@ public class SignupActivity extends Activity {
             JSONObject paramObj = new JSONObject();
             try{
                 paramObj.put("code", String.valueOf(codeInput.getText()).trim());
-                paramObj.put("target_id", _preferences.getString("userid", null));
-            } catch (JSONException e) {}
+                paramObj.put("target_id", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            }
+            catch (JSONException e) {}
+            catch (UnsupportedEncodingException e) {}
 
             Api.post(CONFIG.recommendSaveUrl, paramObj.toString(), new Api.HttpCallback() {
                 @Override

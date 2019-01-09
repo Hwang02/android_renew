@@ -39,6 +39,7 @@ import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
 
@@ -129,7 +130,14 @@ public class AllRoomTypeActivity extends Activity {
     }
 
     private void setDetailView(){
-        String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt+ "&user_id="+cookie;
+        String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
+
+        try {
+            url += "&user_id="+Util.decode(cookie.replace("HN|",""));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";
         }

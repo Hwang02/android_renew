@@ -33,6 +33,7 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -74,7 +75,7 @@ public class ReservationHotelFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", _preferences.getString("userid", null));
+            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
         } catch(Exception e){ }
 

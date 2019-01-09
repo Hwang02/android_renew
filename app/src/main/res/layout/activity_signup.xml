@@ -364,7 +364,7 @@
                         android:layout_weight="0.7"
                         android:paddingLeft="12dp"
                         android:textSize="13dp"
-                        android:text="위치기반 서비스 이용약관 동의"
+                        android:text="위치정보 이용약관 동의"
                         android:textColor="@color/blacktxt"
                         android:button="@drawable/checkbox_icon"/>
 

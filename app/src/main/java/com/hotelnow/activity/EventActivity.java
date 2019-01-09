@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 
@@ -107,7 +108,11 @@ public class EventActivity extends AppCompatActivity {
                 super.onPageFinished(view, url);
 
                 if(cookie != null){
-                    webView.loadUrl("javascript:func_from_native('" + cookie + "')");
+                    try {
+                        webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -266,12 +271,16 @@ public class EventActivity extends AppCompatActivity {
         if(intent != null){
             try {
                 if(idx > 0){
-                    linkUrl = CONFIG.eventWebUrl+"/"+ String.valueOf(idx)+"?uid="+uid;
+                    linkUrl = CONFIG.eventWebUrl+"/"+ String.valueOf(idx);
                 } else {
                     evtObj = new JSONObject(obj);
-                    linkUrl = CONFIG.eventWebUrl+"/"+evtObj.getString("id")+"?uid="+uid;
+                    linkUrl = CONFIG.eventWebUrl+"/"+evtObj.getString("id");
                 }
+                linkUrl +="?uid="+Util.decode(uid.replace("HN|",""));
             } catch (JSONException e) {
+                webView.loadUrl("file:///android_asset/404.html");
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
                 webView.loadUrl("file:///android_asset/404.html");
                 e.printStackTrace();
             }
@@ -315,7 +324,11 @@ public class EventActivity extends AppCompatActivity {
         if(requestCode == 90 && resultCode == 90){
             cookie = _preferences.getString("userid", null);
             if(cookie != null){
-                webView.loadUrl("javascript:func_from_native('" + cookie + "')");
+                try {
+                    webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         }else {
             try {

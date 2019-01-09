@@ -204,7 +204,7 @@ public class LoginActivity extends Activity{
                             prefEditor.putString("email", email.getText().toString());
                             prefEditor.putString("username", username);
                             prefEditor.putString("phone", phone);
-                            prefEditor.putString("userid", userid);
+                            prefEditor.putString("userid", "HN|"+Base64.encodeToString(userid.getBytes(),Base64.NO_WRAP));
                             prefEditor.putString("moreinfo", moreinfo);
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
@@ -453,7 +453,7 @@ public class LoginActivity extends Activity{
                     prefEditor.putString("email", emailval);
                     prefEditor.putString("username", username);
                     prefEditor.putString("phone", phone);
-                    prefEditor.putString("userid", userid);
+                    prefEditor.putString("userid", "HN|"+Base64.encodeToString(userid.getBytes(),Base64.NO_WRAP));
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
                     prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -307,8 +308,15 @@ public class ActLoading extends Activity {
                             dialogConfirm.show();
                         }
                     } else {
+
                         String uid = _preferences.getString("userid", null);
                         String umi = _preferences.getString("moreinfo", null);
+
+                        if(uid != null && !uid.contains("HN|")){
+                            SharedPreferences.Editor prefEditor = _preferences.edit();
+                            prefEditor.putString("userid", "HN|"+ Base64.encodeToString(uid.getBytes(),Base64.NO_WRAP));
+                            prefEditor.commit();
+                        }
 
                         if (uid != null && umi != null) {
                             authCheck();
@@ -334,7 +342,7 @@ public class ActLoading extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", _preferences.getString("userid", null));
+            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
         } catch(Exception e){
             Log.e(CONFIG.TAG, e.toString());

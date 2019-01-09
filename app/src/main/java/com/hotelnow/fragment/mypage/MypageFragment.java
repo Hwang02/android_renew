@@ -37,6 +37,7 @@ import com.squareup.okhttp.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -116,7 +117,13 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.btnEmail.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                String userId = _preferences.getString("userid", null);
+                String userId = "";
+                try {
+                    userId = Util.decode(_preferences.getString("userid", null).replace("HN|",""));
+                } catch (UnsupportedEncodingException e) {
+                    userId ="";
+                    e.printStackTrace();
+                }
 
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
@@ -127,7 +134,9 @@ public class MypageFragment extends Fragment {
                     startActivity(Intent.createChooser(i, getString(R.string.cs_txt2)));
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.no_email_program), Toast.LENGTH_SHORT).show();
+                    userId="";
                 }
+                userId="";
             }
         });
 
@@ -353,7 +362,7 @@ public class MypageFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", _preferences.getString("userid", null));
+            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
         } catch(Exception e){ }
 

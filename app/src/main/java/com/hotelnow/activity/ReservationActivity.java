@@ -361,7 +361,7 @@ public class ReservationActivity extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", _preferences.getString("userid", null));
+            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
         } catch(Exception e){ }
 

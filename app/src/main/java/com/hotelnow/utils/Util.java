@@ -52,6 +52,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -213,6 +214,10 @@ public class Util {
                 }
             }
         });
+    }
+
+    public static String decode(String txt) throws UnsupportedEncodingException {
+        return new String(Base64.decode(txt, Base64.DEFAULT), "UTF-8");
     }
 
     // 월 일 에 0 붙임
@@ -617,7 +622,7 @@ public class Util {
                                         + _preferences.getString("username", null)
                                         + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
                                         "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
-                                        + Util.getRecommCode(_preferences.getString("userid", null)))
+                                        + Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|",""))))
                                 .build())
                         .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
                                 .setMobileWebUrl("http://www.hotelnow.co.kr/ko")
@@ -644,15 +649,20 @@ public class Util {
 
         if (cookie != null) {
             if(profile != null) {
-                ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                ShareLinkContent linkContent = null;
+                try {
+                    linkContent = new ShareLinkContent.Builder()
 
-                        .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
-                                + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(_preferences.getString("userid", null))+")\n"
-                        +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
-                                "추천인코드 : "+ Util.getRecommCode(_preferences.getString("userid", null))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
-                        .setContentUrl(Uri.parse(CONFIG.marketUrl))
-//                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
-                        .build();
+                            .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
+                                    + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+")\n"
+                            +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
+                                    "추천인코드 : "+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
+                            .setContentUrl(Uri.parse(CONFIG.marketUrl))
+    //                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
+                            .build();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 
                 ShareDialog shareDialog;
                 shareDialog = new ShareDialog(activity);
@@ -664,14 +674,19 @@ public class Util {
                 manager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                                .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"
-                                        + Util.getRecommCode(_preferences.getString("userid", null))+")\n"
-                                +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
-                                        "추천인코드 : "+ Util.getRecommCode(_preferences.getString("userid", null))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
-                                .setContentUrl(Uri.parse(CONFIG.marketUrl))
-//                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
-                                .build();
+                        ShareLinkContent linkContent = null;
+                        try {
+                            linkContent = new ShareLinkContent.Builder()
+                                    .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"
+                                            + Util.getRecommCode(_preferences.getString("userid", null))+")\n"
+                                    +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
+                                            "추천인코드 : "+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
+                                    .setContentUrl(Uri.parse(CONFIG.marketUrl))
+    //                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
+                                    .build();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
                         ShareDialog shareDialog;
                         shareDialog = new ShareDialog(activity);

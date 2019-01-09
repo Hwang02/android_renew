@@ -27,6 +27,7 @@ import com.squareup.okhttp.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -121,8 +122,10 @@ public class DialogPush extends Dialog {
             if(flag != null) {
                 paramObj.put("use_yn", ((flag == true)? "Y":"N"));
             }
-            if(userId != null) paramObj.put("user_id", userId);
-        } catch (JSONException e) {}
+            if(userId != null) paramObj.put("user_id", Util.decode(userId.replace("HN|","")));
+        }
+        catch (JSONException e) {}
+        catch (UnsupportedEncodingException e) { e.printStackTrace(); }
 
         Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override

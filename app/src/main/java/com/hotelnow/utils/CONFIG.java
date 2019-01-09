@@ -85,8 +85,8 @@ public class CONFIG {
     public final static String notiStatusUrl = domain+"/notification/status";				//	notification 설정 값 확인
 
     public final static String setting_agree1 = domain+"/terms/service";					//	이용약관
-    public final static String setting_agree2 = domain+"/terms/privacy";					//	개인정보 취급방침
-    public final static String setting_agree3 = domain+"/terms/location";					//	개인정보 취급방침
+    public final static String setting_agree2 = "http://m.policy.yanolja.com/?t=privacy&d=m";					//	개인정보 취급방침
+    public final static String setting_agree3 = "http://m.policy.yanolja.com/?t=location&d=m";					//	개인정보 취급방침
     public final static String info_provide1 = domain+"/terms_booking/booking";				//	구매 주의사항
     public final static String info_provide2 = domain+"/terms_booking/thirdparty";			//	개인정보 제 3자 동의
 
