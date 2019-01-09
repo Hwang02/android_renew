@@ -250,7 +250,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
 
                     JSONArray data = obj.getJSONArray("lists");
                     JSONArray feed = new JSONArray(data.toString());
-
+                    float zindex = 1;
                     for(int i = 0; i < feed.length(); i++) {
                         LatLng hotel = new LatLng(data.getJSONObject(i).getDouble("latitude"), data.getJSONObject(i).getDouble("longitude"));
 //                        IconGenerator iconFactory = new IconGenerator(ActivityMapActivity.this);
@@ -271,6 +271,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                         Marker sub = mGoogleMap.addMarker(markerOptions);
                         sub.setTitle(data.getJSONObject(i).getString("name"));
                         sub.setSnippet(data.getJSONObject(i).getString("deal_id"));
+                        sub.setZIndex(zindex++);
                         objs.add(data.getJSONObject(i));
                         markers.add(sub);
 

@@ -602,8 +602,8 @@ public class FilterHotelActivity extends Activity {
 
                 locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                         2000, 0, locationListener);
-                CONFIG.lat = "37.506799";
-                CONFIG.lng = "127.066288";
+                CONFIG.lat = "37.506839";
+                CONFIG.lng = "127.066234";
 
                 dialog = new ProgressDialog(FilterHotelActivity.this);
                 dialog.setMessage(getString(R.string.location_loading));
@@ -615,8 +615,8 @@ public class FilterHotelActivity extends Activity {
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 Toast.makeText(FilterHotelActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
-                CONFIG.lat = "37.506799";
-                CONFIG.lng = "127.066288";
+                CONFIG.lat = "37.506839";
+                CONFIG.lng = "127.066234";
             }
         };
 

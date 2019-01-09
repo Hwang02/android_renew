@@ -270,7 +270,9 @@ public class HotelSearchFragment extends Fragment {
                             }
 
                             setPopular();
-
+                            if (Page == 1){
+                                s_position = "";
+                            }
                             for (int i = 0; i < list.length(); i++) {
                                 entry = list.getJSONObject(i);
                                 mItems.add(new SearchResultItem(

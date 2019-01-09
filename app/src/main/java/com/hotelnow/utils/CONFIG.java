@@ -115,7 +115,7 @@ public class CONFIG {
     public final static String setting_facebook = "https://www.facebook.com/hotelnowkr";	//	facebook
     public final static String setting_notice = domain+"/board/notice/view/ko";             //  공지사항
     public final static String setting_faq = domain+"/board/faq/view/ko";	    		    //	자주묻는질문
-    public final static String setting_email = "cs@hotelnow.co.kr";						    //	email 주소
+    public final static String setting_email = "hotelnow@yanolja.com";						    //	email 주소
 
     public final static String fontPath = "fonts/nanumgothic.ttf";							//	폰트경로
     public final static String accountNumber = "우리은행 1005-302-209367";						//	계좌번호

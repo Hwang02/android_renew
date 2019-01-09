@@ -346,7 +346,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             public void onSuccess(Map<String, String> headers, String body) {
                 try {
                     JSONArray data = new JSONArray(body);
-
+                    float zindex = 1;
                     for(int i = 0; i < data.length(); i++) {
                         if (hid.equals(data.getJSONObject(i).getString("id"))) continue;
 
@@ -366,7 +366,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(MapActivity.this, marker_root_view)));
 
                         mGoogleMap.setInfoWindowAdapter(new MapWindowAdapter(MapActivity.this));
+
                         Marker sub = mGoogleMap.addMarker(markerOptions);
+                        sub.setZIndex(zindex++);
                         sub.setTitle(data.getJSONObject(i).getString("name"));
                         sub.setSnippet(data.getJSONObject(i).getString("id"));
                         objs.add(data.getJSONObject(i));

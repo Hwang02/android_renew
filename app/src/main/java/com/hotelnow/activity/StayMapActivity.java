@@ -344,7 +344,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
             public void onSuccess(Map<String, String> headers, String body) {
                 try {
                     JSONArray data = new JSONArray(body);
-
+                    float zindex = 1;
                     for(int i = 0; i < data.length(); i++) {
                         if (hid.equals(data.getJSONObject(i).getString("id"))) continue;
 
@@ -367,6 +367,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                         Marker sub = mGoogleMap.addMarker(markerOptions);
                         sub.setTitle(data.getJSONObject(i).getString("name"));
                         sub.setSnippet(data.getJSONObject(i).getString("id"));
+                        sub.setZIndex(zindex++);
                         objs.add(data.getJSONObject(i));
                         markers.add(sub);
                     }

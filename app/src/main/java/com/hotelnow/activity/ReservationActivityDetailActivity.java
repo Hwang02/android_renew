@@ -331,7 +331,7 @@ public class ReservationActivityDetailActivity extends Activity {
                             TextView tv_option_info = (TextView) v.findViewById(R.id.tv_option_info);
 
                             tv_option_title.setText(tobj.getString("name"));
-                            String tv_option = tobj.getString("available_date");
+                            String tv_option = "유효기간 : "+tobj.getString("available_date");
                             if(!TextUtils.isEmpty(tobj.getString("status_display"))){
                                 tv_option +=  " / "+tobj.getString("status_display");
                             }
