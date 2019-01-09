@@ -1,9 +1,11 @@
 package com.hotelnow.fragment.favorite;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -40,6 +42,7 @@ public class FavoriteFragment extends Fragment {
     private String ec_date, ee_date;
     private int m_Selecttab = 0;
     private DialogConfirm dialogConfirm;
+    private SharedPreferences _preferences;
 
     @Nullable
     @Override
@@ -57,6 +60,7 @@ public class FavoriteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
         mFavoriteBinding.tabLayout.addTab(mFavoriteBinding.tabLayout.newTab().setText("숙소"));
         mFavoriteBinding.tabLayout.addTab(mFavoriteBinding.tabLayout.newTab().setText("액티비티"));
@@ -148,11 +152,6 @@ public class FavoriteFragment extends Fragment {
                 mFavoriteBinding.viewPager.setCurrentItem(tab.getPosition(), true);
 //                m_Selecttab = tab.getPosition();
                 if (tab.getPosition() == 0) {
-                    mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
-                    mFavoriteBinding.tvDate.setVisibility(View.VISIBLE);
-                    mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
-                    mFavoriteBinding.tvDateTitle.setText("숙박일 선택");
-                    mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                     mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
@@ -214,25 +213,33 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void isdelete(boolean isdelete){
-        if(mFavoriteBinding.tabLayout.getSelectedTabPosition() == 0) {
-            if (isdelete) {
-                mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
-                mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
-                mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
-                mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
+        boolean isuser = _preferences.getString("userid", null) != null ? true:false;
+        if(isuser) {
+            mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+            if (mFavoriteBinding.tabLayout.getSelectedTabPosition() == 0) {
+                if (isdelete) {
+                    mFavoriteBinding.tvDateTitle.setText("숙박일 선택");
+                    mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
+                    mFavoriteBinding.tvDateTitle.setVisibility(View.VISIBLE);
+                    mFavoriteBinding.btnDate.setVisibility(View.VISIBLE);
+                    mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+                    mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
+                } else {
+                    mFavoriteBinding.btnCancel.setVisibility(View.GONE);
+                }
             } else {
-                mFavoriteBinding.btnCancel.setVisibility(View.GONE);
+                if (isdelete) {
+                    mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
+                    mFavoriteBinding.btnDate.setVisibility(View.GONE);
+                    mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
+                    mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
+                } else {
+                    mFavoriteBinding.viewFilter.setVisibility(View.GONE);
+                }
             }
         }
-        else {
-            if (isdelete) {
-                mFavoriteBinding.tvDateTitle.setVisibility(View.GONE);
-                mFavoriteBinding.btnDate.setVisibility(View.GONE);
-                mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
-                mFavoriteBinding.btnCancel.setVisibility(View.VISIBLE);
-            } else {
-                mFavoriteBinding.btnCancel.setVisibility(View.GONE);
-            }
+        else{
+            mFavoriteBinding.viewFilter.setVisibility(View.GONE);
         }
     }
 

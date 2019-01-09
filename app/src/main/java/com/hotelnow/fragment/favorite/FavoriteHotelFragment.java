@@ -106,6 +106,7 @@ public class FavoriteHotelFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
+                        ((FavoriteFragment)getParentFragment()).isdelete(false);
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
@@ -117,7 +118,6 @@ public class FavoriteHotelFragment extends Fragment {
                                 ((MainActivity)getActivity()).setTapMove(5, true);
                             }
                         });
-                        ((FavoriteFragment)getParentFragment()).isdelete(false);
                         getFavorite();
                     }
                 } catch (Exception e) {

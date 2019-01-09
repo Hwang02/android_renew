@@ -108,6 +108,7 @@ public class FavoriteActivityFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
+                        ((FavoriteFragment)getParentFragment()).isdelete(false);
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
@@ -119,7 +120,7 @@ public class FavoriteActivityFragment extends Fragment {
                                 ((MainActivity)getActivity()).setTapMove(6, true);
                             }
                         });
-                        ((FavoriteFragment)getParentFragment()).isdelete(false);
+
                         getFavorite();
                     }
                 } catch (Exception e) {
