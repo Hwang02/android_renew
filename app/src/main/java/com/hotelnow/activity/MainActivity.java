@@ -86,17 +86,18 @@ public class MainActivity extends FragmentActivity {
 
         Util.setStatusColor(this);
 
-        if(isDebugged()){
-            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogAlert.dismiss();
-                    finish();
-                }
-            });
-            dialogAlert.show();
-            return;
-        }
+//        if(isDebugged()){
+//            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialogAlert.dismiss();
+//                    finish();
+//                }
+//            });
+//            dialogAlert.show();
+//            dialogAlert.setCancelable(false);
+//            return;
+//        }
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
@@ -188,23 +189,17 @@ public class MainActivity extends FragmentActivity {
                         LogUtil.e("xxxxx","666666");
                         CONFIG.TabLogin=false;
                         setTapMove(FAVPAGE, false);
-                        mbinding.tabLayout.setVisibility(View.GONE);
-                        mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.reserv:{
                         LogUtil.e("xxxxx","77777");
                         CONFIG.TabLogin=false;
                         setTapMove(RESERVPAGE, false);
-                        mbinding.tabLayout.setVisibility(View.GONE);
-                        mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                     case R.id.mypage:{
                         LogUtil.e("xxxxx","888888");
                         setTapMove(MYPAGE, false);
-                        mbinding.tabLayout.setVisibility(View.GONE);
-                        mbinding.toolbar.setVisibility(View.GONE);
                         break;
                     }
                 }
@@ -266,7 +261,7 @@ public class MainActivity extends FragmentActivity {
 
                 } else if (push_type.equals("5")) {
                     CONFIG.sel_reserv = 0;
-                    setTapMove(RESERVPAGE, false);
+                    mbinding.navigation.setCurrentItem(RESERVPAGE);
                 } else if (push_type.equals("6")) {
                     setTapMove(SELECTPAGE, false);
                     if(!evttag.equals(null) && evttag.equals("Q")){
@@ -282,9 +277,16 @@ public class MainActivity extends FragmentActivity {
                         startActivity(intentTheme);
                     }
                 } else if (push_type.equals("7")) {
-                    setTapMove(SELECTPAGE, false);
-                    Intent intentCoupon = new Intent(this, MyCouponActivity.class);
-                    startActivity(intentCoupon);
+                    tabStatus(false);
+                    mbinding.navigation.setCurrentItem(MYPAGE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intentCoupon = new Intent(MainActivity.this, MyCouponActivity.class);
+                            startActivity(intentCoupon);
+                        }
+                    }, 1000);
+
                 } else if(push_type.equals("8")){
                     setTapMove(SELECTPAGE, false);
                     // 티켓상세
@@ -435,9 +437,15 @@ public class MainActivity extends FragmentActivity {
                     // ticket tab
                     setTapMove(LEISUREPAGE, true);
                 } else if (recipeStr1.contains("move_coupon")) {
-                    setTapMove(MYPAGE, false);
-                    Intent intentEvt = new Intent(this, MyCouponActivity.class);
-                    startActivityForResult(intentEvt, 80);
+                    tabStatus(false);
+                    mbinding.navigation.setCurrentItem(MYPAGE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intentCoupon = new Intent(MainActivity.this, MyCouponActivity.class);
+                            startActivity(intentCoupon);
+                        }
+                    }, 1000);
                 } else if (recipeStr1.contains("move_theme_list")) {
                     setTapMove(SELECTPAGE, false);
                     Intent intent = new Intent(this, ThemeSAllActivity.class);
@@ -457,12 +465,11 @@ public class MainActivity extends FragmentActivity {
                         }
 
                         if (map.get("kind_booked") == null) {// ticket 예약리스트 탭
-                            CONFIG.sel_reserv = 1;
-                            setTapMove(RESERVPAGE, false);
-                        } else {//hotel 예약리스트 탭
                             CONFIG.sel_reserv = 0;
-                            setTapMove(RESERVPAGE, false);
+                        } else {//hotel 예약리스트 탭
+                            CONFIG.sel_reserv = 1;
                         }
+                        mbinding.navigation.setCurrentItem(RESERVPAGE);
                     } catch (Exception e) {
                         LogUtil.e(CONFIG.TAG, e.toString());
                         setTapMove(SELECTPAGE, false);
@@ -569,6 +576,8 @@ public class MainActivity extends FragmentActivity {
                 }
                 transaction.commitAllowingStateLoss();
                 is_refresh = true;
+                mbinding.tabLayout.setVisibility(View.GONE);
+                mbinding.toolbar.setVisibility(View.GONE);
                 break;
             }
             case RESERVPAGE:{
@@ -609,6 +618,8 @@ public class MainActivity extends FragmentActivity {
                 }
                 transaction.commitAllowingStateLoss();
                 is_refresh = true;
+                mbinding.tabLayout.setVisibility(View.GONE);
+                mbinding.toolbar.setVisibility(View.GONE);
                 break;
             }
             case MYPAGE:{
@@ -647,6 +658,8 @@ public class MainActivity extends FragmentActivity {
                 }
                 transaction.commitAllowingStateLoss();
                 is_refresh = true;
+                mbinding.tabLayout.setVisibility(View.GONE);
+                mbinding.toolbar.setVisibility(View.GONE);
                 break;
             }
             case HOTELPAGE:{

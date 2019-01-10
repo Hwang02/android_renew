@@ -77,20 +77,22 @@ public class ActLoading extends Activity {
                 }
             });
             dialogAlert.show();
+            dialogAlert.setCancelable(false);
             return;
         }
 
-        if(isDebugged()){
-            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", ActLoading.this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogAlert.dismiss();
-                    finish();
-                }
-            });
-            dialogAlert.show();
-            return;
-        }
+//        if(isDebugged()){
+//            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", ActLoading.this, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialogAlert.dismiss();
+//                    finish();
+//                }
+//            });
+//            dialogAlert.show();
+//            dialogAlert.setCancelable(false);
+//            return;
+//        }
 
         checkSeverInfo();
     }

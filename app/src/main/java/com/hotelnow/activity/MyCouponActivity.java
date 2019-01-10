@@ -22,6 +22,7 @@ import com.hotelnow.adapter.MyCouponAdapter;
 import com.hotelnow.fragment.model.CouponEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -86,7 +87,48 @@ public class MyCouponActivity extends Activity{
             }
         });
 
-        getCouponList();
+        authCheck();
+    }
+
+    public void authCheck() {
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("umi", _preferences.getString("moreinfo", null));
+        } catch(Exception e){ }
+
+        Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (obj.getString("result").equals("0")) {
+                        SharedPreferences.Editor prefEditor = _preferences.edit();
+                        prefEditor.putString("email", null);
+                        prefEditor.putString("username", null);
+                        prefEditor.putString("phone", null);
+                        prefEditor.putString("userid", null);
+                        prefEditor.commit();
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_need_login), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                    getCouponList();
+
+                } catch (Exception e) {
+
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        });
     }
 
     private void couponApply(){
@@ -234,20 +276,20 @@ public class MyCouponActivity extends Activity{
 
     public void getEmptyHeight(View empty_item){
 
-//        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
-//        int height = dm.heightPixels;
-//
-//        header.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-//        footer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-//        (findViewById(R.id.toolbar)).measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-//        int heightTop = header.getHeight();
-//        int heightBottom = footer.getHeight();
-//        int heightBar = (findViewById(R.id.toolbar)).getHeight();
-//
-//        int realHeight = height - heightTop - heightBottom - heightBar- Util.dptopixel(this, 26);
-//        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) empty_item.getLayoutParams();
-//        lp.height = realHeight;
-//        empty_item.setLayoutParams(lp);
+        DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+        int height = dm.heightPixels;
+
+        header.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        footer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        (findViewById(R.id.toolbar)).measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int heightTop = header.getHeight();
+        int heightBottom = footer.getHeight();
+        int heightBar = (findViewById(R.id.toolbar)).getHeight();
+
+        int realHeight = height - heightTop - heightBottom - heightBar;
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) empty_item.getLayoutParams();
+        lp.height = realHeight;
+        empty_item.setLayoutParams(lp);
     }
 
     @Override
