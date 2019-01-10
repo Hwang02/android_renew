@@ -132,7 +132,6 @@ public class ReservationHotelFragment extends Fragment {
                             public void onSingleClick(View v) {
                                 if (!TextUtils.isEmpty(u_name.getText().toString()) && !TextUtils.isEmpty(u_tel.getText().toString()) && !TextUtils.isEmpty(u_num.getText().toString())){
                                     Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
-                                    intent.putExtra("reservation", true);
                                     intent.putExtra("user_name", u_name.getText().toString());
                                     intent.putExtra("user_phone", u_tel.getText().toString());
                                     intent.putExtra("bid", u_num.getText().toString());

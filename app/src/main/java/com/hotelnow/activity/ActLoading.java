@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
@@ -54,11 +55,13 @@ public class ActLoading extends Activity {
     private String evttag ="";
     private String sdate = "";
     private String edate = "";
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+
         Util.setStatusColor(this);
 
         dbHelper = new DbOpenHelper(this);
@@ -93,6 +96,12 @@ public class ActLoading extends Activity {
             dialogAlert.setCancelable(false);
             return;
         }
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle params = new Bundle();
+        params.putString("PAGE", "ActLoading-Start");
+        params.putString("NAME", "HWANG");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
 
         checkSeverInfo();
     }

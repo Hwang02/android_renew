@@ -52,6 +52,7 @@
 		android:id="@+id/view_filter"
 		android:layout_width="match_parent"
 		android:layout_height="48dp"
+		android:visibility="gone"
 		android:layout_below="@+id/tab_layout">
 
 		<TextView

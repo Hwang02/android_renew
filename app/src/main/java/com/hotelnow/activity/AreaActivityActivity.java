@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -91,6 +92,8 @@ public class AreaActivityActivity extends Activity {
             for (int i = 0; i < mRecentCity.size(); i++) {
                 View view_recent = LayoutInflater.from(AreaActivityActivity.this).inflate(R.layout.layout_recent_area_item, null);
                 TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
+                ImageView ico_location = (ImageView) view_recent.findViewById(R.id.ico_location);
+                ico_location.setVisibility(View.VISIBLE);
                 tv_recent.setText(mRecentCity.get(i).getSel_city_ko());
                 view_recent.setTag(i);
                 view_recent.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +112,9 @@ public class AreaActivityActivity extends Activity {
         }
         else{
             View view_recent = LayoutInflater.from(AreaActivityActivity.this).inflate(R.layout.layout_recent_area_item, null);
+            ImageView ico_location = (ImageView) view_recent.findViewById(R.id.ico_location);
             TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
+            ico_location.setVisibility(View.GONE);
             tv_recent.setText("최근 조회 지역이 없습니다");
             month_list.addView(view_recent);
         }

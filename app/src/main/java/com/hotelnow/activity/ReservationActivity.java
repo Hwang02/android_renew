@@ -250,7 +250,7 @@ public class ReservationActivity extends Activity {
 
                     if(!is_sel_point) {
                         save_price = save_price - Integer.parseInt(point_discount.getText().toString());
-                        int m_total = save_price - sale_price;
+                        int m_total = sale_price + save_price;
                         tv_discount_price.setText( nf.format(save_price) + "원");
                         tv_total_price.setText(nf.format(m_total) + "원");
                         is_sel_point = true;
@@ -509,7 +509,7 @@ public class ReservationActivity extends Activity {
                         }
                     });
 
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd(EEE)", Locale.KOREAN);
+                    SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy년 MM월 dd일(EEE)", Locale.KOREAN);
                     SimpleDateFormat DateFormat2 = new SimpleDateFormat("HH:mm", Locale.KOREAN);
                     SimpleDateFormat DateFormat3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN);
 

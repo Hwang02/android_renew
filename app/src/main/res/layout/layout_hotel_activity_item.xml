@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12dp"
-        android:textColor="@color/star_txt"
+        android:textColor="@color/purple"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
@@ -30,7 +30,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="12dp"
         android:layout_marginRight="3dp"
-        android:background="@drawable/ico_starpoint"/>
+        android:background="@drawable/ico_starpoint3"/>
 
     <ImageView
         android:id="@+id/ico_popular"

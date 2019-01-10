@@ -207,6 +207,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReservationHotelDetailActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
+                        finish();
                         return;
                     }
 
@@ -426,7 +427,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     } else if (payment_info.getString("pay_type").equals("FREE")) {
                         tv_pay_type.setText("이벤트");
                     } else if (payment_info.getString("pay_type").equals("PHONE")) {
-                        tv_pay_type.setText("휴대폰");
+                        tv_pay_type.setText(payment_info.getString("pay_type_display"));
 
                         if (payment_info.has("app_no")) {
                             findViewById(R.id.ll_pay_num).setVisibility(View.VISIBLE);

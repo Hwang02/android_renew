@@ -139,7 +139,7 @@ public class ReservationActivityActivity extends Activity {
     private DialogFee dialogFee;
     private String cancel_fee_str="";
     private Spanned cancel_fee;
-    private RelativeLayout rl_all_point;
+    private LinearLayout rl_all_point;
     private LinearLayout ll_coupon;
     private int save_price = 0;
     private DialogConfirm dialogConfirm;
@@ -185,7 +185,7 @@ public class ReservationActivityActivity extends Activity {
         agree_policy = (CheckBox) findViewById(R.id.agree_policy);
         booking_save_point = (LinearLayout) findViewById(R.id.booking_save_point);
         layout_info = (LinearLayout) findViewById(R.id.layout_info);
-        rl_all_point = (RelativeLayout) findViewById(R.id.rl_all_point);
+        rl_all_point = (LinearLayout) findViewById(R.id.rl_all_point);
         ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
         btn_phone = (LinearLayout) findViewById(R.id.btn_phone);

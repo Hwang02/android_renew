@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.dialog.DialogAlert;
@@ -60,6 +61,7 @@ public class MainActivity extends FragmentActivity {
     public static CallbackManager callbackManager;
     private static long back_pressed;
     private DialogAlert dialogAlert;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public boolean isDebugged() {
         LogUtil.e("ActLoading","Checking for debuggers...");
@@ -80,11 +82,10 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        Util.setStatusColor(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         if(isDebugged()){
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
@@ -98,6 +99,19 @@ public class MainActivity extends FragmentActivity {
             dialogAlert.setCancelable(false);
             return;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Util.setStatusColor(this);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle params = new Bundle();
+        params.putString("PAGE", "MainActivity-Start");
+        params.putString("NAME", "HWANG");
+        mFirebaseAnalytics.logEvent("Screen_view2", params);
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
