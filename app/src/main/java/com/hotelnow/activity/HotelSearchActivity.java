@@ -80,6 +80,9 @@ public class HotelSearchActivity extends Activity {
     ImageView ico_favorite;
     TextView tv_toast, tv_elocation, tv_edate, empty_title, empty_sub;
     private DialogAlert dialogAlert;
+    private int filter_cnt = 0;
+    private LinearLayout count_view;
+    private  TextView tv_count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,6 +126,8 @@ public class HotelSearchActivity extends Activity {
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         bt_scroll = (Button) findViewById(R.id.bt_scroll);
         title_search = (RelativeLayout) findViewById(R.id.title_search);
+        count_view = (LinearLayout) findViewById(R.id.count_view);
+        tv_count = (TextView) findViewById(R.id.tv_count);
         tv_location.setText(intent.getStringExtra("city"));
 
         View empty = getLayoutInflater().inflate(R.layout.layout_h_search_empty, null, false);
@@ -259,6 +264,13 @@ public class HotelSearchActivity extends Activity {
                 finish();
             }
         });
+
+        if(filter_cnt == 0){
+            count_view.setVisibility(View.GONE);
+        }
+        else {
+            count_view.setVisibility(View.VISIBLE);
+        }
 
         getSearch();
     }
@@ -441,7 +453,7 @@ public class HotelSearchActivity extends Activity {
                         }
                         else {
                             bt_scroll.setVisibility(View.GONE);
-                            btn_filter.setVisibility(View.GONE);
+                            btn_filter.setVisibility(View.VISIBLE);
                             empty_title.setVisibility(View.VISIBLE);
                             empty_sub.setVisibility(View.VISIBLE);
                             if(obj.has("previous_date_msg")){
@@ -617,22 +629,45 @@ public class HotelSearchActivity extends Activity {
             getSearch();
         }
         else if(requestCode == 60 && responseCode == 80){
+            filter_cnt = 0;
+            price_max ="";
+            price_min = "";
+            facility = "";
+            order_kind = "recommendation";
+            score = "";
+            person_count = "";
 
-            LogUtil.e("xxxxx", CONFIG.sel_max);
             price_max = CONFIG.sel_max;
             LogUtil.e("xxxxx", CONFIG.sel_min);
             price_min = CONFIG.sel_min;
+            if(!price_max.equals("600000") || !price_min.equals("0")){
+                filter_cnt++;
+            }
             if(!TextUtils.isEmpty(CONFIG.sel_category)) {
                 LogUtil.e("xxxxx", CONFIG.sel_category);
                 category = CONFIG.sel_category.replace("|",",");
+                filter_cnt++;
+            }
+            else{
+                category="";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_facility)) {
                 LogUtil.e("xxxxx", CONFIG.sel_facility);
                 facility = CONFIG.sel_facility.replace("|", ",");
+                filter_cnt++;
+            }
+            else{
+                facility = "";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_orderby)) {
                 LogUtil.e("xxxxx", CONFIG.sel_orderby);
                 order_kind = CONFIG.sel_orderby;
+                if(!order_kind.equals("recommendation")){
+                    filter_cnt++;
+                }
+            }
+            else{
+                order_kind = "";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_rate)) {
                 LogUtil.e("xxxxx", CONFIG.sel_rate);
@@ -647,12 +682,28 @@ public class HotelSearchActivity extends Activity {
                 else if(CONFIG.sel_rate.equals("3")){
                     score = "5";
                 }
+                filter_cnt++;
+            }
+            else {
+                score="";
             }
             if(!TextUtils.isEmpty(CONFIG.sel_useperson)) {
                 LogUtil.e("xxxxx", CONFIG.sel_useperson);
-                person_count = CONFIG.sel_useperson.replace("0", "1").replace("3","5").replace("2", "3|4").replace("1", "2").replace("|", ",");
+
+                person_count = CONFIG.sel_useperson.replace("3","5").replace("2", "3|4").replace("1", "2").replace("0", "1").replace("|", ",");
+                filter_cnt++;
+            }
+            else{
+                person_count="";
             }
 
+            if(filter_cnt == 0){
+                count_view.setVisibility(View.GONE);
+            }
+            else {
+                count_view.setVisibility(View.VISIBLE);
+            }
+            tv_count.setText(filter_cnt +"");
             Page = 1;
             total_count = 0;
             mItems.clear();

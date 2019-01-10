@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -77,7 +79,39 @@ public class ActLoading extends Activity {
             dialogAlert.show();
             return;
         }
+
+        if(isDebugged()){
+            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", ActLoading.this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogAlert.dismiss();
+                    finish();
+                }
+            });
+            dialogAlert.show();
+            return;
+        }
+
         checkSeverInfo();
+    }
+
+    public boolean isDebugged() {
+        LogUtil.e("ActLoading","Checking for debuggers...");
+
+        boolean tracer = false;
+        try {
+            tracer = FindDebugger.hasTracerPid();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        if (FindDebugger.isBeingDebugged() || tracer) {
+            LogUtil.e("ActLoading","Debugger was detected");
+            return true;
+        } else {
+            LogUtil.e("ActLoading","No debugger was detected.");
+            return false;
+        }
     }
 
     private boolean existRootingFile(){

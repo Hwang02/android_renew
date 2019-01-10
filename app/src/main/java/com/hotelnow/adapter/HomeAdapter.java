@@ -597,7 +597,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     break;
                 case HOTDEAL_HOTEL:
                     SpannableStringBuilder builder = new SpannableStringBuilder(context.getResources().getText(R.string.hotdeal_hotel));
-                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.purple)), 6, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.purple)), 6, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     title.setText(builder);
                     break;
                 case HOTDEAL_ACTIVITY:

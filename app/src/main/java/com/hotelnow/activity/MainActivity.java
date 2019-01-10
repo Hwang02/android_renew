@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogFull;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
 import com.hotelnow.fragment.home.HomeFragment;
@@ -33,6 +34,7 @@ import com.hotelnow.fragment.mypage.MypageFragment;
 import com.hotelnow.fragment.reservation.ReservationFragment;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
@@ -57,12 +59,44 @@ public class MainActivity extends FragmentActivity {
     private int myPosition = 0;
     public static CallbackManager callbackManager;
     private static long back_pressed;
+    private DialogAlert dialogAlert;
+
+    public boolean isDebugged() {
+        LogUtil.e("ActLoading","Checking for debuggers...");
+
+        boolean tracer = false;
+        try {
+            tracer = FindDebugger.hasTracerPid();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        if (FindDebugger.isBeingDebugged() || tracer) {
+            LogUtil.e("ActLoading","Debugger was detected");
+            return true;
+        } else {
+            LogUtil.e("ActLoading","No debugger was detected.");
+            return false;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Util.setStatusColor(this);
+
+        if(isDebugged()){
+            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogAlert.dismiss();
+                    finish();
+                }
+            });
+            dialogAlert.show();
+            return;
+        }
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
@@ -725,7 +759,15 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void setTitle(){
-        mbinding.layoutSearch.txtSearch.setText( _preferences.getString("username", "나우")+"님, 어떤 여행을 찾고 계세요?");
+        String t_name = "";
+        if(_preferences.getString("username", "나우").length()>8){
+            t_name = _preferences.getString("username", "나우").substring(0,8)+"...";
+        }
+        else{
+            t_name = _preferences.getString("username", "나우");
+        }
+
+        mbinding.layoutSearch.txtSearch.setText( t_name+"님, 어떤 여행을 찾고 있나요?");
     }
 
     public void setTapdelete(String tag){

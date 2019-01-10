@@ -97,12 +97,9 @@ public class DialogTicketShare extends Dialog {
             public void onSingleClick(View v) {
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //At least O
                     String msg = "";
-                    if(value >0) {
-                        msg = "투숙객 평점 " + value + "점 강력추천\n언제 어디서나 호텔나우와 함께 즐거운 여행을 계획하세요!";
-                    }
-                    else{
-                        msg = "언제어디서나 호텔나우만 믿고 떠나세요!";
-                    }
+
+                    msg = "언제 어디서나 호텔나우와 함께 즐거운 여행을 계획하세요!";
+
                     FeedTemplate params = FeedTemplate
                             .newBuilder(ContentObject.newBuilder("["+t_name+"]",
                                     main_photo,
