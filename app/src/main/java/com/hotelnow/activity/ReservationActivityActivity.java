@@ -490,7 +490,7 @@ public class ReservationActivityActivity extends Activity {
                         else {// 회원
                             //인증
                             is_auth = booking_data.getString("phone_auth");
-                            setUseableEditText(usernameInput, false);
+                            setUseableEditText(usernameInput, true);
                             if(is_auth.equals("Y")) {
                                 tv_auth_change.setVisibility(View.VISIBLE);
                                 findViewById(R.id.layout_auth).setVisibility(View.GONE);
@@ -532,8 +532,8 @@ public class ReservationActivityActivity extends Activity {
 
                                 authReset();
 
-                                if (cookie != null)
-                                    setUseableEditText(usernameInput, false);
+//                                if (cookie != null)
+//                                    setUseableEditText(usernameInput, false);
 
                                 setUseableEditText(pnum2, is_change);
                                 setUseableEditText(pnum3, is_change);
@@ -1203,12 +1203,12 @@ public class ReservationActivityActivity extends Activity {
                         prefEditor.commit();
                     }
 
-                    if(cookie != null) {
-                        setUseableEditText(usernameInput, false);
-                    }
-                    else{
-                        setUseableEditText(usernameInput, true);
-                    }
+//                    if(cookie != null) {
+//                        setUseableEditText(usernameInput, false);
+//                    }
+//                    else{
+//                        setUseableEditText(usernameInput, true);
+//                    }
 
                     auth_ok.setVisibility(View.GONE);
                     findViewById(R.id.layout_auth).setVisibility(View.GONE);

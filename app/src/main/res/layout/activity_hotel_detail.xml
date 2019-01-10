@@ -227,7 +227,8 @@
 
                 <include layout="@layout/layout_detail_recommend" />
 
-                <include layout="@layout/layout_detail_facility" />
+                <include android:id="@+id/parent_filter"
+                    layout="@layout/layout_detail_facility" />
 
                 <View
                     android:layout_width="match_parent"

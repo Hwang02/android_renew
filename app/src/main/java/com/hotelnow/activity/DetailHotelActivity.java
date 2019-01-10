@@ -930,123 +930,115 @@ public class DetailHotelActivity extends AppCompatActivity {
         filter5.setVisibility(View.GONE);
         filter6.setVisibility(View.GONE);
         filter7.setVisibility(View.GONE);
+        if(sel_FacilityList.size() > 0) {
+            findViewById(R.id.parent_filter).setVisibility(View.VISIBLE);
+            for (int i = 0; i < sel_FacilityList.size(); i++) {
 
-        for(int i=0;i<sel_FacilityList.size();i++){
+                LinearLayout.LayoutParams lparam = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                lparam.width = (int) (filter.getWidth() / 5);
 
-            LinearLayout.LayoutParams lparam = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lparam.width = (int) (filter.getWidth() / 5);
-
-            View child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
-            child.setId(i);
-            child.setTag(i);
-            TextView facility_title = (TextView)child.findViewById(R.id.facility_title);
-            ImageView facility_icon = (ImageView)child.findViewById(R.id.facility_icon);
-            facility_title.setText(sel_FacilityList.get(i).getSel_title());
-            facility_icon.setImageResource(sel_FacilityList.get(i).getSel_img());
-            if(!isOpen) {
-                if(sel_FacilityList.size() <= 10) {
-                    if(i <= 4) {
-                        filter.setVisibility(View.VISIBLE);
-                        filter.addView(child, lparam);
-                    }
-                    else if ( i >4 && i <= 10){
-                        filter2.setVisibility(View.VISIBLE);
-                        filter2.addView(child, lparam);
-                    }
-                }
-                else if (sel_FacilityList.size() > 10){
-                    if (i < 9) {
-                        if(i <= 4) {
+                View child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
+                child.setId(i);
+                child.setTag(i);
+                TextView facility_title = (TextView) child.findViewById(R.id.facility_title);
+                ImageView facility_icon = (ImageView) child.findViewById(R.id.facility_icon);
+                facility_title.setText(sel_FacilityList.get(i).getSel_title());
+                facility_icon.setImageResource(sel_FacilityList.get(i).getSel_img());
+                if (!isOpen) {
+                    if (sel_FacilityList.size() <= 10) {
+                        if (i <= 4) {
                             filter.setVisibility(View.VISIBLE);
                             filter.addView(child, lparam);
-                        } else if ( i >4 && i <= 10){
+                        } else if (i > 4 && i <= 10) {
                             filter2.setVisibility(View.VISIBLE);
                             filter2.addView(child, lparam);
                         }
-                    }else if(i == 9){
+                    } else if (sel_FacilityList.size() > 10) {
+                        if (i < 9) {
+                            if (i <= 4) {
+                                filter.setVisibility(View.VISIBLE);
+                                filter.addView(child, lparam);
+                            } else if (i > 4 && i <= 10) {
+                                filter2.setVisibility(View.VISIBLE);
+                                filter2.addView(child, lparam);
+                            }
+                        } else if (i == 9) {
+                            View btn_child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
+                            btn_child.setTag(36);
+                            TextView facility_title2 = (TextView) btn_child.findViewById(R.id.facility_title);
+                            ImageView facility_icon2 = (ImageView) btn_child.findViewById(R.id.facility_icon);
+                            facility_title2.setText(R.string.more_title);
+                            facility_icon2.setBackgroundResource(R.drawable.ico_f_more);
+                            btn_child.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    setFacility(sel_FacilityList, true);
+                                }
+                            });
+                            filter.setVisibility(View.VISIBLE);
+                            filter2.addView(btn_child, lparam);
+                            break;
+                        }
+                    }
+                } else {
+                    if (i <= 4) {
+                        filter.setVisibility(View.VISIBLE);
+                        filter.addView(child, lparam);
+                    } else if (i > 4 && i <= 9) {
+                        filter2.setVisibility(View.VISIBLE);
+                        filter2.addView(child, lparam);
+                    } else if (i > 9 && i <= 14) {
+                        filter3.setVisibility(View.VISIBLE);
+                        filter3.addView(child, lparam);
+                    } else if (i > 14 && i <= 19) {
+                        filter4.setVisibility(View.VISIBLE);
+                        filter4.addView(child, lparam);
+                    } else if (i > 19 && i <= 24) {
+                        filter5.setVisibility(View.VISIBLE);
+                        filter5.addView(child, lparam);
+                    } else if (i > 24 && i <= 29) {
+                        filter6.setVisibility(View.VISIBLE);
+                        filter6.addView(child, lparam);
+                    } else if (i > 29 && i <= 34) {
+                        filter7.setVisibility(View.VISIBLE);
+                        filter7.addView(child, lparam);
+                    }
+                    if (i == sel_FacilityList.size() - 1) {
                         View btn_child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
-                        btn_child.setTag(36);
-                        TextView facility_title2 = (TextView)btn_child.findViewById(R.id.facility_title);
-                        ImageView facility_icon2 = (ImageView)btn_child.findViewById(R.id.facility_icon);
-                        facility_title2.setText(R.string.more_title);
-                        facility_icon2.setBackgroundResource(R.drawable.ico_f_more);
+                        btn_child.setTag(37);
+                        TextView facility_title2 = (TextView) btn_child.findViewById(R.id.facility_title);
+                        ImageView facility_icon2 = (ImageView) btn_child.findViewById(R.id.facility_icon);
+                        facility_title2.setText(R.string.more_close_title);
+                        facility_icon2.setBackgroundResource(R.drawable.ico_f_close);
                         btn_child.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                setFacility(sel_FacilityList,true);
+                                setFacility(sel_FacilityList, false);
                             }
                         });
-                        filter.setVisibility(View.VISIBLE);
-                        filter2.addView(btn_child, lparam);
-                        break;
-                    }
-                }
-            }
-            else{
-                if(i <= 4) {
-                    filter.setVisibility(View.VISIBLE);
-                    filter.addView(child, lparam);
-                }
-                else if ( i >4 && i <= 9) {
-                    filter2.setVisibility(View.VISIBLE);
-                    filter2.addView(child, lparam);
-                }
-                else if (i > 9 && i <= 14) {
-                    filter3.setVisibility(View.VISIBLE);
-                    filter3.addView(child, lparam);
-                }
-                else if (i > 14 && i <= 19) {
-                    filter4.setVisibility(View.VISIBLE);
-                    filter4.addView(child, lparam);
-                }
-                else if (i > 19 && i <= 24) {
-                    filter5.setVisibility(View.VISIBLE);
-                    filter5.addView(child, lparam);
-                }
-                else if (i > 24 && i <= 29) {
-                    filter6.setVisibility(View.VISIBLE);
-                    filter6.addView(child, lparam);
-                }
-                else if (i > 29 && i <= 34) {
-                    filter7.setVisibility(View.VISIBLE);
-                    filter7.addView(child, lparam);
-                }
-                if(i == sel_FacilityList.size()-1){
-                    View btn_child = getLayoutInflater().inflate(R.layout.layout_detail_facility_item, null);
-                    btn_child.setTag(37);
-                    TextView facility_title2 = (TextView)btn_child.findViewById(R.id.facility_title);
-                    ImageView facility_icon2 = (ImageView)btn_child.findViewById(R.id.facility_icon);
-                    facility_title2.setText(R.string.more_close_title);
-                    facility_icon2.setBackgroundResource(R.drawable.ico_f_close);
-                    btn_child.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            setFacility(sel_FacilityList,false);
+                        if (i < 14) {
+                            filter3.setVisibility(View.VISIBLE);
+                            filter3.addView(btn_child, lparam);
+                        } else if (i < 19) {
+                            filter4.setVisibility(View.VISIBLE);
+                            filter4.addView(btn_child, lparam);
+                        } else if (i < 24) {
+                            filter5.setVisibility(View.VISIBLE);
+                            filter5.addView(btn_child, lparam);
+                        } else if (i < 29) {
+                            filter6.setVisibility(View.VISIBLE);
+                            filter6.addView(btn_child, lparam);
+                        } else if (i < 34) {
+                            filter7.setVisibility(View.VISIBLE);
+                            filter7.addView(btn_child, lparam);
                         }
-                    });
-                    if (i < 14) {
-                        filter3.setVisibility(View.VISIBLE);
-                        filter3.addView(btn_child, lparam);
-                    }
-                    else if (i < 19) {
-                        filter4.setVisibility(View.VISIBLE);
-                        filter4.addView(btn_child, lparam);
-                    }
-                    else if (i < 24) {
-                        filter5.setVisibility(View.VISIBLE);
-                        filter5.addView(btn_child, lparam);
-                    }
-                    else if (i < 29) {
-                        filter6.setVisibility(View.VISIBLE);
-                        filter6.addView(btn_child, lparam);
-                    }
-                    else if (i < 34) {
-                        filter7.setVisibility(View.VISIBLE);
-                        filter7.addView(btn_child, lparam);
                     }
                 }
             }
+        }
+        else{
+            findViewById(R.id.parent_filter).setVisibility(View.GONE);
         }
 
 //        filter.postDelayed(new Runnable() {

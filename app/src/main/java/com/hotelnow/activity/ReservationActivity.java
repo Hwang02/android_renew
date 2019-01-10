@@ -560,7 +560,7 @@ public class ReservationActivity extends Activity {
                     else {// 회원
                         //인증
                         is_auth = data.getString("phone_auth");
-                        setUseableEditText(usernameInput, false);
+                        setUseableEditText(usernameInput, true);
                         if(is_auth.equals("Y")) {
                             tv_auth_change.setVisibility(View.VISIBLE);
                             findViewById(R.id.layout_auth).setVisibility(View.GONE);
@@ -602,8 +602,8 @@ public class ReservationActivity extends Activity {
 
                             authReset();
 
-                            if (cookie != null)
-                                setUseableEditText(usernameInput, false);
+//                            if (cookie != null)
+//                                setUseableEditText(usernameInput, false);
 
                             setUseableEditText(pnum2, is_change);
                             setUseableEditText(pnum3, is_change);
@@ -1177,11 +1177,13 @@ public class ReservationActivity extends Activity {
     }
 
     private void setSavePoint(String apply_coupon_id, final String apply_reserve_money){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.save_point+"/"+hid+"?sale_price="+sale_price+"&coupon_ids="+all_coupon_id+"&apply_coupon_id="+apply_coupon_id+"&checkin_date="+ec_date+"&checkout_date="+ee_date+"&privatedeal_money="+private_money+"&apply_reserve_money="+apply_reserve_money, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 booking_save_point.setVisibility(View.GONE);
                 Toast.makeText(ReservationActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
 
             @Override
@@ -1191,6 +1193,7 @@ public class ReservationActivity extends Activity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
 
@@ -1329,10 +1332,13 @@ public class ReservationActivity extends Activity {
                         }
                     }
 
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
+
                 }
                 catch (JSONException e){
                     booking_save_point.setVisibility(View.GONE);
                     Toast.makeText(ReservationActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });
@@ -1578,12 +1584,12 @@ public class ReservationActivity extends Activity {
                         prefEditor.commit();
                     }
 
-                    if(cookie != null) {
-                        setUseableEditText(usernameInput, false);
-                    }
-                    else{
-                        setUseableEditText(usernameInput, true);
-                    }
+//                    if(cookie != null) {
+//                        setUseableEditText(usernameInput, false);
+//                    }
+//                    else{
+//                        setUseableEditText(usernameInput, true);
+//                    }
 
                     auth_ok.setVisibility(View.GONE);
                     findViewById(R.id.layout_auth).setVisibility(View.GONE);
