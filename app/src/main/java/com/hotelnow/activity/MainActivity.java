@@ -86,18 +86,18 @@ public class MainActivity extends FragmentActivity {
 
         Util.setStatusColor(this);
 
-//        if(isDebugged()){
-//            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    dialogAlert.dismiss();
-//                    finish();
-//                }
-//            });
-//            dialogAlert.show();
-//            dialogAlert.setCancelable(false);
-//            return;
-//        }
+        if(isDebugged()){
+            dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogAlert.dismiss();
+                    finish();
+                }
+            });
+            dialogAlert.show();
+            dialogAlert.setCancelable(false);
+            return;
+        }
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
