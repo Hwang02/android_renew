@@ -58,5 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
+        android:background="@color/back_line"
+        android:divider="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
         tools:listitem="@layout/layout_activity_theme_item"></ListView>
 </RelativeLayout>

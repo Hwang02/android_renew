@@ -109,6 +109,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         TextView total_item = (TextView)findViewById(R.id.total_item);
         Spannable spannable = new SpannableString("총 "+ Util.numberFormat(total_count)+"개의 액티비티");
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
         PermissionListener permissionlistener = new PermissionListener() {
@@ -491,7 +492,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
     }
 
     public void showIconToast(String msg, boolean is_fav){
@@ -512,6 +513,6 @@ public class MapAcvitityActivity extends AppCompatActivity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
     }
 }

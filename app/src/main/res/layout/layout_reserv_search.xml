@@ -92,7 +92,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="조회"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
     
     

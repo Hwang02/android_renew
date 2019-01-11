@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -246,6 +247,7 @@ public class ReviewDetailActivity extends Activity{
                             String total_cnt = "총 " + Util.numberFormat(obj.getJSONObject("info").getJSONObject("data").getInt("cnt")) + "개의 리뷰";
                             SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                             builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 2, 2 + obj.getJSONObject("info").getJSONObject("data").getString("cnt").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            builder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + obj.getJSONObject("info").getJSONObject("data").getString("cnt").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             tv_review_count.append(builder);
                         }
                         if (obj.getJSONObject("reviews").has("data")) {

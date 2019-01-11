@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:background="@android:color/transparent"
-        android:theme="@style/AppTheme.TransNav"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -82,20 +82,31 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="64dp"
                 android:background="@android:color/transparent"
-                app:elevation="0dp"
-                app:layout_collapseMode="pin">
+                android:minHeight="67dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                app:layout_collapseMode="pin"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp">
 
                 <RelativeLayout
                     android:id="@+id/parent_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="54dp">
 
                     <LinearLayout
                         android:id="@+id/btn_back"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
                         android:layout_centerVertical="true">
                         <ImageView
                             android:id="@+id/icon_back"
@@ -138,7 +149,7 @@
                     <TextView
                         android:id="@+id/tv_title_bar"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="54dp"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@id/btn_back"
                         android:layout_toLeftOf="@id/btn_share"
@@ -148,8 +159,25 @@
                         android:gravity="left|center_vertical"
                         android:layout_marginLeft="10dp"
                         android:ellipsize="end"
-                        tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
+                        tools:text="xxxxxxxxxxxxxx"/>
 
+                    <LinearLayout
+                        android:id="@+id/v_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="@color/white" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:background="@color/bg_background" />
+                    </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>

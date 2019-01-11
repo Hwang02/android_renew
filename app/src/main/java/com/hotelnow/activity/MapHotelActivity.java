@@ -127,6 +127,7 @@ public class MapHotelActivity extends AppCompatActivity {
 
         Spannable spannable = new SpannableString("총 "+Util.numberFormat(total_count)+"개의 숙소");
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
@@ -532,7 +533,7 @@ public class MapHotelActivity extends AppCompatActivity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
     }
 
     public void showIconToast(String msg, boolean is_fav){
@@ -553,6 +554,6 @@ public class MapHotelActivity extends AppCompatActivity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
     }
 }

@@ -92,7 +92,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:layout_marginLeft="6dp"
                 android:textColor="@color/hotdealview"
                 android:text="@string/info_review"/>
 

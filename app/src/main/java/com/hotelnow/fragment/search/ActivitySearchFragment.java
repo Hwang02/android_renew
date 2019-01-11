@@ -12,6 +12,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -143,6 +144,7 @@ public class ActivitySearchFragment  extends Fragment {
                         final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                         builder.setSpan(new ForegroundColorSpan(getActivity().getResources().getColor(R.color.purple)), 2, 2 + Util.numberFormat(obj.getInt("total_count")).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        builder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + Util.numberFormat(obj.getInt("total_count")).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_review_count.setText(builder);
 
                         final JSONArray popular_keywords = obj.getJSONArray("popular_keywords");

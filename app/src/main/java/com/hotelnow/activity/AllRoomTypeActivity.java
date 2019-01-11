@@ -13,6 +13,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -178,6 +179,7 @@ public class AllRoomTypeActivity extends Activity {
                     final String total_cnt = "총 " + Util.numberFormat(rdata.length()) + "개의 객실이 있습니다";
                     SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
                     builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 2, 2 + Util.numberFormat(rdata.length()).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + Util.numberFormat(rdata.length()).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     tv_review_count.setText(builder);
 
                     privatedeal_status = obj.getInt("privatedeal_booking_status");

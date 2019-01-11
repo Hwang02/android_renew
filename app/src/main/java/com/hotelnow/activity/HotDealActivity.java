@@ -99,7 +99,7 @@ public class HotDealActivity extends AppCompatActivity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
     }
 
     public void showIconToast(String msg, boolean is_fav){
@@ -120,7 +120,7 @@ public class HotDealActivity extends AppCompatActivity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
     }
 
     @Override

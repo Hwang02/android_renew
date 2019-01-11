@@ -108,6 +108,7 @@ public class MainActivity extends FragmentActivity {
         Util.setStatusColor(this);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, getClass().getSimpleName(), "main Screen");
         Bundle params = new Bundle();
         params.putString("PAGE", "MainActivity-Start");
         params.putString("NAME", "HWANG");
@@ -821,7 +822,7 @@ public class MainActivity extends FragmentActivity {
                     public void run() {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
 
         moveTabRefresh2();
         moveTabRefresh3();
@@ -845,7 +846,7 @@ public class MainActivity extends FragmentActivity {
                     public void run() {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1500);
 
         moveTabRefresh2();
         moveTabRefresh3();
