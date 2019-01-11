@@ -1029,7 +1029,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                         nowPosition = position;
                         markNowPosition = position % PAGES;
 
-                        m_countView.setText(markNowPosition+1+"/"+PAGES+" + ");
+                        m_countView.setText(markNowPosition+1+"/"+PAGES+"  + ");
                         markPrevPosition = markNowPosition;
                     } catch (Exception e) {
 //                        Util.doRestart(getApplicationContext());
@@ -1057,7 +1057,7 @@ public class DetailActivityActivity extends AppCompatActivity {
 
     private void initPageMark() {
 
-        m_countView.setText(1+"/"+PAGES+" + ");
+        m_countView.setText(1+"/"+PAGES+"  + ");
 
         markPrevPosition = markNowPosition;
     }

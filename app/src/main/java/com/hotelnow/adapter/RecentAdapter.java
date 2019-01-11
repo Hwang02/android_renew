@@ -45,7 +45,6 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tv_keyword.setText(data.get(position).getName());
-        Ion.with(holder.iv_image).load(data.get(position).getImg_url());
 
         if(data.get(position).getFlag().equals("1")) { // 호텔
             if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
@@ -64,6 +63,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
+            holder.iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }else {
             if(dbHelper.selectAllFavoriteActivityItem().size()>0) {
                 for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
@@ -81,7 +81,10 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
+            holder.iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
+
+        Ion.with(holder.iv_image).load(data.get(position).getImg_url());
 
         holder.btn_favorite.setTag(position);
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {

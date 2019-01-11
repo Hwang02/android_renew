@@ -642,6 +642,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                                             .replace("\r\n", "").replace("<li>", "ㆍ").replace("</li>", "<br><br>");
                                 }
                                 tv_recommend.setText(Html.fromHtml(s_html), TextView.BufferType.SPANNABLE);
+                                if(tv_recommend.getLineCount() <= 10){
+                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                    btn_more_view.setVisibility(View.GONE);
+                                }
+                                else {
+                                    btn_more_view.setVisibility(View.VISIBLE);
+                                }
                                 iscontent = true;
                                 findViewById(R.id.layout_recommend).setVisibility(View.VISIBLE);
                                 break;
@@ -875,7 +882,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         nowPosition = position;
                         markNowPosition = position % PAGES;
 
-                        m_countView.setText(markNowPosition+1+"/"+landscapeImgs.length+" + ");
+                        m_countView.setText(markNowPosition+1+"/"+landscapeImgs.length+"  + ");
                         m_img_title.setText(captions[markNowPosition]);
                         if (TextUtils.isEmpty(captions[markNowPosition])){
                             m_img_title.setVisibility(View.GONE);
@@ -910,7 +917,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void initPageMark() {
 
-        m_countView.setText(1+"/"+landscapeImgs.length+" + ");
+        m_countView.setText(1+"/"+landscapeImgs.length+"  + ");
 
         markPrevPosition = markNowPosition;
     }

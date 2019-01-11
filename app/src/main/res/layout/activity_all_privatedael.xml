@@ -10,6 +10,7 @@
         android:layout_height="@dimen/dimen_title"
         android:background="@color/white"
         app:contentInsetEnd="0dp"
+        app:elevation="0dp"
         app:contentInsetStart="0dp"
         app:popupTheme="@style/Theme.AppCompat.NoActionBar">
 

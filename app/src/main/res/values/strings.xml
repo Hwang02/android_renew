@@ -164,8 +164,8 @@
     <string name="fee_title">주의사항 및 취소규정</string>
     <string name="caution_agreement_checkbox">주의사항 및 개인정보 제3자 제공 동의</string>
     <string name="caution_agreement_view"><u>내용보기</u></string>
-    <string name="map_detail"><u>호텔상세보기</u></string>
-    <string name="map_detail2"><u>액티비티상세보기</u></string>
+    <string name="map_detail"><u>상세보기</u></string>
+    <string name="map_detail2"><u>상세보기</u></string>
     <string name="signup_recommend_success">회원가입 및 적립금 지급이 완료되었습니다.</string>
     <string name="reservation_ok">결제하기</string>
     <string name="mypage_title">내정보</string>
