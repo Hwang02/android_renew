@@ -237,7 +237,7 @@
         android:layout_marginRight="16dp"
         android:textSize="13dp"
         android:textColor="@color/white"
-        android:background="@color/black_two"
+        android:background="@drawable/near_detail_round"
         android:gravity="center"
         android:text="주변 숙소를 선택하면 상세 정보를 보실 수 있습니다"/>
 

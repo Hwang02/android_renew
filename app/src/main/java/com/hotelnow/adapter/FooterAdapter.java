@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.WebviewActivity;
+import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.model.DefaultItem;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -22,10 +23,13 @@ import java.util.ArrayList;
 public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHolder> {
     private ArrayList<DefaultItem> data = new ArrayList<>();
     private RecyclerView rv;
+    private HomeFragment mHf;
 
-    public FooterAdapter(ArrayList<DefaultItem> data, RecyclerView rv) {
+    public FooterAdapter(ArrayList<DefaultItem> data, RecyclerView rv, HomeFragment mHf) {
         this.data = data;
         this.rv = rv;
+        this.mHf = mHf;
+
     }
 
     @Override
@@ -57,7 +61,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
                 Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree1);
                 intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt1));
-                HotelnowApplication.getAppContext().startActivity(intent);
+                mHf.startActivity(intent);
             }
         });
 
@@ -68,7 +72,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
                 Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree2);
                 intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt2));
-                HotelnowApplication.getAppContext().startActivity(intent);
+                mHf.startActivity(intent);
             }
         });
 
@@ -79,7 +83,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
                 Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree3);
                 intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt3));
-                HotelnowApplication.getAppContext().startActivity(intent);
+                mHf.startActivity(intent);
             }
         });
 

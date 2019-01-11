@@ -198,7 +198,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setBottomView(FooterViewHolder holder, int type){
         if(footAdapter == null) {
-            footAdapter = new FooterAdapter(mHf.getDefaultItem(), mHf.getRecyclerView());
+            footAdapter = new FooterAdapter(mHf.getDefaultItem(), mHf.getRecyclerView(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(footAdapter);
         }

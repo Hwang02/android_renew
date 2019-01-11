@@ -119,7 +119,7 @@ public class MainActivity extends FragmentActivity {
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mbinding.navigation.setTextSize((float) Util.dptopixel(this,3));
+        mbinding.navigation.setTextSize((float) 10);
 
         // 하단 탭 버튼 동작 제거
         mbinding.navigation.enableAnimation(false);
