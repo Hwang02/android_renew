@@ -74,7 +74,7 @@
 			android:layout_centerVertical="true"
 			android:layout_toRightOf="@+id/tv_date_title"
 			android:visibility="visible"
-			android:background="@drawable/style_edittext_gray_border">
+			android:background="@drawable/style_edittext_gray_2border">
 
 			<ImageView
 				android:id="@+id/iv_date"

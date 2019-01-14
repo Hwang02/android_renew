@@ -109,10 +109,10 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
             if (entry.getmTarget_lists() != null && entry.getmTarget_lists().length > 0) {
                 holder.coupon_hotel_count.setVisibility(View.VISIBLE);
                 if (entry.getmProduct().equals("activity")) {
-                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 액티비티</u>"));
+                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 액티비티 </u>")+">");
                 }
                 else {
-                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 숙소</u>"));
+                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 숙소 </u>")+">");
                 }
                 holder.coupon_hotel_count.setOnClickListener(new View.OnClickListener() {
                     @Override

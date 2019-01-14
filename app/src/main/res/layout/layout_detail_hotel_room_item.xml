@@ -47,7 +47,7 @@
     <RelativeLayout
         android:id="@+id/rl_room_info"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@id/tv_room_sub_title"
@@ -55,7 +55,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_room"
-            android:layout_width="134dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:riv_corner_radius="2dp"
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/termtext"
                     android:layout_marginLeft="7dp"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     tools:text="27m² / 더블 침대 2개"/>
             </LinearLayout>
 
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/termtext"
                     android:layout_marginLeft="7dp"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     tools:text="기준 2인, 최대 2인"/>
             </LinearLayout>
 
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:textColor="@color/termtext"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     tools:text="체크인 14:00, 체크아웃 12:00"/>
             </LinearLayout>
 

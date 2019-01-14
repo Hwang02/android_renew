@@ -104,7 +104,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_toRightOf="@+id/btn_refresh"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/purple_round"
+                android:background="@drawable/purple_4round"
                 style="?android:attr/borderlessButtonStyle"/>
         </RelativeLayout>
     </RelativeLayout>
@@ -278,7 +278,7 @@
                     android:layout_below="@id/rangeSeekbar1"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
                     android:textColor="@color/termtext" />
 
                 <TextView
@@ -289,7 +289,7 @@
                     android:layout_below="@id/rangeSeekbar1"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
                     android:textColor="@color/termtext"
                     android:layout_centerHorizontal="true"/>
 
@@ -301,7 +301,7 @@
                     android:layout_below="@id/rangeSeekbar1"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
                     android:textColor="@color/termtext"
                     android:layout_alignParentRight="true"/>
 

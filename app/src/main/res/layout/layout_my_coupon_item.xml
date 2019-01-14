@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:background="@drawable/img_coupon_bg_01"
+            android:background="@drawable/img_coupon_bg01"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
@@ -22,8 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ico_coupon_stay"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="23dp" />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/tv_limit"
@@ -40,7 +39,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:layout_marginLeft="23dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@color/blacktxt"
                 android:layout_below="@id/coupon_kind"
@@ -51,39 +49,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="32dp"
-                android:layout_marginLeft="23dp"
                 android:layout_below="@id/coupon_name"
+                android:textStyle="bold"
                 android:textColor="@color/blacktxt"
                 tools:text="10,000원"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="23dp"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:layout_below="@id/coupon_money">
 
                 <TextView
                     android:id="@+id/coupon_hotel_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="13dp"
                     android:textColor="@color/purple"
+                    android:layout_alignParentTop="true"
                     tools:text="/  모든 액티비티 >"/>
 
                 <TextView
                     android:id="@+id/coupon_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:textColor="@color/blacktxt"
                     android:layout_toLeftOf="@id/coupon_hotel_count"
-                    tools:text="2018.09.25(화) - 2018.09.30(일)"/>
+                    tools:text="2018.09.25(화) - 2018.09.30(일) 까짙ㅌㅌㅌㅌ"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -100,7 +97,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:paddingTop="5dp"
                 android:textColor="@color/termtext"
                 tools:text="ㆍ월,화,수,목,금,토,일 체크인 사용 가능\nㆍ2018-10-05 체크인 기준\nㆍ결제금액 50,000원 이상 사용 가능"/>
         </LinearLayout>

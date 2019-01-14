@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginLeft="33dp"
-                android:background="@color/purple"
+                android:background="@drawable/purple_2round"
                 android:gravity="right|center"
                 android:paddingRight="20dp"
                 android:layout_toRightOf="@+id/ico_money"

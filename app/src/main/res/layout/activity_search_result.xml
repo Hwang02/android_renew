@@ -47,7 +47,7 @@
                 android:textColor="@color/termtext"
                 android:layout_marginRight="10dp"
                 android:paddingLeft="7dp"
-                android:background="@drawable/style_edittext_gray_border"
+                android:background="@drawable/style_edittext_gray_2border"
                 android:textSize="14dp"
                 tools:text="서울"/>
 

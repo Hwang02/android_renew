@@ -35,8 +35,8 @@
     <ImageView
         android:id="@+id/ico_popular"
         android:layout_alignParentLeft="true"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="12dp"
         android:layout_centerHorizontal="true"

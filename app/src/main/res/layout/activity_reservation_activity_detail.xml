@@ -119,7 +119,7 @@
                     android:id="@+id/iv_img"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:background="@color/holder_c"/>
 
                 <TextView
@@ -745,8 +745,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/info_view"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginTop="22dp"
                     tools:ignore="WebViewLayout"></WebView>
 

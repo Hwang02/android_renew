@@ -47,7 +47,7 @@
             android:orientation="horizontal"
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/style_edittext_gray_border"
+            android:background="@drawable/style_edittext_gray_2border"
             android:layout_alignParentRight="true">
             
             <ImageView

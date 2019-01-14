@@ -366,14 +366,14 @@ public class DetailHotelActivity extends AppCompatActivity {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
 
-        try {
-            if(cookie != null)
-                url += "&user_id="+Util.decode(cookie.replace("HN|",""));
-            else
-                url += "&user_id="+cookie;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if(cookie != null)
+//                url += "&user_id="+Util.decode(cookie.replace("HN|",""));
+//            else
+//                url += "&user_id="+cookie;
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";

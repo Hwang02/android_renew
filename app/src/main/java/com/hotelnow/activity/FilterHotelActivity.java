@@ -266,7 +266,7 @@ public class FilterHotelActivity extends Activity {
             ch.setTag(i);
             ch.setText(orderbyarr[i]);
             ch.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ch.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            ch.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
             ch.setTextColor(Color.WHITE);
             ch.setGravity(Gravity.CENTER);
             ch.setBackgroundResource(R.drawable.style_checkbox_filter);
@@ -326,7 +326,7 @@ public class FilterHotelActivity extends Activity {
             ch.setTag(categorycodearr[i]);
             ch.setText(categorytextarr[i]);
             ch.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ch.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            ch.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
             ch.setTextColor(Color.WHITE);
             ch.setGravity(Gravity.CENTER);
             ch.setBackgroundResource(R.drawable.style_checkbox_filter2);
@@ -365,7 +365,7 @@ public class FilterHotelActivity extends Activity {
             ch.setTag(i);
             ch.setText(usepersonarr[i]);
             ch.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ch.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            ch.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
             ch.setTextColor(Color.WHITE);
             ch.setGravity(Gravity.CENTER);
             ch.setBackgroundResource(R.drawable.style_checkbox_filter2);

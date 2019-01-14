@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginLeft="33dp"
-                android:background="@color/purple"
+                android:background="@drawable/purple_2round"
                 android:gravity="right|center"
                 android:paddingRight="20dp"
                 android:layout_toRightOf="@id/ico_coupon"
@@ -126,7 +126,7 @@
                 android:id="@+id/btn_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:background="@drawable/purple_and_white_round"
+                android:background="@drawable/purple_and_white_2round"
                 android:textColor="@color/purple"
                 android:textSize="13dp"
                 android:layout_alignParentRight="true"
@@ -144,7 +144,7 @@
                 android:textColor="@color/blacktxt"
                 android:textSize="14dp"
                 android:textColorHint="@color/coupon_dis"
-                android:background="@drawable/style_edittext_gray_border"
+                android:background="@drawable/style_edittext_gray_2border"
                 android:hint="@string/coupon_hint"/>
 
         </RelativeLayout>

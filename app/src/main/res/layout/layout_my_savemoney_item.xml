@@ -68,6 +68,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@color/back_line"
             android:layout_marginTop="15dp" />
     </LinearLayout>
@@ -76,6 +78,8 @@
         android:id="@+id/end_bar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:visibility="gone"
         android:layout_below="@id/view_item"/>
 
