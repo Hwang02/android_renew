@@ -98,6 +98,7 @@ public class ActivitySearchActivity extends Activity {
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         title_search = (RelativeLayout) findViewById(R.id.title_search);
 //        HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
+        findViewById(R.id.count_view).setVisibility(View.GONE);
 
         mlist.addHeaderView(HeaderView);
         adapter = new SearchLeisureAdapter(ActivitySearchActivity.this, 0, mItems, dbHelper);
@@ -133,6 +134,7 @@ public class ActivitySearchActivity extends Activity {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(ActivitySearchActivity.this, ActivityFilterActivity.class);
+                intent.putExtra("tv_category", tv_category.getText().toString());
                 startActivityForResult(intent, 70);
             }
         });
@@ -156,6 +158,7 @@ public class ActivitySearchActivity extends Activity {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(ActivitySearchActivity.this, ActivityFilterActivity.class);
+                intent.putExtra("tv_category", tv_category.getText().toString());
                 startActivityForResult(intent, 70);
             }
         });
@@ -284,7 +287,7 @@ public class ActivitySearchActivity extends Activity {
 
                         String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
                                 s_position +
-                                "&scale=2&sensor=false&language=ko&size=700x260" + "&key=" + BuildConfig.google_map_key2;
+                                "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
                         Ion.with(map_img).load(mapStr);
 
                         map_img.setOnClickListener(new OnSingleClickListener() {
@@ -294,6 +297,8 @@ public class ActivitySearchActivity extends Activity {
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
                                 intent.putExtra("total_count", total_count);
+                                intent.putExtra("location", tv_location.getText().toString());
+                                intent.putExtra("category", tv_category.getText().toString());
                                 startActivityForResult(intent, 90);
                             }
                         });

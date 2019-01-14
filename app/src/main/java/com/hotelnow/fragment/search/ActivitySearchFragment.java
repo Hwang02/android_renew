@@ -232,6 +232,8 @@ public class ActivitySearchFragment  extends Fragment {
                                 intent.putExtra("theme_id", theme_id);
                                 intent.putExtra("city", city);
                                 intent.putExtra("title_text", title_text);
+                                intent.putExtra("location", tv_location.getText().toString());
+                                intent.putExtra("category", tv_category.getText().toString());
                                 startActivityForResult(intent, 90);
                             }
                         });
@@ -495,6 +497,7 @@ public class ActivitySearchFragment  extends Fragment {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                intent.putExtra("tv_category", tv_category.getText().toString());
                 startActivityForResult(intent, 70);
             }
         });
@@ -510,6 +513,7 @@ public class ActivitySearchFragment  extends Fragment {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                intent.putExtra("tv_category", tv_category.getText().toString());
                 startActivityForResult(intent, 70);
             }
         });

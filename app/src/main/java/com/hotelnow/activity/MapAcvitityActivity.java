@@ -70,6 +70,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
     RelativeLayout toast_layout;
     ImageView ico_favorite;
     TextView tv_toast;
+    TextView subtitle_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +100,22 @@ public class MapAcvitityActivity extends AppCompatActivity {
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
+        subtitle_text = (TextView) findViewById(R.id.subtitle_text);
+
         if(TextUtils.isEmpty(intent.getStringExtra("title_text"))){
             title_text.setText("액티비티");
         }
         else {
             title_text.setText(intent.getStringExtra("title_text"));
         }
+
+        if(!intent.getStringExtra("location").equals("지역선택") && !intent.getStringExtra("location").equals("테마선택")) {
+            subtitle_text.setText(intent.getStringExtra("location") + ", " + intent.getStringExtra("category"));
+        }
+        else{
+            subtitle_text.setText("테마전체");
+        }
+
         ll_count.setBackgroundResource(R.color.activity_cc);
         TextView total_item = (TextView)findViewById(R.id.total_item);
         Spannable spannable = new SpannableString("총 "+ Util.numberFormat(total_count)+"개의 액티비티");

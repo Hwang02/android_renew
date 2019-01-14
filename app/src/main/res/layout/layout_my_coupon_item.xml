@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/img_coupon_bg01"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">

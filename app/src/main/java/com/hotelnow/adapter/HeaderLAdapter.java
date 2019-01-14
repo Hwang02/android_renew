@@ -49,6 +49,7 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
                 fm.sel_location = data.get(0).getLocation();
                 fm.sel_location_id = data.get(0).getLocation_id();
                 Intent intent = new Intent(fm.getActivity(), ActivityFilterActivity.class);
+                intent.putExtra("tv_category", data.get(0).getEc_date());
                 fm.startActivityForResult(intent, 60);
             }
         });

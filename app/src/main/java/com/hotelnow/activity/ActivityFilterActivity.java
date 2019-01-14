@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.hotelnow.R;
 import com.hotelnow.adapter.ActivityFilterAdapter;
 import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleItemClickListener;
 
 import java.util.List;
@@ -33,12 +35,14 @@ public class ActivityFilterActivity extends Activity{
         dbHelper = new DbOpenHelper(this);
         facilityarr = dbHelper.selectAllActivityTheme();
 
-        mAdapter = new ActivityFilterAdapter( this, 0, facilityarr);
+        LogUtil.e("xxxxx", getIntent().getStringExtra("tv_category").replace("테마전체","전체"));
+        mAdapter = new ActivityFilterAdapter( this, 0, facilityarr, getIntent().getStringExtra("tv_category").replace("테마전체","전체"));
         mlist = (ListView) findViewById(R.id.listview);
         mlist.setAdapter(mAdapter);
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+
                 TextView tv_id = (TextView) view.findViewById(R.id.tv_id);
                 TextView tv_city = (TextView) view.findViewById(R.id.tv_city);
 

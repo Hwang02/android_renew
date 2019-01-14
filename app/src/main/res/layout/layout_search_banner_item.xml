@@ -10,7 +10,7 @@
         android:layout_height="110dp"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
     <View
         android:layout_width="match_parent"
         android:layout_height="110dp"

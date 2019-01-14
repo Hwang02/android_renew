@@ -120,7 +120,7 @@ public class MapHotelActivity extends AppCompatActivity {
         }
         if(!TextUtils.isEmpty(ec_date) && !TextUtils.isEmpty(ee_date)){
             long gap = Util.diffOfDate2(ec_date, ee_date);
-            sub += Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", ("+gap+")박";
+            sub += Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+"("+gap+"박)";
         }
 
         subtitle_text.setText(sub);
