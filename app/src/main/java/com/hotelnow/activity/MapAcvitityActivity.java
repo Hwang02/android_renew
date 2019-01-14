@@ -109,8 +109,19 @@ public class MapAcvitityActivity extends AppCompatActivity {
             title_text.setText(intent.getStringExtra("title_text"));
         }
 
-        if(!intent.getStringExtra("location").equals("지역선택") && !intent.getStringExtra("location").equals("테마선택")) {
-            subtitle_text.setText(intent.getStringExtra("location") + ", " + intent.getStringExtra("category"));
+        if(!intent.getStringExtra("location").equals("지역선택") || !intent.getStringExtra("category").equals("테마선택")) {
+            String s_subtitle = "";
+            if(!intent.getStringExtra("location").equals("지역선택")){
+                s_subtitle = intent.getStringExtra("location");
+            }
+            if(!TextUtils.isEmpty(s_subtitle) && !intent.getStringExtra("category").equals("테마선택")){
+                s_subtitle +=", " + intent.getStringExtra("category");
+            }
+            else if(!intent.getStringExtra("category").equals("테마선택")){
+                s_subtitle = intent.getStringExtra("category");
+            }
+
+            subtitle_text.setText(s_subtitle);
         }
         else{
             subtitle_text.setText("테마전체");
