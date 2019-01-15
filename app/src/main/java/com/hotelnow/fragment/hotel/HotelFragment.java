@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.HotelAdapter;
@@ -67,6 +68,14 @@ public class HotelFragment extends Fragment {
     private  String s_Area = "";
     private String s_Area_id = "";
     private String s_subArea_id = "";
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면2", null);
+    }
 
     @Nullable
     @Override
@@ -84,6 +93,7 @@ public class HotelFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
         objects = new ArrayList<>();
 

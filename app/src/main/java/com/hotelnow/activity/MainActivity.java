@@ -86,7 +86,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if(isDebugged()){
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
                 @Override
@@ -108,11 +107,11 @@ public class MainActivity extends FragmentActivity {
         Util.setStatusColor(this);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        mFirebaseAnalytics.setCurrentScreen(this, getClass().getSimpleName(), "main Screen");
-        Bundle params = new Bundle();
-        params.putString("PAGE", "MainActivity-Start");
-        params.putString("NAME", "HWANG");
-        mFirebaseAnalytics.logEvent("Screen_view2", params);
+
+//        Bundle params = new Bundle();
+//        params.putString("PAGE", "MainActivity-Start");
+//        params.putString("NAME", "HWANG");
+//        mFirebaseAnalytics.logEvent("Screen_view2", params);
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;

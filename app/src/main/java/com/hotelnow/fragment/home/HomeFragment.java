@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.WebviewActivity;
@@ -87,6 +89,14 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     private boolean pushshow = false;
     public DialogFull dialogFull;
     public DialogLogin dialoglogin;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면1", null);
+    }
 
     @Nullable
     @Override
@@ -103,6 +113,9 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+
 
         dbHelper = new DbOpenHelper(getActivity());
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
