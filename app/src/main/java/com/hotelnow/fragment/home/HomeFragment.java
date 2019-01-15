@@ -243,14 +243,14 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             if (isStart) {
                                 // 리스트 호출
                                 objects.clear();
-                                adapter.allRefresh(false);
+//                                adapter.allRefresh(false);
                                 getObject();
                                 CONFIG.isRecent = true;
                             }
                             else {
                                 adapter.refreshRecent();
+                                MainActivity.hideProgress();
                             }
-                            MainActivity.hideProgress();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             MainActivity.hideProgress();
@@ -277,7 +277,6 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     }
 
     private void getObject() {
-        MainActivity.showProgress();
         String url = CONFIG.mainHome+"/home";
 
         Api.get(url, new Api.HttpCallback() {
