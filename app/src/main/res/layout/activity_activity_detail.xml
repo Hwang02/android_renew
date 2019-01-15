@@ -82,11 +82,12 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="74dp"
                 android:background="@android:color/transparent"
-                android:minHeight="67dp"
+                android:minHeight="74dp"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
+                android:gravity="top"
+                android:layout_marginTop="-10dp"
                 app:layout_collapseMode="pin"
                 android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
@@ -100,7 +101,21 @@
                 <RelativeLayout
                     android:id="@+id/parent_view"
                     android:layout_width="match_parent"
-                    android:layout_height="54dp">
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:id="@+id/v_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:layout_alignParentBottom="true">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="11dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/bg_background" />
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:id="@+id/btn_back"
@@ -160,24 +175,6 @@
                         android:layout_marginLeft="10dp"
                         android:ellipsize="end"
                         tools:text="xxxxxxxxxxxxxx"/>
-
-                    <LinearLayout
-                        android:id="@+id/v_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp"
-                        android:layout_alignParentBottom="true"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="4dp"
-                            android:background="@color/white" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="6dp"
-                            android:background="@color/bg_background" />
-                    </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
