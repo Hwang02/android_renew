@@ -27,6 +27,10 @@ import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -127,20 +131,20 @@ public class PagerMainFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    if(frontType.equals("a") && !frontType.equals("")) {
+                    if (frontType.equals("a") && !frontType.equals("")) {
                         try {
                             JSONObject obj = new JSONObject(frontMethod);
                             method = obj.getString("method");
                             url = obj.getString("param");
 
-                           if (method.equals("move_near")) {
+                            if (method.equals("move_near")) {
                                 int fDayLimit = mPf._preferences.getInt("future_day_limit", 180);
                                 String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
 
                                 Api.get(checkurl, new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception e) {
-                                        Toast.makeText(getActivity(), getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                         return;
                                     }
 
@@ -154,7 +158,7 @@ public class PagerMainFragment extends Fragment {
                                                 dialogAlert = new DialogAlert(
                                                         getActivity().getString(R.string.alert_notice),
                                                         "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
-                                                        getActivity(),
+                                                        mPf.getActivity(),
                                                         new View.OnClickListener() {
                                                             @Override
                                                             public void onClick(View v) {
@@ -169,17 +173,18 @@ public class PagerMainFragment extends Fragment {
                                             String checkin = aobj.getString(0);
                                             String checkout = Util.getNextDateStr(checkin);
 
-                                            Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                                            Intent intent = new Intent(mPf.getActivity(), DetailHotelActivity.class);
                                             intent.putExtra("hid", url);
                                             intent.putExtra("evt", "N");
+                                            intent.putExtra("save", true);
                                             intent.putExtra("sdate", checkin);
                                             intent.putExtra("edate", checkout);
 
-                                            getActivity().startActivityForResult(intent, 80);
+                                            mPf.startActivityForResult(intent, 80);
 
                                         } catch (Exception e) {
                                             // Log.e(CONFIG.TAG, e.toString());
-                                            Toast.makeText(getActivity(), getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                             return;
                                         }
 
@@ -188,65 +193,71 @@ public class PagerMainFragment extends Fragment {
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                            }
-                             else if (method.equals("move_theme")) {
-                                Intent intent = new Intent(getActivity(), ThemeSpecialHotelActivity.class);
+                            } else if (method.equals("move_theme")) {
+                                Intent intent = new Intent(mPf.getActivity(), ThemeSpecialHotelActivity.class);
                                 intent.putExtra("tid", url);
 
-                                getActivity().startActivityForResult(intent, 80);
+                                mPf.startActivityForResult(intent, 80);
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                            }
-                           else if(method.equals("move_theme_ticket")){
-                                Intent intent = new Intent(getActivity(), ThemeSpecialActivityActivity.class);
+                            } else if (method.equals("move_theme_ticket")) {
+                                Intent intent = new Intent(mPf.getActivity(), ThemeSpecialActivityActivity.class);
                                 intent.putExtra("tid", url);
 
-                                getActivity().startActivityForResult(intent, 80);
+                                mPf.startActivityForResult(intent, 80);
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                            } else if(method.equals("move_ticket_detail")){
-                                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                            } else if (method.equals("move_ticket_detail")) {
+                                Intent intent = new Intent(mPf.getActivity(), DetailActivityActivity.class);
                                 intent.putExtra("tid", url);
 
-                                getActivity().startActivityForResult(intent, 80);
+                                mPf.startActivityForResult(intent, 80);
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                            }
-                            else if (method.equals("outer_link")) {
-                                if(url.contains("hotelnow")) {
+                            } else if (method.equals("outer_link")) {
+                                if (url.contains("hotelnow")) {
                                     frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
-                                    Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                                    Intent intent = new Intent(mPf.getActivity(), WebviewActivity.class);
                                     intent.putExtra("url", url);
                                     intent.putExtra("title", frontTitle);
-                                    getActivity().startActivityForResult(intent, 80);
+                                    mPf.startActivityForResult(intent, 80);
 
                                 } else {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                    getActivity().startActivity(intent);
+                                    mPf.startActivity(intent);
                                 }
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
                             }
                         } catch (Throwable t) {
-                            Toast.makeText(getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mPf.getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
-                        Intent intentEvt = new Intent(getActivity(), EventActivity.class);
+                        Intent intentEvt = new Intent(mPf.getActivity(), EventActivity.class);
                         intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                         intentEvt.putExtra("title", frontTitle);
-                        getActivity().startActivityForResult(intentEvt, 80);
+                        mPf.startActivityForResult(intentEvt, 80);
                     }
 
-                    if(mPf != null && mPf.frgpopup != null) {
-                        Util.setPreferenceValues(mPf._preferences, "today_start_app", true);
+                    if (mPf != null && mPf.frgpopup != null) {
+                        Calendar calendar = Calendar.getInstance();
+                        Date currentTime = new Date();
+                        calendar.setTime(currentTime);
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+                        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String checkdate = mSimpleDateFormat.format(calendar.getTime());
+
+                        Util.setPreferenceValues(mPf._preferences, "front_popup_date", checkdate);
+
                         mPf.frgpopup.dismiss();
                     }
-               }
+                }
             });
     }
 }
