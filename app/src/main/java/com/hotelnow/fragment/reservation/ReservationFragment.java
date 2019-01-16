@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,10 +92,7 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mReservationBinding.viewPager.setCurrentItem(tab.getPosition(), true);
-//                if(CONFIG.TabLogin) {
-//                    reservationAdapter.notifyDataSetChanged();
-//                    CONFIG.TabLogin=false;
-//                }
+
 //                CONFIG.sel_reserv = tab.getPosition();
             }
 
@@ -108,6 +106,18 @@ public class ReservationFragment extends Fragment {
 
             }
         });
+    }
+
+    public void setInfobar(){
+        if(_preferences.getString("userid", null) != null) {
+            mReservationBinding.info.setVisibility(View.VISIBLE);
+            mReservationBinding.line.setVisibility(View.VISIBLE);
+
+        }
+        else{
+            mReservationBinding.info.setVisibility(View.GONE);
+            mReservationBinding.line.setVisibility(View.GONE);
+        }
     }
 
     @Override

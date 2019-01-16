@@ -219,6 +219,7 @@ public class ReservationHotelFragment extends Fragment {
                                 );
                             }
                             adapter.notifyDataSetChanged();
+                            ((ReservationFragment)getParentFragment()).setInfobar();
                         }
                         else{
                             isAdd = false;
@@ -249,6 +250,7 @@ public class ReservationHotelFragment extends Fragment {
             ((MainActivity)getActivity()).setTitle();
             ((MainActivity)getActivity()).setTapdelete("MYPAGE");
             CONFIG.TabLogin=true;
+            ((ReservationFragment)getParentFragment()).setInfobar();
         }
         else if(requestCode == 90 && resultCode == 0)
         {
