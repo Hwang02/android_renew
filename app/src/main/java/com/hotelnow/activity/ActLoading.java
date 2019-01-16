@@ -411,9 +411,11 @@ public class ActLoading extends Activity {
                         prefEditor.putString("phone", null);
                         prefEditor.putString("userid", null);
                         prefEditor.commit();
+                        startHandler();
                     }
-                    getFavorite();
-//                    startHandler();
+                    else {
+                        getFavorite();
+                    }
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();

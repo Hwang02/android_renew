@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/white">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="@android:color/transparent"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true"
         app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="234dp"
-            android:fitsSystemWindows="true"
             android:background="@android:color/transparent"
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@android:color/transparent">
+            app:contentScrim="@android:color/transparent"
+            app:statusBarScrim="@color/termtext"
+            android:fitsSystemWindows="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"
                 app:layout_collapseParallaxMultiplier="1">
 
                 <com.hotelnow.utils.ViewPagerCustom
@@ -38,7 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="pin"
+                    app:layout_collapseParallaxMultiplier="1"
                     android:background="@color/white" />
 
                 <RelativeLayout
@@ -48,7 +49,7 @@
                     android:gravity="center_vertical"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="45dp">
+                    android:layout_marginBottom="15dp">
 
                     <TextView
                         android:id="@+id/img_title"
@@ -82,12 +83,12 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="74dp"
+                android:layout_height="59dp"
                 android:background="@android:color/transparent"
-                android:minHeight="74dp"
+                android:minHeight="59dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="top"
-                android:layout_marginTop="-10dp"
+                android:layout_marginTop="-3dp"
                 app:layout_collapseMode="pin"
                 android:contentInsetLeft="0dp"
                 android:contentInsetStart="0dp"
@@ -112,7 +113,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="11dp"
+                            android:layout_height="4dp"
                             android:layout_alignParentBottom="true"
                             android:background="@color/bg_background" />
                     </RelativeLayout>
@@ -180,13 +181,13 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-     <!--하단 뷰-->
+    <!--하단 뷰-->
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="-3dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout

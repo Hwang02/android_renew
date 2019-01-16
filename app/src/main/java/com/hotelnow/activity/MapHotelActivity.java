@@ -196,10 +196,8 @@ public class MapHotelActivity extends AppCompatActivity {
                 customMap.addCustomPin();
                 mapAdapter = new MapHotelAdapter(MapHotelActivity.this, latLngsArrayList, dbHelper);
                 event_pager.setAdapter(mapAdapter);
-                event_pager.setClipToPadding(false);
                 event_pager.setOffscreenPageLimit(4);
                 event_pager.setPageMargin(20);
-
                 customMap.addSelectedCustomPin(0);
 
             }
@@ -402,9 +400,11 @@ public class MapHotelActivity extends AppCompatActivity {
 
                             }
                         });
-                        event_pager.setCurrentItem(mPosition, true);
+//                        event_pager.setCurrentItem(mPosition, true);
+                        event_pager.setCurrentItem(mPosition);
                     } else {
-                        event_pager.setCurrentItem(mPosition, true);
+//                        event_pager.setCurrentItem(mPosition, true);
+                        event_pager.setCurrentItem(mPosition);
                     }
 
                     return false;

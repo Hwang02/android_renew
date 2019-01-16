@@ -43,6 +43,7 @@ public class ReviewDetailActivity extends Activity{
     private boolean isAdd = true;
     private boolean is_q = false;
     private TextView tv_checktitle;
+    private View HeaderView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,38 +53,41 @@ public class ReviewDetailActivity extends Activity{
 
         Intent intent = getIntent();
 
-        TextView tv_review_rate = (TextView) findViewById(R.id.tv_review_rate);
-        TextView tv_review_rate_message = (TextView) findViewById(R.id.tv_review_rate_message);
-        //서비스
-        ImageView sc_star1 = (ImageView) findViewById(R.id.sc_star1);
-        ImageView sc_star2 = (ImageView) findViewById(R.id.sc_star2);
-        ImageView sc_star3 = (ImageView) findViewById(R.id.sc_star3);
-        ImageView sc_star4 = (ImageView) findViewById(R.id.sc_star4);
-        ImageView sc_star5 = (ImageView) findViewById(R.id.sc_star5);
-        //교통
-        ImageView ko_star1 = (ImageView) findViewById(R.id.ko_star1);
-        ImageView ko_star2 = (ImageView) findViewById(R.id.ko_star2);
-        ImageView ko_star3 = (ImageView) findViewById(R.id.ko_star3);
-        ImageView ko_star4 = (ImageView) findViewById(R.id.ko_star4);
-        ImageView ko_star5 = (ImageView) findViewById(R.id.ko_star5);
-        //청결
-        ImageView c_star1 = (ImageView) findViewById(R.id.c_star1);
-        ImageView c_star2 = (ImageView) findViewById(R.id.c_star2);
-        ImageView c_star3 = (ImageView) findViewById(R.id.c_star3);
-        ImageView c_star4 = (ImageView) findViewById(R.id.c_star4);
-        ImageView c_star5 = (ImageView) findViewById(R.id.c_star5);
-        //시설
-        ImageView sp_star1 = (ImageView) findViewById(R.id.sp_star1);
-        ImageView sp_star2 = (ImageView) findViewById(R.id.sp_star2);
-        ImageView sp_star3 = (ImageView) findViewById(R.id.sp_star3);
-        ImageView sp_star4 = (ImageView) findViewById(R.id.sp_star4);
-        ImageView sp_star5 = (ImageView) findViewById(R.id.sp_star5);
-
-        tv_review_count = (TextView)findViewById(R.id.tv_review_count);
+        HeaderView = getLayoutInflater().inflate(R.layout.reivew_header_view, null, false);
         tv_title_hotel = (TextView) findViewById(R.id.tv_title_hotel);
         bt_scroll = (Button) findViewById(R.id.bt_scroll);
         lv_list = (ListView) findViewById(R.id.lv_list);
-        tv_checktitle = (TextView) findViewById(R.id.tv_checktitle);
+
+        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
+        tv_checktitle = (TextView) HeaderView.findViewById(R.id.tv_checktitle);
+        TextView tv_review_rate = (TextView) HeaderView.findViewById(R.id.tv_review_rate);
+        TextView tv_review_rate_message = (TextView) HeaderView.findViewById(R.id.tv_review_rate_message);
+        //서비스
+        ImageView sc_star1 = (ImageView) HeaderView.findViewById(R.id.sc_star1);
+        ImageView sc_star2 = (ImageView) HeaderView.findViewById(R.id.sc_star2);
+        ImageView sc_star3 = (ImageView) HeaderView.findViewById(R.id.sc_star3);
+        ImageView sc_star4 = (ImageView) HeaderView.findViewById(R.id.sc_star4);
+        ImageView sc_star5 = (ImageView) HeaderView.findViewById(R.id.sc_star5);
+        //교통
+        ImageView ko_star1 = (ImageView) HeaderView.findViewById(R.id.ko_star1);
+        ImageView ko_star2 = (ImageView) HeaderView.findViewById(R.id.ko_star2);
+        ImageView ko_star3 = (ImageView) HeaderView.findViewById(R.id.ko_star3);
+        ImageView ko_star4 = (ImageView) HeaderView.findViewById(R.id.ko_star4);
+        ImageView ko_star5 = (ImageView) HeaderView.findViewById(R.id.ko_star5);
+        //청결
+        ImageView c_star1 = (ImageView) HeaderView.findViewById(R.id.c_star1);
+        ImageView c_star2 = (ImageView) HeaderView.findViewById(R.id.c_star2);
+        ImageView c_star3 = (ImageView) HeaderView.findViewById(R.id.c_star3);
+        ImageView c_star4 = (ImageView) HeaderView.findViewById(R.id.c_star4);
+        ImageView c_star5 = (ImageView) HeaderView.findViewById(R.id.c_star5);
+        //시설
+        ImageView sp_star1 = (ImageView) HeaderView.findViewById(R.id.sp_star1);
+        ImageView sp_star2 = (ImageView) HeaderView.findViewById(R.id.sp_star2);
+        ImageView sp_star3 = (ImageView) HeaderView.findViewById(R.id.sp_star3);
+        ImageView sp_star4 = (ImageView) HeaderView.findViewById(R.id.sp_star4);
+        ImageView sp_star5 = (ImageView) HeaderView.findViewById(R.id.sp_star5);
+
+        lv_list.addHeaderView(HeaderView);
 
         Double mAvg = intent.getDoubleExtra("avg",0);
         if(intent.getDoubleExtra("avg",0)>4) {
