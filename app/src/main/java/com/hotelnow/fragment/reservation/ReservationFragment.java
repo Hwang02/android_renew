@@ -91,10 +91,10 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mReservationBinding.viewPager.setCurrentItem(tab.getPosition(), true);
-                if(CONFIG.TabLogin) {
-                    reservationAdapter.notifyDataSetChanged();
-                    CONFIG.TabLogin=false;
-                }
+//                if(CONFIG.TabLogin) {
+//                    reservationAdapter.notifyDataSetChanged();
+//                    CONFIG.TabLogin=false;
+//                }
 //                CONFIG.sel_reserv = tab.getPosition();
             }
 

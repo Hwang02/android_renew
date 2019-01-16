@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void onClick(View v) {
                     dialogAlert.dismiss();
-                    finish();
+                    android.os.Process.killProcess(android.os.Process.myPid());
                 }
             });
             dialogAlert.show();
