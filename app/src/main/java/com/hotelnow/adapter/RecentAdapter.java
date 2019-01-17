@@ -28,11 +28,13 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
     ArrayList<RecentListItem> data = new ArrayList<>();
     HomeFragment hf;
     DbOpenHelper dbHelper;
+    TextView more;
 
-    public RecentAdapter(ArrayList<RecentListItem> data, HomeFragment hf, DbOpenHelper dbHelper) {
+    public RecentAdapter(ArrayList<RecentListItem> data, HomeFragment hf, DbOpenHelper dbHelper, TextView more) {
         this.data = data;
         this.hf = hf;
         this.dbHelper = dbHelper;
+        this.more = more;
     }
 
     @Override
@@ -45,6 +47,13 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
         holder.tv_keyword.setText(data.get(position).getName());
+
+        if(data.size()>1){
+            more.setVisibility(View.VISIBLE);
+        }
+        else{
+            more.setVisibility(View.GONE);
+        }
 
         if(data.get(position).getFlag().equals("1")) { // 호텔
             if(dbHelper.selectAllFavoriteStayItem().size() > 0) {

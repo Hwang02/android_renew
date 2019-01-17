@@ -174,18 +174,20 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setRecentView(HorizontalViewHolder holder, int type){
         if(recentAdapter == null) {
-            recentAdapter = new RecentAdapter(mHf.getRecentListItem(), mHf, dbHelper);
+
+            holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(mHf.getContext(), RecentAllActivity.class);
+                    mHf.startActivityForResult(intent, 80);
+                }
+            });
+
+            recentAdapter = new RecentAdapter(mHf.getRecentListItem(), mHf, dbHelper, holder.mMoreView);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(recentAdapter);
             if(mHf.getRecentListItem().size()>1){
                 holder.mMoreView.setVisibility(View.VISIBLE);
-                holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
-                    @Override
-                    public void onSingleClick(View v) {
-                        Intent intent = new Intent(mHf.getContext(), RecentAllActivity.class);
-                        mHf.startActivityForResult(intent, 80);
-                    }
-                });
             }
             else {
                 holder.mMoreView.setVisibility(View.GONE);
