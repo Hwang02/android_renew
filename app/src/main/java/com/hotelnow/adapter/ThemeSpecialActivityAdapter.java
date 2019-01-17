@@ -193,6 +193,12 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             holder.tv_detail.setMaxLines(4);
             holder.tv_detail.setEllipsize(TextUtils.TruncateAt.END);
             holder.tv_detail.setText(entry.getStreet1());
+            if(TextUtils.isEmpty(entry.getStreet2())) {
+                holder.show_text.setVisibility(View.GONE);
+            }
+            else {
+                holder.show_text.setVisibility(View.VISIBLE);
+            }
             holder.show_text.setText(entry.getStreet2());
         }
 

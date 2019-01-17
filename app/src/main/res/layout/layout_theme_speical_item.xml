@@ -290,7 +290,7 @@
     <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
-        android:layout_height="277dp"
+        android:layout_height="wrap_content"
         android:visibility="visible">
 
         <ImageView
@@ -323,38 +323,44 @@
             android:layout_height="wrap_content"
             android:textColor="#ccffffff"
             android:layout_below="@id/tv_subject"
-            android:layout_marginTop="47dp"
-            android:gravity="center"
+            android:layout_above="@+id/show_view"
+            android:gravity="bottom|center"
+            android:layout_marginBottom="17dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textSize="14dp"
             android:text=""/>
 
-        <TextView
-            android:id="@+id/show_text"
-            android:layout_width="match_parent"
-            android:layout_height="69dp"
-            android:gravity="center"
-            android:layout_below="@+id/iv_top"
-            android:textColor="@color/graytxt"
-            android:textSize="14dp"
-            android:text="할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다."/>
-
         <LinearLayout
+            android:id="@+id/show_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/show_text">
+            android:layout_below="@+id/iv_top">
 
-            <View
+            <TextView
+                android:id="@+id/show_text"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bg_background" />
-            <View
+                android:layout_height="69dp"
+                android:gravity="center"
+                android:textColor="@color/graytxt"
+                android:textSize="14dp"
+                android:text="할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다."/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="7dp"
-                android:background="@color/back_line"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="@color/back_line"/>
+            </LinearLayout>
         </LinearLayout>
-
     </RelativeLayout>
 </RelativeLayout>
