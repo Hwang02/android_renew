@@ -2,24 +2,20 @@ package com.hotelnow.fragment.reservation;
 
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.hotelnow.R;
 import com.hotelnow.adapter.ReservationAdapter;
 import com.hotelnow.databinding.FragmentReservationBinding;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
-
 import java.util.ArrayList;
 
 public class ReservationFragment extends Fragment {
@@ -112,7 +108,6 @@ public class ReservationFragment extends Fragment {
         if(_preferences.getString("userid", null) != null) {
             mReservationBinding.info.setVisibility(View.VISIBLE);
             mReservationBinding.line.setVisibility(View.VISIBLE);
-
         }
         else{
             mReservationBinding.info.setVisibility(View.GONE);

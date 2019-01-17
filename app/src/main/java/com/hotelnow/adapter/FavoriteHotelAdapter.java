@@ -59,7 +59,7 @@ public class FavoriteHotelAdapter extends ArrayAdapter<FavoriteStayItem> {
         holder.hotel_name.setText(entry.getName());
         holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
         Ion.with(holder.iv_img).load(entry.getLandscape());
-
+        holder.iv_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         if(entry.getItems_quantity() < 4){
             if(entry.getItems_quantity() == 0) {
                 holder.room_count.setVisibility(View.GONE);
