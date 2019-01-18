@@ -563,7 +563,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             // 동의팝업
                             mainPopup();
                         }
-                        else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))){
+                        else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))){
                             importantPopup();
                             // 회원가입팝업
 //                            else{
@@ -628,7 +628,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             }
                         }
                     }
-                    else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))){
+                    else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))){
                         importantPopup();
 
                     }
