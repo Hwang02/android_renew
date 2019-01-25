@@ -11,49 +11,37 @@ import java.lang.reflect.Field;
 
 public class NonSwipeableViewPager extends ViewPager {
 
+    private boolean mEnabled;
+    boolean firstDragFlag = true;
+    boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
+    boolean motionFlag = false;
+    float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
+
     public NonSwipeableViewPager(Context context) {
         super(context);
-        setMyScroller();
+        mEnabled = false;
     }
 
     public NonSwipeableViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setMyScroller();
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
-        return false;
+        mEnabled = false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // Never allow swiping to switch between pages
-        return false;
+        return mEnabled ? super.onTouchEvent(event) : false;
     }
 
-    //down one is added for smooth scrolling
-
-    private void setMyScroller() {
-        try {
-            Class<?> viewpager = ViewPager.class;
-            Field scroller = viewpager.getDeclaredField("mScroller");
-            scroller.setAccessible(true);
-            scroller.set(this, new MyScroller(getContext()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return mEnabled ? super.onTouchEvent(ev) : false;
     }
 
-    public class MyScroller extends Scroller {
-        public MyScroller(Context context) {
-            super(context, new DecelerateInterpolator());
-        }
+    public void setPagingEnabled(boolean enabled) {
+        mEnabled = enabled;
+    }
 
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-            super.startScroll(startX, startY, dx, dy, 350 /*1 secs*/);
-        }
+    public boolean isPagingEnabled() {
+        return mEnabled;
     }
 }

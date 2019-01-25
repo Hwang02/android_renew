@@ -268,6 +268,45 @@ public class FavoriteFragment extends Fragment {
         dialogConfirm.show();
     }
 
+    public void toolbarAnimateShow(final int verticalOffset) {
+        if(mFavoriteBinding.aniView.getVisibility() == View.GONE) {
+//            mFavoriteBinding.aniView.animate()
+//                    .translationY(0)
+//                    .setInterpolator(new LinearInterpolator())
+//                    .setDuration(0)
+//                    .setListener(new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationStart(Animator animation) {
+//                        }
+//
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            mFavoriteBinding.aniView.setVisibility(View.VISIBLE);
+//                        }
+//                    });
+        }
+    }
+
+    public void toolbarAnimateHide() {
+        if(mFavoriteBinding.aniView.getVisibility() == View.VISIBLE) {
+//            mFavoriteBinding.aniView.animate()
+//                    .translationY(-mFavoriteBinding.aniView.getHeight())
+//                    .setInterpolator(new LinearInterpolator())
+//                    .setDuration(0)
+//                    .setListener(new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationStart(Animator animation) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            mFavoriteBinding.aniView.setVisibility(View.GONE);
+//                        }
+//                    });
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

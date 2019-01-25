@@ -64,7 +64,7 @@ public class MainActivity extends FragmentActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
 
     public boolean isDebugged() {
-        LogUtil.e("ActLoading","Checking for debuggers...");
+        LogUtil.e("MainActivity","Checking for debuggers...");
 
         boolean tracer = false;
         try {
@@ -74,10 +74,10 @@ public class MainActivity extends FragmentActivity {
         }
 
         if (FindDebugger.isBeingDebugged() || tracer) {
-            LogUtil.e("ActLoading","Debugger was detected");
+            LogUtil.e("MainActivity","Debugger was detected");
             return true;
         } else {
-            LogUtil.e("ActLoading","No debugger was detected.");
+            LogUtil.e("MainActivity","No debugger was detected.");
             return false;
         }
     }

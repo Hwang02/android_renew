@@ -8,8 +8,10 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -29,6 +31,7 @@ import com.hotelnow.adapter.ReservationActivityAdapter;
 import com.hotelnow.fragment.model.BookingQEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
@@ -57,6 +60,10 @@ public class ReservationActivityFragment extends Fragment {
     private int total_count = 0;
     private boolean isAdd = true;
     private boolean _hasLoadedOnce= false; // your boolean field
+    boolean firstDragFlag = true;
+    boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
+    float startYPosition = 0, endYPosition =0;       //터치이벤트의 시작점의 Y(세로)위치
+    private NestedScrollView scroll;
 
     @Nullable
     @Override
@@ -277,6 +284,50 @@ public class ReservationActivityFragment extends Fragment {
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
+
+        scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
+        scroll.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent ev) {
+
+                switch (ev.getAction()) {
+                    case MotionEvent.ACTION_MOVE:       //터치를 한 후 움직이고 있으면
+                        dragFlag = true;
+                        if(firstDragFlag) {     //터치후 계속 드래그 하고 있다면 ACTION_MOVE가 계속 일어날 것임으로 무브를 시작한 첫번째 터치만 값을 저장함
+                            startYPosition = ev.getY(); //첫번째 터치의 Y(높이)를 저장
+                            firstDragFlag= false;   //두번째 MOVE가 실행되지 못하도록 플래그 변경
+                        }
+
+                        break;
+
+                    case MotionEvent.ACTION_UP :
+                        endYPosition = ev.getY();
+                        firstDragFlag= true;
+
+                        if(dragFlag) {  //드래그를 하다가 터치를 실행
+                            // 시작Y가 끝 Y보다 크다면 터치가 아래서 위로 이루어졌다는 것이고, 스크롤은 아래로내려갔다는 뜻이다.
+                            // (startYPosition - endYPosition) > 10 은 터치로 이동한 거리가 10픽셀 이상은 이동해야 스크롤 이동으로 감지하겠다는 뜻임으로 필요하지 않으면 제거해도 된다.
+                            if((startYPosition > endYPosition) && (startYPosition - endYPosition) > 10) {
+                                //TODO 스크롤 다운 시 작업
+                                LogUtil.e("xxxxxxx", "down");
+                                ((ReservationFragment)getParentFragment()).toolbarAnimateHide();
+                            }
+                            //시작 Y가 끝 보다 작다면 터치가 위에서 아래로 이러우졌다는 것이고, 스크롤이 올라갔다는 뜻이다.
+                            else if((startYPosition < endYPosition) && (endYPosition - startYPosition) > 10) {
+                                //TODO 스크롤 업 시 작업
+                                LogUtil.e("xxxxxxx", "up");
+                                ((ReservationFragment)getParentFragment()).toolbarAnimateShow(0);
+                            }
+                        }
+
+                        startYPosition = 0.0f;
+                        endYPosition = 0.0f;
+                        break;
+                }
+                return false;
+            }
+
+        });
         adapter = new ReservationActivityAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationActivityFragment.this);
         mlist.setAdapter(adapter);
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);

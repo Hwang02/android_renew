@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
+import com.hotelnow.R;
+
 public final class BottomNavigationBehavior extends CoordinatorLayout.Behavior<BottomNavigationView> {
     public BottomNavigationBehavior(@NonNull Context context, @NonNull AttributeSet attrs) {
         super(context, attrs);
@@ -30,7 +32,12 @@ public final class BottomNavigationBehavior extends CoordinatorLayout.Behavior<B
 
     public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
-        child.setTranslationY(Math.max(0.0f, Math.min(child.getHeight(), child.getTranslationY() + dy)));
+        if(child.getSelectedItemId() == R.id.mypage){
+            child.setTranslationY(0);
+        }
+        else {
+            child.setTranslationY(Math.max(0.0f, Math.min(child.getHeight(), child.getTranslationY() + dy)));
+        }
     }
 
     private void updateSnackbar(BottomNavigationView child, Snackbar.SnackbarLayout snackbarLayout) {

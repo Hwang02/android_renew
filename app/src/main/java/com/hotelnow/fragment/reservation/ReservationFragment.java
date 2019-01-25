@@ -115,6 +115,47 @@ public class ReservationFragment extends Fragment {
         }
     }
 
+    public void toolbarAnimateShow(final int verticalOffset) {
+        if(mReservationBinding.info.getVisibility() == View.GONE) {
+//            mReservationBinding.info.animate()
+//                    .translationY(0)
+//                    .setInterpolator(new LinearInterpolator())
+//                    .setDuration(0)
+//                    .setListener(new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationStart(Animator animation) {
+//                        }
+//
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            mReservationBinding.info.setVisibility(View.VISIBLE);
+//                            mReservationBinding.line.setVisibility(View.VISIBLE);
+//                        }
+//                    });
+        }
+    }
+
+    public void toolbarAnimateHide() {
+        if(mReservationBinding.info.getVisibility() == View.VISIBLE) {
+//            mReservationBinding.info.animate()
+//                    .translationY(-mFavoriteBinding.aniView.getHeight())
+//                    .setInterpolator(new LinearInterpolator())
+//                    .setDuration(0)
+//                    .setListener(new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationStart(Animator animation) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            mReservationBinding.info.setVisibility(View.GONE);
+//                            mReservationBinding.line.setVisibility(View.GONE);
+//                        }
+//                    });
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();

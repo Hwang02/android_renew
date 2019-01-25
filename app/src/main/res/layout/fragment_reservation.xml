@@ -71,7 +71,6 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:layout_below="@+id/line"
-			app:layout_behavior="com.hotelnow.utils.BottomNavigationBehavior"/>
+			android:layout_below="@+id/line" />
 	</RelativeLayout>
 </layout>
