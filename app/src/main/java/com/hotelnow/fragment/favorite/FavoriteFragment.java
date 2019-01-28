@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hotelnow.R;
@@ -65,6 +67,9 @@ public class FavoriteFragment extends Fragment {
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
+
+        // tabbar + subbar animation을 위한 뷰 높이 생
+        mFavoriteBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(),56)));
         mFavoriteBinding.tabLayout.addTab(mFavoriteBinding.tabLayout.newTab().setText("숙소"));
         mFavoriteBinding.tabLayout.addTab(mFavoriteBinding.tabLayout.newTab().setText("액티비티"));
         mFavoriteBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -272,38 +277,43 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void toolbarAnimateShow(final int verticalOffset) {
-//        mFavoriteBinding.aniView.animate()
-//                .translationY(0)
-//                .setInterpolator(new LinearInterpolator())
-//                .setDuration(0)
-//                .setListener(new AnimatorListenerAdapter() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        mFavoriteBinding.aniView.setVisibility(View.VISIBLE);
-//                    }
-//                });
+        mFavoriteBinding.aniView.animate()
+                .translationY(0)
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mFavoriteBinding.viewPager.animate()
+                                .translationY(0)
+                                .setInterpolator(new LinearInterpolator())
+                                .setDuration(0);
+                    }
+                });
     }
 
     public void toolbarAnimateHide() {
-//        mFavoriteBinding.aniView.animate()
-//                .translationY(-mFavoriteBinding.aniView.getHeight())
-//                .setInterpolator(new LinearInterpolator())
-//                .setDuration(0)
-//                .setListener(new AnimatorListenerAdapter() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                        mFavoriteBinding.aniView.setVisibility(View.GONE);
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//
-//                    }
-//                });
+        mFavoriteBinding.aniView.animate()
+                .translationY(-mFavoriteBinding.aniView.getHeight())
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mFavoriteBinding.viewPager.animate()
+                                .translationY(-mFavoriteBinding.aniView.getHeight())
+                                .setInterpolator(new LinearInterpolator())
+                                .setDuration(0);
+                    }
+                });
     }
 
     @Override

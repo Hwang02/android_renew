@@ -11,7 +11,6 @@
         android:layout_height="42dp"
         android:text="@string/login_title"
         android:layout_centerInParent="true"
-        android:gravity="center"
         android:textColor="@color/white"
         android:background="@drawable/purple_2round"
         android:textSize="14dp"
@@ -47,10 +46,10 @@
 
     <TextView
         android:id="@+id/btn_go_reservation"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_user_search2"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/purple"
         android:textSize="15dp"
         android:layout_marginBottom="94dp"

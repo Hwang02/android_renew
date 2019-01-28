@@ -290,6 +290,7 @@ public class MypageFragment extends Fragment {
                                             prefEditor.putString("userid", null);
                                             prefEditor.putString("moreinfo", moreinfo);
                                             prefEditor.putString("utype", null);
+                                            prefEditor.putString("cookie_val", "");
                                             prefEditor.commit();
 
                                             ((MainActivity)getActivity()).setTitle();

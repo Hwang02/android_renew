@@ -1,5 +1,7 @@
 package com.hotelnow.fragment.reservation;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,11 +13,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+
 import com.hotelnow.R;
 import com.hotelnow.adapter.ReservationAdapter;
 import com.hotelnow.databinding.FragmentReservationBinding;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.Util;
+
 import java.util.ArrayList;
 
 public class ReservationFragment extends Fragment {
@@ -54,6 +61,8 @@ public class ReservationFragment extends Fragment {
         }
 
         dbHelper = new DbOpenHelper(getActivity());
+        // tabbar + subbar animation을 위한 뷰 높이 생
+        mReservationBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(),56)));
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("숙소"));
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("액티비티"));
         mReservationBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -116,44 +125,45 @@ public class ReservationFragment extends Fragment {
     }
 
     public void toolbarAnimateShow(final int verticalOffset) {
-        if(mReservationBinding.info.getVisibility() == View.GONE) {
-//            mReservationBinding.info.animate()
-//                    .translationY(0)
-//                    .setInterpolator(new LinearInterpolator())
-//                    .setDuration(0)
-//                    .setListener(new AnimatorListenerAdapter() {
-//                        @Override
-//                        public void onAnimationStart(Animator animation) {
-//                        }
-//
-//                        @Override
-//                        public void onAnimationEnd(Animator animation) {
-//                            mReservationBinding.info.setVisibility(View.VISIBLE);
-//                            mReservationBinding.line.setVisibility(View.VISIBLE);
-//                        }
-//                    });
-        }
+
+        mReservationBinding.aniView.animate()
+                .translationY(0)
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mReservationBinding.viewPager.animate()
+                                .translationY(0)
+                                .setInterpolator(new LinearInterpolator())
+                                .setDuration(0);
+                    }
+                });
     }
 
     public void toolbarAnimateHide() {
-        if(mReservationBinding.info.getVisibility() == View.VISIBLE) {
-//            mReservationBinding.info.animate()
-//                    .translationY(-mFavoriteBinding.aniView.getHeight())
-//                    .setInterpolator(new LinearInterpolator())
-//                    .setDuration(0)
-//                    .setListener(new AnimatorListenerAdapter() {
-//                        @Override
-//                        public void onAnimationStart(Animator animation) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onAnimationEnd(Animator animation) {
-//                            mReservationBinding.info.setVisibility(View.GONE);
-//                            mReservationBinding.line.setVisibility(View.GONE);
-//                        }
-//                    });
-        }
+        mReservationBinding.aniView.animate()
+                .translationY(-mReservationBinding.aniView.getHeight())
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mReservationBinding.viewPager.animate()
+                                .translationY(-mReservationBinding.aniView.getHeight())
+                                .setInterpolator(new LinearInterpolator())
+                                .setDuration(0);
+                    }
+                });
     }
 
     @Override
