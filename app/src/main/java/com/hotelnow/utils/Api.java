@@ -3,6 +3,8 @@ package com.hotelnow.utils;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 
 import com.hotelnow.BuildConfig;
@@ -14,6 +16,7 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -69,12 +72,21 @@ public class Api {
         try {
             Random oRandom = new Random();
             int rand = oRandom.nextInt(999999) + 1;
-            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext())+ " " + String.valueOf(rand);
+            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext())+ " " +String.valueOf(rand);
         } catch (Exception e) {}
+
+        _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
+        String hsessVal = "";
+        try {
+            hsessVal = Util.decode(_preferences.getString("cookie_val", ""));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         Request request = new Request.Builder()
                 .url(url)
                 .header("User-Agent", userAgent)
+                .header("Cookie", hsessVal)
                 .method(method, method.equals("GET") ? null : body).build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -118,6 +130,17 @@ public class Api {
 
                         for (String key : response.headers().names()) {
                             headers.put(key, response.header(key));
+
+                            // 세션 이유로 추가
+                            if(response.header(key).startsWith("h_sess=")){
+                                _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
+                                SharedPreferences.Editor prefEditor = _preferences.edit();
+                                prefEditor.putString("cookie_val", Base64.encodeToString(response.header(key).getBytes(), Base64.NO_WRAP));
+                                prefEditor.commit();
+
+//                                Log.e(CONFIG.TAG, "HEADER key : " + key);
+//                                Log.e(CONFIG.TAG, "HEADER val : " + response.header(key));
+                            }
                         }
 
                         if(BuildConfig.DEBUG) {

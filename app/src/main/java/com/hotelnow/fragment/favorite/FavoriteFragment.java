@@ -1,5 +1,7 @@
 package com.hotelnow.fragment.favorite;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -13,6 +15,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 
 import com.hotelnow.R;
@@ -269,42 +272,38 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void toolbarAnimateShow(final int verticalOffset) {
-        if(mFavoriteBinding.aniView.getVisibility() == View.GONE) {
-//            mFavoriteBinding.aniView.animate()
-//                    .translationY(0)
-//                    .setInterpolator(new LinearInterpolator())
-//                    .setDuration(0)
-//                    .setListener(new AnimatorListenerAdapter() {
-//                        @Override
-//                        public void onAnimationStart(Animator animation) {
-//                        }
+//        mFavoriteBinding.aniView.animate()
+//                .translationY(0)
+//                .setInterpolator(new LinearInterpolator())
+//                .setDuration(0)
+//                .setListener(new AnimatorListenerAdapter() {
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                    }
 //
-//                        @Override
-//                        public void onAnimationEnd(Animator animation) {
-//                            mFavoriteBinding.aniView.setVisibility(View.VISIBLE);
-//                        }
-//                    });
-        }
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        mFavoriteBinding.aniView.setVisibility(View.VISIBLE);
+//                    }
+//                });
     }
 
     public void toolbarAnimateHide() {
-        if(mFavoriteBinding.aniView.getVisibility() == View.VISIBLE) {
-//            mFavoriteBinding.aniView.animate()
-//                    .translationY(-mFavoriteBinding.aniView.getHeight())
-//                    .setInterpolator(new LinearInterpolator())
-//                    .setDuration(0)
-//                    .setListener(new AnimatorListenerAdapter() {
-//                        @Override
-//                        public void onAnimationStart(Animator animation) {
+//        mFavoriteBinding.aniView.animate()
+//                .translationY(-mFavoriteBinding.aniView.getHeight())
+//                .setInterpolator(new LinearInterpolator())
+//                .setDuration(0)
+//                .setListener(new AnimatorListenerAdapter() {
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                        mFavoriteBinding.aniView.setVisibility(View.GONE);
+//                    }
 //
-//                        }
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
 //
-//                        @Override
-//                        public void onAnimationEnd(Animator animation) {
-//                            mFavoriteBinding.aniView.setVisibility(View.GONE);
-//                        }
-//                    });
-        }
+//                    }
+//                });
     }
 
     @Override

@@ -11,14 +11,15 @@
 <RelativeLayout
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white">
+	android:background="@color/footerview">
 
 	<LinearLayout
 		android:id="@+id/ani_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:layout_below="@id/title_bar">
+		android:layout_below="@id/title_bar"
+        android:background="@color/white">
 
 		<android.support.design.widget.TabLayout
 			android:id="@+id/tab_layout"
