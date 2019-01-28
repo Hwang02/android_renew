@@ -58,6 +58,7 @@ public class RecentAllActivity extends Activity {
     RelativeLayout toast_layout;
     TextView tv_toast;
     boolean is_fav_sel = false;
+    View header;
 
 
     @Override
@@ -73,8 +74,11 @@ public class RecentAllActivity extends Activity {
 
         mRecentItem = dbHelper.selectAllRecentItem("30");
 
+        header = getLayoutInflater().inflate(R.layout.layout_recent_header, null, false);
+
         Listview = (ListView)findViewById(R.id.listview);
         mAdapter = new RecentAllAdapter(RecentAllActivity.this, 0, mItems, dbHelper);
+        Listview.addHeaderView(header);
         Listview.setAdapter(mAdapter);
 
         tv_toast = (TextView) findViewById(R.id.tv_toast);

@@ -33,6 +33,7 @@ public class ThemeSAllActivity extends Activity {
     private ThemeSAllAdapter mAdapter;
     private DbOpenHelper dbHelper;
     private String page = "0";
+    private View header;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,10 @@ public class ThemeSAllActivity extends Activity {
             }
         });
 
+        header = getLayoutInflater().inflate(R.layout.layout_stheme_header, null, false);
+
         listview = (ListView) findViewById(R.id.listview);
+        listview.addHeaderView(header);
         mAdapter = new ThemeSAllAdapter(this, 0, mThemeSItem, dbHelper);
         listview.setAdapter(mAdapter);
 

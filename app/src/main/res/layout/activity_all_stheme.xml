@@ -60,17 +60,6 @@
         android:layout_below="@id/toolbar"
         android:background="@color/white">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:textSize="13dp"
-            android:text="시즌마다 주목하면 좋을 여행 테마를 선정하여 특별한 여행을 제안해드립니다."
-            android:textColor="@color/termtext"
-            android:background="@color/back_line"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:gravity="center_vertical"/>
-
         <ListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
@@ -78,6 +67,7 @@
             android:dividerHeight="0dp"
             android:background="@color/white"
             android:divider="#000000"
+            android:overScrollMode="never"
             android:fadeScrollbars="true">
         </ListView>
 

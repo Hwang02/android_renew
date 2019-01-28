@@ -53,35 +53,17 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0dp"
+        android:background="@color/white"
         android:layout_below="@id/toolbar"
-        android:background="@color/white">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:textSize="13dp"
-            android:text="나만을 위한 최대 60% 추가 할인에 도전하세요! "
-            android:textColor="@color/termtext"
-            android:background="@color/back_line"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:gravity="center_vertical"/>
-
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="0dp"
-            android:background="@color/white"
-            android:divider="#000000"
-            android:fadeScrollbars="true">
-        </ListView>
-
-    </LinearLayout>
+        android:divider="#000000"
+        android:overScrollMode="never"
+        android:fadeScrollbars="true">
+    </ListView>
 
     <RelativeLayout
         android:id="@+id/toast_layout"

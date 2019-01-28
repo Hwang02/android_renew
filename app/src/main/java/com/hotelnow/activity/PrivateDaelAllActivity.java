@@ -44,6 +44,7 @@ public class PrivateDaelAllActivity extends Activity{
     private TextView tv_toast;
     private String cookie;
     private boolean isLogin= false;
+    private View header;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +56,12 @@ public class PrivateDaelAllActivity extends Activity{
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         dbHelper = new DbOpenHelper(this);
 
+        header = getLayoutInflater().inflate(R.layout.layout_private_header, null, false);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         mlist = (ListView) findViewById(R.id.listview);
+        mlist.addHeaderView(header);
         adapter = new PrivateDealAllAdapter(this, 0, mHotelItem, dbHelper);
         mlist.setAdapter(adapter);
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {
