@@ -6,6 +6,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
 
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:textSize="13dp"
+        android:text="호텔나우에서만 만날 수 있는 단독 핫 특가\n최대 70% 할인된 가격으로 예약이 가능합니다"
+        android:textColor="@color/termtext"
+        android:background="@color/back_line"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_below="@id/toolbar"
+        android:gravity="center_vertical"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/message"
+        android:background="@color/bg_background" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_below="@id/line"
+        app:tabBackground="@drawable/tab_color_selector"
+        app:tabTextColor="@color/detail_more_color"
+        app:tabSelectedTextColor="@color/purple"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabIndicatorHeight="0dp">
+
+    </android.support.design.widget.TabLayout>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -54,39 +87,6 @@
                 android:background="@color/bg_background" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:textSize="13dp"
-        android:text="호텔나우에서만 만날 수 있는 단독 핫 특가\n최대 70% 할인된 가격으로 예약이 가능합니다"
-        android:textColor="@color/termtext"
-        android:background="@color/back_line"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_below="@id/toolbar"
-        android:gravity="center_vertical"/>
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/message"
-        android:background="@color/bg_background" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_below="@id/line"
-        app:tabBackground="@drawable/tab_color_selector"
-        app:tabTextColor="@color/detail_more_color"
-        app:tabSelectedTextColor="@color/purple"
-        app:tabIndicatorColor="@android:color/transparent"
-        app:tabIndicatorHeight="0dp">
-
-    </android.support.design.widget.TabLayout>
 
     <com.hotelnow.utils.NonSwipeableViewPager
         android:id="@+id/view_pager"

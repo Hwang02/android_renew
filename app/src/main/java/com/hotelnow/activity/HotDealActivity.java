@@ -1,5 +1,7 @@
 package com.hotelnow.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -121,6 +124,46 @@ public class HotDealActivity extends AppCompatActivity {
                         toast_layout.setVisibility(View.GONE);
                     }
                 }, 1500);
+    }
+
+
+    public void toolbarAnimateShow() {
+        tabLayout.animate()
+                .translationY(0)
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        tabLayout.setVisibility(View.VISIBLE);
+                        findViewById(R.id.message).setVisibility(View.VISIBLE);
+                        findViewById(R.id.line).setVisibility(View.VISIBLE);
+                    }
+                });
+    }
+
+    public void toolbarAnimateHide() {
+        tabLayout.animate()
+                .translationY(-tabLayout.getHeight() - findViewById(R.id.message).getHeight() -1)
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        tabLayout.setVisibility(View.GONE);
+                        findViewById(R.id.message).setVisibility(View.GONE);
+                        findViewById(R.id.line).setVisibility(View.GONE);
+                    }
+            });
     }
 
     @Override

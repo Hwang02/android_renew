@@ -19,8 +19,8 @@ android {
         applicationId "com.hotelnow"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 231
-        versionName "4.32"
+        versionCode 232
+        versionName "4.33"
         multiDexEnabled true
     }
     buildTypes {
@@ -82,12 +82,12 @@ android {
             buildConfigField("String", "domain", "\"https://elb.api.hotelnow.co.kr\"")
             buildConfigField("String", "domain2", "\"http://elb.api.hotelnow.co.kr\"")
             buildConfigField("String", "domainssl", "\"https://elb.api.hotelnow.co.kr\"")
-            buildConfigField("String", "arsDomain", "\"https://54.178.161.178:8008\"")
+            buildConfigField("String", "arsDomain", "\"http://payment-ars.hotelnow.co.kr\"")
             buildConfigField("String", "billDomain", "\"https://54.178.161.178:8808\"")
-            buildConfigField("String", "phonePayDomain", "\"https://54.178.161.178:8088\"")
+            buildConfigField("String", "phonePayDomain", "\"http://payment-phone.hotelnow.co.kr\"")
             buildConfigField("String", "cardDomain", "\"https://54.178.161.178:7777\"")
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
-            buildConfigField("String", "kcpCardDomain", "\"https://54.178.161.178:8009/order_app.php\"")
+            buildConfigField("String", "kcpCardDomain", "\"http://payment.hotelnow.co.kr/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyDtgyy2TXgeIH3CrPh_C-R2Cv2aLteK_ME\"")
         }
