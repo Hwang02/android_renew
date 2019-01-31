@@ -89,6 +89,8 @@
                     <TextView
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
                         android:background="@color/bg_background"
                         android:layout_marginRight="7dp" />
 
@@ -106,6 +108,8 @@
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/bg_background"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
                         android:layout_marginRight="7dp" />
 
                     <TextView

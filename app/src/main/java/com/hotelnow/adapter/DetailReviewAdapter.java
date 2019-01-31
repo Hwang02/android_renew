@@ -50,7 +50,7 @@ public class DetailReviewAdapter extends ArrayAdapter<ReviewItem> {
             holder.review_rate.setText(entry.getTotal_rating().substring(0, 3));
             holder.review_info.setText(entry.getRoom_name() + ", " + entry.getStay_cnt() + "박");
             holder.review_message.setText(entry.getComment());
-            holder.review_user.setText(entry.getMasked_name() + " | " + Util.formatchange4(entry.getCreated_at()));
+            holder.review_user.setText(entry.getMasked_name() + "  |  "  + Util.formatchange4(entry.getCreated_at()));
             holder.hotel_answer.setVisibility(View.GONE);
 
             if (!entry.getOwner_comment().equals("null")) {
@@ -64,7 +64,7 @@ public class DetailReviewAdapter extends ArrayAdapter<ReviewItem> {
             holder.review_rate.setText(entry.getTotal_rating().substring(0, 3));
             holder.review_info.setVisibility(View.GONE);
             holder.review_message.setText(entry.getComment());
-            holder.review_user.setText(entry.getMasked_name() + " | " + Util.formatchange4(entry.getCreated_at()));
+            holder.review_user.setText(entry.getMasked_name() + "  |  " + Util.formatchange4(entry.getCreated_at()));
             holder.hotel_answer.setVisibility(View.GONE);
         }
 
