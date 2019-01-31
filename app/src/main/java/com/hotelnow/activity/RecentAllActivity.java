@@ -94,7 +94,7 @@ public class RecentAllActivity extends Activity {
                 TextView edate = (TextView) v.findViewById(R.id.edate);
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
-                if(mItems.get(position).getHotel_id().equals("stay")) {
+                if(mItems.get(position-1).getHotel_id().equals("stay")) {
                     Intent intent = new Intent(RecentAllActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
                     intent.putExtra("evt", "N");

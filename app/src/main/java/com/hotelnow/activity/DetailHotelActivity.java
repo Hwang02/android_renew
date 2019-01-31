@@ -634,7 +634,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         for(int i=0; i<hotel_data.getJSONArray("notes_array").length(); i++){
                             if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
                                 String s_html ="";
-                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
                                     s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
                                             .replace("\r\n", "");
                                 }
@@ -646,9 +646,11 @@ public class DetailHotelActivity extends AppCompatActivity {
                                 if(tv_recommend.getLineCount() <= 10){
                                     rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                     btn_more_view.setVisibility(View.GONE);
+                                    findViewById(R.id.blur_view).setVisibility(View.INVISIBLE);
                                 }
                                 else {
                                     btn_more_view.setVisibility(View.VISIBLE);
+                                    findViewById(R.id.blur_view).setVisibility(View.VISIBLE);
                                 }
                                 iscontent = true;
                                 findViewById(R.id.layout_recommend).setVisibility(View.VISIBLE);
@@ -665,7 +667,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                             public void onClick(View v) {
 
                                 if(findViewById(R.id.blur_view).getVisibility() == View.VISIBLE) {
-                                    findViewById(R.id.blur_view).setVisibility(View.GONE);
+                                    findViewById(R.id.blur_view).setVisibility(View.INVISIBLE);
                                     rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                     ((TextView) findViewById(R.id.tv_recommend_title)).setText(R.string.more_close_title);
                                     ((ImageView) findViewById(R.id.icon_recommend)).setBackgroundResource(R.drawable.btn_detail_close);

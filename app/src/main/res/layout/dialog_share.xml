@@ -120,7 +120,7 @@
                 android:gravity="center"
                 android:text="닫기"
                 android:layout_gravity="center"
-                android:background="@color/purple"
+                android:background="@drawable/purple_2round"
                 android:textColor="#ffffff" />
         </LinearLayout>
     </LinearLayout>

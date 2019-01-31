@@ -30,6 +30,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="11dp"
+            android:lineSpacingMultiplier = "1.2"
             android:textColor="@color/termtext"
             tools:text="노보텔 앰배서더 서울 용산은 국내 최초 라이프스타일 호텔플렉스인 서울드래곤시티에 위치한 호텔로, 용산역 3번 출구에서 도보로 3분이면 도착합니다.
             호텔 내 객실은 총 621개로, 모던하고 깔끔한 디자인으로 꾸며져 있습니다.
@@ -77,7 +78,5 @@
             android:layout_height="14dp"
             android:background="@drawable/btn_detail_open"/>
     </LinearLayout>
-
-
 
 </LinearLayout>

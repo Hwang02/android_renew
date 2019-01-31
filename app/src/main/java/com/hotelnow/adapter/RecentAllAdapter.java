@@ -98,6 +98,13 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
                 holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
+
+            if(entry.getItems_quantity() == 0 || entry.getSale_rate().equals("0")){
+                holder.tv_discount_rate.setVisibility(View.GONE);
+            }
+            else{
+                holder.tv_discount_rate.setVisibility(View.VISIBLE);
+            }
         }
         else{
             holder.tv_nearlocation.setText(entry.getStreet1());
@@ -118,6 +125,13 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
             else{
                 holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
+            }
+
+            if(entry.getSale_rate().equals("0")){
+                holder.tv_discount_rate.setVisibility(View.GONE);
+            }
+            else{
+                holder.tv_discount_rate.setVisibility(View.VISIBLE);
             }
         }
 
@@ -144,12 +158,7 @@ public class RecentAllAdapter extends ArrayAdapter<SearchResultItem> {
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
-        if(entry.getItems_quantity() == 0 || entry.getSale_rate().equals("0")){
-            holder.tv_discount_rate.setVisibility(View.GONE);
-        }
-        else{
-            holder.tv_discount_rate.setVisibility(View.VISIBLE);
-        }
+
         holder.category.setText(entry.getCategory());
         holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
         holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
