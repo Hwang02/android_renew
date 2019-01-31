@@ -62,6 +62,7 @@ import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkTextView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
@@ -89,7 +90,7 @@ public class ReservationActivity extends Activity {
     private LinearLayout layout_useremail;
     private TextView tv_hotel_name, tv_room_detail_price, tv_detail3, tv_checkin_day, tv_checkin_time, tv_checkout_day, tv_checkout_time,auth_ok, tv_auth_change, btn_auth, tv_detail_per;
     private AutoLinkTextView fee_text;
-    private ImageView img_room;
+    private RoundedImageView img_room;
     private String[] hphone;
     private Spinner pnum1, other_pnum1;
     private String is_auth = "N";
@@ -181,7 +182,7 @@ public class ReservationActivity extends Activity {
         layout_orther_user = (LinearLayout) findViewById(R.id.layout_orther_user);
         btn_go_payment = (Button) findViewById(R.id.btn_go_payment);
         other_username = (EditText) findViewById(R.id.other_username);
-        img_room = (ImageView) findViewById(R.id.img_room);
+        img_room = (RoundedImageView) findViewById(R.id.img_room);
         pnum1 = (Spinner)findViewById(R.id.pnum1);
         other_pnum1 = (Spinner)findViewById(R.id.other_pnum1);
         ll_point = (LinearLayout)findViewById(R.id.ll_point);
@@ -1686,7 +1687,7 @@ public class ReservationActivity extends Activity {
             et.setFocusable(useable);
             et.setFocusableInTouchMode(useable);
             if (useable) {
-                et.setBackgroundResource(R.drawable.style_edittext_gray_border);
+                et.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             } else {
                 et.setBackgroundColor(Color.parseColor("#f6f6f6"));
             }
@@ -1700,7 +1701,7 @@ public class ReservationActivity extends Activity {
             sp.setFocusable(useable);
             sp.setFocusableInTouchMode(useable);
             if(useable) {
-                sp.setBackgroundResource(R.drawable.style_edittext_gray_border);
+                sp.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             }
             else{
                 sp.setBackgroundColor(Color.parseColor("#f6f6f6"));

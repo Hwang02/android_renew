@@ -1309,7 +1309,7 @@ public class ReservationActivityActivity extends Activity {
             et.setFocusable(useable);
             et.setFocusableInTouchMode(useable);
             if (useable) {
-                et.setBackgroundResource(R.drawable.style_edittext_gray_border);
+                et.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             } else {
                 et.setBackgroundColor(Color.parseColor("#f6f6f6"));
             }
@@ -1323,7 +1323,7 @@ public class ReservationActivityActivity extends Activity {
             sp.setFocusable(useable);
             sp.setFocusableInTouchMode(useable);
             if(useable) {
-                sp.setBackgroundResource(R.drawable.style_edittext_gray_border);
+                sp.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             }
             else{
                 sp.setBackgroundColor(Color.parseColor("#f6f6f6"));

@@ -173,7 +173,7 @@
                     android:id="@+id/btn_go_payment"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@color/purple"
+                    android:background="@drawable/purple_4round"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginTop="20dp"

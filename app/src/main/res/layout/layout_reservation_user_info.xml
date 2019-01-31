@@ -75,7 +75,7 @@
                 android:maxLength="10"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
-                android:background="@drawable/style_edittext_gray_border_gray_bg"
+                android:background="@drawable/style_edittext_gray_border_gray_2bg"
                 android:textColor="@color/termtext"
                 android:textSize="14dp"
                 tools:text="김나우"/>
@@ -105,7 +105,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:paddingLeft="5dp"
                 android:singleLine="true"
-                android:background="@drawable/style_edittext_gray_border"
+                android:background="@drawable/style_edittext_gray_2border"
                 android:textColor="@color/termtext"
                 android:textSize="15dp"
                 android:inputType="textEmailAddress"
@@ -141,7 +141,7 @@
                     android:layout_weight=".34"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:textColor="@color/termtext"
-                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:background="@drawable/style_edittext_gray_border_gray_2bg"
                     android:spinnerMode="dropdown" />
 
                 <EditText
@@ -158,7 +158,7 @@
                     android:singleLine="true"
                     android:textColor="@color/termtext"
                     android:textSize="14dp"
-                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:background="@drawable/style_edittext_gray_border_gray_2bg"
                     android:nextFocusDown="@+id/pnum3"
                     tools:text="6210"/>
 
@@ -176,7 +176,7 @@
                     android:singleLine="true"
                     android:textColor="@color/termtext"
                     android:textSize="14dp"
-                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:background="@drawable/style_edittext_gray_border_gray_2bg"
                     android:nextFocusDown="@+id/useremail"
                     tools:text="6210"/>
             </LinearLayout>
@@ -223,7 +223,7 @@
                     android:singleLine="true"
                     android:paddingLeft="3dp"
                     android:textSize="12dp"
-                    android:background="@drawable/style_edittext_gray_border_gray_bg"
+                    android:background="@drawable/style_edittext_gray_border_gray_2bg"
                     android:textColor="@color/blacktxt"/>
 
                 <TextView
@@ -265,7 +265,7 @@
                 android:layout_marginLeft="10dp"
                 android:padding="3dp"
                 android:textSize="14dp"
-                android:background="@drawable/style_edittext_gray_border"
+                android:background="@drawable/style_edittext_gray_2border"
                 android:textColor="@color/coupon_dis"/>
         </RelativeLayout>
 

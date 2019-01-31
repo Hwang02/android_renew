@@ -44,7 +44,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:background="@drawable/style_edittext_gray_border">
+            android:background="@drawable/style_edittext_gray_2border">
 
             <ImageView
                 android:id="@+id/img_paytype1"
@@ -72,7 +72,7 @@
             android:orientation="horizontal"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:background="@drawable/style_edittext_gray_border">
+            android:background="@drawable/style_edittext_gray_2border">
 
             <ImageView
                 android:id="@+id/img_paytype5"
@@ -121,7 +121,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:background="@drawable/style_edittext_gray_border">
+            android:background="@drawable/style_edittext_gray_2border">
 
             <ImageView
                 android:id="@+id/img_paytype3"
