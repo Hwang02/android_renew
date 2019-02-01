@@ -142,6 +142,7 @@ public class HotDealActivity extends AppCompatActivity {
                         tabLayout.setVisibility(View.VISIBLE);
                         findViewById(R.id.message).setVisibility(View.VISIBLE);
                         findViewById(R.id.line).setVisibility(View.VISIBLE);
+                        findViewById(R.id.magrin_view).setVisibility(View.VISIBLE);
                     }
                 });
     }
@@ -162,6 +163,7 @@ public class HotDealActivity extends AppCompatActivity {
                         tabLayout.setVisibility(View.GONE);
                         findViewById(R.id.message).setVisibility(View.GONE);
                         findViewById(R.id.line).setVisibility(View.GONE);
+                        findViewById(R.id.magrin_view).setVisibility(View.GONE);
                     }
             });
     }

@@ -21,7 +21,7 @@
                 android:id="@+id/search_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:textColor="@color/purple"
                 android:layout_alignParentRight="true"
                 android:imeOptions="actionDone"
@@ -38,7 +38,7 @@
                 android:singleLine="true"
                 android:gravity="center_vertical"
                 android:inputType="textNoSuggestions|text"
-                android:textSize="15dp"
+                android:textSize="17dp"
                 android:hint="지역, 상품명을 입력해주세요."
                 android:textColor="@color/purple"
                 android:layout_marginRight="10dp"
@@ -84,7 +84,7 @@
                 android:textColor="@color/termtext"
                 android:layout_marginLeft="6dp"
                 android:visibility="gone"
-                android:textSize="13dp"/>
+                android:textSize="15dp"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -122,7 +122,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11dp"
+                            android:textSize="13dp"
                             android:textColor="@color/gray_line"
                             android:text="@string/all_clear"/>
 
@@ -130,6 +130,7 @@
                             android:layout_width="14dp"
                             android:layout_height="14dp"
                             android:scaleType="fitXY"
+                            android:layout_marginTop="2dp"
                             android:background="@drawable/ico_delete_txt"/>
                     </LinearLayout>
 
@@ -148,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search_recent_title"
                     android:textColor="@color/blacktxt"
-                    android:textSize="14dp"/>
+                    android:textSize="16dp"/>
 
                 <LinearLayout
                     android:id="@+id/recent_list"
@@ -156,8 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_recent_title"
                     android:orientation="vertical"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp" >
+                    android:layout_marginTop="17dp">
                 </LinearLayout>
 
                 <View
@@ -165,6 +165,7 @@
                     android:layout_below="@id/recent_list"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/back_line"/>
     <!--최근 감섹아 end-->
 
@@ -176,7 +177,7 @@
                     android:layout_marginTop="25dp"
                     android:text="@string/search_popular_title"
                     android:textColor="@color/blacktxt"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:layout_below="@id/underline"/>
 
                 <LinearLayout
@@ -218,7 +219,7 @@
                     android:layout_marginTop="25dp"
                     android:text="@string/search_hotel_activity"
                     android:textColor="@color/blacktxt"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:layout_below="@id/underline2"/>
 
                 <LinearLayout
@@ -249,7 +250,7 @@
                     android:layout_marginTop="25dp"
                     android:text="@string/search_hotel"
                     android:textColor="@color/blacktxt"
-                    android:textSize="14dp" />
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:id="@+id/hotel_list"
@@ -277,7 +278,7 @@
                     android:layout_marginTop="25dp"
                     android:text="@string/search_activity"
                     android:textColor="@color/blacktxt"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:layout_below="@id/underline3" />
 
                 <LinearLayout

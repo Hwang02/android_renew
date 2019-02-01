@@ -578,7 +578,7 @@ public class SearchActivity extends Activity{
                 tv.setTag(i);
                 tv.setText(mKeywordList.get(i).getKeyword());
                 tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
                 tv.setTextColor(getResources().getColor(R.color.termtext));
                 tv.setGravity(Gravity.LEFT);
                 tv.setBackgroundResource(R.drawable.style_checkbox_keyword);

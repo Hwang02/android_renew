@@ -70,7 +70,6 @@ public class DialogMainFragment extends DialogFragment {
 
         if(popup_data != null && popup_data.length() == 0){
             Toast.makeText(getActivity(),"알림이 없습니다. 리스트 새로고침 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-            getActivity().finish();
         }
 
         id = new String[popup_data.length()];

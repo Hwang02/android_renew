@@ -615,7 +615,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 //                            }
                         }
                         else {
-                            if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                            if (mPopups.length()>0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                 frgpopup = new DialogMainFragment();
                                 frgpopup.mListener = HomeFragment.this;
                                 frgpopup.popup_data = mPopups;
@@ -689,7 +689,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                 Util.setPreferenceValues(_preferences, "info_date", checkdate);
                             }
                             dialoglogin.dismiss();
-                            if (!_preferences.getBoolean("today_start_app", false)) {
+                            if (mPopups.length()>0 && !_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                     frgpopup = new DialogMainFragment();
                                     frgpopup.mListener = HomeFragment.this;
@@ -723,7 +723,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             }
                             dialoglogin.dismiss();
 
-                            if (!_preferences.getBoolean("today_start_app", false)) {
+                            if (mPopups.length()>0 && !_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                     frgpopup = new DialogMainFragment();
                                     frgpopup.mListener = HomeFragment.this;
