@@ -149,7 +149,7 @@ public class HotDealActivity extends AppCompatActivity {
 
     public void toolbarAnimateHide() {
         tabLayout.animate()
-                .translationY(-tabLayout.getHeight() - findViewById(R.id.message).getHeight() -1)
+                .translationY(-tabLayout.getHeight() - findViewById(R.id.message).getHeight() - findViewById(R.id.magrin_view).getHeight() -1)
                 .setInterpolator(new LinearInterpolator())
                 .setDuration(0)
                 .setListener(new AnimatorListenerAdapter() {

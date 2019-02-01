@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -130,7 +131,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:layout_marginRight="5dp"
-                        android:background="#fae102">
+                        android:background="@drawable/style_kakao_2bg">
 
                         <ImageView
                             android:layout_width="20dp"
@@ -155,7 +156,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:background="#395a9a">
+                        android:background="@drawable/style_facebook_2bg">
 
                         <ImageView
                             android:layout_width="20dp"

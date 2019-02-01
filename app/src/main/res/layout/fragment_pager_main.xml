@@ -11,7 +11,7 @@
         android:layout_height="435dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/white">
+        android:background="@android:color/transparent">
 
         <com.hotelnow.utils.ViewPagerCustom
             android:id="@+id/popup_pager"
