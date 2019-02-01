@@ -243,8 +243,8 @@ public class ReservationActivity extends Activity {
 //                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
 //                        return;
                     }
-                    if(sale_price < Integer.parseInt(point_discount.getText().toString())){
-                        point_discount.setText(sale_price+"");
+                    if((sale_price+private_money) < Integer.parseInt(point_discount.getText().toString())){
+                        point_discount.setText(sale_price+private_money+"");
 //                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
 //                        return;
                     }
@@ -323,7 +323,7 @@ public class ReservationActivity extends Activity {
                         point_discount.setText("");
                         save_price = private_money;
                         tv_discount_price.setText(nf.format(save_price) +"원");
-                        tv_total_price.setText(nf.format(sale_price - save_price)+"원");
+                        tv_total_price.setText(nf.format(sale_price + save_price)+"원");
                         is_sel_point = false;
                         is_sel_coupon = false;
                         setSavePoint("","");
