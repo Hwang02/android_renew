@@ -1689,7 +1689,7 @@ public class ReservationActivity extends Activity {
             if (useable) {
                 et.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             } else {
-                et.setBackgroundColor(Color.parseColor("#f6f6f6"));
+                et.setBackgroundResource(R.drawable.style_edittext_white_2border);
             }
         }
     }
@@ -1704,7 +1704,7 @@ public class ReservationActivity extends Activity {
                 sp.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             }
             else{
-                sp.setBackgroundColor(Color.parseColor("#f6f6f6"));
+                sp.setBackgroundResource(R.drawable.style_edittext_white_2border);
             }
         }
     }

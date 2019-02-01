@@ -51,6 +51,7 @@ public class DialogMainFragment extends DialogFragment {
     private String[] popup_map;
     private String[] evt_type;
     private String[] front_img;
+    private TextView page;
 
     public interface onSubmitListener {
         void setOnSubmitListener(int idx);
@@ -115,6 +116,7 @@ public class DialogMainFragment extends DialogFragment {
 
         final CheckBox left = (CheckBox) getView().findViewById(R.id.left);
         TextView right = (TextView) getView().findViewById(R.id.right);
+        page = (TextView) getView().findViewById(R.id.page);
 
         mViewPager.setClipToPadding(true);
 //        mViewPager.setPadding(5, 0, 5, 0);
@@ -123,7 +125,7 @@ public class DialogMainFragment extends DialogFragment {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(0, true);
         mViewPager.addOnPageChangeListener(mPagerAdapter);
-
+        page.setText("1 / "+popup_data.length());
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,6 +188,7 @@ public class DialogMainFragment extends DialogFragment {
         public void onPageSelected(int position) {
 //            if(autoViewPager != null)
 //                resizePager(autoViewPager, position);
+            page.setText(position+" / "+popup_data.length());
         }
 
         @Override

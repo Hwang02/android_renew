@@ -103,7 +103,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="8dp"
                 android:singleLine="true"
-                android:background="@drawable/style_edittext_gray_border"
+                android:background="@drawable/style_edittext_gray_2border"
                 android:textColor="@color/blacktxt"
                 android:textColorHint="@color/coupon_dis"
                 android:drawablePadding="8dp"
