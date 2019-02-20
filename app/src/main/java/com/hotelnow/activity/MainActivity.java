@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.dialog.DialogAlert;
@@ -86,7 +87,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(isDebugged()){
+        if(BuildConfig.DEBUG && isDebugged()){
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

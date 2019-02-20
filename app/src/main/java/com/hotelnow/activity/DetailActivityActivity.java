@@ -683,9 +683,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                             img_tag +=  "<img width='100%' src ="+InfoImgs[j]+"><br>";
                         }
                         if(android.os.Build.VERSION.SDK_INT < 16) {
-                            webview.loadData(img_tag, "text/html", "UTF-8"); // Android 4.0 이하 버전
+                            webview.loadDataWithBaseURL(null, img_tag, "text/html", "UTF-8", null); // Android 4.0 이하 버전
                         }else {
-                            webview.loadData(img_tag, "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
+                            webview.loadDataWithBaseURL(null, img_tag, "text/html; charset=UTF-8", null, null); // Android 4.1 이상 버전
                         }
                         webview.getSettings().setLoadWithOverviewMode(true);
                         webview.getSettings().setUseWideViewPort(true);

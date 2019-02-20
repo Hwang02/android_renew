@@ -250,6 +250,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     lparam.topMargin = Util.dptopixel(mLf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mLf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mLf.getActivity(), 16);
+                    lparam.bottomMargin = Util.dptopixel(mLf.getActivity(), 15);
 
                     holder.autoViewPager.setLayoutParams(lparam);
 

@@ -293,6 +293,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     lparam.topMargin = Util.dptopixel(mHf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mHf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mHf.getActivity(), 16);
+                    lparam.bottomMargin = Util.dptopixel(mHf.getActivity(), 15);
 
                     holder.autoViewPager.setLayoutParams(lparam);
 

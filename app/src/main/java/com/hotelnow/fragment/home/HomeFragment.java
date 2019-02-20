@@ -524,8 +524,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     objects.add(mDefaultItem.get(0));
 
                     adapter.notifyDataSetChanged();
-                    important_pop_up_link = obj.getString("important_pop_up_link");
-                    important_pop_up_iamge = obj.getString("important_pop_up_iamge");
+                    important_pop_up_link = obj.has("important_pop_up_link") ? obj.getString("important_pop_up_link") : "";
+                    important_pop_up_iamge = obj.has("important_pop_up_iamge") ? obj.getString("important_pop_up_iamge") : "";
 
 //                    if(obj.has("pop_ups") && _preferences.getBoolean("user_first_app", true)){
 //                        if(obj.getJSONArray("pop_ups").length() >0) {
