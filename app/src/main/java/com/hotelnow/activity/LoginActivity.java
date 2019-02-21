@@ -382,8 +382,10 @@ public class LoginActivity extends Activity{
 
                 @Override
                 public void onSuccess(MeV2Response result) {
+                    Session.getCurrentSession().clearCallbacks();
                     if( result.getId() != 0 ) {
                         checkUserInfo("kakao", String.valueOf(result.getId()), "");
+
                     } else {
                         Toast.makeText(getApplicationContext(), "카카오톡 계정을 읽을 수 없습니다. 다른 수단을 사용해 주세요.(2)", Toast.LENGTH_SHORT).show();
                     }
