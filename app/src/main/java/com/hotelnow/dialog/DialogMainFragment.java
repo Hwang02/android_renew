@@ -188,7 +188,7 @@ public class DialogMainFragment extends DialogFragment {
         public void onPageSelected(int position) {
 //            if(autoViewPager != null)
 //                resizePager(autoViewPager, position);
-            page.setText(position+" / "+popup_data.length());
+            page.setText(position+1+" / "+popup_data.length());
         }
 
         @Override

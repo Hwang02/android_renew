@@ -644,7 +644,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                                 }
                                 tv_recommend.setText(Html.fromHtml(s_html), TextView.BufferType.SPANNABLE);
                                 if(tv_recommend.getLineCount() <= 10){
-                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rl_tv.getHeight()+10));
                                     btn_more_view.setVisibility(View.GONE);
                                     findViewById(R.id.blur_view).setVisibility(View.INVISIBLE);
                                 }
@@ -1131,9 +1131,12 @@ public class DetailHotelActivity extends AppCompatActivity {
 
             if(rdata.length() == 0){
                 btn_more_view.setVisibility(View.GONE);
+                tv_minprice.setText("판매중인 객실 없음");
+                findViewById(R.id.tv_minwon).setVisibility(View.GONE);
             }
             else {
                 btn_more_view.setVisibility(View.VISIBLE);
+                findViewById(R.id.tv_minwon).setVisibility(View.VISIBLE);
             }
 
             for (int i = 0; i < for_cnt; i++) {

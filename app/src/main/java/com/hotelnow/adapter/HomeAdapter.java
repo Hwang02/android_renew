@@ -281,8 +281,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             keyAdapter = new KeyWordAdapter(mHf.getKeywordData(), context);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(keyAdapter);
-            holder.recyclerView.setBackgroundResource(R.color.footerview);
-            holder.main_view.setBackgroundResource(R.color.footerview);
+            holder.recyclerView.setBackgroundResource(R.color.white);
+            holder.main_view.setBackgroundResource(R.color.white);
             holder.mMoreView.setVisibility(View.GONE);
 
             LinearSnapHelper linearSnapHelper = new LinearSnapHelper();

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:id="@+id/sel_item"
     android:layout_gravity="center_vertical"
-    android:layout_marginBottom="25dp">
+    android:layout_marginBottom="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,14 +33,8 @@
             android:textSize="13dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:background="@color/white"
+            android:background="@drawable/border_shadow"
             android:textColor="@color/blacktxt"
             tools:text="서울" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@id/tv_keyword"
-            android:background="#14000000"/>
     </RelativeLayout>
 </LinearLayout>

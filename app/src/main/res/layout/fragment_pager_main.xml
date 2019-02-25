@@ -23,14 +23,16 @@
             android:id="@+id/page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/style_popoup_count_6"
+            android:background="@drawable/style_popoup_count"
             tools:text="xxxxxxxxx"
+            android:textColor="@color/white"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:textSize="14dp"
             android:paddingLeft="14dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:paddingBottom="4dp"/>
+            android:paddingBottom="6dp"/>
 
     </RelativeLayout>
 

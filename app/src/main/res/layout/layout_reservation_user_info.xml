@@ -108,8 +108,7 @@
                 android:background="@drawable/style_edittext_gray_2border"
                 android:textColor="@color/termtext"
                 android:textSize="15dp"
-                android:inputType="textEmailAddress"
-                android:textStyle="bold" />
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
         <LinearLayout
@@ -289,6 +288,7 @@
         android:layout_marginBottom="7dp">
 
         <View
+            android:id="@+id/other_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"

@@ -395,7 +395,6 @@ public class DetailActivityActivity extends AppCompatActivity {
                     mCity = ticket_data.getString("city");
                     tv_hotelname.setText(tname);
                     tv_category.setText(ticket_data.getString("categor_name"));
-                    tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -586,6 +585,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                                 }
                             }
                             else{
+                                ticket_count = 0;
                                 room_list.setVisibility(View.GONE);
                             }
                         }
@@ -673,6 +673,15 @@ public class DetailActivityActivity extends AppCompatActivity {
                         }
                     }
                     //가격정보
+
+                    if(ticket_count==0){
+                        tv_minprice.setText("판매중인 상품 없음");
+                        findViewById(R.id.tv_minwon).setVisibility(View.GONE);
+                    }
+                    else{
+                        tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
+                        findViewById(R.id.tv_minwon).setVisibility(View.VISIBLE);
+                    }
 
                     //이미지 정보
                     if(info_cnt >0){

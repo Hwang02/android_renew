@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -175,7 +176,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                                 "",
                                 "-1",
                                 head.getString("detail"),
-                                "",
+                                TextUtils.isEmpty(head.getString("notice")) ? "" : head.getString("notice"),
                                0,
                                 0,
                                 "N",

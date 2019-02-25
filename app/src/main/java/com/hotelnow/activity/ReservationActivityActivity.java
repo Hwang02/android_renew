@@ -480,6 +480,7 @@ public class ReservationActivityActivity extends Activity {
                         //번호인증
                         if(cookie == null){ // 비회원
                             findViewById(R.id.layout_auth).setVisibility(View.VISIBLE);
+                            findViewById(R.id.other_line).setVisibility(View.GONE);
                             other_checkbox.setVisibility(View.GONE);
                             tv_auth_change.setVisibility(View.GONE);
                             setUseableEditText(usernameInput, true);
@@ -507,6 +508,7 @@ public class ReservationActivityActivity extends Activity {
 
                             }
                             other_checkbox.setVisibility(View.VISIBLE);
+                            findViewById(R.id.other_checkbox).setVisibility(View.VISIBLE);
                         }
 
                         // 변경하기
@@ -587,7 +589,7 @@ public class ReservationActivityActivity extends Activity {
                                             btn_auth.setText("인증번호 발송");
 
                                             //인증번호 발급버튼 비활성화
-                                            btn_auth.setBackgroundColor(Color.parseColor("#e1e1e1"));
+                                            btn_auth.setBackgroundResource(R.drawable.cal_unactive_round);
                                             btn_auth.setClickable(false);
 
                                             // 번호 비활성화
@@ -1050,7 +1052,7 @@ public class ReservationActivityActivity extends Activity {
             tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.purple));;
             img_paytype1.setBackgroundResource(R.drawable.ico_pay_card_selected);
         }else{
-            paytype1_background.setBackgroundResource(R.drawable.style_edittext_gray_border);
+            paytype1_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.blacktxt));;
             img_paytype1.setBackgroundResource(R.drawable.ico_pay_card);
         }
@@ -1061,7 +1063,7 @@ public class ReservationActivityActivity extends Activity {
             img_paytype3.setBackgroundResource(R.drawable.ico_pay_ars_selected);
         }else{
             paytype3_info.setVisibility(View.GONE);
-            paytype3_background.setBackgroundResource(R.drawable.style_edittext_gray_border);
+            paytype3_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.blacktxt));;
             img_paytype3.setBackgroundResource(R.drawable.ico_pay_ars);
         }
@@ -1127,7 +1129,7 @@ public class ReservationActivityActivity extends Activity {
             tv_paytype5.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.purple));;
             img_paytype5.setBackgroundResource(R.drawable.ico_pay_payco_selected);
         }else{
-            paytype5_background.setBackgroundResource(R.drawable.style_edittext_gray_border);
+            paytype5_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             tv_paytype5.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.blacktxt));;
             img_paytype5.setBackgroundResource(R.drawable.ico_pay_payco);
         }
@@ -1251,7 +1253,7 @@ public class ReservationActivityActivity extends Activity {
                 auth_ok.setClickable(false);
 
                 //인증번호 발급버튼 활성화
-                btn_auth.setBackgroundResource(R.color.purple);
+                btn_auth.setBackgroundResource(R.drawable.purple_2round);
                 btn_auth.setClickable(true);
 
                 auth_count.setText("시간 초과");
@@ -1282,7 +1284,7 @@ public class ReservationActivityActivity extends Activity {
         auth_ok.setClickable(false);
 
         // 인증번호 발급버튼 활성화
-        btn_auth.setBackgroundColor(Color.parseColor("#4f2680"));
+        btn_auth.setBackgroundResource(R.drawable.purple_2round);
         btn_auth.setClickable(true);
 
         btn_auth.setText("인증번호 발송");

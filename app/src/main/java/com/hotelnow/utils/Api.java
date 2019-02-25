@@ -17,7 +17,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -77,8 +79,21 @@ public class Api {
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         String hsessVal = "";
+
         try {
             hsessVal = Util.decode(_preferences.getString("cookie_val", ""));
+            List<String> lists = Arrays.asList(hsessVal.split("\n"));
+            for (int i = 0; i < lists.size(); i++) {
+                String list = lists.get(i);
+
+                if (list.contains("h_sess=")) {
+                    List<String> cookies = Arrays.asList(list.split(" "));
+
+                    if (cookies.size() > 1) {
+                        hsessVal = cookies.get(1);
+                    }
+                }
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -125,22 +140,32 @@ public class Api {
                             cb.onFailure(response, null);
                             return;
                         }
+// 세션 이유로 추가
+                        List<String> lists = Arrays.asList(response.headers().toString().split("\n"));
 
+                        for (int i = 0; i < lists.size(); i++) {
+                            String list = lists.get(i);
+
+                            if (list.contains("h_sess=")) {
+                                List<String> cookies = Arrays.asList(list.split(" "));
+
+                                String h_sess = "";
+                                if (cookies.size() > 1) {
+                                    h_sess = cookies.get(1);
+                                }
+
+                                _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
+                                SharedPreferences.Editor prefEditor = _preferences.edit();
+                                prefEditor.putString("cookie_val", Base64.encodeToString(h_sess.getBytes(), Base64.NO_WRAP));
+                                prefEditor.commit();
+                                Log.e(CONFIG.TAG, "HEADER response.hecader h_sess: " + h_sess);
+                            }
+                        }
+// 세션 이유로 추가
                         HashMap<String, String> headers = new HashMap<>();
 
                         for (String key : response.headers().names()) {
                             headers.put(key, response.header(key));
-
-                            // 세션 이유로 추가
-                            if(response.header(key).startsWith("h_sess=")){
-                                _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
-                                SharedPreferences.Editor prefEditor = _preferences.edit();
-                                prefEditor.putString("cookie_val", Base64.encodeToString(response.header(key).getBytes(), Base64.NO_WRAP));
-                                prefEditor.commit();
-
-//                                Log.e(CONFIG.TAG, "HEADER key : " + key);
-//                                Log.e(CONFIG.TAG, "HEADER val : " + response.header(key));
-                            }
                         }
 
                         if(BuildConfig.DEBUG) {

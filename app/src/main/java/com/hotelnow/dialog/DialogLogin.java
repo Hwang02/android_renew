@@ -47,7 +47,7 @@ public class DialogLogin extends Dialog {
         _preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         popup_img = (ImageView) findViewById(R.id.popup_img);
         Ion.with(popup_img).load(img_url);
-        findViewById(R.id.buttom_view).setOnClickListener(mViewClickListener);
+        popup_img.setOnClickListener(mViewClickListener);
         right.setOnClickListener(mOkClickListener);
     }
 
