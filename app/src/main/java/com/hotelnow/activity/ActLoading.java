@@ -72,7 +72,7 @@ public class ActLoading extends Activity {
         // preference 할당
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if(existRootingFile()){
+        if(!BuildConfig.DEBUG && existRootingFile()){
             dialogAlert = new DialogAlert("알림", "루팅된 단말입니다. 앱을 종료 합니다.", this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -85,7 +85,7 @@ public class ActLoading extends Activity {
             return;
         }
 
-        if(BuildConfig.DEBUG && isDebugged()){
+        if(!BuildConfig.DEBUG && isDebugged()){
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", ActLoading.this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
