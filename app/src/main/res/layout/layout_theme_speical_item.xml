@@ -344,10 +344,13 @@
             <TextView
                 android:id="@+id/show_text"
                 android:layout_width="match_parent"
-                android:layout_height="69dp"
+                android:layout_height="wrap_content"
+                android:minHeight="39dp"
                 android:gravity="center"
                 android:textColor="@color/graytxt"
                 android:textSize="14dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:text="할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다."/>
 
             <LinearLayout

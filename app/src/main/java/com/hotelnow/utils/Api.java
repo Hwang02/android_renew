@@ -78,6 +78,7 @@ public class Api {
         } catch (Exception e) {}
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
+        // 삭제할 코드 나중에
         String hsessVal = "";
 
         try {
@@ -97,6 +98,7 @@ public class Api {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        // 삭제할 코드 .header("Cookie", hsessVal) 까지 나중에
 
         Request request = new Request.Builder()
                 .url(url)
@@ -140,7 +142,7 @@ public class Api {
                             cb.onFailure(response, null);
                             return;
                         }
-// 세션 이유로 추가
+// 세션 이유로 추가 삭제 할 코드 나중에
                         List<String> lists = Arrays.asList(response.headers().toString().split("\n"));
 
                         for (int i = 0; i < lists.size(); i++) {
@@ -161,7 +163,7 @@ public class Api {
                                 LogUtil.e(CONFIG.TAG, "HEADER response.hecader h_sess: " + h_sess);
                             }
                         }
-// 세션 이유로 추가
+// 세션 이유로 추가 삭제 할 코드 나중에
                         HashMap<String, String> headers = new HashMap<>();
 
                         for (String key : response.headers().names()) {

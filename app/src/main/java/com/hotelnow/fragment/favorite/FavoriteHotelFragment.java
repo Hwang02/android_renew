@@ -413,7 +413,9 @@ public class FavoriteHotelFragment extends Fragment {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("save", true);
+                intent.putExtra("hid", hid.getText().toString());
+                intent.putExtra("sdate", ec_date);
+                intent.putExtra("edate", ee_date);
                 startActivityForResult(intent, 70);
             }
         });
