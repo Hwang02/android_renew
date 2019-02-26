@@ -129,7 +129,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
                     mNotificationManager.createNotificationChannel(mChannel);
                     Notification.Builder mBuilder = new Notification.Builder(getApplication(), mChannel.getId())
-                            .setSmallIcon(R.mipmap.ico_push)
+                            .setSmallIcon(R.drawable.ico_push)
                             .setTicker(message)
                             .setContentTitle(getString(R.string.app_name))
                             .setContentText(message)
@@ -141,7 +141,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 else if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 26 ) {
                     Notification.Builder mBuilder = new Notification.Builder(this)
-                            .setSmallIcon(R.mipmap.ico_push)
+                            .setSmallIcon(R.drawable.ico_push)
                             .setTicker(message)
                             .setContentTitle(getString(R.string.app_name))
                             .setContentText(message)
@@ -156,7 +156,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                             .setContentTitle(getString(R.string.app_name))
                             .setContentText(message)
-                            .setSmallIcon(R.mipmap.ico_push)
+                            .setSmallIcon(R.drawable.ico_push)
                             .setAutoCancel(true)
                             .setTicker(message)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
