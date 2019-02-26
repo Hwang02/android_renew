@@ -90,7 +90,7 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
                     intent.putExtra("userid", userId);
                     intent.putExtra("hotel_name", mlist.get(position).getHotelName());
                     intent.putExtra("room_name", mlist.get(position).getRoomName());
-                    mActivity.startActivityForResult(intent, 80);
+                    mActivity.startActivityForResult(intent, 90);
                 }
             });
         } else{

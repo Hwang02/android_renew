@@ -31,6 +31,7 @@ import android.text.style.StyleSpan;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1132,10 +1133,16 @@ public class DetailHotelActivity extends AppCompatActivity {
             if(rdata.length() == 0){
                 btn_more_view.setVisibility(View.GONE);
                 tv_minprice.setText("판매중인 객실 없음");
+                tv_minprice.setTextColor(getResources().getColor(R.color.graytxt));
+                tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.NORMAL);
+                tv_minprice.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                 findViewById(R.id.tv_minwon).setVisibility(View.GONE);
             }
             else {
                 btn_more_view.setVisibility(View.VISIBLE);
+                tv_minprice.setTextColor(getResources().getColor(R.color.blacktxt));
+                tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.BOLD);
+                tv_minprice.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
                 findViewById(R.id.tv_minwon).setVisibility(View.VISIBLE);
             }
 

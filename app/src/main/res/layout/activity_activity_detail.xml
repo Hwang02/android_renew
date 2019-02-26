@@ -249,17 +249,28 @@
                     android:orientation="vertical">
                 </LinearLayout>
 
-                <View
+                <LinearLayout
+                    android:id="@+id/detail_line"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bg_background"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg_background"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@color/back_line"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/back_line"/>
 
-                <!--상품자세히 보기넣어야됨-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/back_line"/>
+                </LinearLayout>
+
+            <!--상품자세히 보기넣어야됨-->
                 <include android:id="@+id/img_detail"
                     layout="@layout/layout_detail_activity_product_more" />
 

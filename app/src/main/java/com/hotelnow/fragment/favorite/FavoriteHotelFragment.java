@@ -142,7 +142,7 @@ public class FavoriteHotelFragment extends Fragment {
         String url = CONFIG.like_list+"?only_id=N&type=stay";
 
         if(ec_date != null || ee_date != null){
-            url += url+"&checkin_date="+ec_date+"&checkout_date="+ee_date;
+            url += "&checkin_date="+ec_date+"&checkout_date="+ee_date;
         }
 
         Api.get(url, new Api.HttpCallback() {

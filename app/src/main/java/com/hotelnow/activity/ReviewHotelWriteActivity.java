@@ -202,7 +202,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
                     @Override
                     public void onClick(View v) {
                         dialogConfirm.dismiss();
-                        setResult(RESULT_OK);
+                        setResult(0);
                         finish();
                     }
                 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.util.Patterns;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -677,10 +679,18 @@ public class DetailActivityActivity extends AppCompatActivity {
                     if(ticket_count==0){
                         tv_minprice.setText("판매중인 상품 없음");
                         findViewById(R.id.tv_minwon).setVisibility(View.GONE);
+                        tv_minprice.setTextColor(getResources().getColor(R.color.graytxt));
+                        tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.NORMAL);
+                        tv_minprice.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+                        findViewById(R.id.detail_line).setVisibility(View.GONE);
                     }
                     else{
                         tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
+                        tv_minprice.setTextColor(getResources().getColor(R.color.blacktxt));
+                        tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.BOLD);
+                        tv_minprice.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
                         findViewById(R.id.tv_minwon).setVisibility(View.VISIBLE);
+                        findViewById(R.id.detail_line).setVisibility(View.VISIBLE);
                     }
 
                     //이미지 정보

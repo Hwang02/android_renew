@@ -192,7 +192,7 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
                     @Override
                     public void onClick(View v) {
                         dialogConfirm.dismiss();
-                        setResult(RESULT_OK);
+                        setResult(0);
                         finish();
                     }
                 }
