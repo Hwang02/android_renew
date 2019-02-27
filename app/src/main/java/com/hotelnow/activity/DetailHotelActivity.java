@@ -645,7 +645,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                                 }
                                 tv_recommend.setText(Html.fromHtml(s_html), TextView.BufferType.SPANNABLE);
                                 if(tv_recommend.getLineCount() <= 10){
-                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rl_tv.getHeight()+10));
+                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                     btn_more_view.setVisibility(View.GONE);
                                     findViewById(R.id.blur_view).setVisibility(View.INVISIBLE);
                                 }

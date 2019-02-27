@@ -154,8 +154,9 @@ public class PaymentActivity extends Activity {
             handler.post( new Runnable() {
                 public void run()
                 {
-                    setBookingCancel("");
-
+                    if(!is_q) {
+                        setBookingCancel("");
+                    }
                     if(!isFinishing()){
                         dialogAlert = new DialogAlert(
                                 getString(R.string.alert_notice),

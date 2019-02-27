@@ -284,9 +284,14 @@ public class ReservationActivity extends Activity {
                     point_discount.setText(sale_price+private_money+"");
                     return;
                 }else if((reserve_money < sale_price) && (reserve_money>=1000)){
-                    point_discount.setText(reserve_money+private_money+"");
+                    point_discount.setText(reserve_money+"");
                     return;
                 }
+                else if(reserve_money < 1000){
+                    Toast.makeText(ReservationActivity.this, "최소 1,000원부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 point_discount.setText(reserve_money+private_money+"");
             }
         });
