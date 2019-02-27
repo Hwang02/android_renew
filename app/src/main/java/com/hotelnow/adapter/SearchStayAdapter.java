@@ -65,7 +65,7 @@ public class SearchStayAdapter extends ArrayAdapter<SearchResultItem> {
         Ion.with(holder.iv_img).load(entry.getLandscape());
 
         if(entry.getGapDay() > 1) {
-            holder.tv_select_day.setText(entry.getGapDay() + "박 기준");
+            holder.tv_select_day.setText("1박 기준");
         }else {
             holder.tv_select_day.setText("");
         }
