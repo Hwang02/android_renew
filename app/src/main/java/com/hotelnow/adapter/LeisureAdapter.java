@@ -243,10 +243,10 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.autoViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth()*0.39)+"");
+                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth()*0.36)+"");
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    lparam.height = (int)(holder.autoViewPager.getChildAt(0).getWidth()*0.33);
+                    lparam.height = (int)(holder.autoViewPager.getChildAt(0).getWidth()*0.36);
                     lparam.topMargin = Util.dptopixel(mLf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mLf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mLf.getActivity(), 16);

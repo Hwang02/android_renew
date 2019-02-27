@@ -73,7 +73,7 @@ public class LeisureFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면3", null);
+//        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면3", null);
     }
 
     @Nullable
@@ -92,7 +92,7 @@ public class LeisureFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
         objects = new ArrayList<>();
 

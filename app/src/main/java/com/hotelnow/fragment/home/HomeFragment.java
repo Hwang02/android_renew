@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     public void onResume() {
         super.onResume();
 
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면1", null);
+//        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면1", null);
     }
 
     @Nullable
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
 
 
         dbHelper = new DbOpenHelper(getActivity());

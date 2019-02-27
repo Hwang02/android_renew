@@ -98,11 +98,11 @@ public class ActLoading extends Activity {
             return;
         }
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        Bundle params = new Bundle();
-        params.putString("PAGE", "ActLoading-Start");
-        params.putString("NAME", "HWANG");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//        Bundle params = new Bundle();
+//        params.putString("PAGE", "ActLoading-Start");
+//        params.putString("NAME", "HWANG");
+//        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
 
         checkSeverInfo();
     }

@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
 		<variable
@@ -15,6 +16,8 @@
 		android:id = "@+id/recycler_view"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:clipToPadding = "false" />
+		android:clipToPadding = "false"
+		android:overScrollMode="never"
+		app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 </LinearLayout>
 </layout>

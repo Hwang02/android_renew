@@ -73,8 +73,7 @@ public class HotelFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면2", null);
+//        mFirebaseAnalytics.setCurrentScreen(getActivity(), "홈_화면2", null);
     }
 
     @Nullable

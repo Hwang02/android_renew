@@ -107,7 +107,7 @@ public class MainActivity extends FragmentActivity {
 
         Util.setStatusColor(this);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 //        Bundle params = new Bundle();
 //        params.putString("PAGE", "MainActivity-Start");
