@@ -30,7 +30,7 @@
     <RelativeLayout
         android:id="@+id/rl_room_info"
         android:layout_width="match_parent"
-        android:layout_height="95dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@id/tv_room_sub_title"
@@ -38,7 +38,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/img_room"
-            android:layout_width="134dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:riv_corner_radius="2dp" />
@@ -59,36 +59,54 @@
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_detail_per"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/redtext"
-                    android:textSize="12dp"
-                    android:textStyle="bold"
-                    tools:text="48%↓"/>
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_room_detail_price"
+                        android:id="@+id/tv_detail_per"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blacktxt"
-                        android:textSize="16dp"
+                        android:textColor="@color/redtext"
+                        android:textSize="15dp"
                         android:textStyle="bold"
-                        tools:text="205,700"/>
+                        android:layout_gravity="left|bottom"
+                        tools:text="48%↓"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blacktxt"
-                        android:textSize="12dp"
-                        android:text="원"/>
+                        android:orientation="horizontal"
+                        android:gravity="right|bottom"
+                        android:layout_gravity="bottom">
+
+                        <TextView
+                            android:id="@+id/tv_room_detail_days"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/termtext"
+                            android:letterSpacing="-0.02"
+                            tools:text="15박 / " />
+
+                        <TextView
+                            android:id="@+id/tv_room_detail_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blacktxt"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            tools:text="205,700" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blacktxt"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:text="원" />
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
 

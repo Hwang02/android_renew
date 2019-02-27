@@ -172,6 +172,7 @@
             android:textColor="@color/redtext"
             android:layout_centerVertical="true"
             android:textStyle="bold"
+            android:layout_marginRight="4dp"
             android:letterSpacing="-0.02"
             tools:text="48%↓" />
 
@@ -184,7 +185,6 @@
             android:layout_toRightOf="@id/tv_discount_rate"
             android:letterSpacing="-0.01"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="4dp"
             android:textStyle="bold"
             tools:text="166,600" />
 
@@ -198,6 +198,19 @@
             android:layout_centerVertical="true"
             android:paddingTop="3dp"
             android:text="원~" />
+
+        <TextView
+            android:id="@+id/tv_select_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:textColor="@color/termtext"
+            android:letterSpacing="-0.04"
+            android:layout_toRightOf="@id/won"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            android:paddingTop="3dp"
+            tools:text="1박 기준" />
 
         <TextView
             android:id="@+id/tv_soldout"

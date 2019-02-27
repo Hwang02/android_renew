@@ -335,7 +335,8 @@ public class MapHotelActivity extends AppCompatActivity {
                                     entry.getString("is_hot_deal"),
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count"),
-                                    false
+                                    false,
+                                    0
                             ));
                         }
 

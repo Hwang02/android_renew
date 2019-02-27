@@ -150,7 +150,8 @@ public class PrivateDaelAllActivity extends Activity{
                                         mStay.getJSONObject(i).getString("is_hot_deal"),
                                         mStay.getJSONObject(i).getString("is_add_reserve"),
                                         mStay.getJSONObject(i).getInt("coupon_count"),
-                                        i == 0 ? true : false
+                                        i == 0 ? true : false,
+                                        0
                                 ));
                             }
                             adapter.notifyDataSetChanged();

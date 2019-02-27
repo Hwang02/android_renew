@@ -204,7 +204,8 @@ public class RecentAllActivity extends Activity {
                                                     entry.getString("is_hot_deal"),
                                                     entry.getString("is_add_reserve"),
                                                     entry.getInt("coupon_count"),
-                                                    i == 0 ? true : false
+                                                    i == 0 ? true : false,
+                                                    0
                                             ));
                                         } else {
                                             mItems.add(new SearchResultItem(
@@ -235,7 +236,8 @@ public class RecentAllActivity extends Activity {
                                                     entry.getString("is_hot_deal"),
                                                     entry.getString("is_add_reserve"),
                                                     entry.getInt("coupon_count"),
-                                                    i == 0 ? true : false
+                                                    i == 0 ? true : false,
+                                                    0
                                             ));
                                         }
                                     }

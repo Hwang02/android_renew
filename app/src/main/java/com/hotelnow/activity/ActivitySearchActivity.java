@@ -268,7 +268,8 @@ public class ActivitySearchActivity extends Activity {
                                     entry.getString("is_hot_deal"),
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count"),
-                                    i == 0 ? true : false
+                                    i == 0 ? true : false,
+                                    0
                             ));
                             if (Page == 1)
                                 s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181114_150606_DfU0o2DCag.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longitude");

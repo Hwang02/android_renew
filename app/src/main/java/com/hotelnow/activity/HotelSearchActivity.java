@@ -84,6 +84,7 @@ public class HotelSearchActivity extends Activity {
     private int filter_cnt = 0;
     private LinearLayout count_view;
     private  TextView tv_count;
+    private long gapDay = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -411,6 +412,8 @@ public class HotelSearchActivity extends Activity {
                             autoViewPager.stopAutoScroll();
                         }
 
+                        gapDay = Util.diffOfDate2(ec_date, ee_date);
+
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);
                             mItems.add(new SearchResultItem(
@@ -441,7 +444,8 @@ public class HotelSearchActivity extends Activity {
                                     entry.getString("is_hot_deal"),
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count"),
-                                    i == 0 ? true : false
+                                    i == 0 ? true : false,
+                                    gapDay
                             ));
                             if (Page == 1)
                                 s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181101_173010_uXfZWjNIzK.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longuitude");

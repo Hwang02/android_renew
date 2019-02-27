@@ -202,6 +202,7 @@ public class AllRoomTypeActivity extends Activity {
                         TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
                         TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
                         TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
+                        TextView tv_room_days = (TextView)view_room.findViewById(R.id.tv_room_days);
                         final TextView pid = (TextView)view_room.findViewById(R.id.pid);
                         final TextView rid = (TextView)view_room.findViewById(R.id.rid);
                         final String p_default = rdata.getJSONObject(i).getString("default_pn");
@@ -213,6 +214,10 @@ public class AllRoomTypeActivity extends Activity {
                         pid.setText(rdata.getJSONObject(i).getString("product_id"));
                         rid.setText(rdata.getJSONObject(i).getString("room_id"));
                         tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
+
+                        long daydiff = Util.diffOfDate(ec_date.replace("-",""), ee_date.replace("-",""));
+                        if(daydiff > 1)
+                            tv_room_days.setText(daydiff+"박 / ");
 
                         if(!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
                             tv_room_sub_title.setVisibility(View.VISIBLE);
@@ -254,7 +259,7 @@ public class AllRoomTypeActivity extends Activity {
                             tv_detail_per.setVisibility(View.VISIBLE);
                         }
                         tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");
-                        tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")));
+                        tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price"))+"원");
                         String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n","<br>").replace("•","ㆍ ");
 
                         Spanned text;

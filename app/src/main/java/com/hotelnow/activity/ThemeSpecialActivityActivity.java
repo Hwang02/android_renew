@@ -197,7 +197,8 @@ public class ThemeSpecialActivityActivity extends Activity {
                                 "",
                                 "",
                                 0,
-                               false
+                               false,
+                                0
                         ));
                     }
 
@@ -231,7 +232,8 @@ public class ThemeSpecialActivityActivity extends Activity {
                                 entry.getString("is_hot_deal"),
                                 entry.getString("is_add_reserve"),
                                 entry.getInt("coupon_count"),
-                                false
+                                false,
+                                0
                         ));
                     }
 

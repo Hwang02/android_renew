@@ -10,10 +10,11 @@ public class SearchResultItem implements Serializable {
     private int items_quantity, coupon_count;
     private double latitude, longuitude;
     private boolean isfocus = false;
+    private long gapDay;
 
     public SearchResultItem(String id, String hotel_id, String name, String address, String category, String street1, String street2, double latitude, double longuitude, String privateDealYN, String landscape, String sale_price,
                             String normal_price, String sale_rate, int items_quantity, String special_msg, String review_score, String grade_score, String real_grade_score, String distance, String distance_real, String normal_price_avg,
-                            String city, String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count, boolean isfocus)
+                            String city, String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count, boolean isfocus, long gapDay)
     {
         this.id = id;
         this.hotel_id =  hotel_id;
@@ -43,6 +44,15 @@ public class SearchResultItem implements Serializable {
         this.is_add_reserve = is_add_reserve;
         this.coupon_count = coupon_count;
         this.isfocus = isfocus;
+        this.gapDay = gapDay;
+    }
+
+    public long getGapDay() {
+        return gapDay;
+    }
+
+    public void setGapDay(long gapDay) {
+        this.gapDay = gapDay;
     }
 
     public boolean isIsfocus() {

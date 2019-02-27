@@ -65,6 +65,12 @@ public class SearchResultStayAdapter extends ArrayAdapter<SearchResultItem> {
         holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
         Ion.with(holder.iv_img).load(entry.getLandscape());
 
+        if(entry.getGapDay() > 1) {
+            holder.tv_select_day.setText(entry.getGapDay() + "박 기준");
+        }else {
+            holder.tv_select_day.setText("");
+        }
+
         if(entry.getItems_quantity() < 4){
             if(entry.getItems_quantity() == 0) {
                 holder.room_count.setVisibility(View.GONE);
@@ -192,7 +198,7 @@ public class SearchResultStayAdapter extends ArrayAdapter<SearchResultItem> {
     private class ViewHolder {
 
         ImageView iv_img, iv_favorite, ico_private, ico_hotdeal, soon_discount, soon_point, img_star;
-        TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, hid;
+        TextView tv_rate, category, tv_nearlocation, hotel_name, tv_discount_rate, sale_price, room_count, won, tv_soldout, tv_special, hid, tv_select_day;
         LinearLayout special_msg;
         boolean islike = false;
         View text_bar;
@@ -222,6 +228,7 @@ public class SearchResultStayAdapter extends ArrayAdapter<SearchResultItem> {
 
             text_bar = (View) v.findViewById(R.id.v_bar);
             img_star = (ImageView) v.findViewById(R.id.ico_star);
+            tv_select_day = (TextView) v.findViewById(R.id.tv_select_day);
 
             v.setTag(R.id.id_holder);
         }

@@ -319,7 +319,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
                                     entry.getString("is_hot_deal"),
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count"),
-                                    i == 0 ? true : false
+                                    i == 0 ? true : false,
+                                    0
                             ));
                         }
 

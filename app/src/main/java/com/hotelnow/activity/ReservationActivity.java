@@ -101,7 +101,7 @@ public class ReservationActivity extends Activity {
     final int MILLISINFUTURE = 180 * 1000; //총 시간 (300초 = 5분)
     final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
     private CheckBox other_checkbox;
-    private TextView show_policy;
+    private TextView show_policy, tv_room_detail_days;
     private LinearLayout layout_orther_user;
     private boolean is_other_user = false;
     private Button btn_go_payment, btn_point_ok;
@@ -202,6 +202,7 @@ public class ReservationActivity extends Activity {
         tv_title_bar = (TextView) findViewById(R.id.tv_title_bar);
         btn_phone = (LinearLayout) findViewById(R.id.btn_phone);
         paytype3_txt = (TextView) findViewById(R.id.paytype3_txt);
+        tv_room_detail_days = (TextView) findViewById(R.id.tv_room_detail_days);
 
         cookie = _preferences.getString("userid", null);
 
@@ -815,6 +816,8 @@ public class ReservationActivity extends Activity {
                         JSONArray products = data.getJSONArray("products");
 
                         if(products.length() > 1) {
+                            tv_room_detail_days.setText(products.length()+"박 / ");
+
                             sub_products.setVisibility(View.VISIBLE);
 
                             //	sub_products 아래에 할당할 상품 정보들

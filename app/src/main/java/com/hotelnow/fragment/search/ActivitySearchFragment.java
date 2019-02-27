@@ -196,7 +196,8 @@ public class ActivitySearchFragment  extends Fragment {
                                     entry.getString("is_hot_deal"),
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count"),
-                                    i == 0 ? true : false
+                                    i == 0 ? true : false,
+                                    0
                             ));
 
                             if (Page == 1)
