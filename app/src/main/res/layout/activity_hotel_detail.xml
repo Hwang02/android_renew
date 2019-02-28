@@ -24,8 +24,7 @@
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@android:color/transparent"
-            app:statusBarScrim="@color/termtext"
-            android:fitsSystemWindows="true">
+            app:statusBarScrim="@android:color/transparent">
 
             <RelativeLayout
                 android:layout_width="match_parent"

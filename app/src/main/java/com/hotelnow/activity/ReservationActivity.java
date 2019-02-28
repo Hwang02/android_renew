@@ -945,7 +945,7 @@ public class ReservationActivity extends Activity {
 
                     // 결제 하기
                     if (sale_available == false) {
-                        btn_go_payment.setBackgroundColor(Color.parseColor("aaaaaa"));
+                        btn_go_payment.setBackgroundColor(Color.parseColor("#aaaaaa"));
                         btn_go_payment.setText(getString(R.string.sell_complete));
                         btn_go_payment.setClickable(false);
                     }

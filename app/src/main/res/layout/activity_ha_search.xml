@@ -123,12 +123,13 @@
         android:id="@+id/bt_scroll"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@drawable/btn_screenup_bg"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="22dp" />
+        android:layout_marginBottom="26dp"
+        style="?android:attr/borderlessButtonStyle"/>
 
 
     <RelativeLayout

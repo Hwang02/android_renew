@@ -74,7 +74,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="22dp" />
+        android:layout_marginBottom="22dp"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <RelativeLayout
         android:id="@+id/wrapper"

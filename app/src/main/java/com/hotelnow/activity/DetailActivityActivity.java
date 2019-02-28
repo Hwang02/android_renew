@@ -187,6 +187,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                             findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
                             toolbar.setBackgroundResource(R.color.white);
                             findViewById(R.id.v_line).setVisibility(View.VISIBLE);
+                            Util.setStatusColor(DetailActivityActivity.this);
                             isShow = true;
                         } else if (isShow) {
                             ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText("");
@@ -201,6 +202,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                             findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
                             toolbar.setBackgroundResource(android.R.color.transparent);
                             findViewById(R.id.v_line).setVisibility(View.GONE);
+                            Util.setStatusTransColor(DetailActivityActivity.this);
                             isShow = false;
                         }
                     }

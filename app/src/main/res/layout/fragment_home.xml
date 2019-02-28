@@ -7,17 +7,23 @@
 			type="com.hotelnow.fragment.home.HomeFragment" />
 	</data>
 
-<LinearLayout
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
 
-	<android.support.v7.widget.RecyclerView
-		android:id = "@+id/recycler_view"
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		android:clipToPadding = "false"
-		android:overScrollMode="never"
-		app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-</LinearLayout>
+		<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/swipe"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<android.support.v7.widget.RecyclerView
+				android:id = "@+id/recycler_view"
+				android:layout_width = "match_parent"
+				android:layout_height = "match_parent"
+				android:clipToPadding = "false"
+				android:overScrollMode="never"
+				app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+		</android.support.v4.widget.SwipeRefreshLayout>
+	</LinearLayout>
 </layout>

@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -180,6 +181,21 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
         getRecentData(true);
 
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
+        swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeView.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeView.setRefreshing(false);
+                        getRecentData(true);
+                    }
+                }, 200);
+            }
+        });
     }
 
     public void getRecentData(final boolean isStart){
