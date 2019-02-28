@@ -15,6 +15,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -791,14 +792,19 @@ public class MainActivity extends FragmentActivity {
 
     public void setTitle(){
         String t_name = "";
-        if(_preferences.getString("username", "나우").length()>8){
-            t_name = _preferences.getString("username", "나우").substring(0,8)+"...";
+        if(_preferences.getString("username", "").length()>8){
+            t_name = _preferences.getString("username", "").substring(0,8)+"...";
         }
         else{
-            t_name = _preferences.getString("username", "나우");
+            t_name = _preferences.getString("username", "");
         }
 
-        mbinding.layoutSearch.txtSearch.setText( t_name+"님, 어떤 여행을 찾고 있나요?");
+        if(TextUtils.isEmpty(t_name)){
+            mbinding.layoutSearch.txtSearch.setText("어떤 여행을 찾고 있나요?");
+        }
+        else {
+            mbinding.layoutSearch.txtSearch.setText(t_name + "님, 어떤 여행을 찾고 있나요?");
+        }
     }
 
     public void setTapdelete(String tag){

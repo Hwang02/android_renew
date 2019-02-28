@@ -35,6 +35,6 @@
             android:textColor="@color/white"
             android:textSize="15dp"
             android:layout_centerVertical="true"
-            android:text="나우님, 어떤 여행을 찾고 있나요?" />
+            android:text="어떤 여행을 찾고 있나요?" />
     </RelativeLayout>
 </layout>
