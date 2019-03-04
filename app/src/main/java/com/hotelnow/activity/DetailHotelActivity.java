@@ -1178,8 +1178,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                 rid.setText(rdata.getJSONObject(i).getString("room_id"));
                 tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
                 long daydiff = Util.diffOfDate(ec_date.replace("-",""), ee_date.replace("-",""));
-                if(daydiff > 1)
-                    tv_room_days.setText(daydiff+"박 / ");
+                if(daydiff > 1) {
+                    tv_room_days.setText(daydiff + "박 / ");
+                    findViewById(R.id.tv_avg_day).setVisibility(View.VISIBLE);
+                }
+                else{
+                    tv_room_days.setText("");
+                    findViewById(R.id.tv_avg_day).setVisibility(View.GONE);
+                }
 
                 if(!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
                     tv_room_sub_title.setVisibility(View.VISIBLE);

@@ -32,12 +32,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="26dp"
             android:layout_marginTop="4dp">
 
             <LinearLayout
+                android:id="@+id/layout_detail_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
 
                 <TextView
@@ -63,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true">
 
                 <TextView
@@ -89,6 +93,23 @@
                     android:textColor="@color/redtext"
                     android:text="%↓"/>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_avg_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="6dp"
+                android:layout_marginBottom="1dp"
+                android:textSize="13dp"
+                android:layout_toRightOf="@id/layout_detail_price"
+                android:layout_toLeftOf="@id/tv_main_discount"
+                android:textColor="@color/termtext"
+                android:letterSpacing="-0.02"
+                android:visibility="gone"
+                android:text="1박 기준" />
         </RelativeLayout>
 
         <LinearLayout
