@@ -52,6 +52,9 @@ public class PaymentActivity extends Activity {
     private String cancelMsg = "";
     private String hotel_name = "";
     private String coupon_name = "";
+    private String city = "";
+    private String ptune = "";
+    private String coupon_id = "";
 
     DialogAlert dialogAlert;
     DialogConfirm dialogConfirm;
@@ -83,8 +86,11 @@ public class PaymentActivity extends Activity {
         up = intent.getStringExtra("uphone");
         selected_card = intent.getStringExtra("selected_card");
         coupon_name = intent.getStringExtra("coupon_name");
+        coupon_id = intent.getStringExtra("coupon_id");
         is_q = intent.getBooleanExtra("is_q", false);
         is_payco = intent.getBooleanExtra("is_payco", false);
+        city = intent.getStringExtra("city");
+        ptune = intent.getStringExtra("product_id");
 
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         try {
@@ -261,10 +267,12 @@ public class PaymentActivity extends Activity {
                                                     .withQuantity(quantity)
                                                     .withUnitPrice(obj.getInt("sale_price"))
                                                     .withRevenue(revenue)
-                                                    .withAttribute1(obj.getString("category"))
-                                                    .withAttribute2(coupon_name)
-                                                    .withAttribute3(uid);
-                                            TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"));
+                                                    .withAttribute1(city)
+                                                    .withAttribute2(ptune)
+                                                    .withAttribute3(obj.getString("category"))
+                                                    .withAttribute4(coupon_name)
+                                                    .withAttribute5(coupon_id);
+                                            TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"), is_q);
 
                                         }
                                     } catch (Exception e) {
@@ -380,10 +388,12 @@ public class PaymentActivity extends Activity {
                                                     .withQuantity(quantity)
                                                     .withUnitPrice(obj.getInt("sale_price"))
                                                     .withRevenue(revenue)
-                                                    .withAttribute1(obj.getString("category"))
-                                                    .withAttribute2(coupon_name)
-                                                    .withAttribute3(uid);
-                                            TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"));
+                                                    .withAttribute1(city)
+                                                    .withAttribute2(ptune)
+                                                    .withAttribute3(obj.getString("category"))
+                                                    .withAttribute4(coupon_name)
+                                                    .withAttribute5(coupon_id);
+                                            TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"), is_q);
 
                                         }
                                     } catch (Exception e) {

@@ -73,6 +73,8 @@ public class SignupActivity extends Activity {
         Util.setStatusColor(this);
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        TuneWrap.Event("Signup");
+
         // 휴대폰 앞번호
         phone_prefixs= getResources().getStringArray(R.array.phone_prefix);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(SignupActivity.this, android.R.layout.simple_spinner_dropdown_item, phone_prefixs);

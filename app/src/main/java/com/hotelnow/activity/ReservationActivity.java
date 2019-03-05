@@ -142,7 +142,7 @@ public class ReservationActivity extends Activity {
     String selected_card = "", bid_id="";
     String reserve_value = "";
     private int private_money = 0, real_price=0, coupon_value = 0, accepted_price = 0;
-    private String hotel_name;
+    private String hotel_name, city, rid;
     private boolean isReserve = false, isCoupon = false, is_sel_point = false, is_sel_coupon = false;
     private String all_coupon_id = "",cancel_fee_str="";
     private DialogFee dialogFee;
@@ -153,6 +153,8 @@ public class ReservationActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
+
+        TuneWrap.Event("reservation_stay");
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(ReservationActivity.this);
         point_discount = (EditText) findViewById(R.id.point_discount);
@@ -444,6 +446,8 @@ public class ReservationActivity extends Activity {
                     }
                     JSONObject data = obj.getJSONObject("data");
                     hotel_name = data.getString("hotel_name");
+                    city = data.getString("city_name");
+                    rid = data.getString("rid");
                     // 룸정보
                     tv_hotel_name.setText(data.getString("hotel_name"));
                     Ion.with(img_room).load(data.getString("room_img"));
@@ -1850,11 +1854,16 @@ public class ReservationActivity extends Activity {
                     intent.putExtra("selected_card", selected_card);
                     intent.putExtra("uname", usernameInput.getText().toString());
                     intent.putExtra("uphone", pnum1.getSelectedItem()+"-"+pnum2.getText().toString()+"-"+pnum3.getText().toString());
+                    intent.putExtra("city", city);
+                    intent.putExtra("product_id", hid);
+
                     if(paytype == 6) {
                         intent.putExtra("is_payco", true);
                     }
-                    if(coupon_spinner != null && coupon_spinner.getSelectedItem() != null && !TextUtils.isEmpty(coupon_spinner.getSelectedItem().toString()) && !coupon_spinner.getSelectedItem().toString().equals("사용안함"))
+                    if(coupon_spinner != null && coupon_spinner.getSelectedItem() != null && !TextUtils.isEmpty(coupon_spinner.getSelectedItem().toString()) && !coupon_spinner.getSelectedItem().toString().equals("사용안함")) {
                         intent.putExtra("coupon_name", coupon_spinner.getSelectedItem().toString());
+                        intent.putExtra("coupon_id", pcode);
+                    }
 
                     float revenue = obj.has("revenue")? (float)obj.getInt("revenue"):0;
                     int quantity = obj.has("quantity")? obj.getInt("quantity"):0;

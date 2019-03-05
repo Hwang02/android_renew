@@ -22,6 +22,7 @@ import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -84,6 +85,9 @@ public class PagerMainFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 //        t = ((HotelnowApplication)getActivity().getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
+
+        TuneWrap.Event("popup_pre");
+
         mId = getArguments().getString("id");
         mTitle = getArguments().getString("title");
         mThumb_img = getArguments().getString("thumb_img");
@@ -191,32 +195,21 @@ public class PagerMainFragment extends Fragment {
                                     }
                                 });
 
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                             } else if (method.equals("move_theme")) {
                                 Intent intent = new Intent(mPf.getActivity(), ThemeSpecialHotelActivity.class);
                                 intent.putExtra("tid", url);
 
                                 mPf.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                             } else if (method.equals("move_theme_ticket")) {
                                 Intent intent = new Intent(mPf.getActivity(), ThemeSpecialActivityActivity.class);
                                 intent.putExtra("tid", url);
 
                                 mPf.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                             } else if (method.equals("move_ticket_detail")) {
                                 Intent intent = new Intent(mPf.getActivity(), DetailActivityActivity.class);
                                 intent.putExtra("tid", url);
 
                                 mPf.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                             } else if (method.equals("outer_link")) {
                                 if (url.contains("hotelnow")) {
                                     frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
@@ -229,9 +222,6 @@ public class PagerMainFragment extends Fragment {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                     mPf.startActivity(intent);
                                 }
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                             }
                         } catch (Throwable t) {
                             Toast.makeText(mPf.getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
@@ -256,6 +246,12 @@ public class PagerMainFragment extends Fragment {
                         Util.setPreferenceValues(mPf._preferences, "front_popup_date", checkdate);
 
                         mPf.frgpopup.dismiss();
+                    }
+                    if(!TextUtils.isEmpty(mId)) {
+                        TuneWrap.Event("popup_pre_confirm", mId);
+                    }
+                    else{
+                        TuneWrap.Event("popup_pre_confirm");
                     }
                 }
             });

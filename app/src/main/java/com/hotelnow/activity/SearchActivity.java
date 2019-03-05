@@ -54,6 +54,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -90,6 +91,8 @@ public class SearchActivity extends Activity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_search);
+
+        TuneWrap.Search();
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         et_search = (EditText) findViewById(R.id.et_search);

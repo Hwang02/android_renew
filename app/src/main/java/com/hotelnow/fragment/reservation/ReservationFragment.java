@@ -87,6 +87,7 @@ public class ReservationFragment extends Fragment {
                         public void run() {
                             mReservationBinding.tabLayout.getTabAt(1).select();
                             mReservationBinding.viewPager.setCurrentItem(1);
+                            CONFIG.sel_reserv = 0;
 
                         }
                     },100);

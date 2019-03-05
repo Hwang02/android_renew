@@ -431,20 +431,7 @@ public class Util {
         String to = transFormat.format(from);
         return to;
     }
-//    public static String todayFormat2(){
-//        String mDay = "";
-//        try {
-//            Date today;
-//            Calendar todayCal = Calendar.getInstance();
-//            todayCal.setTime(new Date());
-//            today = todayCal.getTime();
-//            SimpleDateFormat df = new SimpleDateFormat("yyyy년MM월dd일");
-//            mDay = df.format(today);
-//        } catch (Exception e){}
-//
-//        return mDay;
-//    }
-//
+
     // 요일 날짜포멧
     public static String weekdayFormat(String dt) {
         String wdt = "";
@@ -458,21 +445,6 @@ public class Util {
 
         return wdt;
     }
-//
-//    // 요일 날짜포멧
-//    public static String weekdayFormatMd(String dt) {
-//        String wdt = "";
-//
-//        try {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//            SimpleDateFormat transFormat = new SimpleDateFormat("MM/dd", Locale.KOREAN);
-//            Date to = formatter.parse(dt);
-//            wdt = transFormat.format(to);
-//        } catch (Exception e){}
-//
-//        return wdt;
-//    }
-
 
     // 디바이스 너비
     public static int checkDeviceWidth(){
@@ -793,69 +765,6 @@ public class Util {
         return categorytextarr[position];
     }
 
-
-    // 검색조건 초기화
-//    public static boolean hasSearch(){
-//        String mCheckinout[] = null;
-//        if(getDefaultCheckinout().contains(",")) {
-//            mCheckinout = getDefaultCheckinout().split(",");
-//        }
-//        if( (CONFIG.sel_keyword != null && !CONFIG.sel_keyword.equals(""))  ||
-//            (CONFIG.sel_area != null && !CONFIG.sel_area.equals("all"))    ||
-//            CONFIG.sel_subarea != null && !CONFIG.sel_subarea.equals("") ||
-//            CONFIG.sel_category != null ||
-//            CONFIG.sel_facility != null ||
-//            mCheckinout !=null && mCheckinout.length>0 &&
-//            ((CONFIG.sel_checkin != null && !CONFIG.sel_checkin.equals(mCheckinout[0])) ||
-//            (CONFIG.sel_checkout != null && !CONFIG.sel_checkout.equals(mCheckinout[1])))){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
-    // 검색조건 초기화
-//    public static boolean fixedCheck(){
-//        String mCheckinout[] = null;
-//        if(getDefaultCheckinout().contains(",")) {
-//            mCheckinout = getDefaultCheckinout().split(",");
-//        }
-//        if( CONFIG.sel_keyword == null &&
-//            CONFIG.sel_category == null &&
-//            CONFIG.sel_facility == null &&
-//            mCheckinout !=null &&
-//            mCheckinout.length>0 &&
-//            (CONFIG.sel_checkin != null && CONFIG.sel_checkin.equals(mCheckinout[0])) &&
-//            (CONFIG.sel_checkout != null && CONFIG.sel_checkout.equals(mCheckinout[1]))){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
-    // 필터검색 유무
-//    public static boolean FilterCheck(){
-//        boolean IsselPrice = false;
-//        if(CONFIG.sel_maxPrice.equals("200000") && CONFIG.sel_minPrice.equals("0")){
-//            IsselPrice = false;
-//        }
-//        else if(CONFIG.sel_maxPrice.equals("") && CONFIG.sel_minPrice.equals("")){
-//            IsselPrice = false;
-//        }
-//        else{
-//            IsselPrice = true;
-//        }
-//
-//        if( (CONFIG.sel_category != null && !CONFIG.sel_category.equals(""))
-//                || (CONFIG.sel_facility != null && !CONFIG.sel_facility.equals(""))
-//                || IsselPrice )
-//        {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     // 다음날
     public static String getNextDateStr(String curDate) {
         final Calendar calendar = Calendar.getInstance();
@@ -901,32 +810,6 @@ public class Util {
         return format.format(calendar.getTime());
     }
 
-//    // -1분전
-//    public static long getCheckTime() {
-//        Date date = new Date();
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTime(date);
-//        cal.add(Calendar.MINUTE, -1);
-//        cal.add(Calendar.DATE, 0);
-//
-//        return cal.getTime().getTime();
-//    }
-//
-//    // -1분전
-//    public static long getStringToLong(String st) {
-//        final Calendar calendar = Calendar.getInstance();
-//        final SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        final Date date;
-//
-//        try {
-//            date = sdformat.parse(st);
-//            calendar.setTime(date);
-//            calendar.add(Calendar.DAY_OF_YEAR, 0);
-//        } catch (Exception e) {}
-//
-//        return calendar.getTime().getTime();
-//    }
-
     public static void clearSearch(){
         CONFIG.sel_category = null;														// 검색가테고리
         CONFIG.sel_facility = null;														// 검색부대시설
@@ -939,35 +822,6 @@ public class Util {
         CONFIG.sel_min = "0";
         CONFIG.Mypage_Search = false;
     }
-
-//    private static String getDefaultCheckinout(){
-//        Date dateObj = new Date();
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        SimpleDateFormat formatterdt = new SimpleDateFormat("yyyy-MM-dd");
-//        SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
-//
-//        // 서버타임있는지 확인하고 없으면 설정
-//        if(CONFIG.svr_date == null) {
-//            long time = System.currentTimeMillis();
-//            CONFIG.svr_date = new Date(time);
-//        }
-//
-//        // 현재 시간 object 설정
-//        try {
-//            dateObj = CONFIG.svr_date;
-//        } catch(Exception e){}
-//
-//        startCal.setTime(dateObj);
-//        endCal.setTime(dateObj);
-//        endCal.add(Calendar.DATE, 1);
-//
-//        if(CurHourFormat.format(dateObj).equals("00") || CurHourFormat.format(dateObj).equals("01")){
-//            startCal.add(Calendar.DATE, -1);
-//            endCal.add(Calendar.DATE, -1);
-//        }
-//
-//        return formatterdt.format(startCal.getTime())+","+formatterdt.format(endCal.getTime());
-//    }
 
     public static void setStatusColor(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -1030,5 +884,19 @@ public class Util {
             err = true;
         }
         return err;
+    }
+
+    public static String TuneCategory(Context context, String code){
+        String[] categoriarr = context.getResources().getStringArray(R.array.category_text);
+        String[] categoriCodes = context.getResources().getStringArray(R.array.category_code);
+        int select_id=0;
+        for (int i = 0; i < categoriCodes.length; i++) {
+            if(code.equals(categoriCodes[i])){
+                select_id = i;
+                break;
+            }
+        }
+        LogUtil.e("xxxxx", select_id+"");
+        return categoriarr[select_id];
     }
 }

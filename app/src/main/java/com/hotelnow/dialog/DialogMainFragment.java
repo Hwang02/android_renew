@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.home.PagerMainFragment;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 
@@ -139,6 +140,8 @@ public class DialogMainFragment extends DialogFragment {
 
                     if(pf != null && pf.frgpopup != null)
                         pf.frgpopup.dismiss();
+
+                    TuneWrap.Event("popup_pre_after");
                 }
                 else {
                     // 닫기
@@ -148,6 +151,7 @@ public class DialogMainFragment extends DialogFragment {
                     if (pf != null && pf.frgpopup != null) {
                         pf.frgpopup.dismiss();
                     }
+                    TuneWrap.Event("popup_pre_close");
                 }
 
                 SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

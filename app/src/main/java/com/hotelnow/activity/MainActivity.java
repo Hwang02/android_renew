@@ -455,6 +455,9 @@ public class MainActivity extends FragmentActivity {
                 } else if (recipeStr1.contains("move_ticket_list")) {
                     // ticket tab
                     setTapMove(LEISUREPAGE, true);
+                } else if (recipeStr1.contains("move_hotel_list")) {
+                    // ticket tab
+                    setTapMove(HOTELPAGE, true);
                 } else if (recipeStr1.contains("move_coupon")) {
                     tabStatus(false);
                     mbinding.navigation.setCurrentItem(MYPAGE);
