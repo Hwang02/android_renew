@@ -133,6 +133,8 @@ public class SearchActivity extends Activity{
                       mSearchList.clear();
                       getRecentData();
 
+                      TuneWrap.Event("search_text", et_search.getText().toString());
+
                       // 리스트 화면 이동
                       Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                       intent.putExtra("search", et_search.getText().toString());
@@ -263,6 +265,8 @@ public class SearchActivity extends Activity{
                     locationListener = new LocationListener() {
                         @Override
                         public void onLocationChanged(Location location) {
+
+                            TuneWrap.Event("search_around");
                             locManager.removeUpdates(locationListener);
                             CONFIG.lat = location.getLatitude() + "";
                             CONFIG.lng = location.getLongitude() + "";
@@ -299,6 +303,7 @@ public class SearchActivity extends Activity{
                 mSearchList.clear();
                 getRecentData();
 
+                TuneWrap.Event("search_text", et_search.getText().toString());
                 // 리스트 화면 이동
                 Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                 intent.putExtra("search", et_search.getText().toString());
@@ -432,11 +437,15 @@ public class SearchActivity extends Activity{
                     public void onSingleClick(View v) {
                         if (!mHotelAuto.get((int) v.getTag()).getFlag().equals("N")) {
                             if (!mHotelAuto.get((int) v.getTag()).getFlag().equals("region_hotel")) {
+                                TuneWrap.Event("search_auto_product", "stay", hid.getText().toString());
+
                                 Intent intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
                                 intent.putExtra("hid", hid.getText().toString());
                                 intent.putExtra("save", true);
                                 startActivity(intent);
                             } else {
+                                TuneWrap.Event("search_auto_city", mHotelAuto.get((int) v.getTag()).getName_sub_city());
+
                                 Intent intent = new Intent(SearchActivity.this, HotelSearchActivity.class);
                                 intent.putExtra("tab", 0);
                                 intent.putExtra("city_code", mHotelAuto.get((int) v.getTag()).getCity());
@@ -478,11 +487,15 @@ public class SearchActivity extends Activity{
                     public void onSingleClick(View v) {
                         if (!mActivityAuto.get((int) v.getTag()).getFlag().equals("N")) {
                             if (!mActivityAuto.get((int) v.getTag()).getFlag().equals("region_activity")) {
+                                TuneWrap.Event("search_auto_product", "activity", hid.getText().toString());
+
                                 Intent intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
                                 intent.putExtra("tid", hid.getText().toString());
                                 intent.putExtra("save", true);
                                 startActivity(intent);
                             } else {
+                                TuneWrap.Event("search_auto_city", mActivityAuto.get((int) v.getTag()).getName());
+
                                 Intent intent = new Intent(SearchActivity.this, ActivitySearchActivity.class);
                                 intent.putExtra("tab", 1);
                                 intent.putExtra("location_id", mActivityAuto.get((int) v.getTag()).getCity());
@@ -641,6 +654,9 @@ public class SearchActivity extends Activity{
                 view_recent.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
+
+                        TuneWrap.Event("search_recently", tv_recent_txt.getText().toString());
+
                         LogUtil.e("xxxxx", v.getTag()+"");
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                         intent.putExtra("tab", 0);
@@ -716,11 +732,15 @@ public class SearchActivity extends Activity{
                     public void onSingleClick(View v) {
                         Intent intent = null;
                         if (mHotelActivity.get((int) v.getTag()).getCategory().equals("popular_product_stay")) {
+                            TuneWrap.Event("search_recommend", "stay", mHotelActivity.get((int) v.getTag()).getHotel_id());
+
                             intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
                             intent.putExtra("hid", mHotelActivity.get((int) v.getTag()).getHotel_id());
                             intent.putExtra("save", true);
                             startActivityForResult(intent, 80);
                         } else {
+                            TuneWrap.Event("search_recommend", "activity", mHotelActivity.get((int) v.getTag()).getHotel_id());
+
                             intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
                             intent.putExtra("tid", mHotelActivity.get((int) v.getTag()).getDeal_id());
                             intent.putExtra("save", true);

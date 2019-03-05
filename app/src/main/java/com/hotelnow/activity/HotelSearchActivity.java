@@ -97,6 +97,8 @@ public class HotelSearchActivity extends Activity {
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         dbHelper = new DbOpenHelper(this);
 
+        TuneWrap.Event("stay_list");
+
         Intent intent = getIntent();
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");
@@ -488,6 +490,8 @@ public class HotelSearchActivity extends Activity {
                         map_img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                TuneWrap.Event("stay_list_map");
+
                                 Intent intent = new Intent(HotelSearchActivity.this, MapHotelActivity.class);
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);

@@ -41,6 +41,7 @@ import com.hotelnow.utils.EndEventScrollView;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -277,6 +278,7 @@ public class ReservationHotelDetailActivity extends Activity {
                             btn_review.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    TuneWrap.Event("booking_stay_reviewW");
                                     Intent intent = new Intent(ReservationHotelDetailActivity.this, ReviewHotelWriteActivity.class);
                                     intent.putExtra("booking_id", bid);
                                     intent.putExtra("hotel_id", hotel_id);
@@ -504,10 +506,11 @@ public class ReservationHotelDetailActivity extends Activity {
                     mAddress = info.getString("hotel_address");
                     tv_address.setText(mAddress);
 
-                    // 지도 클릭 이벤트 설정
+                    // 주소복사
                     findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View v) {
+                            TuneWrap.Event("booking_stay_copyA");
                             ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clip = ClipData.newPlainText("label", mAddress);
                             clipboard.setPrimaryClip(clip);
@@ -527,6 +530,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         findViewById(R.id.company_call).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                TuneWrap.Event("booking_stay_call");
                                 dialogConfirm = new DialogConfirm(
                                         getString(R.string.alert_notice),
                                         call_message,
@@ -557,6 +561,7 @@ public class ReservationHotelDetailActivity extends Activity {
 
                         @Override
                         public void onClick(View v) {
+                            TuneWrap.Event("booking_stay_navi");
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
                                     getString(R.string.booking_kimkisa_ask),
@@ -608,6 +613,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     findViewById(R.id.btn_address_near).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            TuneWrap.Event("booking_stay_around");
                             Intent intent = new Intent(ReservationHotelDetailActivity.this, ActivityMapActivity.class);
                             intent.putExtra("hid", hotel_id);
                             intent.putExtra("lat", lat);
@@ -620,6 +626,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     mapImg.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
+                            TuneWrap.Event("booking_stay_around");
                             Intent intent = new Intent(ReservationHotelDetailActivity.this, ActivityMapActivity.class);
                             intent.putExtra("hid", hotel_id);
                             intent.putExtra("lat", lat);
@@ -666,7 +673,7 @@ public class ReservationHotelDetailActivity extends Activity {
 
                         @Override
                         public void onClick(View v) {
-
+                            TuneWrap.Event("booking_stay_del");
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
                                     getString(R.string.booking_hide_ask),

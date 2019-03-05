@@ -21,6 +21,7 @@ import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -109,6 +110,9 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
         holder.btn_search.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+
+                TuneWrap.Event("stay_search");
+
                 Intent intent = new Intent(fm.getActivity(), HotelSearchActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());

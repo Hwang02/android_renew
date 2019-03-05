@@ -15,6 +15,7 @@ import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.model.ActivityHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
@@ -111,6 +112,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TuneWrap.Event("HotDeal_activity", data.get((int)v.getTag()).getId());
                 LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
                 Intent intent = new Intent(lf.getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", data.get((int)v.getTag()).getId());

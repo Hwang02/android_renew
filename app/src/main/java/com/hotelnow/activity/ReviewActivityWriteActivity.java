@@ -19,6 +19,7 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
@@ -173,6 +174,8 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
                     }
                     succReviewDialog();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
+
+                    TuneWrap.Event("booking_activity_reviewW_ok");
                 }catch (Exception e) {
                     Toast.makeText(ReviewActivityWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

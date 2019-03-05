@@ -39,6 +39,7 @@ import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 
@@ -178,6 +179,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("RecentlySee_list");
                     Intent intent = new Intent(mHf.getContext(), RecentAllActivity.class);
                     mHf.startActivityForResult(intent, 80);
                 }
@@ -214,6 +216,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("ThemeList");
                     Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
                     mHf.startActivityForResult(intent, 80);
                 }
@@ -265,6 +268,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("HotDeal_stay_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab",0);
                     mHf.startActivityForResult(intent, 80);
@@ -306,6 +310,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("HotDeal_activity_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab",1);
                     mHf.startActivityForResult(intent, 80);
@@ -350,6 +355,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("TopBanner_list");
                     Intent intent = new Intent(mHf.getContext(), BannerAllActivity.class);
                     mHf.startActivityForResult(intent, 80);
                 }

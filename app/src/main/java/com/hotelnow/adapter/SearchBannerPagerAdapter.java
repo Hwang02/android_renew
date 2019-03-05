@@ -26,6 +26,7 @@ import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -85,6 +86,9 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
             public void onClick(View v) {
                 mId = data.get((int)v.getTag()).getId();
                 mTitle = data.get((int)v.getTag()).getTitle();
+
+                TuneWrap.Event("stay_list_banner", mId);
+
                 if (!TextUtils.isEmpty(data.get((int)v.getTag()).getImage())) {
                     frontType = data.get((int)v.getTag()).getEvt_type();
                     frontImg = data.get((int)v.getTag()).getImage();

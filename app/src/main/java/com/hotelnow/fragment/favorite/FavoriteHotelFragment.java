@@ -395,6 +395,8 @@ public class FavoriteHotelFragment extends Fragment {
 
     private void init(){
         // preference
+
+        TuneWrap.Event("favorite_stay");
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
 
@@ -412,6 +414,8 @@ public class FavoriteHotelFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
+
+                TuneWrap.Event("favorite_stay_product", hid.getText().toString());
                 Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());
                 intent.putExtra("hid", hid.getText().toString());

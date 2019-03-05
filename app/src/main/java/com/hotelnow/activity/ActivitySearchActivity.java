@@ -73,6 +73,7 @@ public class ActivitySearchActivity extends Activity {
 
         setContentView(R.layout.activity_ha_search);
 
+        TuneWrap.Event("activity_list");
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         dbHelper = new DbOpenHelper(this);
@@ -295,6 +296,7 @@ public class ActivitySearchActivity extends Activity {
                         map_img.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
+                                TuneWrap.Event("activity_list_map");
                                 Intent intent = new Intent(ActivitySearchActivity.this, MapAcvitityActivity.class);
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);

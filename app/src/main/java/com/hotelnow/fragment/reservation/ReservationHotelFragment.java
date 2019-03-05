@@ -37,6 +37,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -344,6 +345,9 @@ public class ReservationHotelFragment extends Fragment {
 
     private void init(){
         // preference
+
+        TuneWrap.Event("booking_stay");
+
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
@@ -363,6 +367,8 @@ public class ReservationHotelFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView)view.findViewById(R.id.hid);
+
+                TuneWrap.Event("booking_stay_detail", tv.getText().toString());
                 Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
                 intent.putExtra("bid", tv.getText().toString());
                 startActivityForResult(intent, 90);

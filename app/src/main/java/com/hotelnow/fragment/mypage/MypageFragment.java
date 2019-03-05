@@ -31,6 +31,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -76,6 +77,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.btnSetting.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("setting");
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 intent.putExtra("isPush", isPush);
                 intent.putExtra("isEmail", _preferences.getString("marketing_email_yn", "N"));
@@ -95,6 +97,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.btnNotice.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("news");
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_notice);
                 intent.putExtra("title", getString(R.string.notice));
@@ -106,6 +109,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.btnFaq.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("faq");
                 Intent intent = new Intent(getActivity(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_faq);
                 intent.putExtra("title", getString(R.string.cs_faq));
@@ -117,6 +121,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.btnEmail.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("customer_email");
                 String userId = "";
                 try {
                     userId = _preferences.getString("userid", null) == null ? null : Util.decode(_preferences.getString("userid", null).replace("HN|",""));
@@ -144,6 +149,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.csKakao.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("customer_kakao");
                 Util.kakaoYelloId2(getActivity());
             }
         });
@@ -152,6 +158,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.center.csPhone.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("customer_call");
                 dialogConfirm = new DialogConfirm(
                         getString(R.string.alert_notice),
                         getString(R.string.wanna_call_hotelnow)+"\n운영시간 : "+CONFIG.operation_time,
@@ -232,6 +239,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.notJoin.btJoin.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("Myinfo_member");
                 Intent intent = new Intent(getActivity(), SignupActivity.class);
                 startActivityForResult(intent, 90);
             }
@@ -241,6 +249,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.notJoin.btLogin.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("Myinfo_login");
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivityForResult(intent, 90);
             }
@@ -302,6 +311,8 @@ public class MypageFragment extends Fragment {
                                             ((MainActivity)getActivity()).moveTabRefresh2();
                                             ((MainActivity)getActivity()).moveTabRefresh3();
 
+                                            TuneWrap.Event("logout");
+
                                             try{
                                                 LoginManager.getInstance().logOut();
                                             } catch (Exception e) {}
@@ -322,6 +333,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.join.llMoney.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("MyPoint");
                 Intent intent = new Intent(getActivity(), MySaveActivity.class);
                 startActivity(intent);
             }
@@ -339,6 +351,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.join.llCoupon.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("MyCoupon");
                 Intent intent = new Intent(getActivity(), MyCouponActivity.class);
                 startActivityForResult(intent, 91);
             }

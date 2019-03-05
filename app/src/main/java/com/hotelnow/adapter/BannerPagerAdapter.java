@@ -24,6 +24,7 @@ import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -95,6 +96,8 @@ public class BannerPagerAdapter extends PagerAdapter {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
                         url = obj.getString("param");
+
+                        TuneWrap.Event("TopBanner", url);
 
                         if (method.equals("move_near")) {
                             int fDayLimit = mHf._preferences.getInt("future_day_limit", 180);
@@ -195,6 +198,7 @@ public class BannerPagerAdapter extends PagerAdapter {
                     catch (Exception e) {}
                 }
                 else {
+                    TuneWrap.Event("TopBanner", frontEvtId);
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);

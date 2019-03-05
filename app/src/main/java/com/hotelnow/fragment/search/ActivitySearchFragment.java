@@ -282,6 +282,7 @@ public class ActivitySearchFragment  extends Fragment {
                 tv.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
+                        TuneWrap.Event("HotKeyword");
                         Intent intent = new Intent(getActivity(), SearchResultActivity.class);
                         intent.putExtra("banner_id", mKeywordList.get((int) v.getTag()).getId());
                         intent.putExtra("banner_name", mKeywordList.get((int) v.getTag()).getLink());

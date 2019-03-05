@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -31,7 +32,7 @@ import java.util.Random;
  */
 public class PrivateDealActivity extends FragmentActivity {
     private WebView webview;
-    private String linkUrl, pid, bid_id, ec_date, ee_date, bid, city="", hotel_name="";
+    private String linkUrl, pid, bid_id, ec_date, ee_date, bid, city="", hotel_name="", hid;
     private final Handler handler = new Handler();
 
     @Override
@@ -53,6 +54,7 @@ public class PrivateDealActivity extends FragmentActivity {
             ee_date = intent.getStringExtra("ee_date");
             city = intent.getStringExtra("city");
             hotel_name = intent.getStringExtra("hotel_name");
+            hid = intent.getStringExtra("hid");
         }
 
         Random oRandom = new Random();
@@ -121,6 +123,7 @@ public class PrivateDealActivity extends FragmentActivity {
     {
         @JavascriptInterface
         public void openPurchaseActivity(int accepted_price) {
+            TuneWrap.Event("stay_private_reservation", hid);
             Log.e("webview", "accepted_price : "+accepted_price);
             Intent intent = new Intent(PrivateDealActivity.this, ReservationActivity.class);
             intent.putExtra("page", "Private");
@@ -146,6 +149,7 @@ public class PrivateDealActivity extends FragmentActivity {
         public void proposalActivity(){
 //            프라이빗딜 제안하기
 //            api 호출
+            TuneWrap.Event("stay_private_accept", hid);
             setPrivateDealProposal();
         }
     }

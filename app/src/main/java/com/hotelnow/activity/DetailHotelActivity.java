@@ -266,6 +266,7 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
+                    TuneWrap.Event("stay_private_detail", hid);
                     String fullLinkUrl =linkUrl+"&bid_id="+obj.getJSONObject("data").getString("id")+"&refKey="+obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(DetailHotelActivity.this, PrivateDealActivity.class);
                     intent.putExtra("pid", mProduct_Id);
@@ -276,6 +277,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     intent.putExtra("ee_date", ee_date);
                     intent.putExtra("city", city);
                     intent.putExtra("hotel_name", hotel_name);
+                    intent.putExtra("hid", hid);
                     startActivityForResult(intent, 80);
                 } catch (Exception e) {
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
@@ -1308,8 +1310,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                 btn_private.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        TuneWrap.Event("PrivateButton", hid);
                         if (privatedeal_status == 1 || privatedeal_status == -1) {
-                            TuneWrap.Event("PrivateButton", hid);
 
                             String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String)img_room.getTag()
                                     + "&product_id=" + pid.getText() + "&product_name=" + tv_room_title.getText() + "&default_pn=" + p_default + "&max_pn=" + p_max

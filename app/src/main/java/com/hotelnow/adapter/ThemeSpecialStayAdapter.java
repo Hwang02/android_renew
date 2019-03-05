@@ -15,6 +15,7 @@ import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
+import com.hotelnow.utils.TuneWrap;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ThemeSpecialStayAdapter extends RecyclerView.Adapter<ThemeSpecialSt
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TuneWrap.Event("ThemeBanner", data.get((int) v.getTag()).getId());
                 if (data.get((int) v.getTag()).getTheme_flag().equals("H")){
                     Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());

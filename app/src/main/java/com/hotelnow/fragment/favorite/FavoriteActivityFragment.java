@@ -391,6 +391,8 @@ public class FavoriteActivityFragment extends Fragment {
 
     private void init(){
         // preference
+        TuneWrap.Event("favorite_activity");
+
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
 
@@ -408,6 +410,8 @@ public class FavoriteActivityFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
+
+                TuneWrap.Event("favorite_activity_product", hid.getText().toString());
                 Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", hid.getText().toString());
                 intent.putExtra("save", true);

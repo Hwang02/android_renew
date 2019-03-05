@@ -96,6 +96,7 @@ public class RecentAllActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if(mItems.get(position-1).getHotel_id().equals("stay")) {
+                    TuneWrap.Event("RecentlySee", "stay", hid.getText().toString());
                     Intent intent = new Intent(RecentAllActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
                     intent.putExtra("evt", "N");
@@ -104,6 +105,7 @@ public class RecentAllActivity extends Activity {
                     startActivityForResult(intent,80);
                 }
                 else{
+                    TuneWrap.Event("RecentlySee", "stay", hid.getText().toString());
                     Intent intent = new Intent(RecentAllActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");

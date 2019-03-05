@@ -451,7 +451,7 @@ public class AllRoomTypeActivity extends Activity {
                     if (!obj.getString("result").equals("success")) {
                         return;
                     }
-
+                    TuneWrap.Event("stay_private_detail", hid);
                     String fullLinkUrl =linkUrl+"&bid_id="+obj.getJSONObject("data").getString("id")+"&refKey="+obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(AllRoomTypeActivity.this, PrivateDealActivity.class);
                     intent.putExtra("pid", mProduct_Id);
@@ -462,6 +462,7 @@ public class AllRoomTypeActivity extends Activity {
                     intent.putExtra("ee_date", ee_date);
                     intent.putExtra("city", city);
                     intent.putExtra("hotel_name", hotel_name);
+                    intent.putExtra("hid", hid);
                     startActivityForResult(intent, 80);
 
                 } catch (Exception e) {

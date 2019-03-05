@@ -34,6 +34,7 @@ import com.hotelnow.fragment.model.TopItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 
@@ -173,6 +174,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("ThemeList");
                     Intent intent = new Intent(mLf.getContext(), ThemeSAllActivity.class);
                     intent.putExtra("page", "Q");
                     mLf.startActivityForResult(intent, 70);
@@ -235,6 +237,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("TopBanner_list");
                     Intent intent = new Intent(mLf.getContext(), BannerActivityAllActivity.class);
                     mLf.startActivityForResult(intent, 70);
                 }
@@ -285,6 +288,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("HotDeal_activity_list");
                     Intent intent = new Intent(mLf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab",1);
                     mLf.startActivityForResult(intent, 70);

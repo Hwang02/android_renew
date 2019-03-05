@@ -25,6 +25,7 @@ import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.fragment.model.SubBannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -91,6 +92,8 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
                         url = obj.getString("param");
+
+                        TuneWrap.Event("MiddleBanner", url);
 
                         if (method.equals("move_near")) {
                             int fDayLimit = mHf._preferences.getInt("future_day_limit", 180);
@@ -191,6 +194,8 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                     catch (Exception e) {}
                 }
                 else {
+                    TuneWrap.Event("MiddleBanner", frontEvtId);
+
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);
