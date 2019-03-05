@@ -25,6 +25,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -65,20 +66,7 @@ public class ThemeSpecialHotelActivity extends Activity {
 
         dbHelper = new DbOpenHelper(this);
 
-//        t = ((HotelnowApplication)getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
-//        t.setScreenName("ThemeHotelList");
-//        t.send(new HitBuilders.AppViewBuilder().build());
-
-//        TuneWrap.ScreenName("ThemeHotelList");
-//        FacebookWrap.logViewedContentEvent(this, "ThemeHotelList");
-
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-//        getActionBar().setTitle("테마");
-
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        wrapper = (RelativeLayout)findViewById(R.id.wrapper);
-//        wrapper.setVisibility(View.VISIBLE);
 
         Intent intent = getIntent();
         tid = intent.getStringExtra("tid");
@@ -103,8 +91,8 @@ public class ThemeSpecialHotelActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if(!pid.getText().toString().equals("-1")) {
-//                    t.send(new HitBuilders.EventBuilder().setCategory("PRODUCT_THEME").setAction(tid).setLabel(hname.getText().toString()).build());
-//                    TuneWrap.Event("PRODUCT_THEME", tid, hname.getText().toString());
+
+                    TuneWrap.Event("theme_stay_product", hid.getText().toString());
 
                     Intent intent = new Intent(ThemeSpecialHotelActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
@@ -154,6 +142,8 @@ public class ThemeSpecialHotelActivity extends Activity {
     public void getHotelList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list+"/"+tid+"/H";
+
+        TuneWrap.Event("theme_stay", tid);
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -279,6 +269,8 @@ public class ThemeSpecialHotelActivity extends Activity {
                             return;
                         }
 
+                        TuneWrap.Event("favorite_stay_del", sel_id);
+
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
@@ -304,6 +296,8 @@ public class ThemeSpecialHotelActivity extends Activity {
                            showToast("로그인 후 이용해주세요");
                             return;
                         }
+
+                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");

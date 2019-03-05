@@ -23,6 +23,7 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -276,9 +277,11 @@ public class EventActivity extends AppCompatActivity {
             try {
                 if(idx > 0){
                     linkUrl = CONFIG.eventWebUrl+"/"+ String.valueOf(idx);
+                    TuneWrap.Event("EVENT", idx+"");
                 } else {
                     evtObj = new JSONObject(obj);
                     linkUrl = CONFIG.eventWebUrl+"/"+evtObj.getString("id");
+                    TuneWrap.Event("EVENT", evtObj.getString("id"));
                 }
                 if(uid != null)
                     linkUrl +="?uid="+Util.decode(uid.replace("HN|",""));

@@ -24,6 +24,7 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
 import org.json.JSONArray;
@@ -192,6 +193,8 @@ public class PrivateDaelAllActivity extends Activity{
                             return;
                         }
 
+                        TuneWrap.Event("favorite_stay_del", sel_id);
+
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
@@ -217,6 +220,8 @@ public class PrivateDaelAllActivity extends Activity{
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
+
+                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");

@@ -20,6 +20,7 @@ import com.hotelnow.adapter.DetailReviewAdapter;
 import com.hotelnow.fragment.model.ReviewItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -223,9 +224,11 @@ public class ReviewDetailActivity extends Activity{
         String url;
         if(is_q){
             url = CONFIG.qreviewListUrl + "/" + mPage + "/" + hid;
+            TuneWrap.Event("activity_review", hid);
         }
         else {
             url = CONFIG.reviewListUrl + "/" + mPage + "/" + mPer_page + "/" + hid;
+            TuneWrap.Event("stay_review", hid);
         }
         if(isAdd) {
             Api.get(url, new Api.HttpCallback() {

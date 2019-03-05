@@ -56,6 +56,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -210,85 +211,7 @@ public class DetailActivityActivity extends AppCompatActivity {
             }
         });
 
-        icon_zzim.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                JSONObject paramObj = new JSONObject();
-                try {
-                    paramObj.put("type", "activity");
-                    paramObj.put("id", tid);
-                } catch(Exception e){
-                    Log.e(CONFIG.TAG, e.toString());
-                }
-                if(islike){// 취소
-                    Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
-                        @Override
-                        public void onFailure(Response response, Exception throwable) {
-                            Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                        }
 
-                        @Override
-                        public void onSuccess(Map<String, String> headers, String body) {
-                            try {
-                                JSONObject obj = new JSONObject(body);
-                                if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                    showToast("로그인 후 이용해주세요");
-                                    return;
-                                }
-                                islike = false;
-                                dbHelper.deleteFavoriteItem(false,  tid,"A");
-                                icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
-                                LogUtil.e("xxxx", "찜하기 취소");
-                                showIconToast("관심 상품 담기 취소", true);
-                                islikechange = true;
-                            }catch (JSONException e){
-
-                            }
-                        }
-                    });
-                }
-                else{// 성공
-                    Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
-                        @Override
-                        public void onFailure(Response response, Exception throwable) {
-                            Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onSuccess(Map<String, String> headers, String body) {
-                            try {
-                                JSONObject obj = new JSONObject(body);
-                                if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                    showToast("로그인 후 이용해주세요");
-                                    return;
-                                }
-                                islike = true;
-                                dbHelper.insertFavoriteItem(tid,"A");
-                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                                LogUtil.e("xxxx", "찜하기 성공");
-                                showIconToast("관심 상품 담기 성공", true);
-                                islikechange = true;
-                            }catch (JSONException e){
-
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
-        findViewById(R.id.btn_share).setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                dialogTicketShare = new DialogTicketShare(DetailActivityActivity.this, tid, PagerImgs[0], tname, mAvg, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogTicketShare.dismiss();
-                    }
-                });
-                dialogTicketShare.show();
-            }
-        });
 
         setDetailData();
     }
@@ -401,6 +324,99 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_category.setText(ticket_data.getString("categor_name"));
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                    TuneWrap.Event("ProductDetail_activity", mCity, tid, tv_category.getText().toString());
+
+                    icon_zzim.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            TuneWrap.Event("activity_favorite", mCity, tid);
+
+                            JSONObject paramObj = new JSONObject();
+                            try {
+                                paramObj.put("type", "activity");
+                                paramObj.put("id", tid);
+                            } catch(Exception e){
+                                Log.e(CONFIG.TAG, e.toString());
+                            }
+                            if(islike){// 취소
+                                Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                                    @Override
+                                    public void onFailure(Response response, Exception throwable) {
+                                        Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Map<String, String> headers, String body) {
+                                        try {
+                                            JSONObject obj = new JSONObject(body);
+                                            if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                                showToast("로그인 후 이용해주세요");
+                                                return;
+                                            }
+
+                                            TuneWrap.Event("favorite_activity_del", tid);
+
+                                            islike = false;
+                                            dbHelper.deleteFavoriteItem(false,  tid,"A");
+                                            icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                                            LogUtil.e("xxxx", "찜하기 취소");
+                                            showIconToast("관심 상품 담기 취소", true);
+                                            islikechange = true;
+                                        }catch (JSONException e){
+
+                                        }
+                                    }
+                                });
+                            }
+                            else{// 성공
+                                Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                                    @Override
+                                    public void onFailure(Response response, Exception throwable) {
+                                        Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Map<String, String> headers, String body) {
+                                        try {
+                                            JSONObject obj = new JSONObject(body);
+                                            if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                                showToast("로그인 후 이용해주세요");
+                                                return;
+                                            }
+
+                                            TuneWrap.Event("favorite_activity", tid);
+
+                                            islike = true;
+                                            dbHelper.insertFavoriteItem(tid,"A");
+                                            icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                                            LogUtil.e("xxxx", "찜하기 성공");
+                                            showIconToast("관심 상품 담기 성공", true);
+                                            islikechange = true;
+                                        }catch (JSONException e){
+
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                    findViewById(R.id.btn_share).setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+
+                            TuneWrap.Event("stay_share", mCity, tid);
+
+                            dialogTicketShare = new DialogTicketShare(DetailActivityActivity.this, tid, PagerImgs[0], tname, mAvg, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialogTicketShare.dismiss();
+                                }
+                            });
+                            dialogTicketShare.show();
+                        }
+                    });
 
                     if(ticket_data.getInt("sale_rate") == 0){
                         findViewById(R.id.tv_main_discount).setVisibility(View.GONE);
@@ -988,6 +1004,8 @@ public class DetailActivityActivity extends AppCompatActivity {
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.coupon_dis));
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
+
+                    TuneWrap.Event("stay_coupon", mCity, tid, tv_coupon_title.getText().toString()+"("+tv_coupon_price.getText().toString()+")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

@@ -25,6 +25,7 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -290,10 +291,13 @@ public class RecentAllActivity extends Activity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        if (sel_type.equals("stay"))
+                        if (sel_type.equals("stay")) {
+                            TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
-                        else
+                        } else {
+                            TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
+                        }
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         mAdapter.notifyDataSetChanged();
@@ -320,10 +324,13 @@ public class RecentAllActivity extends Activity {
                             return;
                         }
 
-                        if (sel_type.equals("stay"))
-                            dbHelper.insertFavoriteItem(sel_id,"H");
-                        else
-                            dbHelper.insertFavoriteItem(sel_id,"A");
+                        if (sel_type.equals("stay")) {
+                            TuneWrap.Event("favorite_stay", sel_id);
+                            dbHelper.insertFavoriteItem(sel_id, "H");
+                        } else {
+                            TuneWrap.Event("favorite_activity", sel_id);
+                            dbHelper.insertFavoriteItem(sel_id, "A");
+                        }
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         mAdapter.notifyDataSetChanged();

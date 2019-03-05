@@ -105,6 +105,34 @@ public class TuneWrap {
         tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3));
     }
 
+    //  Event4
+    public static void Event(String evt_name, String depth1, String depth2, String depth3, String depth4) {
+        SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
+        Tune tune = Tune.getInstance();
+        try {
+            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        tune.setUserEmail(_preferences.getString("email",""));
+        tune.setUserName(_preferences.getString("username", ""));
+        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3).withAttribute4(depth4));
+    }
+
+    //  Event4
+    public static void Event(String evt_name, String depth1, String depth2, String depth3, String depth4, String depth5) {
+        SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
+        Tune tune = Tune.getInstance();
+        try {
+            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        tune.setUserEmail(_preferences.getString("email",""));
+        tune.setUserName(_preferences.getString("username", ""));
+        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3).withAttribute4(depth4).withAttribute5(depth5));
+    }
+
     //  Login
     public static void Login(){
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());

@@ -35,6 +35,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -294,7 +295,7 @@ public class FavoriteActivityFragment extends Fragment {
                         ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
-
+                    TuneWrap.Event("favorite_activity_del", sel_id);
                     dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                     LogUtil.e("xxxx", "찜하기 취소");
                     ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);

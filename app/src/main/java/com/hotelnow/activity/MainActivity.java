@@ -40,6 +40,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 
 import java.net.URLDecoder;
@@ -237,7 +238,6 @@ public class MainActivity extends FragmentActivity {
         callbackManager = CallbackManager.Factory.create();
 
         // 딥링크, push
-
         if(getIntent().getStringExtra("push_type") != null) {
             String push_type = "";
             String bid;
@@ -276,6 +276,8 @@ public class MainActivity extends FragmentActivity {
                     intentDeal.putExtra("hid", hid);
                     intentDeal.putExtra("evt", "N");
                     intentDeal.putExtra("save", true);
+                    intentDeal.putExtra("sdate", sdate);
+                    intentDeal.putExtra("edate", edate);
                     startActivityForResult(intentDeal, 80);
 
                 } else if (push_type.equals("5")) {
@@ -318,6 +320,7 @@ public class MainActivity extends FragmentActivity {
             else{
                 setTapMove(SELECTPAGE, false);
             }
+            TuneWrap.Event("PUSH");
         }
         else {
             String action = getIntent().getStringExtra("action");

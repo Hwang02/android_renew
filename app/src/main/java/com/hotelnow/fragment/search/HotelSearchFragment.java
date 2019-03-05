@@ -52,6 +52,7 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -481,6 +482,8 @@ public class HotelSearchFragment extends Fragment {
                             return;
                         }
 
+                        TuneWrap.Event("favorite_stay_del", sel_id);
+
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((SearchResultActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
@@ -506,6 +509,8 @@ public class HotelSearchFragment extends Fragment {
                             ((SearchResultActivity)getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
+
+                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -806,6 +811,7 @@ public class HotelSearchFragment extends Fragment {
         btn_filter.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                Util.clearSearch();
                 Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
                 startActivityForResult(intent, 60);
             }

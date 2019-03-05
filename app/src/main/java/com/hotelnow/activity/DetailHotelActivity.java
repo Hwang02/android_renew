@@ -58,6 +58,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -230,86 +231,6 @@ public class DetailHotelActivity extends AppCompatActivity {
            }
        });
 
-        findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogShare = new DialogShare(DetailHotelActivity.this, hid, main_photo, hotel_name, ec_date, ee_date, mAvg, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogShare.dismiss();
-                    }
-                });
-                dialogShare.show();
-            }
-        });
-
-        icon_zzim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject paramObj = new JSONObject();
-                try {
-                    paramObj.put("type", "stay");
-                    paramObj.put("id", hid);
-                } catch(Exception e){
-                    Log.e(CONFIG.TAG, e.toString());
-                }
-                if(islike){// 취소
-                    Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
-                        @Override
-                        public void onFailure(Response response, Exception throwable) {
-                            Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onSuccess(Map<String, String> headers, String body) {
-                            try {
-                                JSONObject obj = new JSONObject(body);
-                                if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                    showToast("로그인 후 이용해주세요");
-                                    return;
-                                }
-                                islike = false;
-                                dbHelper.deleteFavoriteItem(false,  hid,"H");
-                                icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
-                                LogUtil.e("xxxx", "찜하기 취소");
-                                showIconToast("관심 상품 담기 취소", true);
-                                islikechange = true;
-                            }catch (JSONException e){
-
-                            }
-                        }
-                    });
-                }
-                else{// 성공
-                    Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
-                        @Override
-                        public void onFailure(Response response, Exception throwable) {
-                            Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onSuccess(Map<String, String> headers, String body) {
-                            try {
-                                JSONObject obj = new JSONObject(body);
-                                if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                    showToast("로그인 후 이용해주세요");
-                                    return;
-                                }
-                                islike = true;
-                                dbHelper.insertFavoriteItem(hid,"H");
-                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                                LogUtil.e("xxxx", "찜하기 성공");
-                                showIconToast("관심 상품 담기 성공", true);
-                                islikechange = true;
-                            }catch (JSONException e){
-
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
         setDetailView();
     }
 
@@ -367,15 +288,6 @@ public class DetailHotelActivity extends AppCompatActivity {
     private void setDetailView(){
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
-
-//        try {
-//            if(cookie != null)
-//                url += "&user_id="+Util.decode(cookie.replace("HN|",""));
-//            else
-//                url += "&user_id="+cookie;
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
 
         if (ec_date != null && ee_date != null) {
             url += "&ec_date=" + ec_date + "&ee_date=" + ee_date + "&consecutive=Y";
@@ -520,6 +432,98 @@ public class DetailHotelActivity extends AppCompatActivity {
                     city = hotel_data.getString("city_name");
                     tv_hotelname.setText(hotel_name);
                     tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
+
+                    TuneWrap.Event("ProductDetail_stay", city, hid, tv_category.getText().toString());
+
+                    findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TuneWrap.Event("stay_share", city, hid);
+
+                            dialogShare = new DialogShare(DetailHotelActivity.this, hid, main_photo, hotel_name, ec_date, ee_date, mAvg, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialogShare.dismiss();
+                                }
+                            });
+                            dialogShare.show();
+                        }
+                    });
+
+                    icon_zzim.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TuneWrap.Event("stay_favorite", city, hid);
+
+                            JSONObject paramObj = new JSONObject();
+                            try {
+                                paramObj.put("type", "stay");
+                                paramObj.put("id", hid);
+                            } catch(Exception e){
+                                Log.e(CONFIG.TAG, e.toString());
+                            }
+                            if(islike){// 취소
+                                Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
+                                    @Override
+                                    public void onFailure(Response response, Exception throwable) {
+                                        Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Map<String, String> headers, String body) {
+                                        try {
+                                            JSONObject obj = new JSONObject(body);
+                                            if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                                showToast("로그인 후 이용해주세요");
+                                                return;
+                                            }
+
+                                            TuneWrap.Event("favorite_stay_del", hid);
+
+                                            islike = false;
+                                            dbHelper.deleteFavoriteItem(false,  hid,"H");
+                                            icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                                            LogUtil.e("xxxx", "찜하기 취소");
+                                            showIconToast("관심 상품 담기 취소", true);
+                                            islikechange = true;
+                                        }catch (JSONException e){
+
+                                        }
+                                    }
+                                });
+                            }
+                            else{// 성공
+                                Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
+                                    @Override
+                                    public void onFailure(Response response, Exception throwable) {
+                                        Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Map<String, String> headers, String body) {
+                                        try {
+                                            JSONObject obj = new JSONObject(body);
+                                            if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                                                showToast("로그인 후 이용해주세요");
+                                                return;
+                                            }
+
+                                            TuneWrap.Event("favorite_stay", hid);
+
+                                            islike = true;
+                                            dbHelper.insertFavoriteItem(hid,"H");
+                                            icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                                            LogUtil.e("xxxx", "찜하기 성공");
+                                            showIconToast("관심 상품 담기 성공", true);
+                                            islikechange = true;
+                                        }catch (JSONException e){
+
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
 
                     //원 금액
                     tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price"))+"원");
@@ -722,6 +726,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // 주변보기
+
+                            TuneWrap.Event("around");
+
                             Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
                             intent.putExtra("from", "pdetail");
                             intent.putExtra("title", hotel_name);
@@ -735,6 +742,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                     map_img.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            TuneWrap.Event("around");
+
                             Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
                             intent.putExtra("from", "pdetail");
                             intent.putExtra("title", hotel_name);
@@ -1120,6 +1129,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 btn_show_room.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        TuneWrap.Event("RoomType");
                         Intent intent = new Intent(DetailHotelActivity.this, AllRoomTypeActivity.class);
                         intent.putExtra("sdate", ec_date);
                         intent.putExtra("edate", ee_date);
@@ -1299,6 +1309,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (privatedeal_status == 1 || privatedeal_status == -1) {
+                            TuneWrap.Event("PrivateButton", hid);
+
                             String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String)img_room.getTag()
                                     + "&product_id=" + pid.getText() + "&product_name=" + tv_room_title.getText() + "&default_pn=" + p_default + "&max_pn=" + p_max
                                     + "&normal_price=" + normal_price + "&price=" + sale_price;
@@ -1323,6 +1335,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                 btn_reservation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        TuneWrap.Event("ReservationButton", hid);
+
                         if (cookie == null) {
                             Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
                             intent.putExtra("ec_date", ec_date);
@@ -1348,6 +1362,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
+                            TuneWrap.Event("MoreDetail");
                             room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                             view_room.findViewById(R.id.line).setVisibility(View.GONE);
                             ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
@@ -1485,6 +1500,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
+
+                    TuneWrap.Event("stay_coupon", city, hid, tv_category.getText().toString(), tv_coupon_title.getText().toString()+"("+tv_coupon_price.getText().toString()+")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     isLogin = true;

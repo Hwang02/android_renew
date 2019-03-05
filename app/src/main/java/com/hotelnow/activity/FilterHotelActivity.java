@@ -37,6 +37,7 @@ import com.hotelnow.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.TuneWrap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,13 +137,14 @@ public class FilterHotelActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 CONFIG.sel_orderby = mOrderby;
-                CONFIG.sel_category = (categories != null && categories.size() > 0) ? TextUtils.join("|", categories) : null;
-                CONFIG.sel_facility = (facilities != null && facilities.size() > 0) ? TextUtils.join("|", facilities) : null;
-                CONFIG.sel_useperson = (usepersons != null && usepersons.size() > 0) ? TextUtils.join("|", usepersons) : null;
-                CONFIG.sel_max = maxVal;
-                CONFIG.sel_min = minVal;
-                CONFIG.sel_rate = mRate;
+                CONFIG.sel_category = (categories != null && categories.size() > 0) ? TextUtils.join("|", categories) : null; // 등급
+                CONFIG.sel_facility = (facilities != null && facilities.size() > 0) ? TextUtils.join("|", facilities) : null; // 부대시설
+                CONFIG.sel_useperson = (usepersons != null && usepersons.size() > 0) ? TextUtils.join("|", usepersons) : null; // 투숙인원
+                CONFIG.sel_max = maxVal; // 가격
+                CONFIG.sel_min = minVal; // 가격
+                CONFIG.sel_rate = mRate; // 평점
 
+                TuneWrap.Event("filter", CONFIG.sel_category.replace("|",","), CONFIG.sel_min+"~"+CONFIG.sel_max, CONFIG.sel_useperson.replace("|",","), CONFIG.sel_rate);
 //                if(is_reset)
 //                    intent.putExtra("is_reset", is_reset);
                 setResult(80, intent);

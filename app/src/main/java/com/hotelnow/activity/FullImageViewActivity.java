@@ -15,6 +15,7 @@ import com.hotelnow.R;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.TuneWrap;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.okhttp.Response;
@@ -55,6 +56,8 @@ public class FullImageViewActivity extends FragmentActivity {
         hid = intent.getStringExtra("hid");
         idx = intent.getIntExtra("idx", 0);
         name = intent.getStringExtra("name");
+
+        TuneWrap.Event("PortraitView", hid);
 
         tv_title_hotel.setText(name);
 

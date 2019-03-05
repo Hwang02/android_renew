@@ -36,6 +36,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -225,6 +226,7 @@ public class HotelSearchActivity extends Activity {
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Util.clearSearch();
                 Intent intent = new Intent(HotelSearchActivity.this, FilterHotelActivity.class);
                 startActivityForResult(intent, 60);
             }
@@ -558,6 +560,8 @@ public class HotelSearchActivity extends Activity {
                             return;
                         }
 
+                        TuneWrap.Event("favorite_stay_del", sel_id);
+
                         dbHelper.deleteFavoriteItem(false,  sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
@@ -586,6 +590,8 @@ public class HotelSearchActivity extends Activity {
                             findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
+
+                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id,"H");
                         LogUtil.e("xxxx", "찜하기 성공");

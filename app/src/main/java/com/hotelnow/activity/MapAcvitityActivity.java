@@ -39,6 +39,7 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.SmoothPager;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.customstyledmap.CustomMap;
@@ -468,6 +469,9 @@ public class MapAcvitityActivity extends AppCompatActivity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
+
+                        TuneWrap.Event("favorite_activity_del", sel_id);
+
                         dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
@@ -493,6 +497,9 @@ public class MapAcvitityActivity extends AppCompatActivity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
+
+                        TuneWrap.Event("favorite_activity", sel_id);
+
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);

@@ -32,6 +32,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -349,6 +350,7 @@ public class ActivitySearchActivity extends Activity {
                             return;
                         }
 
+                        TuneWrap.Event("favorite_activity_del", sel_id);
                         dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
@@ -378,6 +380,7 @@ public class ActivitySearchActivity extends Activity {
                             return;
                         }
 
+                        TuneWrap.Event("favorite_activity", sel_id);
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);

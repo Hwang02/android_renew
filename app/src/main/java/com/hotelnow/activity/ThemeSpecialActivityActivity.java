@@ -25,6 +25,7 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
+import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -88,8 +89,8 @@ public class ThemeSpecialActivityActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if(!pid.getText().toString().equals("-1")) {
-//                    t.send(new HitBuilders.EventBuilder().setCategory("PRODUCT_THEME").setAction(tid).setLabel(hname.getText().toString()).build());
-//                    TuneWrap.Event("PRODUCT_THEME", tid, hname.getText().toString());
+
+                    TuneWrap.Event("theme_activity_product", hid.getText().toString());
 
                     Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
@@ -137,6 +138,8 @@ public class ThemeSpecialActivityActivity extends Activity {
     public void getHotelList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list+"/"+tid+"/A";
+
+        TuneWrap.Event("theme_activity", tid);
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -332,6 +335,8 @@ public class ThemeSpecialActivityActivity extends Activity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
+                        TuneWrap.Event("favorite_activity_del", sel_id);
+
                         dbHelper.deleteFavoriteItem(false,  sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
@@ -357,6 +362,8 @@ public class ThemeSpecialActivityActivity extends Activity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
+                        TuneWrap.Event("favorite_activity", sel_id);
+
                         dbHelper.insertFavoriteItem(sel_id,"A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
