@@ -679,7 +679,7 @@ public class ReservationActivityDetailActivity extends BaseActivity {
 
                         @Override
                         public void onClick(View v) {
-
+                            TuneWrap.Event("booking_stay_del");
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
                                     getString(R.string.booking_hide_ask),
