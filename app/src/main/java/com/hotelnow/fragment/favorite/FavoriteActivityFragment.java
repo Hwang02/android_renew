@@ -84,6 +84,7 @@ public class FavoriteActivityFragment extends Fragment {
         try {
             paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
+            paramObj.put("ver", Util.getAppVersionName(getActivity()));
         } catch(Exception e){ }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {

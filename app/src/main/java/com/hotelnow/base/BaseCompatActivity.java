@@ -17,7 +17,7 @@ public abstract class BaseCompatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(BuildConfig.DEBUG && isDebugged()){
+        if(!BuildConfig.DEBUG && isDebugged()){
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", BaseCompatActivity.this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

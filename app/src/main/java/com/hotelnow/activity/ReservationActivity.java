@@ -374,6 +374,7 @@ public class ReservationActivity extends BaseActivity {
         try {
             paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
+            paramObj.put("ver", Util.getAppVersionName(ReservationActivity.this));
         } catch(Exception e){ }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
