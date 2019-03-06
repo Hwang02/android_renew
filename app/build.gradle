@@ -72,6 +72,8 @@ android {
             buildConfigField("String", "kcpCardDomain", "\"https://payment.dev.hotelnow.co.kr/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://dev.www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
+            buildConfigField("String", "test_jobkey", "\"FmYT/3QXuy1En/e5iIk4Ej/sgng=\"")
+            buildConfigField("String", "jobkey", "\"1tNS+MHM9YsmYs8Tjhkd3ZKYmoM=\"")
         }
 
         production {
@@ -90,6 +92,8 @@ android {
             buildConfigField("String", "kcpCardDomain", "\"http://payment.hotelnow.co.kr/order_app.php\"")
             buildConfigField("String", "webUrl", "\"http://www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyDtgyy2TXgeIH3CrPh_C-R2Cv2aLteK_ME\"")
+            buildConfigField("String", "test_jobkey", "\"FmYT/3QXuy1En/e5iIk4Ej/sgng=\"")
+            buildConfigField("String", "jobkey", "\"1tNS+MHM9YsmYs8Tjhkd3ZKYmoM=\"")
         }
     }
     dexOptions {

@@ -99,6 +99,35 @@ public class ActLoading extends Activity {
             return;
         }
 
+        if(BuildConfig.DEBUG) {
+            if( !Util.getHashKey(this, BuildConfig.test_jobkey)) {
+                dialogAlert = new DialogAlert("알림", "위변조된 앱으로 종료 합니다.", ActLoading.this, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogAlert.dismiss();
+                        finish();
+                    }
+                });
+                dialogAlert.show();
+                dialogAlert.setCancelable(false);
+                return;
+            }
+        }
+        else{
+            if(!Util.getHashKey(this, BuildConfig.jobkey)) {
+                dialogAlert = new DialogAlert("알림", "위변조된 앱으로 종료 합니다.", ActLoading.this, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogAlert.dismiss();
+                        finish();
+                    }
+                });
+                dialogAlert.show();
+                dialogAlert.setCancelable(false);
+                return;
+            }
+        }
+
 //        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 //        Bundle params = new Bundle();
 //        params.putString("PAGE", "ActLoading-Start");
