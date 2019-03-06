@@ -25,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -46,7 +45,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
 
-public class AllRoomTypeActivity extends BaseActivity {
+public class AllRoomTypeActivity extends Activity {
 
 
     private String ec_date, ee_date, hid, hotel_name, city, pid, evt;

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -31,7 +30,7 @@ import java.util.Map;
  * Created by idhwang on 2017. 8. 18..
  */
 
-public class ReviewActivityWriteActivity extends BaseActivity implements View.OnClickListener{
+public class ReviewActivityWriteActivity extends Activity implements View.OnClickListener{
 
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private ImageView ko_star1, ko_star2, ko_star3, ko_star4, ko_star5;

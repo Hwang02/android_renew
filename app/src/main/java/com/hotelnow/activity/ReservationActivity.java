@@ -49,7 +49,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.ReservationPagerAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogBillingAlert;
 import com.hotelnow.dialog.DialogBookingCaution;
@@ -83,7 +82,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ReservationActivity extends BaseActivity {
+public class ReservationActivity extends Activity {
 
     private EditText point_discount, usernameInput, pnum2, pnum3, other_pnum2, other_pnum3, auth_string, other_username;
     private String pid, ec_date, ee_date, cookie, pcode = "0", hid;

@@ -532,6 +532,7 @@ public class ActLoading extends Activity {
             finish();
 
         }
+
     }
 
     private boolean checkPlayServices() {

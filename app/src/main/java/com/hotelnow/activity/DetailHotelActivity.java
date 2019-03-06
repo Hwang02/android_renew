@@ -44,7 +44,6 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
-import com.hotelnow.base.BaseCompatActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
@@ -80,7 +79,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 
-public class DetailHotelActivity extends BaseCompatActivity {
+public class DetailHotelActivity extends AppCompatActivity {
 
     private ViewPagerCustom mViewPager;
     private TextView m_countView, m_img_title,tv_category, tv_hotelname,

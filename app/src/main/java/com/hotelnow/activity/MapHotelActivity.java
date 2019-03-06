@@ -33,7 +33,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
 import com.hotelnow.adapter.MapHotelAdapter;
-import com.hotelnow.base.BaseCompatActivity;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -53,7 +52,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MapHotelActivity extends BaseCompatActivity {
+public class MapHotelActivity extends AppCompatActivity {
 
     private ArrayList<SearchResultItem> latLngsArrayList;
 

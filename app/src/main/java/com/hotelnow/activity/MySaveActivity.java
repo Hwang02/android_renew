@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MySaveAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.MySaveMoneyItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -28,7 +27,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MySaveActivity extends BaseActivity{
+public class MySaveActivity extends Activity{
 
     private SharedPreferences _preferences;
     private static final int PAGE_SIZE = 10000;

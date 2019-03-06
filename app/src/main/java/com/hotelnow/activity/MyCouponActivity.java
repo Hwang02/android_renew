@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MyCouponAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.CouponEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -34,7 +33,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyCouponActivity extends BaseActivity{
+public class MyCouponActivity extends Activity{
 
     private SharedPreferences _preferences;
     private String cookie;

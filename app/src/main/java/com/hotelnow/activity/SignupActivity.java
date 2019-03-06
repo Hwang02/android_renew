@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogRecommend;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -46,7 +45,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-public class SignupActivity extends BaseActivity {
+public class SignupActivity extends Activity {
 
     private SharedPreferences _preferences;
     private Spinner phone_first;

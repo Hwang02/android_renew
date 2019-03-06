@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.ThemeSAllAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.ThemeSpecialItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -28,7 +27,7 @@ import java.util.Map;
 /**
  * Created by susia on 16. 5. 8..
  */
-public class ThemeSAllActivity extends BaseActivity {
+public class ThemeSAllActivity extends Activity {
     private ListView listview;
     public ArrayList<ThemeSpecialItem> mThemeSItem = new ArrayList<>();
     private ThemeSAllAdapter mAdapter;

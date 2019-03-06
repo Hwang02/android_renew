@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MyCardAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.CardEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -28,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyCardActivity extends BaseActivity{
+public class MyCardActivity extends Activity{
 
     private SharedPreferences _preferences;
     private String cookie;

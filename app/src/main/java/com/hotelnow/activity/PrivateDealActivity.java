@@ -16,7 +16,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 import com.hotelnow.R;
-import com.hotelnow.base.BaseFragmentActivity;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.TuneWrap;
@@ -31,7 +30,7 @@ import java.util.Random;
 /**
  * Created by susia on 15. 12. 7..
  */
-public class PrivateDealActivity extends BaseFragmentActivity {
+public class PrivateDealActivity extends FragmentActivity {
     private WebView webview;
     private String linkUrl, pid, bid_id, ec_date, ee_date, bid, city="", hotel_name="", hid;
     private final Handler handler = new Handler();

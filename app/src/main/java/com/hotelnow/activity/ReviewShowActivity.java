@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.squareup.okhttp.Response;
@@ -19,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-public class ReviewShowActivity extends BaseActivity {
+public class ReviewShowActivity extends Activity{
 
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private ImageView ko_star1, ko_star2, ko_star3, ko_star4, ko_star5;

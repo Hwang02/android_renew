@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
@@ -31,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CalendarActivity extends BaseActivity {
+public class CalendarActivity extends Activity{
 
     private CalendarPickerView calendar;
     private Button btn_complate;

@@ -14,7 +14,6 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.base.BaseCompatActivity;
 import com.hotelnow.utils.Util;
 
 import java.util.Random;
@@ -22,7 +21,7 @@ import java.util.Random;
 /**
  * Created by susia on 15. 12. 7..
  */
-public class WebviewActivity extends BaseCompatActivity {
+public class WebviewActivity extends AppCompatActivity {
     private WebView webview;
     private String linkUrl;
     private String linkTitle;

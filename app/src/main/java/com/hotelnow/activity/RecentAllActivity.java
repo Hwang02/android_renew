@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.RecentAllAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.RecentItem;
 import com.hotelnow.utils.Api;
@@ -42,7 +41,7 @@ import java.util.Map;
 /**
  * Created by susia on 16. 5. 8..
  */
-public class RecentAllActivity extends BaseActivity {
+public class RecentAllActivity extends Activity {
     RelativeLayout wrapper;
 
     ListView Listview;

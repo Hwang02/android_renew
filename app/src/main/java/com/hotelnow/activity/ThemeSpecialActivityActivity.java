@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.ThemeSpecialActivityAdapter;
-import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -41,7 +40,7 @@ import java.util.Map;
 /**
  * Created by susia on 16. 5. 8..
  */
-public class ThemeSpecialActivityActivity extends BaseActivity {
+public class ThemeSpecialActivityActivity extends Activity {
     RelativeLayout wrapper;
 
     ListView hotelListview;
