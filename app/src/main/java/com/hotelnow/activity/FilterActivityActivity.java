@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 
 import java.util.List;
 
-public class FilterActivityActivity extends Activity {
+public class FilterActivityActivity extends BaseActivity {
 
     private FlowLayout filter1, filter2;
     private String[] orderbyarr;

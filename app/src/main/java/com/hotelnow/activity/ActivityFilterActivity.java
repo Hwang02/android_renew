@@ -1,18 +1,17 @@
 package com.hotelnow.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.ActivityFilterAdapter;
 import com.hotelnow.fragment.model.ActivityThemeItem;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleItemClickListener;
@@ -20,7 +19,7 @@ import com.hotelnow.utils.TuneWrap;
 
 import java.util.List;
 
-public class ActivityFilterActivity extends Activity{
+public class ActivityFilterActivity extends BaseActivity {
 
     private List<ActivityThemeItem> facilityarr;
     private DbOpenHelper dbHelper;

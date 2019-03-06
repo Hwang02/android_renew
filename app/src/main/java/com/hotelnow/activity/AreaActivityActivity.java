@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.adapter.AreaResultAdapter;
 import com.hotelnow.adapter.AreaSelectAdapter;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.CityItem;
 import com.hotelnow.fragment.model.RecentCityItem;
 import com.hotelnow.utils.DbOpenHelper;
@@ -24,7 +25,7 @@ import com.hotelnow.utils.TuneWrap;
 
 import java.util.List;
 
-public class AreaActivityActivity extends Activity {
+public class AreaActivityActivity extends BaseActivity {
     private DbOpenHelper dbHelper;
     private List<CityItem> mCity;
     private List<RecentCityItem> mRecentCity;

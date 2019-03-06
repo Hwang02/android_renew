@@ -15,9 +15,10 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.SectionsPagerAdapter;
+import com.hotelnow.base.BaseCompatActivity;
 import com.hotelnow.utils.NonSwipeableViewPager;
 
-public class SearchResultActivity extends AppCompatActivity {
+public class SearchResultActivity extends BaseCompatActivity {
 
     TabLayout tabLayout;
     NonSwipeableViewPager view_pager;

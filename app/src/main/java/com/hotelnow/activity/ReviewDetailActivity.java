@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.DetailReviewAdapter;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.ReviewItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -31,7 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ReviewDetailActivity extends Activity{
+public class ReviewDetailActivity extends BaseActivity {
 
     int mPage = 1;
     final int mPer_page = 20;

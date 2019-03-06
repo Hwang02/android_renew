@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogMarket;
@@ -52,7 +53,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-public class ReservationActivityDetailActivity extends Activity {
+public class ReservationActivityDetailActivity extends BaseActivity {
 
     String bid, accnum, hotel_id,mAddress, lat, lon, h_name;
     TextView hotel_name, hotel_room_name, booking_status, tv_username, tv_usertel,

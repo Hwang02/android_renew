@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseFragmentActivity;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import java.util.Map;
 
 
-public class FullImageViewActivity extends FragmentActivity {
+public class FullImageViewActivity extends BaseFragmentActivity {
 
     String hid, name;
     Integer idx;

@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseFragmentActivity;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -56,7 +57,7 @@ import java.util.Map;
 /**
  * Created by susia on 15. 12. 24..
  */
-public class ActivityMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ActivityMapActivity extends BaseFragmentActivity implements OnMapReadyCallback {
     private SharedPreferences _preferences;
     private Marker preMarker = null;
     private GoogleMap mGoogleMap;

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogMarket;
@@ -54,7 +55,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
 
-public class ReservationHotelDetailActivity extends Activity {
+public class ReservationHotelDetailActivity extends BaseActivity {
 
     String bid, accnum, hotel_id,mAddress, lat, lon, h_name;
     TextView hotel_name, hotel_room_name, booking_status, tv_checkin_day, tv_checkin_time,tv_checkout_day, tv_checkout_time, tv_username, tv_usertel,

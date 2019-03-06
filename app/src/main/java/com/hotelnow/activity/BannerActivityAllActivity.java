@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.BannerAllAdapter;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -23,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class BannerActivityAllActivity extends Activity {
+public class BannerActivityAllActivity extends BaseActivity {
 
     private ListView listview;
     private ArrayList<BannerItem> mItems = new ArrayList<>();

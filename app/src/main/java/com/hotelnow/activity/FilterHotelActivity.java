@@ -1,7 +1,6 @@
 package com.hotelnow.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,7 @@ import com.hotelnow.R;
 import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.hotelnow.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
@@ -42,7 +42,7 @@ import com.hotelnow.utils.TuneWrap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterHotelActivity extends Activity {
+public class FilterHotelActivity extends BaseActivity {
 
     private FlowLayout filter1, filter2, filter3, filter5;
     private String[] orderbyarr, orderbycodearr, categorytextarr, categorycodearr, usepersonarr, ratearr, facilityarr;

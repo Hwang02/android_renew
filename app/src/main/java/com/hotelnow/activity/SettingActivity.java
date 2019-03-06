@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogDiscountAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -29,7 +30,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-public class SettingActivity extends Activity{
+public class SettingActivity extends BaseActivity {
 
     private CheckBox cb_email, cb_sms, cb_push;
     private TextView tv_email, tv_sms, tv_push;

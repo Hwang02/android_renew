@@ -24,6 +24,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.Api;
@@ -42,7 +43,7 @@ import java.util.Map;
 /**
  * Created by susia on 16. 1. 8..
  */
-public class PaymentActivity extends Activity {
+public class PaymentActivity extends BaseActivity {
 
     // Main WebView
     WebView webView;

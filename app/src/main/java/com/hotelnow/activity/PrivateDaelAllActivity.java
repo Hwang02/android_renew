@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.adapter.PrivateDealAllAdapter;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -33,7 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class PrivateDaelAllActivity extends Activity{
+public class PrivateDaelAllActivity extends BaseActivity{
 
     private DbOpenHelper dbHelper;
     private SharedPreferences _preferences;

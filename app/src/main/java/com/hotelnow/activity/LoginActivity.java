@@ -26,6 +26,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.fragment.model.TicketSelEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -49,7 +50,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class LoginActivity extends Activity{
+public class LoginActivity extends BaseActivity {
     private SessionCallback callback = new SessionCallback();
     private CallbackManager callbackManager;
     private Session	mKakaoSession;

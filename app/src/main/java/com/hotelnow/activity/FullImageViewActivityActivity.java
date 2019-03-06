@@ -12,12 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.base.BaseFragmentActivity;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 
-public class FullImageViewActivityActivity extends FragmentActivity {
+public class FullImageViewActivityActivity extends BaseFragmentActivity {
 
     String tid, name;
     Integer idx;

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;
 import com.savvi.rangedatepicker.CalendarPickerView;
@@ -23,7 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CalendarSingleActivity extends Activity{
+public class CalendarSingleActivity extends BaseActivity {
 
     private CalendarPickerView calendar;
     private Button btn_complate;

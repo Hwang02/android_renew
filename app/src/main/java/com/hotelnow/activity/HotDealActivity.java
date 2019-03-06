@@ -17,8 +17,9 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.HotDealPagerAdapter;
+import com.hotelnow.base.BaseCompatActivity;
 
-public class HotDealActivity extends AppCompatActivity {
+public class HotDealActivity extends BaseCompatActivity {
 
     TabLayout tabLayout;
     ViewPager view_pager;

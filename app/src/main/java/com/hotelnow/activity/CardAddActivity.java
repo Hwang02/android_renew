@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.CONFIG;
@@ -25,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by susia on 16. 6. 2..
  */
-public class CardAddActivity extends Activity {
+public class CardAddActivity extends BaseActivity {
     private WebView webview;
     private final Handler handler = new Handler();
     private DialogAlert dialogAlert;

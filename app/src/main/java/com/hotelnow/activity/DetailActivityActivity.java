@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseCompatActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
@@ -75,7 +76,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 
-public class DetailActivityActivity extends AppCompatActivity {
+public class DetailActivityActivity extends BaseCompatActivity {
 
     private Toolbar toolbar;
     private AppBarLayout app_bar;

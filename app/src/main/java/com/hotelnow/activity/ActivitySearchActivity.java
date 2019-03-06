@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchLeisureAdapter;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -45,7 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ActivitySearchActivity extends Activity {
+public class ActivitySearchActivity extends BaseActivity {
 
     private SharedPreferences _preferences;
     private ListView mlist;

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseCompatActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -38,7 +39,7 @@ import java.util.Map;
 /**
  * Created by susia on 16. 1. 11..
  */
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends BaseCompatActivity {
     WebView webView;
     String linkUrl = "";
     JSONObject evtObj = null;

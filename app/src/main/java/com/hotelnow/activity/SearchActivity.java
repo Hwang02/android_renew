@@ -43,6 +43,7 @@ import android.widget.Toast;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.model.KeyWordItem;
 import com.hotelnow.fragment.model.KeyWordProductItem;
@@ -66,7 +67,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class SearchActivity extends Activity{
+public class SearchActivity extends BaseActivity {
     private EditText et_search;
     private TextView tv_search_word, tv_popular_title, search_cancel;
     private LinearLayout lv_location, recent_clear, recent_list, ll_popular, hq_list, hotel_list, activity_list;

@@ -28,6 +28,7 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
 import com.hotelnow.adapter.SearchStayAdapter;
+import com.hotelnow.base.BaseActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BannerItem;
 import com.hotelnow.utils.Api;
@@ -49,7 +50,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-public class HotelSearchActivity extends Activity {
+public class HotelSearchActivity extends BaseActivity {
 
     private SharedPreferences _preferences;
     private ListView mlist;
