@@ -90,8 +90,12 @@ public class Api {
                 if (list.contains("h_sess=")) {
                     List<String> cookies = Arrays.asList(list.split(" "));
 
-                    if (cookies.size() > 1) {
-                        hsessVal = cookies.get(1);
+                    for(int j = 0; j < cookies.size(); j++) {
+                        String cookie = cookies.get(j);
+
+                        if (cookie.contains("h_sess=")) {
+                            hsessVal = cookie;
+                        }
                     }
                 }
             }
