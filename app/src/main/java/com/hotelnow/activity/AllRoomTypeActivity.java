@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -136,12 +137,12 @@ public class AllRoomTypeActivity extends Activity {
 
         try {
             if(cookie != null) {
-                url += "&user_id=" + Util.decode(cookie.replace("HN|", ""));
+                url += "&user_id=" + AES256Chiper.AES_Decode(cookie.replace("HN|", ""));
             }
             else{
                 url += "&user_id=" + cookie;
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

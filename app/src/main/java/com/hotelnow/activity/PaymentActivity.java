@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.TuneWrap;
@@ -94,8 +95,8 @@ public class PaymentActivity extends Activity {
 
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         try {
-            uid = _preferences.getString("userid", null) == null ? null : Util.decode(_preferences.getString("userid", null).replace("HN|",""));
-        } catch (UnsupportedEncodingException e) {
+            uid = _preferences.getString("userid", null) == null ? null : AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|",""));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

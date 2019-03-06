@@ -53,6 +53,7 @@ import com.hotelnow.dialog.DialogBookingCaution;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogFee;
 import com.hotelnow.fragment.model.TicketSelEntry;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
@@ -331,7 +332,7 @@ public class ReservationActivityActivity extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(ReservationActivityActivity.this));
         } catch(Exception e){ }
@@ -1171,8 +1172,8 @@ public class ReservationActivityActivity extends Activity {
             paramObj.put("phone_auth_code", auth_string.getText().toString());
             if(cookie != null) {
                 try {
-                    paramObj.put("user_id", Util.decode(cookie.replace("HN|","")));
-                } catch (UnsupportedEncodingException e) {
+                    paramObj.put("user_id", AES256Chiper.AES_Decode(cookie.replace("HN|","")));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

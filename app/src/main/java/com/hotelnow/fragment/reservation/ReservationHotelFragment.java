@@ -30,6 +30,7 @@ import com.hotelnow.activity.ReservationHotelDetailActivity;
 import com.hotelnow.adapter.ReservationHotelAdapter;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
 import com.hotelnow.fragment.model.BookingEntry;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -84,7 +85,7 @@ public class ReservationHotelFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(getActivity()));
         } catch(Exception e){ }

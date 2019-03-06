@@ -26,6 +26,7 @@ import com.hotelnow.activity.SignupActivity;
 import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.databinding.FragmentMypageBinding;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -124,8 +125,8 @@ public class MypageFragment extends Fragment {
                 TuneWrap.Event("customer_email");
                 String userId = "";
                 try {
-                    userId = _preferences.getString("userid", null) == null ? null : Util.decode(_preferences.getString("userid", null).replace("HN|",""));
-                } catch (UnsupportedEncodingException e) {
+                    userId = _preferences.getString("userid", null) == null ? null : AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|",""));
+                } catch (Exception e) {
                     userId ="";
                     e.printStackTrace();
                 }
@@ -376,7 +377,7 @@ public class MypageFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(getActivity()));
         } catch(Exception e){ }

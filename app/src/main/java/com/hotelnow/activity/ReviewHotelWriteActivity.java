@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.TuneWrap;
@@ -152,7 +153,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         try {
             paramObj.put("hotel_id", hotel_id);
             paramObj.put("room_id", room_id);
-            paramObj.put("user_id", Util.decode(userid.replace("HN|","")));
+            paramObj.put("user_id", AES256Chiper.AES_Decode(userid.replace("HN|","")));
             paramObj.put("comment", review_edittext.getText());
             paramObj.put("booking_id", bid);
             paramObj.put("rating_1", sc_count);

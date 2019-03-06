@@ -21,6 +21,7 @@ import com.facebook.CallbackManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.TuneWrap;
@@ -111,11 +112,11 @@ public class EventActivity extends AppCompatActivity {
                 if(cookie != null){
                     try {
                         if(cookie != null)
-                            webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                            webView.loadUrl("javascript:func_from_native('" + AES256Chiper.AES_Decode(cookie.replace("HN|","")) + "')");
                         else{
                             webView.loadUrl("javascript:func_from_native('" + cookie + "')");
                         }
-                    } catch (UnsupportedEncodingException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -284,13 +285,13 @@ public class EventActivity extends AppCompatActivity {
                     TuneWrap.Event("EVENT", evtObj.getString("id"));
                 }
                 if(uid != null)
-                    linkUrl +="?uid="+Util.decode(uid.replace("HN|",""));
+                    linkUrl +="?uid="+AES256Chiper.AES_Decode(uid.replace("HN|",""));
                 else
                     linkUrl +="?uid="+uid;
             } catch (JSONException e) {
                 webView.loadUrl("file:///android_asset/404.html");
                 e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 webView.loadUrl("file:///android_asset/404.html");
                 e.printStackTrace();
             }
@@ -336,10 +337,10 @@ public class EventActivity extends AppCompatActivity {
             if(cookie != null){
                 try {
                     if(cookie != null)
-                        webView.loadUrl("javascript:func_from_native('" + Util.decode(cookie.replace("HN|","")) + "')");
+                        webView.loadUrl("javascript:func_from_native('" + AES256Chiper.AES_Decode(cookie.replace("HN|","")) + "')");
                     else
                         webView.loadUrl("javascript:func_from_native('" + cookie + "')");
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

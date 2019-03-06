@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogRecommend;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.TuneWrap;
@@ -519,12 +520,13 @@ public class SignupActivity extends Activity {
                             prefEditor.putString("email", email.getText().toString().trim());
                             prefEditor.putString("username", username);
                             prefEditor.putString("phone", phone);
-                            prefEditor.putString("userid", "HN|"+Base64.encodeToString(userid.getBytes(),Base64.NO_WRAP));
+                            prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
 
                             prefEditor.commit();
                             passwd.setText("");
+                            java.util.Arrays.fill(passwd.getText().toString().toCharArray(), (char)0x20);
                             // 디바이스 정보 서버에 있는지 체크 후 적립금 띄우든가 말든가
                             if (obj.getString("device_exist").equals("Y")) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
@@ -548,6 +550,8 @@ public class SignupActivity extends Activity {
                         }
                     }
                 });
+
+                paramObj = null;
             }
         });
 
@@ -664,10 +668,10 @@ public class SignupActivity extends Activity {
             JSONObject paramObj = new JSONObject();
             try{
                 paramObj.put("code", String.valueOf(codeInput.getText()).trim());
-                paramObj.put("target_id", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+                paramObj.put("target_id", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
             }
             catch (JSONException e) {}
-            catch (UnsupportedEncodingException e) {}
+            catch (Exception e) {}
 
             Api.post(CONFIG.recommendSaveUrl, paramObj.toString(), new Api.HttpCallback() {
                 @Override

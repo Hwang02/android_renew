@@ -27,6 +27,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.TicketSelEntry;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -208,7 +209,7 @@ public class LoginActivity extends Activity{
                             prefEditor.putString("email", email.getText().toString());
                             prefEditor.putString("username", username);
                             prefEditor.putString("phone", phone);
-                            prefEditor.putString("userid", "HN|"+Base64.encodeToString(userid.getBytes(),Base64.NO_WRAP));
+                            prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("moreinfo", moreinfo);
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
@@ -219,6 +220,7 @@ public class LoginActivity extends Activity{
 
                             Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
                             passwd.setText("");
+
                             // 키보드 숨김
                             final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -226,10 +228,12 @@ public class LoginActivity extends Activity{
                             getFavorite();
 
                         } catch (Exception e) {
+                            e.getStackTrace();
                             Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+                params = null;
             }
         });
 
@@ -465,7 +469,7 @@ public class LoginActivity extends Activity{
                     prefEditor.putString("email", emailval);
                     prefEditor.putString("username", username);
                     prefEditor.putString("phone", phone);
-                    prefEditor.putString("userid", "HN|"+Base64.encodeToString(userid.getBytes(),Base64.NO_WRAP));
+                    prefEditor.putString("userid", "HN|"+AES256Chiper.AES_Encode(userid));
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
                     prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));

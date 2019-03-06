@@ -594,7 +594,7 @@ public class Util {
                                         + _preferences.getString("username", null)
                                         + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
                                         "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
-                                        + Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|",""))))
+                                        + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|",""))))
                                 .build())
                         .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
                                 .setMobileWebUrl("http://www.hotelnow.co.kr/ko")
@@ -628,11 +628,11 @@ public class Util {
                             .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
                                     + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+")\n"
                             +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
-                                    "추천인코드 : "+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
+                                    "추천인코드 : "+ Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
                             .setContentUrl(Uri.parse(CONFIG.marketUrl))
     //                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
                             .build();
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -652,11 +652,11 @@ public class Util {
                                     .setQuote(_preferences.getString("username", null) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"
                                             + Util.getRecommCode(_preferences.getString("userid", null))+")\n"
                                     +_preferences.getString("username", null) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
-                                            "추천인코드 : "+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
+                                            "추천인코드 : "+ Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
                                     .setContentUrl(Uri.parse(CONFIG.marketUrl))
     //                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
                                     .build();
-                        } catch (UnsupportedEncodingException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 

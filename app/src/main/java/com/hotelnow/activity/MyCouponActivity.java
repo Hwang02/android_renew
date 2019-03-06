@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.adapter.MyCouponAdapter;
 import com.hotelnow.fragment.model.CouponEntry;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -93,7 +94,7 @@ public class MyCouponActivity extends Activity{
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(MyCouponActivity.this));
         } catch(Exception e){ }

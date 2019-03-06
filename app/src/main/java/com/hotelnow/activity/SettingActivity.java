@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogDiscountAlert;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -257,9 +258,9 @@ public class SettingActivity extends Activity{
             if(flag != null) {
                 paramObj.put("use_yn", ((flag == true)? "Y":"N"));
             }
-            if(userId != null) paramObj.put("user_id", Util.decode(userId.replace("HN|","")));
+            if(userId != null) paramObj.put("user_id", AES256Chiper.AES_Decode(userId.replace("HN|","")));
         } catch (JSONException e) {}
-        catch (UnsupportedEncodingException e) {}
+        catch (Exception e) {}
 
         Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override

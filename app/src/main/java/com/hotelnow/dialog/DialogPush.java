@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -122,10 +123,10 @@ public class DialogPush extends Dialog {
             if(flag != null) {
                 paramObj.put("use_yn", ((flag == true)? "Y":"N"));
             }
-            if(userId != null) paramObj.put("user_id", Util.decode(userId.replace("HN|","")));
+            if(userId != null) paramObj.put("user_id", AES256Chiper.AES_Decode(userId.replace("HN|","")));
         }
         catch (JSONException e) {}
-        catch (UnsupportedEncodingException e) { e.printStackTrace(); }
+        catch (Exception e) { e.printStackTrace(); }
 
         Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override

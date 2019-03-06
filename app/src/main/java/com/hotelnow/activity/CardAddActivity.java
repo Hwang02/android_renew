@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;
 
@@ -59,8 +60,8 @@ public class CardAddActivity extends Activity {
         webview.setWebChromeClient(new WebChromeClient());
 
         try {
-            webview.loadUrl(CONFIG.cardAddUrl+"?uid="+Util.decode(uid.replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            webview.loadUrl(CONFIG.cardAddUrl+"?uid="+ AES256Chiper.AES_Decode(uid.replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

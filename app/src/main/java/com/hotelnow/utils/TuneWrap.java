@@ -54,8 +54,8 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -68,8 +68,8 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -82,8 +82,8 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -96,8 +96,8 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -110,8 +110,8 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -124,8 +124,8 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -141,8 +141,8 @@ public class TuneWrap {
         tune.setUserEmail(_preferences.getString("email",""));
         tune.setUserName(_preferences.getString("username", ""));
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.measureEvent(TuneEvent.LOGIN);
@@ -156,8 +156,8 @@ public class TuneWrap {
         tune.setUserEmail(_preferences.getString("email",""));
         tune.setUserName(_preferences.getString("username",""));
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.measureEvent(TuneEvent.REGISTRATION);
@@ -179,8 +179,8 @@ public class TuneWrap {
 
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -200,12 +200,12 @@ public class TuneWrap {
 
         Tune tune = Tune.getInstance();
         try {
-            String user_id = Util.decode(_preferences.getString("userid", "").replace("HN|",""));
+            String user_id = AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|",""));
             if(TextUtils.isEmpty(user_id)){
                 user_id = Util.getAndroidId(HotelnowApplication.getAppContext());
             }
             tune.setUserId(user_id);
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));
@@ -253,8 +253,8 @@ public class TuneWrap {
 
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(Util.decode(_preferences.getString("userid", "").replace("HN|","")));
-        } catch (UnsupportedEncodingException e) {
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         tune.setUserEmail(_preferences.getString("email",""));

@@ -189,6 +189,7 @@ public class Api {
                         cb.onSuccess(headers, finalBody);
                     }
                 });
+                body = "";
             }
         });
     }

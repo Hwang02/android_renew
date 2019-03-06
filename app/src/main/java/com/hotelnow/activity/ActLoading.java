@@ -25,6 +25,7 @@ import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -360,7 +361,7 @@ public class ActLoading extends Activity {
 
                         if(uid != null && !uid.contains("HN|")){
                             SharedPreferences.Editor prefEditor = _preferences.edit();
-                            prefEditor.putString("userid", "HN|"+ Base64.encodeToString(uid.getBytes(),Base64.NO_WRAP));
+                            prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(uid));
                             prefEditor.commit();
                         }
 
@@ -388,7 +389,7 @@ public class ActLoading extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", Util.decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(ActLoading.this));
         } catch(Exception e){
