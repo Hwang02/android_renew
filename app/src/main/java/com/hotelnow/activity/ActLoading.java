@@ -358,10 +358,16 @@ public class ActLoading extends Activity {
 
                         String uid = _preferences.getString("userid", null);
                         String umi = _preferences.getString("moreinfo", null);
+                        String uname = _preferences.getString("email", null);
+                        String uemail = _preferences.getString("username", null);
+                        String uphone = _preferences.getString("phone", null);
 
                         if(uid != null && !uid.contains("HN|")){
                             SharedPreferences.Editor prefEditor = _preferences.edit();
                             prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(uid));
+                            prefEditor.putString("email", "HN|"+ AES256Chiper.AES_Encode(uname));
+                            prefEditor.putString("username", "HN|"+ AES256Chiper.AES_Encode(uemail));
+                            prefEditor.putString("phone", "HN|"+ AES256Chiper.AES_Encode(uphone));
                             prefEditor.commit();
                         }
 

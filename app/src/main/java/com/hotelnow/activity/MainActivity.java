@@ -35,6 +35,7 @@ import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.mypage.MypageFragment;
 import com.hotelnow.fragment.reservation.ReservationFragment;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FindDebugger;
@@ -809,12 +810,14 @@ public class MainActivity extends FragmentActivity {
 
     public void setTitle(){
         String t_name = "";
-        if(_preferences.getString("username", "").length()>8){
-            t_name = _preferences.getString("username", "").substring(0,8)+"...";
+        try {
+            if (AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).length() > 8) {
+                t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).substring(0, 8) + "...";
+            } else {
+                t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|",""));
+            }
         }
-        else{
-            t_name = _preferences.getString("username", "");
-        }
+        catch (Exception e){e.getStackTrace();}
 
         if(TextUtils.isEmpty(t_name)){
             mbinding.layoutSearch.txtSearch.setText("어떤 여행을 찾고 있나요?");

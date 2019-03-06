@@ -463,8 +463,8 @@ public class ReservationActivityActivity extends Activity {
                         other_pnum1.setAdapter(adapter);
 
                         // 이름, 전번
-                        String username = _preferences.getString("username", null);
-                        String hphoneTmp = _preferences.getString("phone", null);
+                        String username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|",""));
+                        String hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|",""));
 
                         if (username != null && hphoneTmp != null) {
                             hphone = hphoneTmp.split("-");

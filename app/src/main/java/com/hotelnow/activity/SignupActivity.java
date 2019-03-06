@@ -517,9 +517,9 @@ public class SignupActivity extends Activity {
                             int reserve_money = info.getInt("reserve_money");
 
                             SharedPreferences.Editor prefEditor = _preferences.edit();
-                            prefEditor.putString("email", email.getText().toString().trim());
-                            prefEditor.putString("username", username);
-                            prefEditor.putString("phone", phone);
+                            prefEditor.putString("email", "HN|"+ AES256Chiper.AES_Encode(email.getText().toString()));
+                            prefEditor.putString("username", "HN|"+ AES256Chiper.AES_Encode(username));
+                            prefEditor.putString("phone", "HN|"+ AES256Chiper.AES_Encode(phone));
                             prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));

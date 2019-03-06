@@ -540,8 +540,8 @@ public class ReservationActivity extends Activity {
                     pnum1.setAdapter(adapter);
                     other_pnum1.setAdapter(adapter);
 
-                    String username = _preferences.getString("username", null);
-                    String hphoneTmp = _preferences.getString("phone", null);
+                    String username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|",""));
+                    String hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|",""));
                     if (username != null && hphoneTmp != null) {
                         hphone = hphoneTmp.split("-");
 

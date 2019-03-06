@@ -206,9 +206,9 @@ public class LoginActivity extends Activity{
 
                             _preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                             SharedPreferences.Editor prefEditor = _preferences.edit();
-                            prefEditor.putString("email", email.getText().toString());
-                            prefEditor.putString("username", username);
-                            prefEditor.putString("phone", phone);
+                            prefEditor.putString("email", "HN|"+ AES256Chiper.AES_Encode(email.getText().toString()));
+                            prefEditor.putString("username", "HN|"+ AES256Chiper.AES_Encode(username));
+                            prefEditor.putString("phone", "HN|"+ AES256Chiper.AES_Encode(phone));
                             prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("moreinfo", moreinfo);
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
@@ -466,9 +466,9 @@ public class LoginActivity extends Activity{
 
                     _preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                     SharedPreferences.Editor prefEditor = _preferences.edit();
-                    prefEditor.putString("email", emailval);
-                    prefEditor.putString("username", username);
-                    prefEditor.putString("phone", phone);
+                    prefEditor.putString("email", "HN|"+AES256Chiper.AES_Encode(emailval));
+                    prefEditor.putString("username", "HN|"+AES256Chiper.AES_Encode(username));
+                    prefEditor.putString("phone", "HN|"+AES256Chiper.AES_Encode(phone));
                     prefEditor.putString("userid", "HN|"+AES256Chiper.AES_Encode(userid));
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
