@@ -104,7 +104,8 @@
         <activity android:name=".activity.FullImageViewActivityActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ReservationActivityActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity android:name=".activity.ReservationHotelDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.ActivityMapActivity"

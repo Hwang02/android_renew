@@ -163,7 +163,7 @@ public class ActLoading extends Activity {
                     "/data/local/xbin/", "/data/local/bin/",
                     "/system/sd/xbin/", "/system/bin/failsafe/"};
             for (String where : places) {
-                if (new File(where + "su").exists()) {
+                if (new File(where).exists()) {
                     found = true;
                     break;
                 }
