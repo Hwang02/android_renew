@@ -1,5 +1,6 @@
 package com.hotelnow.utils;
 
+import android.text.TextUtils;
 import android.util.Base64;
 
 import java.security.InvalidAlgorithmParameterException;
@@ -34,13 +35,18 @@ public class AES256Chiper {
     //AES256 복호화
     public static String AES_Decode(String str)    throws java.io.UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
 
-        byte[] textBytes = Base64.decode(str,0);
-        //byte[] textBytes = str.getBytes("UTF-8");
-        AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
-        SecretKeySpec newKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, newKey, ivSpec);
-        return new String(cipher.doFinal(textBytes), "UTF-8");
+        if(!TextUtils.isEmpty(str)) {
+            byte[] textBytes = Base64.decode(str, 0);
+            //byte[] textBytes = str.getBytes("UTF-8");
+            AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+            SecretKeySpec newKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, newKey, ivSpec);
+            return new String(cipher.doFinal(textBytes), "UTF-8");
+        }
+        else{
+            return "";
+        }
     }
 
 }

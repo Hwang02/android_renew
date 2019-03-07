@@ -226,6 +226,7 @@ public class LoginActivity extends Activity{
                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                             getFavorite();
+                            obj = null;
 
                         } catch (Exception e) {
                             e.getStackTrace();
@@ -486,12 +487,14 @@ public class LoginActivity extends Activity{
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                     getFavorite();
-
+                    body = "";
                 } catch (Exception e) {
                     Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        params = new JSONObject();
     }
 
     private void getFavorite(){
@@ -565,7 +568,7 @@ public class LoginActivity extends Activity{
         super.onDestroy();
         Session.getCurrentSession().removeCallback(callback);
         Session.getCurrentSession().close();
+
+//        Runtime.getRuntime().gc();
     }
-
-
 }

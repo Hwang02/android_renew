@@ -526,7 +526,7 @@ public class SignupActivity extends Activity {
 
                             prefEditor.commit();
                             passwd.setText("");
-                            java.util.Arrays.fill(passwd.getText().toString().toCharArray(), (char)0x20);
+
                             // 디바이스 정보 서버에 있는지 체크 후 적립금 띄우든가 말든가
                             if (obj.getString("device_exist").equals("Y")) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
@@ -543,7 +543,7 @@ public class SignupActivity extends Activity {
                             // Tune
                             TuneWrap.Registration();
                             TuneWrap.Login();
-
+                            body = "";
                         } catch (Exception e) {
                             Log.e(CONFIG.TAG, "expection is ", e);
                             Toast.makeText(SignupActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
