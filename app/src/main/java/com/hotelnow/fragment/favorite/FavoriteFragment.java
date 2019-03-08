@@ -76,6 +76,7 @@ public class FavoriteFragment extends Fragment {
         ec_date = Util.setCheckinout().get(0);
         ee_date = Util.setCheckinout().get(1);
         // 1번 탭 일때
+        m_Selecttab = CONFIG.sel_fav;
         if(m_Selecttab == 0) {
             new Handler().postDelayed(
                     new Runnable() {
@@ -148,7 +149,6 @@ public class FavoriteFragment extends Fragment {
                             });
                         }
                     },100);
-
         }
 
         favoriteAdapter = new FavoriteAdapter(getActivity(), getChildFragmentManager());

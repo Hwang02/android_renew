@@ -473,6 +473,12 @@ public class MainActivity extends FragmentActivity {
                             startActivity(intentCoupon);
                         }
                     }, 1000);
+                } else if(recipeStr1.contains("move_favoriteH")) {
+                    CONFIG.sel_fav = 0;
+                    mbinding.navigation.setCurrentItem(FAVPAGE);
+                } else if(recipeStr1.contains("move_favoriteQ")) {
+                    CONFIG.sel_fav = 1;
+                    mbinding.navigation.setCurrentItem(FAVPAGE);
                 } else if (recipeStr1.contains("move_theme_list")) {
                     setTapMove(SELECTPAGE, false);
                     Intent intent = new Intent(this, ThemeSAllActivity.class);
@@ -491,9 +497,9 @@ public class MainActivity extends FragmentActivity {
                             map.put(key, value);
                         }
 
-                        if (map.get("kind_booked") == null) {// ticket 예약리스트 탭
+                        if (map.get("kind_booked") == null || map.get("kind_booked").equals("H")) {///hotel 예약리스트 탭
                             CONFIG.sel_reserv = 0;
-                        } else {//hotel 예약리스트 탭
+                        } else {//ticket 예약리스트 탭
                             CONFIG.sel_reserv = 1;
                         }
                         mbinding.navigation.setCurrentItem(RESERVPAGE);

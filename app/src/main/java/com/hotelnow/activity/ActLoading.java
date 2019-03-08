@@ -533,9 +533,6 @@ public class ActLoading extends Activity {
     }
 
     private void MovePage(){
-//        Intent intent = new Intent(ActLoading.this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
         if (checkPlayServices()) {
             Intent intentLink = getIntent();
             push_type = intentLink.getStringExtra("push_type");

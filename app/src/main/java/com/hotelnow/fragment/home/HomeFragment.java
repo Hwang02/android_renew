@@ -193,6 +193,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     public void run() {
                         swipeView.setRefreshing(false);
                         getRecentData(true);
+                        adapter.allRefresh(true);
                     }
                 }, 200);
             }

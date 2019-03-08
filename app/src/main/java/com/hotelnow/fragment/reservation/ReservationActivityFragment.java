@@ -324,6 +324,20 @@ public class ReservationActivityFragment extends Fragment {
                 }
             },500);
         }
+
+        else if(isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mEntries.clear();
+                    adapter.notifyDataSetChanged();
+                    currentPage = 1;
+                    isAdd = true;
+                    MainActivity.showProgress();
+                    getBookingList();
+                }
+            },500);
+        }
     }
 
     private void init(){
@@ -357,7 +371,7 @@ public class ReservationActivityFragment extends Fragment {
                 startActivityForResult(intent, 90);
             }
         });
-
+        CONFIG.sel_fav =0;
         authCheck();
     }
 }

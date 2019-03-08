@@ -140,6 +140,7 @@ public class HotelFragment extends Fragment {
                         swipeView.setRefreshing(false);
                         objects.clear();
                         getObject();
+                        allRefresh();
                     }
                 }, 200);
             }

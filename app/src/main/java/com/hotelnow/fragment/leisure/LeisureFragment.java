@@ -140,6 +140,7 @@ public class LeisureFragment extends Fragment {
                         swipeView.setRefreshing(false);
                         objects.clear();
                         getObject();
+                        allRefresh();
                     }
                 }, 200);
             }

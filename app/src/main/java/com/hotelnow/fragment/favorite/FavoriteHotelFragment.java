@@ -386,6 +386,16 @@ public class FavoriteHotelFragment extends Fragment {
             },500);
         }
 
+        else if(isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mItems.clear();
+                    getFavorite();
+                }
+            },500);
+        }
+
         if(isFragmentVisible_ &&((FavoriteFragment)getParentFragment()) != null) {
             if (adapter != null && adapter.getCount() > 0) {
                 ((FavoriteFragment) getParentFragment()).isdelete(true);
@@ -426,7 +436,8 @@ public class FavoriteHotelFragment extends Fragment {
                 startActivityForResult(intent, 70);
             }
         });
-        authCheck();
+        if(CONFIG.sel_fav == 0)
+            authCheck();
     }
 
 }
