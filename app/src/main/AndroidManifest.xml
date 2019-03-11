@@ -23,6 +23,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.hotelnow.activity.ActLoading"
             android:screenOrientation="portrait"
+            android:resizeableActivity="true"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -178,6 +179,8 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_map_key" />
+        <meta-data
+            android:name="android.max_aspect" android:value="2.1"/>
     </application>
 
 </manifest>

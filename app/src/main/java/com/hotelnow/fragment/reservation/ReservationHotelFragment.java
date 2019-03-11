@@ -348,12 +348,14 @@ public class ReservationHotelFragment extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mEntries.clear();
-                    adapter.notifyDataSetChanged();
-                    currentPage = 1;
-                    isAdd = true;
-                    MainActivity.showProgress();
-                    getBookingList();
+                    if(_preferences.getString("userid", null) !=null) {
+                        mEntries.clear();
+                        adapter.notifyDataSetChanged();
+                        currentPage = 1;
+                        isAdd = true;
+                        MainActivity.showProgress();
+                        getBookingList();
+                    }
                 }
             },500);
         }

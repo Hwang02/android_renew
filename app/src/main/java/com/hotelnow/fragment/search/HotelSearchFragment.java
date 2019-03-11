@@ -692,7 +692,6 @@ public class HotelSearchFragment extends Fragment {
         banner_id = getArguments().getString("banner_id");
         order_kind = getArguments().getString("order_kind");
         if(order_kind.equals("distance")){
-            CONFIG.sel_orderby = order_kind;
             filter_cnt = 1;
         }
         title_text = getArguments().getString("title_text");
@@ -813,6 +812,9 @@ public class HotelSearchFragment extends Fragment {
             @Override
             public void onSingleClick(View v) {
                 Util.clearSearch();
+                if(order_kind.equals("distance")){
+                    CONFIG.sel_orderby = order_kind;
+                }
                 Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
                 startActivityForResult(intent, 60);
             }

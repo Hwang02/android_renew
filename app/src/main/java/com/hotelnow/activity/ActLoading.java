@@ -6,13 +6,17 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -58,6 +62,11 @@ public class ActLoading extends Activity {
     private String sdate = "";
     private String edate = "";
     private FirebaseAnalytics mFirebaseAnalytics;
+    private ImageView image2;
+    private float widthrate;
+    private float heightrate;
+    private float drawrate;
+    private int displaywidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +78,24 @@ public class ActLoading extends Activity {
         dbHelper = new DbOpenHelper(this);
         dbHelper.open();
         dbHelper.close();
+
+        //사람 이미지
+        image2 = (ImageView) findViewById(R.id.image2);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        displaywidth =  metrics.widthPixels;
+        int displayheight =  metrics.heightPixels;
+
+        widthrate = displaywidth / 1440f;
+        heightrate = displayheight / 2560f;
+        drawrate = (widthrate + heightrate) / 2f;
+
+        int width = (int)(displaywidth * 0.86f);
+        image2.getLayoutParams().width = width;
+        image2.getLayoutParams().height = (int)(width * 1.27f);
+        //사람 이미지
 
         // preference 할당
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -163,7 +190,11 @@ public class ActLoading extends Activity {
                     "/data/local/xbin/", "/data/local/bin/",
                     "/system/sd/xbin/", "/system/bin/failsafe/"};
             for (String where : places) {
-                if (new File(where).exists()) {
+                if (new File(where+"su").exists()) {
+                    found = true;
+                    break;
+                }
+                else if(new File(where+"lu").exists()) {
                     found = true;
                     break;
                 }

@@ -89,6 +89,7 @@ public class CONFIG {
     public final static String setting_agree3 = "http://m.policy.yanolja.com/?t=location&d=m";					//	개인정보 취급방침
     public final static String info_provide1 = domain+"/terms_booking/booking";				//	구매 주의사항
     public final static String info_provide2 = domain+"/terms_booking/thirdparty";			//	개인정보 제 3자 동의
+    public final static String info_provide3 = domain+"/terms_booking/qbooking";				//	구매 주의사항
 
     public final static String reservemoneyUrl = domain+"/recommendation/list";				//	적립금
     public final static String recommendSaveUrl = domain+"/recommendation/save";			//	적립금

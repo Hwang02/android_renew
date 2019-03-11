@@ -201,7 +201,7 @@ public class AllRoomTypeActivity extends Activity {
                         AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
                         LinearLayout btn_more_close = (LinearLayout)view_room.findViewById(R.id.btn_more_close);
                         LinearLayout more_img_list = (LinearLayout)view_room.findViewById(R.id.more_img_list);
-                        TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
+                        final TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
                         TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
                         TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
                         TextView tv_room_days = (TextView)view_room.findViewById(R.id.tv_room_days);
@@ -331,7 +331,7 @@ public class AllRoomTypeActivity extends Activity {
                         btn_private.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (privatedeal_status == 1 || privatedeal_status == -1) {
+                                if (privatedeal_status == 1 || privatedeal_status == -1 || btn_private.getText().equals("예약하기")) {
                                     TuneWrap.Event("PrivateButton", hid);
 
                                     String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String)img_room.getTag()

@@ -539,9 +539,11 @@ public class ReservationActivity extends Activity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(ReservationActivity.this, android.R.layout.simple_spinner_dropdown_item, phonePrefixs);
                     pnum1.setAdapter(adapter);
                     other_pnum1.setAdapter(adapter);
-
-                    String username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|",""));
-                    String hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|",""));
+                    String username = null, hphoneTmp = null;
+                    if(_preferences.getString("username", null) != null) {
+                       username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
+                       hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
+                    }
                     if (username != null && hphoneTmp != null) {
                         hphone = hphoneTmp.split("-");
 

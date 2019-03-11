@@ -817,7 +817,7 @@ public class MainActivity extends FragmentActivity {
     public void setTitle(){
         String t_name = "";
         try {
-            if (AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).length() > 8) {
+            if (_preferences.getString("username", null) !=null && AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).length() > 8) {
                 t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).substring(0, 8) + "...";
             } else {
                 t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|",""));

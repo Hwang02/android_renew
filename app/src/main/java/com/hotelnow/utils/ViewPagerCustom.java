@@ -33,7 +33,7 @@ public class ViewPagerCustom extends ViewPager {
     private static final String TAG = "AutoScrollViewPager";
 
     // 默认滚动间隔时间
-    private static final int DEFAULT_SLIDE_INTERVAL = 5000;
+    private static final int DEFAULT_SLIDE_INTERVAL = 3000;
     // 自动滚动间隔时间
     private int slideInterval = DEFAULT_SLIDE_INTERVAL;
 

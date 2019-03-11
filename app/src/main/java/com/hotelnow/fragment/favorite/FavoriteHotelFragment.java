@@ -390,8 +390,10 @@ public class FavoriteHotelFragment extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mItems.clear();
-                    getFavorite();
+                    if(_preferences.getString("userid", null) !=null) {
+                        mItems.clear();
+                        getFavorite();
+                    }
                 }
             },500);
         }
