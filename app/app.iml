@@ -32,6 +32,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/production/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/production/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/production/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/fabric/res/production/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/google-services/production/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/production/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/production/debug" type="java-resource" />
@@ -166,53 +167,74 @@
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:transition-27.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.kakao.sdk:usermgmt-1.14.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-core-16.0.3" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-15.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:cardview-v7-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-core-2.6.3" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-27.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.smartwhere:android-tune-17258.1" level="project" />
-    <orderEntry type="library" name="Gradle: gun0912.ted:tedpermission-2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-compat-27.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.squareup.okhttp:okhttp:2.7.5@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-messaging-17.3.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-base-16.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-16.0.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.zxing:core:3.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-measurement-connector-impl-17.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-marketing-4.35.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup:javawriter:2.1.1@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-common-4.35.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:multidex-1.0.3" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-utils-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-login-4.35.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.databinding:adapters-3.1.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.kakao.sdk:kakaolink-1.14.0" level="project" />
     <orderEntry type="library" name="Gradle: com.koushikdutta.ion:ion-2.2.1" level="project" />
     <orderEntry type="library" name="Gradle: com.kakao.sdk:friends-1.14.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.3@jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:monitor-1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.kakao.sdk:auth-1.14.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:monitor-1.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex-instrumentation-1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.greenrobot:eventbus:3.0.0@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.wang.avi:library-1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.github.armcha:AutoLinkTextView-0.3.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-share-4.35.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-android-sdk-4.35.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.6.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: io.fabric.sdk.android:fabric-1.4.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta-1.2.9" level="project" />
     <orderEntry type="library" name="Gradle: com.android.databinding:library-3.1.4" level="project" />
-    <orderEntry type="library" name="Gradle: com.kakao.sdk:kakaotalk-1.14.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks-15.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport-15.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.maps.android:android-maps-utils-0.5" level="project" />
     <orderEntry type="library" name="Gradle: com.kakao.sdk:util-1.14.0" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-applinks-4.35.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: net.sf.kxml:kxml2:2.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-measurement-connector-17.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-applinks:1.4.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-media-compat-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-core-4.35.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-annotations:27.0.2@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-identifier-15.0.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.nineoldandroids:library:2.4.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-fragment-27.0.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-stats-15.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-2.9.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.ittianyu:BottomNavigationViewEx-1.2.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-17.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime-1.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.databinding:baseLibrary:3.1.4@jar" level="project" />
+    <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.0.3@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-impl-16.2.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:transition-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.kakao.sdk:usermgmt-1.14.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-15.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:cardview-v7-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.smartwhere:android-tune-17258.1" level="project" />
+    <orderEntry type="library" name="Gradle: gun0912.ted:tedpermission-2.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp:okhttp:2.7.5@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-messaging-17.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-base-16.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-16.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup:javawriter:2.1.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-common-4.35.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:multidex-1.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-27.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.kakao.sdk:kakaolink-1.14.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.3@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.wang.avi:library-1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-share-4.35.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-android-sdk-4.35.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.6.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.kakao.sdk:kakaotalk-1.14.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport-15.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.maps.android:android-maps-utils-0.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:runner-1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.makeramen:roundedimageview-2.3.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:support-annotations:27.1.1@jar" level="project" />
@@ -221,43 +243,27 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-api-16.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:customtabs-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.kakao.sdk:message-template-1.14.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-applinks:1.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:recyclerview-v7-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.tune:tune-marketing-console-sdk-4.15.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:support-media-compat-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.kakao.sdk:network-1.14.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.koushikdutta.async:androidasync-2.2.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-core-4.35.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:support-annotations:27.0.2@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-identifier-15.0.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-core-3.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.nineoldandroids:library:2.4.0@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.support:support-fragment-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-1.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12@jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:design-27.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-27.0.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-idling-resource-3.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-stats-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-places-4.35.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-interop-16.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps-15.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-library:1.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-common-16.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.ittianyu:BottomNavigationViewEx-1.2.4" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-17.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.android:facebook-messenger-4.35.0" level="project" />
-    <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime-1.0.3" level="project" />
-    <orderEntry type="library" name="Gradle: com.android.databinding:baseLibrary:3.1.4@jar" level="project" />
-    <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.0.3@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-impl-16.2.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers-1.4.2" level="project" />
     <orderEntry type="module" module-name="calendar_lib" />
     <orderEntry type="module" module-name="map_lib" />
     <orderEntry type="library" name="Gradle: org.apache.http.legacy-android-27" level="project" />

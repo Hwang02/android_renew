@@ -42,9 +42,10 @@ public class Api {
     private static OkHttpClient client = new OkHttpClient();
 
     public static void get(String url, HttpCallback cb) {
-        Api api = new Api();
-        api.call2("GET", url, null, cb);
-        api = null;
+//        Api api = new Api();
+//        api.call2("GET", url, null, cb);
+//        api = null;
+        call("GET", url, null, cb);
     }
 
     public static void post(String url, String json, HttpCallback cb) {
@@ -193,7 +194,7 @@ public class Api {
                         }
 
                         cb.onSuccess(headers, finalBody);
-                        finalBody = "";
+
                     }
                 });
                 body = "";
@@ -343,7 +344,6 @@ public class Api {
                         }
 
                         cb.onSuccess(headers, finalBody);
-                        finalBody = "";
                     }
                 });
                 body = "";

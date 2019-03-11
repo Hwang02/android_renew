@@ -181,6 +181,9 @@
             android:value="@string/google_map_key" />
         <meta-data
             android:name="android.max_aspect" android:value="2.1"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e2e07e1c052698ba5e3978de33ec974c4269d7bb" />
     </application>
 
 </manifest>

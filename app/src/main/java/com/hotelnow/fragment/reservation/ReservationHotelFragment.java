@@ -165,6 +165,7 @@ public class ReservationHotelFragment extends Fragment {
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
+                        mlist.getEmptyView().findViewById(R.id.tv_info1).setVisibility(View.GONE);
                         getView().findViewById(R.id.login_view).setVisibility(View.GONE);
                         getView().findViewById(R.id.reserv_view).setVisibility(View.GONE);
                         main_view.setBackgroundResource(R.color.footerview);
@@ -278,6 +279,7 @@ public class ReservationHotelFragment extends Fragment {
                             ((ReservationFragment)getParentFragment()).setInfobar();
                         }
                         else{
+                            mlist.getEmptyView().findViewById(R.id.tv_info1).setVisibility(View.VISIBLE);
                             isAdd = false;
                         }
 

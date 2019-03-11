@@ -143,8 +143,16 @@ public class FilterHotelActivity extends Activity {
                 CONFIG.sel_max = maxVal; // 가격
                 CONFIG.sel_min = minVal; // 가격
                 CONFIG.sel_rate = mRate; // 평점
+                String cate = "", useper = "";
+                if( CONFIG.sel_category != null){
+                    cate = CONFIG.sel_category.replace("|",",");
+                }
 
-                TuneWrap.Event("filter", CONFIG.sel_category.replace("|",","), CONFIG.sel_min+"~"+CONFIG.sel_max, CONFIG.sel_useperson.replace("|",","), CONFIG.sel_rate);
+                if(CONFIG.sel_useperson != null){
+                    useper = CONFIG.sel_useperson.replace("|",",");
+                }
+
+                TuneWrap.Event("filter", cate, CONFIG.sel_min+"~"+CONFIG.sel_max, useper, CONFIG.sel_rate);
 //                if(is_reset)
 //                    intent.putExtra("is_reset", is_reset);
                 setResult(80, intent);

@@ -122,6 +122,7 @@ public class FavoriteHotelFragment extends Fragment {
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
+                        getView().findViewById(R.id.empty_view).setVisibility(View.GONE);
                         getView().findViewById(R.id.login_view).setVisibility(View.GONE);
                         main_view.setBackgroundResource(R.color.footerview);
                         btn_go_list.setOnClickListener(new OnSingleClickListener() {
@@ -239,6 +240,7 @@ public class FavoriteHotelFragment extends Fragment {
                         ((FavoriteFragment)getParentFragment()).isdelete(true);
                     }
                     else {
+                        getView().findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
                         ((FavoriteFragment)getParentFragment()).isdelete(false);
                     }
                     adapter.notifyDataSetChanged();

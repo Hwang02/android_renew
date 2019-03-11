@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.crashlytics.android.Crashlytics;
 import com.kakao.auth.KakaoSDK;
 import com.tune.Tune;
 
@@ -12,6 +13,8 @@ import java.net.CookieHandler;
 import java.net.CookiePolicy;
 
 import android.support.multidex.MultiDexApplication;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by susia on 15. 12. 8..
@@ -35,7 +38,7 @@ public class HotelnowApplication extends MultiDexApplication{
 
     public void onCreate() {
         super.onCreate();
-//        Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
 
         obj = this;
         KakaoSDK.init(new KakaoSDKAdapter());
