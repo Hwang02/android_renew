@@ -1627,7 +1627,7 @@ public class ReservationActivity extends Activity {
                     }
                     Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                     is_auth = "Y";
-
+                    tv_auth_change.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     Log.e(CONFIG.TAG, "expection is ", e);
                     Toast.makeText(ReservationActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();

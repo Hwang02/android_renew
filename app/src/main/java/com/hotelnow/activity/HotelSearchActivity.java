@@ -228,7 +228,8 @@ public class HotelSearchActivity extends Activity {
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.clearSearch();
+//                Util.clearSearch();
+                LogUtil.e("xxxxx","xxxxxx");
                 Intent intent = new Intent(HotelSearchActivity.this, FilterHotelActivity.class);
                 startActivityForResult(intent, 60);
             }

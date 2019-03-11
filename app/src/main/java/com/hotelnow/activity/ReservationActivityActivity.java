@@ -1239,7 +1239,7 @@ public class ReservationActivityActivity extends Activity {
                     }
                     is_auth = "Y";
                     Toast.makeText(ReservationActivityActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
-
+                    tv_auth_change.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     Log.e(CONFIG.TAG, "expection is ", e);
                     Toast.makeText(ReservationActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();

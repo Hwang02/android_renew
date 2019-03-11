@@ -811,7 +811,7 @@ public class HotelSearchFragment extends Fragment {
         btn_filter.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Util.clearSearch();
+//                Util.clearSearch();
                 if(order_kind.equals("distance")){
                     CONFIG.sel_orderby = order_kind;
                 }
