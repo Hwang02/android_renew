@@ -840,8 +840,8 @@ public class HotelSearchFragment extends Fragment {
                 TextView hid = (TextView)view.findViewById(R.id.hid);
                 Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("ec_date", ec_date);
-                intent.putExtra("ee_date", ee_date);
+                intent.putExtra("sdate", ec_date);
+                intent.putExtra("edate", ee_date);
                 intent.putExtra("save", true);
                 startActivityForResult(intent, 50);
             }

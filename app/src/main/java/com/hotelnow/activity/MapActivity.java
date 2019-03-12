@@ -504,8 +504,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 //                                        finish();
                                         Intent returnIntent = new Intent(MapActivity.this, DetailHotelActivity.class);
                                         returnIntent.putExtra("hid", sel_hotel_id);
-                                        returnIntent.putExtra("ec_date", ec_date);
-                                        returnIntent.putExtra("ee_date", ee_date);
+                                        returnIntent.putExtra("sdate", ec_date);
+                                        returnIntent.putExtra("edate", ee_date);
                                         returnIntent.putExtra("evt", "N");
                                         returnIntent.putExtra("save", true);
                                         startActivity(returnIntent);

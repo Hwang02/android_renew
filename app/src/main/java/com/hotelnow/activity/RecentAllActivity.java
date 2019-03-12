@@ -100,6 +100,7 @@ public class RecentAllActivity extends Activity {
                     Intent intent = new Intent(RecentAllActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
                     intent.putExtra("evt", "N");
+                    intent.putExtra("save", true);
                     intent.putExtra("sdate", sdate.getText().toString());
                     intent.putExtra("edate", edate.getText().toString());
                     startActivityForResult(intent,80);
@@ -109,6 +110,7 @@ public class RecentAllActivity extends Activity {
                     Intent intent = new Intent(RecentAllActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
+                    intent.putExtra("save", true);
                     startActivityForResult(intent,80);
                 }
 
