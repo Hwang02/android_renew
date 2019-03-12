@@ -181,7 +181,7 @@ public class Api {
                             headers.put(key, response.header(key));
                         }
 
-                        if(!BuildConfig.DEBUG) {
+                        if(BuildConfig.DEBUG) {
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
@@ -207,7 +207,7 @@ public class Api {
 
     private static void call(String method, String url, String data, final HttpCallback cb) {
         RequestBody body = null;
-        if(!BuildConfig.DEBUG) {
+        if(BuildConfig.DEBUG) {
             Log.e(CONFIG.TAG, "------------------------ API CALL ------------------------");
             Log.e(CONFIG.TAG, " API " + method + " url : " + url);
             if (data != null) Log.e(CONFIG.TAG, "data : " + data);
