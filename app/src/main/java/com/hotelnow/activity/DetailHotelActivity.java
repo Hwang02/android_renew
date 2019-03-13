@@ -1178,9 +1178,9 @@ public class DetailHotelActivity extends AppCompatActivity {
                     findViewById(R.id.tv_avg_day).setVisibility(View.GONE);
                 }
 
-                if (!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
+                if (!TextUtils.isEmpty(rdata.getJSONObject(i).getString("benefit_text"))) {
                     tv_room_sub_title.setVisibility(View.VISIBLE);
-                    tv_room_sub_title.setText(rdata.getJSONObject(i).getString("title"));
+                    tv_room_sub_title.setText(rdata.getJSONObject(i).getString("benefit_text"));
                 } else {
                     tv_room_sub_title.setVisibility(View.GONE);
                 }

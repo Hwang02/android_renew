@@ -222,9 +222,9 @@ public class AllRoomTypeActivity extends Activity {
                         if (daydiff > 1)
                             tv_room_days.setText(daydiff + "박 / ");
 
-                        if (!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
+                        if (!TextUtils.isEmpty(rdata.getJSONObject(i).getString("benefit_text"))) {
                             tv_room_sub_title.setVisibility(View.VISIBLE);
-                            tv_room_sub_title.setText(rdata.getJSONObject(i).getString("title"));
+                            tv_room_sub_title.setText(rdata.getJSONObject(i).getString("benefit_text"));
                         } else {
                             tv_room_sub_title.setVisibility(View.GONE);
                         }
