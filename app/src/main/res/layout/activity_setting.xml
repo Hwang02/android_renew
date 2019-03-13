@@ -68,7 +68,7 @@
             android:background="@color/back_line"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
 
         <RelativeLayout
             android:id="@+id/ll_email"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="이메일"
                 android:textSize="15dp"
-                android:textColor="@color/select_setting_txt"/>
+                android:textColor="@color/select_setting_txt" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                     android:clickable="true"
                     android:background="@drawable/push_checkbox_icon"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -110,7 +110,7 @@
             android:id="@+id/v_email"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
 
         <RelativeLayout
             android:id="@+id/ll_sms"
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:text="SMS/MMS"
                 android:textSize="15dp"
-                android:textColor="@color/select_setting_txt"/>
+                android:textColor="@color/select_setting_txt" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
                     android:clickable="true"
                     android:background="@drawable/push_checkbox_icon"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -152,7 +152,7 @@
             android:id="@+id/v_sms"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:text="앱 PUSH"
                 android:textSize="15dp"
-                android:textColor="@color/select_setting_txt"/>
+                android:textColor="@color/select_setting_txt" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -184,7 +184,7 @@
                     android:clickable="true"
                     android:background="@drawable/push_checkbox_icon"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -192,7 +192,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -207,14 +207,15 @@
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:textColor="@color/purple"
-                android:text="@string/setting_message"/>
+                android:text="@string/setting_message" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:textColor="@color/termtext"
                 android:visibility="gone"
-                android:text="@string/setting_message2"/>
+                android:text="@string/setting_message2" />
         </LinearLayout>
     </LinearLayout>
 
@@ -231,6 +232,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
     </RelativeLayout>
 </RelativeLayout>

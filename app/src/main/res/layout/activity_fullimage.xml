@@ -22,12 +22,13 @@
                 android:layout_height="55dp"
                 android:layout_marginLeft="12dp"
                 android:layout_centerVertical="true">
+
                 <ImageView
                     android:id="@+id/icon_back"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/ico_titbar_back"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
             </LinearLayout>
 
             <TextView
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background"
-                android:layout_below="@id/tv_title_hotel"/>
+                android:layout_below="@id/tv_title_hotel" />
         </RelativeLayout>
 
         <!-- Top Sliding Banners -->
@@ -99,7 +100,7 @@
                 android:ellipsize="end"
                 android:textColor="@color/white7"
                 android:layout_above="@+id/img_title2"
-                tools:text="외관사진"/>
+                tools:text="외관사진" />
 
             <TextView
                 android:id="@+id/img_title2"
@@ -112,7 +113,7 @@
                 android:layout_above="@+id/layout_info"
                 android:maxLines="2"
                 android:textColor="@color/white7"
-                tools:text="외관사진"/>
+                tools:text="외관사진" />
 
             <TextView
                 android:id="@+id/page"
@@ -125,7 +126,7 @@
                 android:padding="5dp"
                 android:textSize="11dp"
                 android:layout_above="@+id/layout_info"
-                tools:text=" 3/10 + "/>
+                tools:text=" 3/10 + " />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
@@ -152,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </RelativeLayout>

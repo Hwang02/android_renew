@@ -13,7 +13,7 @@
         android:scaleType="fitXY"
         android:layout_marginLeft="20dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true" />
 
     <ImageView
         android:id="@+id/icon_download"
@@ -24,7 +24,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/tv_coupon_price"
@@ -36,7 +36,7 @@
         android:layout_centerVertical="true"
         tools:text="20,000원"
         android:textStyle="bold"
-        android:textColor="@color/redtext"/>
+        android:textColor="@color/redtext" />
 
     <TextView
         android:id="@+id/tv_coupon_title"
@@ -50,11 +50,11 @@
         android:ellipsize="end"
         android:layout_toRightOf="@id/icon_coupon"
         tools:text="즉시할인 선착순 1만원 할인 쿠폰 제공"
-        android:textColor="@color/blacktxt"/>
+        android:textColor="@color/blacktxt" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/bg_background"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

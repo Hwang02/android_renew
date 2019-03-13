@@ -19,12 +19,13 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
             android:layout_centerVertical="true">
+
             <ImageView
                 android:id="@+id/icon_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/ico_titbar_back"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
         </LinearLayout>
 
         <TextView
@@ -42,7 +43,7 @@
             android:gravity="left|center"
             android:ellipsize="end"
             android:text="@string/reservation_title"
-            android:layout_toLeftOf="@id/kimgisa"/>
+            android:layout_toLeftOf="@id/kimgisa" />
 
         <LinearLayout
             android:id="@+id/kimgisa"
@@ -56,7 +57,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:background="@drawable/ico_titbar_knavi"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -72,8 +73,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/v_line">
-    </fragment>
+        android:layout_below="@id/v_line"></fragment>
 
     <RelativeLayout
         android:id="@+id/info"
@@ -109,7 +109,7 @@
                         android:layout_width="10dp"
                         android:layout_height="10dp"
                         android:layout_marginLeft="16dp"
-                        android:background="@drawable/ico_starpoint_press"/>
+                        android:background="@drawable/ico_starpoint_press" />
 
                     <TextView
                         android:id="@+id/tv_score"
@@ -128,7 +128,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:background="@color/textbar"/>
+                        android:background="@color/textbar" />
 
                     <TextView
                         android:id="@+id/tv_catagory"
@@ -202,7 +202,7 @@
                     android:textSize="13dp"
                     android:background="@color/white"
                     android:textColor="@color/purple"
-                    android:text="@string/map_detail"/>
+                    android:text="@string/map_detail" />
 
             </LinearLayout>
 
@@ -223,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 
@@ -239,6 +239,6 @@
         android:textColor="@color/white"
         android:background="@drawable/near_detail_round"
         android:gravity="center"
-        android:text="주변 숙소를 선택하면 상세 정보를 보실 수 있습니다"/>
+        android:text="주변 숙소를 선택하면 상세 정보를 보실 수 있습니다" />
 
 </RelativeLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/empty_view"
+<LinearLayout android:id="@+id/empty_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,6 +12,7 @@
         android:layout_weight="1"
         android:gravity="bottom"
         android:layout_above="@+id/btn_go_list">
+
         <TextView
             android:id="@+id/tv_info1"
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:text="최근 1년간 저장된 상품이 없습니다"
             android:gravity="center"
             android:textColor="@color/termtext"
-            android:textSize="15dp"/>
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/tv_info2"
@@ -31,7 +31,7 @@
             android:padding="1dp"
             android:text="호텔나우가 추천하는 인기 숙소를 지금 확인하세요"
             android:textSize="14dp"
-            android:gravity="center"/>
+            android:gravity="center" />
     </LinearLayout>
 
     <TextView
@@ -44,6 +44,6 @@
         android:layout_centerInParent="true"
         android:gravity="top|center_horizontal"
         android:textColor="@color/purple"
-        android:textSize="15dp"/>
+        android:textSize="15dp" />
 
 </LinearLayout>

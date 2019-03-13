@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -15,13 +15,14 @@
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:layout_centerVertical="true">
+
             <ImageView
                 android:id="@+id/icon_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="12dp"
                 android:background="@drawable/ico_titbar_back"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -44,12 +45,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="24dp"
                     android:textColor="@color/blacktxt"
-                    android:text="@string/login_title"/>
+                    android:text="@string/login_title" />
 
                 <EditText
                     android:id="@+id/email"
@@ -85,7 +87,7 @@
                     android:layout_marginTop="20dp"
                     android:id="@+id/bt_login"
                     android:text="@string/login_title"
-                    style="?android:attr/borderlessButtonStyle"/>
+                    style="?android:attr/borderlessButtonStyle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,7 +100,7 @@
                         android:layout_height="1dp"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"
-                        android:background="@color/back_line"/>
+                        android:background="@color/back_line" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -107,14 +109,14 @@
                         android:gravity="center"
                         android:textSize="14dp"
                         android:textColor="@color/graytxt"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_gravity="center"
                         android:background="@color/back_line"
-                        android:layout_weight="0.5"/>
+                        android:layout_weight="0.5" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,14 +140,14 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="12dp"
-                            android:background="@drawable/ico_logo_kakao"/>
+                            android:background="@drawable/ico_logo_kakao" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/login_kakao"
                             android:textSize="14dp"
-                            android:textColor="#3b1e1e"/>
+                            android:textColor="#3b1e1e" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -163,13 +165,14 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_marginRight="12dp"
-                            android:background="@drawable/ico_logo_facebook"/>
+                            android:background="@drawable/ico_logo_facebook" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/login_facebook"
                             android:textSize="14dp"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -194,12 +197,12 @@
                         android:text="@string/login_find_pass"
                         android:gravity="center"
                         android:textSize="14dp"
-                        android:textColor="@color/termtext"/>
+                        android:textColor="@color/termtext" />
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/bg_background"/>
+                        android:background="@color/bg_background" />
 
                     <TextView
                         android:id="@+id/btn_nocookie"
@@ -209,7 +212,7 @@
                         android:gravity="center"
                         android:textSize="14dp"
                         android:text="@string/login_not_user"
-                        android:textColor="@color/purple"/>
+                        android:textColor="@color/purple" />
 
                 </LinearLayout>
 
@@ -223,7 +226,7 @@
                     android:textColor="@color/purple"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/purple_and_white_round"
-                    style="?android:attr/borderlessButtonStyle"/>
+                    style="?android:attr/borderlessButtonStyle" />
 
             </RelativeLayout>
         </RelativeLayout>

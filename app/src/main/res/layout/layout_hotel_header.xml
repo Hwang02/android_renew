@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/graytxt"
                 android:textSize="13dp"
-                android:text="지역"/>
+                android:text="지역" />
 
             <TextView
                 android:id="@+id/tv_location"
@@ -35,7 +35,7 @@
                 android:textColor="@color/purple"
                 android:layout_marginTop="7dp"
                 android:textSize="18dp"
-                android:text="서울 전체"/>
+                android:text="서울 전체" />
 
             <View
                 android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/graytxt"
                 android:textSize="13dp"
-                android:text="날짜"/>
+                android:text="날짜" />
 
             <TextView
                 android:id="@+id/tv_date"
@@ -67,7 +67,7 @@
                 android:textColor="@color/purple"
                 android:layout_marginTop="7dp"
                 android:textSize="18dp"
-                tools:text="12/22 - 12/23, 2박"/>
+                tools:text="12/22 - 12/23, 2박" />
 
             <View
                 android:layout_width="match_parent"
@@ -87,11 +87,11 @@
         android:background="@drawable/purple_and_white_round"
         android:text="검색하기"
         android:textColor="@color/purple"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/bg_background"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
 </LinearLayout>

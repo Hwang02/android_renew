@@ -33,7 +33,7 @@
                     android:layout_height="24dp"
                     android:background="@drawable/ico_titbar_back"
                     android:layout_gravity="center"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,7 +50,7 @@
                     android:layout_height="28dp"
                     android:background="@drawable/ico_call"
                     android:layout_gravity="center"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -90,10 +90,12 @@
 
             <include layout="@layout/layout_reservation_hotel" />
 
-            <include android:id="@+id/include_user_info"
+            <include
+                android:id="@+id/include_user_info"
                 layout="@layout/layout_reservation_user_info" />
 
-            <include android:id="@+id/include_reservation_discount"
+            <include
+                android:id="@+id/include_reservation_discount"
                 layout="@layout/layout_reservation_discount" />
 
             <include layout="@layout/layout_reservation_price" />
@@ -109,8 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:visibility="visible"
-                    android:scaleType="centerCrop">
-                </android.support.v4.view.ViewPager>
+                    android:scaleType="centerCrop"></android.support.v4.view.ViewPager>
             </LinearLayout>
 
             <include layout="@layout/layout_reservation_pay" />
@@ -154,7 +155,7 @@
                     android:gravity="center"
                     android:text="@string/caution_agreement_view"
                     android:textSize="12dp"
-                    android:textColor="@color/graytxt"/>
+                    android:textColor="@color/graytxt" />
             </RelativeLayout>
 
             <LinearLayout
@@ -167,7 +168,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/bg_background"/>
+                    android:background="@color/bg_background" />
 
                 <Button
                     android:id="@+id/btn_go_payment"
@@ -181,7 +182,7 @@
                     android:layout_marginBottom="15dp"
                     android:textColor="@color/white"
                     android:textSize="15dp"
-                    style="?android:attr/borderlessButtonStyle"/>
+                    style="?android:attr/borderlessButtonStyle" />
             </LinearLayout>
 
         </LinearLayout>
@@ -201,6 +202,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
     </RelativeLayout>
 </RelativeLayout>

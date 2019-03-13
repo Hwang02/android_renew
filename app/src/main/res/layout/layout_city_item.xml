@@ -9,7 +9,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/back_line"/>
+        android:background="@color/back_line" />
 
     <TextView
         android:id="@+id/tv_city"
@@ -21,5 +21,5 @@
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="13dp"
         android:layout_marginRight="15dp"
-        tools:text="xxxxx"/>
+        tools:text="xxxxx" />
 </LinearLayout>

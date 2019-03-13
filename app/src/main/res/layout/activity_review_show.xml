@@ -35,7 +35,7 @@
                     android:layout_height="24dp"
                     android:background="@drawable/ico_titbar_back"
                     android:layout_gravity="center"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -85,7 +85,7 @@
                 android:gravity="center|left"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text=""/>
+                android:text="" />
 
             <TextView
                 android:id="@+id/user_room_info"
@@ -100,16 +100,17 @@
                 android:gravity="center|left"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text=""/>
+                android:text="" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
-                android:background="@color/back_line"/>
+                android:background="@color/back_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,19 +119,22 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="14dp"
                     android:textColor="@color/blacktxt"
-                    android:text="ㆍ 서비스 &amp; 친절도"/>
+                    android:text="ㆍ 서비스 &amp; 친절도" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="right"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/sc_star1"
                         android:layout_gravity="center_vertical"
@@ -138,7 +142,8 @@
                         android:layout_height="20dp"
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sc_star2"
                         android:layout_gravity="center_vertical"
@@ -147,7 +152,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sc_star3"
                         android:layout_gravity="center_vertical"
@@ -156,7 +162,8 @@
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sc_star4"
                         android:layout_gravity="center_vertical"
@@ -165,7 +172,8 @@
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sc_star5"
                         android:layout_gravity="center_vertical"
@@ -174,9 +182,10 @@
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -184,6 +193,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/title_ch"
                     android:layout_width="0dp"
@@ -191,7 +201,8 @@
                     android:layout_weight="1"
                     android:textSize="14dp"
                     android:textColor="@color/blacktxt"
-                    android:text="ㆍ 청결도"/>
+                    android:text="ㆍ 청결도" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -199,6 +210,7 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="right"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/c_star1"
                         android:layout_gravity="center_vertical"
@@ -206,7 +218,8 @@
                         android:layout_height="20dp"
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/c_star2"
                         android:layout_gravity="center_vertical"
@@ -215,7 +228,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/c_star3"
                         android:layout_gravity="center_vertical"
@@ -224,7 +238,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/c_star4"
                         android:layout_gravity="center_vertical"
@@ -233,7 +248,8 @@
                         android:layout_marginLeft="10dp"
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/c_star5"
                         android:layout_gravity="center_vertical"
@@ -242,9 +258,10 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -252,13 +269,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="14dp"
                     android:textColor="@color/blacktxt"
-                    android:text="ㆍ 교통 &amp; 위치"/>
+                    android:text="ㆍ 교통 &amp; 위치" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -266,6 +285,7 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="right"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/ko_star1"
                         android:layout_gravity="center_vertical"
@@ -274,7 +294,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/ko_star2"
                         android:layout_gravity="center_vertical"
@@ -283,7 +304,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/ko_star3"
                         android:layout_gravity="center_vertical"
@@ -292,7 +314,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/ko_star4"
                         android:layout_gravity="center_vertical"
@@ -301,7 +324,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/ko_star5"
                         android:layout_gravity="center_vertical"
@@ -310,9 +334,10 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -320,13 +345,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="14dp"
                     android:textColor="@color/blacktxt"
-                    android:text="ㆍ 시설 &amp; 편의성"/>
+                    android:text="ㆍ 시설 &amp; 편의성" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -334,6 +361,7 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="right"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/sp_star1"
                         android:layout_gravity="center_vertical"
@@ -341,7 +369,8 @@
                         android:layout_height="20dp"
                         android:paddingRight="1dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sp_star2"
                         android:layout_gravity="center_vertical"
@@ -350,7 +379,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sp_star3"
                         android:layout_gravity="center_vertical"
@@ -359,7 +389,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sp_star4"
                         android:layout_gravity="center_vertical"
@@ -368,7 +399,8 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
+
                     <ImageView
                         android:id="@+id/sp_star5"
                         android:layout_gravity="center_vertical"
@@ -377,7 +409,7 @@
                         android:paddingRight="1dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
-                        android:background="@drawable/ico_starpoint_20"/>
+                        android:background="@drawable/ico_starpoint_20" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -385,7 +417,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background"
-                android:layout_marginTop="22dp"/>
+                android:layout_marginTop="22dp" />
 
             <TextView
                 android:id="@+id/review_edittext"
@@ -415,9 +447,10 @@
                     android:layout_marginRight="20dp"
                     android:textSize="13dp"
                     android:text="@string/review_ynj_hn_msg"
-                    android:textColor="@color/graytxt"/>
+                    android:textColor="@color/graytxt" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layout_btn"
                 android:layout_width="match_parent"
@@ -456,6 +489,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
     </RelativeLayout>
 </RelativeLayout>

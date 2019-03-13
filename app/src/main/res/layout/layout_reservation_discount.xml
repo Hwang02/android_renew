@@ -63,7 +63,7 @@
             android:singleLine="true"
             android:background="@drawable/style_edittext_private_border"
             android:textColor="@color/privateview"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,7 +84,7 @@
             android:gravity="left"
             android:textColor="@color/blacktxt"
             android:textSize="14dp"
-            tools:text="적립금"/>
+            tools:text="적립금" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,7 +120,7 @@
                 android:textColor="@color/purple"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="2"
-                style="?android:attr/borderlessButtonStyle"/>
+                style="?android:attr/borderlessButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 
@@ -149,6 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/btn_point_total"
                 android:layout_width="wrap_content"
@@ -157,7 +158,7 @@
                 android:textSize="13dp"
                 android:layout_centerInParent="true"
                 android:text="@string/reservation_point_total"
-                android:textColor="@color/purple"/>
+                android:textColor="@color/purple" />
         </LinearLayout>
     </LinearLayout>
 
@@ -179,7 +180,7 @@
             android:gravity="left"
             android:textColor="@color/blacktxt"
             android:textSize="14dp"
-            tools:text="쿠폰사용"/>
+            tools:text="쿠폰사용" />
 
         <Spinner
             android:id="@+id/coupon_use"

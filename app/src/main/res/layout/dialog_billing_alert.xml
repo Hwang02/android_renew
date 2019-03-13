@@ -22,7 +22,7 @@
             android:gravity="center"
             android:paddingTop="20dp"
 
-            android:textColor="#4f2680"/>
+            android:textColor="#4f2680" />
 
         <TextView
             android:id="@+id/message"
@@ -32,7 +32,7 @@
             android:layout_margin="20dp"
             style="@android:style/TextAppearance.Small"
             android:text="1. 간편결제는 일시불 결제로 진행되오니 할부를 원하실 경우 일반 카드 결제를 선택하신 후 결제를 진행 해 주세요.\n\n 2. 선택하신 상품의 취소, 환불 규정을 다시 한번 확인 하신 후 서명 및 결제 완료 버튼을 눌러주세요."
-            android:textColor="#333333"/>
+            android:textColor="#333333" />
 
         <RelativeLayout
             android:id="@+id/paint_area"
@@ -49,7 +49,7 @@
                 android:layout_marginRight="10dp"
                 android:paddingTop="10dp"
                 android:textColor="#aaaaaa"
-                android:text="이곳에 서명해 주세요. "/>
+                android:text="이곳에 서명해 주세요. " />
 
         </RelativeLayout>
 
@@ -57,7 +57,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/close"
@@ -70,7 +70,7 @@
                 android:textSize="15dp"
                 android:background="@drawable/style_dialog_confirm_button_left"
                 android:padding="17dp"
-                style="?android:attr/borderlessButtonStyle"/>
+                style="?android:attr/borderlessButtonStyle" />
 
             <Button
                 android:id="@+id/ok"
@@ -84,7 +84,7 @@
                 android:background="@drawable/style_dialog_confirm_button_right"
                 android:textStyle="bold"
                 android:padding="17dp"
-                style="?android:attr/borderlessButtonStyle"/>
+                style="?android:attr/borderlessButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 

@@ -26,6 +26,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="24dp"
         android:layout_marginTop="178dp"
-        tools:text=" 3/10 + "/>
+        tools:text=" 3/10 + " />
 
 </RelativeLayout>

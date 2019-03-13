@@ -11,11 +11,11 @@
         <item name="actionModeCloseDrawable">@drawable/ic_close</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark"/>
+    <style name="AppTheme.PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark" />
 
-    <style name="AppTheme.PopupOverlay.Light" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay.Light" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.TransNav" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -26,7 +26,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TitleText" >
+    <style name="TitleText">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/blacktxt</item>
         <item name="android:layout_marginTop">16dp</item>
@@ -36,7 +36,7 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="MoreText" >
+    <style name="MoreText">
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/graytxt</item>
         <item name="android:text">@string/more_txt</item>

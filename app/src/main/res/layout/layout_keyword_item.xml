@@ -21,7 +21,7 @@
             android:layout_marginTop="1dp"
             android:scaleType="fitXY"
             app:riv_corner_radius_top_left="2dp"
-            app:riv_corner_radius_top_right="2dp"/>
+            app:riv_corner_radius_top_right="2dp" />
 
         <TextView
             android:id="@+id/tv_keyword"

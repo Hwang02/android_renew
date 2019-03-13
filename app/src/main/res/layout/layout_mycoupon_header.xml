@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/coupon_savecoupon"
                 android:textSize="17dp"
-                android:textColor="@color/blacktxt"/>
+                android:textColor="@color/blacktxt" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:textSize="14dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/blacktxt"
-                    tools:text="2장"/>
+                    tools:text="2장" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                     android:layout_marginRight="4dp"
                     android:textSize="14dp"
                     android:layout_toLeftOf="@id/disable_coupon"
-                    android:textColor="@color/graytxt"/>
+                    android:textColor="@color/graytxt" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="40dp"
                     android:textColor="@color/white"
-                    tools:text="3"/>
+                    tools:text="3" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                     android:textColor="@color/white"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="8dp"
-                    android:text="장"/>
+                    android:text="장" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -104,7 +104,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/bg_background"/>
+            android:background="@color/bg_background" />
 
         <TextView
             android:layout_width="match_parent"
@@ -114,7 +114,7 @@
             android:text="@string/coupon_subtitle"
             android:gravity="center_vertical"
             android:textColor="@color/purple"
-            android:background="@color/footerview"/>
+            android:background="@color/footerview" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                 android:textSize="13dp"
                 android:layout_alignParentRight="true"
                 android:text="쿠폰 등록하기"
-                style="?android:attr/borderlessButtonStyle"/>
+                style="?android:attr/borderlessButtonStyle" />
 
             <EditText
                 android:id="@+id/code"
@@ -145,7 +145,7 @@
                 android:textSize="14dp"
                 android:textColorHint="@color/coupon_dis"
                 android:background="@drawable/style_edittext_gray_2border"
-                android:hint="@string/coupon_hint"/>
+                android:hint="@string/coupon_hint" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -153,7 +153,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
 
     <TextView
         android:layout_width="match_parent"
@@ -163,5 +163,5 @@
         android:text="@string/coupon_subtitle2"
         android:gravity="center_vertical"
         android:textColor="@color/purple"
-        android:background="@color/footerview"/>
+        android:background="@color/footerview" />
 </LinearLayout>

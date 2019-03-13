@@ -43,25 +43,25 @@
                 android:singleLine="true"
                 android:textColor="@color/purple"
                 android:textSize="16dp"
-                android:text="@string/area_title"/>
+                android:text="@string/area_title" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/back_line"/>
+        android:background="@color/back_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-        
+
         <ListView
             android:id="@+id/select_view"
             android:layout_width="110dp"
@@ -75,8 +75,9 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
-            <include layout="@layout/layout_recent_noarea"
-                android:id="@+id/layout_noarea"/>
+            <include
+                layout="@layout/layout_recent_noarea"
+                android:id="@+id/layout_noarea" />
 
             <ListView
                 android:id="@+id/result_view"

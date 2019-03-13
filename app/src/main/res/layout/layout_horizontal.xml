@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--<data>-->
-        <!--<variable-->
-            <!--name="horizontal"-->
-            <!--type="com.hotelnow.fragment.home.HomeFragment" />-->
+    <!--<variable-->
+    <!--name="horizontal"-->
+    <!--type="com.hotelnow.fragment.home.HomeFragment" />-->
     <!--</data>-->
 
     <LinearLayout
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 style="@style/TitleText"
                 android:layout_toLeftOf="@id/all_view"
-                tools:text="ㅎㅎㅎㅎㅎ"/>
+                tools:text="ㅎㅎㅎㅎㅎ" />
 
             <TextView
                 android:id="@+id/all_view"
@@ -43,22 +43,23 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never" />
 
         <LinearLayout
             android:id="@+id/gap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/bg_background"/>
+                android:background="@color/bg_background" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
-                android:background="@color/back_line"/>
+                android:background="@color/back_line" />
         </LinearLayout>
     </LinearLayout>
 </layout>

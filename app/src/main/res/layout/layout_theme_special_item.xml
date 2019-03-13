@@ -16,7 +16,7 @@
         android:layout_margin="1dp"
         android:scaleType="centerCrop"
         app:riv_corner_radius_top_left="2dp"
-        app:riv_corner_radius_top_right="2dp"/>
+        app:riv_corner_radius_top_right="2dp" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="1dp"
         android:textSize="15dp"
         android:textColor="@color/blacktxt"
-        tools:text="제주 인기 호텔"/>
+        tools:text="제주 인기 호텔" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -42,6 +42,6 @@
         android:layout_marginRight="1dp"
         android:layout_marginBottom="16dp"
         android:textColor="@color/graytxt"
-        tools:text="언제가도 아름다운 섬, 제주도로 떠나자!"/>
+        tools:text="언제가도 아름다운 섬, 제주도로 떠나자!" />
 
 </LinearLayout>

@@ -23,7 +23,7 @@
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:text=""
-            android:textColor="@color/purple"/>
+            android:textColor="@color/purple" />
 
         <LinearLayout
             android:id="@+id/layout_button"
@@ -34,7 +34,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/ok"
@@ -46,7 +46,7 @@
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 android:background="@drawable/purple_2round"
-                style="?android:attr/borderlessButtonStyle"/>
+                style="?android:attr/borderlessButtonStyle" />
 
         </LinearLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_marginRight="10dp"
                     android:textSize="15dp"
                     android:text=""
-                    android:textColor="@color/termtext"/>
+                    android:textColor="@color/termtext" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

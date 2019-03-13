@@ -4,18 +4,22 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
     <TextView
         android:id="@+id/hid"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+
     <TextView
         android:id="@+id/sdate"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+
     <TextView
         android:id="@+id/edate"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="160dp">
@@ -23,12 +27,13 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@drawable/img_holder"/>
+            android:background="@drawable/img_holder" />
+
         <ImageView
             android:id="@+id/iv_img"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/iv_favorite"
@@ -38,7 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="8dp"
             android:layout_marginRight="13dp"
-            android:background="@drawable/ico_titbar_favorite_active"/>
+            android:background="@drawable/ico_titbar_favorite_active" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,14 +56,14 @@
                 android:id="@+id/ico_private"
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/tag_privatedeal"/>
+                android:background="@drawable/tag_privatedeal" />
 
             <ImageView
                 android:id="@+id/ico_hotdeal"
                 android:layout_width="56dp"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/ico_private"
-                android:background="@drawable/tag_hotdeal"/>
+                android:background="@drawable/tag_hotdeal" />
         </LinearLayout>
 
         <TextView
@@ -77,10 +82,10 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:paddingLeft="7dp"
-            android:paddingRight="7dp"/>
+            android:paddingRight="7dp" />
     </RelativeLayout>
 
-    
+
     <RelativeLayout
         android:id="@+id/hotel_info1"
         android:layout_width="match_parent"
@@ -89,7 +94,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp">
-        
+
         <ImageView
             android:id="@+id/ico_star"
             android:layout_width="10dp"
@@ -97,7 +102,7 @@
             android:background="@drawable/ico_starpoint_press"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_rate"
@@ -108,7 +113,7 @@
             android:layout_toRightOf="@+id/ico_star"
             android:layout_centerVertical="true"
             android:layout_marginLeft="2dp"
-            tools:text="4.6"/>
+            tools:text="4.6" />
 
         <View
             android:id="@+id/v_bar"
@@ -118,7 +123,7 @@
             android:layout_toRightOf="@+id/tv_rate"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/category"
@@ -128,7 +133,7 @@
             android:layout_toRightOf="@+id/v_bar"
             android:textSize="12dp"
             android:layout_centerVertical="true"
-            tools:text="특2급"/>
+            tools:text="특2급" />
 
         <TextView
             android:id="@+id/tv_nearlocation"
@@ -153,7 +158,7 @@
         android:ellipsize="end"
         android:layout_below="@+id/hotel_info1"
         android:textSize="17dp"
-        tools:text="l7 홍대 바이 롯데"/>
+        tools:text="l7 홍대 바이 롯데" />
 
     <RelativeLayout
         android:id="@+id/hotel_info2"
@@ -236,7 +241,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/tag_discount"
                 android:layout_marginLeft="4dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/soon_point"
@@ -273,7 +278,7 @@
             android:textColor="@color/purple"
             android:maxLines="2"
             android:ellipsize="end"
-            tools:text="선착순 5천원 할인쿠폰 프로모션 진행 중! (9/10~9/23 예약기간 내 재발급 가능)"/>
+            tools:text="선착순 5천원 할인쿠폰 프로모션 진행 중! (9/10~9/23 예약기간 내 재발급 가능)" />
     </LinearLayout>
 
     <LinearLayout
@@ -287,9 +292,10 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/bg_background" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="7dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
     </LinearLayout>
 </LinearLayout>

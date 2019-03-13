@@ -66,8 +66,7 @@
             android:dividerHeight="0dp"
             android:background="@color/white"
             android:divider="#000000"
-            android:fadeScrollbars="true">
-        </ListView>
+            android:fadeScrollbars="true"></ListView>
     </LinearLayout>
 
     <RelativeLayout
@@ -83,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </RelativeLayout>

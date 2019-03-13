@@ -24,7 +24,7 @@
         android:paddingRight="8dp"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="16dp"
-        tools:text=" 3/10 "/>
+        tools:text=" 3/10 " />
 
     <LinearLayout
         android:id="@+id/gap"
@@ -32,15 +32,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/bg_background"/>
+            android:background="@color/bg_background" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="7dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
     </LinearLayout>
 
 </RelativeLayout>

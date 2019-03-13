@@ -50,7 +50,7 @@
             android:textColor="@color/termtext"
             android:layout_marginRight="10dp"
             android:textSize="16dp"
-            android:text="숙소"/>
+            android:text="숙소" />
 
         <View
             android:layout_width="match_parent"
@@ -84,12 +84,14 @@
             android:visibility="visible"
             android:gravity="center"
             android:background="@drawable/filter_bg">
+
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="16dp"
                 android:background="@drawable/ico_filter"
                 android:layout_marginLeft="17dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,7 +100,7 @@
                 android:textColor="@color/termtext"
                 android:layout_marginRight="17dp"
                 android:clickable="false"
-                android:text="@string/filter_title"/>
+                android:text="@string/filter_title" />
         </LinearLayout>
 
         <LinearLayout
@@ -115,7 +117,7 @@
                 android:gravity="center"
                 tools:text="1"
                 android:textSize="13dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -129,7 +131,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="26dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle" />
 
 
     <RelativeLayout
@@ -154,7 +156,7 @@
                 android:layout_height="24dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <TextView
                 android:id="@+id/tv_toast"
@@ -163,7 +165,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
-                tools:text="관심 상품 담기 성공"/>
+                tools:text="관심 상품 담기 성공" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -180,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </RelativeLayout>

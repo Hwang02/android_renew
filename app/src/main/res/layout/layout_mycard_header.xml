@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/card_save"
                 android:textSize="17dp"
-                android:textColor="@color/blacktxt"/>
+                android:textColor="@color/blacktxt" />
         </LinearLayout>
 
         <RelativeLayout
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="40dp"
                     android:textColor="@color/white"
-                    tools:text="3"/>
+                    tools:text="3" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                     android:textColor="@color/white"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="8dp"
-                    android:text="장"/>
+                    android:text="장" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -81,7 +81,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/bg_background"/>
+            android:background="@color/bg_background" />
 
         <TextView
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:text="@string/card_subtitle"
             android:gravity="center_vertical"
             android:textColor="@color/purple"
-            android:background="@color/footerview"/>
+            android:background="@color/footerview" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,12 +99,12 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="@string/card_submassege"
-               android:textSize="13dp"
-               android:textColor="@color/termtext" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/card_submassege"
+                android:textSize="13dp"
+                android:textColor="@color/termtext" />
 
             <RelativeLayout
                 android:id="@+id/card_add"
@@ -118,12 +118,13 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:scaleType="fitXY"
                         android:layout_gravity="center"
-                        android:background="@drawable/ico_addcard"/>
+                        android:background="@drawable/ico_addcard" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -132,7 +133,7 @@
                         android:gravity="center"
                         android:layout_marginTop="9dp"
                         android:textColor="@color/detail_more_color"
-                        android:text="결제카드 등록하기"/>
+                        android:text="결제카드 등록하기" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -143,7 +144,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
 
     <TextView
         android:layout_width="match_parent"
@@ -153,5 +154,5 @@
         android:text="@string/card_subtitle2"
         android:gravity="center_vertical"
         android:textColor="@color/purple"
-        android:background="@color/footerview"/>
+        android:background="@color/footerview" />
 </LinearLayout>

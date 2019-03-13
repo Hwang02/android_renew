@@ -26,7 +26,7 @@
                 android:layout_alignParentRight="true"
                 android:imeOptions="actionDone"
                 android:text="취소"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/et_search"
@@ -45,7 +45,7 @@
                 android:imeOptions="actionSearch"
                 android:drawableLeft="@drawable/search_icon"
                 android:drawableRight="@drawable/delete_icon"
-                android:layout_toLeftOf="@id/search_cancel"/>
+                android:layout_toLeftOf="@id/search_cancel" />
 
             <LinearLayout
                 android:id="@+id/lv_location"
@@ -69,7 +69,7 @@
                     android:text="@string/search_location_go"
                     android:textColor="@color/purple"
                     android:layout_marginLeft="6dp"
-                    android:textSize="13dp"/>
+                    android:textSize="13dp" />
             </LinearLayout>
 
             <TextView
@@ -84,7 +84,7 @@
                 android:textColor="@color/termtext"
                 android:layout_marginLeft="6dp"
                 android:visibility="gone"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -94,11 +94,13 @@
         android:overScrollMode="never"
         android:layout_below="@+id/search_box"
         android:fillViewport="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/search_box"
             android:background="@color/white">
+
             <RelativeLayout
                 android:id="@+id/ll_before"
                 android:layout_width="match_parent"
@@ -106,7 +108,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="26dp">
-    <!--최근 감섹아 -->
+                <!--최근 감섹아 -->
                 <LinearLayout
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
@@ -124,14 +126,14 @@
                             android:layout_height="wrap_content"
                             android:textSize="13dp"
                             android:textColor="@color/gray_line"
-                            android:text="@string/all_clear"/>
+                            android:text="@string/all_clear" />
 
                         <ImageView
                             android:layout_width="14dp"
                             android:layout_height="14dp"
                             android:scaleType="fitXY"
                             android:layout_marginTop="2dp"
-                            android:background="@drawable/ico_delete_txt"/>
+                            android:background="@drawable/ico_delete_txt" />
                     </LinearLayout>
 
                     <View
@@ -139,7 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="@color/bg_background"/>
+                        android:background="@color/bg_background" />
 
                 </LinearLayout>
 
@@ -149,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search_recent_title"
                     android:textColor="@color/blacktxt"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
 
                 <LinearLayout
                     android:id="@+id/recent_list"
@@ -157,8 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_recent_title"
                     android:orientation="vertical"
-                    android:layout_marginTop="17dp">
-                </LinearLayout>
+                    android:layout_marginTop="17dp"></LinearLayout>
 
                 <View
                     android:id="@+id/underline"
@@ -166,10 +167,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/back_line"/>
-    <!--최근 감섹아 end-->
+                    android:background="@color/back_line" />
+                <!--최근 감섹아 end-->
 
-    <!--인기 여행지-->
+                <!--인기 여행지-->
                 <TextView
                     android:id="@+id/tv_popular_title"
                     android:layout_width="wrap_content"
@@ -178,7 +179,7 @@
                     android:text="@string/search_popular_title"
                     android:textColor="@color/blacktxt"
                     android:textSize="16dp"
-                    android:layout_below="@id/underline"/>
+                    android:layout_below="@id/underline" />
 
                 <LinearLayout
                     android:id="@+id/ll_popular"
@@ -187,10 +188,9 @@
                     android:orientation="vertical"
                     android:layout_below="@id/tv_popular_title"
                     android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp" >
+                    android:layout_marginBottom="27dp">
 
-                    <com.hotelnow.utils.FlowLayout
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <com.hotelnow.utils.FlowLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/popular_keyword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
                         app:flowDirection="leftToRight"
                         app:lineSpacing="10dp"
                         app:paddingStart="20dp"
-                        app:paddingEnd="20dp"/>
+                        app:paddingEnd="20dp" />
 
                 </LinearLayout>
 
@@ -208,10 +208,10 @@
                     android:layout_below="@id/ll_popular"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/back_line"/>
-    <!--인기 여행지 end-->
+                    android:background="@color/back_line" />
+                <!--인기 여행지 end-->
 
-    <!--추천숙소 액티비티 -->
+                <!--추천숙소 액티비티 -->
                 <TextView
                     android:id="@+id/tv_hq_title"
                     android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                     android:text="@string/search_hotel_activity"
                     android:textColor="@color/blacktxt"
                     android:textSize="16dp"
-                    android:layout_below="@id/underline2"/>
+                    android:layout_below="@id/underline2" />
 
                 <LinearLayout
                     android:id="@+id/hq_list"
@@ -229,8 +229,7 @@
                     android:orientation="vertical"
                     android:layout_below="@id/tv_hq_title"
                     android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp" >
-                </LinearLayout>
+                    android:layout_marginBottom="27dp"></LinearLayout>
                 <!--추천숙소 액티비티 end-->
             </RelativeLayout>
 
@@ -259,8 +258,7 @@
                     android:orientation="vertical"
                     android:layout_below="@id/tv_hotel_title"
                     android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp">
-                </LinearLayout>
+                    android:layout_marginBottom="27dp"></LinearLayout>
                 <!--호텔 리스트 end-->
                 <View
                     android:id="@+id/underline3"
@@ -268,7 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/back_line"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
                 <!--호텔 리스트 -->
                 <TextView
@@ -288,8 +286,7 @@
                     android:orientation="vertical"
                     android:layout_below="@id/tv_activity_title"
                     android:layout_marginTop="21dp"
-                    android:layout_marginBottom="27dp">
-                </LinearLayout>
+                    android:layout_marginBottom="27dp"></LinearLayout>
                 <!--호텔 리스트 end-->
             </RelativeLayout>
         </RelativeLayout>
@@ -308,6 +305,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
     </RelativeLayout>
 </RelativeLayout>

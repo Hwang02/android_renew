@@ -16,12 +16,13 @@
             android:layout_height="54dp"
             android:layout_marginLeft="12dp"
             android:layout_centerVertical="true">
+
             <ImageView
                 android:id="@+id/icon_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/ico_titbar_back"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
         </LinearLayout>
 
         <TextView
@@ -39,7 +40,7 @@
             android:layout_toLeftOf="@+id/bt_calendar"
             android:gravity="left|center"
             android:ellipsize="end" />
-        
+
         <RelativeLayout
             android:id="@+id/bt_calendar"
             android:layout_width="140dp"
@@ -49,7 +50,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/style_edittext_gray_2border"
             android:layout_alignParentRight="true">
-            
+
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="14dp"
@@ -58,7 +59,7 @@
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/ico_input_calendar2"
                 android:layout_alignParentLeft="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/icon1"
@@ -68,7 +69,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/btn_detail_open"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/date"
@@ -82,14 +83,14 @@
                 tools:text="9/21 - 9/22"
                 android:maxLines="1"
                 android:textSize="13dp"
-                android:ellipsize="end"/>
+                android:ellipsize="end" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/bg_background"
-            android:layout_below="@id/tv_title_hotel"/>
+            android:layout_below="@id/tv_title_hotel" />
     </RelativeLayout>
 
     <ScrollView
@@ -112,7 +113,7 @@
                 tools:text="총 12개의 객실이 있습니다."
                 android:gravity="center_vertical"
                 android:textColor="@color/detail_more_color"
-                android:background="@color/footerview"/>
+                android:background="@color/footerview" />
 
             <LinearLayout
                 android:id="@+id/room_list"

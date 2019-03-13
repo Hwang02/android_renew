@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:id="@+id/facility_icon"
             android:scaleType="fitXY"
-            tools:background="@drawable/facility_0"/>
+            tools:background="@drawable/facility_0" />
 
     </LinearLayout>
 
@@ -30,6 +30,6 @@
         android:layout_gravity="center_horizontal"
         android:textSize="12dp"
         android:id="@+id/facility_title"
-        tools:text="xxxxx"/>
+        tools:text="xxxxx" />
 
 </LinearLayout>

@@ -60,7 +60,7 @@
             android:layout_alignParentTop="true"
             android:text=""
             android:layout_marginTop="20dp"
-            android:textColor="@color/purple"/>
+            android:textColor="@color/purple" />
 
         <ScrollView
             android:layout_above="@id/layout_btn"
@@ -83,7 +83,7 @@
                 android:paddingRight="10dp"
                 android:textSize="14dp"
                 android:text=""
-                android:textColor="@color/termtext"/>
+                android:textColor="@color/termtext" />
         </ScrollView>
     </RelativeLayout>
 </LinearLayout>

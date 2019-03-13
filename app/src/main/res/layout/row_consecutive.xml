@@ -1,5 +1,4 @@
-<TableRow
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/consecutive_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +14,7 @@
         android:layout_weight="1"
         android:textColor="@color/termtext"
         android:text="1.13(수)"
-        style="@android:style/TextAppearance.Small"/>
+        style="@android:style/TextAppearance.Small" />
 
     <TextView
         android:id="@+id/price"
@@ -25,7 +24,7 @@
         android:layout_weight="1"
         android:text="66,900원"
         android:textColor="@color/termtext"
-        style="@android:style/TextAppearance.Small"/>
+        style="@android:style/TextAppearance.Small" />
 
     <TextView
         android:id="@+id/breakfast"
@@ -35,5 +34,5 @@
         android:layout_weight="1"
         android:text="불포함"
         android:textColor="@color/termtext"
-        style="@android:style/TextAppearance.Small"/>
+        style="@android:style/TextAppearance.Small" />
 </TableRow>

@@ -19,5 +19,5 @@
         android:textSize="14dp"
         android:layout_marginLeft="6dp"
         android:textColor="@color/hotdealview"
-        tools:text="총 10개의 객실 전체보기"/>
+        tools:text="총 10개의 객실 전체보기" />
 </LinearLayout>

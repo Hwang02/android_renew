@@ -52,7 +52,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
                 android:background="@drawable/ico_pay_card"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_paytype1"
@@ -80,7 +80,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
                 android:background="@drawable/ico_pay_payco"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_paytype5"
@@ -129,7 +129,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
                 android:background="@drawable/ico_pay_account"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_paytype4"
@@ -157,7 +157,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
                 android:background="@drawable/ico_pay_phone"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_paytype2"
@@ -195,7 +195,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="31dp"
                 android:background="@drawable/ico_pay_ars"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_paytype3"
@@ -215,7 +215,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:background="@drawable/style_edittext_gray_border"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </LinearLayout>
 
     <LinearLayout
@@ -236,6 +236,6 @@
             android:layout_height="wrap_content"
             android:textSize="13dp"
             android:textColor="@color/graytxt"
-            android:text="@string/paytype3_info_message"/>
+            android:text="@string/paytype3_info_message" />
     </LinearLayout>
 </LinearLayout>

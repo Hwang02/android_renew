@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/footerview"
         android:orientation="vertical">
-    
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="37dp"
@@ -40,7 +40,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="17dp"
         android:visibility="gone"
-        android:text="@string/activity_info"/>
+        android:text="@string/activity_info" />
 
     <LinearLayout
         android:id="@+id/layout_user"
@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -64,7 +64,7 @@
                 android:layout_weight=".2"
                 android:text="@string/name"
                 android:textColor="@color/blacktxt"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <EditText
                 android:id="@+id/username"
@@ -78,7 +78,7 @@
                 android:background="@drawable/style_edittext_gray_border_gray_2bg"
                 android:textColor="@color/termtext"
                 android:textSize="14dp"
-                tools:text="김나우"/>
+                tools:text="김나우" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -95,7 +95,7 @@
                 android:layout_weight=".2"
                 android:text="@string/email"
                 android:textColor="@color/blacktxt"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <EditText
                 android:id="@+id/useremail"
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -124,14 +124,14 @@
                 android:layout_gravity="left|center_vertical"
                 android:text="@string/contects"
                 android:textColor="@color/blacktxt"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".6"
                 android:layout_gravity="right|center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/pnum1"
@@ -160,7 +160,7 @@
                     android:textSize="14dp"
                     android:background="@drawable/style_edittext_gray_border_gray_2bg"
                     android:nextFocusDown="@+id/pnum3"
-                    tools:text="6210"/>
+                    tools:text="6210" />
 
                 <EditText
                     android:id="@+id/pnum3"
@@ -178,9 +178,10 @@
                     android:textSize="14dp"
                     android:background="@drawable/style_edittext_gray_border_gray_2bg"
                     android:nextFocusDown="@+id/useremail"
-                    tools:text="6210"/>
+                    tools:text="6210" />
             </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:id="@+id/tv_auth_change"
             android:layout_width="wrap_content"
@@ -189,7 +190,7 @@
             android:layout_gravity="right"
             android:layout_marginTop="12dp"
             android:textColor="@color/purple"
-            android:text="@string/phone_change"/>
+            android:text="@string/phone_change" />
     </LinearLayout>
     <!-- 이름, 연락처 비회원 및 인증 안한회원-->
 
@@ -212,6 +213,7 @@
                 android:layout_width="126dp"
                 android:layout_height="38dp"
                 android:layout_centerInParent="true">
+
                 <EditText
                     android:id="@+id/auth_string"
                     android:layout_width="126dp"
@@ -224,7 +226,7 @@
                     android:paddingLeft="3dp"
                     android:textSize="12dp"
                     android:background="@drawable/style_edittext_gray_border_gray_2bg"
-                    android:textColor="@color/blacktxt"/>
+                    android:textColor="@color/blacktxt" />
 
                 <TextView
                     android:id="@+id/auth_count"
@@ -239,7 +241,7 @@
                     android:layout_marginTop="8dp"
                     android:textSize="12dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="#FF0000"/>
+                    android:textColor="#FF0000" />
             </RelativeLayout>
 
             <TextView
@@ -252,7 +254,7 @@
                 android:textSize="12dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/purple_2round"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/auth_ok"
@@ -264,7 +266,7 @@
                 android:layout_marginLeft="10dp"
                 android:textSize="14dp"
                 android:background="@drawable/style_edittext_gray_2border"
-                android:textColor="@color/coupon_dis"/>
+                android:textColor="@color/coupon_dis" />
         </RelativeLayout>
 
         <TextView
@@ -292,7 +294,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
 
         <CheckBox
             android:id="@+id/other_checkbox"
@@ -313,12 +315,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-        android:padding="15dp" >
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -327,7 +329,7 @@
                 android:layout_weight=".2"
                 android:text="방문자명"
                 android:textColor="@color/blacktxt"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <EditText
                 android:id="@+id/other_username"
@@ -348,7 +350,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
@@ -357,14 +359,14 @@
                 android:layout_gravity="left|center_vertical"
                 android:text="@string/contects"
                 android:textColor="@color/blacktxt"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".6"
                 android:layout_gravity="right|center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/other_pnum1"
@@ -408,7 +410,7 @@
                     android:textColor="@color/blacktxt"
                     android:textSize="14dp"
                     android:background="@drawable/style_edittext_gray_2border"
-                    android:nextFocusDown="@+id/useremail"/>
+                    android:nextFocusDown="@+id/useremail" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -21,7 +21,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="20dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle" />
 
     <RelativeLayout
         android:id="@+id/wrapper"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </RelativeLayout>

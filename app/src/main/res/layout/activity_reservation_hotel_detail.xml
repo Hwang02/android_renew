@@ -32,7 +32,7 @@
                     android:layout_height="24dp"
                     android:background="@drawable/ico_titbar_back"
                     android:layout_gravity="center"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
             </LinearLayout>
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -92,7 +92,7 @@
                     android:textSize="16dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    tools:text="l7 홍대 바이 롯데"/>
+                    tools:text="l7 홍대 바이 롯데" />
 
                 <TextView
                     android:id="@+id/hotel_room_name"
@@ -105,7 +105,7 @@
                     android:textSize="14dp"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    tools:text="[단독] 에디터 룸(1 킹 베드) + 목테일 2잔(취소불가)"/>
+                    tools:text="[단독] 에디터 룸(1 킹 베드) + 목테일 2잔(취소불가)" />
             </LinearLayout>
 
             <RelativeLayout
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
                     android:scaleType="fitXY"
-                    android:background="@color/holder_c"/>
+                    android:background="@color/holder_c" />
 
                 <TextView
                     android:id="@+id/booking_status"
@@ -133,7 +133,7 @@
                     android:textSize="13dip"
                     android:textColor="@color/white"
                     android:padding="5dp"
-                    android:background="@drawable/bg_round_status_book"/>
+                    android:background="@drawable/bg_round_status_book" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -152,7 +152,7 @@
                     android:text="-"
                     android:layout_centerInParent="true"
                     android:textColor="@color/blacktxt"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/detail_checkin_title"
                         android:textColor="@color/star_txt"
-                        android:textSize="13dp"/>
+                        android:textSize="13dp" />
 
                     <TextView
                         android:id="@+id/tv_checkin_day"
@@ -174,7 +174,7 @@
                         android:layout_height="wrap_content"
                         tools:text="2018년 8월 31일(금)"
                         android:textColor="@color/blacktxt"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/tv_checkin_time"
@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         tools:text="14:00"
                         android:textColor="@color/blacktxt"
-                        android:textSize="14dp"/>
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/detail_checkout_title"
                         android:textColor="@color/star_txt"
-                        android:textSize="13dp"/>
+                        android:textSize="13dp" />
 
                     <TextView
                         android:id="@+id/tv_checkout_day"
@@ -206,7 +206,7 @@
                         android:layout_height="wrap_content"
                         tools:text="2018년 9월 01일(토)"
                         android:textColor="@color/blacktxt"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/tv_checkout_time"
@@ -214,7 +214,7 @@
                         android:layout_height="wrap_content"
                         tools:text="12:00"
                         android:textColor="@color/blacktxt"
-                        android:textSize="14dp"/>
+                        android:textSize="14dp" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -239,7 +239,7 @@
                     android:textSize="14dp"
                     android:visibility="gone"
                     android:layout_marginBottom="25dp"
-                    style="?android:attr/borderlessButtonStyle"/>
+                    style="?android:attr/borderlessButtonStyle" />
 
                 <TextView
                     android:id="@+id/not_user_reserid"
@@ -252,7 +252,7 @@
                     android:textColor="@color/purple"
                     android:gravity="center"
                     android:textSize="15dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/not_user_info"
@@ -265,7 +265,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -279,10 +279,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/bg_background" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="7dp"
-                    android:background="@color/back_line"/>
+                    android:background="@color/back_line" />
             </LinearLayout>
 
             <LinearLayout
@@ -307,6 +308,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/purple" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -332,7 +334,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -360,7 +362,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <View
@@ -373,6 +375,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/footerview">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
@@ -409,7 +412,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="358,000원"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -438,7 +441,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -467,7 +470,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -496,7 +499,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/redtext"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <View
@@ -505,7 +508,7 @@
                     android:layout_marginTop="14dp"
                     android:background="@color/back_line"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp" />
 
                 <LinearLayout
                     android:id="@+id/ll_total"
@@ -534,7 +537,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/blacktxt"
                         tools:text="329,000원"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
 
@@ -562,7 +565,7 @@
                             android:layout_weight="1"
                             android:textColor="@color/graytxt"
                             android:text="날짜"
-                            style="@android:style/TextAppearance.Small"/>
+                            style="@android:style/TextAppearance.Small" />
 
                         <TextView
                             android:id="@+id/price"
@@ -572,7 +575,7 @@
                             android:layout_weight="1"
                             android:text="판매가"
                             android:textColor="@color/graytxt"
-                            style="@android:style/TextAppearance.Small"/>
+                            style="@android:style/TextAppearance.Small" />
 
                         <TextView
                             android:id="@+id/breakfast"
@@ -582,7 +585,7 @@
                             android:layout_weight="1"
                             android:text="조식"
                             android:textColor="@color/graytxt"
-                            style="@android:style/TextAppearance.Small"/>
+                            style="@android:style/TextAppearance.Small" />
                     </TableRow>
                 </TableLayout>
 
@@ -596,6 +599,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/footerview">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
@@ -632,7 +636,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -662,7 +666,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -692,7 +696,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -722,7 +726,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -752,7 +756,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -782,7 +786,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -812,7 +816,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -842,7 +846,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -872,7 +876,7 @@
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         tools:text="김나우"
-                        android:gravity="right"/>
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -886,10 +890,12 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="18dp"
                         android:background="@color/bg_background" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/footerview">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="37dp"
@@ -927,7 +933,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/blacktxt"
                             tools:text="김나우"
-                            android:gravity="right"/>
+                            android:gravity="right" />
                     </LinearLayout>
 
                     <TextView
@@ -941,7 +947,7 @@
                         android:gravity="right"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
 
                 <View
@@ -954,6 +960,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/footerview">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
@@ -986,11 +993,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/bg_background" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="7dp"
                     android:background="@color/back_line" />
-                
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="94dp"
@@ -1009,7 +1017,8 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="5dp"
                         android:text="예약 내역 삭제"
-                        style="?android:attr/borderlessButtonStyle"/>
+                        style="?android:attr/borderlessButtonStyle" />
+
                     <Button
                         android:id="@+id/booking_receipt"
                         android:layout_width="match_parent"
@@ -1021,7 +1030,7 @@
                         android:layout_marginRight="20dp"
                         android:background="@drawable/receipt_round"
                         android:text="영수증 신청"
-                        style="?android:attr/borderlessButtonStyle"/>
+                        style="?android:attr/borderlessButtonStyle" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -1040,6 +1049,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
     </RelativeLayout>
 </RelativeLayout>

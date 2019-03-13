@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="main" type="com.hotelnow.activity.MainActivity"/>
+
+        <variable
+            name="main"
+            type="com.hotelnow.activity.MainActivity" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/myCoordinator"
+    <android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinator"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@drawable/style_top_bar"
-                app:layout_scrollFlags="scroll|enterAlways" >
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <include
                     android:id="@+id/layout_search"
@@ -51,7 +53,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/back_line"/>
+                android:background="@color/back_line" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -61,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:background="@color/footerview"/>
+            android:background="@color/footerview" />
 
         <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
             android:id="@+id/navigation"
@@ -72,7 +74,7 @@
             app:itemTextColor="@color/select_state_button"
             app:itemIconTint="@color/select_state_button"
             app:menu="@menu/nav_items"
-            app:layout_behavior="com.hotelnow.utils.BottomNavigationBehavior"/>
+            app:layout_behavior="com.hotelnow.utils.BottomNavigationBehavior" />
 
         <RelativeLayout
             android:id="@+id/wrapper"
@@ -88,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:indicator="BallPulse"
-                app:indicator_color="@color/purple"/>
+                app:indicator_color="@color/purple" />
 
         </RelativeLayout>
 
@@ -113,7 +115,7 @@
                     android:layout_height="24dp"
                     android:scaleType="fitXY"
                     android:visibility="gone"
-                    android:background="@drawable/ico_titbar_favorite_active"/>
+                    android:background="@drawable/ico_titbar_favorite_active" />
 
                 <TextView
                     android:id="@+id/tv_toast"
@@ -122,7 +124,7 @@
                     android:textSize="14dp"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/white"
-                    tools:text="관심 상품 담기 성공"/>
+                    tools:text="관심 상품 담기 성공" />
             </LinearLayout>
         </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>

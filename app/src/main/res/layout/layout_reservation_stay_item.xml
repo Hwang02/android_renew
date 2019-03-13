@@ -9,12 +9,13 @@
         android:id="@+id/hid"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+
     <ImageView
         android:id="@+id/iv_img"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:scaleType="centerCrop"
-        android:background="@color/holder_c"/>
+        android:background="@color/holder_c" />
 
     <TextView
         android:id="@+id/booking_status"
@@ -27,7 +28,7 @@
         android:textSize="13dip"
         android:textColor="@color/white"
         android:padding="5dp"
-        android:background="@drawable/bg_round_status_book"/>
+        android:background="@drawable/bg_round_status_book" />
 
     <LinearLayout
         android:id="@+id/info1"
@@ -47,7 +48,7 @@
             android:textSize="16dp"
             android:maxLines="1"
             android:ellipsize="end"
-            tools:text="l7 홍대 바이 롯데"/>
+            tools:text="l7 홍대 바이 롯데" />
 
         <TextView
             android:id="@+id/hotel_room_name"
@@ -60,7 +61,7 @@
             android:textSize="14dp"
             android:maxLines="1"
             android:ellipsize="end"
-            tools:text="[단독] 에디터 룸(1 킹 베드) + 목테일 2잔(취소불가)"/>
+            tools:text="[단독] 에디터 룸(1 킹 베드) + 목테일 2잔(취소불가)" />
 
         <TextView
             android:id="@+id/hotel_reser_date"
@@ -73,7 +74,7 @@
             android:textSize="14dp"
             android:maxLines="1"
             android:ellipsize="end"
-            tools:text="2018-10-20(화) ~ 2018-10-21(수)"/>
+            tools:text="2018-10-20(화) ~ 2018-10-21(수)" />
 
         <LinearLayout
             android:id="@+id/btn_review"
@@ -93,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/hotdealview"
-                android:text="@string/info_review"/>
+                android:text="@string/info_review" />
 
             <TextView
                 android:id="@+id/review_text2"
@@ -102,7 +103,7 @@
                 android:textSize="12dp"
                 android:layout_marginLeft="6dp"
                 android:textColor="@color/graytxt"
-                android:text="@string/info_review2"/>
+                android:text="@string/info_review2" />
 
         </LinearLayout>
     </LinearLayout>
@@ -118,9 +119,10 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/bg_background" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="7dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
     </LinearLayout>
 </RelativeLayout>

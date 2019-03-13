@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textSize="14dp"
         android:textColor="@color/blacktxt"
-        tools:text="확인사항"/>
+        tools:text="확인사항" />
 
     <TextView
         android:id="@+id/tv_hotel_check_message"
@@ -32,6 +32,6 @@
 ㆍ 디파짓 제도(현금 및 카드)
 ㆍ 무료 주차
 ㆍ 무료 Wi-Fi
-ㆍ 모든 추가비용 현장결제"/>
+ㆍ 모든 추가비용 현장결제" />
 
 </LinearLayout>

@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,13 +12,14 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
+
         <TextView
             android:id="@+id/tv_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/termtext"
             android:textSize="14dp"
-            tools:text="리조트"/>
+            tools:text="리조트" />
 
         <TextView
             android:id="@+id/tv_hotelname"
@@ -28,7 +30,7 @@
             android:layout_marginTop="2dp"
             android:maxLines="2"
             android:ellipsize="end"
-            tools:text="노보텔 앰배서더 서울 용산 호텔입니다"/>
+            tools:text="노보텔 앰배서더 서울 용산 호텔입니다" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,7 +52,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/blacktxt"
-                    tools:text="205,700"/>
+                    tools:text="205,700" />
 
                 <TextView
                     android:id="@+id/tv_minwon"
@@ -58,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
                     android:textColor="@color/blacktxt"
-                    android:text="원~"/>
+                    android:text="원~" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
                     android:textColor="@color/star_txt"
-                    tools:text="220,000원"/>
+                    tools:text="220,000원" />
 
                 <TextView
                     android:id="@+id/tv_per"
@@ -84,14 +86,14 @@
                     android:textSize="18dp"
                     android:layout_marginLeft="3dp"
                     android:textColor="@color/redtext"
-                    tools:text="48"/>
+                    tools:text="48" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:textColor="@color/redtext"
-                    android:text="%↓"/>
+                    android:text="%↓" />
             </LinearLayout>
 
             <TextView
@@ -165,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textColor="@color/purple"
-                tools:text="3.5"/>
+                tools:text="3.5" />
 
             <LinearLayout
                 android:id="@+id/ll_review_star"
@@ -181,7 +183,7 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:scaleType="fitXY"
-                    tools:background="@drawable/ico_starpoint_press"/>
+                    tools:background="@drawable/ico_starpoint_press" />
 
                 <ImageView
                     android:id="@+id/sc_star2"
@@ -189,7 +191,7 @@
                     android:layout_height="12dp"
                     android:layout_marginLeft="2dp"
                     android:scaleType="fitXY"
-                    tools:background="@drawable/ico_starpoint_press"/>
+                    tools:background="@drawable/ico_starpoint_press" />
 
                 <ImageView
                     android:id="@+id/sc_star3"
@@ -197,7 +199,7 @@
                     android:layout_height="12dp"
                     android:layout_marginLeft="2dp"
                     android:scaleType="fitXY"
-                    tools:background="@drawable/ico_starpoint_press"/>
+                    tools:background="@drawable/ico_starpoint_press" />
 
                 <ImageView
                     android:id="@+id/sc_star4"
@@ -205,7 +207,7 @@
                     android:layout_height="12dp"
                     android:layout_marginLeft="2dp"
                     android:scaleType="fitXY"
-                    tools:background="@drawable/ico_starpoint_half"/>
+                    tools:background="@drawable/ico_starpoint_half" />
 
                 <ImageView
                     android:id="@+id/sc_star5"
@@ -213,7 +215,7 @@
                     android:layout_height="12dp"
                     android:layout_marginLeft="2dp"
                     android:scaleType="fitXY"
-                    tools:background="@drawable/ico_starpoint_blank"/>
+                    tools:background="@drawable/ico_starpoint_blank" />
             </LinearLayout>
 
             <TextView
@@ -225,7 +227,7 @@
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/purple"
                 android:layout_toRightOf="@id/ll_review_star"
-                tools:text="아주 좋아요"/>
+                tools:text="아주 좋아요" />
 
             <LinearLayout
                 android:id="@+id/btn_more_review"
@@ -240,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12dp"
                     android:textColor="@color/termtext"
-                    android:text="@string/review_title"/>
+                    android:text="@string/review_title" />
 
                 <TextView
                     android:id="@+id/tv_review_count"
@@ -249,20 +251,21 @@
                     android:textSize="16dp"
                     android:layout_marginLeft="3dp"
                     android:textColor="@color/blacktxt"
-                    tools:text="135"/>
+                    tools:text="135" />
 
                 <ImageView
                     android:layout_width="8dp"
                     android:layout_height="8dp"
                     android:layout_marginLeft="4dp"
                     android:background="@drawable/ico_more_color"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="19dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
 </LinearLayout>

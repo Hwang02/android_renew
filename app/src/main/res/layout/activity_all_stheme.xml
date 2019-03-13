@@ -68,8 +68,7 @@
             android:background="@color/white"
             android:divider="#000000"
             android:overScrollMode="never"
-            android:fadeScrollbars="true">
-        </ListView>
+            android:fadeScrollbars="true"></ListView>
 
     </LinearLayout>
 
@@ -83,7 +82,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="22dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle" />
 
     <RelativeLayout
         android:id="@+id/wrapper"
@@ -98,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </RelativeLayout>

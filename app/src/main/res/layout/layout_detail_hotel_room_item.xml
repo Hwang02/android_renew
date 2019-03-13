@@ -8,12 +8,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/pid"/>
+        android:id="@+id/pid" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/rid"/>
+        android:id="@+id/rid" />
+
     <TextView
         android:id="@+id/tv_room_title"
         android:layout_width="match_parent"
@@ -59,15 +60,15 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:riv_corner_radius="2dp"
-            android:background="@color/holder_c"/>
-        
+            android:background="@color/holder_c" />
+
         <ImageView
             android:id="@+id/img_room_private"
             android:layout_width="53dp"
             android:layout_height="19dp"
             android:background="@drawable/tag_privatedeal_s"
             android:layout_alignParentBottom="true"
-            android:layout_marginLeft="6dp"/>
+            android:layout_marginLeft="6dp" />
 
         <RelativeLayout
             android:id="@+id/ll_room_detail_info"
@@ -89,7 +90,7 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/ico_room_bed"/>
+                    android:background="@drawable/ico_room_bed" />
 
                 <TextView
                     android:id="@+id/tv_detail1"
@@ -98,7 +99,7 @@
                     android:textColor="@color/termtext"
                     android:layout_marginLeft="7dp"
                     android:textSize="13dp"
-                    tools:text="27m² / 더블 침대 2개"/>
+                    tools:text="27m² / 더블 침대 2개" />
             </LinearLayout>
 
             <LinearLayout
@@ -114,7 +115,7 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/ico_room_people"/>
+                    android:background="@drawable/ico_room_people" />
 
                 <TextView
                     android:id="@+id/tv_detail2"
@@ -123,7 +124,7 @@
                     android:textColor="@color/termtext"
                     android:layout_marginLeft="7dp"
                     android:textSize="13dp"
-                    tools:text="기준 2인, 최대 2인"/>
+                    tools:text="기준 2인, 최대 2인" />
             </LinearLayout>
 
             <LinearLayout
@@ -139,7 +140,7 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:scaleType="fitXY"
-                    android:background="@drawable/ico_room_time"/>
+                    android:background="@drawable/ico_room_time" />
 
                 <TextView
                     android:id="@+id/tv_detail3"
@@ -148,7 +149,7 @@
                     android:layout_marginLeft="7dp"
                     android:textColor="@color/termtext"
                     android:textSize="13dp"
-                    tools:text="체크인 14:00, 체크아웃 12:00"/>
+                    tools:text="체크인 14:00, 체크아웃 12:00" />
             </LinearLayout>
 
             <RelativeLayout
@@ -166,7 +167,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="2dp"
                     android:layout_alignParentBottom="true"
-                    tools:text="48%↓"/>
+                    tools:text="48%↓" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -192,7 +193,7 @@
                         android:textColor="@color/blacktxt"
                         android:textSize="17dp"
                         android:textStyle="bold"
-                        tools:text="205,700"/>
+                        tools:text="205,700" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
@@ -217,12 +218,14 @@
             android:textSize="14dp"
             android:text="@string/btn_private"
             android:gravity="center"
-            android:background="@drawable/reservation_private_round"/>
+            android:background="@drawable/reservation_private_round" />
+
         <View
             android:id="@+id/line_private"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
+
         <TextView
             android:id="@+id/btn_reservation"
             android:layout_width="match_parent"
@@ -232,7 +235,7 @@
             android:textSize="14dp"
             android:text="@string/btn_reservation"
             android:gravity="center"
-            android:background="@drawable/reservation_round"/>
+            android:background="@drawable/reservation_round" />
     </LinearLayout>
 
     <RelativeLayout
@@ -246,7 +249,7 @@
         android:gravity="center_vertical"
         android:layout_below="@id/ll_reservation_btn"
         android:background="@color/footerview">
-        
+
         <ImageView
             android:id="@+id/icon_more"
             android:layout_width="14dp"
@@ -254,7 +257,7 @@
             android:scaleType="fitXY"
             android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/btn_detail_open"/>
+            android:background="@drawable/btn_detail_open" />
 
         <TextView
             android:id="@+id/room_detail_close"
@@ -264,7 +267,7 @@
             android:textColor="@color/detail_more_color"
             android:layout_marginRight="3dp"
             android:textSize="12dp"
-            android:text="@string/btn_more2"/>
+            android:text="@string/btn_more2" />
     </RelativeLayout>
 
     <View
@@ -274,7 +277,7 @@
         android:background="@color/bg_background"
         android:layout_alignParentRight="true"
         android:layout_below="@id/btn_more"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/more_view"
@@ -295,8 +298,7 @@
                 android:id="@+id/more_img_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal" >
-            </LinearLayout>
+                android:orientation="horizontal"></LinearLayout>
         </HorizontalScrollView>
 
         <com.luseen.autolinklibrary.AutoLinkTextView
@@ -308,7 +310,7 @@
             android:layout_marginRight="20dp"
             android:layout_below="@id/hscroll_img"
             android:textSize="14dp"
-            android:textColor="@color/termtext"/>
+            android:textColor="@color/termtext" />
 
         <LinearLayout
             android:id="@+id/btn_more_close"
@@ -326,14 +328,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/purple"
                 android:textSize="12dp"
-                android:text="@string/btn_close"/>
+                android:text="@string/btn_close" />
 
             <ImageView
                 android:id="@+id/more_icon"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_info_close"/>
+                android:background="@drawable/ico_info_close" />
         </LinearLayout>
 
         <View
@@ -344,7 +346,7 @@
             android:layout_marginTop="1dp"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="17dp"
-            android:layout_below="@id/btn_more_close"/>
+            android:layout_below="@id/btn_more_close" />
     </RelativeLayout>
 
     <LinearLayout
@@ -358,13 +360,13 @@
             android:layout_height="1dp"
             android:background="@color/bg_background"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/btn_more_close"/>
+            android:layout_below="@id/btn_more_close" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:background="@color/back_line"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/btn_more_close"/>
+            android:layout_below="@id/btn_more_close" />
     </LinearLayout>
 </RelativeLayout>

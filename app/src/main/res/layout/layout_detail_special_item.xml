@@ -13,7 +13,7 @@
         android:background="@drawable/ico_benefit_bullet"
         android:layout_gravity="top"
         android:layout_marginTop="3dp"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tv_special_title"
@@ -23,5 +23,5 @@
         android:textSize="14dp"
         android:gravity="top"
         tools:text="즉시할인 선착순 1만원 할인 쿠폰 제공\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-        android:textColor="@color/purple"/>
+        android:textColor="@color/purple" />
 </LinearLayout>

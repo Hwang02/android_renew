@@ -43,7 +43,7 @@
                 android:layout_toRightOf="@+id/title_back"
                 android:textColor="@color/purple"
                 android:textSize="16dp"
-                android:text="@string/filter_select_title"/>
+                android:text="@string/filter_select_title" />
 
             <View
                 android:layout_width="match_parent"

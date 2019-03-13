@@ -17,7 +17,7 @@
         android:gravity="left|center"
         android:maxLines="1"
         android:ellipsize="end"
-        tools:text="노보텔 앰배서더 서울 용산"/>
+        tools:text="노보텔 앰배서더 서울 용산" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -55,5 +55,5 @@
         android:layout_marginBottom="20dp">
 
     </LinearLayout>
-    
+
 </LinearLayout>

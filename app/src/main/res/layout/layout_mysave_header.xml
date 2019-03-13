@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/save_money_my_title"
                 android:textSize="17dp"
-                android:textColor="@color/blacktxt"/>
+                android:textColor="@color/blacktxt" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:textSize="14dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/blacktxt"
-                    tools:text="1,170원"/>
+                    tools:text="1,170원" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                     android:layout_marginRight="4dp"
                     android:textSize="14dp"
                     android:layout_toLeftOf="@id/disable_money"
-                    android:textColor="@color/graytxt"/>
+                    android:textColor="@color/graytxt" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="40dp"
                     android:textColor="@color/white"
-                    tools:text="12,740"/>
+                    tools:text="12,740" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,14 +89,15 @@
                     android:textColor="@color/white"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="8dp"
-                    android:text="원"/>
+                    android:text="원" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
 
     <TextView
         android:layout_width="match_parent"
@@ -106,5 +107,5 @@
         android:text="@string/save_subtitle"
         android:gravity="center_vertical"
         android:textColor="@color/purple"
-        android:background="@color/footerview"/>
+        android:background="@color/footerview" />
 </LinearLayout>

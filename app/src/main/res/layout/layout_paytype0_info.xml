@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="131dp"
     android:orientation="vertical"
@@ -16,7 +15,7 @@
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:background="@drawable/ico_notice"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +23,7 @@
             android:textSize="14dp"
             android:layout_marginLeft="5dp"
             android:textColor="@color/purple"
-            android:text="@string/paytype0_info_title"/>
+            android:text="@string/paytype0_info_title" />
     </LinearLayout>
 
     <TextView
@@ -36,6 +35,6 @@
         android:text="@string/paytype0_info_message"
         android:textColor="@color/unselecttab"
         android:textSize="13dp"
-        android:gravity="center"/>
+        android:gravity="center" />
 
 </LinearLayout>

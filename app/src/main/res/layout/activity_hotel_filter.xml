@@ -44,7 +44,7 @@
                 android:singleLine="true"
                 android:textColor="@color/purple"
                 android:textSize="16dp"
-                android:text="@string/filter_title"/>
+                android:text="@string/filter_title" />
 
             <View
                 android:layout_width="match_parent"
@@ -85,14 +85,16 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:src="@drawable/ico_refresh"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple"
                     android:textSize="11dp"
-                    android:text="초기화"/>
+                    android:text="초기화" />
             </LinearLayout>
+
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
@@ -105,7 +107,7 @@
                 android:layout_toRightOf="@+id/btn_refresh"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/purple_4round"
-                style="?android:attr/borderlessButtonStyle"/>
+                style="?android:attr/borderlessButtonStyle" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -130,7 +132,7 @@
                 android:textSize="14dp"
                 android:layout_marginTop="26dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/filter_sub_title1"/>
+                android:text="@string/filter_sub_title1" />
 
             <LinearLayout
                 android:id="@+id/ll_filter1"
@@ -139,8 +141,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="21dp">
 
-                <com.hotelnow.utils.FlowLayout
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.hotelnow.utils.FlowLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/filter1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,7 +150,7 @@
                     app:flowDirection="leftToRight"
                     app:lineSpacing="10dp"
                     app:paddingStart="15dp"
-                    app:paddingEnd="15dp"/>
+                    app:paddingEnd="15dp" />
             </LinearLayout>
 
             <View
@@ -164,7 +165,7 @@
                 android:textSize="14dp"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/filter_sub_title2"/>
+                android:text="@string/filter_sub_title2" />
 
             <LinearLayout
                 android:id="@+id/ll_filter2"
@@ -173,8 +174,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="21dp">
 
-                <com.hotelnow.utils.FlowLayout
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.hotelnow.utils.FlowLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/filter2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                     app:flowDirection="leftToRight"
                     app:lineSpacing="10dp"
                     app:paddingStart="15dp"
-                    app:paddingEnd="15dp"/>
+                    app:paddingEnd="15dp" />
             </LinearLayout>
 
             <View
@@ -198,7 +198,7 @@
                 android:textSize="14dp"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/filter_sub_title3"/>
+                android:text="@string/filter_sub_title3" />
 
             <LinearLayout
                 android:id="@+id/ll_filter3"
@@ -207,8 +207,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="21dp">
 
-                <com.hotelnow.utils.FlowLayout
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.hotelnow.utils.FlowLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/filter3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -217,7 +216,7 @@
                     app:flowDirection="leftToRight"
                     app:lineSpacing="10dp"
                     app:paddingStart="15dp"
-                    app:paddingEnd="15dp"/>
+                    app:paddingEnd="15dp" />
             </LinearLayout>
 
             <View
@@ -232,12 +231,12 @@
                 android:textSize="14dp"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/filter_sub_title4"/>
+                android:text="@string/filter_sub_title4" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                
+
                 <TextView
                     android:id="@+id/select_price"
                     android:layout_width="wrap_content"
@@ -250,7 +249,7 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/style_filter_price_border"/>
+                    android:background="@drawable/style_filter_price_border" />
 
                 <com.hotelnow.crystalrangeseekbar.widgets.CrystalRangeSeekbar
                     android:id="@+id/rangeSeekbar1"
@@ -268,7 +267,7 @@
                     app:right_thumb_image="@drawable/btn_slider_btn"
                     app:left_thumb_image_pressed="@drawable/btn_slider_btn"
                     app:right_thumb_image_pressed="@drawable/btn_slider_btn"
-                    app:data_type="_integer"/>
+                    app:data_type="_integer" />
 
                 <TextView
                     android:id="@+id/textMin"
@@ -291,7 +290,7 @@
                     android:layout_marginRight="10dp"
                     android:textSize="12dp"
                     android:textColor="@color/termtext"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true" />
 
                 <TextView
                     android:id="@+id/textMax"
@@ -303,7 +302,7 @@
                     android:layout_marginRight="10dp"
                     android:textSize="12dp"
                     android:textColor="@color/termtext"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true" />
 
             </RelativeLayout>
 
@@ -319,7 +318,7 @@
                 android:textSize="14dp"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/filter_sub_title5"/>
+                android:text="@string/filter_sub_title5" />
 
             <LinearLayout
                 android:id="@+id/ll_filter5"
@@ -328,8 +327,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="21dp">
 
-                <com.hotelnow.utils.FlowLayout
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.hotelnow.utils.FlowLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/filter5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -338,7 +336,7 @@
                     app:flowDirection="leftToRight"
                     app:lineSpacing="10dp"
                     app:paddingStart="15dp"
-                    app:paddingEnd="15dp"/>
+                    app:paddingEnd="15dp" />
             </LinearLayout>
 
             <View
@@ -353,7 +351,7 @@
                 android:textSize="14dp"
                 android:layout_marginTop="25dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/filter_sub_title6"/>
+                android:text="@string/filter_sub_title6" />
 
             <LinearLayout
                 android:id="@+id/ll_filter6"
@@ -368,36 +366,42 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"></LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/filter6_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"></LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/filter6_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"></LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/filter6_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"></LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/filter6_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"></LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/filter6_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"></LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/filter6_7"
                     android:layout_width="match_parent"
@@ -409,7 +413,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="40dp"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

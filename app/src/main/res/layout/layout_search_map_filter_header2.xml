@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_input_pin2"/>
+                android:background="@drawable/ico_input_pin2" />
 
             <ImageView
                 android:id="@+id/iv_open"
@@ -38,7 +38,7 @@
                 android:layout_marginRight="6dp"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY"
-                android:background="@drawable/btn_detail_open"/>
+                android:background="@drawable/btn_detail_open" />
 
             <TextView
                 android:id="@+id/tv_location"
@@ -73,7 +73,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_input_category2"/>
+                android:background="@drawable/ico_input_category2" />
 
             <ImageView
                 android:id="@+id/iv_open2"
@@ -83,7 +83,7 @@
                 android:layout_marginRight="6dp"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY"
-                android:background="@drawable/btn_detail_open"/>
+                android:background="@drawable/btn_detail_open" />
 
             <TextView
                 android:id="@+id/tv_category"
@@ -106,16 +106,17 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_marginTop="7dp"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="7dp"
-        android:background="@color/back_line"/>
+        android:background="@color/back_line" />
 
     <TextView
         android:id="@+id/tv_review_count"
@@ -126,6 +127,6 @@
         tools:text="총 12개의 객실이 있습니다."
         android:gravity="center_vertical"
         android:textColor="@color/detail_more_color"
-        android:background="@color/footerview"/>
+        android:background="@color/footerview" />
 
 </LinearLayout>

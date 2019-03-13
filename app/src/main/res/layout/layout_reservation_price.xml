@@ -44,7 +44,7 @@
             android:textColor="@color/blacktxt"
             android:textSize="14dp"
             android:layout_weight="1"
-            android:text="@string/reservation_price"/>
+            android:text="@string/reservation_price" />
 
         <TextView
             android:id="@+id/tv_real_price"
@@ -54,7 +54,7 @@
             android:textSize="16dp"
             android:layout_weight="1"
             android:gravity="right"
-            tools:text="363,000원"/>
+            tools:text="363,000원" />
     </LinearLayout>
 
 
@@ -65,7 +65,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/drawable_dash_line2"
-        android:layout_marginTop="14dp"/>
+        android:layout_marginTop="14dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
             android:textColor="@color/blacktxt"
             android:textSize="14dp"
             android:layout_weight="1"
-            android:text="@string/reservation_discount_price"/>
+            android:text="@string/reservation_discount_price" />
 
         <TextView
             android:id="@+id/tv_discount_price"
@@ -91,7 +91,7 @@
             android:textSize="15dp"
             android:layout_weight="1"
             android:gravity="right"
-            tools:text="-34,000원"/>
+            tools:text="-34,000원" />
     </LinearLayout>
 
     <View
@@ -100,7 +100,7 @@
         android:background="@color/back_line"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             android:textColor="@color/blacktxt"
             android:textSize="16dp"
             android:layout_weight="1"
-            android:text="@string/reservation_sale_price"/>
+            android:text="@string/reservation_sale_price" />
 
         <TextView
             android:id="@+id/tv_total_price"
@@ -127,7 +127,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:textStyle="bold"
-            tools:text="329,000원"/>
+            tools:text="329,000원" />
     </LinearLayout>
 
     <TableLayout
@@ -156,7 +156,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/graytxt"
                 android:text="날짜"
-                style="@android:style/TextAppearance.Small"/>
+                style="@android:style/TextAppearance.Small" />
 
             <TextView
                 android:id="@+id/price"
@@ -166,7 +166,7 @@
                 android:layout_weight="1"
                 android:text="판매가"
                 android:textColor="@color/graytxt"
-                style="@android:style/TextAppearance.Small"/>
+                style="@android:style/TextAppearance.Small" />
 
             <TextView
                 android:id="@+id/breakfast"
@@ -176,7 +176,7 @@
                 android:layout_weight="1"
                 android:text="조식"
                 android:textColor="@color/graytxt"
-                style="@android:style/TextAppearance.Small"/>
+                style="@android:style/TextAppearance.Small" />
         </TableRow>
     </TableLayout>
 
@@ -189,7 +189,7 @@
         android:textSize="12dp"
         android:layout_marginTop="6dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp" />
 
     <LinearLayout
         android:id="@+id/booking_save_point"
@@ -213,7 +213,7 @@
             android:paddingRight="8dp"
             android:textColor="@color/white"
             android:text="@string/reservation_point"
-            android:background="@drawable/point_round"/>
+            android:background="@drawable/point_round" />
 
         <TextView
             android:id="@+id/tv_total_discount_point"

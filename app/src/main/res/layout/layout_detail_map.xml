@@ -18,7 +18,7 @@
             android:layout_marginRight="20dp"
             android:textSize="16dp"
             android:textColor="@color/blacktxt"
-            android:text="@string/detail_address_title"/>
+            android:text="@string/detail_address_title" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -30,7 +30,7 @@
             android:textSize="13dp"
             android:layout_marginTop="3dp"
             android:textColor="@color/termtext"
-            tools:text="서울특별시 용산구 한강로3가 40-969"/>
+            tools:text="서울특별시 용산구 한강로3가 40-969" />
 
         <ImageView
             android:id="@+id/company_call"
@@ -41,7 +41,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="3dp"
             android:visibility="gone"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -65,7 +65,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
             android:visibility="gone"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <LinearLayout
@@ -85,15 +85,15 @@
                 android:layout_width="15dp"
                 android:layout_height="14dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_map_copytxt"/>
-            
+                android:background="@drawable/ico_map_copytxt" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:layout_marginLeft="4dp"
                 android:textColor="@color/termtext"
-                android:text="@string/detail_address_copy"/>
+                android:text="@string/detail_address_copy" />
         </LinearLayout>
 
         <View
@@ -101,7 +101,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:background="@color/bg_background"/>
+            android:background="@color/bg_background" />
 
         <LinearLayout
             android:id="@+id/btn_address_near"
@@ -115,7 +115,7 @@
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:scaleType="fitXY"
-                android:background="@drawable/ico_location"/>
+                android:background="@drawable/ico_location" />
 
             <TextView
                 android:id="@+id/btn_near"
@@ -124,12 +124,12 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="4dp"
                 android:textColor="@color/termtext"
-                android:text="@string/detail_address_near"/>
+                android:text="@string/detail_address_near" />
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_background"/>
+        android:background="@color/bg_background" />
 </LinearLayout>

@@ -17,7 +17,7 @@
         android:id="@+id/card_id"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:text="신한카드"/>
+        tools:text="신한카드" />
 
     <TextView
         android:id="@+id/card_name"
@@ -26,7 +26,7 @@
         android:textSize="14dp"
         android:layout_marginLeft="12dp"
         android:textColor="@color/blacktxt"
-        tools:text="신한카드"/>
+        tools:text="신한카드" />
 
     <TextView
         android:id="@+id/card_num"
@@ -35,5 +35,5 @@
         android:textSize="14dp"
         android:layout_marginLeft="10dp"
         android:textColor="@color/termtext"
-        tools:text="4985-2987-****-****"/>
+        tools:text="4985-2987-****-****" />
 </LinearLayout>

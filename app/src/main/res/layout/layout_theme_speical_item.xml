@@ -8,6 +8,7 @@
         android:id="@+id/pid"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+
     <TextView
         android:id="@+id/hid"
         android:layout_width="0dp"
@@ -17,6 +18,7 @@
         android:id="@+id/sdate"
         android:layout_width="0dp"
         android:layout_height="0dp" />
+
     <TextView
         android:id="@+id/edate"
         android:layout_width="0dp"
@@ -39,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:background="@color/holder_c"/>
+                android:background="@color/holder_c" />
 
             <ImageView
                 android:id="@+id/iv_favorite"
@@ -49,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="13dp"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -62,14 +64,14 @@
                     android:id="@+id/ico_private"
                     android:layout_width="65dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/tag_privatedeal"/>
+                    android:background="@drawable/tag_privatedeal" />
 
                 <ImageView
                     android:id="@+id/ico_hotdeal"
                     android:layout_width="56dp"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@+id/ico_private"
-                    android:background="@drawable/tag_hotdeal"/>
+                    android:background="@drawable/tag_hotdeal" />
             </LinearLayout>
 
             <TextView
@@ -88,7 +90,7 @@
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:paddingLeft="7dp"
-                android:paddingRight="7dp"/>
+                android:paddingRight="7dp" />
         </RelativeLayout>
 
 
@@ -108,7 +110,7 @@
                 android:background="@drawable/ico_starpoint_press"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_rate"
@@ -119,7 +121,7 @@
                 android:layout_toRightOf="@+id/ico_star"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="2dp"
-                tools:text="4.6"/>
+                tools:text="4.6" />
 
             <View
                 android:id="@+id/v_bar"
@@ -129,7 +131,7 @@
                 android:layout_toRightOf="@+id/tv_rate"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"/>
+                android:layout_marginRight="8dp" />
 
             <TextView
                 android:id="@+id/category"
@@ -139,7 +141,7 @@
                 android:layout_toRightOf="@+id/v_bar"
                 android:textSize="12dp"
                 android:layout_centerVertical="true"
-                tools:text="특2급"/>
+                tools:text="특2급" />
 
             <TextView
                 android:id="@+id/tv_nearlocation"
@@ -162,7 +164,7 @@
             android:textColor="@color/blacktxt"
             android:layout_below="@+id/hotel_info1"
             android:textSize="17dp"
-            tools:text="l7 홍대 바이 롯데"/>
+            tools:text="l7 홍대 바이 롯데" />
 
         <RelativeLayout
             android:id="@+id/hotel_info2"
@@ -232,7 +234,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/tag_discount"
                     android:layout_marginLeft="4dp"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
 
                 <ImageView
                     android:id="@+id/soon_point"
@@ -269,7 +271,7 @@
                 android:textColor="@color/purple"
                 android:maxLines="2"
                 android:ellipsize="end"
-                tools:text="선착순 5천원 할인쿠폰 프로모션 진행 중! (9/10~9/23 예약기간 내 재발급 가능)"/>
+                tools:text="선착순 5천원 할인쿠폰 프로모션 진행 중! (9/10~9/23 예약기간 내 재발급 가능)" />
         </LinearLayout>
 
         <LinearLayout
@@ -283,10 +285,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
-                android:background="@color/back_line"/>
+                android:background="@color/back_line" />
         </LinearLayout>
     </LinearLayout>
 
@@ -306,7 +309,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:background="@color/theme_dim"/>
+            android:background="@color/theme_dim" />
 
         <TextView
             android:id="@+id/tv_subject"
@@ -318,7 +321,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:textSize="24dp"
-            android:text=""/>
+            android:text="" />
 
         <TextView
             android:id="@+id/tv_detail"
@@ -332,7 +335,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textSize="14dp"
-            android:text=""/>
+            android:text="" />
 
         <LinearLayout
             android:id="@+id/show_view"
@@ -351,7 +354,7 @@
                 android:textSize="14dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다."/>
+                android:text="할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다." />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -362,10 +365,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/bg_background" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="7dp"
-                    android:background="@color/back_line"/>
+                    android:background="@color/back_line" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -17,8 +17,8 @@
             android:layout_width="270dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="2dp"/>
-        
+            app:riv_corner_radius="2dp" />
+
         <ImageView
             android:id="@+id/btn_favorite"
             android:layout_width="24dp"
@@ -26,7 +26,7 @@
             android:scaleType="fitXY"
             android:background="@drawable/ico_favorite_enabled"
             android:layout_alignParentRight="true"
-            android:layout_margin="6dp"/>
+            android:layout_margin="6dp" />
 
     </RelativeLayout>
 
@@ -46,7 +46,7 @@
                 android:id="@+id/img_star"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:background="@drawable/ico_starpoint_press"/>
+                android:background="@drawable/ico_starpoint_press" />
 
             <TextView
                 android:id="@+id/tv_score"
@@ -65,7 +65,7 @@
                 android:layout_height="10dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@color/textbar"/>
+                android:background="@color/textbar" />
 
             <TextView
                 android:id="@+id/tv_catagory"
@@ -103,7 +103,7 @@
                 android:textSize="13dp"
                 android:textColor="@color/redtext"
                 android:textStyle="bold"
-                tools:text="48%↓"/>
+                tools:text="48%↓" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -140,7 +140,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/tag_discount"
                     android:layout_marginLeft="4dp"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY" />
 
                 <ImageView
                     android:id="@+id/soon_point"

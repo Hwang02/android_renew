@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Range Seekbar -->
-    <declare-styleable name="CrystalRangeSeekbar" >
+    <declare-styleable name="CrystalRangeSeekbar">
         <attr name="corner_radius" format="float" />
         <attr name="min_value" format="float" />
         <attr name="max_value" format="float" />
@@ -21,7 +21,7 @@
         <attr name="right_thumb_color_pressed" format="color" />
         <attr name="right_thumb_image" format="reference" />
         <attr name="right_thumb_image_pressed" format="reference" />
-        <attr name="thumb_diameter" format="dimension"/>
+        <attr name="thumb_diameter" format="dimension" />
         <attr name="position" format="enum">
             <enum name="left" value="0" />
             <enum name="right" value="1" />
@@ -38,9 +38,9 @@
 
     <declare-styleable name="SGStepper">
 
-        <attr name="roundedradius" format="dimension"/>
-        <attr name="bordercolor" format="color"/>
-        <attr name="highlightcolor" format="color"/>
+        <attr name="roundedradius" format="dimension" />
+        <attr name="bordercolor" format="color" />
+        <attr name="highlightcolor" format="color" />
 
     </declare-styleable>
 </resources>

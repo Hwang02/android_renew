@@ -27,7 +27,7 @@
                 android:layout_marginTop="30dp"
                 android:textSize="18dp"
                 android:text=""
-                android:textColor="@color/purple"/>
+                android:textColor="@color/purple" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:textColor="@color/blacktxt"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/check_date"
@@ -58,7 +58,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:textSize="13dp"/>
+                    android:textSize="13dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
-                    android:background="@color/bg_background"/>
+                    android:background="@color/bg_background" />
 
                 <TextView
                     android:id="@+id/check_status"
@@ -79,7 +79,7 @@
                     android:layout_marginBottom="24dp"
                     android:textSize="14dp"
                     android:text=""
-                    android:textColor="@color/termtext"/>
+                    android:textColor="@color/termtext" />
 
             </LinearLayout>
 
@@ -96,7 +96,7 @@
                 android:letterSpacing="-0.01"
                 android:lineSpacingExtra="10dp"
                 android:text=""
-                android:textColor="@color/termtext"/>
+                android:textColor="@color/termtext" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -106,7 +106,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="20dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/ok"
@@ -118,7 +118,7 @@
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:background="@drawable/purple_2round"
-                    style="?android:attr/borderlessButtonStyle"/>
+                    style="?android:attr/borderlessButtonStyle" />
 
             </LinearLayout>
         </LinearLayout>

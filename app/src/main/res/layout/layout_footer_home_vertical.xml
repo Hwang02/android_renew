@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--<data>-->
-        <!--<variable-->
-            <!--name="vertival"-->
-            <!--type="com.hotelnow.fragment.home.HomeFragment" />-->
+    <!--<variable-->
+    <!--name="vertival"-->
+    <!--type="com.hotelnow.fragment.home.HomeFragment" />-->
     <!--</data>-->
 
     <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 style="@style/TitleText"
                 android:layout_toLeftOf="@id/all_view"
-                tools:text="ㅎㅎㅎㅎㅎ"/>
+                tools:text="ㅎㅎㅎㅎㅎ" />
 
             <TextView
                 android:id="@+id/all_view"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:overScrollMode="never"/>
+            android:overScrollMode="never" />
 
     </LinearLayout>
 </layout>

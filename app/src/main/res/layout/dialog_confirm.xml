@@ -30,7 +30,7 @@
                     android:textSize="18dp"
                     android:text=""
                     android:layout_marginTop="20dp"
-                    android:textColor="@color/purple"/>
+                    android:textColor="@color/purple" />
 
                 <TextView
                     android:id="@+id/message"
@@ -43,7 +43,7 @@
                     android:layout_marginBottom="20dp"
                     android:textSize="15dp"
                     android:text=""
-                    android:textColor="@color/termtext"/>
+                    android:textColor="@color/termtext" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -53,7 +53,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="20dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/left"

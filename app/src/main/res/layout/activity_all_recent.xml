@@ -62,8 +62,7 @@
         android:background="@color/white"
         android:divider="#000000"
         android:overScrollMode="never"
-        android:fadeScrollbars="true">
-    </ListView>
+        android:fadeScrollbars="true"></ListView>
 
     <Button
         android:id="@+id/bt_scroll"
@@ -74,7 +73,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="22dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle" />
 
     <RelativeLayout
         android:id="@+id/toast_layout"
@@ -97,7 +96,7 @@
                 android:layout_height="24dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <TextView
                 android:id="@+id/tv_toast"
@@ -106,7 +105,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
-                tools:text="관심 상품 담기 성공"/>
+                tools:text="관심 상품 담기 성공" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -123,6 +122,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
     </RelativeLayout>
 </RelativeLayout>

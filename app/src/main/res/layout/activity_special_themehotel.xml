@@ -60,20 +60,19 @@
 
 
         <!--<android.support.v4.widget.SwipeRefreshLayout-->
-            <!--android:id="@+id/swipe"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
+        <!--android:id="@+id/swipe"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-            <ListView
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dividerHeight="0dp"
-                android:background="@color/white"
-                android:divider="#000000"
-                android:fadeScrollbars="true"
-                android:listSelector="@android:color/transparent">
-            </ListView>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="0dp"
+            android:background="@color/white"
+            android:divider="#000000"
+            android:fadeScrollbars="true"
+            android:listSelector="@android:color/transparent"></ListView>
 
         <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
@@ -88,7 +87,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="20dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle" />
 
     <RelativeLayout
         android:id="@+id/toast_layout"
@@ -111,7 +110,7 @@
                 android:layout_height="24dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <TextView
                 android:id="@+id/tv_toast"
@@ -120,7 +119,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
-                tools:text="관심 상품 담기 성공"/>
+                tools:text="관심 상품 담기 성공" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -137,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </RelativeLayout>

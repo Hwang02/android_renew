@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,7 +48,7 @@
                     android:textColor="@color/purple"
                     android:layout_marginRight="16dp"
                     android:textSize="14dp"
-                    android:text="@string/re_search"/>
+                    android:text="@string/re_search" />
 
                 <TextView
                     android:id="@+id/title_text"
@@ -59,7 +60,7 @@
                     android:layout_marginTop="7dp"
                     android:textColor="@color/purple"
                     android:textSize="16dp"
-                    tools:text="서울"/>
+                    tools:text="서울" />
 
                 <TextView
                     android:id="@+id/subtitle_text"
@@ -72,7 +73,7 @@
                     android:singleLine="true"
                     android:textColor="@color/unselecttab"
                     android:textSize="12dp"
-                    tools:text="강남/역삼/삼성/신사, 9/21-9/22(1박)"/>
+                    tools:text="강남/역삼/삼성/신사, 9/21-9/22(1박)" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
@@ -130,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 
@@ -156,7 +157,7 @@
                 android:layout_height="24dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <TextView
                 android:id="@+id/tv_toast"
@@ -165,7 +166,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
-                tools:text="관심 상품 담기 성공"/>
+                tools:text="관심 상품 담기 성공" />
         </LinearLayout>
     </RelativeLayout>
 

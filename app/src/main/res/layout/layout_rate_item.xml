@@ -20,6 +20,6 @@
         android:layout_marginLeft="3dp"
         android:layout_gravity="center"
         android:textSize="12dp"
-        android:id="@+id/rate_title"/>
+        android:id="@+id/rate_title" />
 
 </LinearLayout>

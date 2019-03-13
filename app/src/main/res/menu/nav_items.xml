@@ -9,13 +9,13 @@
     <item
         android:id="@+id/fav"
         android:title="관심상품"
-        android:icon="@drawable/ico_bnb_favorite"/>
+        android:icon="@drawable/ico_bnb_favorite" />
     <item
         android:id="@+id/reserv"
         android:title="예약내역"
-        android:icon="@drawable/ico_bnb_rsvlist"/>
+        android:icon="@drawable/ico_bnb_rsvlist" />
     <item
         android:id="@+id/mypage"
         android:title="내정보"
-        android:icon="@drawable/ico_bnb_mypage"/>
+        android:icon="@drawable/ico_bnb_mypage" />
 </menu>

@@ -17,7 +17,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:layout_below="@id/toolbar"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical" />
 
     <View
         android:id="@+id/line"
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:background="@color/white"
-        android:id="@+id/magrin_view"/>
+        android:id="@+id/magrin_view" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -123,7 +123,7 @@
                 android:layout_height="24dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <TextView
                 android:id="@+id/tv_toast"
@@ -132,7 +132,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
-                tools:text="관심 상품 담기 성공"/>
+                tools:text="관심 상품 담기 성공" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

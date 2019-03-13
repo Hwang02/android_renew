@@ -25,7 +25,7 @@
             android:textSize="18dp"
             android:text="숙박일을 다시 한번 확인해 주세요."
             android:layout_marginTop="20dp"
-            android:textColor="@color/purple"/>
+            android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/caution_txt"
@@ -38,7 +38,7 @@
             android:textSize="15dp"
             android:lineSpacingExtra="5dip"
             android:text=" "
-            android:textColor="@color/termtext"/>
+            android:textColor="@color/termtext" />
 
         <LinearLayout
             android:layout_width="fill_parent"

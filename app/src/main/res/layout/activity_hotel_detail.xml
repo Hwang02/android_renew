@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -61,7 +60,7 @@
                         android:padding="5dp"
                         android:ellipsize="end"
                         android:textColor="@color/white"
-                        tools:text="외관사진"/>
+                        tools:text="외관사진" />
 
                     <TextView
                         android:id="@+id/page"
@@ -75,7 +74,7 @@
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:textSize="11dp"
-                        tools:text=" 3/10 + "/>
+                        tools:text=" 3/10 + " />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -123,12 +122,13 @@
                         android:layout_height="24dp"
                         android:layout_marginLeft="16dp"
                         android:layout_centerVertical="true">
+
                         <ImageView
                             android:id="@+id/icon_back"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:background="@drawable/ico_titbarw_back"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -138,12 +138,13 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="16dp"
                         android:layout_alignParentRight="true">
+
                         <ImageView
                             android:id="@+id/icon_zzim"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:background="@drawable/ico_titbarw_favorite"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -153,12 +154,13 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="24dp"
                         android:layout_toLeftOf="@id/btn_zzim">
+
                         <ImageView
                             android:id="@+id/icon_share"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:background="@drawable/ico_titbarw_share"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center" />
                     </LinearLayout>
 
                     <TextView
@@ -174,7 +176,7 @@
                         android:gravity="left|center_vertical"
                         android:layout_marginLeft="10dp"
                         android:ellipsize="end"
-                        tools:text="xxxxxxxxxxxxxx"/>
+                        tools:text="xxxxxxxxxxxxxx" />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -192,7 +194,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -213,10 +215,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="7dp"
-                    android:background="@color/back_line"/>
+                    android:background="@color/back_line" />
 
-                <include
-                    layout="@layout/layout_detail_special" />
+                <include layout="@layout/layout_detail_special" />
 
             </LinearLayout>
 
@@ -225,13 +226,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
-                android:background="@color/back_line"/>
+                android:background="@color/back_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -247,35 +247,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:orientation="vertical">
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
 
                 <include layout="@layout/layout_detail_more_room" />
 
                 <include layout="@layout/layout_detail_recommend" />
 
-                <include android:id="@+id/parent_filter"
+                <include
+                    android:id="@+id/parent_filter"
                     layout="@layout/layout_detail_facility" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/back_line"/>
+                    android:background="@color/back_line" />
 
                 <include layout="@layout/layout_detail_map" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="7dp"
-                    android:background="@color/back_line"/>
+                    android:background="@color/back_line" />
 
                 <LinearLayout
                     android:id="@+id/hotel_check_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical">
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/btn_kakao"
@@ -287,6 +286,7 @@
                     android:layout_marginBottom="30dp"
                     android:gravity="center"
                     android:background="@drawable/kakao_round">
+
                     <ImageView
                         android:layout_width="226dp"
                         android:layout_height="33dp"
@@ -300,10 +300,12 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:visibility="invisible" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -322,7 +324,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/back_line"/>
+            android:background="@color/back_line" />
 
         <Button
             android:id="@+id/room_select"
@@ -337,7 +339,7 @@
             android:gravity="center"
             android:textColor="@color/purple"
             android:textSize="15dp"
-            style="?android:attr/borderlessButtonStyle"/>
+            style="?android:attr/borderlessButtonStyle" />
     </LinearLayout>
 
     <RelativeLayout
@@ -361,7 +363,7 @@
                 android:layout_height="24dp"
                 android:scaleType="fitXY"
                 android:visibility="gone"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
 
             <TextView
                 android:id="@+id/tv_toast"
@@ -370,7 +372,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
-                tools:text="관심 상품 담기 성공"/>
+                tools:text="관심 상품 담기 성공" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -387,7 +389,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:indicator="BallSpinFadeLoader"
-            app:indicator_color="@color/purple"/>
+            app:indicator_color="@color/purple" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

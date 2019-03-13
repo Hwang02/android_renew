@@ -32,7 +32,7 @@
             android:paddingLeft="14dp"
             android:paddingRight="12dp"
             android:paddingTop="6dp"
-            android:paddingBottom="6dp"/>
+            android:paddingBottom="6dp" />
 
     </RelativeLayout>
 

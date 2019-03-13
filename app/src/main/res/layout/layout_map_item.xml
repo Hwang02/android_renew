@@ -36,7 +36,7 @@
                 android:textSize="14dp"
                 android:layout_marginLeft="1dp"
                 android:textColor="@color/purple"
-                tools:text="4.5"/>
+                tools:text="4.5" />
 
             <View
                 android:id="@+id/text_bar"
@@ -44,7 +44,7 @@
                 android:layout_height="10dp"
                 android:background="@color/textbar"
                 android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"/>
+                android:layout_marginRight="3dp" />
 
             <TextView
                 android:id="@+id/tv_category"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
                 android:textColor="@color/termtext"
-                tools:text="특2급"/>
+                tools:text="특2급" />
 
         </LinearLayout>
 
@@ -64,20 +64,20 @@
             android:ellipsize="end"
             android:textSize="14dp"
             android:textColor="@color/blacktxt"
-            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
-        
+            tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            
+
             <TextView
                 android:id="@+id/tv_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="48%↓"
                 android:textSize="11dp"
-                android:textColor="@color/redtext"/>
+                android:textColor="@color/redtext" />
 
             <TextView
                 android:id="@+id/tv_sale"
@@ -86,14 +86,14 @@
                 tools:text="15,900"
                 android:textSize="15dp"
                 android:layout_marginLeft="2dp"
-                android:textColor="@color/blacktxt"/>
+                android:textColor="@color/blacktxt" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="원~"
                 android:textSize="11dp"
-                android:textColor="@color/blacktxt"/>
+                android:textColor="@color/blacktxt" />
         </LinearLayout>
 
         <RelativeLayout
@@ -116,7 +116,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="6dp"
-                android:background="@drawable/ico_titbar_favorite_active"/>
+                android:background="@drawable/ico_titbar_favorite_active" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
