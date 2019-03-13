@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -232,7 +231,7 @@ public class SettingActivity extends Activity {
     private void setPush() {
         // 푸시 수신 상태값 저장
         String regId = _preferences.getString("gcm_registration_id", null);
-        String userId = TextUtils.isEmpty(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", ""))) ? null : AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", ""));
+        String userId = _preferences.getString("userid", null);
 
         LogUtil.e("xxxxx", regId);
         if (regId != null)
