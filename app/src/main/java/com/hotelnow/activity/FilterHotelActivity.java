@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.R;
@@ -63,7 +64,7 @@ public class FilterHotelActivity extends Activity {
     String mRate = "";
     LocationManager locManager; // 위치 정보 프로바이더
     LocationListener locationListener; // 위치 정보가 업데이트시 동작
-    String lat ="", lng="";
+    String lat = "", lng = "";
     ProgressDialog dialog;
     private boolean is_reset = false;
 
@@ -104,8 +105,8 @@ public class FilterHotelActivity extends Activity {
             @Override
             public void onLocationChanged(Location location) {
                 locManager.removeUpdates(locationListener);
-                CONFIG.lat = location.getLatitude()+"";
-                CONFIG.lng = location.getLongitude()+"";
+                CONFIG.lat = location.getLatitude() + "";
+                CONFIG.lng = location.getLongitude() + "";
                 dialog.dismiss();
             }
 
@@ -144,15 +145,15 @@ public class FilterHotelActivity extends Activity {
                 CONFIG.sel_min = minVal; // 가격
                 CONFIG.sel_rate = mRate; // 평점
                 String cate = "", useper = "";
-                if( CONFIG.sel_category != null){
-                    cate = CONFIG.sel_category.replace("|",",");
+                if (CONFIG.sel_category != null) {
+                    cate = CONFIG.sel_category.replace("|", ",");
                 }
 
-                if(CONFIG.sel_useperson != null){
-                    useper = CONFIG.sel_useperson.replace("|",",");
+                if (CONFIG.sel_useperson != null) {
+                    useper = CONFIG.sel_useperson.replace("|", ",");
                 }
 
-                TuneWrap.Event("filter", cate, CONFIG.sel_min+"~"+CONFIG.sel_max, useper, CONFIG.sel_rate);
+                TuneWrap.Event("filter", cate, CONFIG.sel_min + "~" + CONFIG.sel_max, useper, CONFIG.sel_rate);
 //                if(is_reset)
 //                    intent.putExtra("is_reset", is_reset);
                 setResult(80, intent);
@@ -480,7 +481,7 @@ public class FilterHotelActivity extends Activity {
         FlowLayout.LayoutParams lparam = new FlowLayout.LayoutParams(
                 FlowLayout.LayoutParams.MATCH_PARENT, FlowLayout.LayoutParams.WRAP_CONTENT);
         lparam.width = (int) (filter6_1.getWidth() / 5);
-        LogUtil.e("xxxx", lparam.width+"");
+        LogUtil.e("xxxx", lparam.width + "");
 
         for (int i = 0; i < facilityarr.length; i++) {
             View child = getLayoutInflater().inflate(R.layout.layout_facility_item, null);
@@ -495,7 +496,7 @@ public class FilterHotelActivity extends Activity {
             child.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if((int) v.getTag() <= 4) {
+                    if ((int) v.getTag() <= 4) {
                         if (filter6_1.getChildAt((int) v.getTag()).isSelected()) {
                             filter6_1.getChildAt((int) v.getTag()).setSelected(false);
                             facilities.remove(v.getTag().toString());
@@ -503,58 +504,52 @@ public class FilterHotelActivity extends Activity {
                             filter6_1.getChildAt((int) v.getTag()).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
-                    }
-                    else if ( (int) v.getTag() >4 && (int) v.getTag() <= 9) {
-                        if (filter6_2.getChildAt((int) v.getTag()-5).isSelected()) {
-                            filter6_2.getChildAt((int) v.getTag()-5).setSelected(false);
+                    } else if ((int) v.getTag() > 4 && (int) v.getTag() <= 9) {
+                        if (filter6_2.getChildAt((int) v.getTag() - 5).isSelected()) {
+                            filter6_2.getChildAt((int) v.getTag() - 5).setSelected(false);
                             facilities.remove(v.getTag().toString());
                         } else {
-                            filter6_2.getChildAt((int) v.getTag()-5).setSelected(true);
+                            filter6_2.getChildAt((int) v.getTag() - 5).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
-                    }
-                    else if ((int) v.getTag() > 9 && (int) v.getTag() <= 14) {
-                        if (filter6_3.getChildAt((int) v.getTag()-10).isSelected()) {
-                            filter6_3.getChildAt((int) v.getTag()-10).setSelected(false);
+                    } else if ((int) v.getTag() > 9 && (int) v.getTag() <= 14) {
+                        if (filter6_3.getChildAt((int) v.getTag() - 10).isSelected()) {
+                            filter6_3.getChildAt((int) v.getTag() - 10).setSelected(false);
                             facilities.remove(v.getTag().toString());
                         } else {
-                            filter6_3.getChildAt((int) v.getTag()-10).setSelected(true);
+                            filter6_3.getChildAt((int) v.getTag() - 10).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
-                    }
-                    else if ((int) v.getTag() > 14 && (int) v.getTag() <= 19) {
-                        if (filter6_4.getChildAt((int) v.getTag()-15).isSelected()) {
-                            filter6_4.getChildAt((int) v.getTag()-15).setSelected(false);
+                    } else if ((int) v.getTag() > 14 && (int) v.getTag() <= 19) {
+                        if (filter6_4.getChildAt((int) v.getTag() - 15).isSelected()) {
+                            filter6_4.getChildAt((int) v.getTag() - 15).setSelected(false);
                             facilities.remove(v.getTag().toString());
                         } else {
-                            filter6_4.getChildAt((int) v.getTag()-15).setSelected(true);
+                            filter6_4.getChildAt((int) v.getTag() - 15).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
-                    }
-                    else if ((int) v.getTag() > 19 && (int) v.getTag() <= 24) {
-                        if (filter6_5.getChildAt((int) v.getTag()-20).isSelected()) {
-                            filter6_5.getChildAt((int) v.getTag()-20).setSelected(false);
+                    } else if ((int) v.getTag() > 19 && (int) v.getTag() <= 24) {
+                        if (filter6_5.getChildAt((int) v.getTag() - 20).isSelected()) {
+                            filter6_5.getChildAt((int) v.getTag() - 20).setSelected(false);
                             facilities.remove(v.getTag().toString());
                         } else {
-                            filter6_5.getChildAt((int) v.getTag()-20).setSelected(true);
+                            filter6_5.getChildAt((int) v.getTag() - 20).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
-                    }
-                    else if ((int) v.getTag() > 24 && (int) v.getTag() <= 29) {
-                        if (filter6_6.getChildAt((int) v.getTag()-25).isSelected()) {
-                            filter6_6.getChildAt((int) v.getTag()-25).setSelected(false);
+                    } else if ((int) v.getTag() > 24 && (int) v.getTag() <= 29) {
+                        if (filter6_6.getChildAt((int) v.getTag() - 25).isSelected()) {
+                            filter6_6.getChildAt((int) v.getTag() - 25).setSelected(false);
                             facilities.remove(v.getTag().toString());
                         } else {
-                            filter6_6.getChildAt((int) v.getTag()-25).setSelected(true);
+                            filter6_6.getChildAt((int) v.getTag() - 25).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
-                    }
-                    else if ((int) v.getTag() > 29 && (int) v.getTag() <= 34) {
-                        if (filter6_7.getChildAt((int) v.getTag()-30).isSelected()) {
-                            filter6_7.getChildAt((int) v.getTag()-30).setSelected(false);
+                    } else if ((int) v.getTag() > 29 && (int) v.getTag() <= 34) {
+                        if (filter6_7.getChildAt((int) v.getTag() - 30).isSelected()) {
+                            filter6_7.getChildAt((int) v.getTag() - 30).setSelected(false);
                             facilities.remove(v.getTag().toString());
                         } else {
-                            filter6_7.getChildAt((int) v.getTag()-30).setSelected(true);
+                            filter6_7.getChildAt((int) v.getTag() - 30).setSelected(true);
                             facilities.add(v.getTag().toString());
                         }
                     }
@@ -565,29 +560,23 @@ public class FilterHotelActivity extends Activity {
             // 이전 부분 적용
             if (configFacilities.contains(i + "")) {
                 child.setSelected(true);
-                facilities.add(i+"");
+                facilities.add(i + "");
 
             }
 
-            if(i <= 4) {
+            if (i <= 4) {
                 filter6_1.addView(child, lparam);
-            }
-            else if ( i >4 && i <= 9) {
+            } else if (i > 4 && i <= 9) {
                 filter6_2.addView(child, lparam);
-            }
-            else if (i > 9 && i <= 14) {
+            } else if (i > 9 && i <= 14) {
                 filter6_3.addView(child, lparam);
-            }
-            else if (i > 14 && i <= 19) {
-               filter6_4.addView(child, lparam);
-            }
-            else if (i > 19 && i <= 24) {
+            } else if (i > 14 && i <= 19) {
+                filter6_4.addView(child, lparam);
+            } else if (i > 19 && i <= 24) {
                 filter6_5.addView(child, lparam);
-            }
-            else if (i > 24 && i <= 29) {
+            } else if (i > 24 && i <= 29) {
                 filter6_6.addView(child, lparam);
-            }
-            else if (i > 29 && i <= 34) {
+            } else if (i > 29 && i <= 34) {
                 filter6_7.addView(child, lparam);
             }
         }

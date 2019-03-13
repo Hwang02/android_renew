@@ -22,7 +22,7 @@ public class DialogCoupon extends Dialog {
     private View.OnClickListener mLeftClickListener;
 
     public DialogCoupon(Context context, String mTitle, String mMessage, View.OnClickListener left) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
         coupon_title = mTitle;
         coupon_message = mMessage;
         this.mLeftClickListener = left;

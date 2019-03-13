@@ -29,6 +29,7 @@ public class KakaoSDKAdapter extends KakaoAdapter {
     /**
      * Session Config에 대해서는 default값들이 존재한다.
      * 필요한 상황에서만 override해서 사용하면 됨.
+     *
      * @return Session의 설정값.
      */
     @Override
@@ -36,7 +37,7 @@ public class KakaoSDKAdapter extends KakaoAdapter {
         return new ISessionConfig() {
             @Override
             public AuthType[] getAuthTypes() {
-                return new AuthType[] {AuthType.KAKAO_LOGIN_ALL};
+                return new AuthType[]{AuthType.KAKAO_LOGIN_ALL};
             }
 
             @Override

@@ -68,7 +68,7 @@ public class MainActivity extends FragmentActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
 
     public boolean isDebugged() {
-        LogUtil.e("MainActivity","Checking for debuggers...");
+        LogUtil.e("MainActivity", "Checking for debuggers...");
 
         boolean tracer = false;
         try {
@@ -78,10 +78,10 @@ public class MainActivity extends FragmentActivity {
         }
 
         if (FindDebugger.isBeingDebugged() || tracer) {
-            LogUtil.e("MainActivity","Debugger was detected");
+            LogUtil.e("MainActivity", "Debugger was detected");
             return true;
         } else {
-            LogUtil.e("MainActivity","No debugger was detected.");
+            LogUtil.e("MainActivity", "No debugger was detected.");
             return false;
         }
     }
@@ -90,7 +90,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!BuildConfig.DEBUG && isDebugged()){
+        if (!BuildConfig.DEBUG && isDebugged()) {
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", MainActivity.this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -140,7 +140,7 @@ public class MainActivity extends FragmentActivity {
             public void onSingleClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 myPosition = mbinding.tabLayout.getSelectedTabPosition();
-                startActivityForResult(intent,80);
+                startActivityForResult(intent, 80);
             }
         });
 
@@ -152,19 +152,19 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mbinding.toolbar.setVisibility(View.VISIBLE);
-                switch (tab.getPosition()){
-                    case 0:{ // 추천
-                        LogUtil.e("xxxxx","111111");
+                switch (tab.getPosition()) {
+                    case 0: { // 추천
+                        LogUtil.e("xxxxx", "111111");
                         setTapMove(SELECTPAGE, false);
                         break;
                     }
-                    case 1:{ // 호텔
-                        LogUtil.e("xxxxx","222222");
+                    case 1: { // 호텔
+                        LogUtil.e("xxxxx", "222222");
                         setTapMove(HOTELPAGE, false);
                         break;
                     }
-                    case 2:{ // 엑티비티
-                        LogUtil.e("xxxxx","33333");
+                    case 2: { // 엑티비티
+                        LogUtil.e("xxxxx", "33333");
                         setTapMove(LEISUREPAGE, false);
                         break;
                     }
@@ -187,40 +187,38 @@ public class MainActivity extends FragmentActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
-                switch (item.getItemId()){
-                    case R.id.home:{
+                switch (item.getItemId()) {
+                    case R.id.home: {
                         mbinding.toolbar.setVisibility(View.VISIBLE);
-                        LogUtil.e("xxxxx","555555");
+                        LogUtil.e("xxxxx", "555555");
                         //홈은 다른곳 이동시 값 저장 필요
                         int mPosition = 4;
-                        if(mbinding.tabLayout.getSelectedTabPosition() == 0){
+                        if (mbinding.tabLayout.getSelectedTabPosition() == 0) {
                             mPosition = SELECTPAGE;
                             TuneWrap.Event("home");
-                        }
-                        else if(mbinding.tabLayout.getSelectedTabPosition() == 1){
+                        } else if (mbinding.tabLayout.getSelectedTabPosition() == 1) {
                             mPosition = HOTELPAGE;
-                        }
-                        else if(mbinding.tabLayout.getSelectedTabPosition() == 2){
+                        } else if (mbinding.tabLayout.getSelectedTabPosition() == 2) {
                             mPosition = LEISUREPAGE;
                         }
 
                         setTapMove(mPosition, false);
                         break;
                     }
-                    case R.id.fav:{
-                        LogUtil.e("xxxxx","666666");
-                        CONFIG.TabLogin=false;
+                    case R.id.fav: {
+                        LogUtil.e("xxxxx", "666666");
+                        CONFIG.TabLogin = false;
                         setTapMove(FAVPAGE, false);
                         break;
                     }
-                    case R.id.reserv:{
-                        LogUtil.e("xxxxx","77777");
-                        CONFIG.TabLogin=false;
+                    case R.id.reserv: {
+                        LogUtil.e("xxxxx", "77777");
+                        CONFIG.TabLogin = false;
                         setTapMove(RESERVPAGE, false);
                         break;
                     }
-                    case R.id.mypage:{
-                        LogUtil.e("xxxxx","888888");
+                    case R.id.mypage: {
+                        LogUtil.e("xxxxx", "888888");
                         setTapMove(MYPAGE, false);
                         break;
                     }
@@ -240,13 +238,13 @@ public class MainActivity extends FragmentActivity {
         callbackManager = CallbackManager.Factory.create();
 
         // 딥링크, push
-        if(getIntent().getStringExtra("push_type") != null) {
+        if (getIntent().getStringExtra("push_type") != null) {
             String push_type = "";
             String bid;
             String hid;
             String isevt;
             int evtidx;
-            String evttag ="";
+            String evttag = "";
             String sdate = "";
             String edate = "";
             push_type = getIntent().getStringExtra("push_type");
@@ -258,7 +256,7 @@ public class MainActivity extends FragmentActivity {
             edate = getIntent().getStringExtra("edate");
             evttag = getIntent().getStringExtra("evttag");
             // 1 : 예약 상세|booking_id / 4: 리뷰|booking_id, 2 : 인덱스 페이지 이동|이벤트id, 3: 상품 상세|hotel_id, 5:적립금 확인, 6:테마리스트 이동
-            if(push_type != null) {
+            if (push_type != null) {
                 if (push_type.equals("1") || push_type.equals("4")) {
                     setTapMove(SELECTPAGE, false);
                     Intent intentBooking = new Intent(this, ReservationHotelDetailActivity.class);
@@ -287,13 +285,12 @@ public class MainActivity extends FragmentActivity {
                     mbinding.navigation.setCurrentItem(RESERVPAGE);
                 } else if (push_type.equals("6")) {
                     setTapMove(SELECTPAGE, false);
-                    if(!evttag.equals(null) && evttag.equals("Q")){
+                    if (!evttag.equals(null) && evttag.equals("Q")) {
                         Intent intentTheme = new Intent(this, ThemeSpecialActivityActivity.class);
                         intentTheme.putExtra("tid", String.valueOf(evtidx));
                         intentTheme.putExtra("from", "evt");
                         startActivity(intentTheme);
-                    }
-                    else {
+                    } else {
                         Intent intentTheme = new Intent(this, ThemeSpecialHotelActivity.class);
                         intentTheme.putExtra("tid", String.valueOf(evtidx));
                         intentTheme.putExtra("from", "evt");
@@ -310,7 +307,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
 
-                } else if(push_type.equals("8")){
+                } else if (push_type.equals("8")) {
                     setTapMove(SELECTPAGE, false);
                     // 티켓상세
                     Intent intentticket = new Intent(this, DetailActivityActivity.class);
@@ -318,13 +315,11 @@ public class MainActivity extends FragmentActivity {
                     intentticket.putExtra("save", true);
                     startActivity(intentticket);
                 }
-            }
-            else{
+            } else {
                 setTapMove(SELECTPAGE, false);
             }
             TuneWrap.Event("PUSH");
-        }
-        else {
+        } else {
             String action = getIntent().getStringExtra("action");
             String data = getIntent().getStringExtra("data");
             if (Intent.ACTION_VIEW.equals(action) && data != null) {
@@ -473,10 +468,10 @@ public class MainActivity extends FragmentActivity {
                             startActivity(intentCoupon);
                         }
                     }, 1000);
-                } else if(recipeStr1.contains("move_favoriteH")) {
+                } else if (recipeStr1.contains("move_favoriteH")) {
                     CONFIG.sel_fav = 0;
                     mbinding.navigation.setCurrentItem(FAVPAGE);
-                } else if(recipeStr1.contains("move_favoriteQ")) {
+                } else if (recipeStr1.contains("move_favoriteQ")) {
                     CONFIG.sel_fav = 1;
                     mbinding.navigation.setCurrentItem(FAVPAGE);
                 } else if (recipeStr1.contains("move_theme_list")) {
@@ -511,17 +506,16 @@ public class MainActivity extends FragmentActivity {
                     setTapMove(SELECTPAGE, false);
                 }
             } else {
-                if(getIntent().getBooleanExtra("reservation", false)){
+                if (getIntent().getBooleanExtra("reservation", false)) {
                     mbinding.navigation.setCurrentItem(RESERVPAGE);
-                }
-                else {
+                } else {
                     setTapMove(SELECTPAGE, false);
                 }
             }
         }
     }
 
-    public static void showProgress(){
+    public static void showProgress() {
         mbinding.wrapper.setVisibility(View.VISIBLE);
         mbinding.wrapper.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -530,16 +524,17 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
-    public static void hideProgress(){
+
+    public static void hideProgress() {
         mbinding.wrapper.setVisibility(View.GONE);
     }
 
-    public void setTapMove(int mPosition, boolean isMove){
+    public void setTapMove(int mPosition, boolean isMove) {
         transaction = getSupportFragmentManager().beginTransaction();
-        switch (mPosition){
-            case SELECTPAGE:{
+        switch (mPosition) {
+            case SELECTPAGE: {
                 tabStatus(true);
-                if(isMove) {
+                if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
                                 @Override
@@ -550,8 +545,7 @@ public class MainActivity extends FragmentActivity {
                                     return;
                                 }
                             }, 100);
-                }
-                else {
+                } else {
                     if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
                         transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
                     } else {
@@ -574,7 +568,7 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                     }
                     transaction.commitAllowingStateLoss();
-                    if(is_refresh)
+                    if (is_refresh)
                         moveTabRefresh();
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
@@ -582,30 +576,29 @@ public class MainActivity extends FragmentActivity {
                 TuneWrap.Event("tabbar_home");
                 break;
             }
-            case FAVPAGE:{
+            case FAVPAGE: {
                 tabStatus(false);
                 CONFIG.isRecent = true;
-                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
+                if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
-                }
-                else{
+                } else {
                     transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                     transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
 
-                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
                 transaction.commitAllowingStateLoss();
@@ -615,7 +608,7 @@ public class MainActivity extends FragmentActivity {
                 TuneWrap.Event("tabbar_favorite");
                 break;
             }
-            case RESERVPAGE:{
+            case RESERVPAGE: {
                 tabStatus(false);
 //                if(isMove) {
 //                    new Handler().postDelayed(
@@ -628,27 +621,26 @@ public class MainActivity extends FragmentActivity {
 //                                }
 //                            }, 100);
 //                }
-                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
+                if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
-                }
-                else{
+                } else {
                     transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
 
-                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("MYPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
                 transaction.commitAllowingStateLoss();
@@ -659,9 +651,9 @@ public class MainActivity extends FragmentActivity {
                 TuneWrap.Event("tabbar_booking");
                 break;
             }
-            case MYPAGE:{
+            case MYPAGE: {
                 tabStatus(false);
-                if(isMove) {
+                if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
                                 @Override
@@ -671,26 +663,25 @@ public class MainActivity extends FragmentActivity {
                                 }
                             }, 100);
                 }
-                if(getSupportFragmentManager().findFragmentByTag("MYPAGE") == null) {
+                if (getSupportFragmentManager().findFragmentByTag("MYPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new MypageFragment(), "MYPAGE");
-                }
-                else{
+                } else {
                     transaction.show(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                 }
 
-                if(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                 }
-                if(getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
+                if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
                 }
                 transaction.commitAllowingStateLoss();
@@ -701,8 +692,8 @@ public class MainActivity extends FragmentActivity {
                 TuneWrap.Event("tabbar_Myinfo");
                 break;
             }
-            case HOTELPAGE:{
-                if(isMove) {
+            case HOTELPAGE: {
+                if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
                                 @Override
@@ -713,8 +704,7 @@ public class MainActivity extends FragmentActivity {
                                     return;
                                 }
                             }, 100);
-                }
-                else {
+                } else {
                     if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
                         transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
                     } else {
@@ -745,8 +735,8 @@ public class MainActivity extends FragmentActivity {
                 TuneWrap.Event("stay");
                 break;
             }
-            case LEISUREPAGE:{
-                if(isMove) {
+            case LEISUREPAGE: {
+                if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
                                 @Override
@@ -757,8 +747,7 @@ public class MainActivity extends FragmentActivity {
                                     return;
                                 }
                             }, 100);
-                }
-                else {
+                } else {
                     if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
                         transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
                     } else {
@@ -793,7 +782,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private void setHide(){
+    private void setHide() {
         if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
             transaction.hide(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
         }
@@ -814,36 +803,36 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    public void setTitle(){
+    public void setTitle() {
         String t_name = "";
         try {
-            if (_preferences.getString("username", null) !=null && AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).length() > 8) {
-                t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")).substring(0, 8) + "...";
+            if (_preferences.getString("username", null) != null && AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")).length() > 8) {
+                t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")).substring(0, 8) + "...";
             } else {
-                t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|",""));
+                t_name = AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", ""));
             }
+        } catch (Exception e) {
+            e.getStackTrace();
         }
-        catch (Exception e){e.getStackTrace();}
 
-        if(TextUtils.isEmpty(t_name)){
+        if (TextUtils.isEmpty(t_name)) {
             mbinding.layoutSearch.txtSearch.setText("어떤 여행을 찾고 있나요?");
-        }
-        else {
+        } else {
             mbinding.layoutSearch.txtSearch.setText(t_name + "님, 어떤 여행을 찾고 있나요?");
         }
     }
 
-    public void setTapdelete(String tag){
+    public void setTapdelete(String tag) {
         transaction = getSupportFragmentManager().beginTransaction();
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-        if(fragment != null)
+        if (fragment != null)
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
         transaction.commitAllowingStateLoss();
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         mbinding.toastLayout.setVisibility(View.VISIBLE);
         mbinding.tvToast.setText(msg);
         mbinding.icoFavorite.setVisibility(View.GONE);
@@ -860,14 +849,13 @@ public class MainActivity extends FragmentActivity {
         moveTabRefresh3();
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         mbinding.toastLayout.setVisibility(View.VISIBLE);
         mbinding.tvToast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             mbinding.icoFavorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             mbinding.icoFavorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         mbinding.icoFavorite.setVisibility(View.VISIBLE);
@@ -884,7 +872,7 @@ public class MainActivity extends FragmentActivity {
         moveTabRefresh3();
     }
 
-    public void moveTabReservation(){
+    public void moveTabReservation() {
         new Handler().postDelayed(
                 new Runnable() {
                     @Override
@@ -895,10 +883,10 @@ public class MainActivity extends FragmentActivity {
                 }, 100);
     }
 
-    public void moveTabRefresh(){
+    public void moveTabRefresh() {
         HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
 
-        if(fm != null) {
+        if (fm != null) {
             if (dbHelper.selectAllRecentItem("10").size() > 0 && !CONFIG.isRecent) {
                 fm.getRecentData(true);
                 CONFIG.isRecent = true;
@@ -909,34 +897,33 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    public void HomePopup(){
+    public void HomePopup() {
         HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
-        if(fm != null) {
+        if (fm != null) {
             fm.setPopup();
         }
     }
 
-    public void moveTabRefresh2(){
+    public void moveTabRefresh2() {
         HotelFragment fm = (HotelFragment) getSupportFragmentManager().findFragmentByTag("HOTELPAGE");
-        if(fm != null) {
+        if (fm != null) {
             fm.allRefresh();
         }
     }
 
-    public void moveTabRefresh3(){
+    public void moveTabRefresh3() {
         LeisureFragment fm = (LeisureFragment) getSupportFragmentManager().findFragmentByTag("LEISUREPAGE");
-        if(fm != null) {
+        if (fm != null) {
             fm.allRefresh();
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(back_pressed+2000 > System.currentTimeMillis()) {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
             Util.clearSearch();
             super.onBackPressed();
-        }
-        else {
+        } else {
             hideProgress();
             Toast.makeText(getApplicationContext(), getString(R.string.back_button), Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
@@ -945,19 +932,17 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(myPosition == 0){
-            if(CONFIG.isRecent) {
+        if (myPosition == 0) {
+            if (CONFIG.isRecent) {
                 moveTabRefresh();
             }
-        }
-        else if(myPosition == 1) {
+        } else if (myPosition == 1) {
             moveTabRefresh2();
-        }
-        else if(myPosition == 2) {
+        } else if (myPosition == 2) {
             moveTabRefresh3();
         }
 
-        if(CONFIG.Mypage_Search){
+        if (CONFIG.Mypage_Search) {
             moveTabReservation();
         }
 
@@ -966,10 +951,10 @@ public class MainActivity extends FragmentActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void tabStatus(boolean enable){
+    private void tabStatus(boolean enable) {
         AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mbinding.toolbar.getLayoutParams();
         CoordinatorLayout.LayoutParams appBarLayoutParams = (CoordinatorLayout.LayoutParams) mbinding.appbar.getLayoutParams();
-        if(enable) {
+        if (enable) {
             params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
             appBarLayoutParams.setBehavior(new AppBarLayout.Behavior());
             mbinding.appbar.setLayoutParams(appBarLayoutParams);

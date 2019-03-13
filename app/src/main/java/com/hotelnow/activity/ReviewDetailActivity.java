@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ReviewDetailActivity extends Activity{
+public class ReviewDetailActivity extends Activity {
 
     int mPage = 1;
     final int mPer_page = 20;
@@ -90,41 +90,36 @@ public class ReviewDetailActivity extends Activity{
 
         lv_list.addHeaderView(HeaderView);
 
-        Double mAvg = intent.getDoubleExtra("avg",0);
-        if(intent.getDoubleExtra("avg",0)>4) {
+        Double mAvg = intent.getDoubleExtra("avg", 0);
+        if (intent.getDoubleExtra("avg", 0) > 4) {
             tv_review_rate_message.setText("최고에요!");
-        }
-        else if(intent.getDoubleExtra("avg",0)>=3.5) {
+        } else if (intent.getDoubleExtra("avg", 0) >= 3.5) {
             tv_review_rate_message.setText("아주 좋아요");
-        }
-        else if(intent.getDoubleExtra("avg",0)>=3) {
+        } else if (intent.getDoubleExtra("avg", 0) >= 3) {
             tv_review_rate_message.setText("좋아요");
-        }
-        else if(intent.getDoubleExtra("avg",0)>=2) {
+        } else if (intent.getDoubleExtra("avg", 0) >= 2) {
             tv_review_rate_message.setText("보통입니다");
-        }
-        else {
+        } else {
             tv_review_rate_message.setText("별로에요");
         }
 
         tv_title_hotel.setText(intent.getStringExtra("title"));
 
-        tv_review_rate.setText(mAvg+"");
+        tv_review_rate.setText(mAvg + "");
 
         hid = intent.getStringExtra("hid");
         is_q = intent.getBooleanExtra("is_q", false);
 
-        if(is_q){
+        if (is_q) {
             tv_checktitle.setText("안전성");
-        }
-        else {
+        } else {
             tv_checktitle.setText("청결도");
         }
 
-        setStar(intent.getDoubleExtra("r1",0), sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
-        setStar(intent.getDoubleExtra("r2",0), ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
-        setStar(intent.getDoubleExtra("r3",0), c_star1, c_star2, c_star3, c_star4, c_star5);
-        setStar(intent.getDoubleExtra("r4",0), sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
+        setStar(intent.getDoubleExtra("r1", 0), sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
+        setStar(intent.getDoubleExtra("r2", 0), ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
+        setStar(intent.getDoubleExtra("r3", 0), c_star1, c_star2, c_star3, c_star4, c_star5);
+        setStar(intent.getDoubleExtra("r4", 0), sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
 
         bt_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +128,7 @@ public class ReviewDetailActivity extends Activity{
             }
         });
 
-        mListAdapter = new DetailReviewAdapter( this, 0, reviewEntries, is_q);
+        mListAdapter = new DetailReviewAdapter(this, 0, reviewEntries, is_q);
         lv_list.setAdapter(mListAdapter);
 
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
@@ -146,71 +141,62 @@ public class ReviewDetailActivity extends Activity{
         getReviewList();
     }
 
-    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5){
-        if (mScore < 1){
+    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5) {
+        if (mScore < 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore == 1){
+        } else if (mScore == 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore < 2){
+        } else if (mScore < 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore == 2){
+        } else if (mScore == 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 3){
+        } else if (mScore < 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore == 3){
+        } else if (mScore == 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 4){
+        } else if (mScore < 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore == 4){
+        } else if (mScore == 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 5){
+        } else if (mScore < 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_half);
-        }
-        else if(mScore == 5){
+        } else if (mScore == 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
@@ -219,18 +205,17 @@ public class ReviewDetailActivity extends Activity{
         }
     }
 
-    public void getReviewList(){
+    public void getReviewList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url;
-        if(is_q){
+        if (is_q) {
             url = CONFIG.qreviewListUrl + "/" + mPage + "/" + hid;
             TuneWrap.Event("activity_review", hid);
-        }
-        else {
+        } else {
             url = CONFIG.reviewListUrl + "/" + mPage + "/" + mPer_page + "/" + hid;
             TuneWrap.Event("stay_review", hid);
         }
-        if(isAdd) {
+        if (isAdd) {
             Api.get(url, new Api.HttpCallback() {
 
                 @Override
@@ -293,8 +278,7 @@ public class ReviewDetailActivity extends Activity{
                     }
                 }
             });
-        }
-        else{
+        } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }

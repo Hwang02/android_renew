@@ -48,15 +48,14 @@ public class ThemeSpecialLeisureAdapter extends RecyclerView.Adapter<ThemeSpecia
             @Override
             public void onClick(View v) {
                 TuneWrap.Event("ThemeBanner", data.get((int) v.getTag()).getId());
-                if (data.get((int) v.getTag()).getTheme_flag().equals("H")){
+                if (data.get((int) v.getTag()).getTheme_flag().equals("H")) {
                     Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());
-                    mHf.startActivityForResult(intent,70);
-                }
-                else{
+                    mHf.startActivityForResult(intent, 70);
+                } else {
                     Intent intent = new Intent(mContext, ThemeSpecialActivityActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());
-                    mHf.startActivityForResult(intent,70);
+                    mHf.startActivityForResult(intent, 70);
                 }
             }
         });

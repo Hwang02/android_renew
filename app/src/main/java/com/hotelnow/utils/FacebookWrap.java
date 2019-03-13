@@ -21,7 +21,7 @@ public class FacebookWrap {
     ViewedContent Event
     contentType : 화면
     */
-    public static void logViewedContentEvent (Context mContext, String contentType) {
+    public static void logViewedContentEvent(Context mContext, String contentType) {
         AppEventsLogger logger = AppEventsLogger.newLogger(mContext);
 
         Bundle params = new Bundle();
@@ -35,7 +35,7 @@ public class FacebookWrap {
     Search
     searchString : 검색어
     */
-    public static void Search(Context mContext, String searchString, boolean success){
+    public static void Search(Context mContext, String searchString, boolean success) {
         AppEventsLogger logger = AppEventsLogger.newLogger(mContext);
 
         Bundle params = new Bundle();
@@ -47,7 +47,7 @@ public class FacebookWrap {
     /*
     Purchased Event
     */
-    public static void logPurchasedEvent (Context mContext, int price) {
+    public static void logPurchasedEvent(Context mContext, int price) {
         AppEventsLogger logger = AppEventsLogger.newLogger(mContext);
         logger.logPurchase(BigDecimal.valueOf(price), Currency.getInstance(currency));
     }

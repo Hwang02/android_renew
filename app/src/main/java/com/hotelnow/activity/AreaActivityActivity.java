@@ -43,7 +43,7 @@ public class AreaActivityActivity extends Activity {
         mCity = dbHelper.selectAllActivityCity();
 
         // tabview
-        mSelectAdapter = new AreaSelectAdapter( this, 0, mCity);
+        mSelectAdapter = new AreaSelectAdapter(this, 0, mCity);
         select_view = (ListView) findViewById(R.id.select_view);
         select_view.setAdapter(mSelectAdapter);
         // tabview
@@ -55,10 +55,9 @@ public class AreaActivityActivity extends Activity {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 int tabPostion = select_view.getCheckedItemPosition();
-                if(mCity.get(tabPostion).getCity_code().equals("0")){
+                if (mCity.get(tabPostion).getCity_code().equals("0")) {
                     getMonthList();
-                }
-                else {
+                } else {
                     String cityCode = mCity.get(tabPostion).getCity_code();
                     String cityKo = mCity.get(tabPostion).getCity_ko();
                     String subCityCode = "x";
@@ -77,7 +76,7 @@ public class AreaActivityActivity extends Activity {
             }
         });
 
-        select_view.performItemClick(select_view,0, select_view.getAdapter().getItemId(0));
+        select_view.performItemClick(select_view, 0, select_view.getAdapter().getItemId(0));
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,10 +87,10 @@ public class AreaActivityActivity extends Activity {
         getMonthList();
     }
 
-    public void getMonthList(){
+    public void getMonthList() {
         month_list.removeAllViews();
         mRecentCity = dbHelper.selectAllRecentCity("A");
-        if(mRecentCity.size()>0) {
+        if (mRecentCity.size() > 0) {
             for (int i = 0; i < mRecentCity.size(); i++) {
                 View view_recent = LayoutInflater.from(AreaActivityActivity.this).inflate(R.layout.layout_recent_area_item, null);
                 TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
@@ -112,8 +111,7 @@ public class AreaActivityActivity extends Activity {
                 });
                 month_list.addView(view_recent);
             }
-        }
-        else{
+        } else {
             View view_recent = LayoutInflater.from(AreaActivityActivity.this).inflate(R.layout.layout_recent_area_item, null);
             ImageView ico_location = (ImageView) view_recent.findViewById(R.id.ico_location);
             TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);

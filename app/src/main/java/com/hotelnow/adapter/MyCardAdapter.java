@@ -35,7 +35,7 @@ public class MyCardAdapter extends ArrayAdapter<CardEntry> {
     String hotels = "";
     DialogAlert dialogAlert;
     HashMap<String, Integer> map;
-    String selectedCardId="";
+    String selectedCardId = "";
     DialogConfirm dialogConfirm;
     List<CardEntry> mlist;
 
@@ -81,12 +81,12 @@ public class MyCardAdapter extends ArrayAdapter<CardEntry> {
 
         final CardEntry entry = getItem(position);
 
-        if(!entry.getId().equals("empty")) {
+        if (!entry.getId().equals("empty")) {
             holder.view_item.setVisibility(View.VISIBLE);
             holder.empty_item.setVisibility(View.GONE);
             holder.card_num.setText(entry.getCardno());
             holder.card_type.setText(entry.getCardtype());
-            if(map.containsKey(entry.getCardcd())) {
+            if (map.containsKey(entry.getCardcd())) {
                 holder.card_img.setImageDrawable(mContext.getResources().getDrawable(map.get(entry.getCardcd())));
             }
 
@@ -136,8 +136,8 @@ public class MyCardAdapter extends ArrayAdapter<CardEntry> {
 
                                                 Toast.makeText(mContext, "선택하신 카드를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
 
-                                                ((MyCardActivity)mContext).getCardList();
-                                                ((MyCardActivity)mContext).mRefresh = true;
+                                                ((MyCardActivity) mContext).getCardList();
+                                                ((MyCardActivity) mContext).mRefresh = true;
                                             } catch (Exception e) {
                                             }
                                         }
@@ -150,17 +150,15 @@ public class MyCardAdapter extends ArrayAdapter<CardEntry> {
                 }
             });
 
-            if(mlist.size()-1 == position){
+            if (mlist.size() - 1 == position) {
                 holder.end_bar.setVisibility(View.INVISIBLE);
-            }
-            else{
+            } else {
                 holder.end_bar.setVisibility(View.GONE);
             }
-        }
-        else{
+        } else {
             holder.view_item.setVisibility(View.GONE);
             holder.empty_item.setVisibility(View.VISIBLE);
-            ((MyCardActivity)mContext).getEmptyHeight(holder.empty_item);
+            ((MyCardActivity) mContext).getEmptyHeight(holder.empty_item);
         }
 
         return v;

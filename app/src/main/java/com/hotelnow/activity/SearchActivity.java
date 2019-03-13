@@ -66,7 +66,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class SearchActivity extends Activity{
+public class SearchActivity extends Activity {
     private EditText et_search;
     private TextView tv_search_word, tv_popular_title, search_cancel;
     private LinearLayout lv_location, recent_clear, recent_list, ll_popular, hq_list, hotel_list, activity_list;
@@ -81,7 +81,7 @@ public class SearchActivity extends Activity{
     private RelativeLayout ll_before, ll_result;
     LocationManager locManager; // 위치 정보 프로바이더
     LocationListener locationListener; // 위치 정보가 업데이트시 동작
-    String lat ="", lng="";
+    String lat = "", lng = "";
     ProgressDialog dialog;
     private DialogConfirm dialogConfirm;
     private SharedPreferences _preferences;
@@ -119,30 +119,30 @@ public class SearchActivity extends Activity{
         recent_clear.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                dbHelper.deleteKeyword("0",true);
+                dbHelper.deleteKeyword("0", true);
                 mSearchList.clear();
                 getRecentData();
             }
         });
 
         et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-              @Override
-              public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                  if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                      dbHelper.insertKeyword(et_search.getText().toString(), "x");
-                      mSearchList.clear();
-                      getRecentData();
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    dbHelper.insertKeyword(et_search.getText().toString(), "x");
+                    mSearchList.clear();
+                    getRecentData();
 
-                      TuneWrap.Event("search_text", et_search.getText().toString());
+                    TuneWrap.Event("search_text", et_search.getText().toString());
 
-                      // 리스트 화면 이동
-                      Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                      intent.putExtra("search", et_search.getText().toString());
-                      startActivityForResult(intent, 80);
-                  }
-                  return false;
-              }
-          });
+                    // 리스트 화면 이동
+                    Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    intent.putExtra("search", et_search.getText().toString());
+                    startActivityForResult(intent, 80);
+                }
+                return false;
+            }
+        });
 
         et_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -152,32 +152,31 @@ public class SearchActivity extends Activity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, final int count) {
-                    et_search.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(count>0 && !TextUtils.isEmpty(et_search.getText().toString())) {
-                                tv_search_word.setText("");
-                                SpannableStringBuilder builder = new SpannableStringBuilder("'" + et_search.getText() + "'" + " 로 키워드 검색하기 〉");
-                                builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                tv_search_word.append(builder);
-                                tv_search_word.setVisibility(View.VISIBLE);
-                                ll_result.setVisibility(View.VISIBLE);
-                                lv_location.setVisibility(View.GONE);
-                                ll_popular.setVisibility(View.GONE);
-                                tv_popular_title.setVisibility(View.GONE);
-                                ll_before.setVisibility(View.GONE);
-                                setResultData();
-                            }
-                            else if(count == 0){
-                                tv_search_word.setVisibility(View.GONE);
-                                ll_result.setVisibility(View.GONE);
-                                lv_location.setVisibility(View.VISIBLE);
-                                ll_popular.setVisibility(View.VISIBLE);
-                                tv_popular_title.setVisibility(View.VISIBLE);
-                                ll_before.setVisibility(View.VISIBLE);
-                            }
+                et_search.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (count > 0 && !TextUtils.isEmpty(et_search.getText().toString())) {
+                            tv_search_word.setText("");
+                            SpannableStringBuilder builder = new SpannableStringBuilder("'" + et_search.getText() + "'" + " 로 키워드 검색하기 〉");
+                            builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 1, et_search.length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            tv_search_word.append(builder);
+                            tv_search_word.setVisibility(View.VISIBLE);
+                            ll_result.setVisibility(View.VISIBLE);
+                            lv_location.setVisibility(View.GONE);
+                            ll_popular.setVisibility(View.GONE);
+                            tv_popular_title.setVisibility(View.GONE);
+                            ll_before.setVisibility(View.GONE);
+                            setResultData();
+                        } else if (count == 0) {
+                            tv_search_word.setVisibility(View.GONE);
+                            ll_result.setVisibility(View.GONE);
+                            lv_location.setVisibility(View.VISIBLE);
+                            ll_popular.setVisibility(View.VISIBLE);
+                            tv_popular_title.setVisibility(View.VISIBLE);
+                            ll_before.setVisibility(View.VISIBLE);
                         }
-                    },300);
+                    }
+                }, 300);
             }
 
             @Override
@@ -194,8 +193,8 @@ public class SearchActivity extends Activity{
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (et_search.getRight() - et_search.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (et_search.getRight() - et_search.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         et_search.setText("");
                         tv_search_word.setVisibility(View.GONE);
@@ -213,7 +212,7 @@ public class SearchActivity extends Activity{
         lv_location.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if(!_preferences.getBoolean("sel_location", false)) {
+                if (!_preferences.getBoolean("sel_location", false)) {
                     dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
                             new View.OnClickListener() {
                                 @Override
@@ -259,8 +258,7 @@ public class SearchActivity extends Activity{
                             });
 
                     dialogConfirm.show();
-                }
-                else{
+                } else {
                     locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     locationListener = new LocationListener() {
                         @Override
@@ -299,7 +297,7 @@ public class SearchActivity extends Activity{
         tv_search_word.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                dbHelper.insertKeyword(et_search.getText().toString(),"x");
+                dbHelper.insertKeyword(et_search.getText().toString(), "x");
                 mSearchList.clear();
                 getRecentData();
 
@@ -315,7 +313,7 @@ public class SearchActivity extends Activity{
             @Override
             public void run() {
                 search_cancel.setVisibility(View.VISIBLE);
-                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.anim_slide_in_left);
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_in_left);
                 search_cancel.startAnimation(animation);
             }
         }, 400);
@@ -331,15 +329,16 @@ public class SearchActivity extends Activity{
         setData();
     }
 
-    private void setResultData(){
+    private void setResultData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.search_auto+et_search.getText().toString();
+        String url = CONFIG.search_auto + et_search.getText().toString();
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                 findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
+
             @Override
             public void onSuccess(Map<String, String> headers, String body) {
                 try {
@@ -358,7 +357,7 @@ public class SearchActivity extends Activity{
                     mActivityAuto.clear();
 
                     //호텔 리스트
-                    for(int i=0; i<hotel.length(); i++){
+                    for (int i = 0; i < hotel.length(); i++) {
                         mHotelAuto.add(new SearchAutoitem(
                                 hotel.getJSONObject(i).getString("flag"),
                                 hotel.getJSONObject(i).getString("id"),
@@ -370,7 +369,7 @@ public class SearchActivity extends Activity{
                     }
 
                     //액티비티 리스트
-                    for(int i=0; i<activity.length(); i++){
+                    for (int i = 0; i < activity.length(); i++) {
                         mActivityAuto.add(new SearchAutoitem(
                                 activity.getJSONObject(i).getString("flag"),
                                 activity.getJSONObject(i).getString("id"),
@@ -381,7 +380,7 @@ public class SearchActivity extends Activity{
                         ));
                     }
 
-                    if(mHotelAuto.size() == 0){
+                    if (mHotelAuto.size() == 0) {
                         mHotelAuto.add(new SearchAutoitem(
                                 "N",
                                 "",
@@ -391,7 +390,7 @@ public class SearchActivity extends Activity{
                                 ""
                         ));
                     }
-                    if(mActivityAuto.size() == 0){
+                    if (mActivityAuto.size() == 0) {
                         mActivityAuto.add(new SearchAutoitem(
                                 "N",
                                 "",
@@ -413,9 +412,9 @@ public class SearchActivity extends Activity{
         });
     }
 
-    private void setAutoH(){
+    private void setAutoH() {
         hotel_list.removeAllViews();
-        if(mHotelAuto.size()>0) {
+        if (mHotelAuto.size() > 0) {
             for (int i = 0; i < mHotelAuto.size(); i++) {
                 View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
                 final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
@@ -463,9 +462,9 @@ public class SearchActivity extends Activity{
         }
     }
 
-    private void setAutoA(){
+    private void setAutoA() {
         activity_list.removeAllViews();
-        if(mActivityAuto.size()>0) {
+        if (mActivityAuto.size() > 0) {
             for (int i = 0; i < mActivityAuto.size(); i++) {
                 View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.layout_search_auto_item, null);
                 final TextView tv_recent_txt = (TextView) view.findViewById(R.id.tv_recent_txt);
@@ -513,7 +512,7 @@ public class SearchActivity extends Activity{
         }
     }
 
-    private void setData(){
+    private void setData() {
         Api.get(CONFIG.search_before, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
@@ -533,7 +532,7 @@ public class SearchActivity extends Activity{
                     final JSONArray popular_keywords = obj.getJSONArray("popular_keywords");
                     final JSONArray popular_products = obj.getJSONArray("popular_products");
 
-                    for(int i = 0; i < popular_keywords.length(); i++){
+                    for (int i = 0; i < popular_keywords.length(); i++) {
                         mKeywordList.add(new KeyWordItem(
                                 popular_keywords.getJSONObject(i).getString("id"),
                                 popular_keywords.getJSONObject(i).getString("order"),
@@ -548,7 +547,7 @@ public class SearchActivity extends Activity{
                         ));
                     }
 
-                    for(int j = 0; j < popular_products.length(); j++){
+                    for (int j = 0; j < popular_products.length(); j++) {
                         JSONObject item = popular_products.getJSONObject(j);
                         mHotelActivity.add(new KeyWordProductItem(
                                 item.getString("id"),
@@ -580,11 +579,11 @@ public class SearchActivity extends Activity{
         });
     }
 
-    private void setCategory(){
+    private void setCategory() {
         ColorStateList myColorStateList = new ColorStateList(
-                new int[][]{ new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
-                new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
-        if(mKeywordList.size() >0) {
+                new int[][]{new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
+                new int[]{getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext)});
+        if (mKeywordList.size() > 0) {
             tv_popular_title.setVisibility(View.VISIBLE);
             ll_popular.setVisibility(View.VISIBLE);
             findViewById(R.id.underline2).setVisibility(View.VISIBLE);
@@ -613,8 +612,7 @@ public class SearchActivity extends Activity{
 
                 popular_keyword.addView(tv);
             }
-        }
-        else{
+        } else {
             tv_popular_title.setVisibility(View.GONE);
             ll_popular.setVisibility(View.GONE);
             findViewById(R.id.underline2).setVisibility(View.GONE);
@@ -627,7 +625,7 @@ public class SearchActivity extends Activity{
         super.onBackPressed();
     }
 
-    public void activityFinish(){
+    public void activityFinish() {
         // 키보드 숨김
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(et_search.getWindowToken(), 0);
@@ -636,10 +634,10 @@ public class SearchActivity extends Activity{
         finish();
     }
 
-    public void getRecentData(){
+    public void getRecentData() {
         mSearchList = dbHelper.selectAllKeyword();
 
-        if(mSearchList.size() > 0) {
+        if (mSearchList.size() > 0) {
             recent_clear.setVisibility(View.VISIBLE);
             recent_clear_line.setVisibility(View.VISIBLE);
             recent_list.removeAllViews();
@@ -650,14 +648,14 @@ public class SearchActivity extends Activity{
                 TextView tv_recent_id = (TextView) view_recent.findViewById(R.id.tv_recent_id);
 
                 tv_recent_txt.setText(mSearchList.get(i).getKeyword());
-                tv_recent_id.setText(mSearchList.get(i).getKeyword_id()+"");
+                tv_recent_id.setText(mSearchList.get(i).getKeyword_id() + "");
                 view_recent.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
 
                         TuneWrap.Event("search_recently", tv_recent_txt.getText().toString());
 
-                        LogUtil.e("xxxxx", v.getTag()+"");
+                        LogUtil.e("xxxxx", v.getTag() + "");
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                         intent.putExtra("tab", 0);
                         intent.putExtra("search", tv_recent_txt.getText().toString());
@@ -669,7 +667,7 @@ public class SearchActivity extends Activity{
                 item_del.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-                        dbHelper.deleteKeyword(mSearchList.get((int)v.getTag()).getKeyword_id()+"", false);
+                        dbHelper.deleteKeyword(mSearchList.get((int) v.getTag()).getKeyword_id() + "", false);
                         mSearchList.clear();
                         getRecentData();
                     }
@@ -679,8 +677,7 @@ public class SearchActivity extends Activity{
                 view_recent.setTag(i);
                 recent_list.addView(view_recent);
             }
-        }
-        else {
+        } else {
             // 없을때
             recent_clear.setVisibility(View.GONE);
             recent_clear_line.setVisibility(View.GONE);
@@ -696,9 +693,9 @@ public class SearchActivity extends Activity{
         }
     }
 
-    public void getHotelActivity(){
+    public void getHotelActivity() {
         hq_list.removeAllViews();
-        if(mHotelActivity.size()>0) {
+        if (mHotelActivity.size() > 0) {
             findViewById(R.id.tv_hq_title).setVisibility(View.VISIBLE);
             findViewById(R.id.hq_list).setVisibility(View.VISIBLE);
             findViewById(R.id.underline2).setVisibility(View.VISIBLE);
@@ -750,8 +747,7 @@ public class SearchActivity extends Activity{
                 });
                 hq_list.addView(view_ha);
             }
-        }
-        else{
+        } else {
             findViewById(R.id.tv_hq_title).setVisibility(View.GONE);
             findViewById(R.id.hq_list).setVisibility(View.GONE);
             findViewById(R.id.underline2).setVisibility(View.GONE);
@@ -762,7 +758,7 @@ public class SearchActivity extends Activity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Util.clearSearch();
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             setResult(80);
             finish();
         }
@@ -818,12 +814,12 @@ public class SearchActivity extends Activity{
             if (et_search.isFocused()) {
                 Rect outRect = new Rect();
                 et_search.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
                     et_search.clearFocus();
                     //
                     // Hide keyboard
                     //
-                    if(v != null) {
+                    if (v != null) {
                         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }

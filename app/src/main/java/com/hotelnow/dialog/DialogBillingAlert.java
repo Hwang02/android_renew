@@ -52,7 +52,7 @@ public class DialogBillingAlert extends Dialog {
         Button mOkButton = (Button) findViewById(R.id.ok);
         mOkButton.setOnClickListener(mOkClickListener);
 
-        if(selected_card.equals("")) {
+        if (selected_card.equals("")) {
             Toast.makeText(mContext, "서명 후 카드 등록을 완료하시면 결제가 완료됩니다.", Toast.LENGTH_LONG).show();
             mOkButton.setText("결제하기");
         } else {
@@ -62,7 +62,7 @@ public class DialogBillingAlert extends Dialog {
         Button mCloseButton = (Button) findViewById(R.id.close);
         mCloseButton.setOnClickListener(mCloseClickListener);
 
-        paint_area = (RelativeLayout)findViewById(R.id.paint_area);
+        paint_area = (RelativeLayout) findViewById(R.id.paint_area);
         mp = new MyPaint(mContext);
 
         paint_area.addView(mp);
@@ -76,6 +76,7 @@ public class DialogBillingAlert extends Dialog {
         float x;
         float y;
         boolean isDraw;
+
         public Point(float x, float y, boolean isDraw) {
             this.x = x;
             this.y = y;
@@ -130,15 +131,17 @@ public class DialogBillingAlert extends Dialog {
             mX = x;
             mY = y;
         }
+
         private void touch_move(float x, float y) {
             float dx = Math.abs(x - mX);
             float dy = Math.abs(y - mY);
             if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-                mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+                mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
                 mX = x;
                 mY = y;
             }
         }
+
         private void touch_up() {
             mPath.lineTo(mX, mY);
             mCanvas.drawPath(mPath, mPaint);
@@ -163,7 +166,7 @@ public class DialogBillingAlert extends Dialog {
                     touch_up();
                     invalidate();
 
-                    if(hasSign == false) {
+                    if (hasSign == false) {
                         hasSign = true;
                     }
 
@@ -172,8 +175,7 @@ public class DialogBillingAlert extends Dialog {
             return true;
         }
 
-        public Bitmap getBitmap()
-        {
+        public Bitmap getBitmap() {
             this.setDrawingCacheEnabled(true);
             this.buildDrawingCache();
             Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
@@ -182,7 +184,7 @@ public class DialogBillingAlert extends Dialog {
             return bmp;
         }
 
-        public void clear(){
+        public void clear() {
             mBitmap.eraseColor(Color.TRANSPARENT);
             invalidate();
             System.gc();

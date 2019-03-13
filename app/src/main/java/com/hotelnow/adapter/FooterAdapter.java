@@ -43,11 +43,10 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
         holder.tv_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.tv_companyinfo.getVisibility() == View.VISIBLE){
+                if (holder.tv_companyinfo.getVisibility() == View.VISIBLE) {
                     holder.tv_companyinfo.setVisibility(View.GONE);
                     holder.lv_more.setBackgroundResource(R.drawable.btn_detail_open_grey);
-                }
-                else {
+                } else {
                     holder.tv_companyinfo.setVisibility(View.VISIBLE);
                     holder.lv_more.setBackgroundResource(R.drawable.btn_detail_close_grey);
                 }
@@ -93,11 +92,11 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(rv != null){
-                               rv.smoothScrollToPosition(0);
+                        if (rv != null) {
+                            rv.smoothScrollToPosition(0);
                         }
                     }
-                },100);
+                }, 100);
             }
         });
 

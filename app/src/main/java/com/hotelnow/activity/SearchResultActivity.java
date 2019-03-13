@@ -28,7 +28,7 @@ public class SearchResultActivity extends AppCompatActivity {
     RelativeLayout toast_layout;
     ImageView ico_favorite;
     TextView tv_toast;
-    String order_kind="", page = "", banner_name="";
+    String order_kind = "", page = "", banner_name = "";
 
 
     @Override
@@ -39,22 +39,22 @@ public class SearchResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        m_Selecttab = intent.getIntExtra("tab",0);
+        m_Selecttab = intent.getIntExtra("tab", 0);
         search_txt = intent.getStringExtra("search");
         banner_id = intent.getStringExtra("banner_id");
         banner_name = intent.getStringExtra("banner_name");
         order_kind = intent.getStringExtra("order_kind");
         page = intent.getStringExtra("page");
 
-        if(TextUtils.isEmpty(order_kind)){
+        if (TextUtils.isEmpty(order_kind)) {
             order_kind = "";
         }
 
-        if(TextUtils.isEmpty(page)){
+        if (TextUtils.isEmpty(page)) {
             page = "";
         }
 
-        if(TextUtils.isEmpty(banner_name)){
+        if (TextUtils.isEmpty(banner_name)) {
             banner_name = "";
         }
 
@@ -68,39 +68,36 @@ public class SearchResultActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         title_text = (TextView) findViewById(R.id.title_text);
-        if(TextUtils.isEmpty(order_kind)) {
-            if(!TextUtils.isEmpty(banner_name)){
+        if (TextUtils.isEmpty(order_kind)) {
+            if (!TextUtils.isEmpty(banner_name)) {
                 title_text.setText(banner_name);
-            }
-            else {
+            } else {
                 title_text.setText(search_txt);
             }
-        }
-        else {
+        } else {
             title_text.setText("내 주변 바로보기");
         }
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
         view_pager.setAdapter(mSectionsPagerAdapter);
 
-        if(m_Selecttab == 0) {
+        if (m_Selecttab == 0) {
             tabLayout.getTabAt(0).select();
             view_pager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     view_pager.setCurrentItem(0);
                 }
-            },100);
+            }, 100);
 
-        }
-        else {
+        } else {
             tabLayout.getTabAt(1).select();
             view_pager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     view_pager.setCurrentItem(1);
                 }
-            },100);
+            }, 100);
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -130,7 +127,7 @@ public class SearchResultActivity extends AppCompatActivity {
         title_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(page)) {
+                if (!TextUtils.isEmpty(page)) {
                     Intent intent = new Intent(SearchResultActivity.this, SearchActivity.class);
                     startActivityForResult(intent, 80);
                 }
@@ -139,7 +136,7 @@ public class SearchResultActivity extends AppCompatActivity {
         });
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -152,14 +149,13 @@ public class SearchResultActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);
@@ -173,11 +169,11 @@ public class SearchResultActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void hideprogress(){
+    public void hideprogress() {
         findViewById(R.id.wrapper).setVisibility(View.GONE);
     }
 
-    public void showprogress(){
+    public void showprogress() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
     }
 
@@ -187,7 +183,7 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public void finished(){
+    public void finished() {
         setResult(80);
         finish();
     }
@@ -196,7 +192,7 @@ public class SearchResultActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             setResult(80);
             finish();
         }

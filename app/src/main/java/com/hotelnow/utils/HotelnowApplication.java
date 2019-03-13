@@ -20,9 +20,9 @@ import io.fabric.sdk.android.Fabric;
  * Created by susia on 15. 12. 8..
  */
 
-public class HotelnowApplication extends MultiDexApplication{
+public class HotelnowApplication extends MultiDexApplication {
     private static final String PROPERTY_ID = "UA-40726275-4";
-//    private Tracker mTracker;
+    //    private Tracker mTracker;
     private static Context context;
     private SharedPreferences _preferences;
     private static volatile HotelnowApplication obj = null;

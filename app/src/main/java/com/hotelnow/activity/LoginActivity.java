@@ -42,6 +42,7 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 import com.squareup.okhttp.Response;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,12 +51,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class LoginActivity extends Activity{
+public class LoginActivity extends Activity {
     private SessionCallback callback = new SessionCallback();
     private CallbackManager callbackManager;
-    private Session	mKakaoSession;
+    private Session mKakaoSession;
     private EditText email, passwd;
-    private String pid = "", page ="";
+    private String pid = "", page = "";
     private LinearLayout btn_facebook, btn_kakao;
     private String ec_date;
     private String ee_date;
@@ -82,13 +83,13 @@ public class LoginActivity extends Activity{
         mKakaoSession = Session.getCurrentSession();
         mKakaoSession.addCallback(callback);
 
-        email = (EditText)findViewById(R.id.email);
-        passwd = (EditText)findViewById(R.id.password);
+        email = (EditText) findViewById(R.id.email);
+        passwd = (EditText) findViewById(R.id.password);
         TextView btn_nocookie = (TextView) findViewById(R.id.btn_nocookie);
 
         Intent intent = getIntent();
-        pid = intent.getStringExtra("pid") != null? intent.getStringExtra("pid"):"";
-        page = intent.getStringExtra("page") != null? intent.getStringExtra("page"):"";
+        pid = intent.getStringExtra("pid") != null ? intent.getStringExtra("pid") : "";
+        page = intent.getStringExtra("page") != null ? intent.getStringExtra("page") : "";
 
 
         btn_facebook = (LinearLayout) findViewById(R.id.btn_facebook);
@@ -98,17 +99,17 @@ public class LoginActivity extends Activity{
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");
         tname = intent.getStringExtra("tname");
-        sel_items = (ArrayList<TicketSelEntry>)intent.getSerializableExtra("sel_list");
+        sel_items = (ArrayList<TicketSelEntry>) intent.getSerializableExtra("sel_list");
 
         // 회원가입
-        Button btn_join = (Button)findViewById(R.id.btn_join);
+        Button btn_join = (Button) findViewById(R.id.btn_join);
         btn_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // 키보드 숨김
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(getCurrentFocus() != null)
+                if (getCurrentFocus() != null)
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                 TuneWrap.Event("login_member");
@@ -118,19 +119,19 @@ public class LoginActivity extends Activity{
                 intent.putExtra("ec_date", ec_date);
                 intent.putExtra("ee_date", ee_date);
                 intent.putExtra("pid", pid);
-                startActivityForResult(intent,90);
+                startActivityForResult(intent, 90);
             }
         });
 
         // 비번 재설정
-        TextView btn_resetpass = (TextView)findViewById(R.id.btn_resetpass);
+        TextView btn_resetpass = (TextView) findViewById(R.id.btn_resetpass);
         btn_resetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TuneWrap.Event("findpw");
                 // 키보드 숨김
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(getCurrentFocus() != null)
+                if (getCurrentFocus() != null)
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                 Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
@@ -141,24 +142,24 @@ public class LoginActivity extends Activity{
         });
 
         // 로그인
-        Button bt_login = (Button)findViewById(R.id.bt_login);
+        Button bt_login = (Button) findViewById(R.id.bt_login);
         bt_login.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if(email.getText().toString().trim().length() <= 0){
+                if (email.getText().toString().trim().length() <= 0) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_email), Toast.LENGTH_SHORT).show();
                     email.requestFocus();
                     return;
                 }
 
-                if(email.getText().toString().contains("@") != true){
+                if (email.getText().toString().contains("@") != true) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_email_invalid), Toast.LENGTH_SHORT).show();
                     email.requestFocus();
                     return;
                 }
 
-                if(passwd.getText().toString().trim().length() <= 0){
+                if (passwd.getText().toString().trim().length() <= 0) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_password), Toast.LENGTH_SHORT).show();
                     passwd.requestFocus();
                     return;
@@ -171,14 +172,15 @@ public class LoginActivity extends Activity{
                 dialog.show();
 
                 JSONObject params = new JSONObject();
-                try{
+                try {
                     params.put("email", email.getText().toString());
                     params.put("password", passwd.getText().toString());
                     params.put("ver", Util.getAppVersionName(LoginActivity.this));
                     params.put("useragent", Util.getUserAgent(LoginActivity.this));
                     String androidId = Util.getAndroidId(LoginActivity.this);
                     params.put("uuid", androidId);
-                } catch (JSONException e) {}
+                } catch (JSONException e) {
+                }
 
                 Api.post(CONFIG.loginUrl, params.toString(), new Api.HttpCallback() {
                     @Override
@@ -206,10 +208,10 @@ public class LoginActivity extends Activity{
 
                             _preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                             SharedPreferences.Editor prefEditor = _preferences.edit();
-                            prefEditor.putString("email", "HN|"+ AES256Chiper.AES_Encode(email.getText().toString()));
-                            prefEditor.putString("username", "HN|"+ AES256Chiper.AES_Encode(username));
-                            prefEditor.putString("phone", "HN|"+ AES256Chiper.AES_Encode(phone));
-                            prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(userid));
+                            prefEditor.putString("email", "HN|" + AES256Chiper.AES_Encode(email.getText().toString()));
+                            prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(username));
+                            prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(phone));
+                            prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("moreinfo", moreinfo);
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
@@ -269,7 +271,7 @@ public class LoginActivity extends Activity{
                                             String user_id = object.getString("id");
                                             String snsemail = object.getString("email");
 
-                                            if( !user_id.equals(0) && !user_id.equals("") && user_id != null) {
+                                            if (!user_id.equals(0) && !user_id.equals("") && user_id != null) {
                                                 TuneWrap.Event("login_facebook");
                                                 checkUserInfo("facebook", user_id, snsemail);
                                             } else {
@@ -301,7 +303,7 @@ public class LoginActivity extends Activity{
             }
         });
 
-        if(page.equals("Booking") || page.equals("detailH")){ // 비회원 예약
+        if (page.equals("Booking") || page.equals("detailH")) { // 비회원 예약
             btn_nocookie.setText(getResources().getText(R.string.login_not_user));
 
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
@@ -319,8 +321,7 @@ public class LoginActivity extends Activity{
                     finish();
                 }
             });
-        }
-        else if(page.equals("detailA")){ // 비회원 예약
+        } else if (page.equals("detailA")) { // 비회원 예약
             btn_nocookie.setText(getResources().getText(R.string.login_not_user));
 
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
@@ -338,8 +339,7 @@ public class LoginActivity extends Activity{
                     finish();
                 }
             });
-        }
-        else{ // 예약 조회
+        } else { // 예약 조회
             btn_nocookie.setText(getResources().getText(R.string.login_user_search2));
 
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
@@ -370,11 +370,11 @@ public class LoginActivity extends Activity{
             return;
         }
 
-        if(callbackManager.onActivityResult(requestCode, resultCode, data)) {
+        if (callbackManager.onActivityResult(requestCode, resultCode, data)) {
             return;
         }
 
-        if(requestCode == 90 && resultCode == 90){
+        if (requestCode == 90 && resultCode == 90) {
             Intent intent = new Intent();
             setResult(90, intent);
             finish();
@@ -396,7 +396,7 @@ public class LoginActivity extends Activity{
                 @Override
                 public void onSuccess(MeV2Response result) {
                     Session.getCurrentSession().clearCallbacks();
-                    if( result.getId() != 0 ) {
+                    if (result.getId() != 0) {
                         TuneWrap.Event("login_kakao");
                         checkUserInfo("kakao", String.valueOf(result.getId()), "");
 
@@ -415,14 +415,15 @@ public class LoginActivity extends Activity{
 
     private void checkUserInfo(final String utype, final String snsid, final String snsemail) {
         JSONObject params = new JSONObject();
-        try{
+        try {
             params.put("utype", utype);
             params.put("snsid", snsid);
             params.put("ver", Util.getAppVersionName(LoginActivity.this));
             params.put("useragent", Util.getUserAgent(LoginActivity.this));
             String androidId = Util.getAndroidId(LoginActivity.this);
             params.put("uuid", androidId);
-        } catch (JSONException e) {}
+        } catch (JSONException e) {
+        }
 
         Api.post(CONFIG.loginUrl, params.toString(), new Api.HttpCallback() {
             @Override
@@ -436,7 +437,7 @@ public class LoginActivity extends Activity{
                     JSONObject obj = new JSONObject(body);
 
                     // 가입안된 사용자
-                    if(obj.getString("result").equals("nouser")) {
+                    if (obj.getString("result").equals("nouser")) {
                         TuneWrap.Event("Myinfo_member");
                         Session.getCurrentSession().close();
                         Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
@@ -445,7 +446,7 @@ public class LoginActivity extends Activity{
                         intent.putExtra("snsid", snsid);
                         intent.putExtra("utype", utype);
                         intent.putExtra("email", snsemail);
-                        startActivityForResult(intent,90);
+                        startActivityForResult(intent, 90);
 
                         return;
                     }
@@ -467,10 +468,10 @@ public class LoginActivity extends Activity{
 
                     _preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                     SharedPreferences.Editor prefEditor = _preferences.edit();
-                    prefEditor.putString("email", "HN|"+AES256Chiper.AES_Encode(emailval));
-                    prefEditor.putString("username", "HN|"+AES256Chiper.AES_Encode(username));
-                    prefEditor.putString("phone", "HN|"+AES256Chiper.AES_Encode(phone));
-                    prefEditor.putString("userid", "HN|"+AES256Chiper.AES_Encode(userid));
+                    prefEditor.putString("email", "HN|" + AES256Chiper.AES_Encode(emailval));
+                    prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(username));
+                    prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(phone));
+                    prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
                     prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
@@ -497,7 +498,7 @@ public class LoginActivity extends Activity{
         params = new JSONObject();
     }
 
-    private void getFavorite(){
+    private void getFavorite() {
 
         String url = CONFIG.like_list;
 
@@ -516,31 +517,29 @@ public class LoginActivity extends Activity{
                         Toast.makeText(LoginActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    dbHelper.deleteFavoriteItem(true,"","");
-                    if(obj.getJSONArray("stay").length() >0) {
-                        for(int i = 0; i<obj.getJSONArray("stay").length(); i++) {
+                    dbHelper.deleteFavoriteItem(true, "", "");
+                    if (obj.getJSONArray("stay").length() > 0) {
+                        for (int i = 0; i < obj.getJSONArray("stay").length(); i++) {
                             dbHelper.insertFavoriteItem(obj.getJSONArray("stay").getString(i), "H");
                         }
                     }
 
-                    if(obj.getJSONArray("activity").length() >0) {
-                        for(int i = 0; i<obj.getJSONArray("activity").length(); i++) {
+                    if (obj.getJSONArray("activity").length() > 0) {
+                        for (int i = 0; i < obj.getJSONArray("activity").length(); i++) {
                             dbHelper.insertFavoriteItem(obj.getJSONArray("activity").getString(i), "A");
                         }
                     }
 
-                    if(page.equals("detailH")){
+                    if (page.equals("detailH")) {
                         setResult(90);
                         finish();
-                    }
-                    else if(page.equals("Private")) {
+                    } else if (page.equals("Private")) {
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("sdate", ec_date);
                         returnIntent.putExtra("edate", ee_date);
                         setResult(80, returnIntent);
                         finish();
-                    }
-                    else {
+                    } else {
                         setResult(90, new Intent());
                         finish();
                     }

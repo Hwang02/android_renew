@@ -66,8 +66,8 @@ public class MapHotelActivity extends AppCompatActivity {
     CustomMap customMap;
     private TextView total_item;
     private int Page = 1;
-    private int total_count=0;
-    private String city, sub_city, search_txt, banner_id, ec_date, ee_date,category,facility,price_min,person_count,price_max,score,order_kind,city_name;
+    private int total_count = 0;
+    private String city, sub_city, search_txt, banner_id, ec_date, ee_date, category, facility, price_min, person_count, price_max, score, order_kind, city_name;
     private TextView title_text, subtitle_text;
     DbOpenHelper dbHelper;
     RelativeLayout toast_layout;
@@ -83,8 +83,8 @@ public class MapHotelActivity extends AppCompatActivity {
         Intent intent = getIntent();
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
-        latLngsArrayList = (ArrayList<SearchResultItem>)intent.getSerializableExtra("search_data");
-        total_count = intent.getIntExtra("total_count",0);
+        latLngsArrayList = (ArrayList<SearchResultItem>) intent.getSerializableExtra("search_data");
+        total_count = intent.getIntExtra("total_count", 0);
         city = intent.getStringExtra("city");
         city_name = intent.getStringExtra("city_name");
         sub_city = intent.getStringExtra("sub_city");
@@ -96,39 +96,38 @@ public class MapHotelActivity extends AppCompatActivity {
         facility = intent.getStringExtra("facility");
         price_min = intent.getStringExtra("price_min");
         person_count = intent.getStringExtra("person_count");
-        price_max =  intent.getStringExtra("price_max");
+        price_max = intent.getStringExtra("price_max");
         score = intent.getStringExtra("score");
-        order_kind =  intent.getStringExtra("order_kind");
+        order_kind = intent.getStringExtra("order_kind");
 
-        Page = intent.getIntExtra("Page",1);
+        Page = intent.getIntExtra("Page", 1);
 
-        TextView total_item = (TextView)findViewById(R.id.total_item);
-        TextView title_text = (TextView)findViewById(R.id.title_text);
-        TextView subtitle_text = (TextView)findViewById(R.id.subtitle_text);
+        TextView total_item = (TextView) findViewById(R.id.total_item);
+        TextView title_text = (TextView) findViewById(R.id.title_text);
+        TextView subtitle_text = (TextView) findViewById(R.id.subtitle_text);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
 
-        if(TextUtils.isEmpty(intent.getStringExtra("title_text"))){
+        if (TextUtils.isEmpty(intent.getStringExtra("title_text"))) {
             title_text.setText("숙소");
-        }
-        else {
+        } else {
             title_text.setText(intent.getStringExtra("title_text"));
         }
-        String sub ="";
-        if(!TextUtils.isEmpty(city_name) && !city_name.equals("지역선택")){
-            sub = city_name+", ";
+        String sub = "";
+        if (!TextUtils.isEmpty(city_name) && !city_name.equals("지역선택")) {
+            sub = city_name + ", ";
         }
-        if(!TextUtils.isEmpty(ec_date) && !TextUtils.isEmpty(ee_date)){
+        if (!TextUtils.isEmpty(ec_date) && !TextUtils.isEmpty(ee_date)) {
             long gap = Util.diffOfDate2(ec_date, ee_date);
-            sub += Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+"("+gap+"박)";
+            sub += Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + "(" + gap + "박)";
         }
 
         subtitle_text.setText(sub);
 
-        Spannable spannable = new SpannableString("총 "+Util.numberFormat(total_count)+"개의 숙소");
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Spannable spannable = new SpannableString("총 " + Util.numberFormat(total_count) + "개의 숙소");
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + (Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + (Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
@@ -215,8 +214,8 @@ public class MapHotelActivity extends AppCompatActivity {
                 mappoint.set(mappoint.x, mappoint.y - 30);
                 map.animateCamera(CameraUpdateFactory.newLatLng(map.getProjection().fromScreenLocation(mappoint)));
 
-                LogUtil.e("prePosition", prePosition+"");
-                LogUtil.e("position", position+"");
+                LogUtil.e("prePosition", prePosition + "");
+                LogUtil.e("position", position + "");
 
                 latLngsArrayList.get(position).setIsfocus(true);
                 latLngsArrayList.get(prePosition).setIsfocus(false);
@@ -237,54 +236,54 @@ public class MapHotelActivity extends AppCompatActivity {
         });
     }
 
-    public void getSearch(){
+    public void getSearch() {
         String url = CONFIG.search_stay_list;
-        if(!TextUtils.isEmpty(city)){
-            url +="&city="+city;
+        if (!TextUtils.isEmpty(city)) {
+            url += "&city=" + city;
         }
-        if(!TextUtils.isEmpty(sub_city)){
-            url +="&sub_city="+sub_city;
+        if (!TextUtils.isEmpty(sub_city)) {
+            url += "&sub_city=" + sub_city;
         }
         if (!TextUtils.isEmpty(search_txt)) {
             url += "&search_text=" + search_txt;
         }
-        if(!TextUtils.isEmpty(banner_id)){
-            url +="&banner_id="+banner_id;
+        if (!TextUtils.isEmpty(banner_id)) {
+            url += "&banner_id=" + banner_id;
         }
-        if(!TextUtils.isEmpty(ec_date)){
-            url +="&ec_date="+ec_date;
+        if (!TextUtils.isEmpty(ec_date)) {
+            url += "&ec_date=" + ec_date;
         }
-        if(!TextUtils.isEmpty(ee_date)){
-            url +="&ee_date="+ee_date;
+        if (!TextUtils.isEmpty(ee_date)) {
+            url += "&ee_date=" + ee_date;
         }
-        if(!TextUtils.isEmpty(category)){
-            url +="&category="+category;
+        if (!TextUtils.isEmpty(category)) {
+            url += "&category=" + category;
         }
-        if(!TextUtils.isEmpty(facility)){
-            url +="&facility="+facility;
+        if (!TextUtils.isEmpty(facility)) {
+            url += "&facility=" + facility;
         }
-        if(!TextUtils.isEmpty(price_min)){
-            url +="&price_min="+price_min;
+        if (!TextUtils.isEmpty(price_min)) {
+            url += "&price_min=" + price_min;
         }
-        if(!TextUtils.isEmpty(person_count)){
-            url +="&person_count="+person_count;
+        if (!TextUtils.isEmpty(person_count)) {
+            url += "&person_count=" + person_count;
         }
-        if(!TextUtils.isEmpty(price_max)){
-            url +="&price_max="+price_max;
+        if (!TextUtils.isEmpty(price_max)) {
+            url += "&price_max=" + price_max;
         }
-        if(!TextUtils.isEmpty(score)){
-            url +="&score="+score;
+        if (!TextUtils.isEmpty(score)) {
+            url += "&score=" + score;
         }
-        if(!TextUtils.isEmpty(order_kind)){
-            url +="&order_kind="+order_kind;
-            if(order_kind.equals("distance")){
-                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+        if (!TextUtils.isEmpty(order_kind)) {
+            url += "&order_kind=" + order_kind;
+            if (order_kind.equals("distance")) {
+                url += "&lat=" + CONFIG.lat + "&lng=" + CONFIG.lng;
             }
         }
 
-        url +="&per_page=20";
+        url += "&per_page=20";
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        if(total_count != latLngsArrayList.size()) {
+        if (total_count != latLngsArrayList.size()) {
             Api.get(url + "&page=" + ++Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
@@ -350,8 +349,7 @@ public class MapHotelActivity extends AppCompatActivity {
                     }
                 }
             });
-        }
-        else{
+        } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
@@ -462,16 +460,16 @@ public class MapHotelActivity extends AppCompatActivity {
         }
     }
 
-    public void setLike(final String s_id, boolean islike){
+    public void setLike(final String s_id, boolean islike) {
         final String sel_id = s_id;
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -489,17 +487,16 @@ public class MapHotelActivity extends AppCompatActivity {
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         mapAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -517,11 +514,11 @@ public class MapHotelActivity extends AppCompatActivity {
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         mapAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -529,7 +526,7 @@ public class MapHotelActivity extends AppCompatActivity {
         }
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -542,14 +539,13 @@ public class MapHotelActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);

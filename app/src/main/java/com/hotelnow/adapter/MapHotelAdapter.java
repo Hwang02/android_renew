@@ -24,7 +24,7 @@ import com.thebrownarrow.model.SearchResultItem;
 
 import java.util.ArrayList;
 
-public class MapHotelAdapter  extends PagerAdapter {
+public class MapHotelAdapter extends PagerAdapter {
 
     ArrayList<SearchResultItem> arr_LocationList;
     Context context;
@@ -71,45 +71,42 @@ public class MapHotelAdapter  extends PagerAdapter {
         tv_name.setText(arr_LocationList.get(position).getName());
         tv_score.setText(arr_LocationList.get(position).getGrade_score());
 
-        if(arr_LocationList.get(position).getGrade_score().equals("0.0")){
+        if (arr_LocationList.get(position).getGrade_score().equals("0.0")) {
             tv_score.setVisibility(View.GONE);
             text_bar.setVisibility(View.GONE);
             img_star.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             tv_score.setVisibility(View.VISIBLE);
             text_bar.setVisibility(View.VISIBLE);
             img_star.setVisibility(View.VISIBLE);
         }
-        if(arr_LocationList.get(position).getSale_rate().equals("0")){
+        if (arr_LocationList.get(position).getSale_rate().equals("0")) {
             tv_discount.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             tv_discount.setVisibility(View.VISIBLE);
         }
         tv_category.setText(arr_LocationList.get(position).getCategory());
-        tv_discount.setText(arr_LocationList.get(position).getSale_rate()+"%↓");
+        tv_discount.setText(arr_LocationList.get(position).getSale_rate() + "%↓");
         Ion.with(img_hotel).load(arr_LocationList.get(position).getLandscape());
-        if(!TextUtils.isEmpty(arr_LocationList.get(position).getSale_price()))
+        if (!TextUtils.isEmpty(arr_LocationList.get(position).getSale_price()))
             tv_sale.setText(Util.numberFormat(Integer.parseInt(arr_LocationList.get(position).getSale_price())));
 
-        if(arr_LocationList.get(position).isIsfocus()){
+        if (arr_LocationList.get(position).isIsfocus()) {
             main_board.setBackgroundResource(R.drawable.style_round_map_item);
-        }
-        else{
+        } else {
             main_board.setBackgroundResource(R.drawable.style_round_map_item_default);
         }
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("xxxxx",position+"");
+                LogUtil.e("xxxxx", position + "");
 
             }
         });
         container.addView(itemView);
 
-        if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+        if (dbHelper.selectAllFavoriteStayItem().size() > 0) {
             for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
                 if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(arr_LocationList.get(position).getId())) {
                     iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -120,8 +117,7 @@ public class MapHotelAdapter  extends PagerAdapter {
                     islike = false;
                 }
             }
-        }
-        else{
+        } else {
             iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             islike = false;
         }
@@ -130,8 +126,8 @@ public class MapHotelAdapter  extends PagerAdapter {
         iv_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", arr_LocationList.get(position).getId()+"");
-                ((MapHotelActivity)context).setLike(arr_LocationList.get(position).getId(), finalIslike);
+                LogUtil.e("ggggg", arr_LocationList.get(position).getId() + "");
+                ((MapHotelActivity) context).setLike(arr_LocationList.get(position).getId(), finalIslike);
             }
         });
 
@@ -145,8 +141,8 @@ public class MapHotelAdapter  extends PagerAdapter {
             }
         });
 
-        if(position == arr_LocationList.size()-2){
-            ((MapHotelActivity)context).getSearch();
+        if (position == arr_LocationList.size() - 2) {
+            ((MapHotelActivity) context).getSearch();
         }
 
         return itemView;

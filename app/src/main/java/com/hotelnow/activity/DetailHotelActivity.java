@@ -82,10 +82,10 @@ import java.util.regex.Matcher;
 public class DetailHotelActivity extends AppCompatActivity {
 
     private ViewPagerCustom mViewPager;
-    private TextView m_countView, m_img_title,tv_category, tv_hotelname,
+    private TextView m_countView, m_img_title, tv_category, tv_hotelname,
             tv_minprice, tv_maxprice, tv_per, tv_review_rate, review_message,
             tv_review_count, tv_special_title, tv_checkin, tv_checkout, tv_total_count, tv_address;
-    private String ec_date =null, ee_date =null, main_photo = "", hid, pid, evt;
+    private String ec_date = null, ee_date = null, main_photo = "", hid, pid, evt;
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5, map_img;
     private LinearLayout btn_more_review, coupon_list, room_list, btn_show_room,
             btn_more_view, bt_checkinout;
@@ -168,11 +168,10 @@ public class DetailHotelActivity extends AppCompatActivity {
         sdate = intent.getStringExtra("sdate");
         edate = intent.getStringExtra("edate");
 
-        if(sdate==null && edate==null) {
+        if (sdate == null && edate == null) {
             ec_date = Util.setCheckinout().get(0);
             ee_date = Util.setCheckinout().get(1);
-        }
-        else{
+        } else {
             ec_date = sdate;
             ee_date = edate;
         }
@@ -184,58 +183,57 @@ public class DetailHotelActivity extends AppCompatActivity {
             }
         });
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-           boolean isShow = true;
-           int scrollRange = -1;
-           @Override
-           public void onOffsetChanged(final AppBarLayout appBarLayout, final int verticalOffset) {
-               app_bar.post(new Runnable() {
-                   @Override
-                   public void run() {
-                       if (scrollRange == -1) {
-                           scrollRange = appBarLayout.getTotalScrollRange();
-                       }
-                       if (scrollRange + verticalOffset == 0) {
-                           ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText(hotel_name);
-                           ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
-                           findViewById(R.id.btn_share).setVisibility(View.GONE);
-                           // 찜상품이면 빨강색으로 변경
-                           if(islike) {
-                               icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                           }
-                           else{
-                               icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite);
-                           }
-                           findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
-                           toolbar.setBackgroundResource(R.color.white);
-                           findViewById(R.id.v_line).setVisibility(View.VISIBLE);
-                           Util.setStatusColor(DetailHotelActivity.this);
-                           isShow = true;
-                       } else if (isShow) {
-                           ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText("");
-                           findViewById(R.id.btn_share).setVisibility(View.VISIBLE);
-                           // 찜상품이면 빨강색으로 변경
-                           if(islike) {
-                               icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                           }
-                           else{
-                               icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
-                           }
-                           findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
-                           toolbar.setBackgroundResource(android.R.color.transparent);
-                           findViewById(R.id.v_line).setVisibility(View.GONE);
-                           Util.setStatusTransColor(DetailHotelActivity.this);
-                           isShow = false;
-                       }
-                   }
-               });
-           }
-       });
+            boolean isShow = true;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(final AppBarLayout appBarLayout, final int verticalOffset) {
+                app_bar.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (scrollRange == -1) {
+                            scrollRange = appBarLayout.getTotalScrollRange();
+                        }
+                        if (scrollRange + verticalOffset == 0) {
+                            ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText(hotel_name);
+                            ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
+                            findViewById(R.id.btn_share).setVisibility(View.GONE);
+                            // 찜상품이면 빨강색으로 변경
+                            if (islike) {
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                            } else {
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite);
+                            }
+                            findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
+                            toolbar.setBackgroundResource(R.color.white);
+                            findViewById(R.id.v_line).setVisibility(View.VISIBLE);
+                            Util.setStatusColor(DetailHotelActivity.this);
+                            isShow = true;
+                        } else if (isShow) {
+                            ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText("");
+                            findViewById(R.id.btn_share).setVisibility(View.VISIBLE);
+                            // 찜상품이면 빨강색으로 변경
+                            if (islike) {
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
+                            } else {
+                                icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
+                            }
+                            findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
+                            toolbar.setBackgroundResource(android.R.color.transparent);
+                            findViewById(R.id.v_line).setVisibility(View.GONE);
+                            Util.setStatusTransColor(DetailHotelActivity.this);
+                            isShow = false;
+                        }
+                    }
+                });
+            }
+        });
 
         setDetailView();
     }
 
     // 프라이빗 딜
-    private void setPrivateDeal(final String linkUrl, String Hotel_id, final String Room_id, final String mProduct_Id){
+    private void setPrivateDeal(final String linkUrl, String Hotel_id, final String Room_id, final String mProduct_Id) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         JSONObject paramObj = new JSONObject();
         try {
@@ -243,7 +241,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             paramObj.put("room_id", Room_id);
             paramObj.put("ec_date", ec_date);
             paramObj.put("ee_date", ee_date);
-        } catch(Exception e){
+        } catch (Exception e) {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
             Log.e(CONFIG.TAG, e.toString());
         }
@@ -267,7 +265,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
                     TuneWrap.Event("stay_private_detail", hid);
-                    String fullLinkUrl =linkUrl+"&bid_id="+obj.getJSONObject("data").getString("id")+"&refKey="+obj.getJSONObject("data").getString("refKey");
+                    String fullLinkUrl = linkUrl + "&bid_id=" + obj.getJSONObject("data").getString("id") + "&refKey=" + obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(DetailHotelActivity.this, PrivateDealActivity.class);
                     intent.putExtra("pid", mProduct_Id);
                     intent.putExtra("url", fullLinkUrl);
@@ -287,7 +285,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         });
     }
 
-    private void setDetailView(){
+    private void setDetailView() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
 
@@ -314,7 +312,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         return;
                     }
 
-                    if(isSave) {
+                    if (isSave) {
                         dbHelper.insertRecentItem(hid, "H");
                     }
 
@@ -326,7 +324,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     final JSONArray avail_dates = obj.getJSONArray("avail_dates");
                     final JSONArray instant_coupons = obj.getJSONArray("instant_coupons");
 
-                    if(cookie != null) {
+                    if (cookie != null) {
                         if (mFavoriteStayItem.size() > 0) {
                             FavoriteStayList = new String[mFavoriteStayItem.size()];
                             for (int i = 0; i < mFavoriteStayItem.size(); i++) {
@@ -343,7 +341,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(islike){
+                    if (islike) {
                         icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
                     }
 
@@ -381,32 +379,29 @@ public class DetailHotelActivity extends AppCompatActivity {
                     hotel_check_list = (LinearLayout) findViewById(R.id.hotel_check_list);
                     tv_main_discount = (LinearLayout) findViewById(R.id.tv_main_discount);
 
-                    if(hotel_data.getString("is_private_deal").equals("Y")){
+                    if (hotel_data.getString("is_private_deal").equals("Y")) {
                         findViewById(R.id.ico_private).setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_private).setVisibility(View.GONE);
                     }
-                    if(hotel_data.getString("is_hot_deal").equals("Y")){
+                    if (hotel_data.getString("is_hot_deal").equals("Y")) {
                         findViewById(R.id.ico_hotdeal).setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_hotdeal).setVisibility(View.GONE);
                     }
-                    if(hotel_data.getString("is_add_reserve").equals("Y")) {
+                    if (hotel_data.getString("is_add_reserve").equals("Y")) {
                         findViewById(R.id.ico_addpoint).setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_addpoint).setVisibility(View.GONE);
                     }
 
                     // 선택 될 날짜
-                    if(ec_date == null && ee_date==null) {
+                    if (ec_date == null && ee_date == null) {
                         ec_date = avail_dates.get(0).toString();
                         ee_date = Util.getNextDateStr(avail_dates.get(0).toString());
                     }
                     selectList = new String[avail_dates.length()];
-                    for(int i =0; i<avail_dates.length(); i++){
+                    for (int i = 0; i < avail_dates.length(); i++) {
                         selectList[i] = avail_dates.get(i).toString();
                     }
 
@@ -420,7 +415,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     for (int i = 0; i < photos.length(); i++) {
                         landscapeImgs[i] = photos.getJSONObject(i).getString("landscape");
                         captions[i] = photos.getJSONObject(i).has("caption1") ? photos.getJSONObject(i).getString("caption1") : "";
-                        if(photos.getJSONObject(i).getString("img_type").equals("m")) {
+                        if (photos.getJSONObject(i).getString("img_type").equals("m")) {
                             main_photo = photos.getJSONObject(i).has("landscape") ? photos.getJSONObject(i).getString("landscape") : "";
                         }
                     }
@@ -461,10 +456,10 @@ public class DetailHotelActivity extends AppCompatActivity {
                             try {
                                 paramObj.put("type", "stay");
                                 paramObj.put("id", hid);
-                            } catch(Exception e){
+                            } catch (Exception e) {
                                 Log.e(CONFIG.TAG, e.toString());
                             }
-                            if(islike){// 취소
+                            if (islike) {// 취소
                                 Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception throwable) {
@@ -483,18 +478,17 @@ public class DetailHotelActivity extends AppCompatActivity {
                                             TuneWrap.Event("favorite_stay_del", hid);
 
                                             islike = false;
-                                            dbHelper.deleteFavoriteItem(false,  hid,"H");
+                                            dbHelper.deleteFavoriteItem(false, hid, "H");
                                             icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
                                             LogUtil.e("xxxx", "찜하기 취소");
                                             showIconToast("관심 상품 담기 취소", true);
                                             islikechange = true;
-                                        }catch (JSONException e){
+                                        } catch (JSONException e) {
 
                                         }
                                     }
                                 });
-                            }
-                            else{// 성공
+                            } else {// 성공
                                 Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception throwable) {
@@ -513,12 +507,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                                             TuneWrap.Event("favorite_stay", hid);
 
                                             islike = true;
-                                            dbHelper.insertFavoriteItem(hid,"H");
+                                            dbHelper.insertFavoriteItem(hid, "H");
                                             icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
                                             LogUtil.e("xxxx", "찜하기 성공");
                                             showIconToast("관심 상품 담기 성공", true);
                                             islikechange = true;
-                                        }catch (JSONException e){
+                                        } catch (JSONException e) {
 
                                         }
                                     }
@@ -528,13 +522,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                     });
 
                     //원 금액
-                    tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price"))+"원");
+                    tv_maxprice.setText(Util.numberFormat(hotel_data.getInt("normal_price")) + "원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-                    if(hotel_data.getInt("sale_rate") != 0) {
+                    if (hotel_data.getInt("sale_rate") != 0) {
                         tv_main_discount.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         tv_main_discount.setVisibility(View.GONE);
                     }
 
@@ -542,13 +535,12 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     //평점
                     mAvg = review_data.getDouble("avg");
-                    tv_review_rate.setText(review_data.getDouble("avg")+"");
+                    tv_review_rate.setText(review_data.getDouble("avg") + "");
                     setReviewRate(review_data.getDouble("avg"));
-                    tv_review_count.setText(review_data.getInt("cnt")+"");
-                    if(review_data.getInt("cnt") == 0){
+                    tv_review_count.setText(review_data.getInt("cnt") + "");
+                    if (review_data.getInt("cnt") == 0) {
                         findViewById(R.id.review0).setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.review0).setVisibility(View.VISIBLE);
                     }
                     final Double r1, r2, r3, r4, avg;
@@ -576,26 +568,23 @@ public class DetailHotelActivity extends AppCompatActivity {
 
 
                     //스페셜 메시지
-                    if(hotel_data.has("special_msg")){
-                        if(!TextUtils.isEmpty(hotel_data.getString("special_msg")) && !hotel_data.getString("special_msg").equals("null")) {
+                    if (hotel_data.has("special_msg")) {
+                        if (!TextUtils.isEmpty(hotel_data.getString("special_msg")) && !hotel_data.getString("special_msg").equals("null")) {
                             findViewById(R.id.view_detail_special).setVisibility(View.VISIBLE);
                             tv_special_title.setText(hotel_data.getString("special_msg"));
-                        }
-                        else{
+                        } else {
                             findViewById(R.id.view_detail_special).setVisibility(View.GONE);
                         }
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.view_detail_special).setVisibility(View.GONE);
                     }
 
                     // 쿠폰
-                    if(instant_coupons.length()>0) {
+                    if (instant_coupons.length() > 0) {
                         coupon_list.setVisibility(View.VISIBLE);
                         findViewById(R.id.ico_nowdiscount).setVisibility(View.VISIBLE);
                         setCoupon(instant_coupons);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_nowdiscount).setVisibility(View.GONE);
                         coupon_list.setVisibility(View.GONE);
                     }
@@ -627,8 +616,8 @@ public class DetailHotelActivity extends AppCompatActivity {
                                             intent.putExtra("lodge_type", lodge_type);
                                             startActivityForResult(intent, 80);
                                         }
+                                    } catch (Exception e) {
                                     }
-                                    catch (Exception e){}
                                 }
                             });
                         }
@@ -638,26 +627,24 @@ public class DetailHotelActivity extends AppCompatActivity {
                     setRoom(room_data);
 
                     // 추천이유
-                    if(hotel_data.has("notes_array")){
+                    if (hotel_data.has("notes_array")) {
                         boolean iscontent = false;
-                        for(int i=0; i<hotel_data.getJSONArray("notes_array").length(); i++){
-                            if(hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
-                                String s_html ="";
+                        for (int i = 0; i < hotel_data.getJSONArray("notes_array").length(); i++) {
+                            if (hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("title").equals("추천이유")) {
+                                String s_html = "";
                                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
                                     s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
                                             .replace("\r\n", "");
-                                }
-                                else {
+                                } else {
                                     s_html = hotel_data.getJSONArray("notes_array").getJSONObject(i).getString("content")
                                             .replace("\r\n", "").replace("<li>", "ㆍ").replace("</li>", "<br><br>");
                                 }
                                 tv_recommend.setText(Html.fromHtml(s_html), TextView.BufferType.SPANNABLE);
-                                if(tv_recommend.getLineCount() <= 10){
+                                if (tv_recommend.getLineCount() <= 10) {
                                     rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                     btn_more_view.setVisibility(View.GONE);
                                     findViewById(R.id.blur_view).setVisibility(View.INVISIBLE);
-                                }
-                                else {
+                                } else {
                                     btn_more_view.setVisibility(View.VISIBLE);
                                     findViewById(R.id.blur_view).setVisibility(View.VISIBLE);
                                 }
@@ -667,7 +654,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                             }
                         }
 
-                        if(!iscontent){
+                        if (!iscontent) {
                             findViewById(R.id.layout_recommend).setVisibility(View.GONE);
                         }
 
@@ -675,15 +662,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                if(findViewById(R.id.blur_view).getVisibility() == View.VISIBLE) {
+                                if (findViewById(R.id.blur_view).getVisibility() == View.VISIBLE) {
                                     findViewById(R.id.blur_view).setVisibility(View.INVISIBLE);
                                     rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                                     ((TextView) findViewById(R.id.tv_recommend_title)).setText(R.string.more_close_title);
                                     ((ImageView) findViewById(R.id.icon_recommend)).setBackgroundResource(R.drawable.btn_detail_close);
-                                }
-                                else{
+                                } else {
                                     findViewById(R.id.blur_view).setVisibility(View.VISIBLE);
-                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this,100)));
+                                    rl_tv.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this, 100)));
                                     ((TextView) findViewById(R.id.tv_recommend_title)).setText(R.string.more_title);
                                     ((ImageView) findViewById(R.id.icon_recommend)).setBackgroundResource(R.drawable.btn_detail_open);
                                 }
@@ -707,14 +693,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                     setFacility(sel_FacilityList, false);
 
                     // 주소
-                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
-                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+hotel_data.getString("latitude")+"%2C"+hotel_data.getString("longuitude")+
-                            "&scale=1&sensor=false&language=ko&size="+500+"x"+500+"&zoom=15"+"&key="+ BuildConfig.google_map_key2;
+                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
+                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
+                            "&scale=1&sensor=false&language=ko&size=" + 500 + "x" + 500 + "&zoom=15" + "&key=" + BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
                     mAddress = hotel_data.getString("address_street");
                     tv_address.setText(mAddress);
 
-                    findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener(){
+                    findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -779,7 +765,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     //이용 정보
                     ArrayList<TicketInfoEntry> infolist = new ArrayList<>();
 
-                    if(notes_array.length() > 0) {
+                    if (notes_array.length() > 0) {
                         for (int i = 0; i < notes_array.length(); i++) {
                             infolist.add(new TicketInfoEntry(notes_array.getJSONObject(i).getString("title"), notes_array.getJSONObject(i).getString("content")));
                         }
@@ -787,7 +773,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         if (infolist.size() > 0) {
                             hotel_check_list.removeAllViews();
                             for (int i = 0; i < infolist.size(); i++) {
-                                if(!infolist.get(i).getmTitle().equals("추천이유")) {
+                                if (!infolist.get(i).getmTitle().equals("추천이유")) {
                                     View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
                                     AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                                     TextView title = (TextView) info_view.findViewById(R.id.title);
@@ -799,17 +785,16 @@ public class DetailHotelActivity extends AppCompatActivity {
                                     Spannable sp;
                                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                                         sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "")));
-                                    }
-                                    else{
+                                    } else {
                                         sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage()
-                                                        .replace("&nbsp;", "")
-                                                        .replace("• ", "ㆍ")
-                                                        .replace("<li>", "ㆍ")
-                                                        .replace("</li>", "<br>")
-                                                        .replace("<span style=\"", "<font ")
-                                                        .replace("<font color:", "<font color=")
-                                                        .replace(";\">", ">")
-                                                        .replace("</span>","</font>")));
+                                                .replace("&nbsp;", "")
+                                                .replace("• ", "ㆍ")
+                                                .replace("<li>", "ㆍ")
+                                                .replace("</li>", "<br>")
+                                                .replace("<span style=\"", "<font ")
+                                                .replace("<font color:", "<font color=")
+                                                .replace(";\">", ">")
+                                                .replace("</span>", "</font>")));
                                     }
 
                                     Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
@@ -833,7 +818,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(obj.has("previous_date_msg")){
+                    if (obj.has("previous_date_msg")) {
                         dialogAlert = new DialogAlert(
                                 getString(R.string.alert_notice),
                                 obj.getString("previous_date_msg"),
@@ -849,8 +834,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     }
 
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.getStackTrace();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                     LogUtil.e("xxxxx", e.getMessage());
@@ -868,7 +852,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         m_countView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(landscapeImgs.length>0) {
+                if (landscapeImgs.length > 0) {
                     Intent intent = new Intent(DetailHotelActivity.this, FullImageViewActivity.class);
                     intent.putExtra("hid", hid);
                     intent.putExtra("idx", markNowPosition);
@@ -879,7 +863,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         });
 
         try {
-            if(captions.length>0) {
+            if (captions.length > 0) {
                 if (TextUtils.isEmpty(captions[0])) {
                     m_img_title.setVisibility(View.GONE);
                 } else {
@@ -899,12 +883,11 @@ public class DetailHotelActivity extends AppCompatActivity {
                         nowPosition = position;
                         markNowPosition = position % PAGES;
 
-                        m_countView.setText(markNowPosition+1+"/"+landscapeImgs.length+"  + ");
+                        m_countView.setText(markNowPosition + 1 + "/" + landscapeImgs.length + "  + ");
                         m_img_title.setText(captions[markNowPosition]);
-                        if (TextUtils.isEmpty(captions[markNowPosition])){
+                        if (TextUtils.isEmpty(captions[markNowPosition])) {
                             m_img_title.setVisibility(View.GONE);
-                        }
-                        else{
+                        } else {
                             m_img_title.setVisibility(View.VISIBLE);
                         }
                         markPrevPosition = markNowPosition;
@@ -934,12 +917,12 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     private void initPageMark() {
 
-        m_countView.setText(1+"/"+landscapeImgs.length+"  + ");
+        m_countView.setText(1 + "/" + landscapeImgs.length + "  + ");
 
         markPrevPosition = markNowPosition;
     }
 
-    private void setFacility(final List<FacilitySelItem> sel_FacilityList, boolean isOpen){
+    private void setFacility(final List<FacilitySelItem> sel_FacilityList, boolean isOpen) {
         filter.removeAllViews();
         filter2.removeAllViews();
         filter3.removeAllViews();
@@ -954,7 +937,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         filter5.setVisibility(View.GONE);
         filter6.setVisibility(View.GONE);
         filter7.setVisibility(View.GONE);
-        if(sel_FacilityList.size() > 0) {
+        if (sel_FacilityList.size() > 0) {
             findViewById(R.id.parent_filter).setVisibility(View.VISIBLE);
             for (int i = 0; i < sel_FacilityList.size(); i++) {
 
@@ -1060,8 +1043,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
-        else{
+        } else {
             findViewById(R.id.parent_filter).setVisibility(View.GONE);
         }
 
@@ -1100,32 +1082,29 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     private void setRoom(final JSONArray rdata) {
-        try{
+        try {
             SpannableStringBuilder sb = new SpannableStringBuilder();
-            String total_cnt = "총 "+rdata.length()+"개의 객실 전체보기";
+            String total_cnt = "총 " + rdata.length() + "개의 객실 전체보기";
             int cnt_len = 0;
             int for_cnt = 0;
-            if(rdata.length() < 10){
+            if (rdata.length() < 10) {
                 cnt_len = 1;
-            }
-            else if(rdata.length() > 9 && rdata.length() < 100){
+            } else if (rdata.length() > 9 && rdata.length() < 100) {
                 cnt_len = 2;
-            }
-            else if(rdata.length() > 99 && rdata.length() < 999){
+            } else if (rdata.length() > 99 && rdata.length() < 999) {
                 cnt_len = 3;
             }
 
             sb.append(total_cnt);
-            sb.setSpan(new StyleSpan(Typeface.BOLD),2, cnt_len+3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sb.setSpan(new StyleSpan(Typeface.BOLD), 2, cnt_len + 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             tv_total_count.setText(sb);
 
             room_list.removeAllViews();
 
-            if(rdata.length() <= 4){
+            if (rdata.length() <= 4) {
                 for_cnt = rdata.length();
                 btn_show_room.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 for_cnt = 4;
                 btn_show_room.setVisibility(View.VISIBLE);
                 btn_show_room.setOnClickListener(new View.OnClickListener() {
@@ -1144,15 +1123,14 @@ public class DetailHotelActivity extends AppCompatActivity {
                 });
             }
 
-            if(rdata.length() == 0){
+            if (rdata.length() == 0) {
                 btn_more_view.setVisibility(View.GONE);
                 tv_minprice.setText("판매중인 객실 없음");
                 tv_minprice.setTextColor(getResources().getColor(R.color.graytxt));
                 tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.NORMAL);
                 tv_minprice.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                 findViewById(R.id.tv_minwon).setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 btn_more_view.setVisibility(View.VISIBLE);
                 tv_minprice.setTextColor(getResources().getColor(R.color.blacktxt));
                 tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.BOLD);
@@ -1163,23 +1141,23 @@ public class DetailHotelActivity extends AppCompatActivity {
             for (int i = 0; i < for_cnt; i++) {
                 int r_soldout = 0;
                 final View view_room = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
-                final TextView tv_room_title = (TextView)view_room.findViewById(R.id.tv_room_title);
-                TextView tv_room_sub_title = (TextView)view_room.findViewById(R.id.tv_room_sub_title);
-                TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
-                TextView tv_detail2 = (TextView)view_room.findViewById(R.id.tv_detail2);
-                TextView tv_detail3 = (TextView)view_room.findViewById(R.id.tv_detail3);
-                final RoundedImageView img_room = (RoundedImageView)view_room.findViewById(R.id.img_room);
-                TextView tv_room_detail_price = (TextView)view_room.findViewById(R.id.tv_room_detail_price);
-                RelativeLayout btn_more = (RelativeLayout)view_room.findViewById(R.id.btn_more);
-                AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
-                LinearLayout btn_more_close = (LinearLayout)view_room.findViewById(R.id.btn_more_close);
-                LinearLayout more_img_list = (LinearLayout)view_room.findViewById(R.id.more_img_list);
-                final TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
-                TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
-                TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
-                TextView tv_room_days = (TextView)view_room.findViewById(R.id.tv_room_days);
-                final TextView pid = (TextView)view_room.findViewById(R.id.pid);
-                final TextView rid = (TextView)view_room.findViewById(R.id.rid);
+                final TextView tv_room_title = (TextView) view_room.findViewById(R.id.tv_room_title);
+                TextView tv_room_sub_title = (TextView) view_room.findViewById(R.id.tv_room_sub_title);
+                TextView tv_detail1 = (TextView) view_room.findViewById(R.id.tv_detail1);
+                TextView tv_detail2 = (TextView) view_room.findViewById(R.id.tv_detail2);
+                TextView tv_detail3 = (TextView) view_room.findViewById(R.id.tv_detail3);
+                final RoundedImageView img_room = (RoundedImageView) view_room.findViewById(R.id.img_room);
+                TextView tv_room_detail_price = (TextView) view_room.findViewById(R.id.tv_room_detail_price);
+                RelativeLayout btn_more = (RelativeLayout) view_room.findViewById(R.id.btn_more);
+                AutoLinkTextView tv_room_info = (AutoLinkTextView) view_room.findViewById(R.id.tv_room_info);
+                LinearLayout btn_more_close = (LinearLayout) view_room.findViewById(R.id.btn_more_close);
+                LinearLayout more_img_list = (LinearLayout) view_room.findViewById(R.id.more_img_list);
+                final TextView btn_private = (TextView) view_room.findViewById(R.id.btn_private);
+                TextView btn_reservation = (TextView) view_room.findViewById(R.id.btn_reservation);
+                TextView tv_detail_per = (TextView) view_room.findViewById(R.id.tv_detail_per);
+                TextView tv_room_days = (TextView) view_room.findViewById(R.id.tv_room_days);
+                final TextView pid = (TextView) view_room.findViewById(R.id.pid);
+                final TextView rid = (TextView) view_room.findViewById(R.id.rid);
                 final String p_default = rdata.getJSONObject(i).getString("default_pn");
                 final String p_max = rdata.getJSONObject(i).getString("max_pn");
                 final int sale_price = rdata.getJSONObject(i).getInt("sale_price");
@@ -1189,60 +1167,55 @@ public class DetailHotelActivity extends AppCompatActivity {
                 pid.setText(rdata.getJSONObject(i).getString("product_id"));
                 rid.setText(rdata.getJSONObject(i).getString("room_id"));
                 tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
-                long daydiff = Util.diffOfDate(ec_date.replace("-",""), ee_date.replace("-",""));
-                if(daydiff > 1) {
+                long daydiff = Util.diffOfDate(ec_date.replace("-", ""), ee_date.replace("-", ""));
+                if (daydiff > 1) {
                     tv_room_days.setText(daydiff + "박 / ");
                     findViewById(R.id.tv_avg_day).setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     tv_room_days.setText("");
                     findViewById(R.id.tv_avg_day).setVisibility(View.GONE);
                 }
 
-                if(!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
+                if (!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
                     tv_room_sub_title.setVisibility(View.VISIBLE);
                     tv_room_sub_title.setText(rdata.getJSONObject(i).getString("title"));
-                }
-                else {
+                } else {
                     tv_room_sub_title.setVisibility(View.GONE);
                 }
 
-                if(rdata.getJSONObject(i).getJSONArray("img").length() != 0) {
+                if (rdata.getJSONObject(i).getJSONArray("img").length() != 0) {
                     image_arr = new String[rdata.getJSONObject(i).getJSONArray("img").length()];
-                    for(int j = 0; j<image_arr.length; j++){
+                    for (int j = 0; j < image_arr.length; j++) {
                         image_arr[j] = rdata.getJSONObject(i).getJSONArray("img").getJSONObject(j).getString("room_img");
                     }
                     Ion.with(img_room).load(image_arr[0]);
-                    if (image_arr.length == 1){
+                    if (image_arr.length == 1) {
                         hscroll_img.setVisibility(View.GONE);
-                    }
-                    else {
+                    } else {
                         hscroll_img.setVisibility(View.VISIBLE);
                     }
                     more_img_list.removeAllViews();
                     more_img_list.setVisibility(View.VISIBLE);
-                    for(int j=0; j<image_arr.length;j++){
+                    for (int j = 0; j < image_arr.length; j++) {
                         View view_img = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_detail_room_img_item, null);
                         ImageView image_container = view_img.findViewById(R.id.image_container);
                         Ion.with(image_container).load(image_arr[j]);
                         more_img_list.addView(view_img);
                     }
                     img_room.setTag(image_arr[0]);
-                }
-                else {
+                } else {
                     more_img_list.setVisibility(View.GONE);
                 }
-                if(rdata.getJSONObject(i).getInt("sale_rate") == 0){
+                if (rdata.getJSONObject(i).getInt("sale_rate") == 0) {
                     tv_detail_per.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     tv_detail_per.setVisibility(View.VISIBLE);
                 }
-                tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"인");
-                tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃 "+rdata.getJSONObject(i).getString("checkout_time"));
-                tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");
-                tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price"))+"원");
-                String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n","<br>").replace("•","ㆍ ");
+                tv_detail2.setText("기준 " + rdata.getJSONObject(i).getString("default_pn") + "인," + "최대 " + rdata.getJSONObject(i).getString("max_pn") + "인");
+                tv_detail3.setText("체크인 " + rdata.getJSONObject(i).getString("checkin_time") + " 체크아웃 " + rdata.getJSONObject(i).getString("checkout_time"));
+                tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate") + "%↓");
+                tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")) + "원");
+                String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n", "<br>").replace("•", "ㆍ ");
 
                 Spanned text;
                 if (Build.VERSION.SDK_INT >= 24) {
@@ -1253,26 +1226,23 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                 tv_room_info.setText(text);
 
-                if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") == -999) {
+                if (rdata.getJSONObject(i).getInt("privatedeal_inven_count") == -999) {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.GONE);
                     view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
-                }
-                else if(rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                } else if (rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")) {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setText("제안완료");
                     btn_private.setBackgroundResource(R.drawable.reservation_private_round);
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
-                }
-                else if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+                } else if (rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0) {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.VISIBLE);
                     btn_private.setText("프라이빗딜 종료");
                     btn_private.setBackgroundResource(R.drawable.gray_round);
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
-                    r_soldout = r_soldout+1;
-                }
-                else {
+                    r_soldout = r_soldout + 1;
+                } else {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.VISIBLE);
                     btn_private.setBackgroundResource(R.drawable.reservation_private_round);
@@ -1280,19 +1250,18 @@ public class DetailHotelActivity extends AppCompatActivity {
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 }
 
-                if(rdata.getJSONObject(i).getInt("inven_count")<=0){
+                if (rdata.getJSONObject(i).getInt("inven_count") <= 0) {
                     btn_reservation.setText("판매완료");
                     btn_reservation.setBackgroundResource(R.drawable.gray_round);
                     btn_reservation.setEnabled(false);
-                    r_soldout = r_soldout+1;
-                }
-                else {
+                    r_soldout = r_soldout + 1;
+                } else {
                     btn_reservation.setText("예약하기");
                     btn_reservation.setBackgroundResource(R.drawable.reservation_round);
                     btn_reservation.setEnabled(true);
                 }
 
-                if(r_soldout == 2){
+                if (r_soldout == 2) {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setVisibility(View.GONE);
                     view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
@@ -1313,7 +1282,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                         TuneWrap.Event("PrivateButton", hid);
                         if (privatedeal_status == 1 || privatedeal_status == -1 || btn_private.getText().equals("예약하기")) {
 
-                            String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String)img_room.getTag()
+                            String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String) img_room.getTag()
                                     + "&product_id=" + pid.getText() + "&product_name=" + tv_room_title.getText() + "&default_pn=" + p_default + "&max_pn=" + p_max
                                     + "&normal_price=" + normal_price + "&price=" + sale_price;
 
@@ -1326,8 +1295,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                             } else {
                                 setPrivateDeal(mUrl, hid, rid.getText().toString(), pid.getText().toString());
                             }
-                        }
-                        else{
+                        } else {
                             ShowPrivateDealDialog("프라이빗딜은 1일 1회 예약 가능합니다.\n내일 다시 시도해주세요.");
                             return;
                         }
@@ -1345,7 +1313,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                             intent.putExtra("ee_date", ee_date);
                             intent.putExtra("pid", pid.getText());
                             intent.putExtra("page", "detailH");
-                            startActivityForResult(intent,90);
+                            startActivityForResult(intent, 90);
                             return;
                         }
 
@@ -1356,25 +1324,24 @@ public class DetailHotelActivity extends AppCompatActivity {
 //                                intent.putExtra("ee_date", "2019-01-08");
                         intent.putExtra("pid", pid.getText());
                         intent.putExtra("page", "detailH");
-                        startActivityForResult(intent,80);
+                        startActivityForResult(intent, 80);
                     }
                 });
 
                 btn_more_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
+                        if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
                             TuneWrap.Event("MoreDetail");
-                            room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                            room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                             view_room.findViewById(R.id.line).setVisibility(View.GONE);
-                            ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
-                            ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
-                        }
-                        else{
-                            room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                            ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
+                            ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
+                        } else {
+                            room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
                             view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
-                            ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
-                            ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
+                            ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
+                            ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                         }
                     }
                 });
@@ -1382,25 +1349,23 @@ public class DetailHotelActivity extends AppCompatActivity {
                 btn_more.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
-                            room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                        if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
+                            room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                             view_room.findViewById(R.id.line).setVisibility(View.GONE);
-                            ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
-                            ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
-                        }
-                        else{
-                            room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                            ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
+                            ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
+                        } else {
+                            room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
                             view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
-                            ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
-                            ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
+                            ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
+                            ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                         }
                     }
                 });
 
                 room_list.addView(view_room);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getStackTrace();
             LogUtil.e("xxxxx", e.getMessage());
             findViewById(R.id.wrapper).setVisibility(View.GONE);
@@ -1409,8 +1374,8 @@ public class DetailHotelActivity extends AppCompatActivity {
 
     }
 
-    private void ShowPrivateDealDialog(String msg){
-        if(dialogAlert != null && dialogAlert.isShowing()){
+    private void ShowPrivateDealDialog(String msg) {
+        if (dialogAlert != null && dialogAlert.isShowing()) {
             dialogAlert.dismiss();
         }
         dialogAlert = new DialogAlert(
@@ -1428,7 +1393,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     private void setCoupon(final JSONArray cdata) {
-        try{
+        try {
             coupon_list.removeAllViews();
             isAcoupon = new int[cdata.length()];
             mCouponId = new String[cdata.length()];
@@ -1441,14 +1406,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                 ImageView icon_download = (ImageView) view_coupon.findViewById(R.id.icon_download);
                 tv_coupon_title.setText(cdata.getJSONObject(i).getString("name"));
                 tv_coupon_price.setText(cdata.getJSONObject(i).getString("coupon_price"));
-                if(cdata.getJSONObject(i).getInt("mycoupon_cnt") == 0){
+                if (cdata.getJSONObject(i).getInt("mycoupon_cnt") == 0) {
                     //사용가능
                     tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.redtext));
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.blacktxt));
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon);
                     icon_download.setBackgroundResource(R.drawable.ico_download);
-                }
-                else {
+                } else {
                     //불가능
                     tv_coupon_price.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
@@ -1461,22 +1425,21 @@ public class DetailHotelActivity extends AppCompatActivity {
                 view_coupon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LogUtil.e("xxxx", v.getTag()+"");
-                        setCouponDown((int)v.getTag(), cdata);
+                        LogUtil.e("xxxx", v.getTag() + "");
+                        setCouponDown((int) v.getTag(), cdata);
                     }
                 });
-                view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this,54)));
+                view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this, 54)));
                 coupon_list.addView(view_coupon);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getStackTrace();
             Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setCouponDown(final int position, final JSONArray cdata){
-        Api.get(CONFIG.promotionUrl3+"/"+mCouponId[position], new Api.HttpCallback() {
+    private void setCouponDown(final int position, final JSONArray cdata) {
+        Api.get(CONFIG.promotionUrl3 + "/" + mCouponId[position], new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(DetailHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -1503,7 +1466,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
 
-                    TuneWrap.Event("stay_coupon", city, hid, tv_category.getText().toString(), tv_coupon_title.getText().toString()+"("+tv_coupon_price.getText().toString()+")", mCouponId[position]);
+                    TuneWrap.Event("stay_coupon", city, hid, tv_category.getText().toString(), tv_coupon_title.getText().toString() + "(" + tv_coupon_price.getText().toString() + ")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     isLogin = true;
@@ -1515,11 +1478,11 @@ public class DetailHotelActivity extends AppCompatActivity {
     }
 
     //쿠폰 다이얼로그
-    private void showCouponDialog(String message){
+    private void showCouponDialog(String message) {
         dialogCoupon = new DialogCoupon(
                 DetailHotelActivity.this,
                 getString(R.string.coupon_title2),
-                hotel_name+"\n"+message +"\n\n지금 바로예약하세요",
+                hotel_name + "\n" + message + "\n\n지금 바로예약하세요",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1531,7 +1494,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         dialogCoupon.show();
     }
 
-    private void setReviewRate(Double rate){
+    private void setReviewRate(Double rate) {
         review_message = (TextView) findViewById(R.id.review_message);
         sc_star1 = (ImageView) findViewById(R.id.sc_star1);
         sc_star2 = (ImageView) findViewById(R.id.sc_star2);
@@ -1539,89 +1502,76 @@ public class DetailHotelActivity extends AppCompatActivity {
         sc_star4 = (ImageView) findViewById(R.id.sc_star4);
         sc_star5 = (ImageView) findViewById(R.id.sc_star5);
 
-        if(rate>4) {
+        if (rate > 4) {
             review_message.setText("최고에요!");
-        }
-        else if(rate>=3.5) {
+        } else if (rate >= 3.5) {
             review_message.setText("아주 좋아요");
-        }
-        else if(rate>=3) {
+        } else if (rate >= 3) {
             review_message.setText("좋아요");
-        }
-        else if(rate>=2) {
+        } else if (rate >= 2) {
             review_message.setText("보통입니다");
-        }
-        else {
+        } else {
             review_message.setText("별로에요");
         }
-        setStar(rate, sc_star1, sc_star2,sc_star3 ,sc_star4,sc_star5);
+        setStar(rate, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
     }
 
-    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5){
-        if (mScore < 1){
+    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5) {
+        if (mScore < 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore == 1){
+        } else if (mScore == 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore < 2){
+        } else if (mScore < 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore == 2){
+        } else if (mScore == 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 3){
+        } else if (mScore < 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore == 3){
+        } else if (mScore == 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 4){
+        } else if (mScore < 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore == 4){
+        } else if (mScore == 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 5){
+        } else if (mScore < 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_half);
-        }
-        else if(mScore == 5){
+        } else if (mScore == 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
@@ -1666,7 +1616,7 @@ public class DetailHotelActivity extends AppCompatActivity {
         }
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.VISIBLE);
@@ -1679,14 +1629,13 @@ public class DetailHotelActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);
@@ -1706,14 +1655,13 @@ public class DetailHotelActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public void finished(){
-        if(islikechange) {
+    public void finished() {
+        if (islikechange) {
             setResult(80);
-        }
-        else if(isLogin){
+        } else if (isLogin) {
             setResult(110);
         }
-        if(mViewPager != null) {
+        if (mViewPager != null) {
             mViewPager.stopAutoScroll();
         }
         finish();
@@ -1723,38 +1671,34 @@ public class DetailHotelActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == 80 && requestCode == 80){
+        if (resultCode == 80 && requestCode == 80) {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
 
-            if(data.getBooleanExtra("is_date", false)){
-                Toast.makeText(this, Util.formatchange(ec_date)+"~"+Util.formatchange(ee_date)+" 으로 날짜 설정이 변경되었습니다.", Toast.LENGTH_SHORT).show();
+            if (data.getBooleanExtra("is_date", false)) {
+                Toast.makeText(this, Util.formatchange(ec_date) + "~" + Util.formatchange(ee_date) + " 으로 날짜 설정이 변경되었습니다.", Toast.LENGTH_SHORT).show();
             }
             cookie = _preferences.getString("userid", null);
-            if(cookie != null){
+            if (cookie != null) {
                 isLogin = true;
             }
             setDetailView();
-        }
-        else if(resultCode == 81 && requestCode == 81){
+        } else if (resultCode == 81 && requestCode == 81) {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             hid = data.getStringExtra("hid");
             isSave = true;
             scroll.fullScroll(View.FOCUS_UP);
-            scroll.scrollTo(0,0);
+            scroll.scrollTo(0, 0);
             app_bar.setExpanded(true);
             setDetailView();
-        }
-        else if(resultCode == 90 && requestCode == 90) {
+        } else if (resultCode == 90 && requestCode == 90) {
             isLogin = true;
             cookie = _preferences.getString("userid", null);
-        }
-        else if(resultCode == 100 && requestCode == 80) {
+        } else if (resultCode == 100 && requestCode == 80) {
             setResult(100);
             finish();
-        }
-        else if(resultCode == 110 && requestCode == 80){
+        } else if (resultCode == 110 && requestCode == 80) {
             isLogin = true;
             cookie = _preferences.getString("userid", null);
             ec_date = data.getStringExtra("ec_date");

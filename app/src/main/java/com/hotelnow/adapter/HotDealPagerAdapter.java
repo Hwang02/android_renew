@@ -25,7 +25,7 @@ public class HotDealPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         //Returning the current tabs
-        switch (position){
+        switch (position) {
             case 0:
                 HotDealHotelFragment hotDealHotelFragment = new HotDealHotelFragment();
                 return hotDealHotelFragment;

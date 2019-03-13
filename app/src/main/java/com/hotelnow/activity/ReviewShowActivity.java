@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-public class ReviewShowActivity extends Activity{
+public class ReviewShowActivity extends Activity {
 
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private ImageView ko_star1, ko_star2, ko_star3, ko_star4, ko_star5;
@@ -72,10 +72,9 @@ public class ReviewShowActivity extends Activity{
         user_room_info = (TextView) findViewById(R.id.user_room_info);
 
 
-        if(page.equals("stay")){
+        if (page.equals("stay")) {
             title_ch.setText("ㆍ 청결도");
-        }
-        else {
+        } else {
             title_ch.setText("ㆍ 안전성");
         }
 
@@ -97,13 +96,12 @@ public class ReviewShowActivity extends Activity{
 
     }
 
-    private void getData(){
+    private void getData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.review_show;
-        if(page.equals("stay")) {
+        if (page.equals("stay")) {
             url += "/stay/" + bid;
-        }
-        else {
+        } else {
             url += "/activity/" + bid;
         }
         Api.get(url, new Api.HttpCallback() {
@@ -124,13 +122,12 @@ public class ReviewShowActivity extends Activity{
                         return;
                     }
                     JSONObject item = obj.getJSONObject("review");
-                    if (page.equals("stay")){
+                    if (page.equals("stay")) {
                         hotel_name.setText(item.getString("hotel_name"));
                         user_room_info.setText(item.getString("room_name"));
-                    }
-                    else{
+                    } else {
                         hotel_name.setText(item.getString("deal_name"));
-                        user_room_info.setText("티켓 " + item.getString("total_ticket_count")+"장");
+                        user_room_info.setText("티켓 " + item.getString("total_ticket_count") + "장");
                     }
                     sc_count = item.getInt("rating_1");
                     c_count = item.getInt("rating_2");
@@ -143,45 +140,40 @@ public class ReviewShowActivity extends Activity{
                     setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
                     setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
-                 }
-                 catch (Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(ReviewShowActivity.this, getString(R.string.error_booking_info), Toast.LENGTH_SHORT).show();
-                     findViewById(R.id.wrapper).setVisibility(View.GONE);
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
             }
         });
     }
 
-    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5){
-        if (mScore == 1){
+    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5) {
+        if (mScore == 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if (mScore == 2){
+        } else if (mScore == 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if(mScore == 3){
+        } else if (mScore == 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if(mScore == 4){
+        } else if (mScore == 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if(mScore == 5){
+        } else if (mScore == 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20);

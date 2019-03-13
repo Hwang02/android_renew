@@ -52,7 +52,7 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        holder.tv_date.setText(Util.formatchange5(data.get(0).getEc_date())+" - "+Util.formatchange5(data.get(0).getEe_date())+", "+Util.diffOfDate2(data.get(0).getEc_date(), data.get(0).getEe_date())+"박");
+        holder.tv_date.setText(Util.formatchange5(data.get(0).getEc_date()) + " - " + Util.formatchange5(data.get(0).getEe_date()) + ", " + Util.diffOfDate2(data.get(0).getEc_date(), data.get(0).getEe_date()) + "박");
 
         holder.tv_location.setText(data.get(0).getLocation());
 
@@ -86,8 +86,8 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
                                 intent.putExtra("lodge_type", "Y");
                                 fm.startActivityForResult(intent, 80);
                             }
+                        } catch (Exception e) {
                         }
-                        catch (Exception e){}
                     }
                 });
             }

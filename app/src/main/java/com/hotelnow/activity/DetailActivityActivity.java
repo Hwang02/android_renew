@@ -63,6 +63,7 @@ import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkTextView;
 import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,8 +87,8 @@ public class DetailActivityActivity extends AppCompatActivity {
     private TextView tv_special_title, m_countView, m_img_title;
     private String PagerImgs[];
     private String InfoImgs[];
-    private int pager_cnt=0;
-    private int info_cnt=0;
+    private int pager_cnt = 0;
+    private int info_cnt = 0;
     private int PAGES = 0;
     private int LOOPS = 1000;
     private int FIRST_PAGE = 0;
@@ -107,7 +108,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     private ImageView map_img;
     private String mAddress;
     private TextView tv_category, tv_hotelname,
-            tv_minprice, tv_maxprice, tv_per, tv_review_rate, tv_review_count,review_message;
+            tv_minprice, tv_maxprice, tv_per, tv_review_rate, tv_review_count, review_message;
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private Button btn_reservation;
     private DialogAlert dialogAlert;
@@ -165,6 +166,7 @@ public class DetailActivityActivity extends AppCompatActivity {
         app_bar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = true;
             int scrollRange = -1;
+
             @Override
             public void onOffsetChanged(final AppBarLayout appBarLayout, final int verticalOffset) {
                 app_bar.post(new Runnable() {
@@ -179,10 +181,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                             findViewById(R.id.btn_share).setVisibility(View.GONE);
                             // 찜상품이면 빨강색으로 변경
                             // 찜상품이면 빨강색으로 변경
-                            if(islike) {
+                            if (islike) {
                                 icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                            }
-                            else{
+                            } else {
                                 icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite);
                             }
                             findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbar_back);
@@ -194,10 +195,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                             ((TextView) toolbar.findViewById(R.id.tv_title_bar)).setText("");
                             findViewById(R.id.btn_share).setVisibility(View.VISIBLE);
                             // 찜상품이면 빨강색으로 변경
-                            if(islike) {
+                            if (islike) {
                                 icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-                            }
-                            else{
+                            } else {
                                 icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
                             }
                             findViewById(R.id.icon_back).setBackgroundResource(R.drawable.ico_titbarw_back);
@@ -212,13 +212,12 @@ public class DetailActivityActivity extends AppCompatActivity {
         });
 
 
-
         setDetailData();
     }
 
-    private void setDetailData(){
+    private void setDetailData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.ticketdetailUrl_v2+"/"+ tid;
+        String url = CONFIG.ticketdetailUrl_v2 + "/" + tid;
 
         Api.get(url, new Api.HttpCallback() {
 
@@ -240,11 +239,11 @@ public class DetailActivityActivity extends AppCompatActivity {
                         return;
                     }
 
-                    if(isSave) {
+                    if (isSave) {
                         dbHelper.insertRecentItem(tid, "A");
                     }
 
-                    if(cookie != null) {
+                    if (cookie != null) {
                         if (mFavoriteActivityItem.size() > 0) {
                             FavoriteActivityList = new String[mFavoriteActivityItem.size()];
                             for (int i = 0; i < mFavoriteActivityItem.size(); i++) {
@@ -260,7 +259,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                         }
                     }
 
-                    if(islike){
+                    if (islike) {
                         icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
                     }
 
@@ -295,16 +294,14 @@ public class DetailActivityActivity extends AppCompatActivity {
                     btn_reservation = (Button) findViewById(R.id.btn_reservation);
                     btn_more_review = (LinearLayout) findViewById(R.id.btn_more_review);
 
-                    if(ticket_data.getString("is_hot_deal").equals("Y")){
+                    if (ticket_data.getString("is_hot_deal").equals("Y")) {
                         findViewById(R.id.ico_hotdeal).setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_hotdeal).setVisibility(View.GONE);
                     }
-                    if(ticket_data.getString("is_add_reserve").equals("Y")) {
+                    if (ticket_data.getString("is_add_reserve").equals("Y")) {
                         findViewById(R.id.ico_addpoint).setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_addpoint).setVisibility(View.GONE);
                     }
 
@@ -322,7 +319,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     mCity = ticket_data.getString("city");
                     tv_hotelname.setText(tname);
                     tv_category.setText(ticket_data.getString("categor_name"));
-                    tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price"))+"원");
+                    tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price")) + "원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                     TuneWrap.Event("ProductDetail_activity", mCity, tid, tv_category.getText().toString());
@@ -336,10 +333,10 @@ public class DetailActivityActivity extends AppCompatActivity {
                             try {
                                 paramObj.put("type", "activity");
                                 paramObj.put("id", tid);
-                            } catch(Exception e){
+                            } catch (Exception e) {
                                 Log.e(CONFIG.TAG, e.toString());
                             }
-                            if(islike){// 취소
+                            if (islike) {// 취소
                                 Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception throwable) {
@@ -358,18 +355,17 @@ public class DetailActivityActivity extends AppCompatActivity {
                                             TuneWrap.Event("favorite_activity_del", tid);
 
                                             islike = false;
-                                            dbHelper.deleteFavoriteItem(false,  tid,"A");
+                                            dbHelper.deleteFavoriteItem(false, tid, "A");
                                             icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);
                                             LogUtil.e("xxxx", "찜하기 취소");
                                             showIconToast("관심 상품 담기 취소", true);
                                             islikechange = true;
-                                        }catch (JSONException e){
+                                        } catch (JSONException e) {
 
                                         }
                                     }
                                 });
-                            }
-                            else{// 성공
+                            } else {// 성공
                                 Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception throwable) {
@@ -388,12 +384,12 @@ public class DetailActivityActivity extends AppCompatActivity {
                                             TuneWrap.Event("favorite_activity", tid);
 
                                             islike = true;
-                                            dbHelper.insertFavoriteItem(tid,"A");
+                                            dbHelper.insertFavoriteItem(tid, "A");
                                             icon_zzim.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
                                             LogUtil.e("xxxx", "찜하기 성공");
                                             showIconToast("관심 상품 담기 성공", true);
                                             islikechange = true;
-                                        }catch (JSONException e){
+                                        } catch (JSONException e) {
 
                                         }
                                     }
@@ -418,22 +414,20 @@ public class DetailActivityActivity extends AppCompatActivity {
                         }
                     });
 
-                    if(ticket_data.getInt("sale_rate") == 0){
+                    if (ticket_data.getInt("sale_rate") == 0) {
                         findViewById(R.id.tv_main_discount).setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.tv_main_discount).setVisibility(View.VISIBLE);
                     }
 
                     tv_per.setText(ticket_data.getString("sale_rate"));
                     mAvg = review_data.getDouble("avg");
-                    tv_review_rate.setText(mAvg+"");
+                    tv_review_rate.setText(mAvg + "");
                     setReviewRate(review_data.getDouble("avg"));
-                    tv_review_count.setText(review_data.getInt("cnt")+"");
-                    if(review_data.getInt("cnt") == 0){
+                    tv_review_count.setText(review_data.getInt("cnt") + "");
+                    if (review_data.getInt("cnt") == 0) {
                         findViewById(R.id.review0).setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.review0).setVisibility(View.VISIBLE);
                     }
                     final Double r1, r2, r3, r4, avg;
@@ -448,11 +442,10 @@ public class DetailActivityActivity extends AppCompatActivity {
                     InfoImgs = new String[photos.length()];
 
                     for (int i = 0; i < photos.length(); i++) {
-                        if(photos.getJSONObject(i).getString("view_yn").equals("Y") && photos.getJSONObject(i).getString("img_type").equals("A")) {
+                        if (photos.getJSONObject(i).getString("view_yn").equals("Y") && photos.getJSONObject(i).getString("img_type").equals("A")) {
                             PagerImgs[pager_cnt] = photos.getJSONObject(i).getString("url");
                             pager_cnt++;
-                        }
-                        else if(photos.getJSONObject(i).getString("view_yn").equals("Y") && photos.getJSONObject(i).getString("img_type").equals("B")){
+                        } else if (photos.getJSONObject(i).getString("view_yn").equals("Y") && photos.getJSONObject(i).getString("img_type").equals("B")) {
                             InfoImgs[info_cnt] = photos.getJSONObject(i).getString("url");
                             info_cnt++;
                         }
@@ -461,25 +454,22 @@ public class DetailActivityActivity extends AppCompatActivity {
                     showPager(pager_cnt);
 
                     //event massage
-                    if(ticket_data.has("benefit_text")){
-                        if(!TextUtils.isEmpty(ticket_data.getString("benefit_text")) && !ticket_data.getString("benefit_text").equals("null")) {
+                    if (ticket_data.has("benefit_text")) {
+                        if (!TextUtils.isEmpty(ticket_data.getString("benefit_text")) && !ticket_data.getString("benefit_text").equals("null")) {
                             findViewById(R.id.view_detail_special).setVisibility(View.VISIBLE);
                             tv_special_title.setText(ticket_data.getString("benefit_text"));
-                        }
-                        else{
+                        } else {
                             findViewById(R.id.view_detail_special).setVisibility(View.GONE);
                         }
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.view_detail_special).setVisibility(View.GONE);
                     }
 
                     // 쿠폰
-                    if(instant_coupons.length()>0) {
+                    if (instant_coupons.length() > 0) {
                         findViewById(R.id.ico_nowdiscount).setVisibility(View.VISIBLE);
                         setCoupon(instant_coupons);
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.ico_nowdiscount).setVisibility(View.GONE);
                     }
 
@@ -501,10 +491,10 @@ public class DetailActivityActivity extends AppCompatActivity {
                     //가격정보
                     //그룹일경우
                     int sel_count = 0;
-                    if(deal_option_group.length() > 0){
+                    if (deal_option_group.length() > 0) {
                         View view_product = null;
                         room_list.removeAllViews();
-                        for(int j =0; j<deal_option_group.length(); j++) {
+                        for (int j = 0; j < deal_option_group.length(); j++) {
                             if (options.length() > 0) {
                                 ticket_count = options.length();
                                 for (int i = 0; i < options.length(); i++) {
@@ -527,13 +517,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                                             minus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
+                                                    if (sel_list.get((int) v.getTag()).getmCnt() < 11) {
                                                         int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
-                                                        if(cnt == 0){
+                                                        if (cnt == 0) {
                                                             item_cnt.setText(0 + "장");
-                                                            sel_list.get((int)v.getTag()).setmCnt(0);
+                                                            sel_list.get((int) v.getTag()).setmCnt(0);
                                                             v.setBackgroundResource(R.drawable.numeric_m_disabled);
-                                                        }else if(cnt > 0) {
+                                                        } else if (cnt > 0) {
                                                             item_cnt.setText(cnt + "장");
                                                             sel_list.get((int) v.getTag()).setmCnt(cnt);
                                                             plus.setBackgroundResource(R.drawable.numeric_p_enabled);
@@ -545,14 +535,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                                             plus.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
+                                                    if (sel_list.get((int) v.getTag()).getmCnt() >= 0 && sel_list.get((int) v.getTag()).getmCnt() < 11) {
                                                         int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
-                                                        if(cnt == 10){
+                                                        if (cnt == 10) {
                                                             item_cnt.setText(10 + "장");
-                                                            sel_list.get((int)v.getTag()).setmCnt(10);
+                                                            sel_list.get((int) v.getTag()).setmCnt(10);
                                                             v.setBackgroundResource(R.drawable.numeric_p_disabled);
-                                                        }
-                                                        else if(cnt < 11){
+                                                        } else if (cnt < 11) {
                                                             item_cnt.setText(cnt + "장");
                                                             sel_list.get((int) v.getTag()).setmCnt(cnt);
                                                             minus.setBackgroundResource(R.drawable.numeric_m_enabled);
@@ -578,13 +567,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                                             item.setmCnt(0);
 
                                             group_view.setVisibility(View.VISIBLE);
-                                            if(i != 0){
+                                            if (i != 0) {
                                                 view_product.findViewById(R.id.end_line).setVisibility(View.VISIBLE);
                                             }
 
                                             group_title.setText(deal_option_group.getJSONObject(j).getString("name"));
                                             if (!deal_option_group.getJSONObject(j).getString("description").equals("null")) {
-                                                group_info.setText("" + deal_option_group.getJSONObject(j).getString("description").replace("• ","ㆍ").replace("<br> ", "\n").replace("<br />", "\n").replace("<br>", "\n").replace(" ", "\u00A0"));
+                                                group_info.setText("" + deal_option_group.getJSONObject(j).getString("description").replace("• ", "ㆍ").replace("<br> ", "\n").replace("<br />", "\n").replace("<br>", "\n").replace(" ", "\u00A0"));
                                             } else {
                                                 group_info.setText("" + deal_option_group.getJSONObject(j).getString("name"));
                                             }
@@ -603,14 +592,12 @@ public class DetailActivityActivity extends AppCompatActivity {
                                         }
                                     }
                                 }
-                            }
-                            else{
+                            } else {
                                 ticket_count = 0;
                                 room_list.setVisibility(View.GONE);
                             }
                         }
-                    }
-                    else { // 그룹이 아닐경우
+                    } else { // 그룹이 아닐경우
                         if (options.length() > 0) {
                             ticket_count = options.length();
                             View view_product = null;
@@ -632,11 +619,11 @@ public class DetailActivityActivity extends AppCompatActivity {
                                 minus.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if (sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                            if(sel_list.get((int)v.getTag()).getmCnt() == 0){
+                                        if (sel_list.get((int) v.getTag()).getmCnt() < 11) {
+                                            if (sel_list.get((int) v.getTag()).getmCnt() == 0) {
                                                 item_cnt.setText(0 + "장");
-                                                sel_list.get((int)v.getTag()).setmCnt(0);
-                                            }else {
+                                                sel_list.get((int) v.getTag()).setmCnt(0);
+                                            } else {
                                                 int cnt = sel_list.get((int) v.getTag()).getmCnt() - 1;
                                                 item_cnt.setText(cnt + "장");
                                                 sel_list.get((int) v.getTag()).setmCnt(cnt);
@@ -648,12 +635,11 @@ public class DetailActivityActivity extends AppCompatActivity {
                                 plus.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        if (sel_list.get((int)v.getTag()).getmCnt() >= 0 && sel_list.get((int)v.getTag()).getmCnt() < 11) {
-                                            if(sel_list.get((int)v.getTag()).getmCnt() == 10){
+                                        if (sel_list.get((int) v.getTag()).getmCnt() >= 0 && sel_list.get((int) v.getTag()).getmCnt() < 11) {
+                                            if (sel_list.get((int) v.getTag()).getmCnt() == 10) {
                                                 item_cnt.setText(10 + "장");
-                                                sel_list.get((int)v.getTag()).setmCnt(10);
-                                            }
-                                            else {
+                                                sel_list.get((int) v.getTag()).setmCnt(10);
+                                            } else {
                                                 int cnt = sel_list.get((int) v.getTag()).getmCnt() + 1;
                                                 item_cnt.setText(cnt + "장");
                                                 sel_list.get((int) v.getTag()).setmCnt(cnt);
@@ -666,17 +652,16 @@ public class DetailActivityActivity extends AppCompatActivity {
                                 item_name.setText(options.getJSONObject(i).getString("name"));
                                 item_price.setText(nf.format(Integer.valueOf(options.getJSONObject(i).getString("sale_price"))) + "원 ");
                                 item_id.setText(options.getJSONObject(i).getString("id"));
-                                if(options.getJSONObject(i).getString("description") == null || options.getJSONObject(i).getString("description").equals(null) || options.getJSONObject(i).getString("description").equals(null)) {
+                                if (options.getJSONObject(i).getString("description") == null || options.getJSONObject(i).getString("description").equals(null) || options.getJSONObject(i).getString("description").equals(null)) {
                                     item_description.setVisibility(View.GONE);
-                                }else{
+                                } else {
                                     item_description.setVisibility(View.VISIBLE);
                                     item_description.setText(options.getJSONObject(i).getString("description"));
                                 }
 
-                                if(i<options.length()-1){
+                                if (i < options.length() - 1) {
                                     view_product.findViewById(R.id.group_line).setVisibility(View.VISIBLE);
-                                }
-                                else{
+                                } else {
                                     view_product.findViewById(R.id.end_line).setVisibility(View.VISIBLE);
                                 }
 
@@ -686,23 +671,21 @@ public class DetailActivityActivity extends AppCompatActivity {
                                 sel_list.add(item);
                                 room_list.addView(view_product);
                             }
-                        }
-                        else{
+                        } else {
                             ticket_count = 0;
                             room_list.setVisibility(View.GONE);
                         }
                     }
                     //가격정보
 
-                    if(ticket_count==0){
+                    if (ticket_count == 0) {
                         tv_minprice.setText("판매중인 상품 없음");
                         findViewById(R.id.tv_minwon).setVisibility(View.GONE);
                         tv_minprice.setTextColor(getResources().getColor(R.color.graytxt));
                         tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.NORMAL);
                         tv_minprice.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                         findViewById(R.id.detail_line).setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         tv_minprice.setText(Util.numberFormat(ticket_data.getInt("sale_price")));
                         tv_minprice.setTextColor(getResources().getColor(R.color.blacktxt));
                         tv_minprice.setTypeface(tv_minprice.getTypeface(), Typeface.BOLD);
@@ -712,16 +695,16 @@ public class DetailActivityActivity extends AppCompatActivity {
                     }
 
                     //이미지 정보
-                    if(info_cnt >0){
+                    if (info_cnt > 0) {
                         findViewById(R.id.img_detail).setVisibility(View.VISIBLE);
                         String img_tag = "";
-                        img_tag = "<div style='font-size:30px;text-align:center'><strong>"+"하기 이미지는 상품의 이해를 돕기 위한 내용으로,<br> 시설사의 상황에 따라 상품 상세 정보가 다를 수 있습니다."+"</strong></div><br>";
-                        for(int j=0; j<InfoImgs.length; j++){
-                            img_tag +=  "<img width='100%' src ="+InfoImgs[j]+"><br>";
+                        img_tag = "<div style='font-size:30px;text-align:center'><strong>" + "하기 이미지는 상품의 이해를 돕기 위한 내용으로,<br> 시설사의 상황에 따라 상품 상세 정보가 다를 수 있습니다." + "</strong></div><br>";
+                        for (int j = 0; j < InfoImgs.length; j++) {
+                            img_tag += "<img width='100%' src =" + InfoImgs[j] + "><br>";
                         }
-                        if(android.os.Build.VERSION.SDK_INT < 16) {
+                        if (android.os.Build.VERSION.SDK_INT < 16) {
                             webview.loadDataWithBaseURL(null, img_tag, "text/html", "UTF-8", null); // Android 4.0 이하 버전
-                        }else {
+                        } else {
                             webview.loadDataWithBaseURL(null, img_tag, "text/html; charset=UTF-8", null, null); // Android 4.1 이상 버전
                         }
                         webview.getSettings().setLoadWithOverviewMode(true);
@@ -730,45 +713,42 @@ public class DetailActivityActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 LinearLayout.LayoutParams lp = null;
-                                if(tv_more.getText().equals("더보기")){
+                                if (tv_more.getText().equals("더보기")) {
                                     tv_more.setText(getResources().getString(R.string.more_close_title));
                                     img_more.setBackgroundResource(R.drawable.btn_detail_close);
                                     lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                                }
-                                else{
+                                } else {
                                     tv_more.setText(getResources().getString(R.string.more_title));
                                     img_more.setBackgroundResource(R.drawable.btn_detail_open);
-                                    lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailActivityActivity.this,180));
+                                    lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailActivityActivity.this, 180));
                                 }
                                 webview.setLayoutParams(lp);
                                 webview.reload();
                             }
                         });
-                    }
-                    else {
+                    } else {
                         findViewById(R.id.img_detail).setVisibility(View.GONE);
                     }
                     //이미지 정보
 
                     //상품소개
-                    if(ticket_data.has("deal_introduce")&& !TextUtils.isEmpty(ticket_data.getString("deal_introduce")) && !ticket_data.getString("deal_introduce").equals("null")) {
+                    if (ticket_data.has("deal_introduce") && !TextUtils.isEmpty(ticket_data.getString("deal_introduce")) && !ticket_data.getString("deal_introduce").equals("null")) {
                         findViewById(R.id.product_info).setVisibility(View.VISIBLE);
                         tv_product_info.setText(ticket_data.getString("deal_introduce"));
-                    }
-                    else{
+                    } else {
                         findViewById(R.id.product_info).setVisibility(View.GONE);
                     }
 
                     // 지도
                     // 주소
-                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+ticket_data.getString("latitude")+"%2C"+ticket_data.getString("longitude")+
-                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+ticket_data.getString("latitude")+"%2C"+ticket_data.getString("longitude")+
-                            "&scale=1&sensor=false&language=ko&size="+500+"x"+500+"&zoom=15"+"&key="+ BuildConfig.google_map_key2;
+                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + ticket_data.getString("latitude") + "%2C" + ticket_data.getString("longitude") +
+                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + ticket_data.getString("latitude") + "%2C" + ticket_data.getString("longitude") +
+                            "&scale=1&sensor=false&language=ko&size=" + 500 + "x" + 500 + "&zoom=15" + "&key=" + BuildConfig.google_map_key2;
                     Ion.with(map_img).load(mapStr);
                     mAddress = ticket_data.getString("address");
                     tv_address.setText(mAddress);
 
-                    findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener(){
+                    findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -810,29 +790,29 @@ public class DetailActivityActivity extends AppCompatActivity {
                     //이용 정보
                     ArrayList<TicketInfoEntry> infolist = new ArrayList<>();
 
-                    if(ticket_data.has("deal_info") && !TextUtils.isEmpty(ticket_data.getString("deal_info")) && !ticket_data.getString("deal_info").equals("null")) {
+                    if (ticket_data.has("deal_info") && !TextUtils.isEmpty(ticket_data.getString("deal_info")) && !ticket_data.getString("deal_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("상품 정보", ticket_data.getString("deal_info")));
                     }
-                    if(ticket_data.has("refund_info") && !TextUtils.isEmpty(ticket_data.getString("refund_info")) && !ticket_data.getString("refund_info").equals("null")){
+                    if (ticket_data.has("refund_info") && !TextUtils.isEmpty(ticket_data.getString("refund_info")) && !ticket_data.getString("refund_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("환불 정보", ticket_data.getString("refund_info")));
                     }
 
-                    if(ticket_data.has("usage_info")&& !TextUtils.isEmpty(ticket_data.getString("usage_info")) && !ticket_data.getString("usage_info").equals("null")){
+                    if (ticket_data.has("usage_info") && !TextUtils.isEmpty(ticket_data.getString("usage_info")) && !ticket_data.getString("usage_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("사용 정보", ticket_data.getString("usage_info")));
                     }
 
-                    if(ticket_data.has("store_info")&& !TextUtils.isEmpty(ticket_data.getString("store_info")) && !ticket_data.getString("store_info").equals("null")){
+                    if (ticket_data.has("store_info") && !TextUtils.isEmpty(ticket_data.getString("store_info")) && !ticket_data.getString("store_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("시설사 정보", ticket_data.getString("store_info")));
                     }
 
-                    if(ticket_data.has("notice_info")&& !TextUtils.isEmpty(ticket_data.getString("notice_info")) && !ticket_data.getString("notice_info").equals("null")){
+                    if (ticket_data.has("notice_info") && !TextUtils.isEmpty(ticket_data.getString("notice_info")) && !ticket_data.getString("notice_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("공지 정보", ticket_data.getString("notice_info")));
                     }
 
-                    if(ticket_data.has("cs_info")&&!TextUtils.isEmpty(ticket_data.getString("cs_info")) && !ticket_data.getString("cs_info").equals("null")){
+                    if (ticket_data.has("cs_info") && !TextUtils.isEmpty(ticket_data.getString("cs_info")) && !ticket_data.getString("cs_info").equals("null")) {
                         infolist.add(new TicketInfoEntry("제공 정보", ticket_data.getString("cs_info")));
                     }
-                    if(infolist.size()>0) {
+                    if (infolist.size() > 0) {
                         info_list.removeAllViews();
                         for (int i = 0; i < infolist.size(); i++) {
                             View info_view = LayoutInflater.from(DetailActivityActivity.this).inflate(R.layout.layout_ticket_info, null);
@@ -872,32 +852,30 @@ public class DetailActivityActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             boolean is_sel = false;
-                            for(int i=0; i<sel_list.size(); i++){
-                                if(sel_list.get(i).getmCnt() != 0){
+                            for (int i = 0; i < sel_list.size(); i++) {
+                                if (sel_list.get(i).getmCnt() != 0) {
                                     is_sel = true;
                                     break;
                                 }
                             }
-                            if(is_sel) {
+                            if (is_sel) {
                                 cookie = _preferences.getString("userid", null);
-                                if(cookie != null) {
+                                if (cookie != null) {
                                     Intent intent = new Intent(DetailActivityActivity.this, ReservationActivityActivity.class);
                                     intent.putExtra("sel_list", (Serializable) sel_list);
                                     intent.putExtra("tid", tid);
                                     intent.putExtra("tname", tname);
-                                    startActivityForResult(intent,80);
-                                }
-                                else{
+                                    startActivityForResult(intent, 80);
+                                } else {
                                     Intent intent = new Intent(DetailActivityActivity.this, LoginActivity.class);
                                     intent.putExtra("from", "ticket_reservation");
                                     intent.putExtra("sel_list", (Serializable) sel_list);
                                     intent.putExtra("pid", tid);
                                     intent.putExtra("tname", tname);
                                     intent.putExtra("page", "detailA");
-                                    startActivityForResult(intent,90);
+                                    startActivityForResult(intent, 90);
                                 }
-                            }
-                            else{
+                            } else {
                                 dialogAlert = new DialogAlert(
                                         getString(R.string.alert_notice),
                                         "옵션 수량을 1개 이상 선택해주세요.",
@@ -915,8 +893,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     });
 
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.getStackTrace();
                     Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
@@ -926,7 +903,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     }
 
     private void setCoupon(final JSONArray cdata) {
-        try{
+        try {
             coupon_list.removeAllViews();
             isAcoupon = new int[cdata.length()];
             mCouponId = new String[cdata.length()];
@@ -939,14 +916,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                 ImageView icon_download = (ImageView) view_coupon.findViewById(R.id.icon_download);
                 tv_coupon_title.setText(cdata.getJSONObject(i).getString("name"));
                 tv_coupon_price.setText(cdata.getJSONObject(i).getString("coupon_price"));
-                if(cdata.getJSONObject(i).getInt("mycoupon_cnt") == 0){
+                if (cdata.getJSONObject(i).getInt("mycoupon_cnt") == 0) {
                     //사용가능
                     tv_coupon_price.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.redtext));
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.blacktxt));
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon);
                     icon_download.setBackgroundResource(R.drawable.ico_download);
-                }
-                else {
+                } else {
                     //불가능
                     tv_coupon_price.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.coupon_dis));
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.coupon_dis));
@@ -959,24 +935,23 @@ public class DetailActivityActivity extends AppCompatActivity {
                 view_coupon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        LogUtil.e("xxxx", v.getTag()+"");
-                        setCouponDown((int)v.getTag(), cdata);
+                        LogUtil.e("xxxx", v.getTag() + "");
+                        setCouponDown((int) v.getTag(), cdata);
                     }
                 });
-                view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailActivityActivity.this,54)));
+                view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailActivityActivity.this, 54)));
                 coupon_list.addView(view_coupon);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getStackTrace();
             Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
 
-    private void setCouponDown(final int position, final JSONArray cdata){
+    private void setCouponDown(final int position, final JSONArray cdata) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        Api.get(CONFIG.ticketcouponUrl2+"/"+mCouponId[position], new Api.HttpCallback() {
+        Api.get(CONFIG.ticketcouponUrl2 + "/" + mCouponId[position], new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(DetailActivityActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -1005,7 +980,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
 
-                    TuneWrap.Event("stay_coupon", mCity, tid, tv_coupon_title.getText().toString()+"("+tv_coupon_price.getText().toString()+")", mCouponId[position]);
+                    TuneWrap.Event("stay_coupon", mCity, tid, tv_coupon_title.getText().toString() + "(" + tv_coupon_price.getText().toString() + ")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
@@ -1019,11 +994,11 @@ public class DetailActivityActivity extends AppCompatActivity {
     }
 
     //쿠폰 다이얼로그
-    private void showCouponDialog(String message){
+    private void showCouponDialog(String message) {
         dialogCoupon = new DialogCoupon(
                 DetailActivityActivity.this,
                 getString(R.string.coupon_title2),
-                tname+"\n"+message +"\n\n지금 바로예약하세요",
+                tname + "\n" + message + "\n\n지금 바로예약하세요",
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1043,7 +1018,7 @@ public class DetailActivityActivity extends AppCompatActivity {
         m_countView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pager_cnt>0) {
+                if (pager_cnt > 0) {
                     Intent intent = new Intent(DetailActivityActivity.this, FullImageViewActivityActivity.class);
                     intent.putExtra("tid", tid);
                     intent.putExtra("idx", markNowPosition);
@@ -1070,7 +1045,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                         nowPosition = position;
                         markNowPosition = position % PAGES;
 
-                        m_countView.setText(markNowPosition+1+"/"+PAGES+"  + ");
+                        m_countView.setText(markNowPosition + 1 + "/" + PAGES + "  + ");
                         markPrevPosition = markNowPosition;
                     } catch (Exception e) {
 //                        Util.doRestart(getApplicationContext());
@@ -1098,7 +1073,7 @@ public class DetailActivityActivity extends AppCompatActivity {
 
     private void initPageMark() {
 
-        m_countView.setText(1+"/"+PAGES+"  + ");
+        m_countView.setText(1 + "/" + PAGES + "  + ");
 
         markPrevPosition = markNowPosition;
     }
@@ -1137,7 +1112,7 @@ public class DetailActivityActivity extends AppCompatActivity {
         }
     }
 
-    private void setReviewRate(Double rate){
+    private void setReviewRate(Double rate) {
         review_message = (TextView) findViewById(R.id.review_message);
         sc_star1 = (ImageView) findViewById(R.id.sc_star1);
         sc_star2 = (ImageView) findViewById(R.id.sc_star2);
@@ -1145,89 +1120,76 @@ public class DetailActivityActivity extends AppCompatActivity {
         sc_star4 = (ImageView) findViewById(R.id.sc_star4);
         sc_star5 = (ImageView) findViewById(R.id.sc_star5);
 
-        if(rate>4) {
+        if (rate > 4) {
             review_message.setText("최고에요!");
-        }
-        else if(rate>=3.5) {
+        } else if (rate >= 3.5) {
             review_message.setText("아주 좋아요");
-        }
-        else if(rate>=3) {
+        } else if (rate >= 3) {
             review_message.setText("좋아요");
-        }
-        else if(rate>=2) {
+        } else if (rate >= 2) {
             review_message.setText("보통입니다");
-        }
-        else {
+        } else {
             review_message.setText("별로에요");
         }
-        setStar(rate, sc_star1, sc_star2,sc_star3 ,sc_star4,sc_star5);
+        setStar(rate, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
     }
 
-    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5){
-        if (mScore < 1){
+    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5) {
+        if (mScore < 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore == 1){
+        } else if (mScore == 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore < 2){
+        } else if (mScore < 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if (mScore == 2){
+        } else if (mScore == 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 3){
+        } else if (mScore < 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore == 3){
+        } else if (mScore == 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 4){
+        } else if (mScore < 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_half);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore == 4){
+        } else if (mScore == 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_blank);
-        }
-        else if(mScore < 5){
+        } else if (mScore < 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_half);
-        }
-        else if(mScore == 5){
+        } else if (mScore == 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_press);
@@ -1236,7 +1198,7 @@ public class DetailActivityActivity extends AppCompatActivity {
         }
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         ico_favorite.setVisibility(View.GONE);
@@ -1249,14 +1211,13 @@ public class DetailActivityActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);
@@ -1273,7 +1234,7 @@ public class DetailActivityActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(webview != null){
+        if (webview != null) {
             webview.destroy();
         }
     }
@@ -1284,11 +1245,10 @@ public class DetailActivityActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public void finished(){
-        if(islikechange) {
+    public void finished() {
+        if (islikechange) {
             setResult(80);
-        }
-        else if(isLogin){
+        } else if (isLogin) {
             setResult(110);
         }
         finish();
@@ -1298,15 +1258,13 @@ public class DetailActivityActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == 90 && requestCode == 90) {
+        if (resultCode == 90 && requestCode == 90) {
             isLogin = true;
             cookie = _preferences.getString("userid", null);
-        }
-        else if(resultCode == 100 && requestCode == 80) {
+        } else if (resultCode == 100 && requestCode == 80) {
             setResult(100);
             finish();
-        }
-        else if(resultCode == 81 && requestCode == 81){
+        } else if (resultCode == 81 && requestCode == 81) {
             Intent intent = new Intent(this, DetailHotelActivity.class);
             intent.putExtra("hid", data.getStringExtra("hid"));
             intent.putExtra("save", true);

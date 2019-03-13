@@ -28,6 +28,7 @@ public class CustomDurationScroller extends Scroller {
 
     /**
      * 获取滚动间隔时间
+     *
      * @return
      */
     public int getMduration() {
@@ -36,6 +37,7 @@ public class CustomDurationScroller extends Scroller {
 
     /**
      * 设置滑动时间间隔
+     *
      * @param duration
      */
     public void setDuration(int duration) {

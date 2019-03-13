@@ -46,10 +46,9 @@ public class ActivityFilterAdapter extends ArrayAdapter<ActivityThemeItem> {
 
         final ActivityThemeItem entry = getItem(position);
 
-        if(tv_category.equals(entry.getQcategory_ko())){
+        if (tv_category.equals(entry.getQcategory_ko())) {
             holder.parent_view.setActivated(true);
-        }
-        else{
+        } else {
             holder.parent_view.setActivated(false);
         }
 

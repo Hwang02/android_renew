@@ -48,8 +48,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
 
-        if(data.get(position).getTheme_flag().equals("H")) {
-            if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+        if (data.get(position).getTheme_flag().equals("H")) {
+            if (dbHelper.selectAllFavoriteStayItem().size() > 0) {
                 for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
                     if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
                         holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -60,8 +60,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
                         holder.islike = false;
                     }
                 }
-            }
-            else {
+            } else {
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
@@ -87,9 +86,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
                     hf.startActivityForResult(intent, 80);
                 }
             });
-        }
-        else{
-            if(dbHelper.selectAllFavoriteActivityItem().size()>0) {
+        } else {
+            if (dbHelper.selectAllFavoriteActivityItem().size() > 0) {
                 for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
                     if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
                         holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -100,8 +98,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder
                         holder.islike = false;
                     }
                 }
-            }
-            else {
+            } else {
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }

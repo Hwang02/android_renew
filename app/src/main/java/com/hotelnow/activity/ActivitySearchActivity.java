@@ -59,12 +59,12 @@ public class ActivitySearchActivity extends Activity {
     private String banner_id, search_txt;
     private int Page = 1;
     private int total_count;
-    private String s_position = "", theme_id="", city="";
+    private String s_position = "", theme_id = "", city = "";
     private DbOpenHelper dbHelper;
     private Button bt_scroll;
     RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
-    TextView tv_toast, title_text, tv_ecategory,tv_elocation, empty_title, empty_sub;
+    TextView tv_toast, title_text, tv_ecategory, tv_elocation, empty_title, empty_sub;
 
 
     @Override
@@ -89,12 +89,12 @@ public class ActivitySearchActivity extends Activity {
         title_text.setText("액티비티");
         HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_category = (RelativeLayout)HeaderView.findViewById(R.id.btn_category);
+        btn_category = (RelativeLayout) HeaderView.findViewById(R.id.btn_category);
         tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
         map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
         tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
-        bt_scroll = (Button)findViewById(R.id.bt_scroll);
+        bt_scroll = (Button) findViewById(R.id.bt_scroll);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
@@ -107,12 +107,12 @@ public class ActivitySearchActivity extends Activity {
         mlist.setAdapter(adapter);
 
         View empty = getLayoutInflater().inflate(R.layout.layout_a_search_empty, null, false);
-        ((TextView)empty.findViewById(R.id.sub)).setText("다른 지역이나 테마로 검색해보세요");
+        ((TextView) empty.findViewById(R.id.sub)).setText("다른 지역이나 테마로 검색해보세요");
         tv_ecategory = (TextView) empty.findViewById(R.id.tv_category);
         tv_elocation = (TextView) empty.findViewById(R.id.tv_location);
         empty_title = (TextView) empty.findViewById(R.id.title);
         empty_sub = (TextView) empty.findViewById(R.id.sub);
-        ((ViewGroup)mlist.getParent()).addView(empty);
+        ((ViewGroup) mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
 
         empty_title.setVisibility(View.GONE);
@@ -191,26 +191,26 @@ public class ActivitySearchActivity extends Activity {
         getSearch();
     }
 
-    public void getSearch(){
+    public void getSearch() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.search_activity_list;
 //        search_txt = "서울";
-        if(!TextUtils.isEmpty(search_txt)){
-            url +="&search_text="+search_txt;
+        if (!TextUtils.isEmpty(search_txt)) {
+            url += "&search_text=" + search_txt;
         }
-        if(!TextUtils.isEmpty(banner_id)){
-            url +="&banner_id="+banner_id;
+        if (!TextUtils.isEmpty(banner_id)) {
+            url += "&banner_id=" + banner_id;
         }
-        if(!TextUtils.isEmpty(theme_id)){
+        if (!TextUtils.isEmpty(theme_id)) {
             url += "&category=" + theme_id;
         }
-        if(!TextUtils.isEmpty(city)){
+        if (!TextUtils.isEmpty(city)) {
             url += "&city=" + city;
         }
 
-        url +="&per_page=20";
+        url += "&per_page=20";
 
-        if(Page < 2 || total_count != mItems.size()) {
+        if (Page < 2 || total_count != mItems.size()) {
             Api.get(url + "&page=" + Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
@@ -232,7 +232,7 @@ public class ActivitySearchActivity extends Activity {
                         final JSONArray list = obj.getJSONArray("lists");
                         JSONObject entry = null;
                         if (Page == 1)
-                            s_position="";
+                            s_position = "";
 
                         final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
@@ -277,12 +277,11 @@ public class ActivitySearchActivity extends Activity {
                                 s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181114_150606_DfU0o2DCag.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longitude");
                         }
 
-                        if(mItems.size()>0){
+                        if (mItems.size() > 0) {
                             bt_scroll.setVisibility(View.VISIBLE);
                             empty_title.setVisibility(View.GONE);
                             empty_sub.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             bt_scroll.setVisibility(View.GONE);
                             empty_title.setVisibility(View.VISIBLE);
                             empty_sub.setVisibility(View.VISIBLE);
@@ -317,24 +316,23 @@ public class ActivitySearchActivity extends Activity {
                     }
                 }
             });
-        }
-        else {
+        } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -353,18 +351,17 @@ public class ActivitySearchActivity extends Activity {
                         }
 
                         TuneWrap.Event("favorite_activity_del", sel_id);
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -383,12 +380,12 @@ public class ActivitySearchActivity extends Activity {
                         }
 
                         TuneWrap.Event("favorite_activity", sel_id);
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
@@ -396,7 +393,7 @@ public class ActivitySearchActivity extends Activity {
         }
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -409,14 +406,13 @@ public class ActivitySearchActivity extends Activity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);
@@ -433,14 +429,14 @@ public class ActivitySearchActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if(responseCode == 90) {
-            if(data.getBooleanExtra("search_data", false)) {
-                mItems = (ArrayList<SearchResultItem>)data.getSerializableExtra("search_data");;
-                if(adapter != null)
+        if (responseCode == 90) {
+            if (data.getBooleanExtra("search_data", false)) {
+                mItems = (ArrayList<SearchResultItem>) data.getSerializableExtra("search_data");
+                ;
+                if (adapter != null)
                     adapter.notifyDataSetChanged();
             }
-        }
-        else if(requestCode == 80 && responseCode == 80) {
+        } else if (requestCode == 80 && responseCode == 80) {
             city = data.getStringExtra("id");
             tv_location.setText(data.getStringExtra("name"));
             tv_elocation.setText(data.getStringExtra("name"));
@@ -450,8 +446,7 @@ public class ActivitySearchActivity extends Activity {
             empty_title.setVisibility(View.GONE);
             empty_sub.setVisibility(View.GONE);
             getSearch();
-        }
-        else if(requestCode == 70 && responseCode == 80) {
+        } else if (requestCode == 70 && responseCode == 80) {
             theme_id = data.getStringExtra("id");
             tv_category.setText(data.getStringExtra("name"));
             tv_ecategory.setText(data.getStringExtra("name"));
@@ -461,15 +456,12 @@ public class ActivitySearchActivity extends Activity {
             empty_title.setVisibility(View.GONE);
             empty_sub.setVisibility(View.GONE);
             getSearch();
-        }
-        else if(requestCode == 50 && responseCode == 80) {
+        } else if (requestCode == 50 && responseCode == 80) {
             adapter.notifyDataSetChanged();
-        }
-        else if(responseCode == 100){
+        } else if (responseCode == 100) {
             setResult(100);
             finish();
-        }
-        else if(requestCode == 90 && responseCode == 3000){
+        } else if (requestCode == 90 && responseCode == 3000) {
             adapter.notifyDataSetChanged();
         }
     }

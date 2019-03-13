@@ -2,7 +2,7 @@ package com.hotelnow.fragment.model;
 
 public class ThemeSItem {
 
-    private String id, name,  category,  street1,  street2,  special_msg,  sale_price,  normal_price,  sale_rate, landscape,  grade_score,  real_grade_score,  is_private_deal,  is_hot_deal,  is_add_reserve,  theme_listing_order,  top_img, checkin, checkout;
+    private String id, name, category, street1, street2, special_msg, sale_price, normal_price, sale_rate, landscape, grade_score, real_grade_score, is_private_deal, is_hot_deal, is_add_reserve, theme_listing_order, top_img, checkin, checkout;
     private int items_quantity, coupon_count;
 
     public ThemeSItem(String id, String name, String category, String street1, String street2, String special_msg, String sale_price, String normal_price, String sale_rate,

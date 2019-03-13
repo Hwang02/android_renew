@@ -50,31 +50,28 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getLandscape());
 
-        if(data.get(position).getGrade_score().equals("0.0")){
+        if (data.get(position).getGrade_score().equals("0.0")) {
             holder.tv_score.setVisibility(View.GONE);
             holder.text_bar.setVisibility(View.GONE);
             holder.img_star.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_score.setVisibility(View.VISIBLE);
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
 
-        if(data.get(position).getCoupon_count()>0){
+        if (data.get(position).getCoupon_count() > 0) {
             holder.soon_discount.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_discount.setVisibility(View.GONE);
         }
-        if(data.get(position).getIs_add_reserve().equals("Y")){
+        if (data.get(position).getIs_add_reserve().equals("Y")) {
             holder.soon_point.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+        if (dbHelper.selectAllFavoriteStayItem().size() > 0) {
             for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
                 if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
                     holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -85,34 +82,32 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
                     holder.islike = false;
                 }
             }
-        }
-        else {
+        } else {
             holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             holder.islike = false;
         }
-        if(data.get(position).getSale_rate().equals("0")){
+        if (data.get(position).getSale_rate().equals("0")) {
             holder.tv_per.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_per.setVisibility(View.VISIBLE);
         }
-        holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
+        holder.tv_per.setText(data.get(position).getSale_rate() + "%↓");
         holder.btn_favorite.setTag(position);
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setPrivateLike((int)v.getTag(), holder.islike, PrivateDealHotelAdapter.this);
+                LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
+                hf.setPrivateLike((int) v.getTag(), holder.islike, PrivateDealHotelAdapter.this);
             }
         });
         holder.sel_item.setTag(position);
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("stay_private", data.get((int)v.getTag()).getId());
-                LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
+                TuneWrap.Event("stay_private", data.get((int) v.getTag()).getId());
+                LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
-                intent.putExtra("hid", data.get((int)v.getTag()).getId());
+                intent.putExtra("hid", data.get((int) v.getTag()).getId());
                 intent.putExtra("save", true);
                 hf.startActivityForResult(intent, 80);
             }

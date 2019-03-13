@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
@@ -52,10 +53,10 @@ public class FilterActivityActivity extends Activity {
 
     private void setFacility() {
         ColorStateList myColorStateList = new ColorStateList(
-                new int[][]{ new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}},
-                new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
+                new int[][]{new int[]{android.R.attr.state_checked}, new int[]{-android.R.attr.state_checked}},
+                new int[]{getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext)});
 
-        for(int i=0;i<facilityarr.size();i++){
+        for (int i = 0; i < facilityarr.size(); i++) {
             CheckBox ch = new CheckBox(FilterActivityActivity.this);
             ch.setId(i);
             ch.setTag(facilityarr.get(i).getQcategory_id());
@@ -87,12 +88,12 @@ public class FilterActivityActivity extends Activity {
     }
 
     // 단일 선택
-    private void setOrderby(){
+    private void setOrderby() {
         ColorStateList myColorStateList = new ColorStateList(
-                new int[][]{ new int[]{android.R.attr.state_selected}, new int[]{-android.R.attr.state_selected}},
-                new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
+                new int[][]{new int[]{android.R.attr.state_selected}, new int[]{-android.R.attr.state_selected}},
+                new int[]{getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext)});
 
-        for(int i=0;i<orderbyarr.length;i++){
+        for (int i = 0; i < orderbyarr.length; i++) {
             CheckBox ch = new CheckBox(FilterActivityActivity.this);
             ch.setId(i);
             ch.setTag(i);
@@ -108,10 +109,10 @@ public class FilterActivityActivity extends Activity {
             ch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-                    for(int j = 0; j<filter1.getChildCount(); j++){
+                    for (int j = 0; j < filter1.getChildCount(); j++) {
                         filter1.getChildAt(j).setSelected(false);
                     }
-                    filter1.getChildAt((int)v.getTag()).setSelected(true);
+                    filter1.getChildAt((int) v.getTag()).setSelected(true);
                 }
             });
 // 이전 부분 적용

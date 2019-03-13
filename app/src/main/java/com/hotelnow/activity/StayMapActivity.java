@@ -111,8 +111,8 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
 
 
         if (intent != null) {
-           isTicket = intent.getBooleanExtra("isTicket",false);
-            if(isTicket) {
+            isTicket = intent.getBooleanExtra("isTicket", false);
+            if (isTicket) {
                 title = intent.getStringExtra("deal_name");
                 lat = intent.getStringExtra("lat") == null ? "37.506292" : intent.getStringExtra("lat");
                 lng = intent.getStringExtra("lng") == null ? "127.053612" : intent.getStringExtra("lng");
@@ -197,7 +197,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
             public void onClick(View v) {
                 dialogConfirm = new DialogConfirm(
                         getString(R.string.alert_notice),
-                        getString(R.string.booking_kimkisa_ask)+"\n목적지 : "+title,
+                        getString(R.string.booking_kimkisa_ask) + "\n목적지 : " + title,
                         getString(R.string.alert_no),
                         getString(R.string.alert_yes),
                         StayMapActivity.this,
@@ -210,7 +210,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String url = "kimgisa://navigate?name="+title+"&coord_type=wgs84&pos_x="+lng+"&pos_y="+lat+"&return_uri=com.hotelnow.activities.ActLoading&key="+CONFIG.kimgisaKey;
+                                String url = "kimgisa://navigate?name=" + title + "&coord_type=wgs84&pos_x=" + lng + "&pos_y=" + lat + "&return_uri=com.hotelnow.activities.ActLoading&key=" + CONFIG.kimgisaKey;
                                 String strAppPackage = "com.locnall.KimGiSa";
                                 PackageManager pm = getPackageManager();
 
@@ -247,7 +247,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
         });
     }
 
-    private void setMainTicketMarker(){
+    private void setMainTicketMarker() {
         LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
@@ -267,7 +267,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
         main.setSnippet(hid);
     }
 
-    private void setMainMarker(){
+    private void setMainMarker() {
         LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
@@ -283,10 +283,10 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
         main.setSnippet(hid);
     }
 
-    private void getNearHotels(){
-        String ec,ee;
+    private void getNearHotels() {
+        String ec, ee;
 
-        if(ec_date != null && ee_date != null) {
+        if (ec_date != null && ee_date != null) {
             ec = ec_date;
             ee = ee_date;
         } else {
@@ -295,7 +295,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
             SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
 
             // 서버타임있는지 확인하고 없으면 설정
-            if(CONFIG.svr_date == null) {
+            if (CONFIG.svr_date == null) {
                 long time = System.currentTimeMillis();
                 CONFIG.svr_date = new Date(time);
             }
@@ -305,7 +305,8 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
             // 현재 시간 object 설정
             try {
                 dateObj = CONFIG.svr_date;
-            } catch(Exception e){}
+            } catch (Exception e) {
+            }
 
             Calendar startCal = Calendar.getInstance();
             Calendar endCal = Calendar.getInstance();
@@ -327,11 +328,10 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
         String nearurl = "";
 
         setCustomMarkerView();
-        if(!isTicket) {
+        if (!isTicket) {
             nearurl = CONFIG.locationNearUrl + "/" + lat + "/" + lng + "?ec_date=" + ec + "&ee_date=" + ee + "&date_term=" + diffDays;
-        }
-        else{
-            nearurl = CONFIG.locationNearUrl + "/" + lat + "/" + lng + "?ec_date=" + ec + "&ee_date=" + ee + "&date_term=" + diffDays+"&is_q=Y";
+        } else {
+            nearurl = CONFIG.locationNearUrl + "/" + lat + "/" + lng + "?ec_date=" + ec + "&ee_date=" + ee + "&date_term=" + diffDays + "&is_q=Y";
         }
         Api.get(nearurl, new Api.HttpCallback() {
             @Override
@@ -345,7 +345,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                 try {
                     JSONArray data = new JSONArray(body);
                     float zindex = 1;
-                    for(int i = 0; i < data.length(); i++) {
+                    for (int i = 0; i < data.length(); i++) {
                         if (hid.equals(data.getJSONObject(i).getString("id"))) continue;
 
                         LatLng hotel = new LatLng(data.getJSONObject(i).getDouble("latitude"), data.getJSONObject(i).getDouble("longuitude"));
@@ -439,7 +439,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
 
                             if (obj.length() == 0) return true;
 
-                            if (preMarker != null && preobj !=null) {
+                            if (preMarker != null && preobj != null) {
 //                                preMarker.setAlpha(0.7f);
                                 tv_marker.setBackgroundResource(R.drawable.map_marker_price);
                                 tv_marker.setTextColor(ContextCompat.getColor(StayMapActivity.this, R.color.white));
@@ -504,7 +504,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
                     });
                 }
             }
-            if(isTicket) {
+            if (isTicket) {
                 setMainTicketMarker();
             } else {
                 setMainMarker();
@@ -512,7 +512,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
             if (flag_use_location) {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if(ActivityCompat.checkSelfPermission(StayMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(StayMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(StayMapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_LOCATION);
                     }
                 } else {
@@ -535,7 +535,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
             }
             Util.setPreferenceValues(_preferences, "flag_use_location", true);
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mGoogleMap.setMyLocationEnabled(true);
             }
 
@@ -572,7 +572,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
         @Override
         public View getInfoWindow(Marker marker) {
             View v = ((Activity) context).getLayoutInflater().inflate(R.layout.map_info_window, null);
-            if(isTicket && marker.getSnippet().equals("0")){
+            if (isTicket && marker.getSnippet().equals("0")) {
                 v.findViewById(R.id.txt).setBackgroundColor(Color.parseColor("#4f2680"));
             }
             return v;
@@ -581,7 +581,7 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
         @Override
         public View getInfoContents(Marker marker) {
             View view = ((Activity) context).getLayoutInflater().inflate(R.layout.map_info_window, null);
-            if(isTicket && marker.getSnippet().equals("0")){
+            if (isTicket && marker.getSnippet().equals("0")) {
                 view.findViewById(R.id.txt).setBackgroundColor(Color.parseColor("#4f2680"));
             }
             return view;

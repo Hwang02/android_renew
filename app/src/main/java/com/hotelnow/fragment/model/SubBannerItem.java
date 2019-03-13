@@ -1,10 +1,9 @@
 package com.hotelnow.fragment.model;
 
 
-
 public class SubBannerItem {
 
-    private String id, order, category, image, keyword, type, evt_type, event_id,  link, title;
+    private String id, order, category, image, keyword, type, evt_type, event_id, link, title;
 
     public SubBannerItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String title) {
         this.id = id;

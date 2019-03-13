@@ -58,7 +58,7 @@ public class ActLoading extends Activity {
     private String hid;
     private String isevt;
     private int evtidx;
-    private String evttag ="";
+    private String evttag = "";
     private String sdate = "";
     private String edate = "";
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -85,22 +85,22 @@ public class ActLoading extends Activity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        displaywidth =  metrics.widthPixels;
-        int displayheight =  metrics.heightPixels;
+        displaywidth = metrics.widthPixels;
+        int displayheight = metrics.heightPixels;
 
         widthrate = displaywidth / 1440f;
         heightrate = displayheight / 2560f;
         drawrate = (widthrate + heightrate) / 2f;
 
-        int width = (int)(displaywidth * 0.86f);
+        int width = (int) (displaywidth * 0.86f);
         image2.getLayoutParams().width = width;
-        image2.getLayoutParams().height = (int)(width * 1.27f);
+        image2.getLayoutParams().height = (int) (width * 1.27f);
         //사람 이미지
 
         // preference 할당
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if(!BuildConfig.DEBUG && existRootingFile()){
+        if (!BuildConfig.DEBUG && existRootingFile()) {
             dialogAlert = new DialogAlert("알림", "루팅된 단말입니다. 앱을 종료 합니다.", this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,7 +113,7 @@ public class ActLoading extends Activity {
             return;
         }
 
-        if(!BuildConfig.DEBUG && isDebugged()){
+        if (!BuildConfig.DEBUG && isDebugged()) {
             dialogAlert = new DialogAlert("알림", "디버깅 탐지로 앱을 종료 합니다.", ActLoading.this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -126,8 +126,8 @@ public class ActLoading extends Activity {
             return;
         }
 
-        if(BuildConfig.DEBUG) {
-            if( !Util.getHashKey(this, BuildConfig.test_jobkey)) {
+        if (BuildConfig.DEBUG) {
+            if (!Util.getHashKey(this, BuildConfig.test_jobkey)) {
                 dialogAlert = new DialogAlert("알림", "위변조된 앱으로 종료 합니다.", ActLoading.this, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -139,9 +139,8 @@ public class ActLoading extends Activity {
                 dialogAlert.setCancelable(false);
                 return;
             }
-        }
-        else{
-            if(!Util.getHashKey(this, BuildConfig.jobkey)) {
+        } else {
+            if (!Util.getHashKey(this, BuildConfig.jobkey)) {
                 dialogAlert = new DialogAlert("알림", "위변조된 앱으로 종료 합니다.", ActLoading.this, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -165,7 +164,7 @@ public class ActLoading extends Activity {
     }
 
     public boolean isDebugged() {
-        LogUtil.e("ActLoading","Checking for debuggers...");
+        LogUtil.e("ActLoading", "Checking for debuggers...");
 
         boolean tracer = false;
         try {
@@ -175,26 +174,25 @@ public class ActLoading extends Activity {
         }
 
         if (FindDebugger.isBeingDebugged() || tracer) {
-            LogUtil.e("ActLoading","Debugger was detected");
+            LogUtil.e("ActLoading", "Debugger was detected");
             return true;
         } else {
-            LogUtil.e("ActLoading","No debugger was detected.");
+            LogUtil.e("ActLoading", "No debugger was detected.");
             return false;
         }
     }
 
-    private boolean existRootingFile(){
+    private boolean existRootingFile() {
         boolean found = false;
         if (!found) {
-            String[] places = { "/sbin/", "/system/bin/", "/system/xbin/",
+            String[] places = {"/sbin/", "/system/bin/", "/system/xbin/",
                     "/data/local/xbin/", "/data/local/bin/",
                     "/system/sd/xbin/", "/system/bin/failsafe/"};
             for (String where : places) {
-                if (new File(where+"su").exists()) {
+                if (new File(where + "su").exists()) {
                     found = true;
                     break;
-                }
-                else if(new File(where+"lu").exists()) {
+                } else if (new File(where + "lu").exists()) {
                     found = true;
                     break;
                 }
@@ -237,16 +235,15 @@ public class ActLoading extends Activity {
                     }
 
                     //지역
-                    if(data.has("city")){
+                    if (data.has("city")) {
                         dbHelper.deleteHotelCity();
-                        for(int i =0; i<data.getJSONArray("city").length(); i++) {
-                            if(!data.getJSONArray("city").getJSONArray(i).get(1).toString().equals("all")) {
+                        for (int i = 0; i < data.getJSONArray("city").length(); i++) {
+                            if (!data.getJSONArray("city").getJSONArray(i).get(1).toString().equals("all")) {
                                 dbHelper.insertHotelCity(
                                         data.getJSONArray("city").getJSONArray(i).get(0).toString(),
                                         data.getJSONArray("city").getJSONArray(i).get(1).toString()
                                 );
-                            }
-                            else {
+                            } else {
                                 dbHelper.insertHotelCity(
                                         "최근 지역",
                                         "0"
@@ -256,9 +253,9 @@ public class ActLoading extends Activity {
                     }
 
                     //sub 지역
-                    if(data.has("sub_city")){
+                    if (data.has("sub_city")) {
                         dbHelper.deleteHotelSubCity();
-                        for(int i =0; i<data.getJSONArray("sub_city").length(); i++) {
+                        for (int i = 0; i < data.getJSONArray("sub_city").length(); i++) {
                             dbHelper.insertHotelsubCity(
                                     data.getJSONArray("sub_city").getJSONArray(i).get(0).toString(),
                                     data.getJSONArray("sub_city").getJSONArray(i).get(1).toString(),
@@ -268,9 +265,9 @@ public class ActLoading extends Activity {
                     }
 
                     //티켓 카테고리
-                    if(data.has("q_category")){
+                    if (data.has("q_category")) {
                         dbHelper.deleteActivityTheme();
-                        for(int i =0; i<data.getJSONArray("q_category").length(); i++) {
+                        for (int i = 0; i < data.getJSONArray("q_category").length(); i++) {
                             dbHelper.insertActivityTheme(
                                     data.getJSONArray("q_category").getJSONObject(i).getString("name"),
                                     data.getJSONArray("q_category").getJSONObject(i).getString("id")
@@ -279,16 +276,15 @@ public class ActLoading extends Activity {
                     }
 
                     //티켓 지역
-                    if(data.has("q_city")) {
+                    if (data.has("q_city")) {
                         dbHelper.deleteActivityCity();
-                        for(int i =0; i<data.getJSONArray("q_city").length(); i++) {
-                            if(!data.getJSONArray("q_city").getJSONObject(i).getString("id").equals("0")) {
+                        for (int i = 0; i < data.getJSONArray("q_city").length(); i++) {
+                            if (!data.getJSONArray("q_city").getJSONObject(i).getString("id").equals("0")) {
                                 dbHelper.insertActivityCity(
                                         data.getJSONArray("q_city").getJSONObject(i).getString("name"),
                                         data.getJSONArray("q_city").getJSONObject(i).getString("id")
                                 );
-                            }
-                            else{
+                            } else {
                                 dbHelper.insertActivityCity(
                                         "최근지역",
                                         "0"
@@ -298,7 +294,7 @@ public class ActLoading extends Activity {
                     }
 
                     //프라이빗딜 url
-                    if(data.has("privatedeal_web_url")){
+                    if (data.has("privatedeal_web_url")) {
                         CONFIG.PrivateUrl = data.getString("privatedeal_web_url");
                     }
 
@@ -308,7 +304,7 @@ public class ActLoading extends Activity {
                         CONFIG.svr_date = new Date(time);
                     }
 
-                    if(data.has("signup_promotion")) {
+                    if (data.has("signup_promotion")) {
                         CONFIG.sign_pro_img = data.getJSONObject("signup_promotion").getString("front_img");
                     }
 
@@ -321,7 +317,7 @@ public class ActLoading extends Activity {
                     }
 
                     // 미래예약 설정일
-                    int fDayLimit = (data.has("flimit")) ? data.getInt("flimit")+1 : 181;
+                    int fDayLimit = (data.has("flimit")) ? data.getInt("flimit") + 1 : 181;
                     CONFIG.maxDate = fDayLimit;
 
                     // 상품 판매 시작시간
@@ -341,19 +337,19 @@ public class ActLoading extends Activity {
                         CONFIG.special_theme_id = data.getString("special_theme_id");
 
                     //단발성 이벤트 검색 힌트문구
-                    if(data.has("search_bg_text"))
+                    if (data.has("search_bg_text"))
                         CONFIG.search_bg_text = data.getString("search_bg_text");
 
-                    if(data.has("signup_promotion"))
+                    if (data.has("signup_promotion"))
                         CONFIG.signupimgURL = data.getJSONObject("signup_promotion").getString("front_img");
 
-                    if(data.has("special_text_q")) // 단발성 티켓 이벤트 문구
+                    if (data.has("special_text_q")) // 단발성 티켓 이벤트 문구
                         CONFIG.special_text_q = data.getString("special_text_q");
 
-                    if(data.has("special_theme_id_q")) //단발성 이벤트 티켓 테마아이디
+                    if (data.has("special_theme_id_q")) //단발성 이벤트 티켓 테마아이디
                         CONFIG.special_theme_id_q = data.getString("special_theme_id_q");
 
-                    if(data.has("search_bg_text_q")) //단발성 이벤트 티켓 검색 힌트문구
+                    if (data.has("search_bg_text_q")) //단발성 이벤트 티켓 검색 힌트문구
                         CONFIG.search_bg_text_q = data.getString("search_bg_text_q");
 
 
@@ -422,12 +418,12 @@ public class ActLoading extends Activity {
                         String uemail = _preferences.getString("email", null);
                         String uphone = _preferences.getString("phone", null);
 
-                        if(uid != null && !uid.contains("HN|")){
+                        if (uid != null && !uid.contains("HN|")) {
                             SharedPreferences.Editor prefEditor = _preferences.edit();
-                            prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(uid));
-                            prefEditor.putString("email", "HN|"+ AES256Chiper.AES_Encode(uemail));
-                            prefEditor.putString("username", "HN|"+ AES256Chiper.AES_Encode(uname));
-                            prefEditor.putString("phone", "HN|"+ AES256Chiper.AES_Encode(uphone));
+                            prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(uid));
+                            prefEditor.putString("email", "HN|" + AES256Chiper.AES_Encode(uemail));
+                            prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(uname));
+                            prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(uphone));
                             prefEditor.commit();
                         }
 
@@ -455,10 +451,10 @@ public class ActLoading extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(ActLoading.this));
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
 
@@ -481,8 +477,7 @@ public class ActLoading extends Activity {
                         prefEditor.putString("userid", null);
                         prefEditor.commit();
                         startHandler();
-                    }
-                    else {
+                    } else {
                         getFavorite();
                     }
 
@@ -493,7 +488,7 @@ public class ActLoading extends Activity {
         });
     }
 
-    private void getFavorite(){
+    private void getFavorite() {
 
         String url = CONFIG.like_list;
 
@@ -512,15 +507,15 @@ public class ActLoading extends Activity {
                         Toast.makeText(ActLoading.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    dbHelper.deleteFavoriteItem(true,"","");
-                    if(obj.getJSONArray("stay").length() >0) {
-                        for(int i = 0; i<obj.getJSONArray("stay").length(); i++) {
+                    dbHelper.deleteFavoriteItem(true, "", "");
+                    if (obj.getJSONArray("stay").length() > 0) {
+                        for (int i = 0; i < obj.getJSONArray("stay").length(); i++) {
                             dbHelper.insertFavoriteItem(obj.getJSONArray("stay").getString(i), "H");
                         }
                     }
 
-                    if(obj.getJSONArray("activity").length() >0) {
-                        for(int i = 0; i<obj.getJSONArray("activity").length(); i++) {
+                    if (obj.getJSONArray("activity").length() > 0) {
+                        for (int i = 0; i < obj.getJSONArray("activity").length(); i++) {
                             dbHelper.insertFavoriteItem(obj.getJSONArray("activity").getString(i), "A");
                         }
                     }
@@ -532,7 +527,7 @@ public class ActLoading extends Activity {
         });
     }
 
-    private void startHandler(){
+    private void startHandler() {
 //        //권한 예제권한 후 동작 진행
 //        PermissionListener permissionlistener = new PermissionListener() {
 //            @Override
@@ -563,7 +558,7 @@ public class ActLoading extends Activity {
         MovePage();
     }
 
-    private void MovePage(){
+    private void MovePage() {
         if (checkPlayServices()) {
             Intent intentLink = getIntent();
             push_type = intentLink.getStringExtra("push_type");

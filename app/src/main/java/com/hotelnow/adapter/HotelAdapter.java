@@ -50,7 +50,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private DbOpenHelper dbHelper;
     private LayoutInflater inflater;
     private final int HEADER = 0; // 하단
-    private final int BANNER =1; // viewpager
+    private final int BANNER = 1; // viewpager
     private final int PRIVATEDEAL = 2; // 프라이빗딜
     private final int PROMOTION = 3; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 4; // 변경되는 프로모션 vertical
@@ -165,15 +165,14 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void setHotelHotDealView(HorizontalViewHolder holder, int type) {
-        if(hotelAdapter == null) {
+        if (hotelAdapter == null) {
             hotelAdapter = new HotelHotDealStayAdapter(mHf.getHotelData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(hotelAdapter);
 
-            if(mHf.getHotelData().size()>1){
+            if (mHf.getHotelData().size() > 1) {
                 holder.mMoreView.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 holder.mMoreView.setVisibility(View.GONE);
             }
 
@@ -182,7 +181,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View v) {
                     TuneWrap.Event("HotDeal_stay_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
-                    intent.putExtra("tab",0);
+                    intent.putExtra("tab", 0);
                     mHf.startActivityForResult(intent, 70);
                 }
             });
@@ -191,16 +190,16 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    private void setTopView(HeaderViewHolder holder, int type){
-        if(headerAdapter == null) {
+    private void setTopView(HeaderViewHolder holder, int type) {
+        if (headerAdapter == null) {
             headerAdapter = new HeaderAdapter(mHf.getTopItem(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(headerAdapter);
         }
     }
 
-    private void setBottomView(FooterViewHolder holder, int type){
-        if(footAdapter == null) {
+    private void setBottomView(FooterViewHolder holder, int type) {
+        if (footAdapter == null) {
             footAdapter = new FooterHAAdapter(mHf.getDefaultItem(), mHf.getRecyclerView());
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(footAdapter);
@@ -208,7 +207,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
-        if(themeSAdapter == null) {
+        if (themeSAdapter == null) {
             themeSAdapter = new ThemeSpecialStayAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
@@ -225,24 +224,23 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void setThemeView(HorizontalThemeViewHolder holder, int type) {
-        if(themeAdapter == null) {
+        if (themeAdapter == null) {
             themeAdapter = new ThemeStayAdapter(mHf.getThemeData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(themeAdapter);
-            holder.background_view.setBackgroundColor(Color.parseColor("#"+mHf.getThemeData().get(0).getBack_color()));
+            holder.background_view.setBackgroundColor(Color.parseColor("#" + mHf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mHf.getThemeData().get(0).getMain_title());
             holder.btn_moreproduct.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mHf.getThemeData().get(0).getTheme_flag().equals("H")){
+                    if (mHf.getThemeData().get(0).getTheme_flag().equals("H")) {
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
-                        mHf.startActivityForResult(intent,70);
-                    }
-                    else{
+                        mHf.startActivityForResult(intent, 70);
+                    } else {
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialActivityActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
-                        mHf.startActivityForResult(intent,70);
+                        mHf.startActivityForResult(intent, 70);
                     }
                 }
             });
@@ -253,7 +251,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        if(bannerAdapter == null) {
+        if (bannerAdapter == null) {
             PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData());
             holder.autoViewPager.setClipToPadding(false);
@@ -266,15 +264,16 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 }
+
                 @Override
                 public void onPageSelected(int position) {
                     nowPosition = position;
                     markNowPosition = position % PAGES;
-                    holder.page_view.setText(markNowPosition+1 +" / "+ PAGES +" +");
+                    holder.page_view.setText(markNowPosition + 1 + " / " + PAGES + " +");
                 }
             });
 
-            holder.page_view.setText("1 / "+ mHf.getPbannerData().size()+" +");
+            holder.page_view.setText("1 / " + mHf.getPbannerData().size() + " +");
             holder.page_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -284,16 +283,16 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
             });
 
-            if(mHf.getPbannerData().size() >1) {
+            if (mHf.getPbannerData().size() > 1) {
                 holder.autoViewPager.startAutoScroll();
             }
             holder.autoViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth()*0.36)+"");
+                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth() * 0.36) + "");
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    lparam.height = (int)(holder.autoViewPager.getChildAt(0).getWidth()*0.36); //39
+                    lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.36); //39
                     lparam.topMargin = Util.dptopixel(mHf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mHf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mHf.getActivity(), 16);
@@ -314,14 +313,13 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void setPrivateDealView(HorizontalViewHolder holder, int type) {
-        if(privateAdapter == null) {
+        if (privateAdapter == null) {
             privateAdapter = new PrivateDealHotelAdapter(mHf.getPrivateDealItem(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(privateAdapter);
-            if(mHf.getPrivateDealItem().size()>1){
+            if (mHf.getPrivateDealItem().size() > 1) {
                 holder.mMoreView.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 holder.mMoreView.setVisibility(View.GONE);
             }
 
@@ -448,26 +446,26 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    public void setHeaderRefresh(){
-        if(headerAdapter != null){
+    public void setHeaderRefresh() {
+        if (headerAdapter != null) {
             headerAdapter.notifyDataSetChanged();
         }
     }
 
-    public void setAllRefresh(){
-        if(hotelAdapter != null) {
+    public void setAllRefresh() {
+        if (hotelAdapter != null) {
             hotelAdapter.notifyDataSetChanged();
         }
-        if(themeAdapter != null) {
+        if (themeAdapter != null) {
             themeAdapter.notifyDataSetChanged();
         }
-        if(privateAdapter != null) {
+        if (privateAdapter != null) {
             privateAdapter.notifyDataSetChanged();
         }
     }
 
-    public void setTitle(TextView title, int page){
-        if(title != null){
+    public void setTitle(TextView title, int page) {
+        if (title != null) {
             switch (page) {
                 case BANNER:
                     title.setText("베너");
@@ -497,7 +495,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public int getItemCount() {
         int count = 0;
 
-        if(items != null && !items.isEmpty()) {
+        if (items != null && !items.isEmpty()) {
             count = items.size();
         }
 

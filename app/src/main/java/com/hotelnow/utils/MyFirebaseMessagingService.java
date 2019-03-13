@@ -11,6 +11,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hotelnow.R;
@@ -48,7 +49,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (!(TextUtils.isEmpty(token))) {
             LogUtil.e(TAG, "newToken : " + token);
 
-            Util.setPreferenceValues(_preferences,"gcm_registration_id", token);
+            Util.setPreferenceValues(_preferences, "gcm_registration_id", token);
         }
     }
 
@@ -92,11 +93,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     check_in = (tmpArr.length == 5 && !TextUtils.isEmpty(tmpArr[3])) ? tmpArr[3] : "";
                     check_out = (tmpArr.length == 5 && !TextUtils.isEmpty(tmpArr[4])) ? tmpArr[4] : "";
                 } else if (pushType.equals("2") || pushType.equals("6") || pushType.equals("8")) {
-                    if(pushType.equals("6")){
+                    if (pushType.equals("6")) {
                         evtidx = (tmpArr.length == 3) ? Integer.valueOf(tmpArr[1]) : 0;
                         evttag = (tmpArr.length == 3) ? tmpArr[2] : "H";
-                    }
-                    else{
+                    } else {
                         evtidx = (tmpArr.length == 2) ? Integer.valueOf(tmpArr[1]) : 0;
                     }
                 }
@@ -138,8 +138,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             .setAutoCancel(true);
                     mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
-                }
-                else if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 26 ) {
+                } else if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 26) {
                     Notification.Builder mBuilder = new Notification.Builder(this)
                             .setSmallIcon(R.drawable.ico_push)
                             .setTicker(message)
@@ -166,8 +165,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

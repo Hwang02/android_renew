@@ -9,8 +9,7 @@ public class FavoriteStayItem {
 
     public FavoriteStayItem(String id, String name, String category, String street1, String street2, String landscape, String sale_price,
                             String sale_rate, int items_quantity, String special_msg, String grade_score, String real_grade_score,
-                            String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count)
-    {
+                            String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count) {
         this.id = id;
         this.name = name;
         this.category = category;

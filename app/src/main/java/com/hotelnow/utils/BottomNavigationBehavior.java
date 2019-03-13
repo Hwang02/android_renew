@@ -32,10 +32,9 @@ public final class BottomNavigationBehavior extends CoordinatorLayout.Behavior<B
 
     public void onNestedPreScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull BottomNavigationView child, @NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
-        if(child.getSelectedItemId() == R.id.mypage){
+        if (child.getSelectedItemId() == R.id.mypage) {
             child.setTranslationY(0);
-        }
-        else {
+        } else {
             child.setTranslationY(Math.max(0.0f, Math.min(child.getHeight(), child.getTranslationY() + dy)));
         }
     }

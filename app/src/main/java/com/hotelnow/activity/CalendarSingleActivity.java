@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CalendarSingleActivity extends Activity{
+public class CalendarSingleActivity extends Activity {
 
     private CalendarPickerView calendar;
     private Button btn_complate;
@@ -63,7 +63,7 @@ public class CalendarSingleActivity extends Activity{
         start.setTime(new Date());
         end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
 
-        if(strdate == null){
+        if (strdate == null) {
             strdate = Util.setCheckinout().get(0);
         }
         checkin_date.setText(Util.formatchange2(strdate));
@@ -84,7 +84,7 @@ public class CalendarSingleActivity extends Activity{
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                Log.d("list",  date.toString());
+                Log.d("list", date.toString());
                 selected_checkin_date = formatter.format(date);
                 checkin_date.setText(selected_checkin_date);
                 btn_complate.setBackgroundResource(R.color.purple);

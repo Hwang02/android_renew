@@ -1,7 +1,6 @@
 package com.hotelnow.fragment.model;
 
 
-
 public class RecentItem {
 
     private String sel_id, sel_option;

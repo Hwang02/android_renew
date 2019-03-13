@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.hotelnow.R;
 import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
@@ -52,7 +53,7 @@ public class DialogLogin extends Dialog {
     }
 
     public DialogLogin(Context context, View.OnClickListener ok, View.OnClickListener view, String img_url, String img_link, String page) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
         mContext = context;
         this.mOkClickListener = ok;
         this.mViewClickListener = view;

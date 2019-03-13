@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -49,7 +50,7 @@ public class DialogShare extends Dialog {
     Double value;
 
     public DialogShare(Context context, String hid, String main_photo, String hotel_name, String checkin, String checkout, Double value, View.OnClickListener close) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         mContext = context;
         this.hid = hid;
@@ -65,7 +66,7 @@ public class DialogShare extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Activity activity = (Activity)mContext;
+        Activity activity = (Activity) mContext;
 
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
         lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -74,14 +75,14 @@ public class DialogShare extends Dialog {
         setContentView(R.layout.dialog_share);
 
         // 문구....
-        LinearLayout kakao_btn = (LinearLayout)findViewById(R.id.kakao_btn);
-        LinearLayout sms_btn = (LinearLayout)findViewById(R.id.sms_btn);
-        LinearLayout share_btn = (LinearLayout)findViewById(R.id.share_btn);
+        LinearLayout kakao_btn = (LinearLayout) findViewById(R.id.kakao_btn);
+        LinearLayout sms_btn = (LinearLayout) findViewById(R.id.sms_btn);
+        LinearLayout share_btn = (LinearLayout) findViewById(R.id.share_btn);
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        linkUrl = CONFIG.domain+"/?hotel_id="+hid+"&date="+checkin+"&e_date="+checkout+"&is_event=N";
-        webUrl = CONFIG.homeWebUrl+"/product/"+hid+"/N?"+"ci="+checkin+"&co="+checkout;
+        linkUrl = CONFIG.domain + "/?hotel_id=" + hid + "&date=" + checkin + "&e_date=" + checkout + "&is_event=N";
+        webUrl = CONFIG.homeWebUrl + "/product/" + hid + "/N?" + "ci=" + checkin + "&co=" + checkout;
 
         callback = new ResponseCallback<KakaoLinkResponse>() {
             @Override
@@ -95,49 +96,48 @@ public class DialogShare extends Dialog {
             }
         };
 
-        kakao_btn.setOnClickListener(new View.OnClickListener(){
+        kakao_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    String msg = "";
-                    if(value >0) {
-                        msg = "투숙객 평점 " + value + "점 강력추천\n언제어디서나 호텔나우만 믿고 떠나세요!";
-                    }
-                    else{
-                        msg = "언제어디서나 호텔나우만 믿고 떠나세요!";
-                    }
-                    FeedTemplate params = FeedTemplate
-                            .newBuilder(ContentObject.newBuilder("["+hotel_name+"]",
-                                    main_photo,
-                                    LinkObject.newBuilder().setWebUrl(linkUrl)
-                                            .setMobileWebUrl(linkUrl).build())
-                                    .setDescrption(msg)
-                                    .build())
-                            .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
-                                    .setWebUrl(webUrl)
-                                    .setMobileWebUrl(linkUrl)
-                                    .setAndroidExecutionParams(linkUrl)
-                                    .setIosExecutionParams("hotelnow://hnevent={\"method\":\"move_detail\", \"param\":{\"hotel_id\":\""+hid+"\", \"date\":\""+checkin+"\", \"e_date\":\""+checkout+"\", \"is_event\":\"N\"}}")
-                                    .build()))
-                            .addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl(webUrl).setMobileWebUrl(webUrl).build()))
-                            .build();
+                String msg = "";
+                if (value > 0) {
+                    msg = "투숙객 평점 " + value + "점 강력추천\n언제어디서나 호텔나우만 믿고 떠나세요!";
+                } else {
+                    msg = "언제어디서나 호텔나우만 믿고 떠나세요!";
+                }
+                FeedTemplate params = FeedTemplate
+                        .newBuilder(ContentObject.newBuilder("[" + hotel_name + "]",
+                                main_photo,
+                                LinkObject.newBuilder().setWebUrl(linkUrl)
+                                        .setMobileWebUrl(linkUrl).build())
+                                .setDescrption(msg)
+                                .build())
+                        .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+                                .setWebUrl(webUrl)
+                                .setMobileWebUrl(linkUrl)
+                                .setAndroidExecutionParams(linkUrl)
+                                .setIosExecutionParams("hotelnow://hnevent={\"method\":\"move_detail\", \"param\":{\"hotel_id\":\"" + hid + "\", \"date\":\"" + checkin + "\", \"e_date\":\"" + checkout + "\", \"is_event\":\"N\"}}")
+                                .build()))
+                        .addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl(webUrl).setMobileWebUrl(webUrl).build()))
+                        .build();
 
-                    KakaoLinkService.getInstance().sendDefault(mContext, params, callback);
+                KakaoLinkService.getInstance().sendDefault(mContext, params, callback);
 
 
-                    dismiss();
+                dismiss();
             }
         });
 
-        sms_btn.setOnClickListener(new View.OnClickListener(){
+        sms_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String smsBody = "[호텔나우]\n"
-                        +"친구가 추천하는 호텔!\n"
+                        + "친구가 추천하는 호텔!\n"
                         + "[" + hotel_name + "]\n"
                         + "- 체크인 : " + Util.weekdayFormat(checkin) + "\n"
                         + "- 체크아웃 : " + Util.weekdayFormat(checkout) + "\n\n"
-                        + "자세히보기 >> "+linkUrl;
+                        + "자세히보기 >> " + linkUrl;
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) //At least KitKat
                 {
@@ -154,8 +154,7 @@ public class DialogShare extends Dialog {
                     }
                     mContext.startActivity(sendIntent);
 
-                }
-                else //For early versions, do what worked for you before.
+                } else //For early versions, do what worked for you before.
                 {
                     Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                     sendIntent.setData(Uri.parse("sms:"));
@@ -170,7 +169,7 @@ public class DialogShare extends Dialog {
             }
         });
 
-        share_btn.setOnClickListener(new View.OnClickListener(){
+        share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);

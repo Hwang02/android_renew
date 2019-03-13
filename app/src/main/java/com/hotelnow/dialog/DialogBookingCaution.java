@@ -41,8 +41,8 @@ public class DialogBookingCaution extends Dialog {
 
     }
 
-    public DialogBookingCaution(Context context, View.OnClickListener left , View.OnClickListener right) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+    public DialogBookingCaution(Context context, View.OnClickListener left, View.OnClickListener right) {
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         mContext = context;
         this.mLeftClickListener = left;

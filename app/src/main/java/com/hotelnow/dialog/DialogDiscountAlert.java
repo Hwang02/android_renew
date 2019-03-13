@@ -43,7 +43,7 @@ public class DialogDiscountAlert extends Dialog {
     }
 
     public DialogDiscountAlert(String main_title, String title, String check_date, String check_status, String message, Context context, View.OnClickListener ok) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         mTitle = title;
         mMessage = message;

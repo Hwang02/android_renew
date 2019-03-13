@@ -57,11 +57,11 @@ public class FavoriteActivityAdapter extends ArrayAdapter<FavoriteStayItem> {
 
         holder.hotel_name.setText(entry.getName());
         String mLocation = "";
-        if(!TextUtils.isEmpty(entry.getStreet1())){
+        if (!TextUtils.isEmpty(entry.getStreet1())) {
             mLocation = entry.getStreet1();
         }
-        if(!TextUtils.isEmpty(entry.getStreet2())){
-            mLocation += "/"+entry.getStreet2();
+        if (!TextUtils.isEmpty(entry.getStreet2())) {
+            mLocation += "/" + entry.getStreet2();
         }
         holder.tv_nearlocation.setText(mLocation);
         Ion.with(holder.iv_img).load(entry.getLandscape());
@@ -73,62 +73,56 @@ public class FavoriteActivityAdapter extends ArrayAdapter<FavoriteStayItem> {
         holder.iv_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", mlist.get((int)v.getTag()).getId()+"");
-                fa.setLike((int)v.getTag());
+                LogUtil.e("ggggg", mlist.get((int) v.getTag()).getId() + "");
+                fa.setLike((int) v.getTag());
             }
         });
 
         holder.tv_rate.setText(entry.getGrade_score());
         holder.category.setText(entry.getCategory());
-        if(entry.getSale_rate().equals("0")){
+        if (entry.getSale_rate().equals("0")) {
             holder.tv_discount_rate.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_discount_rate.setVisibility(View.VISIBLE);
         }
-        holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
+        holder.tv_discount_rate.setText(entry.getSale_rate() + "%↓");
         holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
 
-        if(entry.getGrade_score().equals("0.0")){
+        if (entry.getGrade_score().equals("0.0")) {
             holder.tv_rate.setVisibility(View.GONE);
             holder.text_bar.setVisibility(View.GONE);
             holder.img_star.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_rate.setVisibility(View.VISIBLE);
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
 
-        if(entry.getIs_hot_deal().equals("N")){
+        if (entry.getIs_hot_deal().equals("N")) {
             holder.ico_hotdeal.setVisibility(View.GONE);
             holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
             holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
-        }
-        else{
+        } else {
             holder.ico_hotdeal.setVisibility(View.VISIBLE);
             holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
             holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
         }
 
-        if(entry.getCoupon_count() > 0){
+        if (entry.getCoupon_count() > 0) {
             holder.soon_discount.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_discount.setVisibility(View.GONE);
         }
 
-        if(entry.getIs_add_reserve().equals("N")){
+        if (entry.getIs_add_reserve().equals("N")) {
             holder.soon_point.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.soon_point.setVisibility(View.VISIBLE);
         }
 
-        if(TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")){
+        if (TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")) {
             holder.special_msg.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.special_msg.setVisibility(View.VISIBLE);
             holder.tv_special.setText(entry.getSpecial_msg());
         }

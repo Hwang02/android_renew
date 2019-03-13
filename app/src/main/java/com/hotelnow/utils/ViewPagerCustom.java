@@ -327,6 +327,7 @@ public class ViewPagerCustom extends ViewPager {
 
     /**
      * 设置滑动时间
+     *
      * @param slideDuration
      */
     public void setSlideDuration(int slideDuration) {
@@ -340,7 +341,7 @@ public class ViewPagerCustom extends ViewPager {
         boolean wrapHeight = MeasureSpec.getMode(heightMeasureSpec)
                 == MeasureSpec.AT_MOST;
 
-        if(wrapHeight) {
+        if (wrapHeight) {
             /**
              * The first super.onMeasure call made the pager take up all the
              * available height. Since we really wanted to wrap it, we need
@@ -355,7 +356,7 @@ public class ViewPagerCustom extends ViewPager {
 
             /* If the pager actually has any children, take the first child's
              * height and call that our own */
-            if(getChildCount() > 0) {
+            if (getChildCount() > 0) {
                 View firstChild = getChildAt(0);
 
                 /* The child was previously measured with exactly the full height.

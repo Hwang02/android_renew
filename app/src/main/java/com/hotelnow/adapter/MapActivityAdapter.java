@@ -71,12 +71,11 @@ public class MapActivityAdapter extends PagerAdapter {
         tv_name.setText(arr_LocationList.get(position).getName());
         tv_score.setText(arr_LocationList.get(position).getGrade_score());
 
-        if(arr_LocationList.get(position).getGrade_score().equals("0.0")){
+        if (arr_LocationList.get(position).getGrade_score().equals("0.0")) {
             tv_score.setVisibility(View.GONE);
             text_bar.setVisibility(View.GONE);
             img_star.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             tv_score.setVisibility(View.VISIBLE);
             text_bar.setVisibility(View.VISIBLE);
             img_star.setVisibility(View.VISIBLE);
@@ -84,29 +83,27 @@ public class MapActivityAdapter extends PagerAdapter {
 
         tv_category.setText(arr_LocationList.get(position).getCategory());
 
-        if(arr_LocationList.get(position).getSale_rate().equals("0")){
+        if (arr_LocationList.get(position).getSale_rate().equals("0")) {
             tv_discount.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             tv_discount.setVisibility(View.VISIBLE);
         }
 
-        tv_discount.setText(arr_LocationList.get(position).getSale_rate()+"%↓");
+        tv_discount.setText(arr_LocationList.get(position).getSale_rate() + "%↓");
         Ion.with(img_hotel).load(arr_LocationList.get(position).getLandscape());
-        if(!TextUtils.isEmpty(arr_LocationList.get(position).getSale_price()))
+        if (!TextUtils.isEmpty(arr_LocationList.get(position).getSale_price()))
             tv_sale.setText(Util.numberFormat(Integer.parseInt(arr_LocationList.get(position).getSale_price())));
 
-        if(arr_LocationList.get(position).isIsfocus()){
+        if (arr_LocationList.get(position).isIsfocus()) {
             main_board.setBackgroundResource(R.drawable.style_round_map_activity_item);
-        }
-        else{
+        } else {
             main_board.setBackgroundResource(R.drawable.style_round_map_item_default);
         }
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("xxxxx",position+"");
+                LogUtil.e("xxxxx", position + "");
 
             }
         });
@@ -122,7 +119,7 @@ public class MapActivityAdapter extends PagerAdapter {
             }
         });
 
-        if(dbHelper.selectAllFavoriteActivityItem().size() > 0) {
+        if (dbHelper.selectAllFavoriteActivityItem().size() > 0) {
             for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
                 if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(arr_LocationList.get(position).getId())) {
                     iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -133,8 +130,7 @@ public class MapActivityAdapter extends PagerAdapter {
                     islike = false;
                 }
             }
-        }
-        else{
+        } else {
             iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             islike = false;
         }
@@ -143,13 +139,13 @@ public class MapActivityAdapter extends PagerAdapter {
         iv_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", arr_LocationList.get(position).getId()+"");
-                ((MapAcvitityActivity)context).setLike(arr_LocationList.get(position).getId(), finalIslike);
+                LogUtil.e("ggggg", arr_LocationList.get(position).getId() + "");
+                ((MapAcvitityActivity) context).setLike(arr_LocationList.get(position).getId(), finalIslike);
             }
         });
 
-        if(position == arr_LocationList.size()-2){
-            ((MapAcvitityActivity)context).getSearch();
+        if (position == arr_LocationList.size() - 2) {
+            ((MapAcvitityActivity) context).getSearch();
         }
 
         return itemView;

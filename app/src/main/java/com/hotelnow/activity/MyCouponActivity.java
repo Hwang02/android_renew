@@ -34,7 +34,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyCouponActivity extends Activity{
+public class MyCouponActivity extends Activity {
 
     private SharedPreferences _preferences;
     private String cookie;
@@ -55,7 +55,7 @@ public class MyCouponActivity extends Activity{
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         cookie = _preferences.getString("userid", null);
-        if(cookie == null){
+        if (cookie == null) {
             Toast.makeText(MyCouponActivity.this, getString(R.string.error_need_login), Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -67,7 +67,7 @@ public class MyCouponActivity extends Activity{
         btn_ok = (Button) header.findViewById(R.id.btn_ok);
         code = (EditText) header.findViewById(R.id.code);
 
-        mMainListView = (ListView)findViewById(R.id.lv_coupon);
+        mMainListView = (ListView) findViewById(R.id.lv_coupon);
         mMainListView.addHeaderView(header);
         mMainListView.addFooterView(footer);
 
@@ -94,10 +94,11 @@ public class MyCouponActivity extends Activity{
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(MyCouponActivity.this));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
@@ -133,10 +134,10 @@ public class MyCouponActivity extends Activity{
         });
     }
 
-    private void couponApply(){
+    private void couponApply() {
         String inputCode = code.getText().toString().trim();
 
-        if(inputCode.equals("") || inputCode.equals(null)){
+        if (inputCode.equals("") || inputCode.equals(null)) {
             Toast.makeText(MyCouponActivity.this, "쿠폰명을 입력하여 주십시요", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -145,9 +146,10 @@ public class MyCouponActivity extends Activity{
         try {
             paramObj.put("pcode", inputCode);
             paramObj.put("uuid", Util.getAndroidId(MyCouponActivity.this));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
         int dummyInt = (int) (Math.random() * 1000);
-        Api.post(CONFIG.promotionUrl+"?q="+dummyInt, paramObj.toString(), new Api.HttpCallback() {
+        Api.post(CONFIG.promotionUrl + "?q=" + dummyInt, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
 
@@ -176,14 +178,15 @@ public class MyCouponActivity extends Activity{
                             getCouponList();
                             mRefresh = true;
                         }
-                    },500);
+                    }, 500);
 
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
         });
     }
 
-    private void getCouponList(){
+    private void getCouponList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(CONFIG.promotionListUrl, new Api.HttpCallback() {
             @Override
@@ -208,7 +211,7 @@ public class MyCouponActivity extends Activity{
                     JSONObject entry = null;
 
                     NumberFormat nf = NumberFormat.getNumberInstance();
-                    ((TextView) header.findViewById(R.id.disable_coupon)).setText(nf.format(obj.getInt("expire_coupon_cnt"))+"장");
+                    ((TextView) header.findViewById(R.id.disable_coupon)).setText(nf.format(obj.getInt("expire_coupon_cnt")) + "장");
                     ((TextView) header.findViewById(R.id.coupon_count)).setText(nf.format(feed.length()));
 
                     for (int i = 0; i < feed.length(); i++) {
@@ -216,40 +219,40 @@ public class MyCouponActivity extends Activity{
                         String target_lists[] = null;
                         String option_item[] = null;
 
-                        if(entry.has("option") && entry.getJSONArray("option") != null) {
+                        if (entry.has("option") && entry.getJSONArray("option") != null) {
                             JSONArray item = entry.getJSONArray("option");
                             option_item = new String[item.length()];
-                            for(int j=0; j<item.length(); j++){
+                            for (int j = 0; j < item.length(); j++) {
                                 option_item[j] = item.get(j).toString();
                             }
                         }
 
-                        if(entry.has("target_lists") && entry.getJSONArray("target_lists") != null) {
+                        if (entry.has("target_lists") && entry.getJSONArray("target_lists") != null) {
                             JSONArray item = entry.getJSONArray("target_lists");
                             target_lists = new String[item.length()];
-                            for(int j=0; j<item.length(); j++){
+                            for (int j = 0; j < item.length(); j++) {
                                 target_lists[j] = item.get(j).toString();
                             }
                         }
 
                         cpnEntries.add(new CouponEntry(
-                                        entry.getString("product"),
-                                        entry.getString("title"),
-                                        entry.getString("isValid"),
-                                        entry.getString("name"),
-                                        entry.getString("discount_value"),
-                                        entry.getString("expiration_date"),
-                                        option_item,
-                                        entry.getString("min_price"),
-                                        entry.getString("target_text"),
-                                        target_lists,
-                                        entry.getString("expire_text")
+                                entry.getString("product"),
+                                entry.getString("title"),
+                                entry.getString("isValid"),
+                                entry.getString("name"),
+                                entry.getString("discount_value"),
+                                entry.getString("expiration_date"),
+                                option_item,
+                                entry.getString("min_price"),
+                                entry.getString("target_text"),
+                                target_lists,
+                                entry.getString("expire_text")
                         ));
                     }
 
-                    String[] ex= new String[1];
-                    ex[0]="xxxx";
-                    if(cpnEntries.size() == 0){
+                    String[] ex = new String[1];
+                    ex[0] = "xxxx";
+                    if (cpnEntries.size() == 0) {
                         cpnEntries.add(new CouponEntry(
                                 "empty",
                                 "",
@@ -276,7 +279,7 @@ public class MyCouponActivity extends Activity{
         });
     }
 
-    public void getEmptyHeight(View empty_item){
+    public void getEmptyHeight(View empty_item) {
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         int height = dm.heightPixels;
@@ -301,8 +304,8 @@ public class MyCouponActivity extends Activity{
     }
 
     // 회원가입 종료
-    private void finishSignup(){
-        if(mRefresh) {
+    private void finishSignup() {
+        if (mRefresh) {
             Intent intent = new Intent();
             setResult(91, intent);
         }

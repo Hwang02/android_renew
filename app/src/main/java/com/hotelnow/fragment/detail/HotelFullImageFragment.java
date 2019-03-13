@@ -35,7 +35,7 @@ public class HotelFullImageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         String url = this.getArguments().getString("url");
-        ImageView niv = (ImageView)getView().findViewById(R.id.image);
+        ImageView niv = (ImageView) getView().findViewById(R.id.image);
         Ion.with(niv).load(url);
 
     }

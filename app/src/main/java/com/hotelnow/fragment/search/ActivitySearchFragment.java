@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ActivitySearchFragment  extends Fragment {
+public class ActivitySearchFragment extends Fragment {
 
     private SharedPreferences _preferences;
     private ListView mlist;
@@ -73,12 +73,12 @@ public class ActivitySearchFragment  extends Fragment {
     private String banner_id, search_txt, order_kind;
     private int Page = 1;
     private int total_count;
-    private String s_position = "", theme_id="", city="", title_text;
+    private String s_position = "", theme_id = "", city = "", title_text;
     private DbOpenHelper dbHelper;
     private Button bt_scroll;
     private FlowLayout popular_keyword;
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
-    private boolean _hasLoadedOnce= false; // your boolean field
+    private boolean _hasLoadedOnce = false; // your boolean field
     private LinearLayout empty_image, layout_popular;
 
     @Nullable
@@ -93,38 +93,38 @@ public class ActivitySearchFragment  extends Fragment {
 
     }
 
-    public void getSearch(){
-        ((SearchResultActivity)getActivity()).showprogress();
+    public void getSearch() {
+        ((SearchResultActivity) getActivity()).showprogress();
         String url = CONFIG.search_activity_list;
 //        search_txt = "서울";
-        if(!TextUtils.isEmpty(search_txt)){
-            url +="&search_text="+search_txt;
+        if (!TextUtils.isEmpty(search_txt)) {
+            url += "&search_text=" + search_txt;
         }
-        if(!TextUtils.isEmpty(banner_id)){
-            url +="&banner_id="+banner_id;
+        if (!TextUtils.isEmpty(banner_id)) {
+            url += "&banner_id=" + banner_id;
         }
-        if(!TextUtils.isEmpty(theme_id)){
+        if (!TextUtils.isEmpty(theme_id)) {
             url += "&category=" + theme_id;
         }
-        if(!TextUtils.isEmpty(city)){
+        if (!TextUtils.isEmpty(city)) {
             url += "&city=" + city;
         }
-        if(!TextUtils.isEmpty(order_kind)){
-            url +="&order_kind="+order_kind;
+        if (!TextUtils.isEmpty(order_kind)) {
+            url += "&order_kind=" + order_kind;
 //            if(order_kind.equals("distance")){
-                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+            url += "&lat=" + CONFIG.lat + "&lng=" + CONFIG.lng;
 //            }
         }
 
-        url +="&per_page=20";
+        url += "&per_page=20";
 
-        if(Page < 2 || total_count != mItems.size()) {
+        if (Page < 2 || total_count != mItems.size()) {
             Api.get(url + "&page=" + Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
-                    if(isAdded()) {
+                    if (isAdded()) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                        ((SearchResultActivity)getActivity()).hideprogress();
+                        ((SearchResultActivity) getActivity()).hideprogress();
                     }
                 }
 
@@ -134,7 +134,7 @@ public class ActivitySearchFragment  extends Fragment {
                         JSONObject obj = new JSONObject(body);
 
                         if (!obj.getString("result").equals("success")) {
-                            ((SearchResultActivity)getActivity()).hideprogress();
+                            ((SearchResultActivity) getActivity()).hideprogress();
                             Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -150,7 +150,7 @@ public class ActivitySearchFragment  extends Fragment {
 
                         final JSONArray popular_keywords = obj.getJSONArray("popular_keywords");
                         mKeywordList.clear();
-                        for(int i = 0; i < popular_keywords.length(); i++){
+                        for (int i = 0; i < popular_keywords.length(); i++) {
                             mKeywordList.add(new KeyWordItem(
                                     popular_keywords.getJSONObject(i).getString("id"),
                                     popular_keywords.getJSONObject(i).getString("order"),
@@ -205,11 +205,10 @@ public class ActivitySearchFragment  extends Fragment {
                                 s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181114_150606_DfU0o2DCag.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longitude");
                         }
 
-                        if(mItems.size() > 0){
+                        if (mItems.size() > 0) {
                             bt_scroll.setVisibility(View.VISIBLE);
                             empty_image.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             bt_scroll.setVisibility(View.GONE);
                             empty_image.setVisibility(View.VISIBLE);
                         }
@@ -226,7 +225,7 @@ public class ActivitySearchFragment  extends Fragment {
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
                                 intent.putExtra("total_count", total_count);
-                                if(order_kind.equals("distance")){
+                                if (order_kind.equals("distance")) {
                                     intent.putExtra("lat", CONFIG.lat);
                                     intent.putExtra("lng", CONFIG.lng);
                                 }
@@ -244,28 +243,27 @@ public class ActivitySearchFragment  extends Fragment {
                         adapter.notifyDataSetChanged();
                         Page++;
 
-                        ((SearchResultActivity)getActivity()).hideprogress();
+                        ((SearchResultActivity) getActivity()).hideprogress();
                     } catch (Exception e) {
-                        if(isAdded()) {
+                        if (isAdded()) {
                             Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                            ((SearchResultActivity)getActivity()).hideprogress();
+                            ((SearchResultActivity) getActivity()).hideprogress();
                         }
                     }
                 }
             });
-        }
-        else{
-            ((SearchResultActivity)getActivity()).hideprogress();
+        } else {
+            ((SearchResultActivity) getActivity()).hideprogress();
         }
     }
 
-    private void setPopular(){
+    private void setPopular() {
         popular_keyword.removeAllViews();
         ColorStateList myColorStateList = new ColorStateList(
-                new int[][]{ new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
-                new int[] { getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext) } );
+                new int[][]{new int[]{android.R.attr.state_pressed}, new int[]{-android.R.attr.state_pressed}},
+                new int[]{getResources().getColor(R.color.purple), getResources().getColor(R.color.termtext)});
 
-        if(mKeywordList.size()>0) {
+        if (mKeywordList.size() > 0) {
             layout_popular.setVisibility(View.VISIBLE);
             for (int i = 0; i < mKeywordList.size(); i++) {
                 TextView tv = new TextView(getActivity());
@@ -294,14 +292,13 @@ public class ActivitySearchFragment  extends Fragment {
 
                 popular_keyword.addView(tv);
             }
-        }
-        else{
+        } else {
             layout_popular.setVisibility(View.GONE);
         }
     }
 
-    public void setClear(){
-        Page =1;
+    public void setClear() {
+        Page = 1;
         total_count = 0;
         city = "";
         tv_location.setText("지역선택");
@@ -315,16 +312,16 @@ public class ActivitySearchFragment  extends Fragment {
         getSearch();
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -336,23 +333,22 @@ public class ActivitySearchFragment  extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((SearchResultActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((SearchResultActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((SearchResultActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((SearchResultActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -364,17 +360,17 @@ public class ActivitySearchFragment  extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((SearchResultActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((SearchResultActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((SearchResultActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((SearchResultActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -385,14 +381,14 @@ public class ActivitySearchFragment  extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if(responseCode == 90) {
-            if(data.getBooleanExtra("search_data", false)) {
-                mItems = (ArrayList<SearchResultItem>)data.getSerializableExtra("search_data");;
-                if(adapter != null)
+        if (responseCode == 90) {
+            if (data.getBooleanExtra("search_data", false)) {
+                mItems = (ArrayList<SearchResultItem>) data.getSerializableExtra("search_data");
+                ;
+                if (adapter != null)
                     adapter.notifyDataSetChanged();
             }
-        }
-        else if(requestCode == 80 && responseCode == 80) {
+        } else if (requestCode == 80 && responseCode == 80) {
             city = data.getStringExtra("id");
             tv_location.setText(data.getStringExtra("name"));
             tv_location2.setText(data.getStringExtra("name"));
@@ -403,8 +399,7 @@ public class ActivitySearchFragment  extends Fragment {
             empty_image.setVisibility(View.GONE);
             layout_popular.setVisibility(View.GONE);
             getSearch();
-        }
-        else if(requestCode == 70 && responseCode == 80) {
+        } else if (requestCode == 70 && responseCode == 80) {
             theme_id = data.getStringExtra("id");
             tv_category.setText(data.getStringExtra("name"));
             tv_category2.setText(data.getStringExtra("name"));
@@ -415,11 +410,9 @@ public class ActivitySearchFragment  extends Fragment {
             empty_image.setVisibility(View.GONE);
             layout_popular.setVisibility(View.GONE);
             getSearch();
-        }
-        else if(requestCode == 50 && responseCode == 80) {
+        } else if (requestCode == 50 && responseCode == 80) {
             adapter.notifyDataSetChanged();
-        }
-        else if(requestCode == 90 && responseCode == 3000){
+        } else if (requestCode == 90 && responseCode == 3000) {
             adapter.notifyDataSetChanged();
         }
     }
@@ -435,14 +428,14 @@ public class ActivitySearchFragment  extends Fragment {
                     public void run() {
                         init();
                     }
-                },500);
+                }, 500);
 
                 _hasLoadedOnce = true;
             }
         }
     }
 
-    private void init(){
+    private void init() {
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
@@ -455,12 +448,12 @@ public class ActivitySearchFragment  extends Fragment {
         mlist = (ListView) getView().findViewById(R.id.h_list);
         HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_category = (RelativeLayout)HeaderView.findViewById(R.id.btn_category);
+        btn_category = (RelativeLayout) HeaderView.findViewById(R.id.btn_category);
         tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
         map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
         tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
-        bt_scroll = (Button)getView().findViewById(R.id.bt_scroll);
+        bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
 
         View empty = getLayoutInflater().inflate(R.layout.layout_search_empty2, null, false);
         popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
@@ -472,7 +465,7 @@ public class ActivitySearchFragment  extends Fragment {
         empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
         layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
 
-        ((ViewGroup)mlist.getParent()).addView(empty);
+        ((ViewGroup) mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
 
         mlist.addHeaderView(HeaderView);

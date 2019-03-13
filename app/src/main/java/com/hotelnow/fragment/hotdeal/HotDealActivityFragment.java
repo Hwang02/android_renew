@@ -50,11 +50,11 @@ public class HotDealActivityFragment extends Fragment {
     private ListView mlist;
     private HotdaelActivityAdapter adapter;
     private ArrayList<SearchResultItem> mActivityItem = new ArrayList<>();
-    private boolean _hasLoadedOnce= false; // your boolean field
+    private boolean _hasLoadedOnce = false; // your boolean field
     private RelativeLayout wrapper;
     boolean firstDragFlag = true;
     boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
-    float startYPosition = 0, endYPosition =0;       //터치이벤트의 시작점의 Y(세로)위치
+    float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
 
     @Nullable
     @Override
@@ -67,7 +67,7 @@ public class HotDealActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void getData(){
+    private void getData() {
         wrapper.setVisibility(View.VISIBLE);
         Api.get(CONFIG.hotdeal_list + "/activity_hot_deals", new Api.HttpCallback() {
             @Override
@@ -87,10 +87,10 @@ public class HotDealActivityFragment extends Fragment {
                         return;
                     }
                     if (isAdded()) {
-                        if(obj.has("activity_hot_deals")){
+                        if (obj.has("activity_hot_deals")) {
                             JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
                             mActivityItem.clear();
-                            if(mActivity.length()>0) {
+                            if (mActivity.length() > 0) {
                                 for (int i = 0; i < mActivity.length(); i++) {
                                     mActivityItem.add(new SearchResultItem(
                                             mActivity.getJSONObject(i).getString("id"),
@@ -105,7 +105,7 @@ public class HotDealActivityFragment extends Fragment {
                                             "N",
                                             mActivity.getJSONObject(i).getString("img_url"),
                                             mActivity.getJSONObject(i).getString("sale_price"),
-                                           "",
+                                            "",
                                             mActivity.getJSONObject(i).getString("sale_rate"),
                                             0,
                                             mActivity.getJSONObject(i).getString("benefit_text"),
@@ -125,7 +125,7 @@ public class HotDealActivityFragment extends Fragment {
                                     ));
                                 }
 
-                                if(mActivity.length()>1){
+                                if (mActivity.length() > 1) {
                                     mlist.setOnTouchListener(new View.OnTouchListener() {
                                         @Override
                                         public boolean onTouch(View v, MotionEvent ev) {
@@ -151,13 +151,13 @@ public class HotDealActivityFragment extends Fragment {
                                                         if ((startYPosition > endYPosition) && (startYPosition - endYPosition) > 10) {
                                                             //TODO 스크롤 다운 시 작업
                                                             LogUtil.e("xxxxxxx", "down");
-                                                            ((HotDealActivity)getActivity()).toolbarAnimateHide();
+                                                            ((HotDealActivity) getActivity()).toolbarAnimateHide();
                                                         }
                                                         //시작 Y가 끝 보다 작다면 터치가 위에서 아래로 이러우졌다는 것이고, 스크롤이 올라갔다는 뜻이다.
                                                         else if ((startYPosition < endYPosition) && (endYPosition - startYPosition) > 10) {
                                                             //TODO 스크롤 업 시 작업
                                                             LogUtil.e("xxxxxxx", "up");
-                                                            ((HotDealActivity)getActivity()).toolbarAnimateShow();
+                                                            ((HotDealActivity) getActivity()).toolbarAnimateShow();
                                                         }
                                                     }
 
@@ -172,16 +172,14 @@ public class HotDealActivityFragment extends Fragment {
                                 }
                                 getView().findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
                                 adapter.notifyDataSetChanged();
-                            }
-                            else{
+                            } else {
                                 getView().findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                             }
                         }
                     }
                     wrapper.setVisibility(View.GONE);
-                }
-                catch (Exception e){
-                    if(isAdded()) {
+                } catch (Exception e) {
+                    if (isAdded()) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                         wrapper.setVisibility(View.GONE);
                     }
@@ -190,16 +188,16 @@ public class HotDealActivityFragment extends Fragment {
         });
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         final String sel_id = mActivityItem.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -211,23 +209,22 @@ public class HotDealActivityFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((HotDealActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((HotDealActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((HotDealActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((HotDealActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -239,17 +236,17 @@ public class HotDealActivityFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((HotDealActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((HotDealActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((HotDealActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((HotDealActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -260,11 +257,10 @@ public class HotDealActivityFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if(requestCode == 50 && responseCode == 90) {
+        if (requestCode == 50 && responseCode == 90) {
             getActivity().setResult(80);
             getActivity().finish();
-        }
-        else if(requestCode == 50 && responseCode == 80){
+        } else if (requestCode == 50 && responseCode == 80) {
             adapter.notifyDataSetChanged();
         }
     }
@@ -280,14 +276,14 @@ public class HotDealActivityFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            },500);
+            }, 500);
 
             _hasLoadedOnce = true;
         }
 //        }
     }
 
-    private void init(){
+    private void init() {
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
@@ -313,7 +309,7 @@ public class HotDealActivityFragment extends Fragment {
             @Override
             public void onSingleClick(View v) {
                 mlist.smoothScrollToPosition(0);
-                ((HotDealActivity)getActivity()).toolbarAnimateShow();
+                ((HotDealActivity) getActivity()).toolbarAnimateShow();
             }
         });
 

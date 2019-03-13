@@ -52,7 +52,7 @@ public class ThemeSpecialActivityActivity extends Activity {
     String from = "";
 
     DialogAlert dialogAlert;
-//    Tracker t;
+    //    Tracker t;
     boolean isRefresh = false;
     DbOpenHelper dbHelper;
     RelativeLayout toast_layout;
@@ -70,9 +70,9 @@ public class ThemeSpecialActivityActivity extends Activity {
 
         Intent intent = getIntent();
         tid = intent.getStringExtra("tid");
-        from = intent.getStringExtra("from") != null? intent.getStringExtra("from"):"";
+        from = intent.getStringExtra("from") != null ? intent.getStringExtra("from") : "";
 
-        hotelListview = (ListView)findViewById(R.id.listview);
+        hotelListview = (ListView) findViewById(R.id.listview);
         mAdapter = new ThemeSpecialActivityAdapter(ThemeSpecialActivityActivity.this, 0, mThemeItem, dbHelper);
         hotelListview.setAdapter(mAdapter);
 
@@ -88,7 +88,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                 // 내일 확인
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
-                if(!pid.getText().toString().equals("-1")) {
+                if (!pid.getText().toString().equals("-1")) {
 
                     TuneWrap.Event("theme_activity_product", hid.getText().toString());
 
@@ -96,7 +96,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
                     intent.putExtra("save", true);
-                    startActivityForResult(intent,80);
+                    startActivityForResult(intent, 80);
                 }
             }
         });
@@ -137,7 +137,7 @@ public class ThemeSpecialActivityActivity extends Activity {
 
     public void getHotelList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.special_theme_list+"/"+tid+"/A";
+        String url = CONFIG.special_theme_list + "/" + tid + "/A";
 
         TuneWrap.Event("theme_activity", tid);
 
@@ -163,15 +163,15 @@ public class ThemeSpecialActivityActivity extends Activity {
 
 //                    getActionBar().setTitle(head.getString("title"));
 
-                    if(isRefresh){
+                    if (isRefresh) {
                         isRefresh = false;
                         mThemeItem.clear();
                     }
                     //0번째에 head 이미지가 있으면 array에 넣고 없으면 리스트만 담는다.
                     //array name 무시 필요한것만 담음.
-                    if(obj.has("theme")) {
+                    if (obj.has("theme")) {
                         JSONObject head = obj.getJSONObject("theme");
-                        ((TextView)findViewById(R.id.title_text)).setText(head.getString("title"));
+                        ((TextView) findViewById(R.id.title_text)).setText(head.getString("title"));
                         mThemeItem.add(new SearchResultItem(
                                 head.getString("id"),
                                 "",
@@ -180,7 +180,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                                 "-1",
                                 head.getString("detail"),
                                 TextUtils.isEmpty(head.getString("notice")) ? "" : head.getString("notice"),
-                               0,
+                                0,
                                 0,
                                 "N",
                                 head.getString("img_main_list"),
@@ -200,7 +200,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                                 "",
                                 "",
                                 0,
-                               false,
+                                false,
                                 0
                         ));
                     }
@@ -258,7 +258,7 @@ public class ThemeSpecialActivityActivity extends Activity {
         });
     }
 
-    private void showToast(String msg){
+    private void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -271,14 +271,13 @@ public class ThemeSpecialActivityActivity extends Activity {
                 }, 1500);
     }
 
-    private void showIconToast(String msg, boolean is_fav){
+    private void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         findViewById(R.id.ico_favorite).setVisibility(View.VISIBLE);
@@ -294,8 +293,8 @@ public class ThemeSpecialActivityActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-       finish();
-       super.onBackPressed();
+        finish();
+        super.onBackPressed();
     }
 
 
@@ -311,16 +310,16 @@ public class ThemeSpecialActivityActivity extends Activity {
         super.onStop();
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         final String sel_id = mThemeItem.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -337,17 +336,16 @@ public class ThemeSpecialActivityActivity extends Activity {
                         }
                         TuneWrap.Event("favorite_activity_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         mAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -364,11 +362,11 @@ public class ThemeSpecialActivityActivity extends Activity {
                         }
                         TuneWrap.Event("favorite_activity", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         mAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -379,7 +377,7 @@ public class ThemeSpecialActivityActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             mAdapter.notifyDataSetChanged();
         }
     }

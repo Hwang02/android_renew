@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CalendarActivity extends Activity{
+public class CalendarActivity extends Activity {
 
     private CalendarPickerView calendar;
     private Button btn_complate;
@@ -89,8 +89,7 @@ public class CalendarActivity extends Activity{
         final Calendar lastYear = Calendar.getInstance();
         if (CurHourFormat.format(today).equals("00") || CurHourFormat.format(today).equals("01")) {
             lastYear.add(Calendar.DATE, -1);
-        }
-        else {
+        } else {
             lastYear.add(Calendar.DATE, 0);
         }
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
@@ -114,7 +113,7 @@ public class CalendarActivity extends Activity{
         end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
 
 //        선택안되는 날
-        if(selectList != null) {
+        if (selectList != null) {
             for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
                 if (Arrays.asList(selectList).contains(formatter3.format(date)) == false) {
                     not_dates.add(date);
@@ -122,14 +121,14 @@ public class CalendarActivity extends Activity{
             }
         }
 
-        if(strdate == null || strdate2 == null){
+        if (strdate == null || strdate2 == null) {
             strdate = Util.setCheckinout().get(0);
             strdate2 = Util.setCheckinout().get(1);
         }
 
         checkin_date.setText(Util.formatchange2(strdate));
         checkout_date.setText(Util.formatchange2(strdate2));
-        check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", ""))+"박");
+        check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", "")) + "박");
 
         Date newdate = null;
         Date newdate2 = null;
@@ -139,7 +138,7 @@ public class CalendarActivity extends Activity{
             arrayList.add(newdate);
             arrayList.add(newdate2);
             // 달력에 뿌려지는 날짜가 달력진입시 날짜보다 작을때
-            if(Util.diffOfDate2(Util.DateToString(lastYear.getTime()), Util.DateToString(newdate)) < 0){
+            if (Util.diffOfDate2(Util.DateToString(lastYear.getTime()), Util.DateToString(newdate)) < 0) {
                 LogUtil.e("xxxxxx", "작다");
                 arrayList.clear();
                 strdate = Util.setCheckinout().get(0);
@@ -152,7 +151,7 @@ public class CalendarActivity extends Activity{
                     arrayList.add(newdate2);
                     checkin_date.setText(Util.formatchange2(strdate));
                     checkout_date.setText(Util.formatchange2(strdate2));
-                    check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", ""))+"박");
+                    check_inout_count.setText(Util.diffOfDate(strdate.replace("-", ""), strdate2.replace("-", "")) + "박");
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -170,9 +169,9 @@ public class CalendarActivity extends Activity{
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                Log.d("list",  date.toString());
+                Log.d("list", date.toString());
                 if (calendar.getSelectedDates().size() == 1) {
-                    if(selected_checkin_date == null) {
+                    if (selected_checkin_date == null) {
                         selected_checkout_date = null;
                         selected_checkin_date = formatter.format(date);
                         fir_cancelday = date;
@@ -182,11 +181,10 @@ public class CalendarActivity extends Activity{
                         btn_complate.setBackgroundResource(R.drawable.cal_unactive_round);
                         btn_complate.setClickable(false);
                         btn_complate.setEnabled(false);
-                    }
-                    else{
+                    } else {
                         select_cnt = calendar.getSelectedDates().size();
                         selected_checkout_date = formatter.format(date);
-                        if(selected_checkin_date.equals(selected_checkout_date)){
+                        if (selected_checkin_date.equals(selected_checkout_date)) {
                             calendar.clearSelectedDates();
                             checkin_date.setText("날짜 선택하기");
                             checkout_date.setText("날짜 선택하기");
@@ -202,8 +200,7 @@ public class CalendarActivity extends Activity{
                         btn_complate.setClickable(true);
                         btn_complate.setEnabled(true);
                     }
-                }
-                else if(calendar.getSelectedDates().size() > 1) {
+                } else if (calendar.getSelectedDates().size() > 1) {
 //                    int sel_count = calendar.getSelectedDates().size()-1;
                     int sel_unday = 0;
                     String sel_start_day = formatter2.format(calendar.getSelectedDates().get(0));
@@ -233,7 +230,7 @@ public class CalendarActivity extends Activity{
                         sel_unday = 1;
                     }
 
-                    if(diffofday >15){
+                    if (diffofday > 15) {
                         calendar.clearSelectedDates();
                         Toast.makeText(getApplication(), "최대 15박까지 가능합니다.", Toast.LENGTH_SHORT).show();
                         sel_unday = 1;
@@ -255,8 +252,7 @@ public class CalendarActivity extends Activity{
                         btn_complate.setClickable(false);
                         btn_complate.setEnabled(false);
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(getApplication(), "다른 날짜를 선택해 주세요.", Toast.LENGTH_SHORT).show();
                     calendar.clearSelectedDates();
                     checkin_date.setText("날짜 선택하기");
@@ -291,15 +287,14 @@ public class CalendarActivity extends Activity{
             public void onSingleClick(View v) {
 
                 Intent intent = new Intent();
-                if(TextUtils.isEmpty(selected_checkin_date) || TextUtils.isEmpty(selected_checkout_date)){
+                if (TextUtils.isEmpty(selected_checkin_date) || TextUtils.isEmpty(selected_checkout_date)) {
                     intent.putExtra("ec_date", strdate);
                     intent.putExtra("ee_date", strdate2);
-                    TuneWrap.Event("date_stay", strdate+"/"+strdate2);
-                }
-                else {
+                    TuneWrap.Event("date_stay", strdate + "/" + strdate2);
+                } else {
                     intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
                     intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
-                    TuneWrap.Event("date_stay", Util.formatchange3(selected_checkin_date)+"/"+Util.formatchange3(selected_checkout_date));
+                    TuneWrap.Event("date_stay", Util.formatchange3(selected_checkin_date) + "/" + Util.formatchange3(selected_checkout_date));
                 }
                 intent.putExtra("city", TextUtils.isEmpty(city) ? "" : city);
                 intent.putExtra("city_code", TextUtils.isEmpty(city_code) ? "" : city_code);
@@ -312,17 +307,18 @@ public class CalendarActivity extends Activity{
 
     /**
      * 입력받은 날짜에 해달 일수를 증가한다.
+     *
      * @param str yyyy.MM.dd 형식
-     * @param i 증가시킬 날
+     * @param i   증가시킬 날
      * @return yyyy.MM.dd 증가된 날짜
      * @throws Exception
      */
-    public static Date getAfterDate(String str , int i) throws Exception {
+    public static Date getAfterDate(String str, int i) throws Exception {
         DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
         Date sDate = formatter.parse(str);
         Calendar cal = Calendar.getInstance();
         cal.setTime(sDate);
-        cal.add(Calendar.DATE, i );
+        cal.add(Calendar.DATE, i);
         return cal.getTime();
     }
 }

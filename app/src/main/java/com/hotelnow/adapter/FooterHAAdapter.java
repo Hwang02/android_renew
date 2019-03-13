@@ -39,11 +39,11 @@ public class FooterHAAdapter extends RecyclerView.Adapter<FooterHAAdapter.MyView
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(rv != null){
-                               rv.smoothScrollToPosition(0);
+                        if (rv != null) {
+                            rv.smoothScrollToPosition(0);
                         }
                     }
-                },100);
+                }, 100);
             }
         });
 
@@ -55,7 +55,7 @@ public class FooterHAAdapter extends RecyclerView.Adapter<FooterHAAdapter.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView lv_more,bt_top;
+        ImageView lv_more, bt_top;
         TextView tv_companyinfo, tv_more, term1, term2, term3;
 
         public MyViewHolder(View itemView) {

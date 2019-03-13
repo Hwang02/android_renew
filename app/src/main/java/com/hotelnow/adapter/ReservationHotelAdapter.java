@@ -58,25 +58,23 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
 
         holder.hotel_name.setText(entry.getHotelName());
         holder.hotel_room_name.setText(entry.getRoomName());
-        holder.hotel_reser_date.setText(Util.formatchange6(entry.getCheckinDate().substring(0, 10)) +" ~ "+Util.formatchange6(entry.getCheckoutDate().substring(0, 10)));
+        holder.hotel_reser_date.setText(Util.formatchange6(entry.getCheckinDate().substring(0, 10)) + " ~ " + Util.formatchange6(entry.getCheckoutDate().substring(0, 10)));
 
         Ion.with(holder.iv_img).load(entry.getRoom_img());
-        if(entry.getStatus_detail().equals("inprogress")){
+        if (entry.getStatus_detail().equals("inprogress")) {
             // 대기
             holder.booking_status.setBackgroundResource(R.drawable.bg_round_status_inpro);
-        }
-        else if(entry.getStatus_detail().equals("used") || entry.getStatus_detail().equals("cancel") || entry.getStatus_detail().equals("expiration")){
+        } else if (entry.getStatus_detail().equals("used") || entry.getStatus_detail().equals("cancel") || entry.getStatus_detail().equals("expiration")) {
             // 사용완료
             holder.booking_status.setBackgroundResource(R.drawable.bg_round_status_can_comple);
-        }
-        else {
+        } else {
             //결제만료
             holder.booking_status.setBackgroundResource(R.drawable.bg_round_status_book);
         }
 
         holder.booking_status.setText(entry.getStatus_display());
 
-        if(entry.getStatus().equals("booked") && entry.getmReviewCnt() == 0 && entry.getIsRwritable().equals("Y")){
+        if (entry.getStatus().equals("booked") && entry.getmReviewCnt() == 0 && entry.getIsRwritable().equals("Y")) {
             holder.btn_review.setVisibility(View.VISIBLE);
             holder.review_text1.setText(entry.getReview_writable_words_1());
             holder.review_text2.setText(entry.getReview_writable_words_2());
@@ -93,13 +91,13 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
                     mActivity.startActivityForResult(intent, 90);
                 }
             });
-        } else{
+        } else {
             holder.btn_review.setVisibility(View.GONE);
         }
 
         holder.hid.setText(entry.getId());
 
-        if(mlist.size()-2 == position){
+        if (mlist.size() - 2 == position) {
             mActivity.getBookingList();
         }
 

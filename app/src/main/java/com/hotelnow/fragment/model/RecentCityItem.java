@@ -7,7 +7,7 @@ public class RecentCityItem {
     private String sel_subcity_ko;
     private String sel_option;
 
-    public RecentCityItem(String sel_city_id, String sel_city_ko, String sel_subcity_id, String sel_subcity_ko, String sel_option){
+    public RecentCityItem(String sel_city_id, String sel_city_ko, String sel_subcity_id, String sel_subcity_ko, String sel_option) {
         this.sel_city_id = sel_city_id;
         this.sel_city_ko = sel_city_ko;
         this.sel_subcity_id = sel_subcity_id;

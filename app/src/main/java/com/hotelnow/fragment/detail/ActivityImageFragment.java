@@ -25,8 +25,8 @@ public class ActivityImageFragment extends Fragment {
         b.putString("url", url);
         b.putString("tid", tid);
         b.putStringArray("imgs", imgs);
-        b.putInt("img_size",total_cnt);
-        b.putInt("pos",pos);
+        b.putInt("img_size", total_cnt);
+        b.putInt("pos", pos);
 
         return Fragment.instantiate(context, ActivityImageFragment.class.getName(), b);
     }
@@ -40,7 +40,7 @@ public class ActivityImageFragment extends Fragment {
         RelativeLayout wrap = (RelativeLayout) inflater.inflate(R.layout.layout_hotelimg, container, false);
 
         String url = this.getArguments().getString("url");
-        ImageView niv = (ImageView)wrap.findViewById(R.id.detail_img);
+        ImageView niv = (ImageView) wrap.findViewById(R.id.detail_img);
         Ion.with(niv)
                 .error(R.drawable.placeholder)
                 .load(url);

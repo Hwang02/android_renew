@@ -44,8 +44,7 @@ public class EndEventScrollView extends ScrollView {
                 if (handler != null) {
                     handler.sendEmptyMessage(0);
                 }
-            }
-            else if(oldBottom != rect.bottom && oldBottom < v.getMeasuredHeight() / 1.05){
+            } else if (oldBottom != rect.bottom && oldBottom < v.getMeasuredHeight() / 1.05) {
                 if (handler != null) {
                     handler.sendEmptyMessage(1);
                 }

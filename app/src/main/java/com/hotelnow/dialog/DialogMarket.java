@@ -24,7 +24,7 @@ public class DialogMarket extends Dialog {
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
 
-    public DialogMarket(String title, String message, String leftText, String rightText, Context context, View.OnClickListener left , View.OnClickListener right) {
+    public DialogMarket(String title, String message, String leftText, String rightText, Context context, View.OnClickListener left, View.OnClickListener right) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         mTitle = title;
@@ -35,7 +35,7 @@ public class DialogMarket extends Dialog {
         this.mRightClickListener = right;
     }
 
-    public DialogMarket(String title, String message, String leftText, String rightText, Context context, View.OnClickListener left , View.OnClickListener right, Boolean isHtml) {
+    public DialogMarket(String title, String message, String leftText, String rightText, Context context, View.OnClickListener left, View.OnClickListener right, Boolean isHtml) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         mTitle = title;
@@ -64,7 +64,7 @@ public class DialogMarket extends Dialog {
 
         tvTitle.setText(mTitle);
 
-        if(misHtml == true) {
+        if (misHtml == true) {
             tvMessage.setGravity(Gravity.LEFT);
             tvMessage.setText(Html.fromHtml(mMessage));
         } else {

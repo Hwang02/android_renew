@@ -54,7 +54,7 @@ public class RecentAllActivity extends Activity {
     String from = "";
 
     DialogAlert dialogAlert;
-//    Tracker t;
+    //    Tracker t;
     DbOpenHelper dbHelper;
     RelativeLayout toast_layout;
     TextView tv_toast;
@@ -77,7 +77,7 @@ public class RecentAllActivity extends Activity {
 
         header = getLayoutInflater().inflate(R.layout.layout_recent_header, null, false);
 
-        Listview = (ListView)findViewById(R.id.listview);
+        Listview = (ListView) findViewById(R.id.listview);
         mAdapter = new RecentAllAdapter(RecentAllActivity.this, 0, mItems, dbHelper);
         Listview.addHeaderView(header);
         Listview.setAdapter(mAdapter);
@@ -95,7 +95,7 @@ public class RecentAllActivity extends Activity {
                 TextView edate = (TextView) v.findViewById(R.id.edate);
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
-                if(mItems.get(position-1).getHotel_id().equals("stay")) {
+                if (mItems.get(position - 1).getHotel_id().equals("stay")) {
                     TuneWrap.Event("RecentlySee", "stay", hid.getText().toString());
                     Intent intent = new Intent(RecentAllActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
@@ -103,15 +103,14 @@ public class RecentAllActivity extends Activity {
                     intent.putExtra("save", true);
                     intent.putExtra("sdate", sdate.getText().toString());
                     intent.putExtra("edate", edate.getText().toString());
-                    startActivityForResult(intent,80);
-                }
-                else{
+                    startActivityForResult(intent, 80);
+                } else {
                     TuneWrap.Event("RecentlySee", "stay", hid.getText().toString());
                     Intent intent = new Intent(RecentAllActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
                     intent.putExtra("save", true);
-                    startActivityForResult(intent,80);
+                    startActivityForResult(intent, 80);
                 }
 
             }
@@ -127,7 +126,7 @@ public class RecentAllActivity extends Activity {
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(is_fav_sel){
+                if (is_fav_sel) {
                     setResult(80);
                 }
                 finish();
@@ -137,7 +136,7 @@ public class RecentAllActivity extends Activity {
         getRecentData();
     }
 
-    public void getRecentData(){
+    public void getRecentData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.mainRecent;
         if (mRecentItem.size() > 0) {
@@ -174,9 +173,8 @@ public class RecentAllActivity extends Activity {
                             JSONObject obj = new JSONObject(body);
                             if (!obj.has("result") || !obj.getString("result").equals("success")) {
 
-                            }
-                            else if (obj.has("lists")) {
-                                if(obj.getJSONArray("lists").length()>0) {
+                            } else if (obj.has("lists")) {
+                                if (obj.getJSONArray("lists").length() > 0) {
                                     JSONArray p_recent = new JSONArray(obj.getJSONArray("lists").toString());
                                     for (int i = 0; i < p_recent.length(); i++) {
                                         JSONObject entry = p_recent.getJSONObject(i);
@@ -247,8 +245,7 @@ public class RecentAllActivity extends Activity {
                                         }
                                     }
                                     findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
-                                }
-                                else{
+                                } else {
                                     findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                                 }
                             }
@@ -260,27 +257,27 @@ public class RecentAllActivity extends Activity {
                         }
                     }
                 });
-            } catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 findViewById(R.id.wrapper).setVisibility(View.GONE);
             }
         }
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         final String sel_id = mItems.get(position).getId();
         final String sel_type = mItems.get(position).getHotel_id();
         JSONObject paramObj = new JSONObject();
         try {
-            if(sel_type.equals("stay"))
+            if (sel_type.equals("stay"))
                 paramObj.put("type", "stay");
             else
                 paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -306,13 +303,12 @@ public class RecentAllActivity extends Activity {
                         showIconToast("관심 상품 담기 취소", false);
                         mAdapter.notifyDataSetChanged();
                         is_fav_sel = true;
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -324,7 +320,7 @@ public class RecentAllActivity extends Activity {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                           showToast("로그인 후 이용해주세요");
+                            showToast("로그인 후 이용해주세요");
                             return;
                         }
 
@@ -339,7 +335,7 @@ public class RecentAllActivity extends Activity {
                         showIconToast("관심 상품 담기 성공", true);
                         mAdapter.notifyDataSetChanged();
                         is_fav_sel = true;
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -347,7 +343,7 @@ public class RecentAllActivity extends Activity {
         }
     }
 
-    private void showToast(String msg){
+    private void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -360,14 +356,13 @@ public class RecentAllActivity extends Activity {
                 }, 2000);
     }
 
-    private void showIconToast(String msg, boolean is_fav){
+    private void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         findViewById(R.id.ico_favorite).setVisibility(View.VISIBLE);
@@ -383,11 +378,11 @@ public class RecentAllActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(is_fav_sel){
+        if (is_fav_sel) {
             setResult(80);
         }
-       finish();
-       super.onBackPressed();
+        finish();
+        super.onBackPressed();
     }
 
 
@@ -406,7 +401,7 @@ public class RecentAllActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             mAdapter.notifyDataSetChanged();
         }
     }

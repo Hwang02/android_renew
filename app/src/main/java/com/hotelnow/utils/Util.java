@@ -73,9 +73,10 @@ import java.util.regex.Pattern;
  * Created by susia on 15. 9. 21..
  */
 public class Util {
-    private enum LocationAwareness { LOCATION_AWARENESS_NORMAL, LOCATION_AWARENESS_TRUNCATED, LOCATION_AWARENESS_DISABLED }
+    private enum LocationAwareness {LOCATION_AWARENESS_NORMAL, LOCATION_AWARENESS_TRUNCATED, LOCATION_AWARENESS_DISABLED}
+
     private static LocationAwareness mLocationAwareness = LocationAwareness.LOCATION_AWARENESS_NORMAL;
-    private static int mLocationPrecision = 6;	//	lat, lng 소수점
+    private static int mLocationPrecision = 6;    //	lat, lng 소수점
     public static Location userLocation = null;
     private static Calendar startCal = Calendar.getInstance();
     private static Calendar endCal = Calendar.getInstance();
@@ -100,23 +101,23 @@ public class Util {
     }
 
     // 안드로이드 user agent 문자열 생성
-    public static String getUserAgent(Context context){
+    public static String getUserAgent(Context context) {
         String returnStr = "Android ";
 
-        returnStr += Build.VERSION.RELEASE+"(SDK-"+ String.valueOf(Build.VERSION.SDK_INT)+");";
-        returnStr += context.getResources().getConfiguration().locale+";";
-        returnStr += Build.MODEL+";"+ Build.MANUFACTURER+";"+ Build.PRODUCT;
+        returnStr += Build.VERSION.RELEASE + "(SDK-" + String.valueOf(Build.VERSION.SDK_INT) + ");";
+        returnStr += context.getResources().getConfiguration().locale + ";";
+        returnStr += Build.MODEL + ";" + Build.MANUFACTURER + ";" + Build.PRODUCT;
 
         return returnStr;
     }
 
     // 리스트 이미지 높이 확인
-    public static int getListHeight(Context context){
+    public static int getListHeight(Context context) {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if(_preferences.getFloat("list_height", 0) <= 0){
+        if (_preferences.getFloat("list_height", 0) <= 0) {
             int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-            int imgHeight = (int) Math.round(screenWidth/16*2);
+            int imgHeight = (int) Math.round(screenWidth / 16 * 2);
 
             return imgHeight;
         } else {
@@ -124,19 +125,19 @@ public class Util {
         }
     }
 
-    public static String getEncode(String mSearch){
+    public static String getEncode(String mSearch) {
         String ALLOWED_URI_CHARS = "@#&=*-_.,:!()/~";
         String encodedUri = Uri.encode(mSearch, ALLOWED_URI_CHARS);
 
         return encodedUri;
     }
 
-    public static int dptopixel(Context context, int dp){
+    public static int dptopixel(Context context, int dp) {
         int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
         return px;
     }
 
-    public static int getFullHeight(Context context){
+    public static int getFullHeight(Context context) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         int height = dm.heightPixels;
         return height;
@@ -163,7 +164,7 @@ public class Util {
     }
 
     // 추천 팝업을 위한 날짜 차이 확인
-    public static boolean getDateGap(Context context){
+    public static boolean getDateGap(Context context) {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         long now = System.currentTimeMillis();
@@ -172,7 +173,7 @@ public class Util {
         int curDate = Integer.valueOf(CurDateFormat.format(date));
         int last_date = _preferences.getInt("cookie_recommendation_date", 0);
 
-        if(curDate-last_date >= 3){
+        if (curDate - last_date >= 3) {
             return true;
         } else {
             return false;
@@ -180,7 +181,7 @@ public class Util {
     }
 
     // 추천 팝업 안띄우려 값 설정
-    public static void setDateGap(Context context){
+    public static void setDateGap(Context context) {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         long now = System.currentTimeMillis();
@@ -194,7 +195,7 @@ public class Util {
     }
 
     // captcha image string
-    public static void captchaImgUrl(final Context context, final ImageView captcha){
+    public static void captchaImgUrl(final Context context, final ImageView captcha) {
         Api.get(CONFIG.captchaUrl, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
@@ -224,17 +225,17 @@ public class Util {
     }
 
     // 월 일 에 0 붙임
-    public static String leftZero(String num){
-        if(num.length() == 1)
-            return "0"+num;
+    public static String leftZero(String num) {
+        if (num.length() == 1)
+            return "0" + num;
         else
             return num;
     }
 
     // 소팅에서 사용
-    public static String rightZero(String num){
-        if(num.length() == 1)
-            return num+"0";
+    public static String rightZero(String num) {
+        if (num.length() == 1)
+            return num + "0";
         else
             return num;
     }
@@ -246,22 +247,23 @@ public class Util {
 
 
     // GCM TOKEN
-    public static void setGcmToken(Context context, String regId, String userId, Boolean flag){
+    public static void setGcmToken(Context context, String regId, String userId, Boolean flag) {
         String androidId = Util.getAndroidId(context);
 
         JSONObject paramObj = new JSONObject();
 
-        try{
+        try {
             paramObj.put("os", "a");
             paramObj.put("uuid", androidId);
             paramObj.put("push_token", regId);
             paramObj.put("ver", Util.getAppVersionName(context));
 
-            if(flag != null) {
-                paramObj.put("use_yn", ((flag == true)? "Y":"N"));
+            if (flag != null) {
+                paramObj.put("use_yn", ((flag == true) ? "Y" : "N"));
             }
-            if(userId != null) paramObj.put("user_id", userId);
-        } catch (JSONException e) {}
+            if (userId != null) paramObj.put("user_id", userId);
+        } catch (JSONException e) {
+        }
 
         Api.post(CONFIG.notiSettingUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
@@ -288,16 +290,16 @@ public class Util {
                 c.startActivity(i);
                 Toast.makeText(c, "오류로 인해 앱을 재시작 합니다.", Toast.LENGTH_SHORT).show();
             } else {
-				Log.e("doRestart", "Was not able to restart application, Context null");
+                Log.e("doRestart", "Was not able to restart application, Context null");
             }
         } catch (Exception ex) {
-			Log.e("doRestart", "Was not able to restart application");
+            Log.e("doRestart", "Was not able to restart application");
         }
     }
 
     // 추천인코드 만들기
     public static String getRecommCode(String s) {
-        String tmp = (new StringBuffer(s) ).reverse().toString();
+        String tmp = (new StringBuffer(s)).reverse().toString();
         return String.format("%-6s", tmp).replace(' ', '0');
     }
 
@@ -315,7 +317,7 @@ public class Util {
         SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
 
         // 서버타임있는지 확인하고 없으면 설정
-        if(CONFIG.svr_date == null) {
+        if (CONFIG.svr_date == null) {
             long time = System.currentTimeMillis();
             CONFIG.svr_date = new Date(time);
         }
@@ -323,7 +325,8 @@ public class Util {
         // 현재 시간 object 설정
         try {
             dateObj = CONFIG.svr_date;
-        } catch(Exception e){}
+        } catch (Exception e) {
+        }
 
         Calendar startCal = Calendar.getInstance();
         Calendar endCal = Calendar.getInstance();
@@ -332,7 +335,7 @@ public class Util {
         endCal.setTime(dateObj);
         endCal.add(Calendar.DATE, 1);
 
-        if(CurHourFormat.format(dateObj).equals("00") || CurHourFormat.format(dateObj).equals("01")){
+        if (CurHourFormat.format(dateObj).equals("00") || CurHourFormat.format(dateObj).equals("01")) {
             startCal.add(Calendar.DATE, -1);
             endCal.add(Calendar.DATE, -1);
         }
@@ -342,79 +345,85 @@ public class Util {
         return mIndout;
     }
 
-    public static String formatchange(String dt){
+    public static String formatchange(String dt) {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat formatter2 = new SimpleDateFormat("MM월dd일(EEE)", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
-    public static String formatchange2(String dt){
+    public static String formatchange2(String dt) {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy.MM.dd(EEE)", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
-    public static String formatchange3(String dt){
+    public static String formatchange3(String dt) {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd(EEE)", Locale.KOREAN);
             SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
-    public static String formatchange4(String dt){
+    public static String formatchange4(String dt) {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN);
             SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
-    public static String formatchange5(String dt){
+    public static String formatchange5(String dt) {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
             SimpleDateFormat formatter2 = new SimpleDateFormat("MM/dd", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
-    public static String formatchange6(String dt){
+    public static String formatchange6(String dt) {
         String wdt = "";
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd(EEE)", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = formatter2.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
-    public static String todayFormat(){
+    public static String todayFormat() {
         String mDay = "";
         try {
             Date today;
@@ -423,12 +432,13 @@ public class Util {
             today = todayCal.getTime();
             SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
             mDay = df.format(today);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return mDay;
     }
 
-    public static String DateToString(Date date){
+    public static String DateToString(Date date) {
         Date from = date;
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
         String to = transFormat.format(from);
@@ -444,20 +454,21 @@ public class Util {
             SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN);
             Date to = formatter.parse(dt);
             wdt = transFormat.format(to);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         return wdt;
     }
 
     // 디바이스 너비
-    public static int checkDeviceWidth(){
+    public static int checkDeviceWidth() {
         DisplayMetrics dm = HotelnowApplication.getAppContext().getResources().getDisplayMetrics();
         return dm.widthPixels;
     }
 
     // 날짜 차 계산
     public static long diffOfDate(String begin, String end) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd",Locale.KOREAN);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREAN);
 
         Date beginDate;
         Date endDate;
@@ -478,7 +489,7 @@ public class Util {
 
     // 날짜 차 계산
     public static long diffOfDate2(String begin, String end) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.KOREAN);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
 
         Date beginDate;
         Date endDate;
@@ -506,7 +517,7 @@ public class Util {
             Date currentTime = new Date();
             date = format.parse(pref);
 
-            if(currentTime.before(date)) {
+            if (currentTime.before(date)) {
                 return false;
             } else {
                 return true;
@@ -546,31 +557,31 @@ public class Util {
     }
 
     // Preference 값 설정
-    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, boolean prefVal){
+    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, boolean prefVal) {
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putBoolean(prefKey, prefVal);
         prefEditor.commit();
     }
 
-    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, int prefVal){
+    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, int prefVal) {
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putInt(prefKey, prefVal);
         prefEditor.commit();
     }
 
-    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, String prefVal){
+    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, String prefVal) {
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putString(prefKey, prefVal);
         prefEditor.commit();
     }
 
-    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, Float prefVal){
+    public static void setPreferenceValues(SharedPreferences preferences, String prefKey, Float prefVal) {
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putFloat(prefKey, prefVal);
         prefEditor.commit();
     }
 
-    public static void showKakaoLink(final Activity activity){
+    public static void showKakaoLink(final Activity activity) {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         String cookie = _preferences.getString("userid", null);
 
@@ -594,10 +605,10 @@ public class Util {
                                 LinkObject.newBuilder()
                                         .setMobileWebUrl("http://www.hotelnow.co.kr/ko").build())
                                 .setDescrption("[호텔나우]\n"
-                                        + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|",""))
-                                        + "님이 호텔나우 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+
-                                        "원 적립금을 드립니다!\n추천인코드 입력하고 "+Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!\n추천인코드:"
-                                        + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|",""))))
+                                        + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""))
+                                        + "님이 호텔나우 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +
+                                        "원 적립금을 드립니다!\n추천인코드 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!\n추천인코드:"
+                                        + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))))
                                 .build())
                         .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
                                 .setMobileWebUrl("http://www.hotelnow.co.kr/ko")
@@ -615,7 +626,7 @@ public class Util {
         }
     }
 
-    public static void shareFacebookFeed(final Activity activity, CallbackManager callbackManager){
+    public static void shareFacebookFeed(final Activity activity, CallbackManager callbackManager) {
         final SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         LoginManager manager;
         Profile profile = Profile.getCurrentProfile().getCurrentProfile();
@@ -623,17 +634,17 @@ public class Util {
         String cookie = _preferences.getString("userid", null);
 
         if (cookie != null) {
-            if(profile != null) {
+            if (profile != null) {
                 ShareLinkContent linkContent = null;
                 try {
                     linkContent = new ShareLinkContent.Builder()
 
-                            .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|","")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
-                                    + "원을 드립니다."+"(추천인코드:"+ Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|","")))+")\n"
-                            +AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|","")) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
-                                    "추천인코드 : "+ Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
+                            .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
+                                    + "원을 드립니다." + "(추천인코드:" + Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|", ""))) + ")\n"
+                                    + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
+                                    "추천인코드 : " + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + " 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!")
                             .setContentUrl(Uri.parse(CONFIG.marketUrl))
-    //                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
+                            //                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
                             .build();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -652,12 +663,12 @@ public class Util {
                         ShareLinkContent linkContent = null;
                         try {
                             linkContent = new ShareLinkContent.Builder()
-                                    .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|","")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다."+"(추천인코드:"
-                                            + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")))+")\n"
-                                    +AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|","")) + "님이 호텔나우 적립금 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +"원을 드립니다. " +
-                                            "추천인코드 : "+ Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")))+ " 입력하고 "+ Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))+"원을 바로 받아보세요!" )
+                                    .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다." + "(추천인코드:"
+                                            + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + ")\n"
+                                            + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
+                                            "추천인코드 : " + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + " 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!")
                                     .setContentUrl(Uri.parse(CONFIG.marketUrl))
-    //                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
+                                    //                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
                                     .build();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -725,11 +736,11 @@ public class Util {
     }
 
     public static boolean in_array(String[] haystack, String needle) {
-        for(int i=0;i<haystack.length;i++) {
-            if(haystack[i].startsWith("4:") && needle.equals("4")) {
+        for (int i = 0; i < haystack.length; i++) {
+            if (haystack[i].startsWith("4:") && needle.equals("4")) {
                 return true;
             } else {
-                if(haystack[i].equals(needle)) {
+                if (haystack[i].equals(needle)) {
                     return true;
                 }
             }
@@ -740,15 +751,15 @@ public class Util {
     public static String getGradeText(String val) {
         Double value = Double.valueOf(val);
 
-        if(value >= 4.6 && value <= 5){
+        if (value >= 4.6 && value <= 5) {
             return "강력추천";
-        } else if(value >= 3.6 && value <= 4.5){
+        } else if (value >= 3.6 && value <= 4.5) {
             return "추천함";
-        } else if(value >= 2.6 && value <= 3.5){
+        } else if (value >= 2.6 && value <= 3.5) {
             return "만족스러움";
-        } else if(value >= 1.6 && value <= 2.5){
+        } else if (value >= 1.6 && value <= 2.5) {
             return "보통";
-        } else if(value >= 1.0 && value <= 1.5){
+        } else if (value >= 1.0 && value <= 1.5) {
             return "개선이 필요함";
         }
 
@@ -759,8 +770,8 @@ public class Util {
         String[] categorycodearr = mContext.getResources().getStringArray(R.array.category_code);
         String[] categorytextarr = mContext.getResources().getStringArray(R.array.category_text);
         int position = 0;
-        for(int i=0; i<categorycodearr.length; i++){
-            if(categorycodearr[i].equals(val)){
+        for (int i = 0; i < categorycodearr.length; i++) {
+            if (categorycodearr[i].equals(val)) {
                 position = i;
                 break;
             }
@@ -778,7 +789,8 @@ public class Util {
             date = format.parse(curDate);
             calendar.setTime(date);
             calendar.add(Calendar.DAY_OF_YEAR, 1);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return format.format(calendar.getTime());
     }
@@ -793,7 +805,8 @@ public class Util {
             date = format.parse(curDate);
             calendar.setTime(date);
             calendar.add(Calendar.DAY_OF_YEAR, 1);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return calendar.getTime();
     }
@@ -808,15 +821,16 @@ public class Util {
             date = format.parse(curDate);
             calendar.setTime(date);
             calendar.add(Calendar.DAY_OF_YEAR, -1);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return format.format(calendar.getTime());
     }
 
-    public static void clearSearch(){
-        CONFIG.sel_category = null;														// 검색가테고리
-        CONFIG.sel_facility = null;														// 검색부대시설
-        CONFIG.sel_orderby = null;												// 검색가테고리
+    public static void clearSearch() {
+        CONFIG.sel_category = null;                                                        // 검색가테고리
+        CONFIG.sel_facility = null;                                                        // 검색부대시설
+        CONFIG.sel_orderby = null;                                                // 검색가테고리
         CONFIG.sel_category = null;
         CONFIG.sel_rate = null;
         CONFIG.sel_facility = null;
@@ -871,7 +885,7 @@ public class Util {
 
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(email);
-        if(m.matches()) {
+        if (m.matches()) {
             err = true;
         }
         return err;
@@ -883,27 +897,27 @@ public class Util {
 
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(name);
-        if(m.matches()) {
+        if (m.matches()) {
             err = true;
         }
         return err;
     }
 
-    public static String TuneCategory(Context context, String code){
+    public static String TuneCategory(Context context, String code) {
         String[] categoriarr = context.getResources().getStringArray(R.array.category_text);
         String[] categoriCodes = context.getResources().getStringArray(R.array.category_code);
-        int select_id=0;
+        int select_id = 0;
         for (int i = 0; i < categoriCodes.length; i++) {
-            if(code.equals(categoriCodes[i])){
+            if (code.equals(categoriCodes[i])) {
                 select_id = i;
                 break;
             }
         }
-        LogUtil.e("xxxxx", select_id+"");
+        LogUtil.e("xxxxx", select_id + "");
         return categoriarr[select_id];
     }
 
-    public static boolean getHashKey(Context context, String sVal){
+    public static boolean getHashKey(Context context, String sVal) {
         PackageInfo packageInfo = null;
         try {
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);

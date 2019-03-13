@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
@@ -33,7 +34,7 @@ public class CardAddActivity extends Activity {
     private DialogConfirm dialogConfirm;
     private String uid = "";
 
-//    @SuppressLint({ "SetJavaScriptEnabled", "NewApi" })
+    //    @SuppressLint({ "SetJavaScriptEnabled", "NewApi" })
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,23 +45,23 @@ public class CardAddActivity extends Activity {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         uid = _preferences.getString("userid", null);
 
-        if(uid.equals("") || uid == null) {
+        if (uid.equals("") || uid == null) {
             Toast.makeText(CardAddActivity.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
             finish();
         }
 
         ((TextView) findViewById(R.id.title_text)).setText("신용카드등록");
 
-        webview = (WebView)findViewById(R.id.webview);
+        webview = (WebView) findViewById(R.id.webview);
 
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.getSettings().setUserAgentString(webview.getSettings().getUserAgentString()+" HOTELNOW_APP_ANDROID");
+        webview.getSettings().setUserAgentString(webview.getSettings().getUserAgentString() + " HOTELNOW_APP_ANDROID");
         webview.setWebViewClient(new webViewClient());
 //        webview.addJavascriptInterface(new billWebInterface(), "billWebInterface");
         webview.setWebChromeClient(new WebChromeClient());
 
         try {
-            webview.loadUrl(CONFIG.cardAddUrl+"?uid="+ AES256Chiper.AES_Decode(uid.replace("HN|","")));
+            webview.loadUrl(CONFIG.cardAddUrl + "?uid=" + AES256Chiper.AES_Decode(uid.replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +82,7 @@ public class CardAddActivity extends Activity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if(url.contains("plusfriend")){
+            if (url.contains("plusfriend")) {
                 // 옐로우 아이디 처리
                 Util.kakaoYelloId(CardAddActivity.this);
 
@@ -100,7 +101,7 @@ public class CardAddActivity extends Activity {
 
                 return true;
 
-            } else if(url.contains("www")){
+            } else if (url.contains("www")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
 
@@ -168,7 +169,7 @@ public class CardAddActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             dialogConfirm = new DialogConfirm(
                     getString(R.string.alert_notice),
                     "카드 등록을 취소하시겠습니까?",

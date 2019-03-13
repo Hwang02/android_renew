@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.adapter.ThemeSpecialHotelAdapter;
 import com.hotelnow.dialog.DialogAlert;
@@ -51,7 +52,7 @@ public class ThemeSpecialHotelActivity extends Activity {
     String from = "";
 
     DialogAlert dialogAlert;
-//    Tracker t;
+    //    Tracker t;
     boolean isRefresh = false;
     DbOpenHelper dbHelper;
     RelativeLayout toast_layout;
@@ -70,9 +71,9 @@ public class ThemeSpecialHotelActivity extends Activity {
 
         Intent intent = getIntent();
         tid = intent.getStringExtra("tid");
-        from = intent.getStringExtra("from") != null? intent.getStringExtra("from"):"";
+        from = intent.getStringExtra("from") != null ? intent.getStringExtra("from") : "";
 
-        hotelListview = (ListView)findViewById(R.id.listview);
+        hotelListview = (ListView) findViewById(R.id.listview);
         mAdapter = new ThemeSpecialHotelAdapter(ThemeSpecialHotelActivity.this, 0, mThemeItem, dbHelper);
         hotelListview.setAdapter(mAdapter);
 
@@ -90,7 +91,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                 TextView edate = (TextView) v.findViewById(R.id.edate);
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
-                if(!pid.getText().toString().equals("-1")) {
+                if (!pid.getText().toString().equals("-1")) {
 
                     TuneWrap.Event("theme_stay_product", hid.getText().toString());
 
@@ -100,7 +101,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                     intent.putExtra("sdate", sdate.getText().toString());
                     intent.putExtra("edate", edate.getText().toString());
                     intent.putExtra("save", true);
-                    startActivityForResult(intent,80);
+                    startActivityForResult(intent, 80);
                 }
             }
         });
@@ -141,7 +142,7 @@ public class ThemeSpecialHotelActivity extends Activity {
 
     public void getHotelList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.special_theme_list+"/"+tid+"/H";
+        String url = CONFIG.special_theme_list + "/" + tid + "/H";
 
         TuneWrap.Event("theme_stay", tid);
 
@@ -165,15 +166,15 @@ public class ThemeSpecialHotelActivity extends Activity {
                     JSONObject entry = null;
                     JSONArray rows = obj.getJSONArray("lists");
 
-                    if(isRefresh){
+                    if (isRefresh) {
                         isRefresh = false;
                         mThemeItem.clear();
                     }
                     //0번째에 head 이미지가 있으면 array에 넣고 없으면 리스트만 담는다.
                     //array name 무시 필요한것만 담음.
-                    if(obj.has("theme")) {
+                    if (obj.has("theme")) {
                         JSONObject head = obj.getJSONObject("theme");
-                        ((TextView)findViewById(R.id.title_text)).setText(head.getString("title"));
+                        ((TextView) findViewById(R.id.title_text)).setText(head.getString("title"));
                         mThemeItem.add(new ThemeSItem(
                                 head.getString("id"),
                                 head.getString("subject"),
@@ -244,16 +245,16 @@ public class ThemeSpecialHotelActivity extends Activity {
         });
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         final String sel_id = mThemeItem.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -265,23 +266,22 @@ public class ThemeSpecialHotelActivity extends Activity {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                           showToast("로그인 후 이용해주세요");
+                            showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         mAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -293,17 +293,17 @@ public class ThemeSpecialHotelActivity extends Activity {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                           showToast("로그인 후 이용해주세요");
+                            showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         mAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -311,7 +311,7 @@ public class ThemeSpecialHotelActivity extends Activity {
         }
     }
 
-    private void showToast(String msg){
+    private void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -324,14 +324,13 @@ public class ThemeSpecialHotelActivity extends Activity {
                 }, 1500);
     }
 
-    private void showIconToast(String msg, boolean is_fav){
+    private void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             findViewById(R.id.ico_favorite).setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         findViewById(R.id.ico_favorite).setVisibility(View.VISIBLE);
@@ -347,8 +346,8 @@ public class ThemeSpecialHotelActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-       finish();
-       super.onBackPressed();
+        finish();
+        super.onBackPressed();
     }
 
 
@@ -367,7 +366,7 @@ public class ThemeSpecialHotelActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             mAdapter.notifyDataSetChanged();
         }
     }

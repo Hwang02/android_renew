@@ -65,7 +65,7 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
         this.dbHelper = dbHelper;
         this.page = page;
         _preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        mActivity = (Activity)context;
+        mActivity = (Activity) context;
     }
 
     @Override
@@ -86,27 +86,26 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
 
         BannerItem entry = getItem(position);
         RelativeLayout.LayoutParams param;
-        if(page == "Home") {
+        if (page == "Home") {
             param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            param.height =mContext.getResources().getDisplayMetrics().widthPixels/2;
-            LogUtil.e("xxxxx", mContext.getResources().getDisplayMetrics().widthPixels/2+"");
-        }
-        else {
+            param.height = mContext.getResources().getDisplayMetrics().widthPixels / 2;
+            LogUtil.e("xxxxx", mContext.getResources().getDisplayMetrics().widthPixels / 2 + "");
+        } else {
             param = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            param.height = mContext.getResources().getDisplayMetrics().widthPixels/3;
-            LogUtil.e("xxxxx", mContext.getResources().getDisplayMetrics().widthPixels/3+"");
+            param.height = mContext.getResources().getDisplayMetrics().widthPixels / 3;
+            LogUtil.e("xxxxx", mContext.getResources().getDisplayMetrics().widthPixels / 3 + "");
         }
 
-        if(position == 0){
+        if (position == 0) {
             param.topMargin = Util.dptopixel(mContext, 14);
             param.leftMargin = Util.dptopixel(mContext, 16);
             param.rightMargin = Util.dptopixel(mContext, 16);
             holder.iv_img.setLayoutParams(param);
-        }else{
+        } else {
             param.topMargin = Util.dptopixel(mContext, 10);
             param.leftMargin = Util.dptopixel(mContext, 16);
             param.rightMargin = Util.dptopixel(mContext, 16);
-            if(data.size()-1 == position)
+            if (data.size() - 1 == position)
                 param.bottomMargin = Util.dptopixel(mContext, 10);
             holder.iv_img.setLayoutParams(param);
         }
@@ -115,24 +114,24 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
         holder.iv_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mId = data.get((int)v.getTag()).getId();
-                mTitle = data.get((int)v.getTag()).getTitle();
-                if (!TextUtils.isEmpty(data.get((int)v.getTag()).getImage())) {
-                    frontType = data.get((int)v.getTag()).getEvt_type();
-                    frontImg = data.get((int)v.getTag()).getImage();
-                    String[] arr = data.get((int)v.getTag()).getLink().split("hotelnowevent://");
+                mId = data.get((int) v.getTag()).getId();
+                mTitle = data.get((int) v.getTag()).getTitle();
+                if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
+                    frontType = data.get((int) v.getTag()).getEvt_type();
+                    frontImg = data.get((int) v.getTag()).getImage();
+                    String[] arr = data.get((int) v.getTag()).getLink().split("hotelnowevent://");
                     if (arr.length > 1) {
                         frontMethod = arr[1];
                         frontMethod = Util.stringToHTMLString(frontMethod);
-                        frontTitle = data.get((int)v.getTag()).getTitle() != "" ? data.get((int)v.getTag()).getTitle() : "무료 숙박 이벤트";
+                        frontTitle = data.get((int) v.getTag()).getTitle() != "" ? data.get((int) v.getTag()).getTitle() : "무료 숙박 이벤트";
                     }
                     if (!frontType.equals("a")) {
                         frontEvtId = mId;
                     } else {
-                        frontEvtId = Util.getFrontThemeId(data.get((int)v.getTag()).getLink());
+                        frontEvtId = Util.getFrontThemeId(data.get((int) v.getTag()).getLink());
                     }
                 }
-                if(data.get((int)v.getTag()).getEvt_type().equals("a") && !data.get((int)v.getTag()).getEvt_type().equals("")) {
+                if (data.get((int) v.getTag()).getEvt_type().equals("a") && !data.get((int) v.getTag()).getEvt_type().equals("")) {
                     try {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
@@ -233,10 +232,9 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
                         }
+                    } catch (Exception e) {
                     }
-                    catch (Exception e) {}
-                }
-                else {
+                } else {
                     Intent intentEvt = new Intent(mContext, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);

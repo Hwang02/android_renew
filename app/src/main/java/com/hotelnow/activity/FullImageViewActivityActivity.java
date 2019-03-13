@@ -104,7 +104,7 @@ public class FullImageViewActivityActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 markNowPosition = position % PAGES;
-                page.setText(markNowPosition+1+"/"+PAGES);
+                page.setText(markNowPosition + 1 + "/" + PAGES);
                 markPrevPosition = markNowPosition;
             }
 
@@ -122,7 +122,7 @@ public class FullImageViewActivityActivity extends FragmentActivity {
     }
 
     private void initPageMark() {
-        page.setText(markNowPosition+1+"/"+total);
+        page.setText(markNowPosition + 1 + "/" + total);
 
         markPrevPosition = markNowPosition;
     }

@@ -11,7 +11,7 @@ public class TicketInfoEntry implements Serializable {
     private String mTitle;
     private String mMessage;
 
-    public TicketInfoEntry(String title, String message){
+    public TicketInfoEntry(String title, String message) {
         mTitle = title;
         mMessage = message;
     }

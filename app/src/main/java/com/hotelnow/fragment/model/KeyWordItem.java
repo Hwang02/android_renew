@@ -2,7 +2,7 @@ package com.hotelnow.fragment.model;
 
 public class KeyWordItem {
 
-    private String id, order, category, image, keyword, type, evt_type, event_id,  link, bannerable_id;
+    private String id, order, category, image, keyword, type, evt_type, event_id, link, bannerable_id;
 
     public KeyWordItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String bannerable_id) {
         this.id = id;

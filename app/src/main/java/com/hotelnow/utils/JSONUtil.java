@@ -57,7 +57,7 @@ public class JSONUtil {
                 lid = String.format("%7s", lid).replace(' ', '0');
                 rid = String.format("%7s", rid).replace(' ', '0');
 
-                if(type.equals("low"))
+                if (type.equals("low"))
                     return lid.compareTo(rid);
                 else
                     return rid.compareTo(lid);
@@ -109,11 +109,11 @@ public class JSONUtil {
                     e.printStackTrace();
                 }
 
-                if(lid.contains(".")) lid = lid.replace(".","");
-                if(rid.contains(".")) rid = rid.replace(".","");
+                if (lid.contains(".")) lid = lid.replace(".", "");
+                if (rid.contains(".")) rid = rid.replace(".", "");
 
-                if(lid.length() == 1) lid = Util.rightZero(lid);
-                if(rid.length() == 1) rid = Util.rightZero(rid);
+                if (lid.length() == 1) lid = Util.rightZero(lid);
+                if (rid.length() == 1) rid = Util.rightZero(rid);
 
                 lid = String.format("%3s", lid).replace(' ', '0');
                 rid = String.format("%3s", rid).replace(' ', '0');

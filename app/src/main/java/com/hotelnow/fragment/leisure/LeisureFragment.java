@@ -65,10 +65,10 @@ public class LeisureFragment extends Fragment {
     public ArrayList<DefaultItem> mDefaultItem = new ArrayList<>();
     public ArrayList<ActivityHotDealItem> mActivityItem = new ArrayList<>();
     public ArrayList<BannerItem> mPbanerItem = new ArrayList<>();
-    public String sel_location = "",sel_location_id ="", sel_theme ="", sel_theme_id ="";
+    public String sel_location = "", sel_location_id = "", sel_theme = "", sel_theme_id = "";
     private SharedPreferences _preferences;
     private String cookie;
-    private  String s_Area = "";
+    private String s_Area = "";
     private String s_Area_id = "";
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -110,15 +110,15 @@ public class LeisureFragment extends Fragment {
         mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
         mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
         mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
-        if(mFavoriteStayItem.size()>0){
+        if (mFavoriteStayItem.size() > 0) {
             FavoriteStayList = new String[mFavoriteStayItem.size()];
-            for(int i =0; i<mFavoriteStayItem.size();i++){
+            for (int i = 0; i < mFavoriteStayItem.size(); i++) {
                 FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
             }
         }
-        if(mFavoriteActivityItem.size()>0){
+        if (mFavoriteActivityItem.size() > 0) {
             FavoriteActivityList = new String[mFavoriteActivityItem.size()];
-            for(int i =0; i<mFavoriteActivityItem.size();i++){
+            for (int i = 0; i < mFavoriteActivityItem.size(); i++) {
                 FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
             }
         }
@@ -128,7 +128,7 @@ public class LeisureFragment extends Fragment {
 
         getObject();
 
-        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) getView().findViewById(R.id.swipe);
         swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -150,7 +150,7 @@ public class LeisureFragment extends Fragment {
 
     private void getObject() {
         MainActivity.showProgress();
-        String url = CONFIG.mainHome+"/activity";
+        String url = CONFIG.mainHome + "/activity";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -169,25 +169,24 @@ public class LeisureFragment extends Fragment {
                         return;
                     }
 
-                    if(dbHelper.selectAllRecentCity("A").size()>0) {
+                    if (dbHelper.selectAllRecentCity("A").size() > 0) {
                         List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("A");
                         s_Area = RecentArea.get(0).getSel_city_ko();
                         s_Area_id = RecentArea.get(0).getSel_city_id();
-                    }
-                    else{
+                    } else {
                         s_Area = "서울";
                         s_Area_id = "10000";
                     }
 
                     mTopItem.clear();
-                    mTopItem.add(new TopItem(s_Area, s_Area_id, "","테마전체", ""));
+                    mTopItem.add(new TopItem(s_Area, s_Area_id, "", "테마전체", ""));
                     sel_location = "서울";
                     sel_theme = "테마전체";
                     objects.add(mTopItem.get(0));
 
-                    if(obj.has("promotion_banners")){
+                    if (obj.has("promotion_banners")) {
                         JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
-                        if(p_banner.length()>0) {
+                        if (p_banner.length() > 0) {
                             mPbanerItem.clear();
                             for (int i = 0; i < p_banner.length(); i++) {
                                 mPbanerItem.add(new BannerItem(
@@ -208,10 +207,10 @@ public class LeisureFragment extends Fragment {
                         }
                     }
 
-                    if(obj.has("activity_hot_deals")){
+                    if (obj.has("activity_hot_deals")) {
                         JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
                         mActivityItem.clear();
-                        if(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").length()>0) {
+                        if (obj.getJSONObject("activity_hot_deals").getJSONArray("deals").length() > 0) {
                             for (int i = 0; i < mActivity.length(); i++) {
                                 mActivityItem.add(new ActivityHotDealItem(
                                         mActivity.getJSONObject(i).getString("id"),
@@ -235,33 +234,33 @@ public class LeisureFragment extends Fragment {
                             objects.add(mActivityItem.get(0));
                         }
                     }
-                    if(obj.has("theme_show")){
-                        if(obj.getJSONObject("theme_show").length() >0) {
+                    if (obj.has("theme_show")) {
+                        if (obj.getJSONObject("theme_show").length() > 0) {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
-                                JSONObject mTheme = mTheme_show.getJSONObject("theme");
-                                JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
-                                mThemeItem.clear();
-                                for (int i = 0; i < mItems.length(); i++) {
-                                    mThemeItem.add(new ThemeItem(
-                                            mItems.getJSONObject(i).getString("id"),
-                                            mItems.getJSONObject(i).getString("name"),
-                                            mItems.getJSONObject(i).getString("landscape"),
-                                            mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
-                                            mTheme.getString("id"),
-                                            mTheme.getString("theme_flag"),
-                                            mTheme.getString("theme_color"),
-                                            mTheme.getString("title"),
-                                            mItems.getJSONObject(i).getString("sale_price"),
-                                            mItems.getJSONObject(i).getString("normal_price")
-                                    ));
-                                }
-                                if (mThemeItem.size() > 0)
-                                    objects.add(mThemeItem.get(0));
+                            JSONObject mTheme = mTheme_show.getJSONObject("theme");
+                            JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
+                            mThemeItem.clear();
+                            for (int i = 0; i < mItems.length(); i++) {
+                                mThemeItem.add(new ThemeItem(
+                                        mItems.getJSONObject(i).getString("id"),
+                                        mItems.getJSONObject(i).getString("name"),
+                                        mItems.getJSONObject(i).getString("landscape"),
+                                        mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+                                        mTheme.getString("id"),
+                                        mTheme.getString("theme_flag"),
+                                        mTheme.getString("theme_color"),
+                                        mTheme.getString("title"),
+                                        mItems.getJSONObject(i).getString("sale_price"),
+                                        mItems.getJSONObject(i).getString("normal_price")
+                                ));
+                            }
+                            if (mThemeItem.size() > 0)
+                                objects.add(mThemeItem.get(0));
                         }
                     }
-                    if(obj.has("theme_lists")){
+                    if (obj.has("theme_lists")) {
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
-                        if(mThemeS.length() >0) {
+                        if (mThemeS.length() > 0) {
                             mThemeSItem.clear();
                             for (int i = 0; i < mThemeS.length(); i++) {
                                 mThemeSItem.add(new ThemeSpecialItem(
@@ -319,12 +318,12 @@ public class LeisureFragment extends Fragment {
         return mPbanerItem;
     }
 
-    public RecyclerView getRecyclerView(){
+    public RecyclerView getRecyclerView() {
         return mLeisureBinding.recyclerView;
     }
 
 
-    public void allRefresh(){
+    public void allRefresh() {
         adapter.setAllRefresh();
     }
 
@@ -341,38 +340,36 @@ public class LeisureFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             mTopItem.clear();
             mTopItem.add(new TopItem(data.getStringExtra("name"), data.getStringExtra("id"), "", sel_theme, sel_theme_id));
             adapter.setHeaderRefresh();
-        }
-        else if(requestCode == 60 && resultCode == 80){
+        } else if (requestCode == 60 && resultCode == 80) {
             mTopItem.clear();
             mTopItem.add(new TopItem(sel_location, sel_location_id, "", data.getStringExtra("name"), data.getStringExtra("id")));
             adapter.setHeaderRefresh();
-        }
-        else if(requestCode == 70){
+        } else if (requestCode == 70) {
             adapter.setAllRefresh();
         }
-        if(resultCode == 100){
-            if(cookie == null) {
-                CONFIG.TabLogin=false;
+        if (resultCode == 100) {
+            if (cookie == null) {
+                CONFIG.TabLogin = false;
                 return;
             }
             ((MainActivity) getActivity()).moveTabReservation();
         }
     }
 
-    public void setActivityLike(final int position, final boolean islike, final ActivityHotDealLeisureAdapter adapter){
+    public void setActivityLike(final int position, final boolean islike, final ActivityHotDealLeisureAdapter adapter) {
         final String sel_id = getActivityData().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -384,23 +381,22 @@ public class LeisureFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -412,17 +408,17 @@ public class LeisureFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -430,22 +426,21 @@ public class LeisureFragment extends Fragment {
         }
     }
 
-    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getThemeData().get(position).getId();
         final String sel_type = getThemeData().get(position).getTheme_flag();
         JSONObject paramObj = new JSONObject();
         try {
-            if(sel_type.equals("H")) {
+            if (sel_type.equals("H")) {
                 paramObj.put("type", "stay");
-            }
-            else{
+            } else {
                 paramObj.put("type", "activity");
             }
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -457,28 +452,26 @@ public class LeisureFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
-                        if(sel_type.equals("H")) {
+                        if (sel_type.equals("H")) {
                             TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -490,21 +483,20 @@ public class LeisureFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        if(sel_type.equals("H")) {
+                        if (sel_type.equals("H")) {
                             TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }

@@ -59,23 +59,21 @@ public class ThemeSAllAdapter extends ArrayAdapter<ThemeSpecialItem> {
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mlist.get((int) v.getTag()).getTheme_flag().equals("H")){
+                if (mlist.get((int) v.getTag()).getTheme_flag().equals("H")) {
                     Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                     intent.putExtra("tid", mlist.get((int) v.getTag()).getId());
-                    ((ThemeSAllActivity)mContext).startActivityForResult(intent,80);
-                }
-                else{
+                    ((ThemeSAllActivity) mContext).startActivityForResult(intent, 80);
+                } else {
                     Intent intent = new Intent(mContext, ThemeSpecialActivityActivity.class);
                     intent.putExtra("tid", mlist.get((int) v.getTag()).getId());
-                    ((ThemeSAllActivity)mContext).startActivityForResult(intent,80);
+                    ((ThemeSAllActivity) mContext).startActivityForResult(intent, 80);
                 }
             }
         });
 
-        if(mlist.size()-1 == position){
+        if (mlist.size() - 1 == position) {
             holder.gap.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             holder.gap.setVisibility(View.GONE);
         }
 

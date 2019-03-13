@@ -20,7 +20,7 @@ import com.hotelnow.utils.TuneWrap;
 
 import java.util.List;
 
-public class ActivityFilterActivity extends Activity{
+public class ActivityFilterActivity extends Activity {
 
     private List<ActivityThemeItem> facilityarr;
     private DbOpenHelper dbHelper;
@@ -36,8 +36,8 @@ public class ActivityFilterActivity extends Activity{
         dbHelper = new DbOpenHelper(this);
         facilityarr = dbHelper.selectAllActivityTheme();
 
-        LogUtil.e("xxxxx", getIntent().getStringExtra("tv_category").replace("테마전체","전체"));
-        mAdapter = new ActivityFilterAdapter( this, 0, facilityarr, getIntent().getStringExtra("tv_category").replace("테마전체","전체"));
+        LogUtil.e("xxxxx", getIntent().getStringExtra("tv_category").replace("테마전체", "전체"));
+        mAdapter = new ActivityFilterAdapter(this, 0, facilityarr, getIntent().getStringExtra("tv_category").replace("테마전체", "전체"));
         mlist = (ListView) findViewById(R.id.listview);
         mlist.setAdapter(mAdapter);
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {

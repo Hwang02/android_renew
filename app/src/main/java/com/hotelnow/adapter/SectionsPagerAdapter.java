@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
 import com.hotelnow.fragment.search.ActivitySearchFragment;
 import com.hotelnow.fragment.search.HotelSearchFragment;
 
@@ -27,7 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         //Returning the current tabs
-        switch (position){
+        switch (position) {
             case 0:
                 HotelSearchFragment hotelSearchFragment = new HotelSearchFragment();
                 bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수

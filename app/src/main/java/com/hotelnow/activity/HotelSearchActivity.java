@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
@@ -42,9 +43,11 @@ import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -64,12 +67,12 @@ public class HotelSearchActivity extends Activity {
     private LinearLayout btn_filter;
     private int Page = 1;
     private int total_count;
-    private String s_position = "",city = "",sub_city = "";
+    private String s_position = "", city = "", sub_city = "";
     private DbOpenHelper dbHelper;
     private TextView tv_location, tv_date, page;
-    private String ec_date ="", ee_date="";
+    private String ec_date = "", ee_date = "";
     private Button bt_scroll;
-    private String category ="", facility="", price_min="", person_count="", price_max="", order_kind="", score="";
+    private String category = "", facility = "", price_min = "", person_count = "", price_max = "", order_kind = "", score = "";
     private RelativeLayout bannerview;
     private ArrayList<BannerItem> mBannerItems = new ArrayList<>();
     private ViewPagerCustom autoViewPager;
@@ -84,7 +87,7 @@ public class HotelSearchActivity extends Activity {
     private DialogAlert dialogAlert;
     private int filter_cnt = 0;
     private LinearLayout count_view;
-    private  TextView tv_count;
+    private TextView tv_count;
     private long gapDay = 0;
 
     @Override
@@ -104,11 +107,11 @@ public class HotelSearchActivity extends Activity {
         ee_date = intent.getStringExtra("ee_date");
         city = intent.getStringExtra("city_code");
         sub_city = intent.getStringExtra("subcity_code");
-        if(city.equals(sub_city)){
+        if (city.equals(sub_city)) {
             sub_city = "";
         }
 
-        if(ec_date == null && ee_date == null){
+        if (ec_date == null && ee_date == null) {
             ec_date = Util.setCheckinout().get(0);
             ee_date = Util.setCheckinout().get(1);
         }
@@ -117,7 +120,7 @@ public class HotelSearchActivity extends Activity {
         mlist = (ListView) findViewById(R.id.h_list);
         HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header, null, false);
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_date = (RelativeLayout)HeaderView.findViewById(R.id.btn_date);
+        btn_date = (RelativeLayout) HeaderView.findViewById(R.id.btn_date);
         tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
         map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
@@ -141,13 +144,13 @@ public class HotelSearchActivity extends Activity {
         tv_edate = (TextView) empty.findViewById(R.id.tv_date);
         empty_title = (TextView) empty.findViewById(R.id.title);
         empty_sub = (TextView) empty.findViewById(R.id.sub);
-        ((ViewGroup)mlist.getParent()).addView(empty);
+        ((ViewGroup) mlist.getParent()).addView(empty);
         mlist.setEmptyView(empty);
 
 //        가져와서 적용
         long count = Util.diffOfDate2(ec_date, ee_date);
-        tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
-        tv_edate.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+count+"박");
+        tv_date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + count + "박");
+        tv_edate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + count + "박");
         mlist.addHeaderView(HeaderView);
         adapter = new SearchStayAdapter(this, 0, mItems, dbHelper);
         mlist.setAdapter(adapter);
@@ -184,8 +187,8 @@ public class HotelSearchActivity extends Activity {
                                 intent.putExtra("ee_date", ee_date);
                                 startActivityForResult(intent, 70);
                             }
+                        } catch (Exception e) {
                         }
-                        catch (Exception e){}
                     }
                 });
             }
@@ -219,8 +222,8 @@ public class HotelSearchActivity extends Activity {
                                 intent.putExtra("ee_date", ee_date);
                                 startActivityForResult(intent, 70);
                             }
+                        } catch (Exception e) {
                         }
-                        catch (Exception e){}
                     }
                 });
             }
@@ -229,7 +232,7 @@ public class HotelSearchActivity extends Activity {
             @Override
             public void onClick(View v) {
 //                Util.clearSearch();
-                LogUtil.e("xxxxx","xxxxxx");
+                LogUtil.e("xxxxx", "xxxxxx");
                 Intent intent = new Intent(HotelSearchActivity.this, FilterHotelActivity.class);
                 startActivityForResult(intent, 60);
             }
@@ -244,7 +247,7 @@ public class HotelSearchActivity extends Activity {
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView)view.findViewById(R.id.hid);
+                TextView hid = (TextView) view.findViewById(R.id.hid);
                 Intent intent = new Intent(HotelSearchActivity.this, DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());
                 intent.putExtra("sdate", ec_date);
@@ -272,65 +275,64 @@ public class HotelSearchActivity extends Activity {
             }
         });
 
-        if(filter_cnt == 0){
+        if (filter_cnt == 0) {
             count_view.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             count_view.setVisibility(View.VISIBLE);
         }
 
         getSearch();
     }
 
-    public void getSearch(){
+    public void getSearch() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.search_stay_list;
-        if(!TextUtils.isEmpty(city)){
-            url +="&city="+city;
+        if (!TextUtils.isEmpty(city)) {
+            url += "&city=" + city;
         }
-        if(!TextUtils.isEmpty(sub_city)){
-            url +="&sub_city="+sub_city;
+        if (!TextUtils.isEmpty(sub_city)) {
+            url += "&sub_city=" + sub_city;
         }
         if (!TextUtils.isEmpty(search_txt)) {
             url += "&search_text=" + search_txt;
         }
-        if(!TextUtils.isEmpty(banner_id)){
-            url +="&banner_id="+banner_id;
+        if (!TextUtils.isEmpty(banner_id)) {
+            url += "&banner_id=" + banner_id;
         }
-        if(!TextUtils.isEmpty(ec_date)){
-            url +="&ec_date="+ec_date;
+        if (!TextUtils.isEmpty(ec_date)) {
+            url += "&ec_date=" + ec_date;
         }
-        if(!TextUtils.isEmpty(ee_date)){
-            url +="&ee_date="+ee_date;
+        if (!TextUtils.isEmpty(ee_date)) {
+            url += "&ee_date=" + ee_date;
         }
-        if(!TextUtils.isEmpty(category)){
-            url +="&category="+category;
+        if (!TextUtils.isEmpty(category)) {
+            url += "&category=" + category;
         }
-        if(!TextUtils.isEmpty(facility)){
-            url +="&facility="+facility;
+        if (!TextUtils.isEmpty(facility)) {
+            url += "&facility=" + facility;
         }
-        if(!TextUtils.isEmpty(price_min)){
-            url +="&price_min="+price_min;
+        if (!TextUtils.isEmpty(price_min)) {
+            url += "&price_min=" + price_min;
         }
-        if(!TextUtils.isEmpty(person_count)){
-            url +="&person_count="+person_count;
+        if (!TextUtils.isEmpty(person_count)) {
+            url += "&person_count=" + person_count;
         }
-        if(!TextUtils.isEmpty(price_max)){
-            url +="&price_max="+price_max;
+        if (!TextUtils.isEmpty(price_max)) {
+            url += "&price_max=" + price_max;
         }
-        if(!TextUtils.isEmpty(score)){
-            url +="&score="+score;
+        if (!TextUtils.isEmpty(score)) {
+            url += "&score=" + score;
         }
-        if(!TextUtils.isEmpty(order_kind)){
-            url +="&order_kind="+order_kind;
-            if(order_kind.equals("distance")){
-                url +="&lat="+CONFIG.lat+"&lng="+CONFIG.lng;
+        if (!TextUtils.isEmpty(order_kind)) {
+            url += "&order_kind=" + order_kind;
+            if (order_kind.equals("distance")) {
+                url += "&lat=" + CONFIG.lat + "&lng=" + CONFIG.lng;
             }
         }
 
-        url +="&per_page=20";
+        url += "&per_page=20";
 
-        if(Page < 2 || total_count != mItems.size()) {
+        if (Page < 2 || total_count != mItems.size()) {
             Api.get(url + "&page=" + Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
@@ -354,7 +356,7 @@ public class HotelSearchActivity extends Activity {
                         JSONObject entry = null;
                         JSONObject bannerentry = null;
 
-                        if(Page == 1){
+                        if (Page == 1) {
                             s_position = "";
                         }
                         final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
@@ -363,7 +365,7 @@ public class HotelSearchActivity extends Activity {
                         builder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + obj.getString("total_count").length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_review_count.setText(builder);
 
-                        if(bannerlist.length() >0) {
+                        if (bannerlist.length() > 0) {
                             mBannerItems.clear();
                             bannerview.setVisibility(View.VISIBLE);
                             for (int j = 0; j < bannerlist.length(); j++) {
@@ -400,7 +402,7 @@ public class HotelSearchActivity extends Activity {
                                 public void onPageSelected(int position) {
                                     nowPosition = position;
                                     markNowPosition = position % PAGES;
-                                    page.setText(markNowPosition+1 +" / "+ PAGES);
+                                    page.setText(markNowPosition + 1 + " / " + PAGES);
                                 }
 
                                 @Override
@@ -408,11 +410,10 @@ public class HotelSearchActivity extends Activity {
 
                                 }
                             });
-                            page.setText("1 / "+ mBannerItems.size());
+                            page.setText("1 / " + mBannerItems.size());
 
 //                            autoViewPager.startAutoScroll();
-                        }
-                        else {
+                        } else {
                             bannerview.setVisibility(View.GONE);
                             autoViewPager.stopAutoScroll();
                         }
@@ -456,18 +457,17 @@ public class HotelSearchActivity extends Activity {
                                 s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181101_173010_uXfZWjNIzK.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longuitude");
                         }
 
-                        if(mItems.size()>0){
+                        if (mItems.size() > 0) {
                             bt_scroll.setVisibility(View.VISIBLE);
                             btn_filter.setVisibility(View.VISIBLE);
                             empty_title.setVisibility(View.GONE);
                             empty_sub.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             bt_scroll.setVisibility(View.GONE);
                             btn_filter.setVisibility(View.VISIBLE);
                             empty_title.setVisibility(View.VISIBLE);
                             empty_sub.setVisibility(View.VISIBLE);
-                            if(obj.has("previous_date_msg")){
+                            if (obj.has("previous_date_msg")) {
                                 dialogAlert = new DialogAlert(
                                         getString(R.string.alert_notice),
                                         obj.getString("previous_date_msg"),
@@ -499,19 +499,19 @@ public class HotelSearchActivity extends Activity {
                                 intent.putExtra("total_count", total_count);
                                 intent.putExtra("city", city);
                                 intent.putExtra("city_name", tv_location.getText().toString());
-                                intent.putExtra("sub_city",sub_city);
-                                intent.putExtra("search_txt",search_txt);
-                                intent.putExtra("banner_id",banner_id);
-                                intent.putExtra("ec_date",ec_date);
-                                intent.putExtra("ee_date",ee_date);
-                                intent.putExtra("category",category);
-                                intent.putExtra("facility",facility);
-                                intent.putExtra("price_min",price_min);
-                                intent.putExtra("person_count",person_count);
-                                intent.putExtra("price_max",price_max);
-                                intent.putExtra("score",score);
-                                intent.putExtra("order_kind",order_kind);
-                                if(order_kind.equals("distance")){
+                                intent.putExtra("sub_city", sub_city);
+                                intent.putExtra("search_txt", search_txt);
+                                intent.putExtra("banner_id", banner_id);
+                                intent.putExtra("ec_date", ec_date);
+                                intent.putExtra("ee_date", ee_date);
+                                intent.putExtra("category", category);
+                                intent.putExtra("facility", facility);
+                                intent.putExtra("price_min", price_min);
+                                intent.putExtra("person_count", person_count);
+                                intent.putExtra("price_max", price_max);
+                                intent.putExtra("score", score);
+                                intent.putExtra("order_kind", order_kind);
+                                if (order_kind.equals("distance")) {
                                     intent.putExtra("lat", CONFIG.lat);
                                     intent.putExtra("lng", CONFIG.lng);
                                 }
@@ -530,24 +530,23 @@ public class HotelSearchActivity extends Activity {
                     }
                 }
             });
-        }
-        else{
+        } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
 
-    public void setLike(final int position, final boolean islike){
+    public void setLike(final int position, final boolean islike) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -567,18 +566,17 @@ public class HotelSearchActivity extends Activity {
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -598,12 +596,12 @@ public class HotelSearchActivity extends Activity {
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
                 }
@@ -614,16 +612,16 @@ public class HotelSearchActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if(requestCode == 90 && responseCode == 90) {
+        if (requestCode == 90 && responseCode == 90) {
             setResult(80);
             finish();
         }
-        if(requestCode == 80 && responseCode == 80){
+        if (requestCode == 80 && responseCode == 80) {
             tv_location.setText(data.getStringExtra("city"));
             tv_elocation.setText(data.getStringExtra("city"));
             city = data.getStringExtra("city_code");
             sub_city = data.getStringExtra("subcity_code");
-            if(city.equals(sub_city)){
+            if (city.equals(sub_city)) {
                 sub_city = "";
             }
             Page = 1;
@@ -632,22 +630,21 @@ public class HotelSearchActivity extends Activity {
             empty_title.setVisibility(View.GONE);
             empty_sub.setVisibility(View.GONE);
             getSearch();
-        } else if(requestCode == 70 && responseCode == 80){
+        } else if (requestCode == 70 && responseCode == 80) {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             long gap = Util.diffOfDate2(ec_date, ee_date);
-            tv_date.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+gap+"박");
-            tv_edate.setText(Util.formatchange5(ec_date)+" - "+Util.formatchange5(ee_date)+", "+gap+"박");
+            tv_date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + gap + "박");
+            tv_edate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + gap + "박");
             Page = 1;
             total_count = 0;
             mItems.clear();
             empty_title.setVisibility(View.GONE);
             empty_sub.setVisibility(View.GONE);
             getSearch();
-        }
-        else if(requestCode == 60 && responseCode == 80){
+        } else if (requestCode == 60 && responseCode == 80) {
             filter_cnt = 0;
-            price_max ="";
+            price_max = "";
             price_min = "";
             facility = "";
             order_kind = "recommendation";
@@ -657,91 +654,79 @@ public class HotelSearchActivity extends Activity {
             price_max = CONFIG.sel_max;
             LogUtil.e("xxxxx", CONFIG.sel_min);
             price_min = CONFIG.sel_min;
-            if(!price_max.equals("600000") || !price_min.equals("0")){
+            if (!price_max.equals("600000") || !price_min.equals("0")) {
                 filter_cnt++;
             }
-            if(!TextUtils.isEmpty(CONFIG.sel_category)) {
+            if (!TextUtils.isEmpty(CONFIG.sel_category)) {
                 LogUtil.e("xxxxx", CONFIG.sel_category);
-                category = CONFIG.sel_category.replace("|",",");
+                category = CONFIG.sel_category.replace("|", ",");
                 filter_cnt++;
+            } else {
+                category = "";
             }
-            else{
-                category="";
-            }
-            if(!TextUtils.isEmpty(CONFIG.sel_facility)) {
+            if (!TextUtils.isEmpty(CONFIG.sel_facility)) {
                 LogUtil.e("xxxxx", CONFIG.sel_facility);
                 facility = CONFIG.sel_facility.replace("|", ",");
                 filter_cnt++;
-            }
-            else{
+            } else {
                 facility = "";
             }
-            if(!TextUtils.isEmpty(CONFIG.sel_orderby)) {
+            if (!TextUtils.isEmpty(CONFIG.sel_orderby)) {
                 LogUtil.e("xxxxx", CONFIG.sel_orderby);
                 order_kind = CONFIG.sel_orderby;
-                if(!order_kind.equals("recommendation")){
+                if (!order_kind.equals("recommendation")) {
                     filter_cnt++;
                 }
-            }
-            else{
+            } else {
                 order_kind = "";
             }
-            if(!TextUtils.isEmpty(CONFIG.sel_rate)) {
+            if (!TextUtils.isEmpty(CONFIG.sel_rate)) {
                 LogUtil.e("xxxxx", CONFIG.sel_rate);
-                if(CONFIG.sel_rate.equals("0"))
+                if (CONFIG.sel_rate.equals("0"))
                     score = "2";
-                else if(CONFIG.sel_rate.equals("1")){
+                else if (CONFIG.sel_rate.equals("1")) {
                     score = "3";
-                }
-                else if(CONFIG.sel_rate.equals("2")){
+                } else if (CONFIG.sel_rate.equals("2")) {
                     score = "4";
-                }
-                else if(CONFIG.sel_rate.equals("3")){
+                } else if (CONFIG.sel_rate.equals("3")) {
                     score = "5";
                 }
                 filter_cnt++;
+            } else {
+                score = "";
             }
-            else {
-                score="";
-            }
-            if(!TextUtils.isEmpty(CONFIG.sel_useperson)) {
+            if (!TextUtils.isEmpty(CONFIG.sel_useperson)) {
                 LogUtil.e("xxxxx", CONFIG.sel_useperson);
 
-                person_count = CONFIG.sel_useperson.replace("3","5").replace("2", "3|4").replace("1", "2").replace("0", "1").replace("|", ",");
+                person_count = CONFIG.sel_useperson.replace("3", "5").replace("2", "3|4").replace("1", "2").replace("0", "1").replace("|", ",");
                 filter_cnt++;
-            }
-            else{
-                person_count="";
+            } else {
+                person_count = "";
             }
 
-            if(filter_cnt == 0){
+            if (filter_cnt == 0) {
                 count_view.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 count_view.setVisibility(View.VISIBLE);
             }
-            tv_count.setText(filter_cnt +"");
+            tv_count.setText(filter_cnt + "");
             Page = 1;
             total_count = 0;
             mItems.clear();
             empty_title.setVisibility(View.GONE);
             empty_sub.setVisibility(View.GONE);
             getSearch();
-        }
-        else if(requestCode == 50 && responseCode == 80){
+        } else if (requestCode == 50 && responseCode == 80) {
             adapter.notifyDataSetChanged();
-        }
-        else if(responseCode == 100){
+        } else if (responseCode == 100) {
             setResult(100);
             finish();
-        }
-
-        else if(requestCode == 90 && responseCode == 3000){
+        } else if (requestCode == 90 && responseCode == 3000) {
             adapter.notifyDataSetChanged();
         }
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -754,14 +739,13 @@ public class HotelSearchActivity extends Activity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);

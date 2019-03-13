@@ -63,7 +63,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
 
         SearchResultItem entry = getItem(position);
 
-        if(!entry.getCategory().equals("-1")) {
+        if (!entry.getCategory().equals("-1")) {
             holder.layout_top.setVisibility(View.GONE);
             holder.layout_item.setVisibility(View.VISIBLE);
             holder.pid.setText(entry.getId());
@@ -87,72 +87,65 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
 //                }
 //            }
 //            else{
-                holder.room_count.setVisibility(View.GONE);
-                holder.tv_soldout.setVisibility(View.GONE);
+            holder.room_count.setVisibility(View.GONE);
+            holder.tv_soldout.setVisibility(View.GONE);
 //            }
 
             holder.tv_rate.setText(entry.getGrade_score());
 
-            if(entry.getGrade_score().equals("0.0")){
+            if (entry.getGrade_score().equals("0.0")) {
                 holder.tv_rate.setVisibility(View.GONE);
                 holder.text_bar.setVisibility(View.GONE);
                 holder.img_star.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 holder.tv_rate.setVisibility(View.VISIBLE);
                 holder.text_bar.setVisibility(View.VISIBLE);
                 holder.img_star.setVisibility(View.VISIBLE);
             }
-            if(entry.getSale_rate().equals("0")){
+            if (entry.getSale_rate().equals("0")) {
                 holder.tv_discount_rate.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 holder.tv_discount_rate.setVisibility(View.VISIBLE);
             }
             holder.category.setText(entry.getCategory());
-            holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
+            holder.tv_discount_rate.setText(entry.getSale_rate() + "%↓");
             holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
 
-            if(entry.getIs_private_deal().equals("N")){
+            if (entry.getIs_private_deal().equals("N")) {
                 holder.ico_private.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 holder.ico_private.setVisibility(View.VISIBLE);
             }
 
-            if(entry.getIs_hot_deal().equals("N")){
+            if (entry.getIs_hot_deal().equals("N")) {
                 holder.ico_hotdeal.setVisibility(View.GONE);
                 holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
                 holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
-            }
-            else{
+            } else {
                 holder.ico_hotdeal.setVisibility(View.VISIBLE);
                 holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
                 holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
             }
 
-            if(entry.getIs_add_reserve().equals("N")){
+            if (entry.getIs_add_reserve().equals("N")) {
                 holder.soon_point.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 holder.soon_point.setVisibility(View.VISIBLE);
             }
 
-            if(entry.getCoupon_count() > 0){
+            if (entry.getCoupon_count() > 0) {
                 holder.soon_discount.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 holder.soon_discount.setVisibility(View.GONE);
             }
 
-            if(TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")){
+            if (TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")) {
                 holder.special_msg.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 holder.special_msg.setVisibility(View.VISIBLE);
                 holder.tv_special.setText(entry.getSpecial_msg());
             }
-            if(dbHelper.selectAllFavoriteActivityItem().size()>0) {
+            if (dbHelper.selectAllFavoriteActivityItem().size() > 0) {
                 for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
                     if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
                         holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -163,8 +156,7 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
                         holder.islike = false;
                     }
                 }
-            }
-            else {
+            } else {
                 holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
@@ -174,12 +166,12 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             finalHolder.iv_favorite.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                    ((ThemeSpecialActivityActivity)mContext).setLike((int)v.getTag(), finalHolder.islike);
+                    LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
+                    ((ThemeSpecialActivityActivity) mContext).setLike((int) v.getTag(), finalHolder.islike);
                 }
             });
 
-        } else{
+        } else {
             holder.layout_top.setVisibility(View.VISIBLE);
             holder.layout_item.setVisibility(View.GONE);
             holder.pid.setText(entry.getCategory());
@@ -193,10 +185,9 @@ public class ThemeSpecialActivityAdapter extends ArrayAdapter<SearchResultItem> 
             holder.tv_detail.setMaxLines(4);
             holder.tv_detail.setEllipsize(TextUtils.TruncateAt.END);
             holder.tv_detail.setText(entry.getStreet1());
-            if(TextUtils.isEmpty(entry.getStreet2())) {
+            if (TextUtils.isEmpty(entry.getStreet2())) {
                 holder.show_text.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 holder.show_text.setVisibility(View.VISIBLE);
             }
             holder.show_text.setText(entry.getStreet2());

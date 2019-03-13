@@ -2,7 +2,7 @@ package com.hotelnow.fragment.model;
 
 public class ReviewItem {
 
-    private String hotel_name, masked_name, total_rating, view_yn, comment, owner_comment, room_name, stay_cnt,  created_at, updated_at;
+    private String hotel_name, masked_name, total_rating, view_yn, comment, owner_comment, room_name, stay_cnt, created_at, updated_at;
 
     public ReviewItem(String hotel_name, String masked_name, String total_rating, String view_yn, String comment, String owner_comment, String room_name, String stay_cnt, String created_at, String updated_at) {
         super();

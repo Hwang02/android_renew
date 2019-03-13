@@ -35,7 +35,8 @@ public class Api {
     private static SharedPreferences _preferences;
     private static String finalBody;
 
-    private Api() {}
+    private Api() {
+    }
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -57,7 +58,7 @@ public class Api {
 
     private void call2(String method, String url, String data, final HttpCallback cb) {
         RequestBody body = null;
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.e(CONFIG.TAG, "------------------------ API CALL ------------------------");
             Log.e(CONFIG.TAG, " API " + method + " url : " + url);
             if (data != null) Log.e(CONFIG.TAG, "data : " + data);
@@ -81,8 +82,9 @@ public class Api {
         try {
             Random oRandom = new Random();
             int rand = oRandom.nextInt(999999) + 1;
-            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext())+ " " +String.valueOf(rand);
-        } catch (Exception e) {}
+            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext()) + " " + String.valueOf(rand);
+        } catch (Exception e) {
+        }
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         // 삭제할 코드 나중에
@@ -97,7 +99,7 @@ public class Api {
                 if (list.contains("h_sess=")) {
                     List<String> cookies = Arrays.asList(list.split(" "));
 
-                    for(int j = 0; j < cookies.size(); j++) {
+                    for (int j = 0; j < cookies.size(); j++) {
                         String cookie = cookies.get(j);
 
                         if (cookie.contains("h_sess=")) {
@@ -181,7 +183,7 @@ public class Api {
                             headers.put(key, response.header(key));
                         }
 
-                        if(BuildConfig.DEBUG) {
+                        if (BuildConfig.DEBUG) {
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
@@ -207,7 +209,7 @@ public class Api {
 
     private static void call(String method, String url, String data, final HttpCallback cb) {
         RequestBody body = null;
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.e(CONFIG.TAG, "------------------------ API CALL ------------------------");
             Log.e(CONFIG.TAG, " API " + method + " url : " + url);
             if (data != null) Log.e(CONFIG.TAG, "data : " + data);
@@ -231,8 +233,9 @@ public class Api {
         try {
             Random oRandom = new Random();
             int rand = oRandom.nextInt(999999) + 1;
-            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext())+ " " +String.valueOf(rand);
-        } catch (Exception e) {}
+            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext()) + " " + String.valueOf(rand);
+        } catch (Exception e) {
+        }
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         // 삭제할 코드 나중에
@@ -247,7 +250,7 @@ public class Api {
                 if (list.contains("h_sess=")) {
                     List<String> cookies = Arrays.asList(list.split(" "));
 
-                    for(int j = 0; j < cookies.size(); j++) {
+                    for (int j = 0; j < cookies.size(); j++) {
                         String cookie = cookies.get(j);
 
                         if (cookie.contains("h_sess=")) {
@@ -331,7 +334,7 @@ public class Api {
                             headers.put(key, response.header(key));
                         }
 
-                        if(BuildConfig.DEBUG) {
+                        if (BuildConfig.DEBUG) {
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");

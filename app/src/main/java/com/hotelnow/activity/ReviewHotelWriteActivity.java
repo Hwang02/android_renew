@@ -33,7 +33,7 @@ import java.util.Map;
  * Created by idhwang on 2017. 8. 18..
  */
 
-public class ReviewHotelWriteActivity extends Activity implements View.OnClickListener{
+public class ReviewHotelWriteActivity extends Activity implements View.OnClickListener {
 
     private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private ImageView ko_star1, ko_star2, ko_star3, ko_star4, ko_star5;
@@ -47,7 +47,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
     private TextView hotel_name, user_room_info, info, info1;
     private ScrollView scroll;
     private DialogAlert dialogConfirm;
-//    private DialogSocial dialogSocial;
+    //    private DialogSocial dialogSocial;
     private CallbackManager callbackManager;
 //    private Tracker t;
 
@@ -99,8 +99,8 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         sp_star4 = (ImageView) findViewById(R.id.sp_star4);
         sp_star5 = (ImageView) findViewById(R.id.sp_star5);
         review_edittext = (EditText) findViewById(R.id.review_edittext);
-        info = (TextView)findViewById(R.id.info);
-        info1 = (TextView)findViewById(R.id.info1);
+        info = (TextView) findViewById(R.id.info);
+        info1 = (TextView) findViewById(R.id.info1);
 
         Spannable spannable = new SpannableString(info.getText());
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 30, 39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -147,13 +147,13 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
 
     }
 
-    private void setReview(){
+    private void setReview() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("hotel_id", hotel_id);
             paramObj.put("room_id", room_id);
-            paramObj.put("user_id", AES256Chiper.AES_Decode(userid.replace("HN|","")));
+            paramObj.put("user_id", AES256Chiper.AES_Decode(userid.replace("HN|", "")));
             paramObj.put("comment", review_edittext.getText());
             paramObj.put("booking_id", bid);
             paramObj.put("rating_1", sc_count);
@@ -186,7 +186,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
                     succReviewDialog();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                     TuneWrap.Event("booking_stay_reviewW_ok");
-                }catch (Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(ReviewHotelWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
@@ -196,7 +196,7 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
 
     }
 
-    private void succReviewDialog(){
+    private void succReviewDialog() {
         dialogConfirm = new DialogAlert(
                 getString(R.string.alert_review_title),
                 getString(R.string.alert_review_message),
@@ -216,18 +216,18 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.right :{
+        switch (v.getId()) {
+            case R.id.right: {
 
                 if (review_edittext.getText().length() == 0) {
                     Toast.makeText(ReviewHotelWriteActivity.this, getText(R.string.need_review_msg), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(review_edittext.getText().length() < 10){
+                if (review_edittext.getText().length() < 10) {
                     Toast.makeText(ReviewHotelWriteActivity.this, getText(R.string.need_review_msg2), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(sc_count == 0 || c_count == 0 || ko_count == 0 || sp_count == 0){
+                if (sc_count == 0 || c_count == 0 || ko_count == 0 || sp_count == 0) {
                     Toast.makeText(ReviewHotelWriteActivity.this, getText(R.string.need_review_msg3), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -235,102 +235,102 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
                 setReview();
             }
             break;
-            case R.id.sc_star1 :{
+            case R.id.sc_star1: {
                 sc_count = 1;
                 setStar(sc_count, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
             }
             break;
-            case R.id.sc_star2 :{
+            case R.id.sc_star2: {
                 sc_count = 2;
                 setStar(sc_count, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
             }
             break;
-            case R.id.sc_star3 :{
+            case R.id.sc_star3: {
                 sc_count = 3;
                 setStar(sc_count, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
             }
             break;
-            case R.id.sc_star4 :{
+            case R.id.sc_star4: {
                 sc_count = 4;
                 setStar(sc_count, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
             }
             break;
-            case R.id.sc_star5 :{
+            case R.id.sc_star5: {
                 sc_count = 5;
                 setStar(sc_count, sc_star1, sc_star2, sc_star3, sc_star4, sc_star5);
             }
             break;
-            case R.id.c_star1 :{
+            case R.id.c_star1: {
                 c_count = 1;
                 setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);
             }
             break;
-            case R.id.c_star2 :{
+            case R.id.c_star2: {
                 c_count = 2;
                 setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);
             }
             break;
-            case R.id.c_star3 :{
+            case R.id.c_star3: {
                 c_count = 3;
                 setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);
             }
             break;
-            case R.id.c_star4 :{
+            case R.id.c_star4: {
                 c_count = 4;
                 setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);
             }
             break;
-            case R.id.c_star5 :{
+            case R.id.c_star5: {
                 c_count = 5;
                 setStar(c_count, c_star1, c_star2, c_star3, c_star4, c_star5);
             }
             break;
-            case R.id.ko_star1 :{
+            case R.id.ko_star1: {
                 ko_count = 1;
                 setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
             }
             break;
-            case R.id.ko_star2 :{
+            case R.id.ko_star2: {
                 ko_count = 2;
                 setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
             }
             break;
-            case R.id.ko_star3 :{
+            case R.id.ko_star3: {
                 ko_count = 3;
                 setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
             }
             break;
-            case R.id.ko_star4 :{
+            case R.id.ko_star4: {
                 ko_count = 4;
                 setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
             }
             break;
-            case R.id.ko_star5 :{
+            case R.id.ko_star5: {
                 ko_count = 5;
                 setStar(ko_count, ko_star1, ko_star2, ko_star3, ko_star4, ko_star5);
             }
             break;
-            case R.id.sp_star1 :{
+            case R.id.sp_star1: {
                 sp_count = 1;
                 setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
             }
             break;
-            case R.id.sp_star2 :{
+            case R.id.sp_star2: {
                 sp_count = 2;
                 setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
             }
             break;
-            case R.id.sp_star3 :{
+            case R.id.sp_star3: {
                 sp_count = 3;
                 setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
             }
             break;
-            case R.id.sp_star4 :{
+            case R.id.sp_star4: {
                 sp_count = 4;
                 setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
             }
             break;
-            case R.id.sp_star5 :{
+            case R.id.sp_star5: {
                 sp_count = 5;
                 setStar(sp_count, sp_star1, sp_star2, sp_star3, sp_star4, sp_star5);
             }
@@ -338,36 +338,32 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
         }
     }
 
-    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5){
-        if (mScore == 1){
+    private void setStar(double mScore, ImageView imgStar1, ImageView imgStar2, ImageView imgStar3, ImageView imgStar4, ImageView imgStar5) {
+        if (mScore == 1) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if (mScore == 2){
+        } else if (mScore == 2) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if(mScore == 3){
+        } else if (mScore == 3) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if(mScore == 4){
+        } else if (mScore == 4) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_20_blank);
-        }
-        else if(mScore == 5){
+        } else if (mScore == 5) {
             imgStar1.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar2.setBackgroundResource(R.drawable.ico_starpoint_20);
             imgStar3.setBackgroundResource(R.drawable.ico_starpoint_20);

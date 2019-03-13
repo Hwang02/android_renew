@@ -17,7 +17,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AES256Chiper {
-    public static byte[] ivBytes = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    public static byte[] ivBytes = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     public static String secretKey = "ABCDEF0123456124";
 
     //AES256 암호화
@@ -40,7 +40,7 @@ public class AES256Chiper {
     //AES256 복호화
     public static String AES_Decode(String str) {
 
-        if(!TextUtils.isEmpty(str)) {
+        if (!TextUtils.isEmpty(str)) {
             byte[] clearText = null;
             try {
                 byte[] keyData = secretKey.getBytes();
@@ -50,11 +50,10 @@ public class AES256Chiper {
                 clearText = c.doFinal(Base64.decode(str, Base64.DEFAULT));
                 return new String(clearText, "UTF-8");
             } catch (Exception e) {
-                LogUtil.e("xxxx", e.toString()+"");
+                LogUtil.e("xxxx", e.toString() + "");
                 return "";
             }
-        }
-        else{
+        } else {
             return "";
         }
     }

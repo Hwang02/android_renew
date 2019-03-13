@@ -6,7 +6,7 @@ public class SubCityItem {
     private String subcity_ko;
     private String city_code;
 
-    public SubCityItem(String city_code, String subcity_ko, String subcity_code){
+    public SubCityItem(String city_code, String subcity_ko, String subcity_code) {
         this.city_code = city_code;
         this.subcity_ko = subcity_ko;
         this.subcity_code = subcity_code;

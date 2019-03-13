@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.LoginActivity;
@@ -39,9 +40,11 @@ import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -59,12 +62,12 @@ public class FavoriteHotelFragment extends Fragment {
     private Button btn_go_login;
     private RelativeLayout main_view;
     private TextView btn_go_list;
-    private static String ee_date =null, ec_date = null;
+    private static String ee_date = null, ec_date = null;
     private DbOpenHelper dbHelper;
-    private boolean _hasLoadedOnce= false; // your boolean field
+    private boolean _hasLoadedOnce = false; // your boolean field
     boolean firstDragFlag = true;
     boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
-    float startYPosition = 0, endYPosition =0;       //터치이벤트의 시작점의 Y(세로)위치
+    float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
     private NestedScrollView scroll;
 
 
@@ -83,10 +86,11 @@ public class FavoriteHotelFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(getActivity()));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
@@ -118,7 +122,7 @@ public class FavoriteHotelFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
-                        ((FavoriteFragment)getParentFragment()).isdelete(false);
+                        ((FavoriteFragment) getParentFragment()).isdelete(false);
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
@@ -128,7 +132,7 @@ public class FavoriteHotelFragment extends Fragment {
                         btn_go_list.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
-                                ((MainActivity)getActivity()).setTapMove(5, true);
+                                ((MainActivity) getActivity()).setTapMove(5, true);
                             }
                         });
 
@@ -142,11 +146,11 @@ public class FavoriteHotelFragment extends Fragment {
         });
     }
 
-    private void getFavorite(){
-        String url = CONFIG.like_list+"?only_id=N&type=stay";
+    private void getFavorite() {
+        String url = CONFIG.like_list + "?only_id=N&type=stay";
 
-        if(ec_date != null || ee_date != null){
-            url += "&checkin_date="+ec_date+"&checkout_date="+ee_date;
+        if (ec_date != null || ee_date != null) {
+            url += "&checkin_date=" + ec_date + "&checkout_date=" + ee_date;
         }
 
         Api.get(url, new Api.HttpCallback() {
@@ -167,7 +171,7 @@ public class FavoriteHotelFragment extends Fragment {
                         return;
                     }
 
-                    if(obj.getJSONArray("stay").length() >0) {
+                    if (obj.getJSONArray("stay").length() > 0) {
                         final JSONArray list = obj.getJSONArray("stay");
                         JSONObject entry = null;
                         for (int i = 0; i < list.length(); i++) {
@@ -192,7 +196,7 @@ public class FavoriteHotelFragment extends Fragment {
                             ));
                         }
                         // 상단 애니메이션을 위한 터치
-                        if(obj.getJSONArray("stay").length() >1) {
+                        if (obj.getJSONArray("stay").length() > 1) {
                             scroll.setOnTouchListener(new View.OnTouchListener() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent ev) {
@@ -237,19 +241,18 @@ public class FavoriteHotelFragment extends Fragment {
 
                             });
                         }
-                        ((FavoriteFragment)getParentFragment()).isdelete(true);
-                    }
-                    else {
+                        ((FavoriteFragment) getParentFragment()).isdelete(true);
+                    } else {
                         getView().findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                        ((FavoriteFragment)getParentFragment()).isdelete(false);
+                        ((FavoriteFragment) getParentFragment()).isdelete(false);
                     }
                     adapter.notifyDataSetChanged();
                     new Handler().postDelayed(new Runnable() {
-                                                  @Override
-                                                  public void run() {
-                                                      MainActivity.hideProgress();
-                                                  }
-                                              },500);
+                        @Override
+                        public void run() {
+                            MainActivity.hideProgress();
+                        }
+                    }, 500);
                 } catch (Exception e) {
                     MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
@@ -261,13 +264,12 @@ public class FavoriteHotelFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80){
+        if (requestCode == 80) {
             authCheck();
-            ((MainActivity)getActivity()).setTitle();
-            ((MainActivity)getActivity()).setTapdelete("MYPAGE");
-            CONFIG.TabLogin=true;
-        }
-        else if(requestCode == 70 && resultCode == 80){
+            ((MainActivity) getActivity()).setTitle();
+            ((MainActivity) getActivity()).setTapdelete("MYPAGE");
+            CONFIG.TabLogin = true;
+        } else if (requestCode == 70 && resultCode == 80) {
             mItems.clear();
             adapter.notifyDataSetChanged();
             MainActivity.showProgress();
@@ -275,7 +277,7 @@ public class FavoriteHotelFragment extends Fragment {
         }
     }
 
-    public void setDateRefresh(String ecc_date, String eee_date){
+    public void setDateRefresh(String ecc_date, String eee_date) {
         ec_date = ecc_date;
         ee_date = eee_date;
         mItems.clear();
@@ -284,14 +286,14 @@ public class FavoriteHotelFragment extends Fragment {
         getFavorite();
     }
 
-    public void setLike(final int position){
+    public void setLike(final int position) {
         MainActivity.showProgress();
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
 
@@ -307,31 +309,31 @@ public class FavoriteHotelFragment extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                        ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                        ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
                     TuneWrap.Event("favorite_stay_del", sel_id);
-                    dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                    dbHelper.deleteFavoriteItem(false, sel_id, "H");
                     LogUtil.e("xxxx", "찜하기 취소");
-                    ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                    ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                     mItems.clear();
                     getFavorite();
                     MainActivity.hideProgress();
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     MainActivity.hideProgress();
                 }
             }
         });
     }
 
-    public void setDeleteAll(){
+    public void setDeleteAll() {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("all_flag", "Y");
             paramObj.put("type", "stay");
 
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
 
@@ -347,17 +349,17 @@ public class FavoriteHotelFragment extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                        ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                        ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
 
                     dbHelper.deleteFavoriteItem(true, "", "H");
                     LogUtil.e("xxxx", "찜하기 전체 취소");
-                    ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
+                    ((MainActivity) getActivity()).showToast("관심 상품 삭제 완료");
                     mItems.clear();
                     getFavorite();
                     MainActivity.hideProgress();
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     MainActivity.hideProgress();
                 }
             }
@@ -374,33 +376,30 @@ public class FavoriteHotelFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            },500);
+            }, 500);
 
             _hasLoadedOnce = true;
-        }
-        else if(isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce){
-            CONFIG.TabLogin=false;
+        } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
+            CONFIG.TabLogin = false;
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     init();
                 }
-            },500);
-        }
-
-        else if(isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce){
+            }, 500);
+        } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(_preferences.getString("userid", null) !=null) {
+                    if (_preferences.getString("userid", null) != null) {
                         mItems.clear();
                         getFavorite();
                     }
                 }
-            },500);
+            }, 500);
         }
 
-        if(isFragmentVisible_ &&((FavoriteFragment)getParentFragment()) != null) {
+        if (isFragmentVisible_ && ((FavoriteFragment) getParentFragment()) != null) {
             if (adapter != null && adapter.getCount() > 0) {
                 ((FavoriteFragment) getParentFragment()).isdelete(true);
             } else {
@@ -409,7 +408,7 @@ public class FavoriteHotelFragment extends Fragment {
         }
     }
 
-    private void init(){
+    private void init() {
         // preference
 
         TuneWrap.Event("favorite_stay");
@@ -440,7 +439,7 @@ public class FavoriteHotelFragment extends Fragment {
                 startActivityForResult(intent, 70);
             }
         });
-        if(CONFIG.sel_fav == 0)
+        if (CONFIG.sel_fav == 0)
             authCheck();
     }
 

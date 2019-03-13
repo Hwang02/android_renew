@@ -37,7 +37,7 @@ public class HotelImageFragment extends Fragment {
         RelativeLayout wrap = (RelativeLayout) inflater.inflate(R.layout.layout_hotelimg, container, false);
 
         String url = this.getArguments().getString("url");
-        ImageView niv = (ImageView)wrap.findViewById(R.id.detail_img);
+        ImageView niv = (ImageView) wrap.findViewById(R.id.detail_img);
         Ion.with(niv)
                 .error(R.drawable.placeholder)
                 .load(url);

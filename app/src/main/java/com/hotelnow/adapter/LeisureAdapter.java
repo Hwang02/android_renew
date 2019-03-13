@@ -48,7 +48,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private DbOpenHelper dbHelper;
     private LayoutInflater inflater;
     private final int HEADER = 0; // 하단
-    private final int BANNER =1; // viewpager
+    private final int BANNER = 1; // viewpager
     private final int HOTDEAL_ACTIVITY = 2; // 엑티비티 핫딜
     private final int PROMOTION = 3; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 4; // 변경되는 프로모션 vertical
@@ -150,16 +150,16 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return -1;
     }
 
-    private void setTopView(HeaderViewHolder holder, int type){
-        if(headerAdapter == null) {
+    private void setTopView(HeaderViewHolder holder, int type) {
+        if (headerAdapter == null) {
             headerAdapter = new HeaderLAdapter(mLf.getTopItem(), mLf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(headerAdapter);
         }
     }
 
-    private void setBottomView(FooterViewHolder holder, int type){
-        if(footAdapter == null) {
+    private void setBottomView(FooterViewHolder holder, int type) {
+        if (footAdapter == null) {
             footAdapter = new FooterHAAdapter(mLf.getDefaultItem(), mLf.getRecyclerView());
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(footAdapter);
@@ -167,7 +167,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
-        if(themeSAdapter == null) {
+        if (themeSAdapter == null) {
             themeSAdapter = new ThemeSpecialLeisureAdapter(mLf.getThemeSpecialData(), mLf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
@@ -184,24 +184,23 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void setThemeView(HorizontalThemeViewHolder holder, int type) {
-        if(themeAdapter == null) {
+        if (themeAdapter == null) {
             themeAdapter = new ThemeLeisureAdapter(mLf.getThemeData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(themeAdapter);
-            holder.background_view.setBackgroundColor(Color.parseColor("#"+mLf.getThemeData().get(0).getBack_color()));
+            holder.background_view.setBackgroundColor(Color.parseColor("#" + mLf.getThemeData().get(0).getBack_color()));
             holder.mTitle.setText(mLf.getThemeData().get(0).getMain_title());
             holder.btn_moreproduct.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    if (mLf.getThemeData().get(0).getTheme_flag().equals("H")){
+                    if (mLf.getThemeData().get(0).getTheme_flag().equals("H")) {
                         Intent intent = new Intent(mLf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
-                        mLf.startActivityForResult(intent,70);
-                    }
-                    else{
+                        mLf.startActivityForResult(intent, 70);
+                    } else {
                         Intent intent = new Intent(mLf.getContext(), ThemeSpecialActivityActivity.class);
                         intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
-                        mLf.startActivityForResult(intent,70);
+                        mLf.startActivityForResult(intent, 70);
                     }
                 }
             });
@@ -212,7 +211,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        if(bannerAdapter == null) {
+        if (bannerAdapter == null) {
             PAGES = mLf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mLf.getPbannerData());
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
@@ -225,15 +224,16 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     holder.autoViewPager.getParent().requestDisallowInterceptTouchEvent(true);
                 }
+
                 @Override
                 public void onPageSelected(int position) {
                     nowPosition = position;
                     markNowPosition = position % PAGES;
-                    holder.page_view.setText(markNowPosition+1 +" / "+ PAGES +" +");
+                    holder.page_view.setText(markNowPosition + 1 + " / " + PAGES + " +");
                 }
             });
 
-            holder.page_view.setText("1 / "+ mLf.getPbannerData().size()+" +");
+            holder.page_view.setText("1 / " + mLf.getPbannerData().size() + " +");
             holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
@@ -246,10 +246,10 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.autoViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth()*0.36)+"");
+                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth() * 0.36) + "");
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    lparam.height = (int)(holder.autoViewPager.getChildAt(0).getWidth()*0.36);
+                    lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.36);
                     lparam.topMargin = Util.dptopixel(mLf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mLf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mLf.getActivity(), 16);
@@ -266,22 +266,21 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             }, 100);
 
-            if(mLf.getPbannerData().size() >1) {
+            if (mLf.getPbannerData().size() > 1) {
                 holder.autoViewPager.startAutoScroll();
             }
         }
     }
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
-        if(acitivityAdapter == null) {
+        if (acitivityAdapter == null) {
             acitivityAdapter = new ActivityHotDealLeisureAdapter(mLf.getActivityData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             holder.recyclerView.setAdapter(acitivityAdapter);
 
-            if(mLf.getActivityData().size()>1){
+            if (mLf.getActivityData().size() > 1) {
                 holder.mMoreView.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 holder.mMoreView.setVisibility(View.GONE);
             }
 
@@ -290,7 +289,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void onSingleClick(View v) {
                     TuneWrap.Event("HotDeal_activity_list");
                     Intent intent = new Intent(mLf.getContext(), HotDealActivity.class);
-                    intent.putExtra("tab",1);
+                    intent.putExtra("tab", 1);
                     mLf.startActivityForResult(intent, 70);
                 }
             });
@@ -409,23 +408,23 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public void setHeaderRefresh(){
-        if(headerAdapter != null){
+    public void setHeaderRefresh() {
+        if (headerAdapter != null) {
             headerAdapter.notifyDataSetChanged();
         }
     }
 
-    public void setAllRefresh(){
-        if(themeAdapter != null) {
+    public void setAllRefresh() {
+        if (themeAdapter != null) {
             themeAdapter.notifyDataSetChanged();
         }
-        if(acitivityAdapter != null){
+        if (acitivityAdapter != null) {
             acitivityAdapter.notifyDataSetChanged();
         }
     }
 
-    public void setTitle(TextView title, int page){
-        if(title != null){
+    public void setTitle(TextView title, int page) {
+        if (title != null) {
             switch (page) {
                 case BANNER:
                     title.setText("베너");
@@ -448,7 +447,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemCount() {
         int count = 0;
 
-        if(items != null && !items.isEmpty()) {
+        if (items != null && !items.isEmpty()) {
             count = items.size();
         }
 

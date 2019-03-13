@@ -5,7 +5,7 @@ public class ActivityThemeItem {
     private String qcategory_ko;
     private String qcategory_id;
 
-    public ActivityThemeItem(String qcategory_ko, String qcategory_id){
+    public ActivityThemeItem(String qcategory_ko, String qcategory_id) {
         this.qcategory_ko = qcategory_ko;
         this.qcategory_id = qcategory_id;
     }

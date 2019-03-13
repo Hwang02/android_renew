@@ -21,7 +21,7 @@ public class FindDebugger {
 
     /**
      * This is used by Alibaba to detect someone ptracing the application.
-     *
+     * <p>
      * Easy to circumvent, the usage ITW was a native thread constantly doing this every three seconds - and would cause
      * the application to crash if it was detected.
      *

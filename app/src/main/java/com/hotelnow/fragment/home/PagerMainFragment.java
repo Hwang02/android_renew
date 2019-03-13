@@ -26,6 +26,7 @@ import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -58,7 +59,7 @@ public class PagerMainFragment extends Fragment {
     private String frontMethod;
     private String frontTitle;
     private String frontEvtId;
-//    static Tracker t;
+    //    static Tracker t;
     private static DialogAlert dialogAlert;
     private static HomeFragment mPf;
 
@@ -132,128 +133,127 @@ public class PagerMainFragment extends Fragment {
         popup_bg = (RelativeLayout) getView().findViewById(R.id.popup_bg);
         popup_bg.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                    if (frontType.equals("a") && !frontType.equals("")) {
-                        try {
-                            JSONObject obj = new JSONObject(frontMethod);
-                            method = obj.getString("method");
-                            url = obj.getString("param");
+                if (frontType.equals("a") && !frontType.equals("")) {
+                    try {
+                        JSONObject obj = new JSONObject(frontMethod);
+                        method = obj.getString("method");
+                        url = obj.getString("param");
 
-                            if (method.equals("move_near")) {
-                                int fDayLimit = mPf._preferences.getInt("future_day_limit", 180);
-                                String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
+                        if (method.equals("move_near")) {
+                            int fDayLimit = mPf._preferences.getInt("future_day_limit", 180);
+                            String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
 
-                                Api.get(checkurl, new Api.HttpCallback() {
-                                    @Override
-                                    public void onFailure(Response response, Exception e) {
+                            Api.get(checkurl, new Api.HttpCallback() {
+                                @Override
+                                public void onFailure(Response response, Exception e) {
+                                    Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                @Override
+                                public void onSuccess(Map<String, String> headers, String body) {
+                                    try {
+                                        JSONObject obj = new JSONObject(body);
+                                        JSONArray aobj = obj.getJSONArray("data");
+
+                                        if (aobj.length() == 0) {
+                                            dialogAlert = new DialogAlert(
+                                                    getActivity().getString(R.string.alert_notice),
+                                                    "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
+                                                    mPf.getActivity(),
+                                                    new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            dialogAlert.dismiss();
+                                                        }
+                                                    });
+                                            dialogAlert.setCancelable(false);
+                                            dialogAlert.show();
+                                            return;
+                                        }
+
+                                        String checkin = aobj.getString(0);
+                                        String checkout = Util.getNextDateStr(checkin);
+
+                                        Intent intent = new Intent(mPf.getActivity(), DetailHotelActivity.class);
+                                        intent.putExtra("hid", url);
+                                        intent.putExtra("evt", "N");
+                                        intent.putExtra("save", true);
+                                        intent.putExtra("sdate", checkin);
+                                        intent.putExtra("edate", checkout);
+
+                                        mPf.startActivityForResult(intent, 80);
+
+                                    } catch (Exception e) {
+                                        // Log.e(CONFIG.TAG, e.toString());
                                         Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                         return;
                                     }
 
-                                    @Override
-                                    public void onSuccess(Map<String, String> headers, String body) {
-                                        try {
-                                            JSONObject obj = new JSONObject(body);
-                                            JSONArray aobj = obj.getJSONArray("data");
-
-                                            if (aobj.length() == 0) {
-                                                dialogAlert = new DialogAlert(
-                                                        getActivity().getString(R.string.alert_notice),
-                                                        "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
-                                                        mPf.getActivity(),
-                                                        new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View v) {
-                                                                dialogAlert.dismiss();
-                                                            }
-                                                        });
-                                                dialogAlert.setCancelable(false);
-                                                dialogAlert.show();
-                                                return;
-                                            }
-
-                                            String checkin = aobj.getString(0);
-                                            String checkout = Util.getNextDateStr(checkin);
-
-                                            Intent intent = new Intent(mPf.getActivity(), DetailHotelActivity.class);
-                                            intent.putExtra("hid", url);
-                                            intent.putExtra("evt", "N");
-                                            intent.putExtra("save", true);
-                                            intent.putExtra("sdate", checkin);
-                                            intent.putExtra("edate", checkout);
-
-                                            mPf.startActivityForResult(intent, 80);
-
-                                        } catch (Exception e) {
-                                            // Log.e(CONFIG.TAG, e.toString());
-                                            Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-
-                                    }
-                                });
-
-                            } else if (method.equals("move_theme")) {
-                                Intent intent = new Intent(mPf.getActivity(), ThemeSpecialHotelActivity.class);
-                                intent.putExtra("tid", url);
-
-                                mPf.startActivityForResult(intent, 80);
-                            } else if (method.equals("move_theme_ticket")) {
-                                Intent intent = new Intent(mPf.getActivity(), ThemeSpecialActivityActivity.class);
-                                intent.putExtra("tid", url);
-
-                                mPf.startActivityForResult(intent, 80);
-                            } else if (method.equals("move_ticket_detail")) {
-                                Intent intent = new Intent(mPf.getActivity(), DetailActivityActivity.class);
-                                intent.putExtra("tid", url);
-
-                                mPf.startActivityForResult(intent, 80);
-                            } else if (method.equals("outer_link")) {
-                                if (url.contains("hotelnow")) {
-                                    frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
-                                    Intent intent = new Intent(mPf.getActivity(), WebviewActivity.class);
-                                    intent.putExtra("url", url);
-                                    intent.putExtra("title", frontTitle);
-                                    mPf.startActivityForResult(intent, 80);
-
-                                } else {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                    mPf.startActivity(intent);
                                 }
+                            });
+
+                        } else if (method.equals("move_theme")) {
+                            Intent intent = new Intent(mPf.getActivity(), ThemeSpecialHotelActivity.class);
+                            intent.putExtra("tid", url);
+
+                            mPf.startActivityForResult(intent, 80);
+                        } else if (method.equals("move_theme_ticket")) {
+                            Intent intent = new Intent(mPf.getActivity(), ThemeSpecialActivityActivity.class);
+                            intent.putExtra("tid", url);
+
+                            mPf.startActivityForResult(intent, 80);
+                        } else if (method.equals("move_ticket_detail")) {
+                            Intent intent = new Intent(mPf.getActivity(), DetailActivityActivity.class);
+                            intent.putExtra("tid", url);
+
+                            mPf.startActivityForResult(intent, 80);
+                        } else if (method.equals("outer_link")) {
+                            if (url.contains("hotelnow")) {
+                                frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
+                                Intent intent = new Intent(mPf.getActivity(), WebviewActivity.class);
+                                intent.putExtra("url", url);
+                                intent.putExtra("title", frontTitle);
+                                mPf.startActivityForResult(intent, 80);
+
+                            } else {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                mPf.startActivity(intent);
                             }
-                        } catch (Throwable t) {
-                            Toast.makeText(mPf.getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
-                        Intent intentEvt = new Intent(mPf.getActivity(), EventActivity.class);
-                        intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
-                        intentEvt.putExtra("title", frontTitle);
-                        mPf.startActivityForResult(intentEvt, 80);
+                    } catch (Throwable t) {
+                        Toast.makeText(mPf.getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
                     }
-
-                    if (mPf != null && mPf.frgpopup != null) {
-                        Calendar calendar = Calendar.getInstance();
-                        Date currentTime = new Date();
-                        calendar.setTime(currentTime);
-                        calendar.add(Calendar.DAY_OF_YEAR, 1);
-
-                        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String checkdate = mSimpleDateFormat.format(calendar.getTime());
-
-                        Util.setPreferenceValues(mPf._preferences, "front_popup_date", checkdate);
-
-                        mPf.frgpopup.dismiss();
-                    }
-                    if(!TextUtils.isEmpty(mId)) {
-                        TuneWrap.Event("popup_pre_confirm", mId);
-                    }
-                    else{
-                        TuneWrap.Event("popup_pre_confirm");
-                    }
+                } else {
+                    frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
+                    Intent intentEvt = new Intent(mPf.getActivity(), EventActivity.class);
+                    intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
+                    intentEvt.putExtra("title", frontTitle);
+                    mPf.startActivityForResult(intentEvt, 80);
                 }
-            });
+
+                if (mPf != null && mPf.frgpopup != null) {
+                    Calendar calendar = Calendar.getInstance();
+                    Date currentTime = new Date();
+                    calendar.setTime(currentTime);
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+                    SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String checkdate = mSimpleDateFormat.format(calendar.getTime());
+
+                    Util.setPreferenceValues(mPf._preferences, "front_popup_date", checkdate);
+
+                    mPf.frgpopup.dismiss();
+                }
+                if (!TextUtils.isEmpty(mId)) {
+                    TuneWrap.Event("popup_pre_confirm", mId);
+                } else {
+                    TuneWrap.Event("popup_pre_confirm");
+                }
+            }
+        });
     }
 }

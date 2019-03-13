@@ -27,7 +27,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MySaveActivity extends Activity{
+public class MySaveActivity extends Activity {
 
     private SharedPreferences _preferences;
     private static final int PAGE_SIZE = 10000;
@@ -48,7 +48,7 @@ public class MySaveActivity extends Activity{
         header = getLayoutInflater().inflate(R.layout.layout_mysave_header, null, false);
         footer = getLayoutInflater().inflate(R.layout.layout_mysave_footer, null, false);
 
-        mMainListView = (ListView)findViewById(R.id.lv_save);
+        mMainListView = (ListView) findViewById(R.id.lv_save);
         mMainListView.addHeaderView(header);
         mMainListView.addFooterView(footer);
 
@@ -65,8 +65,8 @@ public class MySaveActivity extends Activity{
         getlist();
     }
 
-    private void getlist(){
-        String url = CONFIG.reservemoneyUrl+"/"+1+"/"+PAGE_SIZE;
+    private void getlist() {
+        String url = CONFIG.reservemoneyUrl + "/" + 1 + "/" + PAGE_SIZE;
 
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         Api.get(url, new Api.HttpCallback() {
@@ -89,7 +89,7 @@ public class MySaveActivity extends Activity{
 
                     JSONObject info = obj.getJSONObject("info");
                     NumberFormat nf = NumberFormat.getNumberInstance();
-                    ((TextView) header.findViewById(R.id.disable_money)).setText(nf.format(info.getInt("expire_amount"))+"원");
+                    ((TextView) header.findViewById(R.id.disable_money)).setText(nf.format(info.getInt("expire_amount")) + "원");
                     ((TextView) header.findViewById(R.id.my_money)).setText(nf.format(info.getInt("amount")));
 
                     JSONArray feed = obj.getJSONArray("data");
@@ -98,23 +98,23 @@ public class MySaveActivity extends Activity{
                     for (int i = 0; i < feed.length(); i++) {
                         entry = feed.getJSONObject(i);
                         mEntries.add(new MySaveMoneyItem(
-                                entry.getString("recommendee_name"),
-                                entry.getInt("id"),
-                                entry.getString("type"),
-                                entry.getInt("income"),
-                                entry.getInt("spent"),
-                                entry.getInt("remain"),
-                                entry.getInt("amount"),
-                                entry.getString("use_yn"),
-                                entry.getString("created_at"),
-                                entry.getString("end_date"),
-                                entry.getString("type_dp"),
-                                entry.getString("change_dp")
+                                        entry.getString("recommendee_name"),
+                                        entry.getInt("id"),
+                                        entry.getString("type"),
+                                        entry.getInt("income"),
+                                        entry.getInt("spent"),
+                                        entry.getInt("remain"),
+                                        entry.getInt("amount"),
+                                        entry.getString("use_yn"),
+                                        entry.getString("created_at"),
+                                        entry.getString("end_date"),
+                                        entry.getString("type_dp"),
+                                        entry.getString("change_dp")
                                 )
                         );
                     }
 
-                    if(mEntries.size() == 0){
+                    if (mEntries.size() == 0) {
                         mEntries.add(new MySaveMoneyItem(
                                 "",
                                 0,
@@ -143,7 +143,7 @@ public class MySaveActivity extends Activity{
         });
     }
 
-    public void getEmptyHeight(View empty_item){
+    public void getEmptyHeight(View empty_item) {
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         int height = dm.heightPixels;
@@ -154,7 +154,7 @@ public class MySaveActivity extends Activity{
         (findViewById(R.id.toolbar)).measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int heightTop = header.getHeight();
         int heightBottom = footer.getHeight();
-        int heightBar =  (findViewById(R.id.toolbar)).getHeight();
+        int heightBar = (findViewById(R.id.toolbar)).getHeight();
 
         int realHeight = height - heightTop - heightBottom - heightBar - Util.dptopixel(this, 26);
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) empty_item.getLayoutParams();

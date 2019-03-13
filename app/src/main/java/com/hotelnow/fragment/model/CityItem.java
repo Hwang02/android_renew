@@ -5,7 +5,7 @@ public class CityItem {
     private String city_ko;
     private String city_code;
 
-    public CityItem(String city_ko, String city_code){
+    public CityItem(String city_ko, String city_code) {
         this.city_ko = city_ko;
         this.city_code = city_code;
     }

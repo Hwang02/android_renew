@@ -50,6 +50,7 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +62,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements DialogMainFragment.onSubmitListener{
+public class HomeFragment extends Fragment implements DialogMainFragment.onSubmitListener {
 
     private FragmentHomeBinding mHomeBinding;
     private List<Object> objects = null;
@@ -129,45 +130,44 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
         mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
         mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
-        if(mFavoriteStayItem.size()>0){
+        if (mFavoriteStayItem.size() > 0) {
             FavoriteStayList = new String[mFavoriteStayItem.size()];
-            for(int i =0; i<mFavoriteStayItem.size();i++){
+            for (int i = 0; i < mFavoriteStayItem.size(); i++) {
                 FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
             }
         }
-        if(mFavoriteActivityItem.size()>0){
+        if (mFavoriteActivityItem.size() > 0) {
             FavoriteActivityList = new String[mFavoriteActivityItem.size()];
-            for(int i =0; i<mFavoriteActivityItem.size();i++){
+            for (int i = 0; i < mFavoriteActivityItem.size(); i++) {
                 FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
             }
         }
 
-        if(dbHelper.selectAllRecentCity("H").size()>0) {
+        if (dbHelper.selectAllRecentCity("H").size() > 0) {
             List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("H");
             boolean del_city = true;
-            if(RecentArea.size() > 0) {
+            if (RecentArea.size() > 0) {
                 for (int i = 0; i < RecentArea.size(); i++) {
-                    for(int k = 0; k < dbHelper.selectAllSubCityMain().size(); k++) {
+                    for (int k = 0; k < dbHelper.selectAllSubCityMain().size(); k++) {
                         if (dbHelper.selectAllSubCityMain().get(k).getSubcity_code().equals(RecentArea.get(i).getSel_subcity_id())) {
                             del_city = false;
                             break;
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 del_city = true;
             }
 
-            if(del_city){
+            if (del_city) {
                 dbHelper.deleteRecentCity("H");
             }
         }
 
-        if(dbHelper.selectAllRecentCity("A").size()>0) {
+        if (dbHelper.selectAllRecentCity("A").size() > 0) {
             List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("A");
             boolean del_city = true;
-            for(int j = 0; j<RecentArea.size(); j++) {
+            for (int j = 0; j < RecentArea.size(); j++) {
                 for (int i = 0; i < dbHelper.selectAllActivityCity().size(); i++) {
                     if (dbHelper.selectAllActivityCity().get(i).getCity_code().equals(RecentArea.get(j).getSel_city_id())) {
                         del_city = false;
@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
         getRecentData(true);
 
-        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) getView().findViewById(R.id.swipe);
         swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -200,9 +200,9 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         });
     }
 
-    public void getRecentData(final boolean isStart){
+    public void getRecentData(final boolean isStart) {
         MainActivity.showProgress();
-        String url = CONFIG.mainRecent+"/check";
+        String url = CONFIG.mainRecent + "/check";
         //최근 본 상품
         mRecentItem = dbHelper.selectAllRecentItem("10");
         if (mRecentItem.size() > 0) {
@@ -238,15 +238,14 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         try {
                             JSONObject obj = new JSONObject(body);
                             if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                                if(obj.has("recent_items")) {
-                                    if(obj.getJSONArray("recent_items").length()==0) {
+                                if (obj.has("recent_items")) {
+                                    if (obj.getJSONArray("recent_items").length() == 0) {
                                         dbHelper.deleteRecentItem();
                                     }
                                 }
-                            }
-                            else if (obj.has("recent_items")) {
+                            } else if (obj.has("recent_items")) {
                                 mRecentListItem.clear();
-                                if(obj.getJSONArray("recent_items").length()>0) {
+                                if (obj.getJSONArray("recent_items").length() > 0) {
                                     JSONArray p_recent = new JSONArray(obj.getJSONArray("recent_items").toString());
                                     for (int i = 0; i < p_recent.length(); i++) {
                                         if (p_recent.getJSONObject(i).getString("flag").equals("1")) {
@@ -277,8 +276,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 //                                adapter.allRefresh(false);
                                 getObject();
                                 CONFIG.isRecent = true;
-                            }
-                            else {
+                            } else {
                                 adapter.refreshRecent();
                                 MainActivity.hideProgress();
                             }
@@ -288,27 +286,26 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         }
                     }
                 });
-            } catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 MainActivity.hideProgress();
             }
-        } else{
+        } else {
             CONFIG.isRecent = false;
             mRecentListItem.clear();
             adapter.allRefresh(true);
-            if(isStart || mRecentItem.size() == 0){
+            if (isStart || mRecentItem.size() == 0) {
                 mRecentListItem.clear();
                 objects.clear();
                 getObject();
-            }
-            else {
+            } else {
                 MainActivity.hideProgress();
             }
         }
     }
 
     private void getObject() {
-        String url = CONFIG.mainHome+"/home";
+        String url = CONFIG.mainHome + "/home";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -327,10 +324,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         return;
                     }
                     api_count++;
-                    if(obj.has("promotion_banners")){
+                    if (obj.has("promotion_banners")) {
                         JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
                         mPbanerItem.clear();
-                        if(p_banner.length() >0) {
+                        if (p_banner.length() > 0) {
                             for (int i = 0; i < p_banner.length(); i++) {
                                 mPbanerItem.add(new BannerItem(
                                         p_banner.getJSONObject(i).getString("id"),
@@ -349,10 +346,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             objects.add(mPbanerItem.get(0));
                         }
                     }
-                    if(obj.has("popular_keywords")){
+                    if (obj.has("popular_keywords")) {
                         JSONArray mKeyword = new JSONArray(obj.getJSONArray("popular_keywords").toString());
                         mKeywordItem.clear();
-                        if(mKeyword.length()>0) {
+                        if (mKeyword.length() > 0) {
                             for (int i = 0; i < mKeyword.length(); i++) {
                                 mKeywordItem.add(new KeyWordItem(
                                         mKeyword.getJSONObject(i).getString("id"),
@@ -371,14 +368,14 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                         }
                     }
 
-                    if(mRecentListItem.size()>0){
+                    if (mRecentListItem.size() > 0) {
                         objects.add(mRecentListItem.get(0));
                     }
 
-                    if(obj.has("event_banners")){
+                    if (obj.has("event_banners")) {
                         JSONArray e_banner = new JSONArray(obj.getJSONArray("event_banners").toString());
                         mEbanerItem.clear();
-                        if(e_banner.length()>0) {
+                        if (e_banner.length() > 0) {
                             for (int i = 0; i < e_banner.length(); i++) {
                                 mEbanerItem.add(new SubBannerItem(
                                         e_banner.getJSONObject(i).getString("id"),
@@ -396,10 +393,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             objects.add(mEbanerItem.get(0));
                         }
                     }
-                    if(obj.has("private_deals")){
+                    if (obj.has("private_deals")) {
                         JSONArray mPrivate = new JSONArray(obj.getJSONArray("private_deals").toString());
                         mPrivatedealItem.clear();
-                        if(mPrivate.length()>0) {
+                        if (mPrivate.length() > 0) {
                             for (int i = 0; i < mPrivate.length(); i++) {
                                 mPrivatedealItem.add(new PrivateDealItem(
                                         mPrivate.getJSONObject(i).getString("id"),
@@ -420,10 +417,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             objects.add(mPrivatedealItem.get(0));
                         }
                     }
-                    if(obj.has("stay_hot_deals")){
+                    if (obj.has("stay_hot_deals")) {
                         JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
                         mHotelItem.clear();
-                        if(mStay.length()>0) {
+                        if (mStay.length() > 0) {
                             for (int i = 0; i < mStay.length(); i++) {
                                 mHotelItem.add(new StayHotDealItem(
                                         mStay.getJSONObject(i).getString("id"),
@@ -447,10 +444,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             objects.add(mHotelItem.get(0));
                         }
                     }
-                    if(obj.has("activity_hot_deals")){
+                    if (obj.has("activity_hot_deals")) {
                         JSONArray mActivity = new JSONArray(obj.getJSONObject("activity_hot_deals").getJSONArray("deals").toString());
                         mActivityItem.clear();
-                        if(mActivity.length()>0) {
+                        if (mActivity.length() > 0) {
                             for (int i = 0; i < mActivity.length(); i++) {
                                 mActivityItem.add(new ActivityHotDealItem(
                                         mActivity.getJSONObject(i).getString("id"),
@@ -474,8 +471,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             objects.add(mActivityItem.get(0));
                         }
                     }
-                    if(obj.has("theme_show")){
-                        if(obj.getJSONObject("theme_show").length() >0) {
+                    if (obj.has("theme_show")) {
+                        if (obj.getJSONObject("theme_show").length() > 0) {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
                             if (mTheme_show.getJSONObject("theme") != null) {
                                 JSONObject mTheme = mTheme_show.getJSONObject("theme");
@@ -516,10 +513,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             }
                         }
                     }
-                    if(obj.has("theme_lists")){
+                    if (obj.has("theme_lists")) {
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
                         mThemeSItem.clear();
-                        if(mThemeS.length()>0) {
+                        if (mThemeS.length() > 0) {
                             for (int i = 0; i < mThemeS.length(); i++) {
                                 mThemeSItem.add(new ThemeSpecialItem(
                                         mThemeS.getJSONObject(i).getString("id"),
@@ -545,19 +542,17 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     important_pop_up_link = obj.has("important_pop_up_link") ? obj.getString("important_pop_up_link") : "";
                     important_pop_up_iamge = obj.has("important_pop_up_iamge") ? obj.getString("important_pop_up_iamge") : "";
 
-                    if(obj.has("pop_ups")){
+                    if (obj.has("pop_ups")) {
                         mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
 
-                        if(_preferences.getBoolean("user_first_app", true)) {
+                        if (_preferences.getBoolean("user_first_app", true)) {
                             // 동의팝업
                             mainPopup();
-                        }
-                        else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))){
+                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
                             importantPopup();
                             // 회원가입팝업
-                        }
-                        else {
-                            if (mPopups.length()>0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                        } else {
+                            if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                 frgpopup = new DialogMainFragment();
                                 frgpopup.mListener = HomeFragment.this;
                                 frgpopup.popup_data = mPopups;
@@ -569,8 +564,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                 ft.commitAllowingStateLoss();
                             }
                         }
-                    }
-                    else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))){
+                    } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
                         importantPopup();
 
                     }
@@ -590,8 +584,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         });
     }
 
-    public void mainPopup(){
-        if(_preferences.getBoolean("user_first_app", true)) {
+    public void mainPopup() {
+        if (_preferences.getBoolean("user_first_app", true)) {
             dialogFull = new DialogFull(getActivity(), new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -605,9 +599,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         }
     }
 
-    public void importantPopup(){
-        if(!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", ""))))
-        {
+    public void importantPopup() {
+        if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))) {
             dialoglogin = new DialogLogin(getActivity(),
                     new View.OnClickListener() {
                         @Override
@@ -631,7 +624,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                 Util.setPreferenceValues(_preferences, "info_date", checkdate);
                             }
                             dialoglogin.dismiss();
-                            if (mPopups.length()>0 && !_preferences.getBoolean("today_start_app", false)) {
+                            if (mPopups.length() > 0 && !_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                     frgpopup = new DialogMainFragment();
                                     frgpopup.mListener = HomeFragment.this;
@@ -665,7 +658,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             }
                             dialoglogin.dismiss();
 
-                            if (mPopups.length()>0 && !_preferences.getBoolean("today_start_app", false)) {
+                            if (mPopups.length() > 0 && !_preferences.getBoolean("today_start_app", false)) {
                                 if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
                                     frgpopup = new DialogMainFragment();
                                     frgpopup.mListener = HomeFragment.this;
@@ -683,13 +676,12 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     important_pop_up_iamge, important_pop_up_link, "info");
             dialoglogin.setCancelable(false);
             dialoglogin.show();
-        }
-        else {
+        } else {
             setPopup();
         }
     }
 
-    public void setPopup(){
+    public void setPopup() {
         if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
             frgpopup = new DialogMainFragment();
             frgpopup.mListener = HomeFragment.this;
@@ -743,7 +735,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         return mPrivatedealItem;
     }
 
-    public RecyclerView getRecyclerView(){
+    public RecyclerView getRecyclerView() {
         return mHomeBinding.recyclerView;
     }
 
@@ -758,16 +750,16 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
     }
 
-    public void setPrivateLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setPrivateLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getPrivateDealItem().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -779,23 +771,22 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -807,35 +798,35 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
-                   }
+                    }
                 }
             });
         }
         setLikeRefresh(true);
     }
 
-    public void setActivityLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setActivityLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getActivityData().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -847,23 +838,22 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -875,17 +865,17 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_activity", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         adapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -894,22 +884,21 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         setLikeRefresh(true);
     }
 
-    public void setRecentLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setRecentLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getRecentListItem().get(position).getId();
         final String sel_type = getRecentListItem().get(position).getFlag();
         JSONObject paramObj = new JSONObject();
         try {
-            if(sel_type.equals("1")) {
+            if (sel_type.equals("1")) {
                 paramObj.put("type", "stay");
-            }
-            else{
+            } else {
                 paramObj.put("type", "activity");
             }
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -921,28 +910,26 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
-                        if(sel_type.equals("1")) {
+                        if (sel_type.equals("1")) {
                             TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         setLikeRefresh(true);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -954,21 +941,20 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        if(sel_type.equals("1")) {
+                        if (sel_type.equals("1")) {
                             TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         setLikeRefresh(true);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -976,16 +962,16 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         }
     }
 
-    public void setStayLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setStayLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getHotelData().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -997,23 +983,22 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         setLikeRefresh(true);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -1025,17 +1010,17 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         setLikeRefresh(true);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -1043,22 +1028,21 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         }
     }
 
-    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getThemeData().get(position).getId();
         final String sel_type = getThemeData().get(position).getTheme_flag();
         JSONObject paramObj = new JSONObject();
         try {
-            if(sel_type.equals("H")) {
+            if (sel_type.equals("H")) {
                 paramObj.put("type", "stay");
-            }
-            else{
+            } else {
                 paramObj.put("type", "activity");
             }
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -1070,28 +1054,26 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
-                        if(sel_type.equals("H")) {
+                        if (sel_type.equals("H")) {
                             TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         setLikeRefresh(true);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -1103,21 +1085,20 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        if(sel_type.equals("H")) {
+                        if (sel_type.equals("H")) {
                             TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         setLikeRefresh(true);
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -1125,34 +1106,32 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
         }
     }
 
-    public void setLikeRefresh(boolean isRecent){
+    public void setLikeRefresh(boolean isRecent) {
         adapter.allRefresh(isRecent);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80){
+        if (requestCode == 80) {
             mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
             mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
-            if(resultCode == 100){
-                if(cookie == null) {
-                    CONFIG.TabLogin=false;
+            if (resultCode == 100) {
+                if (cookie == null) {
+                    CONFIG.TabLogin = false;
                     return;
                 }
                 ((MainActivity) getActivity()).moveTabReservation();
+            } else if (resultCode == 110) {
+                ((MainActivity) getActivity()).setTitle();
+                ((MainActivity) getActivity()).setTapdelete("MYPAGE");
             }
-            else if(resultCode == 110){
-                ((MainActivity)getActivity()).setTitle();
-                ((MainActivity)getActivity()).setTapdelete("MYPAGE");
-            }
-            if(getRecentListItem().size()>0) {
+            if (getRecentListItem().size() > 0) {
                 getRecentData(false);
-                if(resultCode == 80){
+                if (resultCode == 80) {
                     setLikeRefresh(false);
                 }
-            }
-            else{
+            } else {
                 getRecentData(true);
             }
         }

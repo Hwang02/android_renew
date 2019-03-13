@@ -92,7 +92,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.join.rlJoin.setVisibility(View.GONE);
 
         // 운영시간
-        mMypageBinding.center.infoTime.setText("운영시간 "+CONFIG.operation_time);
+        mMypageBinding.center.infoTime.setText("운영시간 " + CONFIG.operation_time);
 
         // 공지사항
         mMypageBinding.center.btnNotice.setOnClickListener(new OnSingleClickListener() {
@@ -125,9 +125,9 @@ public class MypageFragment extends Fragment {
                 TuneWrap.Event("customer_email");
                 String userId = "";
                 try {
-                    userId = _preferences.getString("userid", null) == null ? null : AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|",""));
+                    userId = _preferences.getString("userid", null) == null ? null : AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""));
                 } catch (Exception e) {
-                    userId ="";
+                    userId = "";
                     e.printStackTrace();
                 }
 
@@ -140,9 +140,9 @@ public class MypageFragment extends Fragment {
                     startActivity(Intent.createChooser(i, getString(R.string.cs_txt2)));
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.no_email_program), Toast.LENGTH_SHORT).show();
-                    userId="";
+                    userId = "";
                 }
-                userId="";
+                userId = "";
             }
         });
 
@@ -162,7 +162,7 @@ public class MypageFragment extends Fragment {
                 TuneWrap.Event("customer_call");
                 dialogConfirm = new DialogConfirm(
                         getString(R.string.alert_notice),
-                        getString(R.string.wanna_call_hotelnow)+"\n운영시간 : "+CONFIG.operation_time,
+                        getString(R.string.wanna_call_hotelnow) + "\n운영시간 : " + CONFIG.operation_time,
                         getString(R.string.alert_no),
                         getString(R.string.alert_connect),
                         getActivity(),
@@ -189,11 +189,10 @@ public class MypageFragment extends Fragment {
         mMypageBinding.footer.tvMore.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if(mMypageBinding.footer.tvCompanyinfo.getVisibility() == View.VISIBLE){
+                if (mMypageBinding.footer.tvCompanyinfo.getVisibility() == View.VISIBLE) {
                     mMypageBinding.footer.tvCompanyinfo.setVisibility(View.GONE);
                     mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_open_grey);
-                }
-                else {
+                } else {
                     mMypageBinding.footer.tvCompanyinfo.setVisibility(View.VISIBLE);
                     mMypageBinding.footer.lvMore.setBackgroundResource(R.drawable.btn_detail_close_grey);
                 }
@@ -234,7 +233,7 @@ public class MypageFragment extends Fragment {
         });
 
         // 앱버전
-        mMypageBinding.center.txtVer.setText("V"+Util.getAppVersionName(getActivity()));
+        mMypageBinding.center.txtVer.setText("V" + Util.getAppVersionName(getActivity()));
 
         // 회원가입
         mMypageBinding.notJoin.btJoin.setOnClickListener(new OnSingleClickListener() {
@@ -303,20 +302,21 @@ public class MypageFragment extends Fragment {
                                             prefEditor.putString("cookie_val", "");
                                             prefEditor.commit();
 
-                                            ((MainActivity)getActivity()).setTitle();
+                                            ((MainActivity) getActivity()).setTitle();
                                             mMypageBinding.notJoin.rlNotJoin.setVisibility(View.VISIBLE);
                                             mMypageBinding.join.rlJoin.setVisibility(View.GONE);
 
-                                            dbHelper.deleteFavoriteItem(true,"","");
-                                            ((MainActivity)getActivity()).moveTabRefresh();
-                                            ((MainActivity)getActivity()).moveTabRefresh2();
-                                            ((MainActivity)getActivity()).moveTabRefresh3();
+                                            dbHelper.deleteFavoriteItem(true, "", "");
+                                            ((MainActivity) getActivity()).moveTabRefresh();
+                                            ((MainActivity) getActivity()).moveTabRefresh2();
+                                            ((MainActivity) getActivity()).moveTabRefresh3();
 
                                             TuneWrap.Event("logout");
 
-                                            try{
+                                            try {
                                                 LoginManager.getInstance().logOut();
-                                            } catch (Exception e) {}
+                                            } catch (Exception e) {
+                                            }
 
                                         } catch (Exception e) {
                                         }
@@ -367,26 +367,28 @@ public class MypageFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 90 && resultCode == 90) { // 로그인
             authCheck();
-            ((MainActivity)getActivity()).setTitle();
+            ((MainActivity) getActivity()).setTitle();
         }
         if (requestCode == 91 && resultCode == 91) { // 쿠폰, 카드
             checkLogin();
         }
     }
+
     public void authCheck() {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(getActivity()));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 isPush = false;
-                if(getActivity() == null) {
+                if (getActivity() == null) {
                     Util.doRestart(HotelnowApplication.getAppContext());
                 }
             }
@@ -411,7 +413,7 @@ public class MypageFragment extends Fragment {
                 } catch (Exception e) {
                     isPush = false;
                     MainActivity.hideProgress();
-                    if(getActivity() != null && isAdded()){
+                    if (getActivity() != null && isAdded()) {
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -424,9 +426,10 @@ public class MypageFragment extends Fragment {
         String userid = _preferences.getString("userid", null);
 
         JSONObject params = new JSONObject();
-        try{
+        try {
             params.put("uuid", Util.getAndroidId(getActivity()));
-        } catch (JSONException e) {}
+        } catch (JSONException e) {
+        }
 
         if (userid == null) {
             mMypageBinding.notJoin.rlNotJoin.setVisibility(View.VISIBLE);
@@ -465,7 +468,7 @@ public class MypageFragment extends Fragment {
             Api.post(CONFIG.recommendInfoUrl, params.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
-                    if(getActivity() != null && isAdded())
+                    if (getActivity() != null && isAdded())
                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     MainActivity.hideProgress();
                 }
@@ -476,7 +479,7 @@ public class MypageFragment extends Fragment {
                         JSONObject obj = new JSONObject(body);
 
                         if (!obj.getString("result").equals("success")) {
-                            if(getActivity() != null && isAdded())
+                            if (getActivity() != null && isAdded())
                                 Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             MainActivity.hideProgress();
                             return;
@@ -484,26 +487,24 @@ public class MypageFragment extends Fragment {
 
                         JSONObject data = obj.getJSONObject("data");
 
-                        mMypageBinding.join.userName.setText(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|","")));
-                        mMypageBinding.join.userEmail.setText(AES256Chiper.AES_Decode(_preferences.getString("email", null).replace("HN|","")));
+                        mMypageBinding.join.userName.setText(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")));
+                        mMypageBinding.join.userEmail.setText(AES256Chiper.AES_Decode(_preferences.getString("email", null).replace("HN|", "")));
                         save_money = Util.numberFormat(data.getInt("amount"));
                         mMypageBinding.join.tvUserSaveMoney.setText(save_money + "원");
                         mMypageBinding.join.tvUserCoupon.setText(data.getString("coupon_cnt_new") + "장");
                         mMypageBinding.join.tvUserCard.setText(data.getString("card_cnt") + "장");
                         expire_money = Util.numberFormat(data.getInt("expire_amount"));
-                        mMypageBinding.join.disableMoney.setText(expire_money+"원");
-                        mMypageBinding.join.disableCoupon.setText(data.getInt("expire_coupon_cnt")+"장");
-                        if(expire_money.equals("0")) {
+                        mMypageBinding.join.disableMoney.setText(expire_money + "원");
+                        mMypageBinding.join.disableCoupon.setText(data.getInt("expire_coupon_cnt") + "장");
+                        if (expire_money.equals("0")) {
                             mMypageBinding.join.layoutDiscountMoney.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             mMypageBinding.join.layoutDiscountMoney.setVisibility(View.VISIBLE);
                         }
 
-                        if(data.getInt("expire_coupon_cnt") == 0){
+                        if (data.getInt("expire_coupon_cnt") == 0) {
                             mMypageBinding.join.layoutDisableCoupon.setVisibility(View.GONE);
-                        }
-                        else{
+                        } else {
                             mMypageBinding.join.layoutDisableCoupon.setVisibility(View.VISIBLE);
                         }
 
@@ -514,14 +515,14 @@ public class MypageFragment extends Fragment {
                         prefEditor.commit();
 
                         // 푸시 사용설정
-                        if(obj.getString("status").toUpperCase().equals("Y"))
+                        if (obj.getString("status").toUpperCase().equals("Y"))
                             isPush = true;
                         else
                             isPush = false;
                         MainActivity.hideProgress();
                     } catch (Exception e) {
                         Log.e(CONFIG.TAG, e.toString());
-                        if(getActivity() != null && isAdded()){
+                        if (getActivity() != null && isAdded()) {
                             Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         }
                         MainActivity.hideProgress();

@@ -44,9 +44,11 @@ import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.customstyledmap.CustomMap;
 import com.thebrownarrow.model.SearchResultItem;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -62,9 +64,9 @@ public class MapAcvitityActivity extends AppCompatActivity {
     private MapActivityAdapter mapAdapter;
     private int prePosition = 0;
     private int Page = 1;
-    private int total_count=0;
+    private int total_count = 0;
     CustomMap customMap;
-    private String banner_id, search_txt,order_kind, lat, lng, theme_id,city;
+    private String banner_id, search_txt, order_kind, lat, lng, theme_id, city;
     private TextView total_item, title_text;
     private LinearLayout ll_count;
     private DbOpenHelper dbHelper;
@@ -82,17 +84,17 @@ public class MapAcvitityActivity extends AppCompatActivity {
         Intent intent = getIntent();
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
-        latLngsArrayList = (ArrayList<SearchResultItem>)intent.getSerializableExtra("search_data");
-        total_count = intent.getIntExtra("total_count",0);
-        Page = intent.getIntExtra("Page",1);
+        latLngsArrayList = (ArrayList<SearchResultItem>) intent.getSerializableExtra("search_data");
+        total_count = intent.getIntExtra("total_count", 0);
+        Page = intent.getIntExtra("Page", 1);
         order_kind = intent.getStringExtra("order_kind");
 
-        if(order_kind != null &&order_kind.equals("distance")){
-           lat =  intent.getStringExtra("lat");
-           lng = intent.getStringExtra("lng");
+        if (order_kind != null && order_kind.equals("distance")) {
+            lat = intent.getStringExtra("lat");
+            lng = intent.getStringExtra("lng");
         }
 
-        banner_id =  intent.getStringExtra("banner_id");
+        banner_id = intent.getStringExtra("banner_id");
         theme_id = intent.getStringExtra("theme_id");
         city = intent.getStringExtra("city");
 
@@ -103,36 +105,33 @@ public class MapAcvitityActivity extends AppCompatActivity {
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         subtitle_text = (TextView) findViewById(R.id.subtitle_text);
 
-        if(TextUtils.isEmpty(intent.getStringExtra("title_text"))){
+        if (TextUtils.isEmpty(intent.getStringExtra("title_text"))) {
             title_text.setText("액티비티");
-        }
-        else {
+        } else {
             title_text.setText(intent.getStringExtra("title_text"));
         }
 
-        if(!intent.getStringExtra("location").equals("지역선택") || !intent.getStringExtra("category").equals("테마선택")) {
+        if (!intent.getStringExtra("location").equals("지역선택") || !intent.getStringExtra("category").equals("테마선택")) {
             String s_subtitle = "";
-            if(!intent.getStringExtra("location").equals("지역선택")){
+            if (!intent.getStringExtra("location").equals("지역선택")) {
                 s_subtitle = intent.getStringExtra("location");
             }
-            if(!TextUtils.isEmpty(s_subtitle) && !intent.getStringExtra("category").equals("테마선택")){
-                s_subtitle +=", " + intent.getStringExtra("category");
-            }
-            else if(!intent.getStringExtra("category").equals("테마선택")){
+            if (!TextUtils.isEmpty(s_subtitle) && !intent.getStringExtra("category").equals("테마선택")) {
+                s_subtitle += ", " + intent.getStringExtra("category");
+            } else if (!intent.getStringExtra("category").equals("테마선택")) {
                 s_subtitle = intent.getStringExtra("category");
             }
 
             subtitle_text.setText(s_subtitle);
-        }
-        else{
+        } else {
             subtitle_text.setText("테마전체");
         }
 
         ll_count.setBackgroundResource(R.color.activity_cc);
-        TextView total_item = (TextView)findViewById(R.id.total_item);
-        Spannable spannable = new SpannableString("총 "+ Util.numberFormat(total_count)+"개의 액티비티");
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2+(Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        TextView total_item = (TextView) findViewById(R.id.total_item);
+        Spannable spannable = new SpannableString("총 " + Util.numberFormat(total_count) + "개의 액티비티");
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + (Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 2, 2 + (Util.numberFormat(total_count)).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         total_item.setText(spannable);
 
         PermissionListener permissionlistener = new PermissionListener() {
@@ -172,7 +171,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
         //테스트 용
-        latLngsArrayList = (ArrayList<SearchResultItem>)getIntent().getSerializableExtra("search_data");
+        latLngsArrayList = (ArrayList<SearchResultItem>) getIntent().getSerializableExtra("search_data");
 
         slide_out_down = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_out_down);
         slide_in_up = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_in_up);
@@ -221,8 +220,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
                 mappoint.set(mappoint.x, mappoint.y - 30);
                 map.animateCamera(CameraUpdateFactory.newLatLng(map.getProjection().fromScreenLocation(mappoint)));
 
-                LogUtil.e("prePosition", prePosition+"");
-                LogUtil.e("position", position+"");
+                LogUtil.e("prePosition", prePosition + "");
+                LogUtil.e("position", position + "");
 
                 latLngsArrayList.get(position).setIsfocus(true);
                 latLngsArrayList.get(prePosition).setIsfocus(false);
@@ -244,31 +243,31 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
     }
 
-    public void getSearch(){
+    public void getSearch() {
         String url = CONFIG.search_activity_list;
 
-        if(!TextUtils.isEmpty(search_txt)){
-            url +="&search_text="+search_txt;
+        if (!TextUtils.isEmpty(search_txt)) {
+            url += "&search_text=" + search_txt;
         }
-        if(!TextUtils.isEmpty(banner_id)){
-            url +="&banner_id="+banner_id;
+        if (!TextUtils.isEmpty(banner_id)) {
+            url += "&banner_id=" + banner_id;
         }
-        if(!TextUtils.isEmpty(theme_id)){
+        if (!TextUtils.isEmpty(theme_id)) {
             url += "&category=" + theme_id;
         }
-        if(!TextUtils.isEmpty(city)){
+        if (!TextUtils.isEmpty(city)) {
             url += "&city=" + city;
         }
-        if(!TextUtils.isEmpty(order_kind)){
-            url +="&order_kind="+order_kind;
-            if(order_kind.equals("distance")){
-                url +="&lat="+lat+"&lng="+lng;
+        if (!TextUtils.isEmpty(order_kind)) {
+            url += "&order_kind=" + order_kind;
+            if (order_kind.equals("distance")) {
+                url += "&lat=" + lat + "&lng=" + lng;
             }
         }
 
-        url +="&per_page=20";
+        url += "&per_page=20";
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        if(total_count != latLngsArrayList.size()) {
+        if (total_count != latLngsArrayList.size()) {
             Api.get(url + "&page=" + ++Page, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
@@ -335,8 +334,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
                 }
             });
             findViewById(R.id.wrapper).setVisibility(View.GONE);
-        }
-        else{
+        } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
     }
@@ -445,16 +443,16 @@ public class MapAcvitityActivity extends AppCompatActivity {
         }
     }
 
-    public void setLike(final String s_id, final boolean islike){
+    public void setLike(final String s_id, final boolean islike) {
         final String sel_id = s_id;
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -472,17 +470,16 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
                         TuneWrap.Event("favorite_activity_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);
                         mapAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -500,11 +497,11 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
                         TuneWrap.Event("favorite_activity", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"A");
+                        dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
                         mapAdapter.notifyDataSetChanged();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -512,7 +509,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         }
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -525,14 +522,13 @@ public class MapAcvitityActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);

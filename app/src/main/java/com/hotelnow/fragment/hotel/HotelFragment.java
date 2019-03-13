@@ -68,7 +68,7 @@ public class HotelFragment extends Fragment {
     private String strdate, strdate2;
     private SharedPreferences _preferences;
     private String cookie;
-    private  String s_Area = "";
+    private String s_Area = "";
     private String s_Area_id = "";
     private String s_subArea_id = "";
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -110,15 +110,15 @@ public class HotelFragment extends Fragment {
         mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
         mFavoriteStayItem = dbHelper.selectAllFavoriteStayItem();
         mFavoriteActivityItem = dbHelper.selectAllFavoriteActivityItem();
-        if(mFavoriteStayItem.size()>0){
+        if (mFavoriteStayItem.size() > 0) {
             FavoriteStayList = new String[mFavoriteStayItem.size()];
-            for(int i =0; i<mFavoriteStayItem.size();i++){
+            for (int i = 0; i < mFavoriteStayItem.size(); i++) {
                 FavoriteStayList[i] = mFavoriteStayItem.get(i).getSel_id();
             }
         }
-        if(mFavoriteActivityItem.size()>0){
+        if (mFavoriteActivityItem.size() > 0) {
             FavoriteActivityList = new String[mFavoriteActivityItem.size()];
-            for(int i =0; i<mFavoriteActivityItem.size();i++){
+            for (int i = 0; i < mFavoriteActivityItem.size(); i++) {
                 FavoriteActivityList[i] = mFavoriteActivityItem.get(i).getSel_id();
             }
         }
@@ -128,7 +128,7 @@ public class HotelFragment extends Fragment {
 
         getObject();
 
-        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout)getView().findViewById(R.id.swipe);
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) getView().findViewById(R.id.swipe);
         swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -150,7 +150,7 @@ public class HotelFragment extends Fragment {
 
     private void getObject() {
         MainActivity.showProgress();
-        String url = CONFIG.mainHome+"/stay";
+        String url = CONFIG.mainHome + "/stay";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -169,13 +169,12 @@ public class HotelFragment extends Fragment {
                         return;
                     }
 
-                    if(dbHelper.selectAllRecentCity("H").size()>0) {
+                    if (dbHelper.selectAllRecentCity("H").size() > 0) {
                         List<RecentCityItem> RecentArea = dbHelper.selectAllRecentCity("H");
                         s_Area = RecentArea.get(0).getSel_subcity_ko();
                         s_Area_id = RecentArea.get(0).getSel_city_id();
                         s_subArea_id = RecentArea.get(0).getSel_subcity_id();
-                    }
-                    else{
+                    } else {
                         s_Area = "서울전체";
                         s_Area_id = "100_seoul";
                         s_subArea_id = "100_seoul";
@@ -185,9 +184,9 @@ public class HotelFragment extends Fragment {
                     mTopItem.add(new TopItem(s_Area, s_Area_id, s_subArea_id, strdate, strdate2));
                     objects.add(mTopItem.get(0));
 
-                    if(obj.has("promotion_banners")){
+                    if (obj.has("promotion_banners")) {
                         JSONArray p_banner = new JSONArray(obj.getJSONArray("promotion_banners").toString());
-                        if(p_banner.length()>0) {
+                        if (p_banner.length() > 0) {
                             mPbanerItem.clear();
                             for (int i = 0; i < p_banner.length(); i++) {
                                 mPbanerItem.add(new BannerItem(
@@ -208,10 +207,10 @@ public class HotelFragment extends Fragment {
                         }
                     }
 
-                    if(obj.has("private_deals")){
+                    if (obj.has("private_deals")) {
                         JSONArray mPrivate = new JSONArray(obj.getJSONArray("private_deals").toString());
                         mPrivatedealItem.clear();
-                        if(mPrivate.length()>0) {
+                        if (mPrivate.length() > 0) {
                             for (int i = 0; i < mPrivate.length(); i++) {
                                 mPrivatedealItem.add(new PrivateDealItem(
                                         mPrivate.getJSONObject(i).getString("id"),
@@ -233,10 +232,10 @@ public class HotelFragment extends Fragment {
                         }
                     }
 
-                    if(obj.has("stay_hot_deals")){
+                    if (obj.has("stay_hot_deals")) {
                         JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
                         mHotelItem.clear();
-                        if(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length()>0) {
+                        if (obj.getJSONObject("stay_hot_deals").getJSONArray("deals").length() > 0) {
                             for (int i = 0; i < mStay.length(); i++) {
                                 mHotelItem.add(new StayHotDealItem(
                                         mStay.getJSONObject(i).getString("id"),
@@ -261,8 +260,8 @@ public class HotelFragment extends Fragment {
                         }
                     }
 
-                    if(obj.has("theme_show")){
-                        if(obj.getJSONObject("theme_show").length() >0) {
+                    if (obj.has("theme_show")) {
+                        if (obj.getJSONObject("theme_show").length() > 0) {
                             JSONObject mTheme_show = obj.getJSONObject("theme_show");
                             if (mTheme_show.getJSONObject("theme") != null) {
                                 JSONObject mTheme = mTheme_show.getJSONObject("theme");
@@ -288,9 +287,9 @@ public class HotelFragment extends Fragment {
                             }
                         }
                     }
-                    if(obj.has("theme_lists")){
+                    if (obj.has("theme_lists")) {
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
-                        if(mThemeS.length() >0) {
+                        if (mThemeS.length() > 0) {
                             mThemeSItem.clear();
                             for (int i = 0; i < mThemeS.length(); i++) {
                                 mThemeSItem.add(new ThemeSpecialItem(
@@ -338,9 +337,11 @@ public class HotelFragment extends Fragment {
     public ArrayList<TopItem> getTopItem() {
         return mTopItem;
     }
+
     public ArrayList<StayHotDealItem> getHotelData() {
         return mHotelItem;
     }
+
     public ArrayList<BannerItem> getPbannerData() {
         return mPbanerItem;
     }
@@ -349,20 +350,20 @@ public class HotelFragment extends Fragment {
         return mPrivatedealItem;
     }
 
-    public RecyclerView getRecyclerView(){
+    public RecyclerView getRecyclerView() {
         return mHotelBinding.recyclerView;
     }
 
-    public void setStayLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setStayLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getHotelData().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -374,23 +375,22 @@ public class HotelFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         allRefresh();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -402,17 +402,17 @@ public class HotelFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         allRefresh();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -420,16 +420,16 @@ public class HotelFragment extends Fragment {
         }
     }
 
-    public void setPrivateLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setPrivateLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getPrivateDealItem().get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -441,23 +441,22 @@ public class HotelFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay_del", sel_id);
 
-                        dbHelper.deleteFavoriteItem(false,  sel_id,"H");
+                        dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         allRefresh();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -469,17 +468,17 @@ public class HotelFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
                         TuneWrap.Event("favorite_stay", sel_id);
 
-                        dbHelper.insertFavoriteItem(sel_id,"H");
+                        dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         allRefresh();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -487,22 +486,21 @@ public class HotelFragment extends Fragment {
         }
     }
 
-    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter){
+    public void setThemeLike(final int position, final boolean islike, final RecyclerView.Adapter adapter) {
         final String sel_id = getThemeData().get(position).getId();
         final String sel_type = getThemeData().get(position).getTheme_flag();
         JSONObject paramObj = new JSONObject();
         try {
-            if(sel_type.equals("H")) {
+            if (sel_type.equals("H")) {
                 paramObj.put("type", "stay");
-            }
-            else{
+            } else {
                 paramObj.put("type", "activity");
             }
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
-        if(islike){// 취소
+        if (islike) {// 취소
             Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -514,28 +512,26 @@ public class HotelFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
 
-                        if(sel_type.equals("H")) {
+                        if (sel_type.equals("H")) {
                             TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                         allRefresh();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
             });
-        }
-        else{// 성공
+        } else {// 성공
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -547,21 +543,20 @@ public class HotelFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(body);
                         if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                            ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                            ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        if(sel_type.equals("H")) {
+                        if (sel_type.equals("H")) {
                             TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
-                        }
-                        else{
+                        } else {
                             TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
-                        ((MainActivity)getActivity()).showIconToast("관심 상품 담기 성공", true);
+                        ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
                         allRefresh();
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                 }
@@ -569,7 +564,7 @@ public class HotelFragment extends Fragment {
         }
     }
 
-    public void allRefresh(){
+    public void allRefresh() {
         adapter.setAllRefresh();
     }
 
@@ -586,30 +581,27 @@ public class HotelFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80 && resultCode == 80){
-            if(data != null) {
+        if (requestCode == 80 && resultCode == 80) {
+            if (data != null) {
                 mTopItem.clear();
                 mTopItem.add(new TopItem(data.getStringExtra("city"), data.getStringExtra("city_code"), data.getStringExtra("subcity_code"), data.getStringExtra("ec_date"), data.getStringExtra("ee_date")));
                 adapter.setHeaderRefresh();
-            }
-            else {
+            } else {
                 allRefresh();
             }
-        }
-        else if(requestCode == 70){
+        } else if (requestCode == 70) {
             adapter.setAllRefresh();
-            if(resultCode == 110){
-                ((MainActivity)getActivity()).setTitle();
-                ((MainActivity)getActivity()).setTapdelete("MYPAGE");
+            if (resultCode == 110) {
+                ((MainActivity) getActivity()).setTitle();
+                ((MainActivity) getActivity()).setTapdelete("MYPAGE");
             }
+        } else if (resultCode == 110) {
+            ((MainActivity) getActivity()).setTitle();
+            ((MainActivity) getActivity()).setTapdelete("MYPAGE");
         }
-        else if(resultCode == 110){
-            ((MainActivity)getActivity()).setTitle();
-            ((MainActivity)getActivity()).setTapdelete("MYPAGE");
-        }
-        if(resultCode == 100){
-            if(cookie == null) {
-                CONFIG.TabLogin=false;
+        if (resultCode == 100) {
+            if (cookie == null) {
+                CONFIG.TabLogin = false;
                 return;
             }
             ((MainActivity) getActivity()).moveTabReservation();

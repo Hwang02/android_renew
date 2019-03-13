@@ -56,25 +56,23 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
         final BookingQEntry entry = getItem(position);
 
         holder.hotel_name.setText(entry.getDeal_name());
-        holder.hotel_reser_date.setText("예약일 : "+entry.getCreated_at_format());
+        holder.hotel_reser_date.setText("예약일 : " + entry.getCreated_at_format());
 
         Ion.with(holder.iv_img).load(entry.getImg_url());
 
-        if(entry.getStatus_detail().equals("inprogress")){
+        if (entry.getStatus_detail().equals("inprogress")) {
             // 대기
             holder.booking_status.setBackgroundResource(R.drawable.bg_round_status_inpro);
-        }
-        else if(entry.getStatus_detail().equals("used") || entry.getStatus_detail().equals("cancel") || entry.getStatus_detail().equals("expiration")){
+        } else if (entry.getStatus_detail().equals("used") || entry.getStatus_detail().equals("cancel") || entry.getStatus_detail().equals("expiration")) {
             // 사용완료
             holder.booking_status.setBackgroundResource(R.drawable.bg_round_status_can_comple);
-        }
-        else {
+        } else {
             //결제만료
             holder.booking_status.setBackgroundResource(R.drawable.bg_round_status_book);
         }
         holder.booking_status.setText(entry.getStatus_display());
 
-        if(entry.getStatus().equals("booked") && entry.getIs_review_writable().equals("Y")){
+        if (entry.getStatus().equals("booked") && entry.getIs_review_writable().equals("Y")) {
             holder.btn_review.setVisibility(View.VISIBLE);
             holder.review_text1.setText(entry.getReview_writable_words_1());
             holder.review_text2.setText(entry.getReview_writable_words_2());
@@ -90,16 +88,16 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
                     mActivity.startActivityForResult(intent, 90);
                 }
             });
-        } else{
+        } else {
             holder.btn_review.setVisibility(View.GONE);
         }
 
-        holder.not_used_count.setText(entry.getNot_used_ticket_count()+"장");
-        holder.used_count.setText(entry.getUsed_ticket_count()+"장");
-        holder.cancel_count.setText(entry.getCancel_ticket_count()+"장");
+        holder.not_used_count.setText(entry.getNot_used_ticket_count() + "장");
+        holder.used_count.setText(entry.getUsed_ticket_count() + "장");
+        holder.cancel_count.setText(entry.getCancel_ticket_count() + "장");
         holder.aid.setText(entry.getId());
 
-        if(mlist.size()-2 == position){
+        if (mlist.size() - 2 == position) {
             mActivity.getBookingList();
         }
 

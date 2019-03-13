@@ -38,7 +38,7 @@ public class HotDealActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        m_Selecttab = intent.getIntExtra("tab",0);
+        m_Selecttab = intent.getIntExtra("tab", 0);
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         view_pager = (ViewPager) findViewById(R.id.view_pager);
@@ -62,7 +62,7 @@ public class HotDealActivity extends AppCompatActivity {
                             view_pager.setCurrentItem(1);
                         }
                     }
-                },100);
+                }, 100);
 
         mAdapter = new HotDealPagerAdapter(this, getSupportFragmentManager());
         view_pager.setAdapter(mAdapter);
@@ -92,7 +92,7 @@ public class HotDealActivity extends AppCompatActivity {
         });
     }
 
-    public void showToast(String msg){
+    public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
         findViewById(R.id.ico_favorite).setVisibility(View.GONE);
@@ -105,14 +105,13 @@ public class HotDealActivity extends AppCompatActivity {
                 }, 1500);
     }
 
-    public void showIconToast(String msg, boolean is_fav){
+    public void showIconToast(String msg, boolean is_fav) {
         toast_layout.setVisibility(View.VISIBLE);
         tv_toast.setText(msg);
 
-        if(is_fav) { // 성공
+        if (is_fav) { // 성공
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
-        }
-        else{ // 취소
+        } else { // 취소
             ico_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite);
         }
         ico_favorite.setVisibility(View.VISIBLE);
@@ -149,7 +148,7 @@ public class HotDealActivity extends AppCompatActivity {
 
     public void toolbarAnimateHide() {
         tabLayout.animate()
-                .translationY(-tabLayout.getHeight() - findViewById(R.id.message).getHeight() - findViewById(R.id.magrin_view).getHeight() -1)
+                .translationY(-tabLayout.getHeight() - findViewById(R.id.message).getHeight() - findViewById(R.id.magrin_view).getHeight() - 1)
                 .setInterpolator(new LinearInterpolator())
                 .setDuration(0)
                 .setListener(new AnimatorListenerAdapter() {
@@ -165,7 +164,7 @@ public class HotDealActivity extends AppCompatActivity {
                         findViewById(R.id.line).setVisibility(View.GONE);
                         findViewById(R.id.magrin_view).setVisibility(View.GONE);
                     }
-            });
+                });
     }
 
     @Override
@@ -174,7 +173,7 @@ public class HotDealActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public void finished(){
+    public void finished() {
         setResult(80);
         finish();
     }
@@ -183,7 +182,7 @@ public class HotDealActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             setResult(80);
             finish();
         }

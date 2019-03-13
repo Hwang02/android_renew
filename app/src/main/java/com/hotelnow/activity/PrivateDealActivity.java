@@ -15,6 +15,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -32,7 +33,7 @@ import java.util.Random;
  */
 public class PrivateDealActivity extends FragmentActivity {
     private WebView webview;
-    private String linkUrl, pid, bid_id, ec_date, ee_date, bid, city="", hotel_name="", hid;
+    private String linkUrl, pid, bid_id, ec_date, ee_date, bid, city = "", hotel_name = "", hid;
     private final Handler handler = new Handler();
 
     @Override
@@ -42,10 +43,10 @@ public class PrivateDealActivity extends FragmentActivity {
 
         Util.setStatusColor(this);
 
-        webview = (WebView)findViewById(R.id.webview);
+        webview = (WebView) findViewById(R.id.webview);
 
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             linkUrl = intent.getStringExtra("url");
             pid = intent.getStringExtra("pid");
             bid_id = intent.getStringExtra("bid_id");
@@ -86,7 +87,7 @@ public class PrivateDealActivity extends FragmentActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if(url.contains("plusfriend")){
+            if (url.contains("plusfriend")) {
                 // 옐로우 아이디 처리
                 Util.kakaoYelloId(PrivateDealActivity.this);
                 finish();
@@ -102,7 +103,7 @@ public class PrivateDealActivity extends FragmentActivity {
                 startActivity(i);
                 return true;
 
-            } else if(url.contains("www.hotelnow.co.kr")){
+            } else if (url.contains("www.hotelnow.co.kr")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
 
@@ -119,12 +120,11 @@ public class PrivateDealActivity extends FragmentActivity {
         }
     }
 
-    private class DetailInterface
-    {
+    private class DetailInterface {
         @JavascriptInterface
         public void openPurchaseActivity(int accepted_price) {
             TuneWrap.Event("stay_private_reservation", hid);
-            Log.e("webview", "accepted_price : "+accepted_price);
+            Log.e("webview", "accepted_price : " + accepted_price);
             Intent intent = new Intent(PrivateDealActivity.this, ReservationActivity.class);
             intent.putExtra("page", "Private");
             intent.putExtra("pid", pid);
@@ -146,7 +146,7 @@ public class PrivateDealActivity extends FragmentActivity {
         }
 
         @JavascriptInterface
-        public void proposalActivity(){
+        public void proposalActivity() {
 //            프라이빗딜 제안하기
 //            api 호출
             TuneWrap.Event("stay_private_accept", hid);
@@ -164,8 +164,7 @@ public class PrivateDealActivity extends FragmentActivity {
             returnIntent.putExtra("ee_date", ee_date);
             setResult(80, returnIntent);
             finish();
-        }
-        else if (responseCode == 100) {
+        } else if (responseCode == 100) {
             setResult(100);
             finish();
         }
@@ -174,7 +173,7 @@ public class PrivateDealActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(webview != null)
+        if (webview != null)
             webview.destroy();
     }
 
@@ -201,12 +200,12 @@ public class PrivateDealActivity extends FragmentActivity {
         super.onStop();
     }
 
-    private void setPrivateDealProposal(){
+    private void setPrivateDealProposal() {
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("room_id", bid);
             paramObj.put("ec_date", ec_date);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
         Api.post(CONFIG.privateDeaProposalUrl, paramObj.toString(), new Api.HttpCallback() {

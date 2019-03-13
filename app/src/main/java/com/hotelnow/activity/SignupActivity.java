@@ -77,42 +77,42 @@ public class SignupActivity extends Activity {
         TuneWrap.Event("Signup");
 
         // 휴대폰 앞번호
-        phone_prefixs= getResources().getStringArray(R.array.phone_prefix);
+        phone_prefixs = getResources().getStringArray(R.array.phone_prefix);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(SignupActivity.this, android.R.layout.simple_spinner_dropdown_item, phone_prefixs);
-        phone_first = (Spinner)findViewById(R.id.phone_num_1);
+        phone_first = (Spinner) findViewById(R.id.phone_num_1);
         phone_first.setAdapter(adapter);
 
         // 인증번호 버튼, 확인버튼, 입력
-        btn_auth = (Button)findViewById(R.id.btn_auth);
-        auth_ok = (TextView)findViewById(R.id.auth_ok);
-        auth_string = (EditText)findViewById(R.id.auth_string);
-        auth_count = (TextView)findViewById(R.id.auth_count);
-        remain_count = (TextView)findViewById(R.id.remain_count);
-        auth_layout = (LinearLayout)findViewById(R.id.auth_layout);
+        btn_auth = (Button) findViewById(R.id.btn_auth);
+        auth_ok = (TextView) findViewById(R.id.auth_ok);
+        auth_string = (EditText) findViewById(R.id.auth_string);
+        auth_count = (TextView) findViewById(R.id.auth_count);
+        remain_count = (TextView) findViewById(R.id.remain_count);
+        auth_layout = (LinearLayout) findViewById(R.id.auth_layout);
 
         // 인증번호 버튼, 확인버튼, 입력
-        email = (EditText)findViewById(R.id.email);
-        passwd = (EditText)findViewById(R.id.passwd);
-        username = (EditText)findViewById(R.id.username);
-        phone_num_2 = (EditText)findViewById(R.id.phone_num_2);
-        phone_num_3 = (EditText)findViewById(R.id.phone_num_3);
-        all_checkbox = (CheckBox)findViewById(R.id.all_checkbox);
-        agree_checkbox0 = (CheckBox)findViewById(R.id.agree_checkbox0);
-        agree_checkbox1 = (CheckBox)findViewById(R.id.agree_checkbox1);
-        agree_checkbox2 = (CheckBox)findViewById(R.id.agree_checkbox2);
-        agree_checkbox3 = (CheckBox)findViewById(R.id.agree_checkbox3);
-        agree_checkbox4 = (CheckBox)findViewById(R.id.agree_checkbox4);
+        email = (EditText) findViewById(R.id.email);
+        passwd = (EditText) findViewById(R.id.passwd);
+        username = (EditText) findViewById(R.id.username);
+        phone_num_2 = (EditText) findViewById(R.id.phone_num_2);
+        phone_num_3 = (EditText) findViewById(R.id.phone_num_3);
+        all_checkbox = (CheckBox) findViewById(R.id.all_checkbox);
+        agree_checkbox0 = (CheckBox) findViewById(R.id.agree_checkbox0);
+        agree_checkbox1 = (CheckBox) findViewById(R.id.agree_checkbox1);
+        agree_checkbox2 = (CheckBox) findViewById(R.id.agree_checkbox2);
+        agree_checkbox3 = (CheckBox) findViewById(R.id.agree_checkbox3);
+        agree_checkbox4 = (CheckBox) findViewById(R.id.agree_checkbox4);
 
         SpannableStringBuilder builder = new SpannableStringBuilder("할인 혜택 알림 수신동의(선택)");
         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 14, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_checkbox4.setText(builder);
 
         Intent intent = getIntent();
-        emailval = intent.getStringExtra("email") != null? intent.getStringExtra("email"):"";
-        snsid = intent.getStringExtra("snsid") != null? intent.getStringExtra("snsid"):"";
-        utype = intent.getStringExtra("utype") != null? intent.getStringExtra("utype"):"";
+        emailval = intent.getStringExtra("email") != null ? intent.getStringExtra("email") : "";
+        snsid = intent.getStringExtra("snsid") != null ? intent.getStringExtra("snsid") : "";
+        utype = intent.getStringExtra("utype") != null ? intent.getStringExtra("utype") : "";
 
-        if(!emailval.equals("")) {
+        if (!emailval.equals("")) {
             email.setText(emailval);
         }
 
@@ -139,7 +139,7 @@ public class SignupActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     auth_ok.setClickable(true);
                     auth_ok.setBackgroundResource(R.drawable.purple_and_white_round);
                     auth_ok.setTextColor(ContextCompat.getColor(SignupActivity.this, R.color.purple));
@@ -160,7 +160,7 @@ public class SignupActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     btn_auth.setClickable(true);
                     btn_auth.setBackgroundResource(R.color.purple);
                 }
@@ -180,7 +180,7 @@ public class SignupActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     btn_auth.setClickable(true);
                     btn_auth.setBackgroundResource(R.color.purple);
                 }
@@ -212,9 +212,10 @@ public class SignupActivity extends Activity {
                 String phone_number_ful = phone_num_1 + "-" + phone_num_2.getText().toString() + "-" + phone_num_3.getText().toString();
 
                 JSONObject paramObj = new JSONObject();
-                try{
+                try {
                     paramObj.put("phone_number", phone_number_ful);
-                } catch (JSONException e) {}
+                } catch (JSONException e) {
+                }
 
                 Api.post(CONFIG.phone_auth, paramObj.toString(), new Api.HttpCallback() {
 
@@ -254,7 +255,7 @@ public class SignupActivity extends Activity {
 
                             //카운트, 타이머 show
                             auth_count.setVisibility(View.VISIBLE);
-                            remain_count.setText("인증번호가 발송되었습니다 ( 남은횟수 "+obj.getString("remain_count")+"회 )");
+                            remain_count.setText("인증번호가 발송되었습니다 ( 남은횟수 " + obj.getString("remain_count") + "회 )");
                             remain_count.setVisibility(View.VISIBLE);
                             AuthCodeTimmer();
 
@@ -284,7 +285,7 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
-                if(auth_string.getText().toString().trim().length() < 1){
+                if (auth_string.getText().toString().trim().length() < 1) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_auth), Toast.LENGTH_SHORT).show();
                     phone_num_3.requestFocus();
                     return;
@@ -294,10 +295,11 @@ public class SignupActivity extends Activity {
                 String phone_number_ful = phone_num_1 + "-" + phone_num_2.getText().toString() + "-" + phone_num_3.getText().toString();
 
                 JSONObject paramObj = new JSONObject();
-                try{
+                try {
                     paramObj.put("phone_number", phone_number_ful);
                     paramObj.put("phone_auth_code", auth_string.getText().toString());
-                } catch (JSONException e) {}
+                } catch (JSONException e) {
+                }
 
                 Api.post(CONFIG.phone_auth_check, paramObj.toString(), new Api.HttpCallback() {
 
@@ -310,7 +312,7 @@ public class SignupActivity extends Activity {
 
                     @Override
                     public void onSuccess(Map<String, String> headers, String body) {
-                        try{
+                        try {
                             JSONObject obj = new JSONObject(body);
 
                             if (!obj.getString("result").equals("success")) {
@@ -337,7 +339,7 @@ public class SignupActivity extends Activity {
                             setUseableEditText(phone_num_2, false);
                             setUseableEditText(phone_num_3, false);
 
-                            if(countDownTimer != null) {
+                            if (countDownTimer != null) {
                                 countDownTimer.cancel();
                             }
                             auth_layout.setVisibility(View.GONE);
@@ -354,7 +356,7 @@ public class SignupActivity extends Activity {
         });
 
         // 서비스 이용약관 동의
-        TextView show_agreement1 = (TextView)findViewById(R.id.show_agreement1);
+        TextView show_agreement1 = (TextView) findViewById(R.id.show_agreement1);
         show_agreement1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -362,12 +364,12 @@ public class SignupActivity extends Activity {
                 intent.putExtra("url", CONFIG.setting_agree1);
                 intent.putExtra("title", getString(R.string.term_txt1));
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
         // 개인정보 취급방침 동의
-        TextView show_agreement2 = (TextView)findViewById(R.id.show_agreement2);
+        TextView show_agreement2 = (TextView) findViewById(R.id.show_agreement2);
         show_agreement2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -375,12 +377,12 @@ public class SignupActivity extends Activity {
                 intent.putExtra("url", CONFIG.setting_agree2);
                 intent.putExtra("title", getString(R.string.term_txt2));
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
         // 위치기반서비스 이용약관 동의
-        TextView show_agreement3 = (TextView)findViewById(R.id.show_agreement3);
+        TextView show_agreement3 = (TextView) findViewById(R.id.show_agreement3);
         show_agreement3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -388,13 +390,13 @@ public class SignupActivity extends Activity {
                 intent.putExtra("url", CONFIG.setting_agree3);
                 intent.putExtra("title", getString(R.string.term_txt3));
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
 
 
         // 가입 하기
-        Button btn_signin = (Button)findViewById(R.id.btn_signin);
+        Button btn_signin = (Button) findViewById(R.id.btn_signin);
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -422,7 +424,7 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
-                if(!Util.isValidName(username.getText().toString())){
+                if (!Util.isValidName(username.getText().toString())) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_name_emoji), Toast.LENGTH_SHORT).show();
                     username.requestFocus();
                     return;
@@ -467,8 +469,7 @@ public class SignupActivity extends Activity {
 
                 if (agree_checkbox4.isChecked() != true) {
                     marketing_yn = "N";
-                }
-                else {
+                } else {
                     marketing_yn = "Y";
                 }
 
@@ -477,7 +478,7 @@ public class SignupActivity extends Activity {
                 phone_number = phone_num_1 + "-" + phone_num_2.getText().toString() + "-" + phone_num_3.getText().toString();
 
                 JSONObject paramObj = new JSONObject();
-                try{
+                try {
                     paramObj.put("email", email.getText().toString());
                     paramObj.put("utype", utype);
                     paramObj.put("snsid", snsid);
@@ -488,8 +489,9 @@ public class SignupActivity extends Activity {
                     paramObj.put("useragent", Util.getUserAgent(SignupActivity.this));
                     paramObj.put("uuid", Util.getAndroidId(SignupActivity.this));
                     paramObj.put("phone_auth", is_auth);
-                    paramObj.put("marketing_yn",marketing_yn);
-                } catch (JSONException e) {}
+                    paramObj.put("marketing_yn", marketing_yn);
+                } catch (JSONException e) {
+                }
 
                 Api.post(CONFIG.signupUrl, paramObj.toString(), new Api.HttpCallback() {
                     @Override
@@ -517,10 +519,10 @@ public class SignupActivity extends Activity {
                             int reserve_money = info.getInt("reserve_money");
 
                             SharedPreferences.Editor prefEditor = _preferences.edit();
-                            prefEditor.putString("email", "HN|"+ AES256Chiper.AES_Encode(email.getText().toString()));
-                            prefEditor.putString("username", "HN|"+ AES256Chiper.AES_Encode(username));
-                            prefEditor.putString("phone", "HN|"+ AES256Chiper.AES_Encode(phone));
-                            prefEditor.putString("userid", "HN|"+ AES256Chiper.AES_Encode(userid));
+                            prefEditor.putString("email", "HN|" + AES256Chiper.AES_Encode(email.getText().toString()));
+                            prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(username));
+                            prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(phone));
+                            prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
                             prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
 
@@ -565,22 +567,21 @@ public class SignupActivity extends Activity {
     }
 
     private void setUseableSpinner(Spinner sp, boolean useable) {
-        if(sp != null){
+        if (sp != null) {
             sp.setClickable(useable);
             sp.setEnabled(useable);
             sp.setFocusable(useable);
             sp.setFocusableInTouchMode(useable);
-            if(useable) {
+            if (useable) {
                 sp.setBackgroundResource(R.drawable.selectbox2);
-            }
-            else{
+            } else {
                 sp.setBackgroundResource(R.drawable.selectbox2_dis);
             }
         }
     }
 
     private void setUseableEditText(EditText et, boolean useable) {
-        if(et != null) {
+        if (et != null) {
             et.setClickable(useable);
             et.setEnabled(useable);
             et.setFocusable(useable);
@@ -593,7 +594,7 @@ public class SignupActivity extends Activity {
         }
     }
 
-    private void authReset(){
+    private void authReset() {
         // 인증하기 버튼 활성화
         auth_ok.setBackgroundResource(R.drawable.purple_and_white_round);
         auth_ok.setTextColor(ContextCompat.getColor(this, R.color.white));
@@ -606,20 +607,17 @@ public class SignupActivity extends Activity {
         //카운트, 타이머 show
         auth_count.setVisibility(View.GONE);
 
-        if(countDownTimer != null) {
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
 
     // 인증번호 타이머
-    public void AuthCodeTimmer()
-    {
+    public void AuthCodeTimmer() {
         // 타이머 설정
-        countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL)
-        {
+        countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             @Override
-            public void onFinish()
-            {
+            public void onFinish() {
                 // 인증하기 버튼 비활성화
                 auth_ok.setBackgroundResource(R.drawable.style_edittext_gray_border);
                 auth_ok.setTextColor(ContextCompat.getColor(SignupActivity.this, R.color.coupon_dis));
@@ -636,15 +634,15 @@ public class SignupActivity extends Activity {
                 setUseableEditText(phone_num_3, true);
                 setUseableSpinner(phone_first, true);
             }
+
             @Override
-            public void onTick(long millisUntilFinished)
-            {
+            public void onTick(long millisUntilFinished) {
                 long AuthCount = millisUntilFinished / 1000;
 
                 if ((AuthCount - ((AuthCount / 60) * 60)) >= 10) { //초가 10보다 크면 그냥 출력
-                    auth_count.setText("("+(AuthCount / 60) + " : " + (AuthCount - ((AuthCount / 60) * 60))+")");
+                    auth_count.setText("(" + (AuthCount / 60) + " : " + (AuthCount - ((AuthCount / 60) * 60)) + ")");
                 } else { //초가 10보다 작으면 앞에 '0' 붙여서 같이 출력. ex) 02,03,04...
-                    auth_count.setText("("+(AuthCount / 60) + " : 0" + (AuthCount - ((AuthCount / 60) * 60))+")");
+                    auth_count.setText("(" + (AuthCount / 60) + " : 0" + (AuthCount - ((AuthCount / 60) * 60)) + ")");
                 }
             }
         };
@@ -666,12 +664,12 @@ public class SignupActivity extends Activity {
         @Override
         public void onClick(View v) {
             JSONObject paramObj = new JSONObject();
-            try{
+            try {
                 paramObj.put("code", String.valueOf(codeInput.getText()).trim());
-                paramObj.put("target_id", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+                paramObj.put("target_id", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
+            } catch (JSONException e) {
+            } catch (Exception e) {
             }
-            catch (JSONException e) {}
-            catch (Exception e) {}
 
             Api.post(CONFIG.recommendSaveUrl, paramObj.toString(), new Api.HttpCallback() {
                 @Override
@@ -702,8 +700,8 @@ public class SignupActivity extends Activity {
     };
 
     // 회원가입 종료
-    private void finishSignup(){
-        if(countDownTimer != null) {
+    private void finishSignup() {
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
         Intent intent = new Intent();
@@ -722,8 +720,8 @@ public class SignupActivity extends Activity {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
             Rect outRect = new Rect();
-            if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                if(v != null) {
+            if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                if (v != null) {
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }

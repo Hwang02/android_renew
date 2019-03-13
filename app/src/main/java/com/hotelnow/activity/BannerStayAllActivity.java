@@ -52,9 +52,9 @@ public class BannerStayAllActivity extends Activity {
         getData();
     }
 
-    private void getData(){
+    private void getData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        Api.get(CONFIG.banner_list+"?category=promotion&view=stay", new Api.HttpCallback() {
+        Api.get(CONFIG.banner_list + "?category=promotion&view=stay", new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -70,10 +70,10 @@ public class BannerStayAllActivity extends Activity {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
 
-                    if(obj.has("banners")){
-                        if(obj.getJSONArray("banners").length()>0) {
+                    if (obj.has("banners")) {
+                        if (obj.getJSONArray("banners").length() > 0) {
                             JSONArray banners = new JSONArray(obj.getJSONArray("banners").toString());
-                            for(int i =0; i<banners.length(); i++){
+                            for (int i = 0; i < banners.length(); i++) {
                                 JSONObject entry = banners.getJSONObject(i);
                                 mItems.add(new BannerItem(
                                         entry.getString("id"),

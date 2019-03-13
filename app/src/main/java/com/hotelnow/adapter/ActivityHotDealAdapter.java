@@ -51,39 +51,35 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getImg_url());
 
-        if(data.get(position).getSale_rate().equals("0")){
+        if (data.get(position).getSale_rate().equals("0")) {
             holder.tv_per.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_per.setVisibility(View.VISIBLE);
         }
-        holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
+        holder.tv_per.setText(data.get(position).getSale_rate() + "%↓");
 
-        if(data.get(position).getGrade_score().equals("0.0")){
+        if (data.get(position).getGrade_score().equals("0.0")) {
             holder.tv_score.setVisibility(View.GONE);
             holder.text_bar.setVisibility(View.GONE);
             holder.img_star.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_score.setVisibility(View.VISIBLE);
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
 
-        if(data.get(position).getCoupon_count() >0){
+        if (data.get(position).getCoupon_count() > 0) {
             holder.soon_discount.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_discount.setVisibility(View.GONE);
         }
-        if(data.get(position).getIs_add_reserve().equals("Y")){
+        if (data.get(position).getIs_add_reserve().equals("Y")) {
             holder.soon_point.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        if(dbHelper.selectAllFavoriteActivityItem().size() > 0) {
+        if (dbHelper.selectAllFavoriteActivityItem().size() > 0) {
             for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
                 if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
                     holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -94,8 +90,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
                     holder.islike = false;
                 }
             }
-        }
-        else{
+        } else {
             holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             holder.islike = false;
         }
@@ -104,8 +99,8 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         holder.btn_favorite.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setActivityLike((int)v.getTag(), holder.islike, ActivityHotDealAdapter.this);
+                LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
+                hf.setActivityLike((int) v.getTag(), holder.islike, ActivityHotDealAdapter.this);
             }
         });
 
@@ -113,12 +108,12 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         holder.sel_item.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                TuneWrap.Event("HotDeal_activity", data.get((int)v.getTag()).getId());
-                LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
+                TuneWrap.Event("HotDeal_activity", data.get((int) v.getTag()).getId());
+                LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
-                intent.putExtra("tid", data.get((int)v.getTag()).getId()+"");
+                intent.putExtra("tid", data.get((int) v.getTag()).getId() + "");
                 intent.putExtra("save", true);
-                hf.startActivityForResult(intent,80);
+                hf.startActivityForResult(intent, 80);
             }
         });
     }

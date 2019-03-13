@@ -50,13 +50,13 @@ public class AreaHotelActivity extends Activity {
         mSubCity = new ArrayList<SubCityItem>();
 
         // tabview
-        mSelectAdapter = new AreaSelectAdapter( this, 0, mCity);
+        mSelectAdapter = new AreaSelectAdapter(this, 0, mCity);
         select_view = (ListView) findViewById(R.id.select_view);
         select_view.setAdapter(mSelectAdapter);
         // tabview
 
         // resultview
-        mResultAdapter = new AreaResultAdapter( this, 0, mSubCity);
+        mResultAdapter = new AreaResultAdapter(this, 0, mSubCity);
         result_view = (ListView) findViewById(R.id.result_view);
         result_view.setAdapter(mResultAdapter);
         // end resultview
@@ -71,13 +71,12 @@ public class AreaHotelActivity extends Activity {
         select_view.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
+                if (position == 0) {
                     getMonthList();
                     mSubCity.clear();
                     findViewById(R.id.layout_noarea).setVisibility(View.VISIBLE);
                     result_view.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     mSubCity.clear();
                     findViewById(R.id.layout_noarea).setVisibility(View.GONE);
                     result_view.setVisibility(View.VISIBLE);
@@ -102,13 +101,13 @@ public class AreaHotelActivity extends Activity {
 
                 TuneWrap.Event("city_stay", cityKo, subCityKo);
 
-                Intent intent  = new Intent();
+                Intent intent = new Intent();
                 intent.putExtra("city", mSubCity.get(position).getSubcity_ko());
                 intent.putExtra("city_code", mCity.get(tabPostion).getCity_code());
                 intent.putExtra("subcity_code", mSubCity.get(position).getSubcity_code());
                 intent.putExtra("ec_date", TextUtils.isEmpty(strdate) ? "" : strdate);
                 intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
-                setResult(80,intent);
+                setResult(80, intent);
                 finish();
 
                 // 검색페이지 이동
@@ -116,7 +115,7 @@ public class AreaHotelActivity extends Activity {
         });
 
         //default 0번째 선택
-        select_view.performItemClick(select_view,0, select_view.getAdapter().getItemId(0));
+        select_view.performItemClick(select_view, 0, select_view.getAdapter().getItemId(0));
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -127,10 +126,10 @@ public class AreaHotelActivity extends Activity {
         getMonthList();
     }
 
-    public void getMonthList(){
+    public void getMonthList() {
         month_list.removeAllViews();
         mRecentCity = dbHelper.selectAllRecentCity("H");
-        if(mRecentCity.size() >0) {
+        if (mRecentCity.size() > 0) {
             for (int i = 0; i < mRecentCity.size(); i++) {
                 View view_recent = LayoutInflater.from(AreaHotelActivity.this).inflate(R.layout.layout_recent_area_item, null);
                 TextView tv_recent = (TextView) view_recent.findViewById(R.id.tv_recent);
@@ -154,8 +153,7 @@ public class AreaHotelActivity extends Activity {
                 });
                 month_list.addView(view_recent);
             }
-        }
-        else {
+        } else {
 //            최근 조회 지역이 없습니다
             View view_recent = LayoutInflater.from(AreaHotelActivity.this).inflate(R.layout.layout_recent_area_item, null);
             ImageView ico_location = (ImageView) view_recent.findViewById(R.id.ico_location);

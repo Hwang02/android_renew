@@ -1,10 +1,9 @@
 package com.hotelnow.fragment.model;
 
 
-
 public class BannerItem {
 
-    private String id, order, category, image, keyword, type, evt_type, event_id,  link, title, sub_title;
+    private String id, order, category, image, keyword, type, evt_type, event_id, link, title, sub_title;
 
     public BannerItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String title, String sub_title) {
         this.id = id;

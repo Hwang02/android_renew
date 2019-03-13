@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -88,7 +89,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
     private Bitmap b = null;
     private Bitmap smallMarker = null;
     private Bitmap sel_smallMarker = null;
-    private String deal_name="";
+    private String deal_name = "";
     private String url;
     private int zoom;
 
@@ -106,7 +107,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
         info = (RelativeLayout) findViewById(R.id.info);
 
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             hid = intent.getStringExtra("hid");
             lat = intent.getStringExtra("lat");
             lng = intent.getStringExtra("lng");
@@ -133,7 +134,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
             public void onClick(View v) {
                 dialogConfirm = new DialogConfirm(
                         getString(R.string.alert_notice),
-                        getString(R.string.booking_kimkisa_ask)+"\n목적지 : "+deal_name,
+                        getString(R.string.booking_kimkisa_ask) + "\n목적지 : " + deal_name,
                         getString(R.string.alert_no),
                         getString(R.string.alert_yes),
                         ActivityMapActivity.this,
@@ -146,7 +147,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String url = "kimgisa://navigate?name="+deal_name+"&coord_type=wgs84&pos_x="+lng+"&pos_y="+lat+"&return_uri=com.hotelnow.activities.ActLoading&key="+CONFIG.kimgisaKey;
+                                String url = "kimgisa://navigate?name=" + deal_name + "&coord_type=wgs84&pos_x=" + lng + "&pos_y=" + lat + "&return_uri=com.hotelnow.activities.ActLoading&key=" + CONFIG.kimgisaKey;
                                 String strAppPackage = "com.locnall.KimGiSa";
                                 PackageManager pm = getPackageManager();
 
@@ -183,7 +184,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
         });
     }
 
-    private void setMainMarker(){
+    private void setMainMarker() {
         LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom));
@@ -222,10 +223,10 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
         setUpMap();
     }
 
-    public void getList(){
+    public void getList() {
         setCustomMarkerView();
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        url = CONFIG.ticketUrl+"?order_kind=distance"+"&lat="+lat+"&lng="+lng+"&page=1";
+        url = CONFIG.ticketUrl + "?order_kind=distance" + "&lat=" + lat + "&lng=" + lng + "&page=1";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -251,7 +252,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                     JSONArray data = obj.getJSONArray("lists");
                     JSONArray feed = new JSONArray(data.toString());
                     float zindex = 1;
-                    for(int i = 0; i < feed.length(); i++) {
+                    for (int i = 0; i < feed.length(); i++) {
                         LatLng hotel = new LatLng(data.getJSONObject(i).getDouble("latitude"), data.getJSONObject(i).getDouble("longitude"));
 //                        IconGenerator iconFactory = new IconGenerator(ActivityMapActivity.this);
 //                        int color = getResources().getIdentifier(data.getJSONObject(i).getString("category"), "color", getPackageName());
@@ -319,7 +320,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
 
                 if (obj.length() == 0) return true;
 
-                if (preMarker != null && preobj !=null) {
+                if (preMarker != null && preobj != null) {
 //                                preMarker.setAlpha(0.7f);
                     tv_marker.setBackgroundResource(R.drawable.map_marker_price_act);
                     tv_marker.setTextColor(ContextCompat.getColor(ActivityMapActivity.this, R.color.white));
@@ -385,7 +386,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
         if (flag_use_location) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if(ActivityCompat.checkSelfPermission(ActivityMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(ActivityMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ActivityMapActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_LOCATION);
                 }
             } else {
@@ -403,7 +404,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
             }
             Util.setPreferenceValues(_preferences, "flag_use_location", true);
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mGoogleMap.setMyLocationEnabled(true);
             }
 
@@ -440,7 +441,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
         @Override
         public View getInfoWindow(Marker marker) {
             View v = ((Activity) context).getLayoutInflater().inflate(R.layout.map_info_window, null);
-            if(isTicket && marker.getSnippet().equals("0")){
+            if (isTicket && marker.getSnippet().equals("0")) {
                 v.findViewById(R.id.txt).setBackgroundColor(Color.parseColor("#4f2680"));
             }
             return v;
@@ -449,7 +450,7 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
         @Override
         public View getInfoContents(Marker marker) {
             View view = ((Activity) context).getLayoutInflater().inflate(R.layout.map_info_window, null);
-            if(isTicket && marker.getSnippet().equals("0")){
+            if (isTicket && marker.getSnippet().equals("0")) {
                 view.findViewById(R.id.txt).setBackgroundColor(Color.parseColor("#4f2680"));
             }
             return view;

@@ -62,10 +62,10 @@ public class FavoriteActivityFragment extends Fragment {
     private RelativeLayout main_view;
     private TextView btn_go_list;
     private DbOpenHelper dbHelper;
-    private boolean _hasLoadedOnce= false; // your boolean field
+    private boolean _hasLoadedOnce = false; // your boolean field
     boolean firstDragFlag = true;
     boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
-    float startYPosition = 0, endYPosition =0;       //터치이벤트의 시작점의 Y(세로)위치
+    float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
     private NestedScrollView scroll;
 
     @Nullable
@@ -83,10 +83,11 @@ public class FavoriteActivityFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(getActivity()));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
@@ -118,7 +119,7 @@ public class FavoriteActivityFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
-                        ((FavoriteFragment)getParentFragment()).isdelete(false);
+                        ((FavoriteFragment) getParentFragment()).isdelete(false);
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
@@ -128,7 +129,7 @@ public class FavoriteActivityFragment extends Fragment {
                         btn_go_list.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
-                                ((MainActivity)getActivity()).setTapMove(6, true);
+                                ((MainActivity) getActivity()).setTapMove(6, true);
                             }
                         });
 
@@ -142,9 +143,9 @@ public class FavoriteActivityFragment extends Fragment {
         });
     }
 
-    private void getFavorite(){
+    private void getFavorite() {
         MainActivity.showProgress();
-        String url = CONFIG.like_list+"?only_id=N&type=activity";
+        String url = CONFIG.like_list + "?only_id=N&type=activity";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -164,7 +165,7 @@ public class FavoriteActivityFragment extends Fragment {
                         return;
                     }
 
-                    if(obj.getJSONArray("activity").length() >0) {
+                    if (obj.getJSONArray("activity").length() > 0) {
                         final JSONArray list = obj.getJSONArray("activity");
                         JSONObject entry = null;
                         for (int i = 0; i < list.length(); i++) {
@@ -174,7 +175,7 @@ public class FavoriteActivityFragment extends Fragment {
                                     entry.getString("name"),
                                     entry.getString("category"),
                                     entry.getString("location"),
-                                    entry.has("street2") ? entry.getString("street2"):"",
+                                    entry.has("street2") ? entry.getString("street2") : "",
                                     entry.getString("img_url"),
                                     entry.getString("sale_price"),
                                     entry.getString("sale_rate"),
@@ -188,7 +189,7 @@ public class FavoriteActivityFragment extends Fragment {
                                     entry.getInt("coupon_count")
                             ));
                         }
-                        if(obj.getJSONArray("activity").length() >1) {
+                        if (obj.getJSONArray("activity").length() > 1) {
                             // 상단 애니메이션을 위한 터치
                             scroll.setOnTouchListener(new View.OnTouchListener() {
                                 @Override
@@ -234,11 +235,10 @@ public class FavoriteActivityFragment extends Fragment {
 
                             });
                         }
-                        ((FavoriteFragment)getParentFragment()).isdelete(true);
-                    }
-                    else{
+                        ((FavoriteFragment) getParentFragment()).isdelete(true);
+                    } else {
                         getView().findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                        ((FavoriteFragment)getParentFragment()).isdelete(false);
+                        ((FavoriteFragment) getParentFragment()).isdelete(false);
                     }
                     adapter.notifyDataSetChanged();
                     new Handler().postDelayed(new Runnable() {
@@ -246,7 +246,7 @@ public class FavoriteActivityFragment extends Fragment {
                         public void run() {
                             MainActivity.hideProgress();
                         }
-                    },500);
+                    }, 500);
                 } catch (Exception e) {
                     MainActivity.hideProgress();
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
@@ -258,13 +258,12 @@ public class FavoriteActivityFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80){
+        if (requestCode == 80) {
             authCheck();
-            ((MainActivity)getActivity()).setTitle();
-            ((MainActivity)getActivity()).setTapdelete("MYPAGE");
-            CONFIG.TabLogin=true;
-        }
-        else if(requestCode == 70 && resultCode == 80){
+            ((MainActivity) getActivity()).setTitle();
+            ((MainActivity) getActivity()).setTapdelete("MYPAGE");
+            CONFIG.TabLogin = true;
+        } else if (requestCode == 70 && resultCode == 80) {
             mItems.clear();
             adapter.notifyDataSetChanged();
             MainActivity.showProgress();
@@ -272,14 +271,14 @@ public class FavoriteActivityFragment extends Fragment {
         }
     }
 
-    public void setLike(final int position){
+    public void setLike(final int position) {
         MainActivity.showProgress();
         final String sel_id = mItems.get(position).getId();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
             paramObj.put("id", sel_id);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
 
@@ -296,31 +295,31 @@ public class FavoriteActivityFragment extends Fragment {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
                         MainActivity.hideProgress();
-                        ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                        ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
                     TuneWrap.Event("favorite_activity_del", sel_id);
-                    dbHelper.deleteFavoriteItem(false,  sel_id,"A");
+                    dbHelper.deleteFavoriteItem(false, sel_id, "A");
                     LogUtil.e("xxxx", "찜하기 취소");
-                    ((MainActivity)getActivity()).showIconToast("관심 상품 담기 취소", false);
+                    ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
                     mItems.clear();
                     getFavorite();
                     MainActivity.hideProgress();
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     MainActivity.hideProgress();
                 }
             }
         });
     }
 
-    public void setDeleteAll(){
+    public void setDeleteAll() {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("all_flag", "Y");
             paramObj.put("type", "activity");
 
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
 
@@ -337,24 +336,24 @@ public class FavoriteActivityFragment extends Fragment {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
                         MainActivity.hideProgress();
-                        ((MainActivity)getActivity()).showToast("로그인 후 이용해주세요");
+                        ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
 
                     dbHelper.deleteFavoriteItem(true, "", "A");
                     LogUtil.e("xxxx", "찜하기 전체 취소");
-                    ((MainActivity)getActivity()).showToast("관심 상품 삭제 완료");
+                    ((MainActivity) getActivity()).showToast("관심 상품 삭제 완료");
                     mItems.clear();
                     getFavorite();
                     MainActivity.hideProgress();
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     MainActivity.hideProgress();
                 }
             }
         });
     }
 
-    public void setDateRefresh(String ecc_date, String eee_date){
+    public void setDateRefresh(String ecc_date, String eee_date) {
         mItems.clear();
         adapter.notifyDataSetChanged();
         MainActivity.showProgress();
@@ -371,31 +370,29 @@ public class FavoriteActivityFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            },500);
+            }, 500);
 
             _hasLoadedOnce = true;
-        }
-        else if(isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce){
-            CONFIG.TabLogin=false;
+        } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
+            CONFIG.TabLogin = false;
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     init();
                 }
-            },500);
-        }
-        else if(isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce){
+            }, 500);
+        } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(_preferences.getString("userid", null) !=null) {
+                    if (_preferences.getString("userid", null) != null) {
                         mItems.clear();
                         getFavorite();
                     }
                 }
-            },500);
+            }, 500);
         }
-        if(isFragmentVisible_ && ((FavoriteFragment)getParentFragment()) != null) {
+        if (isFragmentVisible_ && ((FavoriteFragment) getParentFragment()) != null) {
             if (adapter != null && adapter.getCount() > 0) {
                 ((FavoriteFragment) getParentFragment()).isdelete(true);
             } else {
@@ -404,7 +401,7 @@ public class FavoriteActivityFragment extends Fragment {
         }
     }
 
-    private void init(){
+    private void init() {
         // preference
         TuneWrap.Event("favorite_activity");
 
@@ -416,7 +413,7 @@ public class FavoriteActivityFragment extends Fragment {
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
-        adapter = new FavoriteActivityAdapter(getActivity(), FavoriteActivityFragment.this,0, mItems);
+        adapter = new FavoriteActivityAdapter(getActivity(), FavoriteActivityFragment.this, 0, mItems);
         mlist.setAdapter(adapter);
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
@@ -433,7 +430,7 @@ public class FavoriteActivityFragment extends Fragment {
                 startActivityForResult(intent, 70);
             }
         });
-        CONFIG.sel_reserv =0;
+        CONFIG.sel_reserv = 0;
         authCheck();
     }
 

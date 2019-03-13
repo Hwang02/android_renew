@@ -36,11 +36,11 @@ public class WebviewActivity extends AppCompatActivity {
 
         Util.setStatusColor(this);
 
-        webview = (WebView)findViewById(R.id.webview);
+        webview = (WebView) findViewById(R.id.webview);
         title_text = (TextView) findViewById(R.id.title_text);
 
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             linkUrl = intent.getStringExtra("url");
             linkTitle = intent.getStringExtra("title");
             reservation = intent.getBooleanExtra("reservation", false);
@@ -74,7 +74,7 @@ public class WebviewActivity extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if(url.contains("plusfriend")){
+            if (url.contains("plusfriend")) {
                 // 옐로우 아이디 처리
                 Util.kakaoYelloId(WebviewActivity.this);
                 finish();
@@ -90,7 +90,7 @@ public class WebviewActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
 
-            } else if(url.contains("www.hotelnow.co.kr")){
+            } else if (url.contains("www.hotelnow.co.kr")) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
 
@@ -110,13 +110,12 @@ public class WebviewActivity extends AppCompatActivity {
     }
 
     // 404 새로고침
-    private class DetailInterface
-    {
+    private class DetailInterface {
         @JavascriptInterface
-        public void reoladDetail(){
+        public void reoladDetail() {
 //            handler.post(new Runnable() {
 //                public void run() {
-                    webview.loadUrl(linkUrl);
+            webview.loadUrl(linkUrl);
 //                }
 //            });
         }
@@ -124,7 +123,7 @@ public class WebviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             return true;
         }

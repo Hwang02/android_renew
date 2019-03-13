@@ -8,7 +8,7 @@ public abstract class OnSingleItemClickListener implements AdapterView.OnItemCli
     /**
      * 最短click事件的时间间隔
      */
-    private static final long MIN_CLICK_INTERVAL=600;
+    private static final long MIN_CLICK_INTERVAL = 600;
     /**
      * 上次click的时间
      */
@@ -18,12 +18,12 @@ public abstract class OnSingleItemClickListener implements AdapterView.OnItemCli
 
     @Override
     public final void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        long currentClickTime= SystemClock.uptimeMillis();
-        long elapsedTime=currentClickTime-mLastClickTime;
+        long currentClickTime = SystemClock.uptimeMillis();
+        long elapsedTime = currentClickTime - mLastClickTime;
         //有可能2次连击，也有可能3连击，保证mLastClickTime记录的总是上次click的时间
-        mLastClickTime=currentClickTime;
+        mLastClickTime = currentClickTime;
 
-        if(elapsedTime<=MIN_CLICK_INTERVAL)
+        if (elapsedTime <= MIN_CLICK_INTERVAL)
             return;
 
         onSingleClick(parent, view, position, id);

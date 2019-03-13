@@ -59,7 +59,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
         this.context = context;
         this.data = data;
         _preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        mActivity = (Activity)context;
+        mActivity = (Activity) context;
     }
 
     @Override
@@ -72,11 +72,10 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
         TextView banner_message = (TextView) v.findViewById(R.id.banner_message);
         TextView banner_title = (TextView) v.findViewById(R.id.banner_title);
         banner_title.setText(data.get(realPos).getTitle());
-        if(!TextUtils.isEmpty(data.get(realPos).getSub_title())) {
+        if (!TextUtils.isEmpty(data.get(realPos).getSub_title())) {
             banner_message.setVisibility(View.VISIBLE);
             banner_message.setText(data.get(realPos).getSub_title());
-        }
-        else{
+        } else {
             banner_message.setVisibility(View.GONE);
         }
         Ion.with(image_container).load(data.get(realPos).getImage());
@@ -84,27 +83,27 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
         image_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mId = data.get((int)v.getTag()).getId();
-                mTitle = data.get((int)v.getTag()).getTitle();
+                mId = data.get((int) v.getTag()).getId();
+                mTitle = data.get((int) v.getTag()).getTitle();
 
                 TuneWrap.Event("stay_list_banner", mId);
 
-                if (!TextUtils.isEmpty(data.get((int)v.getTag()).getImage())) {
-                    frontType = data.get((int)v.getTag()).getEvt_type();
-                    frontImg = data.get((int)v.getTag()).getImage();
-                    String[] arr = data.get((int)v.getTag()).getLink().split("hotelnowevent://");
+                if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
+                    frontType = data.get((int) v.getTag()).getEvt_type();
+                    frontImg = data.get((int) v.getTag()).getImage();
+                    String[] arr = data.get((int) v.getTag()).getLink().split("hotelnowevent://");
                     if (arr.length > 1) {
                         frontMethod = arr[1];
                         frontMethod = Util.stringToHTMLString(frontMethod);
-                        frontTitle = data.get((int)v.getTag()).getTitle() != "" ? data.get((int)v.getTag()).getTitle() : "무료 숙박 이벤트";
+                        frontTitle = data.get((int) v.getTag()).getTitle() != "" ? data.get((int) v.getTag()).getTitle() : "무료 숙박 이벤트";
                     }
                     if (!frontType.equals("a")) {
                         frontEvtId = mId;
                     } else {
-                        frontEvtId = Util.getFrontThemeId(data.get((int)v.getTag()).getLink());
+                        frontEvtId = Util.getFrontThemeId(data.get((int) v.getTag()).getLink());
                     }
                 }
-                if(data.get((int)v.getTag()).getEvt_type().equals("a") && !data.get((int)v.getTag()).getEvt_type().equals("")) {
+                if (data.get((int) v.getTag()).getEvt_type().equals("a") && !data.get((int) v.getTag()).getEvt_type().equals("")) {
                     try {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
@@ -164,8 +163,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                        }
-                        else if (method.equals("move_theme")) {
+                        } else if (method.equals("move_theme")) {
                             Intent intent = new Intent(context, ThemeSpecialHotelActivity.class);
                             intent.putExtra("tid", url);
 
@@ -173,8 +171,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                        }
-                        else if(method.equals("move_theme_ticket")){
+                        } else if (method.equals("move_theme_ticket")) {
                             Intent intent = new Intent(context, ThemeSpecialActivityActivity.class);
                             intent.putExtra("tid", url);
 
@@ -182,7 +179,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                        } else if(method.equals("move_ticket_detail")){
+                        } else if (method.equals("move_ticket_detail")) {
                             Intent intent = new Intent(context, DetailActivityActivity.class);
                             intent.putExtra("tid", url);
 
@@ -190,9 +187,8 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
-                        }
-                        else if (method.equals("outer_link")) {
-                            if(url.contains("hotelnow")) {
+                        } else if (method.equals("outer_link")) {
+                            if (url.contains("hotelnow")) {
                                 frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                                 Intent intent = new Intent(context, WebviewActivity.class);
                                 intent.putExtra("url", url);
@@ -207,10 +203,9 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
                         }
+                    } catch (Exception e) {
                     }
-                    catch (Exception e) {}
-                }
-                else {
+                } else {
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);
@@ -225,7 +220,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        container.removeView((View)object);
+        container.removeView((View) object);
 
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.model.CityItem;
+
 import java.util.List;
 
 public class AreaSelectAdapter extends ArrayAdapter<CityItem> {

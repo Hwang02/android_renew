@@ -41,14 +41,14 @@ public class DialogTicketShare extends Dialog {
     String t_name;
     Button closeButton;
     View.OnClickListener mClickListener;
-//    Tracker t;
+    //    Tracker t;
     SharedPreferences _preferences;
     String linkUrl;
     Double value;
     ResponseCallback<KakaoLinkResponse> callback;
 
     public DialogTicketShare(Context context, String t_id, String main_photo, String t_name, Double value, View.OnClickListener close) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         mContext = context;
         this.t_id = t_id;
@@ -62,7 +62,7 @@ public class DialogTicketShare extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Activity activity = (Activity)mContext;
+        Activity activity = (Activity) mContext;
 //        t = ((HotelnowApplication)activity.getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
 
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
@@ -72,13 +72,13 @@ public class DialogTicketShare extends Dialog {
         setContentView(R.layout.dialog_share);
 
         // 문구....
-        LinearLayout kakao_btn = (LinearLayout)findViewById(R.id.kakao_btn);
-        LinearLayout sms_btn = (LinearLayout)findViewById(R.id.sms_btn);
-        LinearLayout share_btn = (LinearLayout)findViewById(R.id.share_btn);
+        LinearLayout kakao_btn = (LinearLayout) findViewById(R.id.kakao_btn);
+        LinearLayout sms_btn = (LinearLayout) findViewById(R.id.sms_btn);
+        LinearLayout share_btn = (LinearLayout) findViewById(R.id.share_btn);
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        linkUrl = CONFIG.domain+"/?ticket_id="+t_id;
+        linkUrl = CONFIG.domain + "/?ticket_id=" + t_id;
 
         callback = new ResponseCallback<KakaoLinkResponse>() {
             @Override
@@ -92,29 +92,29 @@ public class DialogTicketShare extends Dialog {
             }
         };
 
-        kakao_btn.setOnClickListener(new OnSingleClickListener(){
+        kakao_btn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //At least O
-                    String msg = "";
+                String msg = "";
 
-                    msg = "언제 어디서나 호텔나우와 함께 즐거운 여행을 계획하세요!";
+                msg = "언제 어디서나 호텔나우와 함께 즐거운 여행을 계획하세요!";
 
-                    FeedTemplate params = FeedTemplate
-                            .newBuilder(ContentObject.newBuilder("["+t_name+"]",
-                                    main_photo,
-                                    LinkObject.newBuilder()
-                                    .setMobileWebUrl(linkUrl).build())
-                                    .setDescrption(msg)
-                                    .build())
-                            .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
-                                    .setMobileWebUrl(linkUrl)
-                                    .setAndroidExecutionParams(linkUrl)
-                                    .setIosExecutionParams("hotelnow://hnevent={\"method\":\"move_detail_ticket\", \"param\":{\"ticket_id\":\""+t_id+"\"}}")
-                                    .build()))
-                            .build();
+                FeedTemplate params = FeedTemplate
+                        .newBuilder(ContentObject.newBuilder("[" + t_name + "]",
+                                main_photo,
+                                LinkObject.newBuilder()
+                                        .setMobileWebUrl(linkUrl).build())
+                                .setDescrption(msg)
+                                .build())
+                        .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+                                .setMobileWebUrl(linkUrl)
+                                .setAndroidExecutionParams(linkUrl)
+                                .setIosExecutionParams("hotelnow://hnevent={\"method\":\"move_detail_ticket\", \"param\":{\"ticket_id\":\"" + t_id + "\"}}")
+                                .build()))
+                        .build();
 
-                    KakaoLinkService.getInstance().sendDefault(mContext, params, callback);
+                KakaoLinkService.getInstance().sendDefault(mContext, params, callback);
 //                }
 //                else {
 //                    try {
@@ -132,7 +132,7 @@ public class DialogTicketShare extends Dialog {
 //                        t.send(new HitBuilders.EventBuilder().setCategory("SHARE").setAction("KAKAO").build());
 //                        TuneWrap.Event("SHARE", "KAKAO");
 
-                        dismiss();
+                dismiss();
 //                    } catch (KakaoParameterException e) {
 //                        Log.e(CONFIG.TAG, "???????", e);
 //                    }
@@ -140,14 +140,14 @@ public class DialogTicketShare extends Dialog {
             }
         });
 
-        sms_btn.setOnClickListener(new OnSingleClickListener(){
+        sms_btn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
 
                 String smsBody = "[호텔나우]\n"
-                        +"친구가 추천하는 액티비티!\n"
+                        + "친구가 추천하는 액티비티!\n"
                         + "[" + t_name + "]\n\n"
-                        + "자세히보기 >> "+linkUrl;
+                        + "자세히보기 >> " + linkUrl;
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) //At least KitKat
                 {
@@ -164,8 +164,7 @@ public class DialogTicketShare extends Dialog {
                     }
                     mContext.startActivity(sendIntent);
 
-                }
-                else //For early versions, do what worked for you before.
+                } else //For early versions, do what worked for you before.
                 {
                     Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                     sendIntent.setData(Uri.parse("sms:"));
@@ -193,7 +192,7 @@ public class DialogTicketShare extends Dialog {
             }
         });
 
-        share_btn.setOnClickListener(new OnSingleClickListener(){
+        share_btn.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);

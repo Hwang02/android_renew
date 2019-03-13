@@ -46,7 +46,7 @@ public class ThemeSAllActivity extends Activity {
 
         page = getIntent().getStringExtra("page");
 
-        if(page == null){
+        if (page == null) {
             page = "";
         }
 
@@ -78,7 +78,7 @@ public class ThemeSAllActivity extends Activity {
 
     private void getData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        Api.get(CONFIG.special_theme_list+"?theme_flag="+page, new Api.HttpCallback() {
+        Api.get(CONFIG.special_theme_list + "?theme_flag=" + page, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -94,10 +94,10 @@ public class ThemeSAllActivity extends Activity {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                     }
 
-                    if(obj.has("theme_lists")){
+                    if (obj.has("theme_lists")) {
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
                         mThemeSItem.clear();
-                        if(mThemeS.length()>0) {
+                        if (mThemeS.length() > 0) {
                             for (int i = 0; i < mThemeS.length(); i++) {
                                 mThemeSItem.add(new ThemeSpecialItem(
                                         mThemeS.getJSONObject(i).getString("id"),
@@ -113,9 +113,8 @@ public class ThemeSAllActivity extends Activity {
                                 ));
                             }
                             findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
-                          mAdapter.notifyDataSetChanged();
-                        }
-                        else{
+                            mAdapter.notifyDataSetChanged();
+                        } else {
                             findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                         }
                     }
@@ -133,7 +132,7 @@ public class ThemeSAllActivity extends Activity {
     public void onBackPressed() {
         setResult(80);
         finish();
-       super.onBackPressed();
+        super.onBackPressed();
     }
 
 

@@ -56,10 +56,10 @@ import java.util.Map;
 
 public class ReservationHotelDetailActivity extends Activity {
 
-    String bid, accnum, hotel_id,mAddress, lat, lon, h_name;
-    TextView hotel_name, hotel_room_name, booking_status, tv_checkin_day, tv_checkin_time,tv_checkout_day, tv_checkout_time, tv_username, tv_usertel,
-            tv_real_price, tv_private_price, tv_reserve_price,tv_coupon_price, tv_total_price,tv_pay_type,tv_pay_bank_nm, tv_pay_bank_num,tv_pay_bank_user_nm,
-            tv_pay_bank_user_day,tv_pay_income_day,tv_pay_num,tv_pay_tel_com,tv_pay_card_com,tv_save_point,tv_address;
+    String bid, accnum, hotel_id, mAddress, lat, lon, h_name;
+    TextView hotel_name, hotel_room_name, booking_status, tv_checkin_day, tv_checkin_time, tv_checkout_day, tv_checkout_time, tv_username, tv_usertel,
+            tv_real_price, tv_private_price, tv_reserve_price, tv_coupon_price, tv_total_price, tv_pay_type, tv_pay_bank_nm, tv_pay_bank_num, tv_pay_bank_user_nm,
+            tv_pay_bank_user_day, tv_pay_income_day, tv_pay_num, tv_pay_tel_com, tv_pay_card_com, tv_save_point, tv_address;
     ImageView iv_img;
     Boolean showSnsDialog = true;
     DialogAlert dialogAlert;
@@ -72,7 +72,7 @@ public class ReservationHotelDetailActivity extends Activity {
     String hotel_phone_number = "";
     WebView info_view;
     boolean isReservation = false;
-    String cookie="", user_name ="", user_phone="", r_name="", r_id;
+    String cookie = "", user_name = "", user_phone = "", r_name = "", r_id;
     TextView tv_title_bar;
     boolean is_review = false;
     int dayCount = 0;
@@ -80,7 +80,7 @@ public class ReservationHotelDetailActivity extends Activity {
     DialogMarket dialogMarket;
     EndEventScrollView scrollview;
 
-    private Handler mEndHandler = new Handler(){
+    private Handler mEndHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0 && !isEndScroll) {
@@ -88,9 +88,8 @@ public class ReservationHotelDetailActivity extends Activity {
                 if (!_preferences.getBoolean("isReMarket", false)) {
                     if (_preferences.getString("ReMarketDate", null) == null) {
                         showMarketPopup();
-                    }
-                    else{
-                        if( (int) Util.diffOfDate(_preferences.getString("ReMarketDate", null), Util.todayFormat()) >= 180){
+                    } else {
+                        if ((int) Util.diffOfDate(_preferences.getString("ReMarketDate", null), Util.todayFormat()) >= 180) {
                             showMarketPopup();
                         }
                     }
@@ -99,7 +98,7 @@ public class ReservationHotelDetailActivity extends Activity {
         }
     };
 
-    private void showMarketPopup(){
+    private void showMarketPopup() {
         final String mDay = Util.todayFormat();
 
 //        누른 날짜 적용
@@ -154,16 +153,16 @@ public class ReservationHotelDetailActivity extends Activity {
         scrollview.setHandler(mEndHandler);
 
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             bid = intent.getStringExtra("bid");
             isReservation = intent.getBooleanExtra("reservation", false);
-            if(cookie == null){
+            if (cookie == null) {
                 user_name = intent.getStringExtra("user_name");
                 user_phone = intent.getStringExtra("user_phone");
                 tv_title_bar.setText(intent.getStringExtra("title"));
             }
         }
-        if(isReservation) {
+        if (isReservation) {
             CONFIG.sel_reserv = 0;
         }
 
@@ -171,13 +170,12 @@ public class ReservationHotelDetailActivity extends Activity {
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isReservation) {
+                if (isReservation) {
                     Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
                     intent.putExtra("reservation", isReservation);
                     startActivity(intent);
                     finish();
-                }
-                else {
+                } else {
                     finish();
                 }
             }
@@ -186,11 +184,11 @@ public class ReservationHotelDetailActivity extends Activity {
         setData();
     }
 
-    private void setData(){
+    private void setData() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        String url = CONFIG.bookingDetailUrl+"/"+bid;
-        if(cookie == null){
-            url +="?user_name="+user_name+"&user_phone="+user_phone;
+        String url = CONFIG.bookingDetailUrl + "/" + bid;
+        if (cookie == null) {
+            url += "?user_name=" + user_name + "&user_phone=" + user_phone;
         }
 
         Api.get(url, new Api.HttpCallback() {
@@ -480,7 +478,7 @@ public class ReservationHotelDetailActivity extends Activity {
                             confirm_info.getString("confirm_check").replace("<ul>", "").replace("</ul>", "").replace("<li>", "<div>• ").replace("</li>", "</div>")
                                     + confirm_info.getString("cancel_fee").replace("\n", "<br>");
 
-                    if(android.os.Build.VERSION.SDK_INT <= 19) {
+                    if (android.os.Build.VERSION.SDK_INT <= 19) {
                         webData = webData.replace("<span style=\"", "<font ")
                                 .replace("<font color:", "<font color=")
                                 .replace(";\">", ">");
@@ -491,23 +489,23 @@ public class ReservationHotelDetailActivity extends Activity {
                             Linkify.sPhoneNumberTransformFilter);
                     final String html = Html.toHtml(sp);
 
-                    if(android.os.Build.VERSION.SDK_INT < 19) {
-                        info_view.loadData("<div style='font-size:12px'>"+html+"</div>", "text/html", "UTF-8"); // Android 4.0 이하 버전
-                    }else {
-                        info_view.loadData("<div style='font-size:12px'>"+html+"</div>", "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
+                    if (android.os.Build.VERSION.SDK_INT < 19) {
+                        info_view.loadData("<div style='font-size:12px'>" + html + "</div>", "text/html", "UTF-8"); // Android 4.0 이하 버전
+                    } else {
+                        info_view.loadData("<div style='font-size:12px'>" + html + "</div>", "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
                     }
 
                     // 지도 상세보기 정보 설정
-                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center="+info.getString("latitude")+"%2C"+info.getString("longuitude")+
-                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C"+info.getString("latitude")+"%2C"+info.getString("longuitude")+
-                            "&scale=2&sensor=false&language=ko&size=360x220&zoom="+info.getString("map_zoom")+"&key="+ BuildConfig.google_map_key2;
-                    ImageView mapImg = (ImageView)findViewById(R.id.map_img);
+                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + info.getString("latitude") + "%2C" + info.getString("longuitude") +
+                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + info.getString("latitude") + "%2C" + info.getString("longuitude") +
+                            "&scale=2&sensor=false&language=ko&size=360x220&zoom=" + info.getString("map_zoom") + "&key=" + BuildConfig.google_map_key2;
+                    ImageView mapImg = (ImageView) findViewById(R.id.map_img);
                     Ion.with(mapImg).load(mapStr);
                     mAddress = info.getString("hotel_address");
                     tv_address.setText(mAddress);
 
                     // 주소복사
-                    findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener(){
+                    findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             TuneWrap.Event("booking_stay_copyA");
@@ -518,10 +516,10 @@ public class ReservationHotelDetailActivity extends Activity {
                         }
                     });
 
-                    ((TextView)findViewById(R.id.btn_near)).setText("주변액티비티 보기");
+                    ((TextView) findViewById(R.id.btn_near)).setText("주변액티비티 보기");
                     findViewById(R.id.btn_kimkisa).setVisibility(View.VISIBLE);
 
-                    if(info.isNull("hotel_phone")){
+                    if (info.isNull("hotel_phone")) {
                         hotel_phone_number = null;
                     } else {
                         findViewById(R.id.company_call).setVisibility(View.VISIBLE);
@@ -557,7 +555,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         });
                     }
 
-                    findViewById(R.id.btn_kimkisa).setOnClickListener(new View.OnClickListener(){
+                    findViewById(R.id.btn_kimkisa).setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
@@ -577,7 +575,7 @@ public class ReservationHotelDetailActivity extends Activity {
                                     new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            String url = "kimgisa://navigate?name="+h_name+"&coord_type=wgs84&pos_x="+lon+"&pos_y="+lat+"&return_uri=com.hotelnow.activities.ActLoading&key="+CONFIG.kimgisaKey;
+                                            String url = "kimgisa://navigate?name=" + h_name + "&coord_type=wgs84&pos_x=" + lon + "&pos_y=" + lat + "&return_uri=com.hotelnow.activities.ActLoading&key=" + CONFIG.kimgisaKey;
                                             String strAppPackage = "com.locnall.KimGiSa";
                                             PackageManager pm = getPackageManager();
 
@@ -636,7 +634,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         }
                     });
 
-                    if(payment_info.getString("account_available").equals("Y") && payment_info.getString("pay_type").equals("VBANK_KCP")) {
+                    if (payment_info.getString("account_available").equals("Y") && payment_info.getString("pay_type").equals("VBANK_KCP")) {
                         showSnsDialog = false; // sns 띄우지마
                         String timeLimit = payment_info.getString("limit_time").substring(5, 16).replace(" ", "일 ").replace("-", "월 ");
 
@@ -652,7 +650,7 @@ public class ReservationHotelDetailActivity extends Activity {
                                 });
                         dialogAlert.setCancelable(false);
                         dialogAlert.show();
-                    }  else if(payment_info.getString("account_available").equals("Y") && payment_info.getString("pay_type").equals("ARS")) {
+                    } else if (payment_info.getString("account_available").equals("Y") && payment_info.getString("pay_type").equals("ARS")) {
                         showSnsDialog = false; // sns 띄우지마
 
                         dialogAlert = new DialogAlert(
@@ -669,7 +667,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         dialogAlert.show();
                     }
 
-                    findViewById(R.id.booking_delete).setOnClickListener(new View.OnClickListener(){
+                    findViewById(R.id.booking_delete).setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
@@ -690,9 +688,10 @@ public class ReservationHotelDetailActivity extends Activity {
                                         @Override
                                         public void onClick(View v) {
                                             JSONObject paramObj = new JSONObject();
-                                            try{
+                                            try {
                                                 paramObj.put("bid", bid);
-                                            } catch (JSONException e) {}
+                                            } catch (JSONException e) {
+                                            }
 
                                             Api.post(CONFIG.bookingHidelUrl, paramObj.toString(), new Api.HttpCallback() {
                                                 @Override
@@ -711,13 +710,12 @@ public class ReservationHotelDetailActivity extends Activity {
                                                         }
 
                                                         Toast.makeText(ReservationHotelDetailActivity.this, getString(R.string.booking_hide_success), Toast.LENGTH_SHORT).show();
-                                                        if(isReservation){
+                                                        if (isReservation) {
                                                             Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
                                                             intent.putExtra("reservation", isReservation);
                                                             startActivity(intent);
                                                             finish();
-                                                        }
-                                                        else {
+                                                        } else {
                                                             Intent returnIntent = new Intent();
                                                             setResult(88, returnIntent);
                                                             finish();
@@ -739,7 +737,7 @@ public class ReservationHotelDetailActivity extends Activity {
                         }
                     });
 
-                    findViewById(R.id.booking_receipt).setOnClickListener(new View.OnClickListener(){
+                    findViewById(R.id.booking_receipt).setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
@@ -759,7 +757,7 @@ public class ReservationHotelDetailActivity extends Activity {
                                     new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            String url = CONFIG.bookingReceiptlUrl+"/"+bid;
+                                            String url = CONFIG.bookingReceiptlUrl + "/" + bid;
 
                                             Api.get(url, new Api.HttpCallback() {
                                                 @Override
@@ -779,7 +777,7 @@ public class ReservationHotelDetailActivity extends Activity {
                                                         }
 
                                                         String receiptUrl = obj.getString("url");
-                                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( receiptUrl ));
+                                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(receiptUrl));
                                                         startActivity(intent);
 
                                                     } catch (Exception e) {
@@ -813,7 +811,7 @@ public class ReservationHotelDetailActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 80 && resultCode == RESULT_OK){
+        if (requestCode == 80 && resultCode == RESULT_OK) {
             is_review = true;
             setData();
         }
@@ -821,13 +819,12 @@ public class ReservationHotelDetailActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(isReservation){
+        if (isReservation) {
             Intent intent = new Intent(ReservationHotelDetailActivity.this, MainActivity.class);
             intent.putExtra("reservation", isReservation);
             startActivity(intent);
             finish();
-        }
-        else {
+        } else {
             finish();
         }
         super.onBackPressed();
@@ -836,10 +833,10 @@ public class ReservationHotelDetailActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(info_view != null)
+        if (info_view != null)
             info_view.destroy();
 
-        if(is_review){
+        if (is_review) {
             setResult(0);
         }
     }

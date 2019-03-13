@@ -32,7 +32,7 @@ public class ReservationPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return img.size() *10;
+        return img.size() * 10;
 //        return 0;
     }
 

@@ -49,40 +49,36 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
         Ion.with(holder.iv_image).load(data.get(position).getImg_url());
 
-        if(data.get(position).getSale_rate().equals("0")){
+        if (data.get(position).getSale_rate().equals("0")) {
             holder.tv_per.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_per.setVisibility(View.VISIBLE);
         }
 
-        holder.tv_per.setText(data.get(position).getSale_rate()+"%↓");
+        holder.tv_per.setText(data.get(position).getSale_rate() + "%↓");
 
-        if(data.get(position).getGrade_score().equals("0.0")){
+        if (data.get(position).getGrade_score().equals("0.0")) {
             holder.tv_score.setVisibility(View.GONE);
             holder.text_bar.setVisibility(View.GONE);
             holder.img_star.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_score.setVisibility(View.VISIBLE);
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
 
-        if(data.get(position).getCoupon_count() >0){
+        if (data.get(position).getCoupon_count() > 0) {
             holder.soon_discount.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_discount.setVisibility(View.GONE);
         }
-        if(data.get(position).getIs_add_reserve().equals("Y")){
+        if (data.get(position).getIs_add_reserve().equals("Y")) {
             holder.soon_point.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_point.setVisibility(View.GONE);
         }
 
-        if(dbHelper.selectAllFavoriteActivityItem().size() > 0) {
+        if (dbHelper.selectAllFavoriteActivityItem().size() > 0) {
             for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
                 if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
                     holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -93,8 +89,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
                     holder.islike = false;
                 }
             }
-        }
-        else{
+        } else {
             holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             holder.islike = false;
         }
@@ -103,8 +98,8 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                lf.setActivityLike((int)v.getTag(), holder.islike, ActivityHotDealLeisureAdapter.this);
+                LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
+                lf.setActivityLike((int) v.getTag(), holder.islike, ActivityHotDealLeisureAdapter.this);
             }
         });
 
@@ -112,10 +107,10 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("HotDeal_activity", data.get((int)v.getTag()).getId());
-                LogUtil.e("vvvvvv", data.get((int)v.getTag()).getId()+"");
+                TuneWrap.Event("HotDeal_activity", data.get((int) v.getTag()).getId());
+                LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(lf.getActivity(), DetailActivityActivity.class);
-                intent.putExtra("tid", data.get((int)v.getTag()).getId());
+                intent.putExtra("tid", data.get((int) v.getTag()).getId());
                 intent.putExtra("save", true);
                 lf.startActivityForResult(intent, 70);
             }
@@ -129,7 +124,7 @@ public class ActivityHotDealLeisureAdapter extends RecyclerView.Adapter<Activity
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_catagory, tv_score, tv_hotelname, tv_price, tv_per;
-        ImageView iv_image, soon_discount, soon_point, btn_favorite,img_star;
+        ImageView iv_image, soon_discount, soon_point, btn_favorite, img_star;
         boolean islike = false;
         LinearLayout sel_item;
         View text_bar;

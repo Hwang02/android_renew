@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MyCardActivity extends Activity{
+public class MyCardActivity extends Activity {
 
     private SharedPreferences _preferences;
     private String cookie;
@@ -47,7 +47,7 @@ public class MyCardActivity extends Activity{
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         cookie = _preferences.getString("userid", null);
-        if(cookie == null){
+        if (cookie == null) {
             Toast.makeText(MyCardActivity.this, getString(R.string.error_need_login), Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -56,7 +56,7 @@ public class MyCardActivity extends Activity{
         header = getLayoutInflater().inflate(R.layout.layout_mycard_header, null, false);
         footer = getLayoutInflater().inflate(R.layout.layout_mycard_footer, null, false);
 
-        mMainListView = (ListView)findViewById(R.id.lv_card);
+        mMainListView = (ListView) findViewById(R.id.lv_card);
         mMainListView.addHeaderView(header);
         mMainListView.addFooterView(footer);
 
@@ -104,7 +104,7 @@ public class MyCardActivity extends Activity{
                     JSONArray feed = obj.getJSONArray("data");
                     JSONObject entry = null;
 
-                    ((TextView)header.findViewById(R.id.card_count)).setText(feed.length()+"");
+                    ((TextView) header.findViewById(R.id.card_count)).setText(feed.length() + "");
 
                     for (int i = 0; i < feed.length(); i++) {
                         entry = feed.getJSONObject(i);
@@ -118,7 +118,7 @@ public class MyCardActivity extends Activity{
                         ));
                     }
 
-                    if(cardEntries.size() == 0){
+                    if (cardEntries.size() == 0) {
                         cardEntries.add(new CardEntry(
                                 "",
                                 "",
@@ -141,13 +141,13 @@ public class MyCardActivity extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 91 && resultCode == 91){
+        if (requestCode == 91 && resultCode == 91) {
             getCardList();
             mRefresh = true;
         }
     }
 
-    public void getEmptyHeight(View empty_item){
+    public void getEmptyHeight(View empty_item) {
 
         DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
         int height = dm.heightPixels;
@@ -172,8 +172,8 @@ public class MyCardActivity extends Activity{
     }
 
     // 회원가입 종료
-    private void finishSignup(){
-        if(mRefresh) {
+    private void finishSignup() {
+        if (mRefresh) {
             Intent intent = new Intent();
             setResult(91, intent);
         }

@@ -49,7 +49,7 @@ public class KeyWordAdapter extends RecyclerView.Adapter<KeyWordAdapter.MyViewHo
                 intent.putExtra("banner_id", data.get(position).getId());
                 intent.putExtra("banner_name", data.get(position).getLink());
                 intent.putExtra("page", "key");
-                ((MainActivity)mContext).startActivityForResult(intent,80);
+                ((MainActivity) mContext).startActivityForResult(intent, 80);
             }
         });
     }

@@ -31,9 +31,9 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,9 +46,9 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,9 +60,9 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,9 +74,9 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,9 +88,9 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,9 +102,9 @@ public class TuneWrap {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,14 +112,14 @@ public class TuneWrap {
     }
 
     //  Login
-    public static void Login(){
+    public static void Login() {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
 
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,14 +127,14 @@ public class TuneWrap {
     }
 
     //  Registration
-    public static void Registration(){
+    public static void Registration() {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
 
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,19 +147,20 @@ public class TuneWrap {
 
         Date ci = new Date();
         Date co = new Date();
-        int date_term = (int)Util.diffOfDate(checkin, checkout);
+        int date_term = (int) Util.diffOfDate(checkin, checkout);
 
         try {
             SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             ci = transFormat.parse(checkin);
             co = transFormat.parse(checkout);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,23 +174,23 @@ public class TuneWrap {
     }
 
     // Purchase
-    public static void Purchase( TuneEventItem eventItem, float revenue, String booking_id, boolean is_q) {
+    public static void Purchase(TuneEventItem eventItem, float revenue, String booking_id, boolean is_q) {
         SharedPreferences _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
 
         Tune tune = Tune.getInstance();
         try {
-            String user_id = AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|",""));
-            if(TextUtils.isEmpty(user_id)){
+            String user_id = AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", ""));
+            if (TextUtils.isEmpty(user_id)) {
                 user_id = Util.getAndroidId(HotelnowApplication.getAppContext());
             }
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
             tune.setUserId(user_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
         String sel_type = "";
-        if(is_q) {
+        if (is_q) {
             tune.measureEvent(new TuneEvent("purchase_activity")
                     .withRevenue(revenue)
                     .withCurrencyCode(currency)
@@ -200,8 +201,7 @@ public class TuneWrap {
                     .withAttribute5(eventItem.attribute5) // 쿠폰아이디
                     .withAdvertiserRefId(booking_id));
             sel_type = "activity";
-        }
-        else{
+        } else {
             tune.measureEvent(new TuneEvent("purchase_stay")
                     .withRevenue(revenue)
                     .withCurrencyCode(currency)
@@ -231,9 +231,9 @@ public class TuneWrap {
 
         Tune tune = Tune.getInstance();
         try {
-            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|","")));
-            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email","").replace("HN|","")));
-            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|","")));
+            tune.setUserId(AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")));
+            tune.setUserEmail(AES256Chiper.AES_Decode(_preferences.getString("email", "").replace("HN|", "")));
+            tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
         }

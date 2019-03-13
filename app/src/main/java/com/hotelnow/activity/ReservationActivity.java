@@ -89,7 +89,7 @@ public class ReservationActivity extends Activity {
     private String pid, ec_date, ee_date, cookie, pcode = "0", hid;
     private SharedPreferences _preferences;
     private LinearLayout layout_useremail;
-    private TextView tv_hotel_name, tv_room_detail_price, tv_detail3, tv_checkin_day, tv_checkin_time, tv_checkout_day, tv_checkout_time,auth_ok, tv_auth_change, btn_auth, tv_detail_per;
+    private TextView tv_hotel_name, tv_room_detail_price, tv_detail3, tv_checkin_day, tv_checkin_time, tv_checkout_day, tv_checkout_time, auth_ok, tv_auth_change, btn_auth, tv_detail_per;
     private AutoLinkTextView fee_text;
     private RoundedImageView img_room;
     private String[] hphone;
@@ -140,12 +140,12 @@ public class ReservationActivity extends Activity {
     private DialogBookingCaution bdialog;
     private DialogBillingAlert dialogBillingAlert;
     private String bmpStr = "";
-    String selected_card = "", bid_id="";
+    String selected_card = "", bid_id = "";
     String reserve_value = "";
-    private int private_money = 0, real_price=0, coupon_value = 0, accepted_price = 0;
+    private int private_money = 0, real_price = 0, coupon_value = 0, accepted_price = 0;
     private String hotel_name, city, rid;
     private boolean isReserve = false, isCoupon = false, is_sel_point = false, is_sel_coupon = false;
-    private String all_coupon_id = "",cancel_fee_str="";
+    private String all_coupon_id = "", cancel_fee_str = "";
     private DialogFee dialogFee;
     private DialogConfirm dialogConfirm;
 
@@ -186,16 +186,16 @@ public class ReservationActivity extends Activity {
         btn_go_payment = (Button) findViewById(R.id.btn_go_payment);
         other_username = (EditText) findViewById(R.id.other_username);
         img_room = (RoundedImageView) findViewById(R.id.img_room);
-        pnum1 = (Spinner)findViewById(R.id.pnum1);
-        other_pnum1 = (Spinner)findViewById(R.id.other_pnum1);
-        ll_point = (LinearLayout)findViewById(R.id.ll_point);
-        btn_point_total = (TextView)findViewById(R.id.btn_point_total);
+        pnum1 = (Spinner) findViewById(R.id.pnum1);
+        other_pnum1 = (Spinner) findViewById(R.id.other_pnum1);
+        ll_point = (LinearLayout) findViewById(R.id.ll_point);
+        btn_point_total = (TextView) findViewById(R.id.btn_point_total);
         coupon_spinner = (Spinner) findViewById(R.id.coupon_use);
-        tv_discount_price = (TextView)findViewById(R.id.tv_discount_price);
-        tv_real_price = (TextView)findViewById(R.id.tv_real_price);
-        tv_total_price = (TextView)findViewById(R.id.tv_total_price);
+        tv_discount_price = (TextView) findViewById(R.id.tv_discount_price);
+        tv_real_price = (TextView) findViewById(R.id.tv_real_price);
+        tv_total_price = (TextView) findViewById(R.id.tv_total_price);
         pay_pager = (ViewPager) findViewById(R.id.pay_pager);
-        sub_products = (TableLayout)findViewById(R.id.sub_products);
+        sub_products = (TableLayout) findViewById(R.id.sub_products);
         ll_private = (LinearLayout) findViewById(R.id.ll_private);
         useremail = (EditText) findViewById(R.id.useremail);
         agree_policy = (CheckBox) findViewById(R.id.agree_policy);
@@ -209,11 +209,10 @@ public class ReservationActivity extends Activity {
 
         cookie = _preferences.getString("userid", null);
 
-        if(cookie == null){
+        if (cookie == null) {
             tv_title_bar.setText(getResources().getString(R.string.login_not_user_title));
             findViewById(R.id.ll_coupon_title).setVisibility(View.GONE);
-        }
-        else{
+        } else {
             tv_title_bar.setText(getResources().getString(R.string.reservation_title));
         }
 
@@ -225,10 +224,9 @@ public class ReservationActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     point_discount.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ico_input_delete, 0);
-                }
-                else if(s.length()==0){
+                } else if (s.length() == 0) {
                     point_discount.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 }
             }
@@ -241,34 +239,32 @@ public class ReservationActivity extends Activity {
         btn_point_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000 ) {
-                    if(reserve_money < Integer.parseInt(point_discount.getText().toString())){
-                        point_discount.setText(reserve_money+"");
+                if (!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000) {
+                    if (reserve_money < Integer.parseInt(point_discount.getText().toString())) {
+                        point_discount.setText(reserve_money + "");
 //                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
 //                        return;
                     }
-                    if((sale_price+private_money) < Integer.parseInt(point_discount.getText().toString())){
-                        point_discount.setText(sale_price+private_money+"");
+                    if ((sale_price + private_money) < Integer.parseInt(point_discount.getText().toString())) {
+                        point_discount.setText(sale_price + private_money + "");
 //                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
 //                        return;
                     }
 
-                    if(!is_sel_point) {
+                    if (!is_sel_point) {
                         save_price = save_price - Integer.parseInt(point_discount.getText().toString());
                         int m_total = sale_price + save_price;
-                        tv_discount_price.setText( nf.format(save_price) + "원");
+                        tv_discount_price.setText(nf.format(save_price) + "원");
                         tv_total_price.setText(nf.format(m_total) + "원");
                         is_sel_point = true;
                         is_sel_coupon = false;
                         setSavePoint("", point_discount.getText().toString());
                         point_discount.clearFocus();
                     }
-                }
-                else{
-                    if(!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000 ) {
+                } else {
+                    if (!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000) {
                         Toast.makeText(ReservationActivity.this, "최소 1,000원부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -284,19 +280,18 @@ public class ReservationActivity extends Activity {
         btn_point_total.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(reserve_money > sale_price){
-                    point_discount.setText(sale_price+private_money+"");
+                if (reserve_money > sale_price) {
+                    point_discount.setText(sale_price + private_money + "");
                     return;
-                }else if((reserve_money < sale_price) && (reserve_money>=1000)){
-                    point_discount.setText(reserve_money+"");
+                } else if ((reserve_money < sale_price) && (reserve_money >= 1000)) {
+                    point_discount.setText(reserve_money + "");
                     return;
-                }
-                else if(reserve_money < 1000){
+                } else if (reserve_money < 1000) {
                     Toast.makeText(ReservationActivity.this, "최소 1,000원부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                point_discount.setText(reserve_money+private_money+"");
+                point_discount.setText(reserve_money + private_money + "");
             }
         });
 
@@ -308,7 +303,7 @@ public class ReservationActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     auth_ok.setClickable(true);
                     auth_ok.setBackgroundResource(R.drawable.purple_and_white_round);
                     auth_ok.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));
@@ -326,16 +321,16 @@ public class ReservationActivity extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 final int DRAWABLE_RIGHT = 2;
 
-                if(event.getAction() == MotionEvent.ACTION_UP && point_discount.getCompoundDrawables()[DRAWABLE_RIGHT] != null) {
-                    if(event.getRawX() >= (point_discount.getRight() - point_discount.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                if (event.getAction() == MotionEvent.ACTION_UP && point_discount.getCompoundDrawables()[DRAWABLE_RIGHT] != null) {
+                    if (event.getRawX() >= (point_discount.getRight() - point_discount.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         point_discount.setText("");
                         save_price = private_money;
-                        tv_discount_price.setText(nf.format(save_price) +"원");
-                        tv_total_price.setText(nf.format(sale_price + save_price)+"원");
+                        tv_discount_price.setText(nf.format(save_price) + "원");
+                        tv_total_price.setText(nf.format(sale_price + save_price) + "원");
                         is_sel_point = false;
                         is_sel_coupon = false;
-                        setSavePoint("","");
+                        setSavePoint("", "");
                         point_discount.clearFocus();
                         return true;
                     }
@@ -349,9 +344,9 @@ public class ReservationActivity extends Activity {
         ee_date = intent.getStringExtra("ee_date");
         pid = intent.getStringExtra("pid");
         mPage = intent.getStringExtra("page") == null ? "" : intent.getStringExtra("page");
-        if(mPage.equals("Private")){
+        if (mPage.equals("Private")) {
             ll_private.setVisibility(View.VISIBLE);
-            accepted_price = intent.getIntExtra("accepted_price",0);
+            accepted_price = intent.getIntExtra("accepted_price", 0);
             bid_id = intent.getStringExtra("bid_id");
         }
 
@@ -372,10 +367,11 @@ public class ReservationActivity extends Activity {
     public void authCheck() {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(ReservationActivity.this));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
@@ -456,25 +452,24 @@ public class ReservationActivity extends Activity {
                     tv_room_detail_price.setText(Util.numberFormat(data.getInt("sale_price")));
                     tv_detail3.setText(data.getString("room_name"));
 
-                    if(data.getString("sale_rate").equals("0")){
+                    if (data.getString("sale_rate").equals("0")) {
                         tv_detail_per.setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         tv_detail_per.setVisibility(View.VISIBLE);
                     }
 
-                    tv_detail_per.setText(data.getString("sale_rate")+"%↓");
+                    tv_detail_per.setText(data.getString("sale_rate") + "%↓");
                     checkin_date = data.getString("checkin_date");
                     checkout_date = data.getString("checkout_date");
                     sale_available = data.getBoolean("sale_available");
                     sale_price = data.getInt("sale_price");
                     hid = data.getString("hotel_id");
                     real_price = data.getInt("normal_price");
-                    if(data.has("reserve_money"))
+                    if (data.has("reserve_money"))
                         reserve_money = data.getInt("reserve_money");
 
                     TextView private_discount = (TextView) findViewById(R.id.private_discount);
-                    if(mPage.equals("Private")) {
+                    if (mPage.equals("Private")) {
                         ll_private.setVisibility(View.VISIBLE);
                         //프라이빗 할인금액
                         isPrivate = true;
@@ -482,16 +477,14 @@ public class ReservationActivity extends Activity {
                         private_money = private_sale_price;
                         private_discount.setText(Util.numberFormat(private_money) + "원");
                         save_price = private_sale_price;
-                    }
-                    else {
+                    } else {
                         ll_private.setVisibility(View.GONE);
                         save_price = 0;
                     }
 
-                    if(reserve_money >=1000){
+                    if (reserve_money >= 1000) {
                         btn_point_total.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         btn_point_total.setVisibility(View.GONE);
                     }
 
@@ -500,7 +493,7 @@ public class ReservationActivity extends Activity {
                         public void onClick(View v) {
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
-                                    getString(R.string.wanna_call_hotelnow)+"\n운영시간 : "+CONFIG.operation_time,
+                                    getString(R.string.wanna_call_hotelnow) + "\n운영시간 : " + CONFIG.operation_time,
                                     getString(R.string.alert_no),
                                     getString(R.string.alert_connect),
                                     ReservationActivity.this,
@@ -540,9 +533,9 @@ public class ReservationActivity extends Activity {
                     pnum1.setAdapter(adapter);
                     other_pnum1.setAdapter(adapter);
                     String username = null, hphoneTmp = null;
-                    if(_preferences.getString("username", null) != null) {
-                       username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
-                       hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
+                    if (_preferences.getString("username", null) != null) {
+                        username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
+                        hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
                     }
                     if (username != null && hphoneTmp != null) {
                         hphone = hphoneTmp.split("-");
@@ -563,7 +556,7 @@ public class ReservationActivity extends Activity {
                     }
 
                     //번호인증
-                    if(cookie == null){ // 비회원
+                    if (cookie == null) { // 비회원
                         findViewById(R.id.layout_auth).setVisibility(View.VISIBLE);
                         findViewById(R.id.other_line).setVisibility(View.GONE);
                         other_checkbox.setVisibility(View.GONE);
@@ -572,19 +565,17 @@ public class ReservationActivity extends Activity {
                         setUseableEditText(pnum2, true);
                         setUseableEditText(pnum3, true);
                         setUseableSpinner(pnum1, true);
-                    }
-                    else {// 회원
+                    } else {// 회원
                         //인증
                         is_auth = data.getString("phone_auth");
                         setUseableEditText(usernameInput, true);
-                        if(is_auth.equals("Y")) {
+                        if (is_auth.equals("Y")) {
                             tv_auth_change.setVisibility(View.VISIBLE);
                             findViewById(R.id.layout_auth).setVisibility(View.GONE);
                             setUseableEditText(pnum2, false);
                             setUseableEditText(pnum3, false);
                             setUseableSpinner(pnum1, false);
-                        }
-                        else {
+                        } else {
                             tv_auth_change.setVisibility(View.GONE);
                             findViewById(R.id.layout_auth).setVisibility(View.VISIBLE);
                             setUseableEditText(pnum2, true);
@@ -601,14 +592,13 @@ public class ReservationActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             boolean is_change = false;
-                            if(tv_auth_change.getText().toString().equals("변경하기")) {
+                            if (tv_auth_change.getText().toString().equals("변경하기")) {
                                 tv_auth_change.setText(Html.fromHtml("<u>" + getResources().getString(R.string.phone_cancel) + "</u>"));
                                 findViewById(R.id.layout_auth).setVisibility(View.VISIBLE);
                                 btn_auth.setVisibility(View.VISIBLE);
                                 auth_ok.setVisibility(View.VISIBLE);
                                 is_change = true;
-                            }
-                            else{
+                            } else {
                                 tv_auth_change.setText(Html.fromHtml("<u>" + getResources().getString(R.string.phone_change) + "</u>"));
                                 findViewById(R.id.layout_auth).setVisibility(View.GONE);
                                 btn_auth.setVisibility(View.GONE);
@@ -638,7 +628,7 @@ public class ReservationActivity extends Activity {
                                 return;
                             }
 
-                            if (pnum3 == null|| pnum3.getText().toString().trim().length() < 4) {
+                            if (pnum3 == null || pnum3.getText().toString().trim().length() < 4) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.validator_pnum), Toast.LENGTH_SHORT).show();
                                 pnum3.requestFocus();
                                 return;
@@ -648,9 +638,10 @@ public class ReservationActivity extends Activity {
                             String phone_number_ful = phone_num_1 + "-" + pnum2.getText().toString() + "-" + pnum3.getText().toString();
 
                             JSONObject paramObj = new JSONObject();
-                            try{
+                            try {
                                 paramObj.put("phone_number", phone_number_ful);
-                            } catch (JSONException e) {}
+                            } catch (JSONException e) {
+                            }
 
                             Api.post(CONFIG.phone_auth, paramObj.toString(), new Api.HttpCallback() {
 
@@ -684,7 +675,7 @@ public class ReservationActivity extends Activity {
 
                                         //카운트, 타이머 show
                                         auth_count.setVisibility(View.VISIBLE);
-                                        remain_count.setText("인증번호가 발송되었습니다 ( 남은횟수 "+obj.getString("remain_count")+"회 )");
+                                        remain_count.setText("인증번호가 발송되었습니다 ( 남은횟수 " + obj.getString("remain_count") + "회 )");
                                         remain_count.setVisibility(View.VISIBLE);
                                         AuthCodeTimmer();
 
@@ -709,10 +700,9 @@ public class ReservationActivity extends Activity {
                     other_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if(isChecked){
+                            if (isChecked) {
                                 layout_orther_user.setVisibility(View.VISIBLE);
-                            }
-                            else{
+                            } else {
                                 layout_orther_user.setVisibility(View.GONE);
                             }
                             is_other_user = isChecked;
@@ -730,22 +720,21 @@ public class ReservationActivity extends Activity {
                         SpannableStringBuilder builder = new SpannableStringBuilder(s_save_money);
                         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 3, s_save_money.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_point_title.append(builder);
-                    }
-                    else{
+                    } else {
                         ll_point.setVisibility(View.GONE);
                         btn_point_total.setVisibility(View.GONE);
                     }
 
                     // 금액
-                    tv_discount_price.setText(nf.format(save_price)+"원");
-                    tv_real_price.setText(nf.format(sale_price)+"원");
-                    tv_total_price.setText(nf.format(sale_price + private_money)+"원");
+                    tv_discount_price.setText(nf.format(save_price) + "원");
+                    tv_real_price.setText(nf.format(sale_price) + "원");
+                    tv_total_price.setText(nf.format(sale_price + private_money) + "원");
 
                     // 적립금 포인트 지급관련
                     LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
-                    if(cookie != null) {
+                    if (cookie != null) {
                         // 쿠폰
-                        if(data.has("promotion_code")) {
+                        if (data.has("promotion_code")) {
                             JSONArray pcodes = data.getJSONArray("promotion_code");
 
                             if (pcodes.length() > 0) {
@@ -770,39 +759,35 @@ public class ReservationActivity extends Activity {
                                 for (int i = 0; i < pcodes.length(); i++) {
                                     JSONObject tobj = pcodes.getJSONObject(i);
                                     coupon_arr.put(i + 1, tobj.getString("id"));
-                                    if(i == 0) {
+                                    if (i == 0) {
                                         all_coupon_id = tobj.getString("id");
+                                    } else {
+                                        all_coupon_id += "," + tobj.getString("id");
                                     }
-                                    else{
-                                        all_coupon_id += ","+tobj.getString("id");
-                                    }
-                                    coupon_txt_arr.add(tobj.getString("promotion_name") +" (" + tobj.getString("promotion_price") + "원)");
+                                    coupon_txt_arr.add(tobj.getString("promotion_name") + " (" + tobj.getString("promotion_price") + "원)");
                                     coupon_price.add(Integer.valueOf(tobj.getString("promotion_price")));
                                 }
                                 setSavePoint("", "");
-                            }
-                            else{
+                            } else {
                                 ll_coupon.setVisibility(View.GONE);
-                                setSavePoint("","");
+                                setSavePoint("", "");
                             }
+                        } else {
+                            setSavePoint("", "");
                         }
-                        else {
-                            setSavePoint("","");
-                        }
-                    }
-                    else{
+                    } else {
                         booking_save_point.setVisibility(View.GONE);
                         ll_coupon.setVisibility(View.GONE);
 //                        setSavePoint("","");
                     }
 
                     // 결제관련 이미지
-                    if(data.has("pay_promotion_img") && data.getJSONArray("pay_promotion_img").length() > 0) {
+                    if (data.has("pay_promotion_img") && data.getJSONArray("pay_promotion_img").length() > 0) {
                         banner_arr = new ArrayList<String>();
                         pay_adapter = new ReservationPagerAdapter(ReservationActivity.this, banner_arr);
                         pay_pager.setAdapter(pay_adapter);
                         pay_pager.setVisibility(View.VISIBLE);
-                        for(int i=0; i<data.getJSONArray("pay_promotion_img").length(); i++) {
+                        for (int i = 0; i < data.getJSONArray("pay_promotion_img").length(); i++) {
                             banner_arr.add(data.getJSONArray("pay_promotion_img").get(i).toString());
                         }
                         pay_adapter.notifyDataSetChanged();
@@ -812,8 +797,7 @@ public class ReservationActivity extends Activity {
                         pay_pager.setPageMargin(3);
 
 //                        setTimer();
-                    }
-                    else{
+                    } else {
                         pay_pager.setVisibility(View.GONE);
                     }
 
@@ -823,15 +807,14 @@ public class ReservationActivity extends Activity {
                         SimpleDateFormat p_CurDateFormat = new SimpleDateFormat(getString(R.string.year_month_day_weekday_format3), Locale.KOREAN);
                         JSONArray products = data.getJSONArray("products");
 
-                        if(products.length() > 1) {
-                            tv_room_detail_days.setText(products.length()+"박 / ");
+                        if (products.length() > 1) {
+                            tv_room_detail_days.setText(products.length() + "박 / ");
 
                             sub_products.setVisibility(View.VISIBLE);
 
                             //	sub_products 아래에 할당할 상품 정보들
                             for (int i = 0; i < products.length(); i++) {
-                                if(i == 0)
-                                {
+                                if (i == 0) {
                                     View t = new View(ReservationActivity.this);
                                     t.setBackgroundResource(R.color.bg_background);
                                     t.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 2));
@@ -849,7 +832,7 @@ public class ReservationActivity extends Activity {
 
                                 String bf = tobj.getString("breakfast");
 
-                                if(bf.equals("0")) bf = "불포함";
+                                if (bf.equals("0")) bf = "불포함";
                                 else bf = "포함";
 
                                 sub_date.setText(subcheckin);
@@ -869,22 +852,22 @@ public class ReservationActivity extends Activity {
                     paytype2_background = (LinearLayout) findViewById(R.id.paytype2_background);
                     paytype3_background = (LinearLayout) findViewById(R.id.paytype3_background);
 //                    tv_paytype0= (TextView) findViewById(R.id.tv_paytype0);
-                    tv_paytype1= (TextView) findViewById(R.id.tv_paytype1);
-                    tv_paytype2= (TextView) findViewById(R.id.tv_paytype2);
-                    tv_paytype3= (TextView) findViewById(R.id.tv_paytype3);
-                    tv_paytype4= (TextView) findViewById(R.id.tv_paytype4);
-                    tv_paytype5= (TextView) findViewById(R.id.tv_paytype5);
+                    tv_paytype1 = (TextView) findViewById(R.id.tv_paytype1);
+                    tv_paytype2 = (TextView) findViewById(R.id.tv_paytype2);
+                    tv_paytype3 = (TextView) findViewById(R.id.tv_paytype3);
+                    tv_paytype4 = (TextView) findViewById(R.id.tv_paytype4);
+                    tv_paytype5 = (TextView) findViewById(R.id.tv_paytype5);
 //                    img_paytype0= (ImageView) findViewById(R.id.img_paytype0);
-                    img_paytype1= (ImageView) findViewById(R.id.img_paytype1);
-                    img_paytype2= (ImageView) findViewById(R.id.img_paytype2);
-                    img_paytype3= (ImageView) findViewById(R.id.img_paytype3);
-                    img_paytype4= (ImageView) findViewById(R.id.img_paytype4);
-                    img_paytype5= (ImageView) findViewById(R.id.img_paytype5);
+                    img_paytype1 = (ImageView) findViewById(R.id.img_paytype1);
+                    img_paytype2 = (ImageView) findViewById(R.id.img_paytype2);
+                    img_paytype3 = (ImageView) findViewById(R.id.img_paytype3);
+                    img_paytype4 = (ImageView) findViewById(R.id.img_paytype4);
+                    img_paytype5 = (ImageView) findViewById(R.id.img_paytype5);
 
                     paytype3_info = (LinearLayout) findViewById(R.id.paytype3_info);
                     paytype0_list = (LinearLayout) findViewById(R.id.paytype0_list);
 //                    paytype0_count = (TextView) findViewById(R.id.paytype0_count);
-                    if(_preferences.getString("userid", null) != null && data.has("billkeys") && !data.getString("billkeys").equals("null")) {
+                    if (_preferences.getString("userid", null) != null && data.has("billkeys") && !data.getString("billkeys").equals("null")) {
                         JSONArray billkeys = data.getJSONArray("billkeys");
                         if (billkeys.length() > 0) {
 //                            paytype0_count.setText(billkeys.length()+"");
@@ -900,8 +883,7 @@ public class ReservationActivity extends Activity {
 //                                setPayItem(4);
 //                            }
 //                        });
-                    }
-                    else {
+                    } else {
 //                        paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border_gray_bg);
 //                        tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.graytxt));
 //                        img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_no);
@@ -1002,7 +984,7 @@ public class ReservationActivity extends Activity {
                                 return;
                             }
 
-                            if(is_other_user){
+                            if (is_other_user) {
                                 if (other_username.getText().toString().trim().length() < 2) {
                                     Toast.makeText(getApplicationContext(), getString(R.string.validator_name_length), Toast.LENGTH_SHORT).show();
                                     usernameInput.requestFocus();
@@ -1025,7 +1007,7 @@ public class ReservationActivity extends Activity {
                                 }
                             }
 
-                            if(is_auth.equals("N")) { // 비회원이고 인증 유무
+                            if (is_auth.equals("N")) { // 비회원이고 인증 유무
                                 dialogAlert = new DialogAlert(
                                         getString(R.string.alert_notice),
                                         getString(R.string.validator_auth),
@@ -1061,7 +1043,7 @@ public class ReservationActivity extends Activity {
                                 return;
                             }
 
-                            if(_preferences.getString("userid", null) == null && TextUtils.isEmpty(useremail.getText())){
+                            if (_preferences.getString("userid", null) == null && TextUtils.isEmpty(useremail.getText())) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.validator_email), Toast.LENGTH_SHORT).show();
                                 useremail.requestFocus();
                                 flag_btn_clicked = false;
@@ -1145,7 +1127,7 @@ public class ReservationActivity extends Activity {
                     fee_text.setMovementMethod(CustomLinkMovementMethod.getInstance());
                     fee_text.setText(fee_tmp);
                     cancel_fee_str = data.getString("fee");
-                    cancel_fee_str = cancel_fee_str + "\n\n- <font color=#ff0000>체크아웃</font> : " + Util.formatchange(checkout_date.substring(0,10));
+                    cancel_fee_str = cancel_fee_str + "\n\n- <font color=#ff0000>체크아웃</font> : " + Util.formatchange(checkout_date.substring(0, 10));
 
                     agree_policy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
@@ -1179,10 +1161,9 @@ public class ReservationActivity extends Activity {
                         }
                     });
 
-                    if(ll_private.getVisibility() == View.VISIBLE || ll_point.getVisibility() == View.VISIBLE || ll_coupon.getVisibility() == View.VISIBLE) {
+                    if (ll_private.getVisibility() == View.VISIBLE || ll_point.getVisibility() == View.VISIBLE || ll_coupon.getVisibility() == View.VISIBLE) {
                         findViewById(R.id.include_reservation_discount).setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         findViewById(R.id.include_reservation_discount).setVisibility(View.GONE);
                     }
 
@@ -1195,9 +1176,9 @@ public class ReservationActivity extends Activity {
         });
     }
 
-    private void setSavePoint(String apply_coupon_id, final String apply_reserve_money){
+    private void setSavePoint(String apply_coupon_id, final String apply_reserve_money) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        Api.get(CONFIG.save_point+"/"+hid+"?sale_price="+sale_price+"&coupon_ids="+all_coupon_id+"&apply_coupon_id="+apply_coupon_id+"&checkin_date="+ec_date+"&checkout_date="+ee_date+"&privatedeal_money="+private_money+"&apply_reserve_money="+apply_reserve_money, new Api.HttpCallback() {
+        Api.get(CONFIG.save_point + "/" + hid + "?sale_price=" + sale_price + "&coupon_ids=" + all_coupon_id + "&apply_coupon_id=" + apply_coupon_id + "&checkin_date=" + ec_date + "&checkout_date=" + ee_date + "&privatedeal_money=" + private_money + "&apply_reserve_money=" + apply_reserve_money, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
                 booking_save_point.setVisibility(View.GONE);
@@ -1224,7 +1205,7 @@ public class ReservationActivity extends Activity {
 
 
                     // 쿠폰
-                    if(obj.has("coupons")) {
+                    if (obj.has("coupons")) {
                         JSONArray pcodes = obj.getJSONArray("coupons");
                         LinearLayout ll_coupon = (LinearLayout) findViewById(R.id.ll_coupon);
                         if (pcodes.length() > 0) {
@@ -1232,7 +1213,7 @@ public class ReservationActivity extends Activity {
 
                             tv_coupon_title = (TextView) findViewById(R.id.tv_coupon_title);
 
-                            if(!is_sel_coupon) {
+                            if (!is_sel_coupon) {
                                 coupon_arr = new HashMap<Integer, String>();
                                 coupon_price = new ArrayList<Integer>();
                                 coupon_avail = new ArrayList<String>();
@@ -1245,7 +1226,7 @@ public class ReservationActivity extends Activity {
                                 int use_coupon = 0;
                                 for (int i = 0; i < pcodes.length(); i++) {
                                     JSONObject tobj = pcodes.getJSONObject(i);
-                                    if(tobj.getString("avail").equals("Y")) {
+                                    if (tobj.getString("avail").equals("Y")) {
                                         use_coupon++;
                                         coupon_arr.put(i + 1, tobj.getString("id"));
                                         coupon_txt_arr.add(tobj.getString("promotion_name") + " (" + tobj.getString("promotion_price") + "원)");
@@ -1264,23 +1245,21 @@ public class ReservationActivity extends Activity {
                                 SpannableStringBuilder builder1 = new SpannableStringBuilder(s_coupon);
                                 builder1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 6, s_coupon.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                 tv_coupon_title.setText(builder1);
-                                if(use_coupon == 0){
+                                if (use_coupon == 0) {
                                     coupon_txt_arr.clear();
                                     coupon_txt_arr.add("사용 가능한 쿠폰이 없습니다.");
                                     coupon_spinner.setEnabled(false);
-                                }
-                                else{
+                                } else {
                                     coupon_spinner.setEnabled(true);
                                 }
 
-                                ArrayAdapter<String> coupon_adapter = new ArrayAdapter<String>(ReservationActivity.this, R.layout.layout_spinner_item, coupon_txt_arr){
+                                ArrayAdapter<String> coupon_adapter = new ArrayAdapter<String>(ReservationActivity.this, R.layout.layout_spinner_item, coupon_txt_arr) {
                                     @Override
                                     public boolean isEnabled(int position) {
-                                        if(coupon_avail.get(position).equals("Y")){
+                                        if (coupon_avail.get(position).equals("Y")) {
 
                                             return true;
-                                        }
-                                        else {
+                                        } else {
                                             return false;
                                         }
                                     }
@@ -1290,12 +1269,11 @@ public class ReservationActivity extends Activity {
                                                                 ViewGroup parent) {
                                         View view = super.getDropDownView(position, convertView, parent);
                                         TextView tv = (TextView) view;
-                                        if(coupon_avail.get(position).equals("N")){
+                                        if (coupon_avail.get(position).equals("N")) {
                                             // Set the disable item text color
                                             tv.setBackgroundResource(R.color.footerview);
                                             tv.setTextColor(getResources().getColor(R.color.graytxt));
-                                        }
-                                        else {
+                                        } else {
                                             tv.setBackgroundResource(R.color.white);
                                             tv.setTextColor(getResources().getColor(R.color.blacktxt));
                                         }
@@ -1345,16 +1323,14 @@ public class ReservationActivity extends Activity {
                                     }
                                 });
                             }
-                        }
-                        else{
+                        } else {
                             ll_coupon.setVisibility(View.GONE);
                         }
                     }
 
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
-                }
-                catch (JSONException e){
+                } catch (JSONException e) {
                     booking_save_point.setVisibility(View.GONE);
                     Toast.makeText(ReservationActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
@@ -1382,7 +1358,7 @@ public class ReservationActivity extends Activity {
     private View.OnClickListener okClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(paytype == 4) {
+            if (paytype == 4) {
                 showSignPop();
             } else {
                 goPayment();
@@ -1396,7 +1372,7 @@ public class ReservationActivity extends Activity {
         @Override
         public void onClick(View v) {
 
-            if(dialogBillingAlert.hasSign == true) {
+            if (dialogBillingAlert.hasSign == true) {
                 Bitmap bm = dialogBillingAlert.getBitmap();
 
                 if (bm != null) {
@@ -1404,8 +1380,8 @@ public class ReservationActivity extends Activity {
                     Bitmap resizedBitmap = Bitmap.createScaledBitmap(bm, 120, 80, false);
                     resizedBitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
 
-                    byte [] b = baos.toByteArray();
-                    bmpStr = "data:image/png;base64,"+ Base64.encodeToString(b, Base64.DEFAULT);
+                    byte[] b = baos.toByteArray();
+                    bmpStr = "data:image/png;base64," + Base64.encodeToString(b, Base64.DEFAULT);
 
                     goPayment();
 
@@ -1426,34 +1402,40 @@ public class ReservationActivity extends Activity {
         dialogBillingAlert.show();
     }
 
-    private void setPayItem(int mPayType){
-        if(mPayType == 1){
+    private void setPayItem(int mPayType) {
+        if (mPayType == 1) {
             paytype1_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
-            tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
+            tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));
+            ;
             img_paytype1.setBackgroundResource(R.drawable.ico_pay_card_selected);
-        }else{
+        } else {
             paytype1_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
-            tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));;
+            tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
+            ;
             img_paytype1.setBackgroundResource(R.drawable.ico_pay_card);
         }
         if (mPayType == 2) {
             paytype2_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
-            tv_paytype2.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
+            tv_paytype2.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));
+            ;
             img_paytype2.setBackgroundResource(R.drawable.ico_pay_phone_selected);
-        }else{
+        } else {
             paytype2_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
-            tv_paytype2.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));;
+            tv_paytype2.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
+            ;
             img_paytype2.setBackgroundResource(R.drawable.ico_pay_phone);
         }
         if (mPayType == 3) {
             paytype3_info.setVisibility(View.VISIBLE);
             paytype3_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
-            tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
+            tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));
+            ;
             img_paytype3.setBackgroundResource(R.drawable.ico_pay_ars_selected);
-        }else{
+        } else {
             paytype3_info.setVisibility(View.GONE);
             paytype3_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
-            tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));;
+            tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
+            ;
             img_paytype3.setBackgroundResource(R.drawable.ico_pay_ars);
         }
         if (mPayType == 4) {
@@ -1461,12 +1443,12 @@ public class ReservationActivity extends Activity {
             paytype0_list.setVisibility(View.VISIBLE);
             RadioGroup rg = new RadioGroup(this);
             rg.setOrientation(LinearLayout.VERTICAL);
-            if(billmap != null && billmap.size() > 0) {
-                for(int i = 0; i<billmap.size(); i++){
+            if (billmap != null && billmap.size() > 0) {
+                for (int i = 0; i < billmap.size(); i++) {
                     try {
                         JSONObject selobj = billmap.get(i);
                         final RadioButton rb = new RadioButton(this);
-                        rb.setText(selobj.getString("cardnm") +"    "+ selobj.getString("cardno"));
+                        rb.setText(selobj.getString("cardnm") + "    " + selobj.getString("cardno"));
                         rb.setTextSize(12);
                         rb.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.termtext));
                         rb.setPadding(32, 20, 0, 20);
@@ -1480,8 +1462,8 @@ public class ReservationActivity extends Activity {
                         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                LogUtil.e("xxxxx", checkedId+"");
-                                selected_card = checkedId+"";
+                                LogUtil.e("xxxxx", checkedId + "");
+                                selected_card = checkedId + "";
                             }
                         });
                     } catch (Exception e) {
@@ -1491,20 +1473,18 @@ public class ReservationActivity extends Activity {
 //                paytype0_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
 //                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
 //                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_selected);
-            }
-            else{
+            } else {
                 View child = getLayoutInflater().inflate(R.layout.layout_paytype0_info, null);
                 paytype0_list.addView(child);
             }
 //            paytype0_count.setVisibility(View.GONE);
-        }else{
-            if(billmap != null && billmap.size() > 0) {
+        } else {
+            if (billmap != null && billmap.size() > 0) {
 //                paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border);
 //                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
 //                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct);
 //                paytype0_count.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
 //                paytype0_background.setBackgroundResource(R.drawable.style_edittext_gray_border_gray_bg);
 //                tv_paytype0.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.graytxt));
 //                img_paytype0.setBackgroundResource(R.drawable.ico_pay_direct_no);
@@ -1515,27 +1495,31 @@ public class ReservationActivity extends Activity {
         }
         if (mPayType == 5) {
             paytype4_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
-            tv_paytype4.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
+            tv_paytype4.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));
+            ;
             img_paytype4.setBackgroundResource(R.drawable.ico_pay_account_selected);
-        }else{
+        } else {
             paytype4_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
-            tv_paytype4.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));;
+            tv_paytype4.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
+            ;
             img_paytype4.setBackgroundResource(R.drawable.ico_pay_account);
         }
         if (mPayType == 6) {
             paytype5_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
-            tv_paytype5.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));;
+            tv_paytype5.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.purple));
+            ;
             img_paytype5.setBackgroundResource(R.drawable.ico_pay_payco_selected);
-        }else{
+        } else {
             paytype5_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
-            tv_paytype5.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));;
+            tv_paytype5.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.blacktxt));
+            ;
             img_paytype5.setBackgroundResource(R.drawable.ico_pay_payco);
         }
 
         paytype = mPayType;
     }
 
-    public void authSendData(){
+    public void authSendData() {
         if (pnum2.getText().toString().trim().length() < 3) {
             Toast.makeText(getApplicationContext(), getString(R.string.validator_pnum), Toast.LENGTH_SHORT).show();
             pnum2.requestFocus();
@@ -1548,7 +1532,7 @@ public class ReservationActivity extends Activity {
             return;
         }
 
-        if(auth_string.getText().toString().trim().length() < 1){
+        if (auth_string.getText().toString().trim().length() < 1) {
             Toast.makeText(getApplicationContext(), getString(R.string.validator_auth), Toast.LENGTH_SHORT).show();
             auth_string.requestFocus();
             return;
@@ -1558,21 +1542,21 @@ public class ReservationActivity extends Activity {
         final String phone_number_ful = phone_num_1 + "-" + pnum2.getText().toString() + "-" + pnum3.getText().toString();
 
         JSONObject paramObj = new JSONObject();
-        try{
+        try {
             paramObj.put("phone_number", phone_number_ful);
             paramObj.put("phone_auth_code", auth_string.getText().toString());
-            if(cookie != null) {
+            if (cookie != null) {
                 try {
-                    paramObj.put("user_id", AES256Chiper.AES_Decode(cookie.replace("HN|","")));
+                    paramObj.put("user_id", AES256Chiper.AES_Decode(cookie.replace("HN|", "")));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            } else {
                 paramObj.put("user_id", cookie);
             }
             paramObj.put("uuid", Util.getAndroidId(ReservationActivity.this));
-        } catch (JSONException e) {}
+        } catch (JSONException e) {
+        }
 
         Api.post(CONFIG.phone_auth_check, paramObj.toString(), new Api.HttpCallback() {
 
@@ -1585,7 +1569,7 @@ public class ReservationActivity extends Activity {
 
             @Override
             public void onSuccess(Map<String, String> headers, String body) {
-                try{
+                try {
                     JSONObject obj = new JSONObject(body);
 
                     if (!obj.getString("result").equals("success")) {
@@ -1596,7 +1580,7 @@ public class ReservationActivity extends Activity {
                         return;
                     }
 
-                    if(cookie != null) {
+                    if (cookie != null) {
                         //번호 저장
                         SharedPreferences.Editor prefEditor = _preferences.edit();
                         prefEditor.putString("phone", phone_number_ful);
@@ -1622,7 +1606,7 @@ public class ReservationActivity extends Activity {
                     auth_ok.setBackgroundResource(R.drawable.style_edittext_gray_border);
                     auth_ok.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.coupon_dis));
 
-                    if(countDownTimer != null) {
+                    if (countDownTimer != null) {
                         countDownTimer.cancel();
                     }
                     Toast.makeText(ReservationActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -1637,14 +1621,11 @@ public class ReservationActivity extends Activity {
     }
 
     // 인증번호 타이머
-    public void AuthCodeTimmer()
-    {
+    public void AuthCodeTimmer() {
         // 타이머 설정
-        countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL)
-        {
+        countDownTimer = new CountDownTimer(MILLISINFUTURE, COUNT_DOWN_INTERVAL) {
             @Override
-            public void onFinish()
-            {
+            public void onFinish() {
                 // 인증하기 버튼 비활성화
                 auth_ok.setBackgroundResource(R.drawable.style_edittext_gray_border);
                 auth_ok.setTextColor(ContextCompat.getColor(ReservationActivity.this, R.color.coupon_dis));
@@ -1661,15 +1642,15 @@ public class ReservationActivity extends Activity {
                 setUseableEditText(pnum3, true);
                 setUseableSpinner(pnum1, true);
             }
+
             @Override
-            public void onTick(long millisUntilFinished)
-            {
+            public void onTick(long millisUntilFinished) {
                 long AuthCount = millisUntilFinished / 1000;
 
                 if ((AuthCount - ((AuthCount / 60) * 60)) >= 10) { //초가 10보다 크면 그냥 출력
-                    auth_count.setText("("+(AuthCount / 60) + " : " + (AuthCount - ((AuthCount / 60) * 60))+")");
+                    auth_count.setText("(" + (AuthCount / 60) + " : " + (AuthCount - ((AuthCount / 60) * 60)) + ")");
                 } else { //초가 10보다 작으면 앞에 '0' 붙여서 같이 출력. ex) 02,03,04...
-                    auth_count.setText("("+(AuthCount / 60) + " : 0" + (AuthCount - ((AuthCount / 60) * 60))+")");
+                    auth_count.setText("(" + (AuthCount / 60) + " : 0" + (AuthCount - ((AuthCount / 60) * 60)) + ")");
                 }
             }
         };
@@ -1677,7 +1658,7 @@ public class ReservationActivity extends Activity {
         countDownTimer.start();
     }
 
-    private void authReset(){
+    private void authReset() {
         // 인증하기 버튼 비활성화
         auth_ok.setClickable(false);
 
@@ -1693,13 +1674,13 @@ public class ReservationActivity extends Activity {
         auth_count.setVisibility(View.GONE);
         remain_count.setVisibility(View.GONE);
 
-        if(countDownTimer != null) {
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
 
     private void setUseableEditText(EditText et, boolean useable) {
-        if(et != null) {
+        if (et != null) {
             et.setClickable(useable);
             et.setEnabled(useable);
             et.setFocusable(useable);
@@ -1713,28 +1694,27 @@ public class ReservationActivity extends Activity {
     }
 
     private void setUseableSpinner(Spinner sp, boolean useable) {
-        if(sp != null){
+        if (sp != null) {
             sp.setClickable(useable);
             sp.setEnabled(useable);
             sp.setFocusable(useable);
             sp.setFocusableInTouchMode(useable);
-            if(useable) {
+            if (useable) {
                 sp.setBackgroundResource(R.drawable.style_edittext_gray_2border);
-            }
-            else{
+            } else {
                 sp.setBackgroundResource(R.drawable.style_edittext_white_2border);
             }
         }
     }
 
-    public void setTimer(){
-        if(pay_pager != null) {
+    public void setTimer() {
+        if (pay_pager != null) {
             try {
                 if (Update != null || swipeTimer != null) return;
                 Update = new Runnable() {
                     public void run() {
                         try {
-                            if(nowPosition == pay_adapter.getCount()){
+                            if (nowPosition == pay_adapter.getCount()) {
                                 nowPosition = 0;
                             }
 
@@ -1757,8 +1737,8 @@ public class ReservationActivity extends Activity {
         }
     }
 
-    public void stopTimer(){
-        if(Update != null || swipeTimer != null) {
+    public void stopTimer() {
+        if (Update != null || swipeTimer != null) {
             swipeTimer.cancel();
             swipeTimer.purge();
             swipeTimer = null;
@@ -1767,7 +1747,7 @@ public class ReservationActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed () {
+    public void onBackPressed() {
 
         if (countDownTimer != null) {
             countDownTimer.cancel();
@@ -1778,28 +1758,27 @@ public class ReservationActivity extends Activity {
         super.onBackPressed();
     }
 
-    private void goPayment(){
+    private void goPayment() {
         String phone_number = "";
         String user_name = "";
-        if(is_sel_point) {
+        if (is_sel_point) {
             reserve_value = point_discount.getText().toString();
         }
-        if(is_other_user) { // 다른유저
+        if (is_other_user) { // 다른유저
             phone_number = other_pnum1.getSelectedItem() + "-" + other_pnum2.getText().toString() + "-" + other_pnum3.getText().toString();
             user_name = other_username.getText().toString();
-        }
-        else{
+        } else {
             phone_number = pnum1.getSelectedItem() + "-" + pnum2.getText().toString() + "-" + pnum3.getText().toString();
             user_name = usernameInput.getText().toString();
         }
 
         JSONObject params = new JSONObject();
-        try{
+        try {
             String locLat = "";
             String locLng = "";
             params.put("pid", pid);
             params.put("un", Base64.encodeToString(user_name.getBytes(), Base64.NO_WRAP));
-            params.put("up", Base64.encodeToString(phone_number.getBytes(),Base64.NO_WRAP));
+            params.put("up", Base64.encodeToString(phone_number.getBytes(), Base64.NO_WRAP));
             params.put("pcode", pcode);
             params.put("reserve_money", reserve_value);
             params.put("imgstr", bmpStr);
@@ -1807,10 +1786,10 @@ public class ReservationActivity extends Activity {
             params.put("privatedeal_bid", bid_id);
             params.put("privatedeal_money", private_money);
             params.put("phone_auth", is_auth);
-            String other_booker = is_other_user ? "Y":"N";
+            String other_booker = is_other_user ? "Y" : "N";
             params.put("other_booker", other_booker);
 
-            if(Util.userLocation != null) {
+            if (Util.userLocation != null) {
                 locLat = String.valueOf(Util.userLocation.getLatitude());
                 locLng = String.valueOf(Util.userLocation.getLongitude());
             } else {
@@ -1824,12 +1803,13 @@ public class ReservationActivity extends Activity {
             params.put("version", Util.getAppVersionName(ReservationActivity.this));
             params.put("os", "a");
 
-            if(ec_date != null && ee_date != null){
+            if (ec_date != null && ee_date != null) {
                 params.put("ec_date", ec_date);
                 params.put("ee_date", ee_date);
                 params.put("consecutive", "Y");
             }
-        } catch (JSONException e) {}
+        } catch (JSONException e) {
+        }
 
         Api.post(CONFIG.bookingReserveUrl, params.toString(), new Api.HttpCallback() {
             @Override
@@ -1857,25 +1837,25 @@ public class ReservationActivity extends Activity {
                     intent.putExtra("pid", pid);
                     intent.putExtra("selected_card", selected_card);
                     intent.putExtra("uname", usernameInput.getText().toString());
-                    intent.putExtra("uphone", pnum1.getSelectedItem()+"-"+pnum2.getText().toString()+"-"+pnum3.getText().toString());
+                    intent.putExtra("uphone", pnum1.getSelectedItem() + "-" + pnum2.getText().toString() + "-" + pnum3.getText().toString());
                     intent.putExtra("city", city);
                     intent.putExtra("product_id", hid);
 
-                    if(paytype == 6) {
+                    if (paytype == 6) {
                         intent.putExtra("is_payco", true);
                     }
-                    if(coupon_spinner != null && coupon_spinner.getSelectedItem() != null && !TextUtils.isEmpty(coupon_spinner.getSelectedItem().toString()) && !coupon_spinner.getSelectedItem().toString().equals("사용안함")) {
+                    if (coupon_spinner != null && coupon_spinner.getSelectedItem() != null && !TextUtils.isEmpty(coupon_spinner.getSelectedItem().toString()) && !coupon_spinner.getSelectedItem().toString().equals("사용안함")) {
                         intent.putExtra("coupon_name", coupon_spinner.getSelectedItem().toString());
                         intent.putExtra("coupon_id", pcode);
                     }
 
-                    float revenue = obj.has("revenue")? (float)obj.getInt("revenue"):0;
-                    int quantity = obj.has("quantity")? obj.getInt("quantity"):0;
+                    float revenue = obj.has("revenue") ? (float) obj.getInt("revenue") : 0;
+                    int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
 
                     // Tune
                     TuneWrap.Reservation(revenue, quantity, obj.getString("bid"), checkin_date, checkout_date);
 
-                    startActivityForResult(intent,80);
+                    startActivityForResult(intent, 80);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 } catch (JSONException e) {
                     Log.e(CONFIG.TAG, e.toString());
@@ -1887,10 +1867,11 @@ public class ReservationActivity extends Activity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 80 && resultCode == 80){
+        if (requestCode == 80 && resultCode == 80) {
             setResult(100);
             finish();
         }
@@ -1901,8 +1882,8 @@ public class ReservationActivity extends Activity {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
             Rect outRect = new Rect();
-            if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                if(v != null) {
+            if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                if (v != null) {
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }

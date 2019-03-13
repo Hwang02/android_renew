@@ -20,31 +20,24 @@ public class SmoothPager extends ViewPager {
     }
 
 
-
-    private void setMyScroller()
-    {
-        try
-        {
+    private void setMyScroller() {
+        try {
             Class<?> viewpager = ViewPager.class;
             Field scroller = viewpager.getDeclaredField("mScroller");
             scroller.setAccessible(true);
             scroller.set(this, new MyScroller(getContext()));
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public class MyScroller extends Scroller
-    {
-        public MyScroller(Context context)
-        {
+    public class MyScroller extends Scroller {
+        public MyScroller(Context context) {
             super(context, new DecelerateInterpolator());
         }
 
         @Override
-        public void startScroll(int startX, int startY, int dx, int dy, int duration)
-        {
+        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
             super.startScroll(startX, startY, dx, dy, 1000 /*1 secs*/);
         }
     }

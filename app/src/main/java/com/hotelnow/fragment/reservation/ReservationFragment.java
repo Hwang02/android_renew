@@ -51,18 +51,17 @@ public class ReservationFragment extends Fragment {
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        if(_preferences.getString("userid", null) != null) {
+        if (_preferences.getString("userid", null) != null) {
             mReservationBinding.info.setVisibility(View.VISIBLE);
             mReservationBinding.line.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             mReservationBinding.info.setVisibility(View.GONE);
             mReservationBinding.line.setVisibility(View.GONE);
         }
 
         dbHelper = new DbOpenHelper(getActivity());
         // tabbar + subbar animation을 위한 뷰 높이 생
-        mReservationBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(),56)));
+        mReservationBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(), 56)));
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("숙소"));
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("액티비티"));
         mReservationBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -70,7 +69,7 @@ public class ReservationFragment extends Fragment {
         reservationAdapter = new ReservationAdapter(getActivity(), getChildFragmentManager());
         mReservationBinding.viewPager.setAdapter(reservationAdapter);
 
-        if(CONFIG.sel_reserv == 0) {
+        if (CONFIG.sel_reserv == 0) {
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -79,8 +78,7 @@ public class ReservationFragment extends Fragment {
                             mReservationBinding.viewPager.setCurrentItem(0);
                         }
                     }, 100);
-        }
-        else {
+        } else {
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -89,7 +87,7 @@ public class ReservationFragment extends Fragment {
                             mReservationBinding.viewPager.setCurrentItem(1);
 
                         }
-                    },100);
+                    }, 100);
 
         }
 
@@ -113,12 +111,11 @@ public class ReservationFragment extends Fragment {
         });
     }
 
-    public void setInfobar(){
-        if(_preferences.getString("userid", null) != null) {
+    public void setInfobar() {
+        if (_preferences.getString("userid", null) != null) {
             mReservationBinding.info.setVisibility(View.VISIBLE);
             mReservationBinding.line.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             mReservationBinding.info.setVisibility(View.GONE);
             mReservationBinding.line.setVisibility(View.GONE);
         }

@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.home.PagerMainFragment;
@@ -29,6 +30,7 @@ import com.hotelnow.utils.ViewPagerCustom;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,7 +40,7 @@ import java.util.Date;
  */
 public class DialogMainFragment extends DialogFragment {
     public Button mButton;
-//    public Button mButton;
+    //    public Button mButton;
     public onSubmitListener mListener;
     public JSONArray popup_data = new JSONArray();
     public HomeFragment pf;
@@ -70,8 +72,8 @@ public class DialogMainFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pager_main, container);
 
-        if(popup_data != null && popup_data.length() == 0){
-            Toast.makeText(getActivity(),"알림이 없습니다. 리스트 새로고침 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+        if (popup_data != null && popup_data.length() == 0) {
+            Toast.makeText(getActivity(), "알림이 없습니다. 리스트 새로고침 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
         }
 
         id = new String[popup_data.length()];
@@ -84,9 +86,9 @@ public class DialogMainFragment extends DialogFragment {
         evt_type = new String[popup_data.length()];
         front_img = new String[popup_data.length()];
 
-        try{
+        try {
             // 팝업 정의
-            for(int i=0; i < popup_data.length(); i++){
+            for (int i = 0; i < popup_data.length(); i++) {
                 id[i] = popup_data.getJSONObject(i).getString("id");
                 title[i] = popup_data.getJSONObject(i).getString("title");
                 thumb_img[i] = popup_data.getJSONObject(i).getString("thumb_img");
@@ -126,24 +128,23 @@ public class DialogMainFragment extends DialogFragment {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(0, true);
         mViewPager.addOnPageChangeListener(mPagerAdapter);
-        page.setText("1 / "+popup_data.length());
+        page.setText("1 / " + popup_data.length());
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
 
-                if(left.isChecked()){
+                if (left.isChecked()) {
                     // 오늘 하루 닫기
                     Date currentTime = new Date();
                     calendar.setTime(currentTime);
                     calendar.add(Calendar.DAY_OF_YEAR, 7);
 
-                    if(pf != null && pf.frgpopup != null)
+                    if (pf != null && pf.frgpopup != null)
                         pf.frgpopup.dismiss();
 
                     TuneWrap.Event("popup_pre_after");
-                }
-                else {
+                } else {
                     // 닫기
                     Date currentTime = new Date();
                     calendar.setTime(currentTime);
@@ -156,7 +157,7 @@ public class DialogMainFragment extends DialogFragment {
 
                 SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String checkdate = mSimpleDateFormat.format(calendar.getTime());
-                if(pf != null && pf._preferences != null) {
+                if (pf != null && pf._preferences != null) {
                     Util.setPreferenceValues(pf._preferences, "front_popup_date", checkdate);
                 }
             }
@@ -186,17 +187,19 @@ public class DialogMainFragment extends DialogFragment {
         }
 
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
         @Override
         public void onPageSelected(int position) {
 //            if(autoViewPager != null)
 //                resizePager(autoViewPager, position);
-            page.setText(position+1+" / "+popup_data.length());
+            page.setText(position + 1 + " / " + popup_data.length());
         }
 
         @Override
-        public void onPageScrollStateChanged(int state) {}
+        public void onPageScrollStateChanged(int state) {
+        }
 
         public void resizePager(ViewPagerCustom pager, int position) {
             View view = pager.findViewWithTag(position);

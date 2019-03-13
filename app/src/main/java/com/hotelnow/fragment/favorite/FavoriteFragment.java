@@ -69,7 +69,7 @@ public class FavoriteFragment extends Fragment {
         dbHelper = new DbOpenHelper(getActivity());
 
         // tabbar + subbar animation을 위한 뷰 높이 생
-        mFavoriteBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(),56)));
+        mFavoriteBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(), 56)));
         mFavoriteBinding.tabLayout.addTab(mFavoriteBinding.tabLayout.newTab().setText("숙소"));
         mFavoriteBinding.tabLayout.addTab(mFavoriteBinding.tabLayout.newTab().setText("액티비티"));
         mFavoriteBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -77,14 +77,14 @@ public class FavoriteFragment extends Fragment {
         ee_date = Util.setCheckinout().get(1);
         // 1번 탭 일때
         m_Selecttab = CONFIG.sel_fav;
-        if(m_Selecttab == 0) {
+        if (m_Selecttab == 0) {
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
                         public void run() {
                             mFavoriteBinding.tabLayout.getTabAt(0).select();
                             mFavoriteBinding.viewPager.setCurrentItem(0);
-                            mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) +" - "+Util.formatchange5(ee_date));
+                            mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                             mFavoriteBinding.btnDate.setOnClickListener(new OnSingleClickListener() {
                                 @Override
                                 public void onSingleClick(View v) {
@@ -108,8 +108,8 @@ public class FavoriteFragment extends Fragment {
                                                     intent.putExtra("ee_date", ee_date);
                                                     startActivityForResult(intent, 80);
                                                 }
+                                            } catch (Exception e) {
                                             }
-                                            catch (Exception e){}
                                         }
                                     });
                                 }
@@ -122,8 +122,7 @@ public class FavoriteFragment extends Fragment {
                             });
                         }
                     }, 100);
-        }
-        else {
+        } else {
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -148,7 +147,7 @@ public class FavoriteFragment extends Fragment {
                                 }
                             });
                         }
-                    },100);
+                    }, 100);
         }
 
         favoriteAdapter = new FavoriteAdapter(getActivity(), getChildFragmentManager());
@@ -182,8 +181,8 @@ public class FavoriteFragment extends Fragment {
                                             intent.putExtra("ee_date", ee_date);
                                             startActivityForResult(intent, 80);
                                         }
+                                    } catch (Exception e) {
                                     }
-                                    catch (Exception e){}
                                 }
                             });
                         }
@@ -220,9 +219,9 @@ public class FavoriteFragment extends Fragment {
         super.onStop();
     }
 
-    public void isdelete(boolean isdelete){
-        boolean isuser = _preferences.getString("userid", null) != null ? true:false;
-        if(isuser) {
+    public void isdelete(boolean isdelete) {
+        boolean isuser = _preferences.getString("userid", null) != null ? true : false;
+        if (isuser) {
             mFavoriteBinding.viewFilter.setVisibility(View.VISIBLE);
             if (mFavoriteBinding.tabLayout.getSelectedTabPosition() == 0) {
                 if (isdelete) {
@@ -245,13 +244,12 @@ public class FavoriteFragment extends Fragment {
                     mFavoriteBinding.viewFilter.setVisibility(View.GONE);
                 }
             }
-        }
-        else{
+        } else {
             mFavoriteBinding.viewFilter.setVisibility(View.GONE);
         }
     }
 
-    private void allDelete(final int tab){
+    private void allDelete(final int tab) {
 
         dialogConfirm = new DialogConfirm("삭제", "전체 관심 저장 상품을 삭제하시겠습니까?", "취소", "확인", getActivity(), new OnSingleClickListener() {
             @Override
@@ -261,11 +259,10 @@ public class FavoriteFragment extends Fragment {
         }, new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if(tab == 0){
+                if (tab == 0) {
                     FavoriteHotelFragment f = (FavoriteHotelFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
                     f.setDeleteAll();
-                }
-                else{
+                } else {
                     FavoriteActivityFragment f = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
                     f.setDeleteAll();
                 }
@@ -319,19 +316,18 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 80){
-            if(m_Selecttab == 0) {
+        if (resultCode == 80) {
+            if (m_Selecttab == 0) {
                 ec_date = data.getStringExtra("ec_date");
                 ee_date = data.getStringExtra("ee_date");
                 mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                 FavoriteHotelFragment f = (FavoriteHotelFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
                 f.setDateRefresh(ec_date, ee_date);
-            }
-            else{
+            } else {
                 ec_date = data.getStringExtra("ec_date");
                 mFavoriteBinding.tvDate.setText(Util.formatchange5(ec_date));
                 FavoriteActivityFragment f2 = (FavoriteActivityFragment) mFavoriteBinding.viewPager.getAdapter().instantiateItem(mFavoriteBinding.viewPager, mFavoriteBinding.viewPager.getCurrentItem());
-                f2.setDateRefresh("","");
+                f2.setDateRefresh("", "");
             }
         }
     }

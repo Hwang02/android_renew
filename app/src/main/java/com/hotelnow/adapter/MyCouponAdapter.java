@@ -53,15 +53,14 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
 
         final CouponEntry entry = getItem(position);
 
-        if(!entry.getmProduct().equals("empty")) {
+        if (!entry.getmProduct().equals("empty")) {
             holder.view_item.setVisibility(View.VISIBLE);
             holder.empty_item.setVisibility(View.GONE);
 
             //title
             if (entry.getmProduct().equals("activity")) {
                 holder.coupon_kind.setBackgroundResource(R.drawable.ico_coupon_activity);
-            }
-            else{
+            } else {
                 holder.coupon_kind.setBackgroundResource(R.drawable.ico_coupon_stay);
             }
 
@@ -89,16 +88,14 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
                 }
                 holder.coupon_info.setVisibility(View.VISIBLE);
                 if (!entry.getmMin_price().equals("") && !entry.getmMin_price().equals("null")) {
-                    holder.coupon_info.setText(options+"ㆍ"+entry.getmMin_price());
-                }
-                else{
+                    holder.coupon_info.setText(options + "ㆍ" + entry.getmMin_price());
+                } else {
                     holder.coupon_info.setText(options);
                 }
             } else {
                 if (!entry.getmMin_price().equals("") && !entry.getmMin_price().equals("null")) {
-                    holder.coupon_info.setText("ㆍ"+entry.getmMin_price());
-                }
-                else {
+                    holder.coupon_info.setText("ㆍ" + entry.getmMin_price());
+                } else {
                     holder.coupon_info.setVisibility(View.GONE);
                 }
             }
@@ -109,10 +106,9 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
             if (entry.getmTarget_lists() != null && entry.getmTarget_lists().length > 0) {
                 holder.coupon_hotel_count.setVisibility(View.VISIBLE);
                 if (entry.getmProduct().equals("activity")) {
-                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 액티비티 </u>")+">");
-                }
-                else {
-                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 숙소 </u>")+">");
+                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 액티비티 </u>") + ">");
+                } else {
+                    holder.coupon_hotel_count.setText(Html.fromHtml("<u>/  " + entry.getmTarget_lists().length + "개의 숙소 </u>") + ">");
                 }
                 holder.coupon_hotel_count.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -120,7 +116,7 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
 
                         hotels = "";
                         for (int i = 0; i < entry.getmTarget_lists().length; i++) {
-                            hotels += "ㆍ"+entry.getmTarget_lists()[i] + "\n";
+                            hotels += "ㆍ" + entry.getmTarget_lists()[i] + "\n";
                         }
                         String mTitle = "";
                         if (entry.getmProduct().equals("activity")) {
@@ -147,24 +143,21 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
                 holder.coupon_hotel_count.setVisibility(View.VISIBLE);
                 if (entry.getmProduct().equals("activity")) {
                     holder.coupon_hotel_count.setText("/  모든 액티비티");
-                }
-                else{
+                } else {
                     holder.coupon_hotel_count.setText("/  모든 숙소");
                 }
             }
 
             holder.tv_limit.setText(entry.getmExpire_text());
-            if(mlist.size()-1 == position){
+            if (mlist.size() - 1 == position) {
                 holder.end_bar.setVisibility(View.INVISIBLE);
-            }
-            else{
+            } else {
                 holder.end_bar.setVisibility(View.GONE);
             }
-        }
-        else{
+        } else {
             holder.view_item.setVisibility(View.GONE);
             holder.empty_item.setVisibility(View.VISIBLE);
-            ((MyCouponActivity)mContext).getEmptyHeight(holder.empty_item);
+            ((MyCouponActivity) mContext).getEmptyHeight(holder.empty_item);
         }
 
         return v;

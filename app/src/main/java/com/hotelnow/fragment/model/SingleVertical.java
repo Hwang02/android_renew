@@ -1,13 +1,12 @@
 package com.hotelnow.fragment.model;
 
 
-
 public class SingleVertical {
 
     private String header, subHeader;
     private int image;
 
-    public SingleVertical( ) {
+    public SingleVertical() {
 
     }
 

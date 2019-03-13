@@ -49,15 +49,14 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
 
         holder.tv_keyword.setText(data.get(position).getName());
 
-        if(data.size()>1){
+        if (data.size() > 1) {
             more.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             more.setVisibility(View.GONE);
         }
 
-        if(data.get(position).getFlag().equals("1")) { // 호텔
-            if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+        if (data.get(position).getFlag().equals("1")) { // 호텔
+            if (dbHelper.selectAllFavoriteStayItem().size() > 0) {
                 for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
                     if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(data.get(position).getId())) {
                         holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -68,14 +67,13 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
                         holder.islike = false;
                     }
                 }
-            }
-            else{
+            } else {
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
             holder.iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        }else {
-            if(dbHelper.selectAllFavoriteActivityItem().size()>0) {
+        } else {
+            if (dbHelper.selectAllFavoriteActivityItem().size() > 0) {
                 for (int i = 0; i < dbHelper.selectAllFavoriteActivityItem().size(); i++) {
                     if (dbHelper.selectAllFavoriteActivityItem().get(i).getSel_id().equals(data.get(position).getId())) {
                         holder.btn_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -86,8 +84,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
                         holder.islike = false;
                     }
                 }
-            }
-            else{
+            } else {
                 holder.btn_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
                 holder.islike = false;
             }
@@ -100,26 +97,25 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                hf.setRecentLike((int)v.getTag(), holder.islike, RecentAdapter.this);
+                LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
+                hf.setRecentLike((int) v.getTag(), holder.islike, RecentAdapter.this);
             }
         });
         holder.sel_item.setTag(position);
         holder.sel_item.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                LogUtil.e("ggggg", data.get((int)v.getTag()).getId()+"");
-                if(data.get((int)v.getTag()).getFlag().equals("1")){ // 호텔
-                    TuneWrap.Event("RecentlySee", "stay", data.get((int)v.getTag()).getId());
+                LogUtil.e("ggggg", data.get((int) v.getTag()).getId() + "");
+                if (data.get((int) v.getTag()).getFlag().equals("1")) { // 호텔
+                    TuneWrap.Event("RecentlySee", "stay", data.get((int) v.getTag()).getId());
                     Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
-                    intent.putExtra("hid", data.get((int)v.getTag()).getId());
+                    intent.putExtra("hid", data.get((int) v.getTag()).getId());
                     intent.putExtra("save", true);
                     hf.startActivityForResult(intent, 80);
-                }
-                else { // 액티비티
-                    TuneWrap.Event("RecentlySee", "activity", data.get((int)v.getTag()).getId());
+                } else { // 액티비티
+                    TuneWrap.Event("RecentlySee", "activity", data.get((int) v.getTag()).getId());
                     Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
-                    intent.putExtra("tid", data.get((int)v.getTag()).getId());
+                    intent.putExtra("tid", data.get((int) v.getTag()).getId());
                     intent.putExtra("save", true);
                     hf.startActivityForResult(intent, 80);
                 }

@@ -29,7 +29,7 @@ public class DbOpenHelper {
     private DatabaseHelper mDBHelper;
     private Context mCtx;
 
-    private class DatabaseHelper extends SQLiteOpenHelper{
+    private class DatabaseHelper extends SQLiteOpenHelper {
 
         // 생성자
         public DatabaseHelper(Context context, String name,
@@ -53,14 +53,14 @@ public class DbOpenHelper {
         // 버전이 업데이트 되었을 경우 DB를 다시 만들어 준다.
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.Keyword_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.City_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.SubCity_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.qCity_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.qCategory_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.RecentList_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.RecentCity_CreateDB._TABLENAME);
-            db.execSQL("DROP TABLE IF EXISTS "+ DataBases.Favorite_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.Keyword_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.City_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.SubCity_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.qCity_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.qCategory_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.RecentList_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.RecentCity_CreateDB._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataBases.Favorite_CreateDB._TABLENAME);
             onCreate(db);
         }
     }
@@ -81,15 +81,15 @@ public class DbOpenHelper {
             String where = "keyword = '" + keyword + "'";
             mDB.delete(DataBases.Keyword_CreateDB._TABLENAME, where, null);
 
-            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword" }, null, null, null, null, _ID+" desc");
+            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[]{_ID, "keyword"}, null, null, null, null, _ID + " desc");
 
-            if(cur.getCount()==5){
-                String sql = "DELETE FROM "+ DataBases.Keyword_CreateDB._TABLENAME+" WHERE _id = "
-                        + "(select MIN(_id) from "+DataBases.Keyword_CreateDB._TABLENAME+ " )";
+            if (cur.getCount() == 5) {
+                String sql = "DELETE FROM " + DataBases.Keyword_CreateDB._TABLENAME + " WHERE _id = "
+                        + "(select MIN(_id) from " + DataBases.Keyword_CreateDB._TABLENAME + " )";
                 mDB.execSQL(sql);
             }
+        } catch (Exception ex) {
         }
-        catch(Exception ex) {}
         mDB.insert(DataBases.Keyword_CreateDB._TABLENAME, null, val);
         close();
     }
@@ -104,21 +104,20 @@ public class DbOpenHelper {
         List<SearchKeyWordItem> items = new ArrayList<SearchKeyWordItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[] { _ID, "keyword", "keyid", "created_date" }, null, null, null, null, _ID+" desc");
+            cur = mDB.query(DataBases.Keyword_CreateDB._TABLENAME, new String[]{_ID, "keyword", "keyid", "created_date"}, null, null, null, null, _ID + " desc");
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new SearchKeyWordItem(
                             cur.getInt(cur.getColumnIndex(_ID)),
                             cur.getString(cur.getColumnIndex("keyword"))
                     ));
-               }
-                while(cur.moveToNext());
+                }
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -133,11 +132,10 @@ public class DbOpenHelper {
      */
     public void deleteKeyword(String key_id, boolean isAll) {
         open();
-        if(isAll) {
-            mDB.delete(DataBases.Keyword_CreateDB._TABLENAME,null, null);
-        }
-        else{
-            String sql = "DELETE FROM "+ DataBases.Keyword_CreateDB._TABLENAME+" WHERE _id = " + key_id;
+        if (isAll) {
+            mDB.delete(DataBases.Keyword_CreateDB._TABLENAME, null, null);
+        } else {
+            String sql = "DELETE FROM " + DataBases.Keyword_CreateDB._TABLENAME + " WHERE _id = " + key_id;
             mDB.execSQL(sql);
         }
         close();
@@ -146,7 +144,7 @@ public class DbOpenHelper {
     /**
      * 지역 - INSERT
      *
-     * @param city_ko 지역명
+     * @param city_ko   지역명
      * @param city_code 지역코드
      * @return
      */
@@ -168,7 +166,7 @@ public class DbOpenHelper {
     public void deleteHotelCity() {
         open();
 
-        mDB.delete(DataBases.City_CreateDB._TABLENAME,null, null);
+        mDB.delete(DataBases.City_CreateDB._TABLENAME, null, null);
 
         close();
     }
@@ -183,21 +181,20 @@ public class DbOpenHelper {
         List<CityItem> items = new ArrayList<CityItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.City_CreateDB._TABLENAME, new String[] { "city_ko", "city_code" }, null, null, null, null, null);
+            cur = mDB.query(DataBases.City_CreateDB._TABLENAME, new String[]{"city_ko", "city_code"}, null, null, null, null, null);
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new CityItem(
                             cur.getString(cur.getColumnIndex("city_ko")),
                             cur.getString(cur.getColumnIndex("city_code"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -208,7 +205,7 @@ public class DbOpenHelper {
     /**
      * 액티비티 지역 - INSERT
      *
-     * @param city_ko 지역명
+     * @param city_ko   지역명
      * @param city_code 지역코드
      * @return
      */
@@ -230,7 +227,7 @@ public class DbOpenHelper {
     public void deleteActivityCity() {
         open();
 
-        mDB.delete(DataBases.qCity_CreateDB._TABLENAME,null, null);
+        mDB.delete(DataBases.qCity_CreateDB._TABLENAME, null, null);
 
         close();
     }
@@ -245,21 +242,20 @@ public class DbOpenHelper {
         List<CityItem> items = new ArrayList<CityItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.qCity_CreateDB._TABLENAME, new String[] { "qcity_ko", "qcity_id" }, null, null, null, null, null);
+            cur = mDB.query(DataBases.qCity_CreateDB._TABLENAME, new String[]{"qcity_ko", "qcity_id"}, null, null, null, null, null);
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new CityItem(
                             cur.getString(cur.getColumnIndex("qcity_ko")),
                             cur.getString(cur.getColumnIndex("qcity_id"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -275,7 +271,7 @@ public class DbOpenHelper {
     public void deleteHotelSubCity() {
         open();
 
-        mDB.delete(DataBases.SubCity_CreateDB._TABLENAME,null, null);
+        mDB.delete(DataBases.SubCity_CreateDB._TABLENAME, null, null);
 
         close();
     }
@@ -290,9 +286,9 @@ public class DbOpenHelper {
         List<SubCityItem> items = new ArrayList<SubCityItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.SubCity_CreateDB._TABLENAME, new String[] { "city_code", "subcity_ko", "subcity_code" }, "city_code = '" + city_code + "'", null, null, null, null);
+            cur = mDB.query(DataBases.SubCity_CreateDB._TABLENAME, new String[]{"city_code", "subcity_ko", "subcity_code"}, "city_code = '" + city_code + "'", null, null, null, null);
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new SubCityItem(
                             cur.getString(cur.getColumnIndex("city_code")),
@@ -300,12 +296,11 @@ public class DbOpenHelper {
                             cur.getString(cur.getColumnIndex("subcity_code"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -323,9 +318,9 @@ public class DbOpenHelper {
         List<SubCityItem> items = new ArrayList<SubCityItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.SubCity_CreateDB._TABLENAME, new String[] { "city_code", "subcity_ko", "subcity_code" }, null, null, null, null, null);
+            cur = mDB.query(DataBases.SubCity_CreateDB._TABLENAME, new String[]{"city_code", "subcity_ko", "subcity_code"}, null, null, null, null, null);
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new SubCityItem(
                             cur.getString(cur.getColumnIndex("city_code")),
@@ -333,12 +328,11 @@ public class DbOpenHelper {
                             cur.getString(cur.getColumnIndex("subcity_code"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -349,9 +343,9 @@ public class DbOpenHelper {
     /**
      * 지역서브 - INSERT
      *
-     * @param subcity_ko 지역명
+     * @param subcity_ko   지역명
      * @param subcity_code 지역코드
-     * @param city_code 부모 지역
+     * @param city_code    부모 지역
      * @return
      */
     public void insertHotelsubCity(String city_code, String subcity_ko, String subcity_code) {
@@ -373,7 +367,7 @@ public class DbOpenHelper {
     public void deleteActivityTheme() {
         open();
 
-        mDB.delete(DataBases.qCategory_CreateDB._TABLENAME,null, null);
+        mDB.delete(DataBases.qCategory_CreateDB._TABLENAME, null, null);
 
         close();
     }
@@ -388,21 +382,20 @@ public class DbOpenHelper {
         List<ActivityThemeItem> items = new ArrayList<ActivityThemeItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.qCategory_CreateDB._TABLENAME, new String[] { "qcategory_ko", "qcategory_id" }, null, null, null, null, null);
+            cur = mDB.query(DataBases.qCategory_CreateDB._TABLENAME, new String[]{"qcategory_ko", "qcategory_id"}, null, null, null, null, null);
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new ActivityThemeItem(
                             cur.getString(cur.getColumnIndex("qcategory_ko")),
                             cur.getString(cur.getColumnIndex("qcategory_id"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -430,11 +423,11 @@ public class DbOpenHelper {
     /**
      * 최근 지역 선택 - INSERT
      *
-     * @param sel_city_id 지역코드
-     * @param sel_city_ko 지역명
+     * @param sel_city_id    지역코드
+     * @param sel_city_ko    지역명
      * @param sel_subcity_id 서브지역코드
      * @param sel_subcity_ko 서브지역명
-     * @param sel_option 호텔 / 액티비티
+     * @param sel_option     호텔 / 액티비티
      * @return
      */
     public void insertRecentCity(String sel_city_id, String sel_city_ko, String sel_subcity_id, String sel_subcity_ko, String sel_option) {
@@ -448,27 +441,26 @@ public class DbOpenHelper {
         Cursor cur = null;
         try {
             //기존에 있으면 삭제
-            if(sel_option.equals("H")) {
+            if (sel_option.equals("H")) {
 
                 String where = "sel_option = '" + sel_option + "'"
                         + " AND sel_subcity_id = '" + sel_subcity_id + "'";
                 mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME, where, null);
-            }
-            else{
+            } else {
                 String where = "sel_option = '" + sel_option + "'"
                         + " AND sel_city_id = '" + sel_city_id + "'";
                 mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME, where, null);
             }
 
             //10개면 삭제
-            cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "created_date" }, "sel_option = '" + sel_option + "'", null, null, null, "created_date desc");
-            if(cur.getCount()==10){
-                String sql = "DELETE FROM "+ DataBases.RecentCity_CreateDB._TABLENAME+" WHERE created_date = "
-                        + "(select MIN(created_date) from "+DataBases.RecentCity_CreateDB._TABLENAME+" WHERE sel_option = '" + sel_option + "')";
+            cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[]{"created_date"}, "sel_option = '" + sel_option + "'", null, null, null, "created_date desc");
+            if (cur.getCount() == 10) {
+                String sql = "DELETE FROM " + DataBases.RecentCity_CreateDB._TABLENAME + " WHERE created_date = "
+                        + "(select MIN(created_date) from " + DataBases.RecentCity_CreateDB._TABLENAME + " WHERE sel_option = '" + sel_option + "')";
                 mDB.execSQL(sql);
             }
+        } catch (Exception ex) {
         }
-        catch(Exception ex) {}
 
         mDB.insert(DataBases.RecentCity_CreateDB._TABLENAME, null, val);
         close();
@@ -485,13 +477,13 @@ public class DbOpenHelper {
         Cursor cur = null;
         try {
             //1시간 뒤 2019-01-03 08:22:34
-            String sql = "DELETE FROM "+ DataBases.RecentCity_CreateDB._TABLENAME +" WHERE created_date < Datetime('now', 'localtime', '-30 day')";
+            String sql = "DELETE FROM " + DataBases.RecentCity_CreateDB._TABLENAME + " WHERE created_date < Datetime('now', 'localtime', '-30 day')";
             mDB.execSQL(sql);
 
-            cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[] { "sel_city_id", "sel_city_ko", "sel_subcity_id", "sel_subcity_ko", "sel_option", "created_date" }, "sel_option = '" + option + "'",
+            cur = mDB.query(DataBases.RecentCity_CreateDB._TABLENAME, new String[]{"sel_city_id", "sel_city_ko", "sel_subcity_id", "sel_subcity_ko", "sel_option", "created_date"}, "sel_option = '" + option + "'",
                     null, null, null, "created_date desc");
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new RecentCityItem(
                             cur.getString(cur.getColumnIndex("sel_city_id")),
@@ -501,12 +493,11 @@ public class DbOpenHelper {
                             cur.getString(cur.getColumnIndex("sel_option"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -522,7 +513,7 @@ public class DbOpenHelper {
     public void deleteRecentCity(String option) {
         open();
 
-        mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME,"sel_option = '" + option + "'", null);
+        mDB.delete(DataBases.RecentCity_CreateDB._TABLENAME, "sel_option = '" + option + "'", null);
 
         close();
     }
@@ -530,7 +521,7 @@ public class DbOpenHelper {
     /**
      * 최근 본 상품 선택 - INSERT
      *
-     * @param sel_id 선택한 id
+     * @param sel_id     선택한 id
      * @param sel_option 호텔인지 H 액티비티인지 A
      * @return
      */
@@ -541,22 +532,22 @@ public class DbOpenHelper {
         val.put("sel_option", sel_option);
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "created_date" }, null, null, null, null, "created_date desc");
-            if(cur.getCount()==30){
-                String sql = "DELETE FROM "+ DataBases.RecentList_CreateDB._TABLENAME+" WHERE created_date = "
-                        + "(select MIN(created_date) from "+DataBases.RecentCity_CreateDB._TABLENAME+ " )";
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[]{"created_date"}, null, null, null, null, "created_date desc");
+            if (cur.getCount() == 30) {
+                String sql = "DELETE FROM " + DataBases.RecentList_CreateDB._TABLENAME + " WHERE created_date = "
+                        + "(select MIN(created_date) from " + DataBases.RecentCity_CreateDB._TABLENAME + " )";
                 mDB.execSQL(sql);
             }
 
-            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id" }, "sel_id = '" + sel_id + "'", null, null, null, "created_date desc");
-            if(cur.moveToFirst()) {
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[]{"sel_id"}, "sel_id = '" + sel_id + "'", null, null, null, "created_date desc");
+            if (cur.moveToFirst()) {
                 do {
-                    String sql = "DELETE FROM " + DataBases.RecentList_CreateDB._TABLENAME + " WHERE " +  "sel_id = '" + sel_id + "'";
+                    String sql = "DELETE FROM " + DataBases.RecentList_CreateDB._TABLENAME + " WHERE " + "sel_id = '" + sel_id + "'";
                     mDB.execSQL(sql);
-                }while(cur.moveToNext());
+                } while (cur.moveToNext());
             }
+        } catch (Exception ex) {
         }
-        catch(Exception ex) {}
 
         mDB.insert(DataBases.RecentList_CreateDB._TABLENAME, null, val);
         close();
@@ -572,10 +563,10 @@ public class DbOpenHelper {
         List<RecentItem> items = new ArrayList<RecentItem>();
         Cursor cur = null;
         try {
-            String sql = "DELETE FROM "+ DataBases.RecentList_CreateDB._TABLENAME +" WHERE created_date < Datetime('now', 'localtime', '-30 day')";
+            String sql = "DELETE FROM " + DataBases.RecentList_CreateDB._TABLENAME + " WHERE created_date < Datetime('now', 'localtime', '-30 day')";
             mDB.execSQL(sql);
 
-            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[] { "sel_id", "sel_option", "created_date"}, null,
+            cur = mDB.query(DataBases.RecentList_CreateDB._TABLENAME, new String[]{"sel_id", "sel_option", "created_date"}, null,
                     null, null, null, "created_date desc", count);
 
             if (cur.moveToFirst()) {
@@ -586,10 +577,9 @@ public class DbOpenHelper {
                     ));
                 } while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -598,14 +588,14 @@ public class DbOpenHelper {
     }
 
     /**
-     *  최근 본 상품 - DELETE
+     * 최근 본 상품 - DELETE
      *
      * @return
      */
     public void deleteRecentItem() {
         open();
 
-        mDB.delete(DataBases.RecentList_CreateDB._TABLENAME,null, null);
+        mDB.delete(DataBases.RecentList_CreateDB._TABLENAME, null, null);
 
         close();
     }
@@ -614,7 +604,7 @@ public class DbOpenHelper {
      * 관심상품 선택 - INSERT
      *
      * @param keyid 선택한 id
-     * @param type 호텔인지 H 액티비티인지 A
+     * @param type  호텔인지 H 액티비티인지 A
      * @return
      */
     public void insertFavoriteItem(String keyid, String type) {
@@ -624,14 +614,14 @@ public class DbOpenHelper {
         val.put("type", type);
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[] { "created_date" }, null, null, null, null, "created_date desc");
-            if(cur.getCount()==20){
-                String sql = "DELETE FROM "+ DataBases.Favorite_CreateDB._TABLENAME+" WHERE created_date = "
-                        + "(select MIN(created_date) from "+DataBases.Favorite_CreateDB._TABLENAME+ " )";
+            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[]{"created_date"}, null, null, null, null, "created_date desc");
+            if (cur.getCount() == 20) {
+                String sql = "DELETE FROM " + DataBases.Favorite_CreateDB._TABLENAME + " WHERE created_date = "
+                        + "(select MIN(created_date) from " + DataBases.Favorite_CreateDB._TABLENAME + " )";
                 mDB.execSQL(sql);
             }
+        } catch (Exception ex) {
         }
-        catch(Exception ex) {}
 
         mDB.insert(DataBases.Favorite_CreateDB._TABLENAME, null, val);
         close();
@@ -647,22 +637,21 @@ public class DbOpenHelper {
         List<RecentItem> items = new ArrayList<RecentItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[] { "keyid", "type"}, "type = 'H'",
+            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[]{"keyid", "type"}, "type = 'H'",
                     null, null, null, "created_date desc");
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new RecentItem(
                             cur.getString(cur.getColumnIndex("keyid")),
                             cur.getString(cur.getColumnIndex("type"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -680,22 +669,21 @@ public class DbOpenHelper {
         List<RecentItem> items = new ArrayList<RecentItem>();
         Cursor cur = null;
         try {
-            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[] { "keyid", "type"}, "type = 'A'",
+            cur = mDB.query(DataBases.Favorite_CreateDB._TABLENAME, new String[]{"keyid", "type"}, "type = 'A'",
                     null, null, null, "created_date desc");
 
-            if(cur.moveToFirst()) {
+            if (cur.moveToFirst()) {
                 do {
                     items.add(new RecentItem(
                             cur.getString(cur.getColumnIndex("keyid")),
                             cur.getString(cur.getColumnIndex("type"))
                     ));
                 }
-                while(cur.moveToNext());
+                while (cur.moveToNext());
             }
-        }
-        catch(Exception ex) {}
-        finally {
-            if(cur != null) {
+        } catch (Exception ex) {
+        } finally {
+            if (cur != null) {
                 cur.close();
             }
             close();
@@ -710,16 +698,14 @@ public class DbOpenHelper {
      */
     public void deleteFavoriteItem(boolean isAll, String keyid, String type) {
         open();
-        if(isAll) {
-            if(!TextUtils.isEmpty(type)) {
+        if (isAll) {
+            if (!TextUtils.isEmpty(type)) {
                 String where = " type = '" + type + "'";
                 mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, where, null);
-            }
-            else {
+            } else {
                 mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, null, null);
             }
-        }
-        else{
+        } else {
             String where = "keyid = '" + keyid + "'"
                     + " AND type = '" + type + "'";
             mDB.delete(DataBases.Favorite_CreateDB._TABLENAME, where, null);
@@ -728,17 +714,17 @@ public class DbOpenHelper {
     }
 
 
-    public DbOpenHelper(Context context){
+    public DbOpenHelper(Context context) {
         this.mCtx = context;
     }
 
-    public DbOpenHelper open() throws SQLException{
+    public DbOpenHelper open() throws SQLException {
         mDBHelper = new DatabaseHelper(mCtx, DATABASE_NAME, null, DATABASE_VERSION);
         mDB = mDBHelper.getWritableDatabase();
         return this;
     }
 
-    public void close(){
+    public void close() {
         mDB.close();
     }
 

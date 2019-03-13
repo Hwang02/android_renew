@@ -5,7 +5,7 @@ public class ActivityHotDealItem {
     private int coupon_count;
 
     public ActivityHotDealItem(String id, String name, String sale_price, String sale_rate, String latitude, String longitude, String benefit_text, String img_url, String location,
-                               String category_code, String category, String review_score, String grade_score, String is_hot_deal, String is_add_reserve, int coupon_count ) {
+                               String category_code, String category, String review_score, String grade_score, String is_hot_deal, String is_add_reserve, int coupon_count) {
         this.id = id;
         this.name = name;
         this.sale_price = sale_price;

@@ -33,7 +33,7 @@ public class ReservationAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         //Returning the current tabs
-        switch (position){
+        switch (position) {
             case 0:
                 ReservationHotelFragment resesrvationHotelFragment = new ReservationHotelFragment();
 //                Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수

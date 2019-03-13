@@ -48,7 +48,7 @@ import java.util.Map;
 
 public class ReservationActivityFragment extends Fragment {
 
-//    private EndlessScrollListener endlessScrollListener;
+    //    private EndlessScrollListener endlessScrollListener;
     private ArrayList<BookingQEntry> mEntries = new ArrayList<BookingQEntry>();
     private SharedPreferences _preferences;
     private NonScrollListView mlist;
@@ -61,10 +61,10 @@ public class ReservationActivityFragment extends Fragment {
     private int currentPage = 1;
     private int total_count = 0;
     private boolean isAdd = true;
-    private boolean _hasLoadedOnce= false; // your boolean field
+    private boolean _hasLoadedOnce = false; // your boolean field
     boolean firstDragFlag = true;
     boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
-    float startYPosition = 0, endYPosition =0;       //터치이벤트의 시작점의 Y(세로)위치
+    float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
     private NestedScrollView scroll;
 
     @Nullable
@@ -82,10 +82,11 @@ public class ReservationActivityFragment extends Fragment {
         MainActivity.showProgress();
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|","")));
+            paramObj.put("ui", AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", "")));
             paramObj.put("umi", _preferences.getString("moreinfo", null));
             paramObj.put("ver", Util.getAppVersionName(getActivity()));
-        } catch(Exception e){ }
+        } catch (Exception e) {
+        }
 
         Api.post(CONFIG.authcheckUrl, paramObj.toString(), new Api.HttpCallback() {
             @Override
@@ -155,7 +156,7 @@ public class ReservationActivityFragment extends Fragment {
                         getBookingList();
                     }
                 } catch (Exception e) {
-                    if(isAdded())
+                    if (isAdded())
                         Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                     MainActivity.hideProgress();
                 }
@@ -163,10 +164,10 @@ public class ReservationActivityFragment extends Fragment {
         });
     }
 
-    public void getBookingList(){
+    public void getBookingList() {
 
-        String url = CONFIG.ticket_booking_Url + "?page=" + currentPage+"&per_page=10000"; //endlessScrollListener.getCurrentPage();
-        if(isAdd) {
+        String url = CONFIG.ticket_booking_Url + "?page=" + currentPage + "&per_page=10000"; //endlessScrollListener.getCurrentPage();
+        if (isAdd) {
             Api.get(url, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
@@ -189,7 +190,7 @@ public class ReservationActivityFragment extends Fragment {
 
                         JSONArray feed = obj.getJSONArray("lists");
                         JSONObject entry;
-                        if(feed.length()>0) {
+                        if (feed.length() > 0) {
                             isAdd = true;
                             currentPage++;
                             for (int i = 0; i < feed.length(); i++) {
@@ -211,7 +212,7 @@ public class ReservationActivityFragment extends Fragment {
                                         entry.getString("status_detail"))
                                 );
                             }
-                            if(feed.length()>1) {
+                            if (feed.length() > 1) {
                                 scroll.setOnTouchListener(new View.OnTouchListener() {
                                     @Override
                                     public boolean onTouch(View v, MotionEvent ev) {
@@ -256,14 +257,13 @@ public class ReservationActivityFragment extends Fragment {
                                 });
                             }
                             adapter.notifyDataSetChanged();
-                            ((ReservationFragment)getParentFragment()).setInfobar();
-                        }
-                        else {
+                            ((ReservationFragment) getParentFragment()).setInfobar();
+                        } else {
                             mlist.getEmptyView().findViewById(R.id.tv_info1).setVisibility(View.VISIBLE);
                             isAdd = false;
                         }
 
-                        if(total_count == mEntries.size()){
+                        if (total_count == mEntries.size()) {
                             isAdd = false;
                         }
 
@@ -274,8 +274,7 @@ public class ReservationActivityFragment extends Fragment {
                     }
                 }
             });
-        }
-        else{
+        } else {
             MainActivity.hideProgress();
         }
     }
@@ -283,15 +282,13 @@ public class ReservationActivityFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode == 80){
+        if (requestCode == 80) {
             authCheck();
-            ((MainActivity)getActivity()).setTitle();
-            ((MainActivity)getActivity()).setTapdelete("MYPAGE");
-            CONFIG.TabLogin=true;
-            ((ReservationFragment)getParentFragment()).setInfobar();
-        }
-        else if(requestCode == 90 && resultCode == 0)
-        {
+            ((MainActivity) getActivity()).setTitle();
+            ((MainActivity) getActivity()).setTapdelete("MYPAGE");
+            CONFIG.TabLogin = true;
+            ((ReservationFragment) getParentFragment()).setInfobar();
+        } else if (requestCode == 90 && resultCode == 0) {
             mEntries.clear();
             adapter.notifyDataSetChanged();
             currentPage = 1;
@@ -313,25 +310,22 @@ public class ReservationActivityFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            },500);
+            }, 500);
 
             _hasLoadedOnce = true;
-        }
-        else if(isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce){
-            CONFIG.TabLogin=false;
+        } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
+            CONFIG.TabLogin = false;
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     init();
                 }
-            },500);
-        }
-
-        else if(isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce){
+            }, 500);
+        } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(_preferences.getString("userid", null) !=null) {
+                    if (_preferences.getString("userid", null) != null) {
                         mEntries.clear();
                         adapter.notifyDataSetChanged();
                         currentPage = 1;
@@ -340,11 +334,11 @@ public class ReservationActivityFragment extends Fragment {
                         getBookingList();
                     }
                 }
-            },500);
+            }, 500);
         }
     }
 
-    private void init(){
+    private void init() {
         // preference
 
         TuneWrap.Event("booking_activity");
@@ -367,7 +361,7 @@ public class ReservationActivityFragment extends Fragment {
         mlist.setOnItemClickListener(new OnSingleItemClickListener() {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView)view.findViewById(R.id.aid);
+                TextView tv = (TextView) view.findViewById(R.id.aid);
 
                 TuneWrap.Event("booking_activity_detail", tv.getText().toString());
                 Intent intent = new Intent(getActivity(), ReservationActivityDetailActivity.class);
@@ -375,7 +369,7 @@ public class ReservationActivityFragment extends Fragment {
                 startActivityForResult(intent, 90);
             }
         });
-        CONFIG.sel_fav =0;
+        CONFIG.sel_fav = 0;
         authCheck();
     }
 }

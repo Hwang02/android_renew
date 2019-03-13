@@ -5,7 +5,7 @@ public class FacilitySelItem {
     private int sel_img;
     private String sel_title;
 
-    public FacilitySelItem(int sel_img, String sel_title){
+    public FacilitySelItem(int sel_img, String sel_title) {
         this.sel_img = sel_img;
         this.sel_title = sel_title;
     }

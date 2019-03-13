@@ -3,7 +3,7 @@ package com.hotelnow.fragment.model;
 public class TopItem {
     private String location, location_id, location_subid, ec_date, ee_date;
 
-    public TopItem(String location, String location_id, String location_subid, String ec_date, String ee_date){
+    public TopItem(String location, String location_id, String location_subid, String ec_date, String ee_date) {
         this.location = location;
         this.location_id = location_id;
         this.location_subid = location_subid;

@@ -48,10 +48,10 @@ public class EventActivity extends AppCompatActivity {
     String cookie;
     int idx;
     String obj;
-    String uid="";
+    String uid = "";
     DialogAlert dialogAlert;
     String selhid;
-    boolean fromPush =false;
+    boolean fromPush = false;
     TextView title_text;
     String title;
     //  fb
@@ -77,10 +77,10 @@ public class EventActivity extends AppCompatActivity {
         obj = intent.getStringExtra("obj");
         title = intent.getStringExtra("title");
 
-        if(intent != null) {
+        if (intent != null) {
             fromPush = intent.getBooleanExtra("from_push", false);
         }
-        
+
         _preferences = PreferenceManager.getDefaultSharedPreferences(EventActivity.this);
         cookie = _preferences.getString("userid", null);
         uid = _preferences.getString("userid", "");
@@ -88,9 +88,9 @@ public class EventActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webview);
         title_text = (TextView) findViewById(R.id.title_text);
 
-        if(title != null)
+        if (title != null)
             title_text.setText(title);
-        else{
+        else {
             title_text.setText("이벤트");
         }
 
@@ -98,7 +98,7 @@ public class EventActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
         webSettings.setUserAgentString(webSettings.getUserAgentString() + " HOTELNOW_APP_ANDROID");
-        webView.addJavascriptInterface(new DetailInterface(), "DetailInterface");	// 디테일 페이지 인터페이스
+        webView.addJavascriptInterface(new DetailInterface(), "DetailInterface");    // 디테일 페이지 인터페이스
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
@@ -109,11 +109,11 @@ public class EventActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                if(cookie != null){
+                if (cookie != null) {
                     try {
-                        if(cookie != null)
-                            webView.loadUrl("javascript:func_from_native('" + AES256Chiper.AES_Decode(cookie.replace("HN|","")) + "')");
-                        else{
+                        if (cookie != null)
+                            webView.loadUrl("javascript:func_from_native('" + AES256Chiper.AES_Decode(cookie.replace("HN|", "")) + "')");
+                        else {
                             webView.loadUrl("javascript:func_from_native('" + cookie + "')");
                         }
                     } catch (Exception e) {
@@ -125,7 +125,7 @@ public class EventActivity extends AppCompatActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if(url.contains("hotelnowevent://")){
+                if (url.contains("hotelnowevent://")) {
                     String[] arr = url.split("otelnowevent://");
                     String evtObj = arr[1];
 
@@ -133,18 +133,18 @@ public class EventActivity extends AppCompatActivity {
                         JSONObject obj = new JSONObject(evtObj);
 
                         // social_open
-                        if(obj.getString("method").equals("social_open")){
-                            if(obj.getString("param").equals("kakao")){
+                        if (obj.getString("method").equals("social_open")) {
+                            if (obj.getString("param").equals("kakao")) {
                                 Util.showKakaoLink(EventActivity.this);
 
-                            } else if(obj.getString("param").equals("facebook")){
+                            } else if (obj.getString("param").equals("facebook")) {
                                 Util.shareFacebookFeed(EventActivity.this, callbackManager);
 
                             }
                         }
 
                         // move_detail
-                        else if(obj.getString("method").equals("move_detail")){
+                        else if (obj.getString("method").equals("move_detail")) {
 
                             JSONObject info = new JSONObject(obj.getString("param"));
 
@@ -163,10 +163,10 @@ public class EventActivity extends AppCompatActivity {
                         }
 
                         // move_near
-                        else if(obj.getString("method").equals("move_near")){
+                        else if (obj.getString("method").equals("move_near")) {
                             selhid = obj.getString("param");
                             int fDayLimit = _preferences.getInt("future_day_limit", 180);
-                            String checkurl = CONFIG.checkinDateUrl+"/"+selhid+"/"+ String.valueOf(fDayLimit);
+                            String checkurl = CONFIG.checkinDateUrl + "/" + selhid + "/" + String.valueOf(fDayLimit);
 
                             Api.get(checkurl, new Api.HttpCallback() {
                                 @Override
@@ -224,7 +224,7 @@ public class EventActivity extends AppCompatActivity {
                         }
 
                         // move_theme_ticket
-                        if(obj.getString("method").equals("move_theme_ticket")){
+                        if (obj.getString("method").equals("move_theme_ticket")) {
                             String tid = obj.getString("param");
 
                             Intent intent = new Intent(EventActivity.this, ThemeSpecialActivityActivity.class);
@@ -233,7 +233,7 @@ public class EventActivity extends AppCompatActivity {
                         }
 
                         // move_ticket_detail
-                        if(obj.getString("method").equals("move_ticket_detail")){
+                        if (obj.getString("method").equals("move_ticket_detail")) {
                             String tid = obj.getString("param");
 
                             Intent intent = new Intent(EventActivity.this, DetailActivityActivity.class);
@@ -244,7 +244,7 @@ public class EventActivity extends AppCompatActivity {
                         }
 
                         // move_theme
-                        if(obj.getString("method").equals("move_theme")){
+                        if (obj.getString("method").equals("move_theme")) {
                             String tid = obj.getString("param");
 
                             Intent intent = new Intent(EventActivity.this, ThemeSpecialHotelActivity.class);
@@ -252,9 +252,9 @@ public class EventActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
 
-                        if(obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow")){
+                        if (obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow")) {
                             view.loadUrl(obj.getString("param"));
-                        } else if(obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow") == false){
+                        } else if (obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow") == false) {
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(obj.getString("param")));
                             startActivity(intent);
                         }
@@ -262,7 +262,7 @@ public class EventActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    if(url.contains("plusfriend")){
+                    if (url.contains("plusfriend")) {
                         Util.kakaoYelloId(EventActivity.this);
 
                     } else {
@@ -274,20 +274,20 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        if(intent != null){
+        if (intent != null) {
             try {
-                if(idx > 0){
-                    linkUrl = CONFIG.eventWebUrl+"/"+ String.valueOf(idx);
-                    TuneWrap.Event("EVENT", idx+"");
+                if (idx > 0) {
+                    linkUrl = CONFIG.eventWebUrl + "/" + String.valueOf(idx);
+                    TuneWrap.Event("EVENT", idx + "");
                 } else {
                     evtObj = new JSONObject(obj);
-                    linkUrl = CONFIG.eventWebUrl+"/"+evtObj.getString("id");
+                    linkUrl = CONFIG.eventWebUrl + "/" + evtObj.getString("id");
                     TuneWrap.Event("EVENT", evtObj.getString("id"));
                 }
-                if(uid != null)
-                    linkUrl +="?uid="+AES256Chiper.AES_Decode(uid.replace("HN|",""));
+                if (uid != null)
+                    linkUrl += "?uid=" + AES256Chiper.AES_Decode(uid.replace("HN|", ""));
                 else
-                    linkUrl +="?uid="+uid;
+                    linkUrl += "?uid=" + uid;
             } catch (JSONException e) {
                 webView.loadUrl("file:///android_asset/404.html");
                 e.printStackTrace();
@@ -307,19 +307,18 @@ public class EventActivity extends AppCompatActivity {
         webView.loadUrl(linkUrl);
     }
 
-    private class DetailInterface
-    {
+    private class DetailInterface {
         @JavascriptInterface
-        public void reoladDetail(){
-            handler.post( new Runnable() {
-                public void run()
-                {
-                    webView.loadUrl(linkUrl+"?uid="+uid);
+        public void reoladDetail() {
+            handler.post(new Runnable() {
+                public void run() {
+                    webView.loadUrl(linkUrl + "?uid=" + uid);
                 }
             });
         }
+
         @JavascriptInterface
-        public void selectEnter(){
+        public void selectEnter() {
             handler.post(new Runnable() {
                 public void run() {
                     Intent intent = new Intent(EventActivity.this, LoginActivity.class);
@@ -332,19 +331,19 @@ public class EventActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode == 90 && resultCode == 90){
+        if (requestCode == 90 && resultCode == 90) {
             cookie = _preferences.getString("userid", null);
-            if(cookie != null){
+            if (cookie != null) {
                 try {
-                    if(cookie != null)
-                        webView.loadUrl("javascript:func_from_native('" + AES256Chiper.AES_Decode(cookie.replace("HN|","")) + "')");
+                    if (cookie != null)
+                        webView.loadUrl("javascript:func_from_native('" + AES256Chiper.AES_Decode(cookie.replace("HN|", "")) + "')");
                     else
                         webView.loadUrl("javascript:func_from_native('" + cookie + "')");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }else {
+        } else {
             try {
                 super.onActivityResult(requestCode, resultCode, data);
                 callbackManager.onActivityResult(requestCode, resultCode, data);

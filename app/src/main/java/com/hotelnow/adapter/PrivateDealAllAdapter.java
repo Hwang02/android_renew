@@ -60,29 +60,27 @@ public class PrivateDealAllAdapter extends ArrayAdapter<SearchResultItem> {
         final SearchResultItem entry = getItem(position);
 
         holder.hotel_name.setText(entry.getName());
-        holder.tv_nearlocation.setText(entry.getStreet1()+"/"+entry.getStreet2());
+        holder.tv_nearlocation.setText(entry.getStreet1() + "/" + entry.getStreet2());
         Ion.with(holder.iv_img).load(entry.getLandscape());
 
-        if(entry.getItems_quantity() < 4){
-            if(entry.getItems_quantity() == 0) {
+        if (entry.getItems_quantity() < 4) {
+            if (entry.getItems_quantity() == 0) {
                 holder.room_count.setVisibility(View.GONE);
                 holder.tv_discount_rate.setVisibility(View.INVISIBLE);
                 holder.sale_price.setVisibility(View.INVISIBLE);
                 holder.won.setVisibility(View.INVISIBLE);
                 holder.tv_soldout.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 holder.room_count.setVisibility(View.VISIBLE);
-                holder.room_count.setText("남은객실 "+ entry.getItems_quantity()+"개");
+                holder.room_count.setText("남은객실 " + entry.getItems_quantity() + "개");
                 holder.tv_soldout.setVisibility(View.GONE);
             }
-        }
-        else{
+        } else {
             holder.room_count.setVisibility(View.GONE);
             holder.tv_soldout.setVisibility(View.GONE);
         }
 
-        if(dbHelper.selectAllFavoriteStayItem().size() > 0) {
+        if (dbHelper.selectAllFavoriteStayItem().size() > 0) {
             for (int i = 0; i < dbHelper.selectAllFavoriteStayItem().size(); i++) {
                 if (dbHelper.selectAllFavoriteStayItem().get(i).getSel_id().equals(entry.getId())) {
                     holder.iv_favorite.setBackgroundResource(R.drawable.ico_titbar_favorite_active);
@@ -93,8 +91,7 @@ public class PrivateDealAllAdapter extends ArrayAdapter<SearchResultItem> {
                     holder.islike = false;
                 }
             }
-        }
-        else{
+        } else {
             holder.iv_favorite.setBackgroundResource(R.drawable.ico_favorite_enabled);
             holder.islike = false;
         }
@@ -105,69 +102,62 @@ public class PrivateDealAllAdapter extends ArrayAdapter<SearchResultItem> {
         finalHolder.iv_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.e("ggggg", mlist.get((int)v.getTag()).getId()+"");
-                ((PrivateDaelAllActivity)mContext).setLike((int)v.getTag(), finalHolder.islike);
+                LogUtil.e("ggggg", mlist.get((int) v.getTag()).getId() + "");
+                ((PrivateDaelAllActivity) mContext).setLike((int) v.getTag(), finalHolder.islike);
             }
         });
 
         holder.tv_rate.setText(entry.getGrade_score());
 
-        if(entry.getGrade_score().equals("0.0")){
+        if (entry.getGrade_score().equals("0.0")) {
             holder.tv_rate.setVisibility(View.GONE);
             holder.text_bar.setVisibility(View.GONE);
             holder.img_star.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_rate.setVisibility(View.VISIBLE);
             holder.text_bar.setVisibility(View.VISIBLE);
             holder.img_star.setVisibility(View.VISIBLE);
         }
-        if(entry.getItems_quantity() == 0 || entry.getSale_rate().equals("0")){
+        if (entry.getItems_quantity() == 0 || entry.getSale_rate().equals("0")) {
             holder.tv_discount_rate.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.tv_discount_rate.setVisibility(View.VISIBLE);
         }
         holder.category.setText(entry.getCategory());
-        holder.tv_discount_rate.setText(entry.getSale_rate()+"%↓");
+        holder.tv_discount_rate.setText(entry.getSale_rate() + "%↓");
         holder.sale_price.setText(Util.numberFormat(Integer.parseInt(entry.getSale_price())));
 
-        if(entry.getIs_private_deal().equals("N")){
+        if (entry.getIs_private_deal().equals("N")) {
             holder.ico_private.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.ico_private.setVisibility(View.VISIBLE);
         }
 
-        if(entry.getIs_hot_deal().equals("N")){
+        if (entry.getIs_hot_deal().equals("N")) {
             holder.ico_hotdeal.setVisibility(View.GONE);
             holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
             holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.blacktxt));
-        }
-        else{
+        } else {
             holder.ico_hotdeal.setVisibility(View.VISIBLE);
             holder.sale_price.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
             holder.won.setTextColor(ContextCompat.getColor(mContext, R.color.redtext));
         }
 
-        if(entry.getCoupon_count() > 0){
+        if (entry.getCoupon_count() > 0) {
             holder.soon_discount.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             holder.soon_discount.setVisibility(View.GONE);
         }
 
-        if(entry.getIs_add_reserve().equals("N")){
+        if (entry.getIs_add_reserve().equals("N")) {
             holder.soon_point.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.soon_point.setVisibility(View.VISIBLE);
         }
 
-        if(TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")){
+        if (TextUtils.isEmpty(entry.getSpecial_msg()) || entry.getSpecial_msg().equals("null")) {
             holder.special_msg.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.special_msg.setVisibility(View.VISIBLE);
             holder.tv_special.setText(entry.getSpecial_msg());
         }
@@ -205,7 +195,7 @@ public class PrivateDealAllAdapter extends ArrayAdapter<SearchResultItem> {
             tv_special = (TextView) v.findViewById(R.id.tv_special);
 
             special_msg = (LinearLayout) v.findViewById(R.id.special_msg);
-            hid = (TextView)v.findViewById(R.id.hid);
+            hid = (TextView) v.findViewById(R.id.hid);
 
             text_bar = (View) v.findViewById(R.id.v_bar);
             img_star = (ImageView) v.findViewById(R.id.ico_star);

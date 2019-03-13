@@ -1,12 +1,12 @@
 package com.hotelnow.fragment.model;
 
 
-
 public class SingleHorizontal {
 
     private int images;
     private String title;
     private String desc;
+
     public SingleHorizontal() {
 
     }
@@ -35,8 +35,6 @@ public class SingleHorizontal {
     }
 
     private String pubDate;
-
-
 
 
     public int getImages() {

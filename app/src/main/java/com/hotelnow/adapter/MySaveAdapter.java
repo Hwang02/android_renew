@@ -45,7 +45,7 @@ public class MySaveAdapter extends ArrayAdapter<MySaveMoneyItem> {
 
         MySaveMoneyItem entry = getItem(position);
 
-        if(entry.getMid() != 0) {
+        if (entry.getMid() != 0) {
             holder.view_item.setVisibility(View.VISIBLE);
             holder.empty_item.setVisibility(View.GONE);
             String type = entry.getMtype();
@@ -69,13 +69,12 @@ public class MySaveAdapter extends ArrayAdapter<MySaveMoneyItem> {
             price = entry.getChange_dp();
 
             String m_end = entry.getEnd_date();
-            if(TextUtils.isEmpty(m_end)){
+            if (TextUtils.isEmpty(m_end)) {
                 holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10));
-            }else {
+            } else {
                 if (!status.equals("적립")) {
                     holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + ")");
-                }
-                else {
+                } else {
                     holder.tv_save_date.setText(entry.getMcreatedat().substring(0, 10) + "(" + entry.getEnd_date().substring(0, 10) + " 만료)");
                 }
             }
@@ -85,17 +84,15 @@ public class MySaveAdapter extends ArrayAdapter<MySaveMoneyItem> {
             holder.tv_save_money.setTextColor(mColor);
             holder.tv_save_title.setText(entry.getType_dp());
 
-            if(mlist.size()-1 == position){
+            if (mlist.size() - 1 == position) {
                 holder.end_bar.setVisibility(View.INVISIBLE);
-            }
-            else{
+            } else {
                 holder.end_bar.setVisibility(View.GONE);
             }
-        }
-        else {
+        } else {
             holder.view_item.setVisibility(View.GONE);
             holder.empty_item.setVisibility(View.VISIBLE);
-            ((MySaveActivity)mContext).getEmptyHeight(holder.empty_item);
+            ((MySaveActivity) mContext).getEmptyHeight(holder.empty_item);
         }
         return v;
     }

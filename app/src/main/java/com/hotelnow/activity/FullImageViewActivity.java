@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hotelnow.R;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
 import com.hotelnow.utils.Api;
@@ -19,8 +20,10 @@ import com.hotelnow.utils.TuneWrap;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.okhttp.Response;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.Map;
 
 
@@ -73,7 +76,7 @@ public class FullImageViewActivity extends FragmentActivity {
 
     private void getPortraitInfo() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-        Api.get(CONFIG.portraitUrl+"/"+hid, new Api.HttpCallback() {
+        Api.get(CONFIG.portraitUrl + "/" + hid, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(FullImageViewActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
@@ -109,7 +112,7 @@ public class FullImageViewActivity extends FragmentActivity {
                         child.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                idx = (int)v.getTag();
+                                idx = (int) v.getTag();
                                 initPageMark();
                                 setPortraitMsg(idx);
                                 pager.setCurrentItem(idx);
@@ -145,7 +148,7 @@ public class FullImageViewActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 markNowPosition = position % PAGES;
-                page.setText(markNowPosition+1+"/"+PAGES);
+                page.setText(markNowPosition + 1 + "/" + PAGES);
                 markPrevPosition = markNowPosition;
 
                 setPortraitMsg(markPrevPosition);
@@ -166,15 +169,15 @@ public class FullImageViewActivity extends FragmentActivity {
     }
 
     private void initPageMark() {
-        page.setText(markNowPosition+1+"/"+portraitImgs.length);
+        page.setText(markNowPosition + 1 + "/" + portraitImgs.length);
 
         markPrevPosition = markNowPosition;
     }
 
     private void setPortraitMsg(int position) {
         if (caption1 != null) {
-            if(caption1[position].length()>0)
-               img_title.setText(caption1[position]);
+            if (caption1[position].length() > 0)
+                img_title.setText(caption1[position]);
             else
                 img_title.setText("");
         }

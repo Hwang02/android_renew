@@ -73,7 +73,7 @@ public class AllRoomTypeActivity extends Activity {
         bt_calendar = (RelativeLayout) findViewById(R.id.bt_calendar);
         tv_review_count = (TextView) findViewById(R.id.tv_review_count);
 
-        Intent intent  = getIntent();
+        Intent intent = getIntent();
         ec_date = intent.getStringExtra("sdate");
         ee_date = intent.getStringExtra("edate");
         hid = intent.getStringExtra("hid");
@@ -107,8 +107,8 @@ public class AllRoomTypeActivity extends Activity {
                                 intent.putExtra("lodge_type", lodge_type);
                                 startActivityForResult(intent, 80);
                             }
+                        } catch (Exception e) {
                         }
-                        catch (Exception e){}
                     }
                 });
             }
@@ -118,7 +118,7 @@ public class AllRoomTypeActivity extends Activity {
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(is_date){
+                if (is_date) {
                     Intent intent = new Intent();
                     intent.putExtra("ec_date", ec_date);
                     intent.putExtra("ee_date", ee_date);
@@ -132,14 +132,13 @@ public class AllRoomTypeActivity extends Activity {
         setDetailView();
     }
 
-    private void setDetailView(){
+    private void setDetailView() {
         String url = CONFIG.hotel_detail + "/" + hid + "?pid=" + pid + "&evt=" + evt;
 
         try {
-            if(cookie != null) {
+            if (cookie != null) {
                 url += "&user_id=" + AES256Chiper.AES_Decode(cookie.replace("HN|", ""));
-            }
-            else{
+            } else {
                 url += "&user_id=" + cookie;
             }
         } catch (Exception e) {
@@ -166,7 +165,7 @@ public class AllRoomTypeActivity extends Activity {
                         Toast.makeText(AllRoomTypeActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    date.setText(Util.formatchange5(ec_date)+ " - "+Util.formatchange5(ee_date));
+                    date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                     room_list.removeAllViews();
                     final JSONObject hotel_data = obj.getJSONObject("hotel");
                     final JSONArray rdata = obj.getJSONArray("room_types");
@@ -174,7 +173,7 @@ public class AllRoomTypeActivity extends Activity {
                     hotel_name = hotel_data.getString("name");
                     city = hotel_data.getString("city_name");
                     selectList = new String[avail_dates.length()];
-                    for(int i =0; i<avail_dates.length(); i++){
+                    for (int i = 0; i < avail_dates.length(); i++) {
                         selectList[i] = avail_dates.get(i).toString();
                     }
 
@@ -187,26 +186,26 @@ public class AllRoomTypeActivity extends Activity {
                     privatedeal_status = obj.getInt("privatedeal_booking_status");
                     lodge_type = hotel_data.getString("lodge_type");
 
-                    for(int i =0; i<rdata.length(); i++){
+                    for (int i = 0; i < rdata.length(); i++) {
                         int r_soldout = 0;
                         final View view_room = LayoutInflater.from(AllRoomTypeActivity.this).inflate(R.layout.layout_detail_hotel_room_item, null);
-                        final TextView tv_room_title = (TextView)view_room.findViewById(R.id.tv_room_title);
-                        TextView tv_room_sub_title = (TextView)view_room.findViewById(R.id.tv_room_sub_title);
-                        TextView tv_detail1 = (TextView)view_room.findViewById(R.id.tv_detail1);
-                        TextView tv_detail2 = (TextView)view_room.findViewById(R.id.tv_detail2);
-                        TextView tv_detail3 = (TextView)view_room.findViewById(R.id.tv_detail3);
-                        final RoundedImageView img_room = (RoundedImageView)view_room.findViewById(R.id.img_room);
-                        TextView tv_room_detail_price = (TextView)view_room.findViewById(R.id.tv_room_detail_price);
-                        RelativeLayout btn_more = (RelativeLayout)view_room.findViewById(R.id.btn_more);
-                        AutoLinkTextView tv_room_info = (AutoLinkTextView)view_room.findViewById(R.id.tv_room_info);
-                        LinearLayout btn_more_close = (LinearLayout)view_room.findViewById(R.id.btn_more_close);
-                        LinearLayout more_img_list = (LinearLayout)view_room.findViewById(R.id.more_img_list);
-                        final TextView btn_private =(TextView)view_room.findViewById(R.id.btn_private);
-                        TextView btn_reservation =(TextView)view_room.findViewById(R.id.btn_reservation);
-                        TextView tv_detail_per = (TextView)view_room.findViewById(R.id.tv_detail_per);
-                        TextView tv_room_days = (TextView)view_room.findViewById(R.id.tv_room_days);
-                        final TextView pid = (TextView)view_room.findViewById(R.id.pid);
-                        final TextView rid = (TextView)view_room.findViewById(R.id.rid);
+                        final TextView tv_room_title = (TextView) view_room.findViewById(R.id.tv_room_title);
+                        TextView tv_room_sub_title = (TextView) view_room.findViewById(R.id.tv_room_sub_title);
+                        TextView tv_detail1 = (TextView) view_room.findViewById(R.id.tv_detail1);
+                        TextView tv_detail2 = (TextView) view_room.findViewById(R.id.tv_detail2);
+                        TextView tv_detail3 = (TextView) view_room.findViewById(R.id.tv_detail3);
+                        final RoundedImageView img_room = (RoundedImageView) view_room.findViewById(R.id.img_room);
+                        TextView tv_room_detail_price = (TextView) view_room.findViewById(R.id.tv_room_detail_price);
+                        RelativeLayout btn_more = (RelativeLayout) view_room.findViewById(R.id.btn_more);
+                        AutoLinkTextView tv_room_info = (AutoLinkTextView) view_room.findViewById(R.id.tv_room_info);
+                        LinearLayout btn_more_close = (LinearLayout) view_room.findViewById(R.id.btn_more_close);
+                        LinearLayout more_img_list = (LinearLayout) view_room.findViewById(R.id.more_img_list);
+                        final TextView btn_private = (TextView) view_room.findViewById(R.id.btn_private);
+                        TextView btn_reservation = (TextView) view_room.findViewById(R.id.btn_reservation);
+                        TextView tv_detail_per = (TextView) view_room.findViewById(R.id.tv_detail_per);
+                        TextView tv_room_days = (TextView) view_room.findViewById(R.id.tv_room_days);
+                        final TextView pid = (TextView) view_room.findViewById(R.id.pid);
+                        final TextView rid = (TextView) view_room.findViewById(R.id.rid);
                         final String p_default = rdata.getJSONObject(i).getString("default_pn");
                         final String p_max = rdata.getJSONObject(i).getString("max_pn");
                         final int sale_price = rdata.getJSONObject(i).getInt("sale_price");
@@ -217,33 +216,31 @@ public class AllRoomTypeActivity extends Activity {
                         rid.setText(rdata.getJSONObject(i).getString("room_id"));
                         tv_room_title.setText(rdata.getJSONObject(i).getString("room_name"));
 
-                        long daydiff = Util.diffOfDate(ec_date.replace("-",""), ee_date.replace("-",""));
-                        if(daydiff > 1)
-                            tv_room_days.setText(daydiff+"박 / ");
+                        long daydiff = Util.diffOfDate(ec_date.replace("-", ""), ee_date.replace("-", ""));
+                        if (daydiff > 1)
+                            tv_room_days.setText(daydiff + "박 / ");
 
-                        if(!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
+                        if (!TextUtils.isEmpty(rdata.getJSONObject(i).getString("title"))) {
                             tv_room_sub_title.setVisibility(View.VISIBLE);
                             tv_room_sub_title.setText(rdata.getJSONObject(i).getString("title"));
-                        }
-                        else {
+                        } else {
                             tv_room_sub_title.setVisibility(View.GONE);
                         }
 
-                        if(rdata.getJSONObject(i).getJSONArray("img").length() != 0) {
+                        if (rdata.getJSONObject(i).getJSONArray("img").length() != 0) {
                             image_arr = new String[rdata.getJSONObject(i).getJSONArray("img").length()];
-                            for(int j = 0; j<image_arr.length; j++){
+                            for (int j = 0; j < image_arr.length; j++) {
                                 image_arr[j] = rdata.getJSONObject(i).getJSONArray("img").getJSONObject(j).getString("room_img");
                             }
                             Ion.with(img_room).load(image_arr[0]);
-                            if (image_arr.length == 1){
+                            if (image_arr.length == 1) {
                                 hscroll_img.setVisibility(View.GONE);
-                            }
-                            else {
+                            } else {
                                 hscroll_img.setVisibility(View.VISIBLE);
                             }
 
                             more_img_list.removeAllViews();
-                            for(int j=0; j<image_arr.length;j++){
+                            for (int j = 0; j < image_arr.length; j++) {
                                 View view_img = LayoutInflater.from(AllRoomTypeActivity.this).inflate(R.layout.layout_detail_room_img_item, null);
                                 RoundedImageView image_container = view_img.findViewById(R.id.image_container);
                                 Ion.with(image_container).load(image_arr[j]);
@@ -252,17 +249,16 @@ public class AllRoomTypeActivity extends Activity {
                             img_room.setTag(image_arr[0]);
                         }
 
-                        tv_detail2.setText("기준 "+rdata.getJSONObject(i).getString("default_pn")+"인,"+"최대 "+rdata.getJSONObject(i).getString("max_pn")+"인");
-                        tv_detail3.setText("체크인 "+rdata.getJSONObject(i).getString("checkin_time")+" 체크아웃 "+rdata.getJSONObject(i).getString("checkout_time"));
-                        if(rdata.getJSONObject(i).getInt("sale_rate") == 0){
+                        tv_detail2.setText("기준 " + rdata.getJSONObject(i).getString("default_pn") + "인," + "최대 " + rdata.getJSONObject(i).getString("max_pn") + "인");
+                        tv_detail3.setText("체크인 " + rdata.getJSONObject(i).getString("checkin_time") + " 체크아웃 " + rdata.getJSONObject(i).getString("checkout_time"));
+                        if (rdata.getJSONObject(i).getInt("sale_rate") == 0) {
                             tv_detail_per.setVisibility(View.GONE);
-                        }
-                        else{
+                        } else {
                             tv_detail_per.setVisibility(View.VISIBLE);
                         }
-                        tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate")+"%↓");
-                        tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price"))+"원");
-                        String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n","<br>").replace("•","ㆍ ");
+                        tv_detail_per.setText(rdata.getJSONObject(i).getInt("sale_rate") + "%↓");
+                        tv_room_detail_price.setText(Util.numberFormat(rdata.getJSONObject(i).getInt("sale_price")) + "원");
+                        String info_html = rdata.getJSONObject(i).getString("room_content").replace("\n", "<br>").replace("•", "ㆍ ");
 
                         Spanned text;
                         if (Build.VERSION.SDK_INT >= 24) {
@@ -274,26 +270,23 @@ public class AllRoomTypeActivity extends Activity {
                         tv_room_info.setText(text);
 
 
-                        if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") == -999) {
+                        if (rdata.getJSONObject(i).getInt("privatedeal_inven_count") == -999) {
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.GONE);
                             view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
-                        }
-                        else if(rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")){
+                        } else if (rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")) {
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setText("제안완료");
                             btn_private.setBackgroundResource(R.drawable.reservation_private_round);
                             view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
-                        }
-                        else if(rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0){
+                        } else if (rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0) {
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.VISIBLE);
                             btn_private.setText("프라이빗딜 종료");
                             btn_private.setBackgroundResource(R.drawable.gray_round);
                             view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
-                            r_soldout = r_soldout+1;
-                        }
-                        else {
+                            r_soldout = r_soldout + 1;
+                        } else {
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.VISIBLE);
                             btn_private.setBackgroundResource(R.drawable.reservation_private_round);
@@ -301,19 +294,18 @@ public class AllRoomTypeActivity extends Activity {
                             view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                         }
 
-                        if(rdata.getJSONObject(i).getInt("inven_count")<=0){
+                        if (rdata.getJSONObject(i).getInt("inven_count") <= 0) {
                             btn_reservation.setText("판매완료");
                             btn_reservation.setBackgroundResource(R.drawable.gray_round);
                             btn_reservation.setEnabled(false);
-                            r_soldout = r_soldout+1;
-                        }
-                        else {
+                            r_soldout = r_soldout + 1;
+                        } else {
                             btn_reservation.setText("예약하기");
                             btn_reservation.setBackgroundResource(R.drawable.reservation_round);
                             btn_reservation.setEnabled(true);
                         }
 
-                        if(r_soldout == 2){
+                        if (r_soldout == 2) {
                             view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                             btn_private.setVisibility(View.GONE);
                             view_room.findViewById(R.id.line_private).setVisibility(View.GONE);
@@ -334,7 +326,7 @@ public class AllRoomTypeActivity extends Activity {
                                 if (privatedeal_status == 1 || privatedeal_status == -1 || btn_private.getText().equals("예약하기")) {
                                     TuneWrap.Event("PrivateButton", hid);
 
-                                    String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String)img_room.getTag()
+                                    String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String) img_room.getTag()
                                             + "&product_id=" + pid.getText() + "&product_name=" + tv_room_title.getText() + "&default_pn=" + p_default + "&max_pn=" + p_max
                                             + "&normal_price=" + normal_price + "&price=" + sale_price;
 
@@ -347,8 +339,7 @@ public class AllRoomTypeActivity extends Activity {
                                     } else {
                                         setPrivateDeal(mUrl, hid, rid.getText().toString(), pid.getText().toString());
                                     }
-                                }
-                                else{
+                                } else {
                                     ShowPrivateDealDialog("프라이빗딜은 1일 1회 예약 가능합니다.\n내일 다시 시도해주세요.");
                                     return;
                                 }
@@ -365,7 +356,7 @@ public class AllRoomTypeActivity extends Activity {
                                     intent.putExtra("ee_date", ee_date);
                                     intent.putExtra("pid", pid.getText());
                                     intent.putExtra("page", "detailH");
-                                    startActivityForResult(intent,90);
+                                    startActivityForResult(intent, 90);
                                     return;
                                 }
 
@@ -374,25 +365,24 @@ public class AllRoomTypeActivity extends Activity {
                                 intent.putExtra("ee_date", ee_date);
                                 intent.putExtra("pid", pid.getText());
                                 intent.putExtra("page", "detailH");
-                                startActivityForResult(intent,80);
+                                startActivityForResult(intent, 80);
                             }
                         });
 
                         btn_more_close.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
+                                if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
                                     TuneWrap.Event("MoreDetail");
-                                    room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                                    room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                                     view_room.findViewById(R.id.line).setVisibility(View.GONE);
-                                    ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
-                                    ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
-                                }
-                                else{
-                                    room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                                    ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
+                                    ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
+                                } else {
+                                    room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
                                     view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
-                                    ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
-                                    ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
+                                    ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
+                                    ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                                 }
                             }
                         });
@@ -400,17 +390,16 @@ public class AllRoomTypeActivity extends Activity {
                         btn_more.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE){
-                                    room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
+                                if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
+                                    room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                                     view_room.findViewById(R.id.line).setVisibility(View.GONE);
-                                    ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
-                                    ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
-                                }
-                                else{
-                                    room_list.getChildAt((int)v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
+                                    ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
+                                    ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_open);
+                                } else {
+                                    room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.VISIBLE);
                                     view_room.findViewById(R.id.line).setVisibility(View.VISIBLE);
-                                    ((TextView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
-                                    ((ImageView)room_list.getChildAt((int)v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
+                                    ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more);
+                                    ((ImageView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.icon_more)).setBackgroundResource(R.drawable.btn_detail_close);
                                 }
                             }
                         });
@@ -429,14 +418,14 @@ public class AllRoomTypeActivity extends Activity {
     }
 
     // 프라이빗 딜
-    private void setPrivateDeal(final String linkUrl, String Hotel_id, final String Room_id, final String mProduct_Id){
+    private void setPrivateDeal(final String linkUrl, String Hotel_id, final String Room_id, final String mProduct_Id) {
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("hotel_id", Hotel_id);
             paramObj.put("room_id", Room_id);
             paramObj.put("ec_date", ec_date);
             paramObj.put("ee_date", ee_date);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }
         Api.post(CONFIG.privateDeaUrl, paramObj.toString(), new Api.HttpCallback() {
@@ -453,7 +442,7 @@ public class AllRoomTypeActivity extends Activity {
                         return;
                     }
                     TuneWrap.Event("stay_private_detail", hid);
-                    String fullLinkUrl =linkUrl+"&bid_id="+obj.getJSONObject("data").getString("id")+"&refKey="+obj.getJSONObject("data").getString("refKey");
+                    String fullLinkUrl = linkUrl + "&bid_id=" + obj.getJSONObject("data").getString("id") + "&refKey=" + obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(AllRoomTypeActivity.this, PrivateDealActivity.class);
                     intent.putExtra("pid", mProduct_Id);
                     intent.putExtra("url", fullLinkUrl);
@@ -473,8 +462,8 @@ public class AllRoomTypeActivity extends Activity {
         });
     }
 
-    private void ShowPrivateDealDialog(String msg){
-        if(dialogAlert != null && dialogAlert.isShowing()){
+    private void ShowPrivateDealDialog(String msg) {
+        if (dialogAlert != null && dialogAlert.isShowing()) {
             dialogAlert.dismiss();
         }
         dialogAlert = new DialogAlert(
@@ -493,14 +482,13 @@ public class AllRoomTypeActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(is_date){
+        if (is_date) {
             Intent intent = new Intent();
             intent.putExtra("ec_date", ec_date);
             intent.putExtra("ee_date", ee_date);
             intent.putExtra("is_date", true);
             setResult(80, intent);
-        }
-        else if(isLogin){
+        } else if (isLogin) {
             Intent intent = new Intent();
             setResult(80, intent);
         }
@@ -513,24 +501,21 @@ public class AllRoomTypeActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == 80 && requestCode == 80){
+        if (resultCode == 80 && requestCode == 80) {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             is_date = true;
             setDetailView();
-        }
-        else if(resultCode == 90 && requestCode == 90) {
+        } else if (resultCode == 90 && requestCode == 90) {
             Intent intent = new Intent();
             intent.putExtra("ec_date", ec_date);
             intent.putExtra("ee_date", ee_date);
             setResult(110, intent);
             finish();
-        }
-        else if(resultCode == 100 && requestCode == 80) {
+        } else if (resultCode == 100 && requestCode == 80) {
             setResult(100);
             finish();
-        }
-        else if(resultCode == 80 && requestCode == 90) {
+        } else if (resultCode == 80 && requestCode == 90) {
             isLogin = true;
             cookie = _preferences.getString("userid", null);
         }

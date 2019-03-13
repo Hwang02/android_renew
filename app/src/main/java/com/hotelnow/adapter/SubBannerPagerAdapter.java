@@ -70,24 +70,24 @@ public class SubBannerPagerAdapter extends PagerAdapter {
         image_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mId = data.get((int)v.getTag()).getId();
-                mTitle = data.get((int)v.getTag()).getTitle();
-                if (!TextUtils.isEmpty(data.get((int)v.getTag()).getImage())) {
-                    frontType = data.get((int)v.getTag()).getEvt_type();
-                    frontImg = data.get((int)v.getTag()).getImage();
-                    String[] arr = data.get((int)v.getTag()).getLink().split("hotelnowevent://");
+                mId = data.get((int) v.getTag()).getId();
+                mTitle = data.get((int) v.getTag()).getTitle();
+                if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
+                    frontType = data.get((int) v.getTag()).getEvt_type();
+                    frontImg = data.get((int) v.getTag()).getImage();
+                    String[] arr = data.get((int) v.getTag()).getLink().split("hotelnowevent://");
                     if (arr.length > 1) {
                         frontMethod = arr[1];
                         frontMethod = Util.stringToHTMLString(frontMethod);
-                        frontTitle = data.get((int)v.getTag()).getTitle() != "" ? data.get((int)v.getTag()).getTitle() : "무료 숙박 이벤트";
+                        frontTitle = data.get((int) v.getTag()).getTitle() != "" ? data.get((int) v.getTag()).getTitle() : "무료 숙박 이벤트";
                     }
                     if (!frontType.equals("a")) {
                         frontEvtId = mId;
                     } else {
-                        frontEvtId = Util.getFrontThemeId(data.get((int)v.getTag()).getLink());
+                        frontEvtId = Util.getFrontThemeId(data.get((int) v.getTag()).getLink());
                     }
                 }
-                if(data.get((int)v.getTag()).getEvt_type().equals("a") && !data.get((int)v.getTag()).getEvt_type().equals("")) {
+                if (data.get((int) v.getTag()).getEvt_type().equals("a") && !data.get((int) v.getTag()).getEvt_type().equals("")) {
                     try {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
@@ -190,10 +190,9 @@ public class SubBannerPagerAdapter extends PagerAdapter {
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
                         }
+                    } catch (Exception e) {
                     }
-                    catch (Exception e) {}
-                }
-                else {
+                } else {
                     TuneWrap.Event("MiddleBanner", frontEvtId);
 
                     Intent intentEvt = new Intent(context, EventActivity.class);
@@ -210,7 +209,7 @@ public class SubBannerPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        container.removeView((View)object);
+        container.removeView((View) object);
 
     }
 

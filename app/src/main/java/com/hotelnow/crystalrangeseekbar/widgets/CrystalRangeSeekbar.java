@@ -40,13 +40,13 @@ public class CrystalRangeSeekbar extends View {
     // PUBLIC CONSTANTS CLASS
     //////////////////////////////////////////
 
-    public static final class DataType{
-        public static final int LONG        = 0;
-        public static final int DOUBLE      = 1;
-        public static final int INTEGER     = 2;
-        public static final int FLOAT       = 3;
-        public static final int SHORT       = 4;
-        public static final int BYTE        = 5;
+    public static final class DataType {
+        public static final int LONG = 0;
+        public static final int DOUBLE = 1;
+        public static final int INTEGER = 2;
+        public static final int FLOAT = 3;
+        public static final int SHORT = 4;
+        public static final int BYTE = 5;
     }
 
     //////////////////////////////////////////
@@ -85,7 +85,7 @@ public class CrystalRangeSeekbar extends View {
     private float thumbWidth;
     private float thumbDiameter;
 
-//    private float thumbHalfWidth;
+    //    private float thumbHalfWidth;
 //    private float thumbHalfHeight;
     private float thumbHeight;
     private Drawable leftDrawable;
@@ -111,7 +111,7 @@ public class CrystalRangeSeekbar extends View {
     // ENUMERATION
     //////////////////////////////////////////
 
-    protected enum Thumb{ MIN, MAX }
+    protected enum Thumb {MIN, MAX}
 
     //////////////////////////////////////////
     // CONSTRUCTOR
@@ -129,32 +129,31 @@ public class CrystalRangeSeekbar extends View {
         super(context, attrs, defStyleAttr);
 
         // prevent render is in edit mode
-        if(isInEditMode()) return;
+        if (isInEditMode()) return;
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CrystalRangeSeekbar);
-        try{
-            cornerRadius           = getCornerRadius(array);
-            minValue               = getMinValue(array);
-            maxValue               = getMaxValue(array);
-            minStartValue          = getMinStartValue(array);
-            maxStartValue          = getMaxStartValue(array);
-            steps                  = getSteps(array);
-            gap                    = getGap(array);
-            fixGap                 = getFixedGap(array);
-            barColor               = getBarColor(array);
-            barHighlightColor      = getBarHighlightColor(array);
-            leftThumbColorNormal   = getLeftThumbColor(array);
-            rightThumbColorNormal  = getRightThumbColor(array);
-            leftThumbColorPressed  = getLeftThumbColorPressed(array);
+        try {
+            cornerRadius = getCornerRadius(array);
+            minValue = getMinValue(array);
+            maxValue = getMaxValue(array);
+            minStartValue = getMinStartValue(array);
+            maxStartValue = getMaxStartValue(array);
+            steps = getSteps(array);
+            gap = getGap(array);
+            fixGap = getFixedGap(array);
+            barColor = getBarColor(array);
+            barHighlightColor = getBarHighlightColor(array);
+            leftThumbColorNormal = getLeftThumbColor(array);
+            rightThumbColorNormal = getRightThumbColor(array);
+            leftThumbColorPressed = getLeftThumbColorPressed(array);
             rightThumbColorPressed = getRightThumbColorPressed(array);
-            leftDrawable           = getLeftDrawable(array);
-            rightDrawable          = getRightDrawable(array);
-            leftDrawablePressed    = getLeftDrawablePressed(array);
-            rightDrawablePressed   = getRightDrawablePressed(array);
-            thumbDiameter          = getDiameter(array);
-            dataType               = getDataType(array);
-        }
-        finally {
+            leftDrawable = getLeftDrawable(array);
+            rightDrawable = getRightDrawable(array);
+            leftDrawablePressed = getLeftDrawablePressed(array);
+            rightDrawablePressed = getRightDrawablePressed(array);
+            thumbDiameter = getDiameter(array);
+            dataType = getDataType(array);
+        } finally {
             array.recycle();
         }
 
@@ -165,7 +164,7 @@ public class CrystalRangeSeekbar extends View {
     // INITIALIZING
     //////////////////////////////////////////
 
-    protected void init(){
+    protected void init() {
         absoluteMinValue = minValue;
         absoluteMaxValue = maxValue;
         leftThumbColor = leftThumbColorNormal;
@@ -179,13 +178,13 @@ public class CrystalRangeSeekbar extends View {
 
         gap = Math.max(0, Math.min(gap, absoluteMaxValue - absoluteMinValue));
         gap = gap / (absoluteMaxValue - absoluteMinValue) * 100;
-        if(fixGap != NO_FIXED_GAP){
+        if (fixGap != NO_FIXED_GAP) {
             fixGap = Math.min(fixGap, absoluteMaxValue);
             fixGap = fixGap / (absoluteMaxValue - absoluteMinValue) * 100;
             addFixGap(true);
         }
 
-        thumbWidth  = getThumbWidth();
+        thumbWidth = getThumbWidth();
         thumbHeight = getThumbHeight();
 
         //thumbHalfWidth = thumbWidth / 2;
@@ -211,202 +210,198 @@ public class CrystalRangeSeekbar extends View {
     // PUBLIC METHODS
     //////////////////////////////////////////
 
-    public CrystalRangeSeekbar setCornerRadius(float cornerRadius){
+    public CrystalRangeSeekbar setCornerRadius(float cornerRadius) {
         this.cornerRadius = cornerRadius;
         return this;
     }
 
-    public CrystalRangeSeekbar setMinValue(float minValue){
+    public CrystalRangeSeekbar setMinValue(float minValue) {
         this.minValue = minValue;
         this.absoluteMinValue = minValue;
         return this;
     }
 
-    public CrystalRangeSeekbar setMaxValue(float maxValue){
+    public CrystalRangeSeekbar setMaxValue(float maxValue) {
         this.maxValue = maxValue;
         this.absoluteMaxValue = maxValue;
         return this;
     }
 
-    public CrystalRangeSeekbar setMinStartValue(float minStartValue){
+    public CrystalRangeSeekbar setMinStartValue(float minStartValue) {
         this.minStartValue = minStartValue;
         this.absoluteMinStartValue = minStartValue;
         return this;
     }
 
-    public CrystalRangeSeekbar setMaxStartValue(float maxStartValue){
+    public CrystalRangeSeekbar setMaxStartValue(float maxStartValue) {
         this.maxStartValue = maxStartValue;
         this.absoluteMaxStartValue = maxStartValue;
         return this;
     }
 
-    public CrystalRangeSeekbar setSteps(float steps){
+    public CrystalRangeSeekbar setSteps(float steps) {
         this.steps = steps;
         return this;
     }
 
-    public CrystalRangeSeekbar setGap(float gap){
+    public CrystalRangeSeekbar setGap(float gap) {
         this.gap = gap;
         return this;
     }
 
-    public CrystalRangeSeekbar setFixGap(float fixGap){
+    public CrystalRangeSeekbar setFixGap(float fixGap) {
         this.fixGap = fixGap;
         return this;
     }
 
-    public CrystalRangeSeekbar setBarColor(int barColor){
+    public CrystalRangeSeekbar setBarColor(int barColor) {
         this.barColor = barColor;
         return this;
     }
 
-    public CrystalRangeSeekbar setBarHighlightColor(int barHighlightColor){
+    public CrystalRangeSeekbar setBarHighlightColor(int barHighlightColor) {
         this.barHighlightColor = barHighlightColor;
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbColor(int leftThumbColorNormal){
+    public CrystalRangeSeekbar setLeftThumbColor(int leftThumbColorNormal) {
         this.leftThumbColorNormal = leftThumbColorNormal;
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbHighlightColor(int leftThumbColorPressed){
+    public CrystalRangeSeekbar setLeftThumbHighlightColor(int leftThumbColorPressed) {
         this.leftThumbColorPressed = leftThumbColorPressed;
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbDrawable(int resId){
+    public CrystalRangeSeekbar setLeftThumbDrawable(int resId) {
         setLeftThumbDrawable(ContextCompat.getDrawable(getContext(), resId));
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbDrawable(Drawable drawable){
+    public CrystalRangeSeekbar setLeftThumbDrawable(Drawable drawable) {
         setLeftThumbBitmap(getBitmap(drawable));
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbBitmap(Bitmap bitmap){
+    public CrystalRangeSeekbar setLeftThumbBitmap(Bitmap bitmap) {
         leftThumb = bitmap;
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbHighlightDrawable(int resId){
+    public CrystalRangeSeekbar setLeftThumbHighlightDrawable(int resId) {
         setLeftThumbHighlightDrawable(ContextCompat.getDrawable(getContext(), resId));
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbHighlightDrawable(Drawable drawable){
+    public CrystalRangeSeekbar setLeftThumbHighlightDrawable(Drawable drawable) {
         setLeftThumbHighlightBitmap(getBitmap(drawable));
         return this;
     }
 
-    public CrystalRangeSeekbar setLeftThumbHighlightBitmap(Bitmap bitmap){
+    public CrystalRangeSeekbar setLeftThumbHighlightBitmap(Bitmap bitmap) {
         leftThumbPressed = bitmap;
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbColor(int rightThumbColorNormal){
+    public CrystalRangeSeekbar setRightThumbColor(int rightThumbColorNormal) {
         this.rightThumbColorNormal = rightThumbColorNormal;
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbHighlightColor(int rightThumbColorPressed){
+    public CrystalRangeSeekbar setRightThumbHighlightColor(int rightThumbColorPressed) {
         this.rightThumbColorPressed = rightThumbColorPressed;
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbDrawable(int resId){
+    public CrystalRangeSeekbar setRightThumbDrawable(int resId) {
         setRightThumbDrawable(ContextCompat.getDrawable(getContext(), resId));
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbDrawable(Drawable drawable){
+    public CrystalRangeSeekbar setRightThumbDrawable(Drawable drawable) {
         setRightThumbBitmap(getBitmap(drawable));
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbBitmap(Bitmap bitmap){
+    public CrystalRangeSeekbar setRightThumbBitmap(Bitmap bitmap) {
         rightThumb = bitmap;
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbHighlightDrawable(int resId){
+    public CrystalRangeSeekbar setRightThumbHighlightDrawable(int resId) {
         setRightThumbHighlightDrawable(ContextCompat.getDrawable(getContext(), resId));
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbHighlightDrawable(Drawable drawable){
+    public CrystalRangeSeekbar setRightThumbHighlightDrawable(Drawable drawable) {
         setRightThumbHighlightBitmap(getBitmap(drawable));
         return this;
     }
 
-    public CrystalRangeSeekbar setRightThumbHighlightBitmap(Bitmap bitmap){
+    public CrystalRangeSeekbar setRightThumbHighlightBitmap(Bitmap bitmap) {
         rightThumbPressed = bitmap;
         return this;
     }
 
-    public CrystalRangeSeekbar setDataType(int dataType){
+    public CrystalRangeSeekbar setDataType(int dataType) {
         this.dataType = dataType;
         return this;
     }
 
-    public void setOnRangeSeekbarChangeListener(OnRangeSeekbarChangeListener onRangeSeekbarChangeListener){
+    public void setOnRangeSeekbarChangeListener(OnRangeSeekbarChangeListener onRangeSeekbarChangeListener) {
         this.onRangeSeekbarChangeListener = onRangeSeekbarChangeListener;
-        if(this.onRangeSeekbarChangeListener != null){
+        if (this.onRangeSeekbarChangeListener != null) {
             this.onRangeSeekbarChangeListener.valueChanged(getSelectedMinValue(), getSelectedMaxValue());
         }
     }
 
-    public void setOnRangeSeekbarFinalValueListener(OnRangeSeekbarFinalValueListener onRangeSeekbarFinalValueListener){
+    public void setOnRangeSeekbarFinalValueListener(OnRangeSeekbarFinalValueListener onRangeSeekbarFinalValueListener) {
         this.onRangeSeekbarFinalValueListener = onRangeSeekbarFinalValueListener;
     }
 
-    public Number getSelectedMinValue(){
+    public Number getSelectedMinValue() {
         double nv = normalizedMinValue;
-        if(steps > 0 && steps <= ((Math.abs(absoluteMaxValue)) / 2)){
+        if (steps > 0 && steps <= ((Math.abs(absoluteMaxValue)) / 2)) {
             float stp = steps / (absoluteMaxValue - absoluteMinValue) * 100;
             double half_step = stp / 2;
             double mod = nv % stp;
-            if(mod > half_step){
+            if (mod > half_step) {
                 nv = nv - mod;
                 nv = nv + stp;
-            }
-            else{
+            } else {
                 nv = nv - mod;
             }
-        }
-        else{
-            if(steps != NO_STEP)
+        } else {
+            if (steps != NO_STEP)
                 throw new IllegalStateException("steps out of range " + steps);
         }
 
         return formatValue(normalizedToValue(nv));
     }
 
-    public Number getSelectedMaxValue(){
+    public Number getSelectedMaxValue() {
 
         double nv = normalizedMaxValue;
-        if(steps > 0 && steps <= (Math.abs(absoluteMaxValue) / 2)){
+        if (steps > 0 && steps <= (Math.abs(absoluteMaxValue) / 2)) {
             float stp = steps / (absoluteMaxValue - absoluteMinValue) * 100;
             double half_step = stp / 2;
             double mod = nv % stp;
-            if(mod > half_step){
+            if (mod > half_step) {
                 nv = nv - mod;
                 nv = nv + stp;
-            }
-            else{
+            } else {
                 nv = nv - mod;
             }
-        }
-        else{
-            if(steps != NO_STEP)
+        } else {
+            if (steps != NO_STEP)
                 throw new IllegalStateException("steps out of range " + steps);
         }
 
         return formatValue(normalizedToValue(nv));
     }
 
-    public void apply(){
+    public void apply() {
 
         // reset normalize min and max value
         normalizedMinValue = 0d;
@@ -414,13 +409,13 @@ public class CrystalRangeSeekbar extends View {
 
         gap = Math.max(0, Math.min(gap, absoluteMaxValue - absoluteMinValue));
         gap = gap / (absoluteMaxValue - absoluteMinValue) * 100;
-        if(fixGap != NO_FIXED_GAP){
+        if (fixGap != NO_FIXED_GAP) {
             fixGap = Math.min(fixGap, absoluteMaxValue);
             fixGap = fixGap / (absoluteMaxValue - absoluteMinValue) * 100;
             addFixGap(true);
         }
 
-        thumbWidth  = getThumbWidth();
+        thumbWidth = getThumbWidth();
         thumbHeight = getThumbHeight();
 
         //thumbHalfWidth = thumbWidth / 2;
@@ -430,15 +425,13 @@ public class CrystalRangeSeekbar extends View {
         barPadding = thumbWidth * 0.5f;
 
         // set min start value
-        if(minStartValue <= absoluteMinValue){
+        if (minStartValue <= absoluteMinValue) {
             minStartValue = 0;
             setNormalizedMinValue(minStartValue);
-        }
-        else if(minStartValue >= absoluteMaxValue){
+        } else if (minStartValue >= absoluteMaxValue) {
             minStartValue = absoluteMaxValue;
             setMinStartValue();
-        }
-        else{
+        } else {
             setMinStartValue();
         }
 
@@ -446,12 +439,10 @@ public class CrystalRangeSeekbar extends View {
         if (maxStartValue <= absoluteMinStartValue || maxStartValue <= absoluteMinValue) {
             maxStartValue = 0;
             setNormalizedMaxValue(maxStartValue);
-        }
-        else if(maxStartValue >= absoluteMaxValue){
+        } else if (maxStartValue >= absoluteMaxValue) {
             maxStartValue = absoluteMaxValue;
             setMaxStartValue();
-        }
-        else{
+        } else {
             setMaxStartValue();
         }
         invalidate();
@@ -465,125 +456,126 @@ public class CrystalRangeSeekbar extends View {
     // PROTECTED METHODS
     //////////////////////////////////////////
 
-    protected Thumb getPressedThumb(){
+    protected Thumb getPressedThumb() {
         return pressedThumb;
     }
 
-    protected float getThumbWidth(){
-        return (leftThumb != null)  ? leftThumb.getWidth() : getThumbDiameter();
+    protected float getThumbWidth() {
+        return (leftThumb != null) ? leftThumb.getWidth() : getThumbDiameter();
     }
 
-    protected float getThumbHeight(){
-        return (leftThumb != null)  ? leftThumb.getHeight() : getThumbDiameter();
+    protected float getThumbHeight() {
+        return (leftThumb != null) ? leftThumb.getHeight() : getThumbDiameter();
     }
 
-    protected float getThumbDiameter(){
-        return (thumbDiameter > 0) ? thumbDiameter :  getResources().getDimension(R.dimen.thumb_width);
+    protected float getThumbDiameter() {
+        return (thumbDiameter > 0) ? thumbDiameter : getResources().getDimension(R.dimen.thumb_width);
     }
-    protected float getBarHeight(){
+
+    protected float getBarHeight() {
         return (thumbHeight * 0.5f) * 0.3f;
     }
 
-    protected float getBarPadding(){
+    protected float getBarPadding() {
         return thumbWidth * 0.5f;
     }
 
-    protected Bitmap getBitmap(Drawable drawable){
+    protected Bitmap getBitmap(Drawable drawable) {
         return (drawable != null) ? ((BitmapDrawable) drawable).getBitmap() : null;
     }
 
-    protected float getCornerRadius(final TypedArray typedArray){
+    protected float getCornerRadius(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_corner_radius, 0f);
     }
 
-    protected float getMinValue(final TypedArray typedArray){
+    protected float getMinValue(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_min_value, 0f);
     }
 
-    protected float getMaxValue(final TypedArray typedArray){
+    protected float getMaxValue(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_max_value, 100f);
     }
 
-    protected float getMinStartValue(final TypedArray typedArray){
+    protected float getMinStartValue(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_min_start_value, minValue);
     }
 
-    protected float getMaxStartValue(final TypedArray typedArray){
+    protected float getMaxStartValue(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_max_start_value, maxValue);
     }
 
-    protected float getSteps(final TypedArray typedArray){
+    protected float getSteps(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_steps, NO_STEP);
     }
 
-    protected float getGap(final TypedArray typedArray){
+    protected float getGap(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_gap, 0f);
     }
 
-    protected float getFixedGap(final TypedArray typedArray){
+    protected float getFixedGap(final TypedArray typedArray) {
         return typedArray.getFloat(R.styleable.CrystalRangeSeekbar_fix_gap, NO_FIXED_GAP);
     }
 
-    protected int getBarColor(final TypedArray typedArray){
+    protected int getBarColor(final TypedArray typedArray) {
         return typedArray.getColor(R.styleable.CrystalRangeSeekbar_bar_color, Color.GRAY);
     }
 
-    protected int getBarHighlightColor(final TypedArray typedArray){
+    protected int getBarHighlightColor(final TypedArray typedArray) {
         return typedArray.getColor(R.styleable.CrystalRangeSeekbar_bar_highlight_color, Color.BLACK);
     }
 
-    protected int getLeftThumbColor(final TypedArray typedArray){
+    protected int getLeftThumbColor(final TypedArray typedArray) {
         return typedArray.getColor(R.styleable.CrystalRangeSeekbar_left_thumb_color, Color.BLACK);
     }
 
-    protected int getRightThumbColor(final TypedArray typedArray){
+    protected int getRightThumbColor(final TypedArray typedArray) {
         return typedArray.getColor(R.styleable.CrystalRangeSeekbar_right_thumb_color, Color.BLACK);
     }
 
-    protected int getLeftThumbColorPressed(final TypedArray typedArray){
+    protected int getLeftThumbColorPressed(final TypedArray typedArray) {
         return typedArray.getColor(R.styleable.CrystalRangeSeekbar_left_thumb_color_pressed, Color.DKGRAY);
     }
 
-    protected int getRightThumbColorPressed(final TypedArray typedArray){
+    protected int getRightThumbColorPressed(final TypedArray typedArray) {
         return typedArray.getColor(R.styleable.CrystalRangeSeekbar_right_thumb_color_pressed, Color.DKGRAY);
     }
 
-    protected Drawable getLeftDrawable(final TypedArray typedArray){
+    protected Drawable getLeftDrawable(final TypedArray typedArray) {
         return typedArray.getDrawable(R.styleable.CrystalRangeSeekbar_left_thumb_image);
     }
 
-    protected Drawable getRightDrawable(final TypedArray typedArray){
+    protected Drawable getRightDrawable(final TypedArray typedArray) {
         return typedArray.getDrawable(R.styleable.CrystalRangeSeekbar_right_thumb_image);
     }
 
-    protected Drawable getLeftDrawablePressed(final TypedArray typedArray){
+    protected Drawable getLeftDrawablePressed(final TypedArray typedArray) {
         return typedArray.getDrawable(R.styleable.CrystalRangeSeekbar_left_thumb_image_pressed);
     }
 
-    protected Drawable getRightDrawablePressed(final TypedArray typedArray){
+    protected Drawable getRightDrawablePressed(final TypedArray typedArray) {
         return typedArray.getDrawable(R.styleable.CrystalRangeSeekbar_right_thumb_image_pressed);
     }
 
-    protected int getDataType(final TypedArray typedArray){
+    protected int getDataType(final TypedArray typedArray) {
         return typedArray.getInt(R.styleable.CrystalRangeSeekbar_data_type, DataType.INTEGER);
     }
 
-    protected float getDiameter(final TypedArray typedArray){
+    protected float getDiameter(final TypedArray typedArray) {
         return typedArray.getDimensionPixelSize(R.styleable.CrystalRangeSeekbar_thumb_diameter, getResources().getDimensionPixelSize(R.dimen.thumb_height));
     }
 
-    protected RectF getLeftThumbRect(){
+    protected RectF getLeftThumbRect() {
         return rectLeftThumb;
     }
 
-    protected RectF getRightThumbRect(){
+    protected RectF getRightThumbRect() {
         return rectRightThumb;
     }
 
-    protected void setupBar(final Canvas canvas, final Paint paint, final RectF rect){
-        rect.left   = barPadding;
-        rect.top    = 0.5f * (getHeight() - barHeight);
-        rect.right  = getWidth() - barPadding;
+    protected void setupBar(final Canvas canvas, final Paint paint, final RectF rect) {
+        rect.left = barPadding;
+        rect.top = 0.5f * (getHeight() - barHeight);
+        rect.right = getWidth() - barPadding;
         rect.bottom = 0.5f * (getHeight() + barHeight);
 
         paint.setStyle(Paint.Style.FILL);
@@ -592,50 +584,49 @@ public class CrystalRangeSeekbar extends View {
         drawBar(canvas, paint, rect);
     }
 
-    protected void drawBar(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void drawBar(final Canvas canvas, final Paint paint, final RectF rect) {
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, paint);
     }
 
-    protected void setupHighlightBar(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void setupHighlightBar(final Canvas canvas, final Paint paint, final RectF rect) {
         rect.left = normalizedToScreen(normalizedMinValue) + (getThumbWidth() / 2);
         rect.right = normalizedToScreen(normalizedMaxValue) + (getThumbWidth() / 2);
         paint.setColor(barHighlightColor);
         drawHighlightBar(canvas, paint, rect);
     }
 
-    protected void drawHighlightBar(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void drawHighlightBar(final Canvas canvas, final Paint paint, final RectF rect) {
         canvas.drawRoundRect(rect, cornerRadius, cornerRadius, paint);
     }
 
-    protected void setupLeftThumb(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void setupLeftThumb(final Canvas canvas, final Paint paint, final RectF rect) {
         leftThumbColor = (Thumb.MIN.equals(pressedThumb)) ? leftThumbColorPressed : leftThumbColorNormal;
         paint.setColor(leftThumbColor);
 
         //float leftL = normalizedToScreen(normalizedMinValue);
         //float rightL = Math.min(leftL + thumbHalfWidth + barPadding, getWidth());
-        rectLeftThumb.left   = normalizedToScreen(normalizedMinValue);
-        rectLeftThumb.right  = Math.min(rectLeftThumb.left + (getThumbWidth() / 2) + barPadding, getWidth());
-        rectLeftThumb.top    = 0f;
+        rectLeftThumb.left = normalizedToScreen(normalizedMinValue);
+        rectLeftThumb.right = Math.min(rectLeftThumb.left + (getThumbWidth() / 2) + barPadding, getWidth());
+        rectLeftThumb.top = 0f;
         rectLeftThumb.bottom = thumbHeight;
 
-        if(leftThumb != null){
+        if (leftThumb != null) {
             Bitmap lThumb = (Thumb.MIN.equals(pressedThumb)) ? leftThumbPressed : leftThumb;
             drawLeftThumbWithImage(canvas, paint, rectLeftThumb, lThumb);
-        }
-        else{
+        } else {
             drawLeftThumbWithColor(canvas, paint, rectLeftThumb);
         }
     }
 
-    protected void drawLeftThumbWithColor(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void drawLeftThumbWithColor(final Canvas canvas, final Paint paint, final RectF rect) {
         canvas.drawOval(rect, paint);
     }
 
-    protected void drawLeftThumbWithImage(final Canvas canvas, final Paint paint, final RectF rect, final Bitmap image){
+    protected void drawLeftThumbWithImage(final Canvas canvas, final Paint paint, final RectF rect, final Bitmap image) {
         canvas.drawBitmap(image, rect.left, rect.top, paint);
     }
 
-    protected void setupRightThumb(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void setupRightThumb(final Canvas canvas, final Paint paint, final RectF rect) {
 
         rightThumbColor = (Thumb.MAX.equals(pressedThumb)) ? rightThumbColorPressed : rightThumbColorNormal;
         paint.setColor(rightThumbColor);
@@ -647,26 +638,25 @@ public class CrystalRangeSeekbar extends View {
         rectRightThumb.top = 0f;
         rectRightThumb.bottom = thumbHeight;
 
-        if(rightThumb != null){
+        if (rightThumb != null) {
             Bitmap rThumb = (Thumb.MAX.equals(pressedThumb)) ? rightThumbPressed : rightThumb;
             drawRightThumbWithImage(canvas, paint, rectRightThumb, rThumb);
-        }
-        else{
+        } else {
             drawRightThumbWithColor(canvas, paint, rectRightThumb);
         }
     }
 
-    protected void drawRightThumbWithColor(final Canvas canvas, final Paint paint, final RectF rect){
+    protected void drawRightThumbWithColor(final Canvas canvas, final Paint paint, final RectF rect) {
         canvas.drawOval(rect, paint);
     }
 
-    protected void drawRightThumbWithImage(final Canvas canvas, final Paint paint, final RectF rect, final Bitmap image){
+    protected void drawRightThumbWithImage(final Canvas canvas, final Paint paint, final RectF rect, final Bitmap image) {
         canvas.drawBitmap(image, rect.left, rect.top, paint);
     }
 
-    protected void trackTouchEvent(MotionEvent event){
+    protected void trackTouchEvent(MotionEvent event) {
         final int pointerIndex = event.findPointerIndex(mActivePointerId);
-        try{
+        try {
             final float x = event.getX(pointerIndex);
 
             if (Thumb.MIN.equals(pressedThumb)) {
@@ -674,23 +664,23 @@ public class CrystalRangeSeekbar extends View {
             } else if (Thumb.MAX.equals(pressedThumb)) {
                 setNormalizedMaxValue(screenToNormalized(x));
             }
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
     }
 
-    protected void touchDown(final float x, final float y){
-
-    }
-
-    protected void touchMove(final float x, final float y){
+    protected void touchDown(final float x, final float y) {
 
     }
 
-    protected void touchUp(final float x, final float y){
+    protected void touchMove(final float x, final float y) {
 
     }
 
-    protected int getMeasureSpecWith(int widthMeasureSpec){
+    protected void touchUp(final float x, final float y) {
+
+    }
+
+    protected int getMeasureSpecWith(int widthMeasureSpec) {
         int width = 200;
         if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(widthMeasureSpec)) {
             width = MeasureSpec.getSize(widthMeasureSpec);
@@ -698,7 +688,7 @@ public class CrystalRangeSeekbar extends View {
         return width;
     }
 
-    protected int getMeasureSpecHeight(int heightMeasureSpec){
+    protected int getMeasureSpecHeight(int heightMeasureSpec) {
         int height = Math.round(thumbHeight);
         if (MeasureSpec.UNSPECIFIED != MeasureSpec.getMode(heightMeasureSpec)) {
             height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
@@ -706,7 +696,7 @@ public class CrystalRangeSeekbar extends View {
         return height;
     }
 
-    protected final void log(Object object){
+    protected final void log(Object object) {
         Log.d("CRS=>", String.valueOf(object));
     }
 
@@ -714,8 +704,8 @@ public class CrystalRangeSeekbar extends View {
     // PRIVATE METHODS
     //////////////////////////////////////////
 
-    public void setMinStartValue(){
-        if(minStartValue > minValue && minStartValue < maxValue){
+    public void setMinStartValue() {
+        if (minStartValue > minValue && minStartValue < maxValue) {
             minStartValue = Math.min(minStartValue, absoluteMaxValue);
             minStartValue -= absoluteMinValue;
             minStartValue = minStartValue / (absoluteMaxValue - absoluteMinValue) * 100;
@@ -723,8 +713,8 @@ public class CrystalRangeSeekbar extends View {
         }
     }
 
-    public void setMaxStartValue(){
-        if(maxStartValue < absoluteMaxValue && maxStartValue > absoluteMinValue && maxStartValue > absoluteMinStartValue){
+    public void setMaxStartValue() {
+        if (maxStartValue < absoluteMaxValue && maxStartValue > absoluteMinValue && maxStartValue > absoluteMinStartValue) {
             maxStartValue = Math.max(absoluteMaxStartValue, absoluteMinValue);
             maxStartValue -= absoluteMinValue;
             maxStartValue = maxStartValue / (absoluteMaxValue - absoluteMinValue) * 100;
@@ -732,7 +722,7 @@ public class CrystalRangeSeekbar extends View {
         }
     }
 
-    private Thumb evalPressedThumb(float touchX){
+    private Thumb evalPressedThumb(float touchX) {
         Thumb result = null;
 
         boolean minThumbPressed = isInThumbRange(touchX, normalizedMinValue);
@@ -740,40 +730,38 @@ public class CrystalRangeSeekbar extends View {
         if (minThumbPressed && maxThumbPressed) {
             // if both thumbs are pressed (they lie on top of each other), choose the one with more room to drag. this avoids "stalling" the thumbs in a corner, not being able to drag them apart anymore.
             result = (touchX / getWidth() > 0.5f) ? Thumb.MIN : Thumb.MAX;
-        }
-        else if(minThumbPressed){
+        } else if (minThumbPressed) {
             result = Thumb.MIN;
-        }
-        else if(maxThumbPressed){
+        } else if (maxThumbPressed) {
             result = Thumb.MAX;
         }
         return result;
     }
 
-    private boolean isInThumbRange(float touchX, double normalizedThumbValue){
+    private boolean isInThumbRange(float touchX, double normalizedThumbValue) {
         float thumbPos = normalizedToScreen(normalizedThumbValue);
         float left = thumbPos - (getThumbWidth() / 2);
         float right = thumbPos + (getThumbWidth() / 2);
         float x = touchX - (getThumbWidth() / 2);
-        if(thumbPos > (getWidth() - thumbWidth)) x = touchX;
+        if (thumbPos > (getWidth() - thumbWidth)) x = touchX;
         return (x >= left && x <= right);
         //return Math.abs(touchX - normalizedToScreen(normalizedThumbValue)) <= thumbWidth;
     }
 
-    private void onStartTrackingTouch(){
+    private void onStartTrackingTouch() {
         mIsDragging = true;
     }
 
-    private void onStopTrackingTouch(){
+    private void onStopTrackingTouch() {
         mIsDragging = false;
     }
 
-    private float normalizedToScreen(double normalizedCoord){
+    private float normalizedToScreen(double normalizedCoord) {
         float width = getWidth() - (barPadding * 2);
         return (float) normalizedCoord / 100f * width;
     }
 
-    private double screenToNormalized(float screenCoord){
+    private double screenToNormalized(float screenCoord) {
         double width = getWidth();
 
         if (width <= 2 * barPadding) {
@@ -791,10 +779,9 @@ public class CrystalRangeSeekbar extends View {
 
     public void setNormalizedMinValue(double value) {
         normalizedMinValue = Math.max(0d, Math.min(100d, Math.min(value, normalizedMaxValue)));
-        if(fixGap != NO_FIXED_GAP && fixGap > 0){
+        if (fixGap != NO_FIXED_GAP && fixGap > 0) {
             addFixGap(true);
-        }
-        else{
+        } else {
             addMinGap();
         }
         invalidate();
@@ -802,50 +789,48 @@ public class CrystalRangeSeekbar extends View {
 
     public void setNormalizedMaxValue(double value) {
         normalizedMaxValue = Math.max(0d, Math.min(100d, Math.max(value, normalizedMinValue)));
-        if(fixGap != NO_FIXED_GAP && fixGap > 0){
+        if (fixGap != NO_FIXED_GAP && fixGap > 0) {
             addFixGap(false);
-        }
-        else{
+        } else {
             addMaxGap();
         }
         invalidate();
     }
 
-    private void addFixGap(boolean leftThumb){
-        if(leftThumb){
+    private void addFixGap(boolean leftThumb) {
+        if (leftThumb) {
             normalizedMaxValue = normalizedMinValue + fixGap;
-            if(normalizedMaxValue >= 100){
+            if (normalizedMaxValue >= 100) {
                 normalizedMaxValue = 100;
                 normalizedMinValue = normalizedMaxValue - fixGap;
             }
-        }
-        else{
+        } else {
             normalizedMinValue = normalizedMaxValue - fixGap;
-            if(normalizedMinValue <= 0){
+            if (normalizedMinValue <= 0) {
                 normalizedMinValue = 0;
                 normalizedMaxValue = normalizedMinValue + fixGap;
             }
         }
     }
 
-    private void addMinGap(){
-        if((normalizedMinValue + gap) > normalizedMaxValue){
+    private void addMinGap() {
+        if ((normalizedMinValue + gap) > normalizedMaxValue) {
             double g = normalizedMinValue + gap;
             normalizedMaxValue = g;
             normalizedMaxValue = Math.max(0d, Math.min(100d, Math.max(g, normalizedMinValue)));
 
-            if(normalizedMinValue >= (normalizedMaxValue - gap)){
+            if (normalizedMinValue >= (normalizedMaxValue - gap)) {
                 normalizedMinValue = normalizedMaxValue - gap;
             }
         }
     }
 
-    private void addMaxGap(){
-        if((normalizedMaxValue - gap) < normalizedMinValue){
+    private void addMaxGap() {
+        if ((normalizedMaxValue - gap) < normalizedMinValue) {
             double g = normalizedMaxValue - gap;
             normalizedMinValue = g;
             normalizedMinValue = Math.max(0d, Math.min(100d, Math.min(g, normalizedMaxValue)));
-            if(normalizedMaxValue <= (normalizedMinValue + gap)){
+            if (normalizedMaxValue <= (normalizedMinValue + gap)) {
                 normalizedMaxValue = normalizedMinValue + gap;
             }
         }
@@ -895,13 +880,13 @@ public class CrystalRangeSeekbar extends View {
         super.onDraw(canvas);
 
         // prevent render is in edit mode
-        if(isInEditMode()) return;
+        if (isInEditMode()) return;
 
         // setup bar
         setupBar(canvas, _paint, _rect);
 
         // setup seek bar active range line
-        setupHighlightBar(canvas, _paint ,_rect);
+        setupHighlightBar(canvas, _paint, _rect);
 
         // draw left thumb
         setupLeftThumb(canvas, _paint, _rect);
@@ -926,7 +911,6 @@ public class CrystalRangeSeekbar extends View {
             return false;
 
 
-
         final int action = event.getAction();
 
         switch (action & MotionEvent.ACTION_MASK) {
@@ -938,7 +922,7 @@ public class CrystalRangeSeekbar extends View {
 
                 pressedThumb = evalPressedThumb(mDownMotionX);
 
-                if(pressedThumb == null) return super.onTouchEvent(event);
+                if (pressedThumb == null) return super.onTouchEvent(event);
 
                 touchDown(event.getX(pointerIndex), event.getY(pointerIndex));
                 setPressed(true);
@@ -968,7 +952,7 @@ public class CrystalRangeSeekbar extends View {
                     onStopTrackingTouch();
                     setPressed(false);
                     touchUp(event.getX(pointerIndex), event.getY(pointerIndex));
-                    if(onRangeSeekbarFinalValueListener != null){
+                    if (onRangeSeekbarFinalValueListener != null) {
                         onRangeSeekbarFinalValueListener.finalValue(getSelectedMinValue(), getSelectedMaxValue());
                     }
                 } else {

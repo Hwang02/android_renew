@@ -25,8 +25,8 @@ public class DialogRecommend extends Dialog {
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
 
-    public DialogRecommend(Context context, View.OnClickListener left , View.OnClickListener right) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+    public DialogRecommend(Context context, View.OnClickListener left, View.OnClickListener right) {
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         this.mLeftClickListener = left;
         this.mRightClickListener = right;

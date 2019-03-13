@@ -39,7 +39,7 @@ public class DialogFull extends Dialog {
     }
 
     public DialogFull(Context context, View.OnClickListener ok) {
-        super(context , android.R.style.Theme_Translucent_NoTitleBar);
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
         mContext = context;
         this.mOkClickListener = ok;
     }
