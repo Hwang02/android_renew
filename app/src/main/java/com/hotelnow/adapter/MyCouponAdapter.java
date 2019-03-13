@@ -140,6 +140,7 @@ public class MyCouponAdapter extends ArrayAdapter<CouponEntry> {
                     }
                 });
             } else {
+                holder.coupon_hotel_count.setOnClickListener(null);
                 holder.coupon_hotel_count.setVisibility(View.VISIBLE);
                 if (entry.getmProduct().equals("activity")) {
                     holder.coupon_hotel_count.setText("/  모든 액티비티");

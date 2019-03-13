@@ -38,6 +38,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.SmoothPager;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
@@ -161,6 +162,14 @@ public class MapAcvitityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setResult(3000);
+                finish();
+            }
+        });
+
+        findViewById(R.id.re_search).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                setResult(4000);
                 finish();
             }
         });

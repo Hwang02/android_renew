@@ -141,6 +141,7 @@ public class MapHotelActivity extends AppCompatActivity {
         findViewById(R.id.re_search).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                setResult(4000);
                 finish();
             }
         });

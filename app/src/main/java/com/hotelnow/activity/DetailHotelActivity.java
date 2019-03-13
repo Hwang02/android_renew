@@ -45,6 +45,7 @@ import android.widget.Toast;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.fragment.detail.HotelImageFragment;
@@ -133,6 +134,7 @@ public class DetailHotelActivity extends AppCompatActivity {
     private NestedScrollView scroll;
     private LinearLayout hotel_check_list;
     private LinearLayout tv_main_discount;
+    private DialogConfirm dialogConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1287,11 +1289,25 @@ public class DetailHotelActivity extends AppCompatActivity {
                                     + "&normal_price=" + normal_price + "&price=" + sale_price;
 
                             if (cookie == null) {
-                                Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
-                                intent.putExtra("page", "Private");
-                                intent.putExtra("sdate", ec_date);
-                                intent.putExtra("edate", ee_date);
-                                startActivityForResult(intent, 80);
+                                dialogConfirm = new DialogConfirm("알림", "로그인 후 사용 할 수 있습니다.", "취소", "확인", DetailHotelActivity.this,
+                                        new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialogConfirm.dismiss();
+                                            }
+                                        },
+                                        new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
+                                                intent.putExtra("page", "Private");
+                                                intent.putExtra("sdate", ec_date);
+                                                intent.putExtra("edate", ee_date);
+                                                startActivityForResult(intent, 80);
+                                                dialogConfirm.dismiss();
+                                            }
+                                        });
+                                dialogConfirm.show();
                             } else {
                                 setPrivateDeal(mUrl, hid, rid.getText().toString(), pid.getText().toString());
                             }

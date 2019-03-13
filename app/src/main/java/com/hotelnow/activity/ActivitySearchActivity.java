@@ -463,6 +463,8 @@ public class ActivitySearchActivity extends Activity {
             finish();
         } else if (requestCode == 90 && responseCode == 3000) {
             adapter.notifyDataSetChanged();
+        } else if (requestCode == 90 && responseCode == 4000) {
+            finish();
         }
     }
 }

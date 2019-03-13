@@ -168,6 +168,9 @@ public class FavoriteActivityFragment extends Fragment {
                     if (obj.getJSONArray("activity").length() > 0) {
                         final JSONArray list = obj.getJSONArray("activity");
                         JSONObject entry = null;
+
+                        dbHelper.deleteFavoriteItem(true, "", "A");
+
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);
                             mItems.add(new FavoriteStayItem(
@@ -188,6 +191,8 @@ public class FavoriteActivityFragment extends Fragment {
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count")
                             ));
+
+                            dbHelper.insertFavoriteItem(entry.getString("id"), "A");
                         }
                         if (obj.getJSONArray("activity").length() > 1) {
                             // 상단 애니메이션을 위한 터치

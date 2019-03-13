@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
@@ -62,6 +63,7 @@ public class AllRoomTypeActivity extends Activity {
     private TextView date;
     private boolean is_date = false, isLogin = false;
     private TextView tv_review_count;
+    private DialogConfirm dialogConfirm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -331,11 +333,25 @@ public class AllRoomTypeActivity extends Activity {
                                             + "&normal_price=" + normal_price + "&price=" + sale_price;
 
                                     if (cookie == null) {
-                                        Intent intent = new Intent(AllRoomTypeActivity.this, LoginActivity.class);
-                                        intent.putExtra("page", "Private");
-                                        intent.putExtra("sdate", ec_date);
-                                        intent.putExtra("edate", ee_date);
-                                        startActivityForResult(intent, 90);
+                                        dialogConfirm = new DialogConfirm("알림", "로그인 후 사용 할 수 있습니다.", "취소", "확인", AllRoomTypeActivity.this,
+                                                new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        dialogConfirm.dismiss();
+                                                    }
+                                                },
+                                                new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        Intent intent = new Intent(AllRoomTypeActivity.this, LoginActivity.class);
+                                                        intent.putExtra("page", "Private");
+                                                        intent.putExtra("sdate", ec_date);
+                                                        intent.putExtra("edate", ee_date);
+                                                        startActivityForResult(intent, 90);
+                                                        dialogConfirm.dismiss();
+                                                    }
+                                                });
+                                        dialogConfirm.show();
                                     } else {
                                         setPrivateDeal(mUrl, hid, rid.getText().toString(), pid.getText().toString());
                                     }

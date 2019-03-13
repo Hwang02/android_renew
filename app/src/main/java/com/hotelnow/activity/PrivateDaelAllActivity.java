@@ -79,6 +79,13 @@ public class PrivateDaelAllActivity extends Activity {
             }
         });
 
+        findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mlist.smoothScrollToPosition(0);
+            }
+        });
+
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -159,9 +166,12 @@ public class PrivateDaelAllActivity extends Activity {
                                 ));
                             }
                             adapter.notifyDataSetChanged();
-                            findViewById(R.id.wrapper).setVisibility(View.GONE);
+                            findViewById(R.id.bt_scroll).setVisibility(View.VISIBLE);
+                        } else {
+                            findViewById(R.id.bt_scroll).setVisibility(View.GONE);
                         }
                     }
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

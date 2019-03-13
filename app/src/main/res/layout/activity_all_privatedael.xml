@@ -64,6 +64,17 @@
         android:overScrollMode="never"
         android:fadeScrollbars="true"></ListView>
 
+    <Button
+        android:id="@+id/bt_scroll"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/btn_screenup_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="22dp"
+        style="?android:attr/borderlessButtonStyle" />
+
     <RelativeLayout
         android:id="@+id/toast_layout"
         android:layout_width="match_parent"

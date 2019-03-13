@@ -174,6 +174,9 @@ public class FavoriteHotelFragment extends Fragment {
                     if (obj.getJSONArray("stay").length() > 0) {
                         final JSONArray list = obj.getJSONArray("stay");
                         JSONObject entry = null;
+
+                        dbHelper.deleteFavoriteItem(true, "", "H");
+
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);
                             mItems.add(new FavoriteStayItem(
@@ -194,6 +197,8 @@ public class FavoriteHotelFragment extends Fragment {
                                     entry.getString("is_add_reserve"),
                                     entry.getInt("coupon_count")
                             ));
+
+                            dbHelper.insertFavoriteItem(entry.getString("id"), "H");
                         }
                         // 상단 애니메이션을 위한 터치
                         if (obj.getJSONArray("stay").length() > 1) {
