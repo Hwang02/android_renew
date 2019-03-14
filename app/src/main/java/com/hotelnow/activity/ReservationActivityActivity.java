@@ -681,6 +681,7 @@ public class ReservationActivityActivity extends Activity {
                             pay_adapter = new ReservationPagerAdapter(ReservationActivityActivity.this, banner_arr);
                             pay_pager.setAdapter(pay_adapter);
                             pay_pager.setVisibility(View.VISIBLE);
+                            findViewById(R.id.pager_gap).setVisibility(View.VISIBLE);
                             for (int i = 0; i < booking_data.getJSONArray("pay_promotion_img").length(); i++) {
                                 banner_arr.add(booking_data.getJSONArray("pay_promotion_img").get(i).toString());
                             }
@@ -693,6 +694,7 @@ public class ReservationActivityActivity extends Activity {
 //                            setTimer();
                         } else {
                             pay_pager.setVisibility(View.GONE);
+                            findViewById(R.id.pager_gap).setVisibility(View.GONE);
                         }
                         // 쿠
                         if (booking_data.has("promotion_code")) {

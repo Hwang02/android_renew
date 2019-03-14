@@ -43,6 +43,8 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@color/blacktxt"
                 android:layout_below="@id/coupon_kind"
+                android:maxLines="1"
+                android:ellipsize="end"
                 tools:text="켄싱턴호텔 평창 즉시할인" />
 
             <TextView
@@ -81,7 +83,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="@color/blacktxt"
                     android:layout_toLeftOf="@id/coupon_hotel_count"
-                    tools:text="2018.09.25(화) - 2018.09.30(일) 까짙ㅌㅌㅌㅌ" />
+                    tools:text="2018.09.25(화) - 2018.09.30(일) 까지" />
             </RelativeLayout>
         </RelativeLayout>
 

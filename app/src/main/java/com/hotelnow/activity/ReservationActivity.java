@@ -787,6 +787,7 @@ public class ReservationActivity extends Activity {
                         pay_adapter = new ReservationPagerAdapter(ReservationActivity.this, banner_arr);
                         pay_pager.setAdapter(pay_adapter);
                         pay_pager.setVisibility(View.VISIBLE);
+                        findViewById(R.id.pager_gap).setVisibility(View.VISIBLE);
                         for (int i = 0; i < data.getJSONArray("pay_promotion_img").length(); i++) {
                             banner_arr.add(data.getJSONArray("pay_promotion_img").get(i).toString());
                         }
@@ -798,6 +799,7 @@ public class ReservationActivity extends Activity {
 
 //                        setTimer();
                     } else {
+                        findViewById(R.id.pager_gap).setVisibility(View.GONE);
                         pay_pager.setVisibility(View.GONE);
                     }
 

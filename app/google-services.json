@@ -1,21 +1,20 @@
 {
   "project_info": {
-    "project_number": "1042480724892",
-    "firebase_url": "https://hotelnow-449a7.firebaseio.com",
-    "project_id": "hotelnow-449a7",
-    "storage_bucket": "hotelnow-449a7.appspot.com"
+    "project_number": "369003584286",
+    "firebase_url": "https://hotelnow-co-kr-api-project-369003584286.firebaseio.com",
+    "project_id": "hotelnow.co.kr:api-project-369003584286"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1042480724892:android:ed8fd86591f8c6a9",
+        "mobilesdk_app_id": "1:369003584286:android:ed8fd86591f8c6a9",
         "android_client_info": {
           "package_name": "com.hotelnow"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1042480724892-6qnh3gro8t8d16098q5li8bu7p7vophd.apps.googleusercontent.com",
+          "client_id": "369003584286-1gn7aiqiqcaqgov4m132ppkartnc8190.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hotelnow",
@@ -23,13 +22,13 @@
           }
         },
         {
-          "client_id": "1042480724892-a554g07nur6j2pb9dm7ehf09n13v93ob.apps.googleusercontent.com",
+          "client_id": "369003584286-9nvc4j5gnt627j7jbgkgnjbcvl3or0bm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKY7nHI8j9vS0YNXiCYzL5XeWOwbK1yXA"
+          "current_key": "AIzaSyDrOhiRYH-OiXV8GpYVqT39QgQakgCCOLM"
         }
       ],
       "services": {
@@ -40,7 +39,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1042480724892-a554g07nur6j2pb9dm7ehf09n13v93ob.apps.googleusercontent.com",
+              "client_id": "369003584286-9nvc4j5gnt627j7jbgkgnjbcvl3or0bm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -106,6 +106,21 @@
                 android:orientation="vertical"
                 android:layout_marginTop="30dp">
 
+                <LinearLayout
+                    android:id="@+id/pager_gap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg_background" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:background="@color/back_line" />
+                </LinearLayout>
+
                 <android.support.v4.view.ViewPager
                     android:id="@+id/pay_pager"
                     android:layout_width="match_parent"
