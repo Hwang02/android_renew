@@ -388,7 +388,7 @@ public class MapHotelActivity extends AppCompatActivity {
                             @Override
                             public void onAnimationStart(Animation arg0) {
                                 event_pager.setVisibility(View.VISIBLE);
-                                findViewById(R.id.ll_count).setVisibility(View.VISIBLE);
+//                                findViewById(R.id.ll_count).setVisibility(View.VISIBLE);
                             }
 
                             @Override

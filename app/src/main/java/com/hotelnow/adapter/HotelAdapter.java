@@ -258,7 +258,13 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.autoViewPager.setOffscreenPageLimit(0);
             holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
-            holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+            if (mHf.getPbannerData().size() == 1) {
+                holder.autoViewPager.canSwipe(false);
+                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size());
+            } else {
+                holder.autoViewPager.canSwipe(true);
+                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+            }
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

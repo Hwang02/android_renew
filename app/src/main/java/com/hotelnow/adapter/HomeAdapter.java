@@ -319,13 +319,28 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void BannerView(final BannerViewHolder holder, int type) {
         if (bannerAdapter == null) {
+            if (mHf.getPbannerData().size() == 1) {
+                holder.autoViewPager.canSwipe(false);
+                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size());
+            } else {
+                holder.autoViewPager.canSwipe(true);
+                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
+            }
+
             PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerAdapter(context, mHf.getPbannerData(), mHf);
             holder.autoViewPager.setClipToPadding(true);
             holder.autoViewPager.setOffscreenPageLimit(0);
             holder.autoViewPager.setPageMargin(Util.dptopixel(mHf.getActivity(), 8));
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
-            holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+
+            if (mHf.getPbannerData().size() == 1) {
+                holder.autoViewPager.canSwipe(false);
+                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size());
+            } else {
+                holder.autoViewPager.canSwipe(true);
+                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+            }
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

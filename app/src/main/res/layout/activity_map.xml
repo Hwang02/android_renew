@@ -101,7 +101,8 @@
                 android:background="@color/purple_cc"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
-                android:layout_above="@id/event_pager">
+                android:layout_above="@id/event_pager"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/total_item"

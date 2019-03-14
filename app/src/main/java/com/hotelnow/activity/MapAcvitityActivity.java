@@ -381,7 +381,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
                             @Override
                             public void onAnimationStart(Animation arg0) {
                                 event_pager.setVisibility(View.VISIBLE);
-                                ll_count.setVisibility(View.VISIBLE);
+//                                ll_count.setVisibility(View.VISIBLE);
                             }
 
                             @Override

@@ -218,7 +218,13 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setClipToPadding(false);
             holder.autoViewPager.setOffscreenPageLimit(0);
-            holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size() * 10);
+            if (mLf.getPbannerData().size() == 1) {
+                holder.autoViewPager.canSwipe(false);
+                holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size());
+            } else {
+                holder.autoViewPager.canSwipe(true);
+                holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size() * 10);
+            }
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
