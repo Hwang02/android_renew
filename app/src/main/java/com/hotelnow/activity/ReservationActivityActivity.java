@@ -1208,7 +1208,7 @@ public class ReservationActivityActivity extends Activity {
                     if (cookie != null) {
                         //번호 저장
                         SharedPreferences.Editor prefEditor = _preferences.edit();
-                        prefEditor.putString("phone", phone_number_ful);
+                        prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(phone_number_ful));
                         prefEditor.commit();
                     }
 
