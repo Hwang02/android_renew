@@ -98,7 +98,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder = new BannerViewHolder(view, BANNER_MINI);
                 break;
             case KEYWORD:
-                view = inflater.inflate(R.layout.layout_horizontal, parent, false);
+                view = inflater.inflate(R.layout.layout_key_horizontal, parent, false);
                 holder = new HorizontalViewHolder(view, KEYWORD);
                 break;
             case RECENT:
@@ -416,6 +416,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
             holder.page_view.setText("1 / " + mHf.getEbannerData().size());
+
         }
     }
 
@@ -510,7 +511,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             main_view = (LinearLayout) itemView.findViewById(R.id.main_view);
             gap = (LinearLayout) itemView.findViewById(R.id.gap);
 
-            if (page == KEYWORD) {
+            if (page == KEYWORD || page == RECENT) {
                 gap.setVisibility(View.GONE);
             } else {
                 gap.setVisibility(View.VISIBLE);
@@ -559,11 +560,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         ViewPagerCustom autoViewPager;
         TextView page_view;
+        RelativeLayout main_view;
 
         BannerViewHolder(View itemView, int page) {
             super(itemView);
             autoViewPager = (ViewPagerCustom) itemView.findViewById(R.id.autoViewPager);
             page_view = (TextView) itemView.findViewById(R.id.page);
+            if(page == BANNER_MINI){
+                main_view = (RelativeLayout) itemView.findViewById(R.id.main_view);
+            }
         }
     }
 

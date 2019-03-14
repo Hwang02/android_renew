@@ -29,10 +29,18 @@
     <style name="TitleText">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/blacktxt</item>
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TitleText2">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/blacktxt</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginBottom">3dp</item>
-        <item name="android:letterSpacing">-0.02</item>
         <item name="android:singleLine">true</item>
     </style>
 
@@ -40,7 +48,7 @@
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/graytxt</item>
         <item name="android:text">@string/more_txt</item>
-        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginBottom">3dp</item>
         <item name="android:layout_marginRight">16dp</item>
     </style>
