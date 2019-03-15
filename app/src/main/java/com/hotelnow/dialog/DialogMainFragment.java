@@ -143,7 +143,6 @@ public class DialogMainFragment extends DialogFragment {
                     if (pf != null && pf.frgpopup != null)
                         pf.frgpopup.dismiss();
 
-                    TuneWrap.Event("popup_pre_after");
                 } else {
                     // 닫기
                     Date currentTime = new Date();
@@ -152,7 +151,6 @@ public class DialogMainFragment extends DialogFragment {
                     if (pf != null && pf.frgpopup != null) {
                         pf.frgpopup.dismiss();
                     }
-                    TuneWrap.Event("popup_pre_close");
                 }
 
                 SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

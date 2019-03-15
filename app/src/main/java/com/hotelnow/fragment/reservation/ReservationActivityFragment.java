@@ -362,8 +362,6 @@ public class ReservationActivityFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view.findViewById(R.id.aid);
-
-                TuneWrap.Event("booking_activity_detail", tv.getText().toString());
                 Intent intent = new Intent(getActivity(), ReservationActivityDetailActivity.class);
                 intent.putExtra("tid", tv.getText().toString());
                 startActivityForResult(intent, 90);

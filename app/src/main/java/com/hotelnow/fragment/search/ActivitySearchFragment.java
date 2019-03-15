@@ -337,8 +337,6 @@ public class ActivitySearchFragment extends Fragment {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_activity_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((SearchResultActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);

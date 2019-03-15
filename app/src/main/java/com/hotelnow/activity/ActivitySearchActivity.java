@@ -295,7 +295,6 @@ public class ActivitySearchActivity extends Activity {
                         map_img.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
-                                TuneWrap.Event("activity_list_map");
                                 Intent intent = new Intent(ActivitySearchActivity.this, MapAcvitityActivity.class);
                                 intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
@@ -349,8 +348,6 @@ public class ActivitySearchActivity extends Activity {
                             findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
-
-                        TuneWrap.Event("favorite_activity_del", sel_id);
                         dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);

@@ -436,14 +436,12 @@ public class SearchActivity extends Activity {
                     public void onSingleClick(View v) {
                         if (!mHotelAuto.get((int) v.getTag()).getFlag().equals("N")) {
                             if (!mHotelAuto.get((int) v.getTag()).getFlag().equals("region_hotel")) {
-                                TuneWrap.Event("search_auto_product", "stay", hid.getText().toString());
 
                                 Intent intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
                                 intent.putExtra("hid", hid.getText().toString());
                                 intent.putExtra("save", true);
                                 startActivity(intent);
                             } else {
-                                TuneWrap.Event("search_auto_city", mHotelAuto.get((int) v.getTag()).getName_sub_city());
 
                                 Intent intent = new Intent(SearchActivity.this, HotelSearchActivity.class);
                                 intent.putExtra("tab", 0);
@@ -486,14 +484,12 @@ public class SearchActivity extends Activity {
                     public void onSingleClick(View v) {
                         if (!mActivityAuto.get((int) v.getTag()).getFlag().equals("N")) {
                             if (!mActivityAuto.get((int) v.getTag()).getFlag().equals("region_activity")) {
-                                TuneWrap.Event("search_auto_product", "activity", hid.getText().toString());
 
                                 Intent intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
                                 intent.putExtra("tid", hid.getText().toString());
                                 intent.putExtra("save", true);
                                 startActivity(intent);
                             } else {
-                                TuneWrap.Event("search_auto_city", mActivityAuto.get((int) v.getTag()).getName());
 
                                 Intent intent = new Intent(SearchActivity.this, ActivitySearchActivity.class);
                                 intent.putExtra("tab", 1);
@@ -652,8 +648,6 @@ public class SearchActivity extends Activity {
                 view_recent.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-
-                        TuneWrap.Event("search_recently", tv_recent_txt.getText().toString());
 
                         LogUtil.e("xxxxx", v.getTag() + "");
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);

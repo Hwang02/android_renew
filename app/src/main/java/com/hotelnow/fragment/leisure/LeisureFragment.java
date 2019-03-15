@@ -393,8 +393,6 @@ public class LeisureFragment extends Fragment {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_activity_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
@@ -465,10 +463,8 @@ public class LeisureFragment extends Fragment {
                         }
 
                         if (sel_type.equals("H")) {
-                            TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");

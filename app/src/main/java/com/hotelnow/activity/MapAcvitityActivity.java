@@ -477,8 +477,6 @@ public class MapAcvitityActivity extends AppCompatActivity {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_activity_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);

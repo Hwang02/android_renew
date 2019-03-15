@@ -179,7 +179,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.mMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("HotDeal_stay_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab", 0);
                     mHf.startActivityForResult(intent, 70);
@@ -283,7 +282,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.page_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("TopBanner_list");
                     Intent intent = new Intent(mHf.getContext(), BannerStayAllActivity.class);
                     mHf.startActivityForResult(intent, 70);
                 }
@@ -332,7 +330,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.mMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("stay_private_list");
                     Intent intent = new Intent(mHf.getContext(), PrivateDaelAllActivity.class);
                     mHf.startActivityForResult(intent, 70);
                 }

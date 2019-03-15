@@ -477,8 +477,6 @@ public class DetailHotelActivity extends AppCompatActivity {
                                                 return;
                                             }
 
-                                            TuneWrap.Event("favorite_stay_del", hid);
-
                                             islike = false;
                                             dbHelper.deleteFavoriteItem(false, hid, "H");
                                             icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);

@@ -379,8 +379,6 @@ public class ReservationHotelFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view.findViewById(R.id.hid);
-
-                TuneWrap.Event("booking_stay_detail", tv.getText().toString());
                 Intent intent = new Intent(getActivity(), ReservationHotelDetailActivity.class);
                 intent.putExtra("bid", tv.getText().toString());
                 startActivityForResult(intent, 90);

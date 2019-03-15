@@ -259,7 +259,6 @@ public class ReservationActivityDetailActivity extends Activity {
                             btn_review.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    TuneWrap.Event("booking_activity_reviewW");
                                     Intent intent = new Intent(ReservationActivityDetailActivity.this, ReviewActivityWriteActivity.class);
                                     intent.putExtra("booking_id", bid);
                                     intent.putExtra("userid", cookie);
@@ -499,7 +498,6 @@ public class ReservationActivityDetailActivity extends Activity {
                     findViewById(R.id.btn_address_copy).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("booking_activity_copyA");
                             ClipboardManager clipboard = (ClipboardManager) HotelnowApplication.getAppContext().getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clip = ClipData.newPlainText("label", mAddress);
                             clipboard.setPrimaryClip(clip);
@@ -513,7 +511,6 @@ public class ReservationActivityDetailActivity extends Activity {
                     if (info.isNull("company_tel")) {
                         hotel_phone_number = null;
                     } else {
-                        TuneWrap.Event("booking_activity_call");
                         findViewById(R.id.company_call).setVisibility(View.VISIBLE);
                         hotel_phone_number = info.getString("company_tel");
                         call_message = h_name + "\n" + hotel_phone_number + "\n\n" + "[확인] 버튼을 누르면 시설사와 바로 연결됩니다.";
@@ -550,7 +547,6 @@ public class ReservationActivityDetailActivity extends Activity {
 
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("booking_activity_navi");
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
                                     getString(R.string.booking_kimkisa_ask),
@@ -602,7 +598,6 @@ public class ReservationActivityDetailActivity extends Activity {
                     findViewById(R.id.btn_address_near).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("booking_activity_around");
                             Intent intent = new Intent(ReservationActivityDetailActivity.this, StayMapActivity.class);
                             intent.putExtra("isTicket", true);
                             intent.putExtra("deal_name", h_name);
@@ -616,7 +611,6 @@ public class ReservationActivityDetailActivity extends Activity {
                     mapImg.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
-                            TuneWrap.Event("booking_activity_around");
                             Intent intent = new Intent(ReservationActivityDetailActivity.this, StayMapActivity.class);
                             intent.putExtra("isTicket", true);
                             intent.putExtra("deal_name", h_name);
@@ -664,7 +658,6 @@ public class ReservationActivityDetailActivity extends Activity {
 
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("booking_stay_del");
                             dialogConfirm = new DialogConfirm(
                                     getString(R.string.alert_notice),
                                     getString(R.string.booking_hide_ask),
@@ -720,9 +713,6 @@ public class ReservationActivityDetailActivity extends Activity {
                                                     }
                                                 }
                                             });
-
-//                                            t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("HIDE").build());
-//                                            TuneWrap.Event("BOOKING", "HIDE");
 
                                             dialogConfirm.dismiss();
                                         }

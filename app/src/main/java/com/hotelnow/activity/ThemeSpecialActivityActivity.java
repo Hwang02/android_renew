@@ -89,9 +89,6 @@ public class ThemeSpecialActivityActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if (!pid.getText().toString().equals("-1")) {
-
-                    TuneWrap.Event("theme_activity_product", hid.getText().toString());
-
                     Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
@@ -138,8 +135,6 @@ public class ThemeSpecialActivityActivity extends Activity {
     public void getHotelList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list + "/" + tid + "/A";
-
-        TuneWrap.Event("theme_activity", tid);
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -334,8 +329,6 @@ public class ThemeSpecialActivityActivity extends Activity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        TuneWrap.Event("favorite_activity_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);

@@ -380,8 +380,6 @@ public class HotelFragment extends Fragment {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_stay_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
@@ -445,8 +443,6 @@ public class HotelFragment extends Fragment {
                             ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_stay_del", sel_id);
 
                         dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
@@ -518,10 +514,8 @@ public class HotelFragment extends Fragment {
                         }
 
                         if (sel_type.equals("H")) {
-                            TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");

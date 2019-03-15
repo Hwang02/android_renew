@@ -74,8 +74,6 @@ public class LoginActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_login);
 
-        TuneWrap.Event("LoginPage");
-
         Util.setStatusColor(this);
 
         dbHelper = new DbOpenHelper(this);
@@ -112,8 +110,6 @@ public class LoginActivity extends Activity {
                 if (getCurrentFocus() != null)
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                TuneWrap.Event("login_member");
-
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 intent.putExtra("page", page);
                 intent.putExtra("ec_date", ec_date);
@@ -128,7 +124,6 @@ public class LoginActivity extends Activity {
         btn_resetpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("findpw");
                 // 키보드 숨김
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (getCurrentFocus() != null)
@@ -272,7 +267,6 @@ public class LoginActivity extends Activity {
                                             String snsemail = object.getString("email");
 
                                             if (!user_id.equals(0) && !user_id.equals("") && user_id != null) {
-                                                TuneWrap.Event("login_facebook");
                                                 checkUserInfo("facebook", user_id, snsemail);
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "페이스북 계정을 읽을 수 없습니다. 다른 수단을 사용해 주세요.(1)", Toast.LENGTH_SHORT).show();
@@ -309,7 +303,6 @@ public class LoginActivity extends Activity {
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("reservation_nomember");
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
@@ -327,7 +320,6 @@ public class LoginActivity extends Activity {
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("reservation_nomember");
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
@@ -345,7 +337,6 @@ public class LoginActivity extends Activity {
             btn_nocookie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("booking_nomember");
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     CONFIG.Mypage_Search = true;
@@ -397,7 +388,6 @@ public class LoginActivity extends Activity {
                 public void onSuccess(MeV2Response result) {
                     Session.getCurrentSession().clearCallbacks();
                     if (result.getId() != 0) {
-                        TuneWrap.Event("login_kakao");
                         checkUserInfo("kakao", String.valueOf(result.getId()), "");
 
                     } else {
@@ -438,7 +428,6 @@ public class LoginActivity extends Activity {
 
                     // 가입안된 사용자
                     if (obj.getString("result").equals("nouser")) {
-                        TuneWrap.Event("Myinfo_member");
                         Session.getCurrentSession().close();
                         Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                         intent.putExtra("page", page);

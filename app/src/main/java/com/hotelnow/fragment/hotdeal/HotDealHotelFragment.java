@@ -211,8 +211,6 @@ public class HotDealHotelFragment extends Fragment {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_stay_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         ((HotDealActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);

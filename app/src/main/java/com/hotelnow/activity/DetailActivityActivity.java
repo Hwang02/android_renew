@@ -352,8 +352,6 @@ public class DetailActivityActivity extends AppCompatActivity {
                                                 return;
                                             }
 
-                                            TuneWrap.Event("favorite_activity_del", tid);
-
                                             islike = false;
                                             dbHelper.deleteFavoriteItem(false, tid, "A");
                                             icon_zzim.setBackgroundResource(R.drawable.ico_titbarw_favorite);

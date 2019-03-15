@@ -205,8 +205,6 @@ public class PrivateDaelAllActivity extends Activity {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_stay_del", sel_id);
-
                         dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 취소");
                         showIconToast("관심 상품 담기 취소", false);

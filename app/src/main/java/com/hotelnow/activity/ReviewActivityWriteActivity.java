@@ -175,7 +175,6 @@ public class ReviewActivityWriteActivity extends Activity implements View.OnClic
                     succReviewDialog();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
-                    TuneWrap.Event("booking_activity_reviewW_ok");
                 } catch (Exception e) {
                     Toast.makeText(ReviewActivityWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

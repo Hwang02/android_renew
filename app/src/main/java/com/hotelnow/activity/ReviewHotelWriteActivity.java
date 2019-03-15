@@ -185,7 +185,6 @@ public class ReviewHotelWriteActivity extends Activity implements View.OnClickLi
                     }
                     succReviewDialog();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
-                    TuneWrap.Event("booking_stay_reviewW_ok");
                 } catch (Exception e) {
                     Toast.makeText(ReviewHotelWriteActivity.this, getString(R.string.error_review_regist), Toast.LENGTH_SHORT).show();
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

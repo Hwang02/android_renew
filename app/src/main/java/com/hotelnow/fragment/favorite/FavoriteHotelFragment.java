@@ -317,7 +317,6 @@ public class FavoriteHotelFragment extends Fragment {
                         ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                         return;
                     }
-                    TuneWrap.Event("favorite_stay_del", sel_id);
                     dbHelper.deleteFavoriteItem(false, sel_id, "H");
                     LogUtil.e("xxxx", "찜하기 취소");
                     ((MainActivity) getActivity()).showIconToast("관심 상품 담기 취소", false);
@@ -434,8 +433,6 @@ public class FavoriteHotelFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
-
-                TuneWrap.Event("favorite_stay_product", hid.getText().toString());
                 Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", hid.getText().toString());
                 intent.putExtra("hid", hid.getText().toString());

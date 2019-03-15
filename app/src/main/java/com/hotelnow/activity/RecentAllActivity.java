@@ -293,10 +293,8 @@ public class RecentAllActivity extends Activity {
                             return;
                         }
                         if (sel_type.equals("stay")) {
-                            TuneWrap.Event("favorite_stay_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity_del", sel_id);
                             dbHelper.deleteFavoriteItem(false, sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 취소");

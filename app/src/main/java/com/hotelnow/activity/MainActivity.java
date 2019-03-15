@@ -573,7 +573,6 @@ public class MainActivity extends FragmentActivity {
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
-                TuneWrap.Event("tabbar_home");
                 break;
             }
             case FAVPAGE: {
@@ -605,7 +604,6 @@ public class MainActivity extends FragmentActivity {
                 is_refresh = true;
                 mbinding.tabLayout.setVisibility(View.GONE);
                 mbinding.toolbar.setVisibility(View.GONE);
-                TuneWrap.Event("tabbar_favorite");
                 break;
             }
             case RESERVPAGE: {
@@ -648,7 +646,6 @@ public class MainActivity extends FragmentActivity {
                 mbinding.tabLayout.setVisibility(View.GONE);
                 mbinding.toolbar.setVisibility(View.GONE);
 
-                TuneWrap.Event("tabbar_booking");
                 break;
             }
             case MYPAGE: {
@@ -689,7 +686,6 @@ public class MainActivity extends FragmentActivity {
                 mbinding.tabLayout.setVisibility(View.GONE);
                 mbinding.toolbar.setVisibility(View.GONE);
 
-                TuneWrap.Event("tabbar_Myinfo");
                 break;
             }
             case HOTELPAGE: {

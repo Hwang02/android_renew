@@ -243,7 +243,6 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.page_view.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("TopBanner_list");
                     Intent intent = new Intent(mLf.getContext(), BannerActivityAllActivity.class);
                     mLf.startActivityForResult(intent, 70);
                 }
@@ -293,7 +292,6 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("HotDeal_activity_list");
                     Intent intent = new Intent(mLf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab", 1);
                     mLf.startActivityForResult(intent, 70);
