@@ -956,6 +956,7 @@ public class ReservationActivity extends Activity {
                             if (cookie == null && useremail.getText().toString().trim().length() <= 0) {
                                 Toast.makeText(getApplicationContext(), getString(R.string.validator_email), Toast.LENGTH_SHORT).show();
                                 useremail.requestFocus();
+                                flag_btn_clicked = false;
                                 return;
                             }
 

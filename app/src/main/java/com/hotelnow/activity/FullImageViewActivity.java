@@ -60,7 +60,7 @@ public class FullImageViewActivity extends FragmentActivity {
         idx = intent.getIntExtra("idx", 0);
         name = intent.getStringExtra("name");
 
-        TuneWrap.Event("PortraitView", hid);
+        TuneWrap.Event("productdetail_stay_portraitview", hid);
 
         tv_title_hotel.setText(name);
 

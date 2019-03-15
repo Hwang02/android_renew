@@ -82,6 +82,8 @@ public class AllRoomTypeActivity extends Activity {
         pid = intent.getStringExtra("pid");
         evt = intent.getStringExtra("evt");
 
+        TuneWrap.Event("productdetail_stay_more", hid);
+
         _preferences = PreferenceManager.getDefaultSharedPreferences(AllRoomTypeActivity.this);
         cookie = _preferences.getString("userid", null);
 

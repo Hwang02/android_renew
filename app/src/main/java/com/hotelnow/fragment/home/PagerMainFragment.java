@@ -85,10 +85,6 @@ public class PagerMainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        t = ((HotelnowApplication)getActivity().getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
-
-        TuneWrap.Event("popup_pre");
-
         mId = getArguments().getString("id");
         mTitle = getArguments().getString("title");
         mThumb_img = getArguments().getString("thumb_img");

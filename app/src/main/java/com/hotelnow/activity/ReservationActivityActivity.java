@@ -868,6 +868,7 @@ public class ReservationActivityActivity extends Activity {
                                 if (cookie == null && useremail.getText().toString().trim().length() <= 0) {
                                     Toast.makeText(getApplicationContext(), getString(R.string.validator_email), Toast.LENGTH_SHORT).show();
                                     useremail.requestFocus();
+                                    flag_btn_clicked = false;
                                     return;
                                 }
 
@@ -1054,25 +1055,21 @@ public class ReservationActivityActivity extends Activity {
         if (mPayType == 1) {
             paytype1_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
             tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.purple));
-            ;
             img_paytype1.setBackgroundResource(R.drawable.ico_pay_card_selected);
         } else {
             paytype1_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             tv_paytype1.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.blacktxt));
-            ;
             img_paytype1.setBackgroundResource(R.drawable.ico_pay_card);
         }
         if (mPayType == 3) {
             paytype3_info.setVisibility(View.VISIBLE);
             paytype3_background.setBackgroundResource(R.drawable.style_edittext_purple_border);
             tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.purple));
-            ;
             img_paytype3.setBackgroundResource(R.drawable.ico_pay_ars_selected);
         } else {
             paytype3_info.setVisibility(View.GONE);
             paytype3_background.setBackgroundResource(R.drawable.style_edittext_gray_2border);
             tv_paytype3.setTextColor(ContextCompat.getColor(ReservationActivityActivity.this, R.color.blacktxt));
-            ;
             img_paytype3.setBackgroundResource(R.drawable.ico_pay_ars);
         }
         if (mPayType == 4) {

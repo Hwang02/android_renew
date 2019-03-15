@@ -144,7 +144,7 @@ public class ThemeSpecialHotelActivity extends Activity {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list + "/" + tid + "/H";
 
-        TuneWrap.Event("theme_stay", tid);
+        TuneWrap.Event("theme", "stay", tid);
 
         Api.get(url, new Api.HttpCallback() {
             @Override

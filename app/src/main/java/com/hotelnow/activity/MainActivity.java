@@ -195,7 +195,6 @@ public class MainActivity extends FragmentActivity {
                         int mPosition = 4;
                         if (mbinding.tabLayout.getSelectedTabPosition() == 0) {
                             mPosition = SELECTPAGE;
-                            TuneWrap.Event("home");
                         } else if (mbinding.tabLayout.getSelectedTabPosition() == 1) {
                             mPosition = HOTELPAGE;
                         } else if (mbinding.tabLayout.getSelectedTabPosition() == 2) {
@@ -547,6 +546,7 @@ public class MainActivity extends FragmentActivity {
                             }, 100);
                 } else {
                     if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
+                        TuneWrap.Event("home");
                         transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -702,6 +702,7 @@ public class MainActivity extends FragmentActivity {
                             }, 100);
                 } else {
                     if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
+                        TuneWrap.Event("stay");
                         transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
@@ -727,8 +728,6 @@ public class MainActivity extends FragmentActivity {
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
-
-                TuneWrap.Event("stay");
                 break;
             }
             case LEISUREPAGE: {
@@ -745,6 +744,7 @@ public class MainActivity extends FragmentActivity {
                             }, 100);
                 } else {
                     if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
+                        TuneWrap.Event("activity");
                         transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
@@ -770,8 +770,6 @@ public class MainActivity extends FragmentActivity {
                     mbinding.tabLayout.setVisibility(View.VISIBLE);
                     mbinding.toolbar.setVisibility(View.VISIBLE);
                 }
-
-                TuneWrap.Event("activity");
                 break;
             }
 

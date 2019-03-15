@@ -230,33 +230,7 @@ public class PaymentActivity extends Activity {
                                     }
 
                                     try {
-                                        if (obj.has("hotel_id") && obj.has("room_id") && obj.has("sale_price") && obj.has("category")) {
-//                                            Product product = new Product()
-//                                                    .setId(bid)
-//                                                    .setName(hotel_name)
-//                                                    .setBrand(obj.getString("hotel_id"))
-//                                                    .setVariant(obj.getString("room_id"))
-//                                                    .setCategory(obj.getString("category"))
-//                                                    .setPrice(Double.valueOf(obj.getInt("sale_price")))
-//                                                    .setQuantity(1);
-//
-//                                            ProductAction productAction = new ProductAction(ProductAction.ACTION_PURCHASE)
-//                                                    .setTransactionId(bid)
-//                                                    .setTransactionAffiliation("payment")
-//                                                    .setTransactionRevenue(Double.valueOf(obj.getInt("sale_price")))
-//                                                    .setTransactionTax(0.0d)
-//                                                    .setTransactionShipping(0.0d);
-//                                            HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder()
-//                                                    .addProduct(product)
-//                                                    .setProductAction(productAction);
-//
-//                                            // facebook logger
-//                                            FacebookWrap.logPurchasedEvent(PaymentActivity.this, obj.getInt("sale_price"));
-//
-//                                            Tracker t = ((HotelnowApplication) getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
-//                                            t.setScreenName("BookingComplete");
-//                                            t.set("&cu", "KRW");    // currency
-//                                            t.send(builder.build());
+                                        if (obj.has("sale_price") && obj.has("category")) {
 
                                             float revenue = obj.has("revenue") ? (float) obj.getInt("revenue") : 0;
                                             int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
@@ -351,33 +325,6 @@ public class PaymentActivity extends Activity {
 
                                     try {
                                         if (obj.has("hotel_id") && obj.has("room_id") && obj.has("sale_price") && obj.has("category")) {
-//                                            Product product = new Product()
-//                                                    .setId(bid)
-//                                                    .setName(hotel_name)
-//                                                    .setBrand(obj.getString("hotel_id"))
-//                                                    .setVariant(obj.getString("room_id"))
-//                                                    .setCategory(obj.getString("category"))
-//                                                    .setPrice(Double.valueOf(obj.getInt("sale_price")))
-//                                                    .setQuantity(1);
-//
-//                                            ProductAction productAction = new ProductAction(ProductAction.ACTION_PURCHASE)
-//                                                    .setTransactionId(bid)
-//                                                    .setTransactionAffiliation("payment")
-//                                                    .setTransactionRevenue(Double.valueOf(obj.getInt("sale_price")))
-//                                                    .setTransactionTax(0.0d)
-//                                                    .setTransactionShipping(0.0d);
-//                                            HitBuilders.ScreenViewBuilder builder = new HitBuilders.ScreenViewBuilder()
-//                                                    .addProduct(product)
-//                                                    .setProductAction(productAction);
-//
-//                                            // facebook logger
-//                                            FacebookWrap.logPurchasedEvent(PaymentActivity.this, obj.getInt("sale_price"));
-//
-//                                            Tracker t = ((HotelnowApplication) getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
-//                                            t.setScreenName("BookingComplete");
-//                                            t.set("&cu", "KRW");    // currency
-//                                            t.send(builder.build());
-
                                             float revenue = obj.has("revenue") ? (float) obj.getInt("revenue") : 0;
                                             int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
 

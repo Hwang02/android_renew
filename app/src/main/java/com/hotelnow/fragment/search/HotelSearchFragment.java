@@ -659,6 +659,7 @@ public class HotelSearchFragment extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    TuneWrap.Event("search_list_stay");
                     init();
                 }
             }, 500);

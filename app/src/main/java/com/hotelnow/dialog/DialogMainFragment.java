@@ -72,6 +72,8 @@ public class DialogMainFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_pager_main, container);
 
+        TuneWrap.Event("popup_pre");
+
         if (popup_data != null && popup_data.length() == 0) {
             Toast.makeText(getActivity(), "알림이 없습니다. 리스트 새로고침 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
         }

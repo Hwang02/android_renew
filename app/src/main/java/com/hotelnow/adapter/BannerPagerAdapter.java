@@ -100,7 +100,7 @@ public class BannerPagerAdapter extends PagerAdapter {
                         method = obj.getString("method");
                         url = obj.getString("param");
 
-                        TuneWrap.Event("TopBanner", url);
+                        TuneWrap.Event("home_topbanner", url);
 
                         if (method.equals("move_near")) {
                             int fDayLimit = mHf._preferences.getInt("future_day_limit", 180);
@@ -200,7 +200,7 @@ public class BannerPagerAdapter extends PagerAdapter {
                     } catch (Exception e) {
                     }
                 } else {
-                    TuneWrap.Event("TopBanner", frontEvtId);
+                    TuneWrap.Event("home_topbanner", frontEvtId);
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);

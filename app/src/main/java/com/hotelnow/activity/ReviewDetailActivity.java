@@ -213,7 +213,7 @@ public class ReviewDetailActivity extends Activity {
             TuneWrap.Event("activity_review", hid);
         } else {
             url = CONFIG.reviewListUrl + "/" + mPage + "/" + mPer_page + "/" + hid;
-            TuneWrap.Event("stay_review", hid);
+            TuneWrap.Event("productdetail_stay_review", hid);
         }
         if (isAdd) {
             Api.get(url, new Api.HttpCallback() {

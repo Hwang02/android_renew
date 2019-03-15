@@ -327,7 +327,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     icon_zzim.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
-                            TuneWrap.Event("activity_favorite", mCity, tid);
+                            TuneWrap.Event("productdetail_activity_favorite", mCity, tid);
 
                             JSONObject paramObj = new JSONObject();
                             try {
@@ -400,7 +400,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                         @Override
                         public void onSingleClick(View v) {
 
-                            TuneWrap.Event("stay_share", mCity, tid);
+                            TuneWrap.Event("productdetail_activity_share", mCity, tid);
 
                             dialogTicketShare = new DialogTicketShare(DetailActivityActivity.this, tid, PagerImgs[0], tname, mAvg, new View.OnClickListener() {
                                 @Override
@@ -849,6 +849,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     btn_reservation.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            TuneWrap.Event("productdetail_activity_reservationbutton");
                             boolean is_sel = false;
                             for (int i = 0; i < sel_list.size(); i++) {
                                 if (sel_list.get(i).getmCnt() != 0) {
@@ -978,7 +979,7 @@ public class DetailActivityActivity extends AppCompatActivity {
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
 
-                    TuneWrap.Event("stay_coupon", mCity, tid, tv_coupon_title.getText().toString() + "(" + tv_coupon_price.getText().toString() + ")", mCouponId[position]);
+                    TuneWrap.Event("productdetail_activity_coupon", mCity, tid, tv_coupon_title.getText().toString() + "(" + tv_coupon_price.getText().toString() + ")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

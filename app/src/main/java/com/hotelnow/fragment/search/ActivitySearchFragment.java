@@ -423,9 +423,11 @@ public class ActivitySearchFragment extends Fragment {
         if (this.isVisible()) {
             // we check that the fragment is becoming visible
             if (isFragmentVisible_ && !_hasLoadedOnce) {
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        TuneWrap.Event("search_list_activity");
                         init();
                     }
                 }, 500);

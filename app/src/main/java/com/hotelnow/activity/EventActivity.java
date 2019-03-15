@@ -278,11 +278,11 @@ public class EventActivity extends AppCompatActivity {
             try {
                 if (idx > 0) {
                     linkUrl = CONFIG.eventWebUrl + "/" + String.valueOf(idx);
-                    TuneWrap.Event("EVENT", idx + "");
+                    TuneWrap.Event("event_detail", idx + "");
                 } else {
                     evtObj = new JSONObject(obj);
                     linkUrl = CONFIG.eventWebUrl + "/" + evtObj.getString("id");
-                    TuneWrap.Event("EVENT", evtObj.getString("id"));
+                    TuneWrap.Event("event_detail", evtObj.getString("id"));
                 }
                 if (uid != null)
                     linkUrl += "?uid=" + AES256Chiper.AES_Decode(uid.replace("HN|", ""));

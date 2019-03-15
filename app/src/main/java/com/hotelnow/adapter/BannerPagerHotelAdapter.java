@@ -94,8 +94,6 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
                         method = obj.getString("method");
                         url = obj.getString("param");
 
-                        TuneWrap.Event("TopBanner", url);
-
                         if (method.equals("move_near")) {
                             int fDayLimit = _preferences.getInt("future_day_limit", 180);
                             String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
@@ -194,8 +192,6 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
                     } catch (Exception e) {
                     }
                 } else {
-                    TuneWrap.Event("TopBanner", frontEvtId);
-
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);

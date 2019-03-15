@@ -136,6 +136,8 @@ public class ThemeSpecialActivityActivity extends Activity {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list + "/" + tid + "/A";
 
+        TuneWrap.Event("theme", "activity", tid);
+
         Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
