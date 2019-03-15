@@ -586,7 +586,7 @@ public class FilterHotelActivity extends Activity {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-                Toast.makeText(FilterHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(FilterHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
                 if (ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling

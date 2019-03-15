@@ -490,6 +490,7 @@ public class HotelSearchFragment extends Fragment {
                 }
             });
         } else {// 성공
+            TuneWrap.Event("list_stay_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -504,8 +505,6 @@ public class HotelSearchFragment extends Fragment {
                             ((SearchResultActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");

@@ -351,10 +351,10 @@ public class LeisureFragment extends Fragment {
             adapter.setHeaderRefresh();
         } else if (requestCode == 70) {
             adapter.setAllRefresh();
-            if (resultCode == 110) {
+//            if (resultCode == 110) {
                 ((MainActivity) getActivity()).setTitle();
                 ((MainActivity) getActivity()).setTapdelete("MYPAGE");
-            }
+//            }
         } else if (resultCode == 110) {
             ((MainActivity) getActivity()).setTitle();
             ((MainActivity) getActivity()).setTapdelete("MYPAGE");
@@ -417,8 +417,6 @@ public class LeisureFragment extends Fragment {
                             ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_activity", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -491,10 +489,8 @@ public class LeisureFragment extends Fragment {
                             return;
                         }
                         if (sel_type.equals("H")) {
-                            TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");

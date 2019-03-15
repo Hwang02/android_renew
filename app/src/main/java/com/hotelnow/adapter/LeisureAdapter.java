@@ -174,7 +174,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("ThemeList");
+                    TuneWrap.Event("themelist");
                     Intent intent = new Intent(mLf.getContext(), ThemeSAllActivity.class);
                     intent.putExtra("page", "Q");
                     mLf.startActivityForResult(intent, 70);

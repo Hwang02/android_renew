@@ -236,8 +236,6 @@ public class HotDealHotelFragment extends Fragment {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_stay", sel_id);
-
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((HotDealActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);

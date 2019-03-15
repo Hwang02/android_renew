@@ -575,6 +575,7 @@ public class HotelSearchActivity extends Activity {
                 }
             });
         } else {// 성공
+            TuneWrap.Event("list_stay_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -591,8 +592,6 @@ public class HotelSearchActivity extends Activity {
                             findViewById(R.id.wrapper).setVisibility(View.GONE);
                             return;
                         }
-
-                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");

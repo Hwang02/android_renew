@@ -379,7 +379,6 @@ public class DetailActivityActivity extends AppCompatActivity {
                                                 return;
                                             }
 
-                                            TuneWrap.Event("favorite_activity", tid);
 
                                             islike = true;
                                             dbHelper.insertFavoriteItem(tid, "A");

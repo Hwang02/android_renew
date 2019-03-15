@@ -168,7 +168,6 @@ public class FavoriteActivityFragment extends Fragment {
                     if (obj.getJSONArray("activity").length() > 0) {
                         final JSONArray list = obj.getJSONArray("activity");
                         JSONObject entry = null;
-
                         dbHelper.deleteFavoriteItem(true, "", "A");
 
                         for (int i = 0; i < list.length(); i++) {

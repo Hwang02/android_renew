@@ -355,7 +355,6 @@ public class ThemeSpecialActivityActivity extends Activity {
                             showToast("로그인 후 이용해주세요");
                             return;
                         }
-                        TuneWrap.Event("favorite_activity", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");

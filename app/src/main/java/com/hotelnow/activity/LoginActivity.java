@@ -31,6 +31,7 @@ import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.kakao.auth.AuthType;
@@ -222,6 +223,7 @@ public class LoginActivity extends Activity {
                             final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
+                            CONFIG.MYLOGIN = true;
                             getFavorite();
                             obj = null;
 
@@ -476,7 +478,9 @@ public class LoginActivity extends Activity {
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
+                    CONFIG.MYLOGIN = true;
                     getFavorite();
+
                     body = "";
                 } catch (Exception e) {
                     Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();

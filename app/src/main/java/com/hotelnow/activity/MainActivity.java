@@ -195,10 +195,13 @@ public class MainActivity extends FragmentActivity {
                         int mPosition = 4;
                         if (mbinding.tabLayout.getSelectedTabPosition() == 0) {
                             mPosition = SELECTPAGE;
+                            TuneWrap.Event("home_button");
                         } else if (mbinding.tabLayout.getSelectedTabPosition() == 1) {
                             mPosition = HOTELPAGE;
+                            TuneWrap.Event("stay_button");
                         } else if (mbinding.tabLayout.getSelectedTabPosition() == 2) {
                             mPosition = LEISUREPAGE;
+                            TuneWrap.Event("activity_button");
                         }
 
                         setTapMove(mPosition, false);
@@ -820,10 +823,10 @@ public class MainActivity extends FragmentActivity {
         transaction = getSupportFragmentManager().beginTransaction();
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-        if (fragment != null)
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-
-        transaction.commitAllowingStateLoss();
+        if (fragment != null && !fragment.isVisible()) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+            transaction.commitAllowingStateLoss();
+        }
     }
 
     public void showToast(String msg) {
@@ -938,6 +941,12 @@ public class MainActivity extends FragmentActivity {
 
         if (CONFIG.Mypage_Search) {
             moveTabReservation();
+        }
+
+        if(_preferences.getString("userid", null) != null && CONFIG.MYLOGIN == true){
+            setTitle();
+            setTapdelete("MYPAGE");
+            CONFIG.MYLOGIN = false;
         }
 
         super.onActivityResult(requestCode, resultCode, data);

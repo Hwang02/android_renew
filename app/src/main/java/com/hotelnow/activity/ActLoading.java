@@ -555,6 +555,7 @@ public class ActLoading extends Activity {
 //                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
 //                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
 //                .check();
+
         MovePage();
     }
 

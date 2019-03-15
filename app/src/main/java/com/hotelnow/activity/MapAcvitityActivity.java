@@ -502,8 +502,6 @@ public class MapAcvitityActivity extends AppCompatActivity {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_activity", sel_id);
-
                         dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);

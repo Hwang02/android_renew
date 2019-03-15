@@ -213,7 +213,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("ThemeList");
+                    TuneWrap.Event("themelist");
                     Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
                     intent.putExtra("page", "H");
                     mHf.startActivityForResult(intent, 70);

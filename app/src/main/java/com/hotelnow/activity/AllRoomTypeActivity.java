@@ -328,7 +328,7 @@ public class AllRoomTypeActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 if (privatedeal_status == 1 || privatedeal_status == -1 || btn_private.getText().equals("예약하기")) {
-                                    TuneWrap.Event("PrivateButton", hid);
+                                    TuneWrap.Event("productdetail_stay_privatebutton", hid);
 
                                     String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String) img_room.getTag()
                                             + "&product_id=" + pid.getText() + "&product_name=" + tv_room_title.getText() + "&default_pn=" + p_default + "&max_pn=" + p_max
@@ -367,7 +367,7 @@ public class AllRoomTypeActivity extends Activity {
                         btn_reservation.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                TuneWrap.Event("ReservationButton", hid);
+                                TuneWrap.Event("productdetail_stay_reservationbutton", hid);
                                 if (cookie == null) {
                                     Intent intent = new Intent(AllRoomTypeActivity.this, LoginActivity.class);
                                     intent.putExtra("ec_date", ec_date);
@@ -391,7 +391,7 @@ public class AllRoomTypeActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
-                                    TuneWrap.Event("MoreDetail");
+                                    TuneWrap.Event("productdetail_stay_roomtype");
                                     room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                                     view_room.findViewById(R.id.line).setVisibility(View.GONE);
                                     ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);

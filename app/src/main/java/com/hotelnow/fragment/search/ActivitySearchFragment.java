@@ -115,6 +115,9 @@ public class ActivitySearchFragment extends Fragment {
             url += "&lat=" + CONFIG.lat + "&lng=" + CONFIG.lng;
 //            }
         }
+        if (!TextUtils.isEmpty(title_text) && title_text.equals("내 주변 바로보기")) {
+            url += "&location_go=Y";
+        }
 
         url += "&per_page=20";
 
@@ -346,6 +349,7 @@ public class ActivitySearchFragment extends Fragment {
                 }
             });
         } else {// 성공
+            TuneWrap.Event("list_activity_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -360,8 +364,6 @@ public class ActivitySearchFragment extends Fragment {
                             ((SearchResultActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_activity", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");

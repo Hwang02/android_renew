@@ -169,6 +169,7 @@ public class CONFIG {
     public static String sel_max = "600000";
     public static String sel_min = "0";
     public static Boolean TabLogin = false;
+    public static Boolean MYLOGIN = false;
     public static int sel_reserv = 0;
     public static int sel_fav = 0;
     public static boolean Mypage_Search = false;

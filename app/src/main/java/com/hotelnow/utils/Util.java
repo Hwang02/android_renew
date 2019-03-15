@@ -261,7 +261,7 @@ public class Util {
             if (flag != null) {
                 paramObj.put("use_yn", ((flag == true) ? "Y" : "N"));
             }
-            if (userId != null) paramObj.put("user_id", userId);
+            if (userId != null) paramObj.put("user_id", AES256Chiper.AES_Decode(userId.replace("HN|", "")));
         } catch (JSONException e) {
         }
 

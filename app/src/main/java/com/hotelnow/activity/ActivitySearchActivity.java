@@ -359,6 +359,7 @@ public class ActivitySearchActivity extends Activity {
                 }
             });
         } else {// 성공
+            TuneWrap.Event("list_activity_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {
@@ -376,7 +377,6 @@ public class ActivitySearchActivity extends Activity {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_activity", sel_id);
                         dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
                         showIconToast("관심 상품 담기 성공", true);
@@ -429,7 +429,6 @@ public class ActivitySearchActivity extends Activity {
         if (responseCode == 90) {
             if (data.getBooleanExtra("search_data", false)) {
                 mItems = (ArrayList<SearchResultItem>) data.getSerializableExtra("search_data");
-                ;
                 if (adapter != null)
                     adapter.notifyDataSetChanged();
             }

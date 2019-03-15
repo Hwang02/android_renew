@@ -323,10 +323,8 @@ public class RecentAllActivity extends Activity {
                         }
 
                         if (sel_type.equals("stay")) {
-                            TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");

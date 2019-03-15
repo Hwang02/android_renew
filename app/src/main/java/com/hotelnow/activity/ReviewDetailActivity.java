@@ -210,7 +210,7 @@ public class ReviewDetailActivity extends Activity {
         String url;
         if (is_q) {
             url = CONFIG.qreviewListUrl + "/" + mPage + "/" + hid;
-            TuneWrap.Event("activity_review", hid);
+            TuneWrap.Event("productdetail_activity_review", hid);
         } else {
             url = CONFIG.reviewListUrl + "/" + mPage + "/" + mPer_page + "/" + hid;
             TuneWrap.Event("productdetail_stay_review", hid);

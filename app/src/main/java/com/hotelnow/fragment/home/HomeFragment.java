@@ -801,8 +801,6 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             return;
                         }
 
-                        TuneWrap.Event("favorite_stay", sel_id);
-
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
@@ -865,8 +863,6 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_activity", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "A");
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -940,10 +936,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             return;
                         }
                         if (sel_type.equals("1")) {
-                            TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -1006,8 +1000,6 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -1080,10 +1072,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             return;
                         }
                         if (sel_type.equals("H")) {
-                            TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");

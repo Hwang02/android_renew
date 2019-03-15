@@ -432,7 +432,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                     tv_hotelname.setText(hotel_name);
                     tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
 
-                    TuneWrap.Event("ProductDetail_stay", city, hid, tv_category.getText().toString());
+                    TuneWrap.Event("productdetail_stay", city, hid, tv_category.getText().toString());
 
                     findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -503,8 +503,6 @@ public class DetailHotelActivity extends AppCompatActivity {
                                                 showToast("로그인 후 이용해주세요");
                                                 return;
                                             }
-
-                                            TuneWrap.Event("favorite_stay", hid);
 
                                             islike = true;
                                             dbHelper.insertFavoriteItem(hid, "H");

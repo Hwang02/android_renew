@@ -405,8 +405,6 @@ public class HotelFragment extends Fragment {
                             return;
                         }
 
-                        TuneWrap.Event("favorite_stay", sel_id);
-
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
                         ((MainActivity) getActivity()).showIconToast("관심 상품 담기 성공", true);
@@ -468,8 +466,6 @@ public class HotelFragment extends Fragment {
                             ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
                             return;
                         }
-
-                        TuneWrap.Event("favorite_stay", sel_id);
 
                         dbHelper.insertFavoriteItem(sel_id, "H");
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -542,10 +538,8 @@ public class HotelFragment extends Fragment {
                             return;
                         }
                         if (sel_type.equals("H")) {
-                            TuneWrap.Event("favorite_stay", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "H");
                         } else {
-                            TuneWrap.Event("favorite_activity", sel_id);
                             dbHelper.insertFavoriteItem(sel_id, "A");
                         }
                         LogUtil.e("xxxx", "찜하기 성공");
@@ -586,10 +580,10 @@ public class HotelFragment extends Fragment {
             }
         } else if (requestCode == 70) {
             adapter.setAllRefresh();
-            if (resultCode == 110) {
+//            if (resultCode == 110) {
                 ((MainActivity) getActivity()).setTitle();
                 ((MainActivity) getActivity()).setTapdelete("MYPAGE");
-            }
+//            }
         } else if (resultCode == 110) {
             ((MainActivity) getActivity()).setTitle();
             ((MainActivity) getActivity()).setTapdelete("MYPAGE");

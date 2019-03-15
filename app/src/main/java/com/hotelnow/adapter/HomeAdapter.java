@@ -304,7 +304,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("HotDeal_activity_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab", 1);
                     mHf.startActivityForResult(intent, 80);
