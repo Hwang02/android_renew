@@ -68,9 +68,9 @@ public class AreaHotelActivity extends Activity {
         // 최근 본 지역
         month_list = (LinearLayout) findViewById(R.id.month_list);
 
-        select_view.setOnItemClickListener(new OnSingleItemClickListener() {
+        select_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     getMonthList();
                     mSubCity.clear();
@@ -88,9 +88,10 @@ public class AreaHotelActivity extends Activity {
             }
         });
 
-        result_view.setOnItemClickListener(new OnSingleItemClickListener() {
+        result_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int tabPostion = select_view.getCheckedItemPosition();
                 String cityCode = mCity.get(tabPostion).getCity_code();
                 String cityKo = mCity.get(tabPostion).getCity_ko();
@@ -109,8 +110,6 @@ public class AreaHotelActivity extends Activity {
                 intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
                 setResult(80, intent);
                 finish();
-
-                // 검색페이지 이동
             }
         });
 
