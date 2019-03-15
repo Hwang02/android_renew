@@ -44,7 +44,7 @@ public class KeyWordAdapter extends RecyclerView.Adapter<KeyWordAdapter.MyViewHo
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("HotKeyword");
+                TuneWrap.Event("home_hotkeyword", data.get(position).getLink());
                 Intent intent = new Intent(mContext, SearchResultActivity.class);
                 intent.putExtra("banner_id", data.get(position).getId());
                 intent.putExtra("banner_name", data.get(position).getLink());

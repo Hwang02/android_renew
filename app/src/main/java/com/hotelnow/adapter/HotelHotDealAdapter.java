@@ -107,7 +107,7 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("HotDeal_stay", data.get((int) v.getTag()).getId());
+                TuneWrap.Event("home_hotdeal_stay", data.get((int) v.getTag()).getId());
                 LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", data.get((int) v.getTag()).getId());

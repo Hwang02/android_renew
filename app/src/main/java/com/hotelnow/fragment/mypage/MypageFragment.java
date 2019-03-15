@@ -73,7 +73,7 @@ public class MypageFragment extends Fragment {
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         dbHelper = new DbOpenHelper(getActivity());
         mMypageBinding.join.rlJoin.setVisibility(View.GONE);
-
+        TuneWrap.Event("myinfo");
         // 설정하기
         mMypageBinding.center.btnSetting.setOnClickListener(new OnSingleClickListener() {
             @Override

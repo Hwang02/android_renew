@@ -418,7 +418,6 @@ public class HotelSearchFragment extends Fragment {
                 tv.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-                        TuneWrap.Event("HotKeyword");
                         Util.clearSearch();
                         Intent intent = new Intent(getActivity(), SearchResultActivity.class);
                         intent.putExtra("banner_id", mKeywordList.get((int) v.getTag()).getId());

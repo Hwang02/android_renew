@@ -183,7 +183,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    private void setThemeView(HorizontalThemeViewHolder holder, int type) {
+    private void setThemeView(HorizontalThemeViewHolder holder, int type) { // 칼라
         if (themeAdapter == null) {
             themeAdapter = new ThemeLeisureAdapter(mLf.getThemeData(), mLf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));

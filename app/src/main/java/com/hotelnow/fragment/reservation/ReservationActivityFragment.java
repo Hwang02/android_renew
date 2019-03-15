@@ -1,3 +1,4 @@
+
 package com.hotelnow.fragment.reservation;
 
 import android.content.Intent;
@@ -76,6 +77,8 @@ public class ReservationActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        TuneWrap.Event("booking_activity");
     }
 
     public void authCheck() {
@@ -340,8 +343,6 @@ public class ReservationActivityFragment extends Fragment {
 
     private void init() {
         // preference
-
-        TuneWrap.Event("booking_activity");
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 

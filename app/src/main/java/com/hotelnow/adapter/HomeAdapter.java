@@ -206,7 +206,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private void setThemeSpecialView(VerticalViewHolder holder, int type) {
+    private void setThemeSpecialView(VerticalViewHolder holder, int type) { // 테마베
         if (themeSAdapter == null) {
             themeSAdapter = new ThemeSpecialAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -214,7 +214,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("ThemeList");
                     Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
                     mHf.startActivityForResult(intent, 80);
                 }
@@ -222,7 +221,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private void setThemeView(HorizontalThemeViewHolder holder, int type) {
+    private void setThemeView(HorizontalThemeViewHolder holder, int type) { // 컬러
         if (themeAdapter == null) {
             themeAdapter = new ThemeAdapter(mHf.getThemeData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -264,6 +263,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("stay_hotdeal_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab", 0);
                     mHf.startActivityForResult(intent, 80);
@@ -304,6 +304,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
+                    TuneWrap.Event("HotDeal_activity_list");
                     Intent intent = new Intent(mHf.getContext(), HotDealActivity.class);
                     intent.putExtra("tab", 1);
                     mHf.startActivityForResult(intent, 80);

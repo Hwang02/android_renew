@@ -206,7 +206,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void setThemeSpecialView(VerticalViewHolder holder, int type) {
-        if (themeSAdapter == null) {
+       if (themeSAdapter == null) {
             themeSAdapter = new ThemeSpecialStayAdapter(mHf.getThemeSpecialData(), mHf);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
             holder.recyclerView.setAdapter(themeSAdapter);
@@ -222,7 +222,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    private void setThemeView(HorizontalThemeViewHolder holder, int type) {
+    private void setThemeView(HorizontalThemeViewHolder holder, int type) { //컬러
         if (themeAdapter == null) {
             themeAdapter = new ThemeStayAdapter(mHf.getThemeData(), mHf, dbHelper);
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -330,6 +330,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.mMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    TuneWrap.Event("stay_private_list");
                     Intent intent = new Intent(mHf.getContext(), PrivateDaelAllActivity.class);
                     mHf.startActivityForResult(intent, 70);
                 }

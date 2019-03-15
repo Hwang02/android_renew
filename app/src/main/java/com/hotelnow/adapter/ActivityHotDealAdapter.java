@@ -108,7 +108,7 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         holder.sel_item.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                TuneWrap.Event("HotDeal_activity", data.get((int) v.getTag()).getId());
+                TuneWrap.Event("home_hotdeal_activity", data.get((int) v.getTag()).getId());
                 LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", data.get((int) v.getTag()).getId() + "");
