@@ -351,6 +351,13 @@ public class LeisureFragment extends Fragment {
             adapter.setHeaderRefresh();
         } else if (requestCode == 70) {
             adapter.setAllRefresh();
+            if (resultCode == 110) {
+                ((MainActivity) getActivity()).setTitle();
+                ((MainActivity) getActivity()).setTapdelete("MYPAGE");
+            }
+        } else if (resultCode == 110) {
+            ((MainActivity) getActivity()).setTitle();
+            ((MainActivity) getActivity()).setTapdelete("MYPAGE");
         }
         if (resultCode == 100) {
             if (cookie == null) {
