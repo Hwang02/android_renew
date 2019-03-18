@@ -838,6 +838,7 @@ public class Util {
         CONFIG.sel_max = "600000";
         CONFIG.sel_min = "0";
         CONFIG.Mypage_Search = false;
+        CONFIG.search_data = null;
     }
 
     public static void setStatusColor(Activity activity) {

@@ -295,8 +295,9 @@ public class ActivitySearchActivity extends Activity {
                         map_img.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
+                                CONFIG.search_data = new ArrayList<>();
+                                CONFIG.search_data = mItems;
                                 Intent intent = new Intent(ActivitySearchActivity.this, MapAcvitityActivity.class);
-                                intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
                                 intent.putExtra("total_count", total_count);
                                 intent.putExtra("location", tv_location.getText().toString());

@@ -1,7 +1,9 @@
 package com.hotelnow.utils;
 
 import com.hotelnow.BuildConfig;
+import com.thebrownarrow.model.SearchResultItem;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -173,6 +175,7 @@ public class CONFIG {
     public static int sel_reserv = 0;
     public static int sel_fav = 0;
     public static boolean Mypage_Search = false;
+    public static ArrayList<SearchResultItem> search_data = null;
 
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";

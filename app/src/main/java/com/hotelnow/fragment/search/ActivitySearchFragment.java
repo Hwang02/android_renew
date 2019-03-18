@@ -224,8 +224,9 @@ public class ActivitySearchFragment extends Fragment {
                         map_img.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
+                                CONFIG.search_data = new ArrayList<>();
+                                CONFIG.search_data = mItems;
                                 Intent intent = new Intent(getActivity(), MapAcvitityActivity.class);
-                                intent.putExtra("search_data", mItems);
                                 intent.putExtra("Page", Page);
                                 intent.putExtra("total_count", total_count);
                                 if (order_kind.equals("distance")) {

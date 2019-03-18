@@ -492,9 +492,10 @@ public class HotelSearchActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 TuneWrap.Event("stay_list_map");
-
+                                CONFIG.search_data = new ArrayList<>();
+                                CONFIG.search_data = mItems;
                                 Intent intent = new Intent(HotelSearchActivity.this, MapHotelActivity.class);
-                                intent.putExtra("search_data", mItems);
+
                                 intent.putExtra("Page", Page);
                                 intent.putExtra("total_count", total_count);
                                 intent.putExtra("city", city);

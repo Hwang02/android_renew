@@ -85,7 +85,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
         Intent intent = getIntent();
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
-        latLngsArrayList = (ArrayList<SearchResultItem>) intent.getSerializableExtra("search_data");
+        latLngsArrayList = CONFIG.search_data;
         total_count = intent.getIntExtra("total_count", 0);
         Page = intent.getIntExtra("Page", 1);
         order_kind = intent.getStringExtra("order_kind");
@@ -177,11 +177,6 @@ public class MapAcvitityActivity extends AppCompatActivity {
     }
 
     private void setContents() {
-        latLngsArrayList = new ArrayList<>();
-        latLngsArrayList.clear();
-        //테스트 용
-        latLngsArrayList = (ArrayList<SearchResultItem>) getIntent().getSerializableExtra("search_data");
-
         slide_out_down = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_out_down);
         slide_in_up = AnimationUtils.loadAnimation(MapAcvitityActivity.this, R.anim.slide_in_up);
 

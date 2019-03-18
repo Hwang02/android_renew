@@ -349,8 +349,10 @@ public class HotelSearchFragment extends Fragment {
                             map_img.setOnClickListener(new OnSingleClickListener() {
                                 @Override
                                 public void onSingleClick(View v) {
+                                    CONFIG.search_data = new ArrayList<>();
+                                    CONFIG.search_data = mItems;
                                     Intent intent = new Intent(getActivity(), MapHotelActivity.class);
-                                    intent.putExtra("search_data", mItems);
+
                                     intent.putExtra("Page", Page);
                                     intent.putExtra("total_count", total_count);
                                     intent.putExtra("city", city);
@@ -555,16 +557,6 @@ public class HotelSearchFragment extends Fragment {
             getSearch();
         } else if (requestCode == 60 && responseCode == 80) {
             filter_cnt = 0;
-//            if(data.getBooleanExtra("is_reset", false)){
-//                filter_cnt = 0;
-//                CONFIG.sel_orderby = "recommendation";
-//                CONFIG.sel_category = null;
-//                CONFIG.sel_facility = null;
-//                CONFIG.sel_useperson = null;
-//                CONFIG.sel_max = "600000";
-//                CONFIG.sel_min = "0";
-//                CONFIG.sel_rate = null;
-//            }
             LogUtil.e("xxxxx", CONFIG.sel_max);
             price_max = "";
             price_min = "";

@@ -83,7 +83,7 @@ public class MapHotelActivity extends AppCompatActivity {
         Intent intent = getIntent();
         latLngsArrayList = new ArrayList<>();
         latLngsArrayList.clear();
-        latLngsArrayList = (ArrayList<SearchResultItem>) intent.getSerializableExtra("search_data");
+        latLngsArrayList = CONFIG.search_data;
         total_count = intent.getIntExtra("total_count", 0);
         city = intent.getStringExtra("city");
         city_name = intent.getStringExtra("city_name");
