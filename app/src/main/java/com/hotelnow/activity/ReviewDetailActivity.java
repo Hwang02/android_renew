@@ -124,7 +124,7 @@ public class ReviewDetailActivity extends Activity {
         bt_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lv_list.smoothScrollToPosition(0);
+                lv_list.setSelection(0);
             }
         });
 

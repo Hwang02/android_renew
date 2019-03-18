@@ -806,7 +806,7 @@ public class HotelSearchFragment extends Fragment {
         bt_scroll.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                mlist.smoothScrollToPosition(0);
+                mlist.setSelection(0);
             }
         });
 

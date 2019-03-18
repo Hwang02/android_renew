@@ -119,7 +119,7 @@ public class RecentAllActivity extends Activity {
         findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Listview.smoothScrollToPosition(0);
+                Listview.setSelection(0);
             }
         });
 

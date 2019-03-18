@@ -240,7 +240,7 @@ public class HotelSearchActivity extends Activity {
         bt_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mlist.smoothScrollToPosition(0);
+                mlist.setSelection(0);
             }
         });
 

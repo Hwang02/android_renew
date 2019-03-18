@@ -71,7 +71,7 @@ public class ThemeSAllActivity extends Activity {
         findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                listview.smoothScrollToPosition(0);
+                listview.setSelection(0);
             }
         });
 

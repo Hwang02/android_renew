@@ -109,7 +109,7 @@ public class ThemeSpecialHotelActivity extends Activity {
         findViewById(R.id.bt_scroll).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                hotelListview.smoothScrollToPosition(0);
+                hotelListview.setSelection(0);
             }
         });
 
