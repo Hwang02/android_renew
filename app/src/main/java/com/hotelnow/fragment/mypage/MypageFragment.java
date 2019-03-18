@@ -325,7 +325,7 @@ public class MypageFragment extends Fragment {
             @Override
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), MySaveActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 7000);
             }
         });
 
@@ -358,6 +358,9 @@ public class MypageFragment extends Fragment {
             ((MainActivity) getActivity()).setTitle();
         }
         if (requestCode == 91 && resultCode == 91) { // 쿠폰, 카드
+            checkLogin();
+        }
+        else if(requestCode == 7000) {
             checkLogin();
         }
     }
