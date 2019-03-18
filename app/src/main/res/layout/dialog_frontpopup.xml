@@ -20,8 +20,9 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/popup_img"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 app:riv_corner_radius_top_right="6dp"
                 app:riv_corner_radius_top_left="6dp" />
 

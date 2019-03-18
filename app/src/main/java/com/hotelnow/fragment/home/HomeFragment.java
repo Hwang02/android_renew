@@ -683,7 +683,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
     }
 
     public void setPopup() {
-        if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+        if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
             frgpopup = new DialogMainFragment();
             frgpopup.mListener = HomeFragment.this;
             frgpopup.popup_data = mPopups;
