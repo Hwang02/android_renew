@@ -133,7 +133,13 @@ public class Util {
     }
 
     public static int dptopixel(Context context, int dp) {
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        int px = 0;
+        if(context != null) {
+            px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        }
+        else{
+            px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, HotelnowApplication.getAppContext().getResources().getDisplayMetrics());
+        }
         return px;
     }
 

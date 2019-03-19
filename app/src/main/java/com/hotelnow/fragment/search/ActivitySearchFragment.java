@@ -483,10 +483,12 @@ public class ActivitySearchFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
-                intent.putExtra("tid", hid.getText().toString());
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 50);
+                if(hid.getText() != null) {
+                    Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                    intent.putExtra("tid", hid.getText().toString());
+                    intent.putExtra("save", true);
+                    startActivityForResult(intent, 50);
+                }
             }
         });
 
