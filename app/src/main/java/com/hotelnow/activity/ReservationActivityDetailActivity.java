@@ -52,6 +52,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
+import java.util.regex.Matcher;
 
 public class ReservationActivityDetailActivity extends Activity {
 
@@ -431,11 +432,22 @@ public class ReservationActivityDetailActivity extends Activity {
                     String webData = "";
                     Spannable sp = null;
                     String html = "";
+                    Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
+
+                        @Override
+                        public String transformUrl(Matcher match, String url) {
+
+                            return url;
+
+                        }
+                    };
                     if (deal_info.has("deal_introduce") && !TextUtils.isEmpty(deal_info.getString("deal_introduce"))) {
                         webData = deal_info.getString("deal_introduce").replace("\n", "<br>");
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html = "<div style='font-size:14px;color:#222222'>상품 소개</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
                     if (deal_info.has("deal_info") && !TextUtils.isEmpty(deal_info.getString("deal_info"))) {
@@ -443,6 +455,8 @@ public class ReservationActivityDetailActivity extends Activity {
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html += "<div style='font-size:14px;color:#222222''>상품 정보</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
                     if (deal_info.has("refund_info") && !TextUtils.isEmpty(deal_info.getString("refund_info"))) {
@@ -450,6 +464,8 @@ public class ReservationActivityDetailActivity extends Activity {
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html += "<div style='font-size:14px;color:#222222''>환불 정보</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
                     if (deal_info.has("usage_info") && !TextUtils.isEmpty(deal_info.getString("usage_info"))) {
@@ -457,6 +473,8 @@ public class ReservationActivityDetailActivity extends Activity {
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html += "<div style='font-size:14px;color:#222222''>사용 정보</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
                     if (deal_info.has("store_info") && !TextUtils.isEmpty(deal_info.getString("store_info"))) {
@@ -464,6 +482,8 @@ public class ReservationActivityDetailActivity extends Activity {
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html += "<div style='font-size:14px;color:#222222''>시설사 정보</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
                     if (deal_info.has("notice_info") && !TextUtils.isEmpty(deal_info.getString("notice_info"))) {
@@ -471,6 +491,8 @@ public class ReservationActivityDetailActivity extends Activity {
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html += "<div style='font-size:14px;color:#222222''>공지 정보</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
                     if (deal_info.has("cs_info") && !TextUtils.isEmpty(deal_info.getString("cs_info"))) {
@@ -478,6 +500,8 @@ public class ReservationActivityDetailActivity extends Activity {
                         sp = new SpannableString(Html.fromHtml(webData));
                         Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                                 Linkify.sPhoneNumberTransformFilter);
+
+                        Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                         html += "<div style='font-size:14px;color:#222222''>고객센터 정보</div><div style='font-size:12px;color:#666666'>" + Html.toHtml(sp) + "</div>";
                     }
 

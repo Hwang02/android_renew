@@ -54,6 +54,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 public class ReservationHotelDetailActivity extends Activity {
 
@@ -488,6 +489,16 @@ public class ReservationHotelDetailActivity extends Activity {
                     Spannable sp = new SpannableString(Html.fromHtml(webData));
                     Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                             Linkify.sPhoneNumberTransformFilter);
+                    Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
+
+                        @Override
+                        public String transformUrl(Matcher match, String url) {
+
+                            return url;
+
+                        }
+                    };
+                    Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                     final String html = Html.toHtml(sp);
 
                     if (android.os.Build.VERSION.SDK_INT < 19) {
