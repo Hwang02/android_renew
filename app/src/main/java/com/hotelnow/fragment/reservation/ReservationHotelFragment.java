@@ -364,7 +364,7 @@ public class ReservationHotelFragment extends Fragment {
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
-        adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationHotelFragment.this);
+        adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")), ReservationHotelFragment.this);
         mlist.setAdapter(adapter);
         btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
         main_view = (RelativeLayout) getView().findViewById(R.id.main_view);

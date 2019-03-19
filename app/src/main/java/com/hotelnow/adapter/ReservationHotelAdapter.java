@@ -15,6 +15,7 @@ import com.hotelnow.activity.ReviewHotelWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BookingEntry;
 import com.hotelnow.fragment.reservation.ReservationHotelFragment;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 
@@ -85,7 +86,8 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
                     intent.putExtra("booking_id", mlist.get(position).getId());
                     intent.putExtra("hotel_id", mlist.get(position).getmHotelId());
                     intent.putExtra("room_id", mlist.get(position).getmRoomId());
-                    intent.putExtra("userid", userId);
+                    if(userId != null)
+                        intent.putExtra("userid", AES256Chiper.AES_Decode(userId.replace("HN|", "")));
                     intent.putExtra("hotel_name", mlist.get(position).getHotelName());
                     intent.putExtra("room_name", mlist.get(position).getRoomName());
                     mActivity.startActivityForResult(intent, 90);

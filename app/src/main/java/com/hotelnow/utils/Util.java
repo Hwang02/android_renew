@@ -549,6 +549,9 @@ public class Util {
         }
     };
 
+    public static final Pattern PHONE
+            = Pattern.compile("(^[0-9]*$)");
+
     public static String getFrontThemeId(String thumb_link_action) {
         String[] arr = thumb_link_action.split("otelnowevent://");
         String evtObj = arr[1];

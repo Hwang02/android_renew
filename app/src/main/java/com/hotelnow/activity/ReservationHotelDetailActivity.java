@@ -35,6 +35,7 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogMarket;
+import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.EndEventScrollView;
@@ -280,7 +281,8 @@ public class ReservationHotelDetailActivity extends Activity {
                                     intent.putExtra("booking_id", bid);
                                     intent.putExtra("hotel_id", hotel_id);
                                     intent.putExtra("room_id", r_id);
-                                    intent.putExtra("userid", cookie);
+                                    if(cookie != null)
+                                        intent.putExtra("userid", AES256Chiper.AES_Decode(cookie.replace("HN|", "")));
                                     intent.putExtra("hotel_name", h_name);
                                     intent.putExtra("room_name", r_name);
                                     startActivityForResult(intent, 80);

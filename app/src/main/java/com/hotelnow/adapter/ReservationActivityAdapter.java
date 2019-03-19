@@ -15,6 +15,7 @@ import com.hotelnow.activity.ReviewActivityWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.model.BookingQEntry;
 import com.hotelnow.fragment.reservation.ReservationActivityFragment;
+import com.hotelnow.utils.AES256Chiper;
 import com.koushikdutta.ion.Ion;
 
 import java.util.List;
@@ -82,7 +83,8 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
                     Intent intent = new Intent(mContext, ReviewActivityWriteActivity.class);
                     intent.putExtra("booking_id", mlist.get(position).getId());
                     intent.putExtra("deal_id", mlist.get(position).getId());
-                    intent.putExtra("userid", userId);
+                    if(userId != null)
+                        intent.putExtra("userid", AES256Chiper.AES_Decode(userId.replace("HN|", "")));
                     intent.putExtra("name", mlist.get(position).getDeal_name());
                     intent.putExtra("cnt", mlist.get(position).getTotal_ticket_count());
                     mActivity.startActivityForResult(intent, 90);
