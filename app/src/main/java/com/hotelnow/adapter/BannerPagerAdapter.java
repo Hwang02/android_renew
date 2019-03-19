@@ -72,7 +72,7 @@ public class BannerPagerAdapter extends PagerAdapter {
         image_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mId = data.get((int) v.getTag()).getId();
+                mId = data.get((int) v.getTag()).getEvent_id();
                 mTitle = data.get((int) v.getTag()).getTitle();
                 if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
                     frontType = data.get((int) v.getTag()).getEvt_type();
@@ -201,6 +201,7 @@ public class BannerPagerAdapter extends PagerAdapter {
                     }
                 } else {
                     TuneWrap.Event("home_topbanner", frontEvtId);
+                    frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);

@@ -313,7 +313,7 @@ public class ReservationActivityFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            }, 500);
+            }, 700);
 
             _hasLoadedOnce = true;
         } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
@@ -323,7 +323,7 @@ public class ReservationActivityFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            }, 500);
+            }, 700);
         } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -337,7 +337,7 @@ public class ReservationActivityFragment extends Fragment {
                         getBookingList();
                     }
                 }
-            }, 500);
+            }, 700);
         }
     }
 

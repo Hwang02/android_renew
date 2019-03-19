@@ -135,15 +135,12 @@ public class HotelFragment extends Fragment {
             public void onRefresh() {
                 MainActivity.showProgress();
                 swipeView.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        objects.clear();
-                        getObject();
-                        allRefresh();
-                        swipeView.setRefreshing(false);
-                    }
-                }, 200);
+
+                objects.clear();
+                getObject();
+                allRefresh();
+                swipeView.setRefreshing(false);
+
             }
         });
 

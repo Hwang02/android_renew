@@ -71,7 +71,7 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
         image_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mId = data.get((int) v.getTag()).getId();
+                mId = data.get((int) v.getTag()).getEvent_id();
                 mTitle = data.get((int) v.getTag()).getTitle();
                 if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
                     frontType = data.get((int) v.getTag()).getEvt_type();
@@ -193,6 +193,7 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
                     }
                 } else {
                     Intent intentEvt = new Intent(context, EventActivity.class);
+                    frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);
                     context.startActivity(intentEvt);

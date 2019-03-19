@@ -42,7 +42,7 @@
         android:paddingBottom="3dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="13dp"
         android:layout_marginRight="16dp"
         tools:text=" 3/10 " />
 

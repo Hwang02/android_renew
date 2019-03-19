@@ -272,7 +272,7 @@ public class HotDealActivityFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            }, 500);
+            }, 700);
 
             _hasLoadedOnce = true;
         }

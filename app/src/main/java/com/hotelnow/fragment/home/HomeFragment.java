@@ -189,14 +189,9 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             public void onRefresh() {
                 MainActivity.showProgress();
                 swipeView.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getRecentData(true);
-                        adapter.allRefresh(true);
-                        swipeView.setRefreshing(false);
-                    }
-                }, 200);
+                getRecentData(true);
+                adapter.allRefresh(true);
+                swipeView.setRefreshing(false);
             }
         });
     }
