@@ -486,7 +486,7 @@ public class ReservationHotelDetailActivity extends Activity {
                     }
                     LogUtil.e("xxxxxxx", webData);
                     Spannable sp = new SpannableString(Html.fromHtml(webData));
-                    Linkify.addLinks(sp, Patterns.PHONE, "tel:", Linkify.sPhoneNumberMatchFilter,
+                    Linkify.addLinks(sp, Util.phonenum, "tel:", Linkify.sPhoneNumberMatchFilter,
                             Linkify.sPhoneNumberTransformFilter);
                     final String html = Html.toHtml(sp);
 
