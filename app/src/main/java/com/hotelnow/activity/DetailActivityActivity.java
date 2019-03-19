@@ -75,6 +75,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DetailActivityActivity extends AppCompatActivity {
 
@@ -816,15 +817,9 @@ public class DetailActivityActivity extends AppCompatActivity {
                             AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                             TextView title = (TextView) info_view.findViewById(R.id.title);
 
-                            title_sub.addAutoLinkMode(
-                                    AutoLinkMode.MODE_PHONE,
-                                    AutoLinkMode.MODE_URL);
-                            title_sub.setPhoneModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.purple));
-                            title_sub.setUrlModeColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.private_discount));
-
                             Spannable sp = new SpannableString(infolist.get(i).getmMessage().replace("• ", "ㆍ"));
 
-                            Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                            Linkify.addLinks(sp, Util.phonenum, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
                             Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
 
                                 @Override
@@ -834,7 +829,8 @@ public class DetailActivityActivity extends AppCompatActivity {
 
                                 }
                             };
-                            Linkify.addLinks(sp, Patterns.WEB_URL, "", null, transformFilter);
+
+                            Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                             title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
                             title_sub.setText(sp, TextView.BufferType.SPANNABLE);
 

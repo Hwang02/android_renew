@@ -797,7 +797,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                                                 .replace("</span>", "</font>")));
                                     }
 
-                                    Linkify.addLinks(sp, Patterns.PHONE, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
+                                    Linkify.addLinks(sp, Util.phonenum, "tel:", Util.sPhoneNumberMatchFilter, Linkify.sPhoneNumberTransformFilter);
                                     Linkify.TransformFilter transformFilter = new Linkify.TransformFilter() {
 
                                         @Override
@@ -807,7 +807,8 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                                         }
                                     };
-                                    Linkify.addLinks(sp, Patterns.WEB_URL, "", null, transformFilter);
+
+                                    Linkify.addLinks(sp, Util.webURL, "", null, transformFilter);
                                     title_sub.setMovementMethod(CustomLinkMovementMethod.getInstance());
                                     title_sub.setText(sp, TextView.BufferType.SPANNABLE);
 

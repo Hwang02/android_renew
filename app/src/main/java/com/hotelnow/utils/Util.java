@@ -21,6 +21,7 @@ import android.text.util.Linkify;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -540,7 +541,7 @@ public class Util {
             for (int i = start; i < end; i++) {
                 if (Character.isDigit(s.charAt(i))) {
                     digitCount++;
-                    if (digitCount >= 10) {
+                    if (digitCount >= 8) {
                         return true;
                     }
                 }
@@ -549,8 +550,51 @@ public class Util {
         }
     };
 
-    public static final Pattern PHONE
-            = Pattern.compile("(^[0-9]*$)");
+    public static final Pattern phonenum = Pattern.compile("(\\+[0-9]+[\\-]*)?"        // +<digits><sdd>*
+            + "(\\([0-9]+\\)[\\-]*)?"   // (<digits>)<sdd>*
+            + "([0-9][0-9\\-]+[0-9])");
+
+    public static final Pattern webURL = Pattern.compile(new StringBuilder()
+            .append("((?:(http|https|Http|Https|rtsp|Rtsp):")
+            .append("\\/\\/(?:(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\'\\(\\)")
+            .append("\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,64}(?:\\:(?:[a-zA-Z0-9\\$\\-\\_")
+            .append("\\.\\+\\!\\*\\'\\(\\)\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@)?)?")
+            .append("((?:(?:[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}\\.)+")   // named host
+            .append("(?:")   // plus top level domain
+            .append("(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])")
+            .append("|(?:biz|b[abdefghijmnorstvwyz])")
+            .append("|(?:cat|com|coop|c[acdfghiklmnoruvxyz])")
+            .append("|d[ejkmoz]")
+            .append("|(?:edu|e[cegrstu])")
+            .append("|f[ijkmor]")
+            .append("|(?:gov|g[abdefghilmnpqrstuwy])")
+            .append("|h[kmnrtu]")
+            .append("|(?:info|int|i[delmnoqrst])")
+            .append("|(?:jobs|j[emop])")
+            .append("|k[eghimnrwyz]")
+            .append("|l[abcikrstuvy]")
+            .append("|(?:mil|mobi|museum|m[acdghklmnopqrstuvwxyz])")
+            .append("|(?:name|net|n[acefgilopruz])")
+            .append("|(?:org|om)")
+            .append("|(?:pro|p[aefghklmnrstwy])")
+            .append("|qa")
+            .append("|r[eouw]")
+            .append("|s[abcdeghijklmnortuvyz]")
+            .append("|(?:tel|travel|t[cdfghjklmnoprtvwz])")
+            .append("|u[agkmsyz]")
+            .append("|v[aceginu]")
+            .append("|w[fs]")
+            .append("|y[etu]")
+            .append("|z[amw]))")
+            .append("|(?:(?:25[0-5]|2[0-4]") // or ip address
+            .append("[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(?:25[0-5]|2[0-4][0-9]")
+            .append("|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1]")
+            .append("[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}")
+            .append("|[1-9][0-9]|[0-9])))")
+            .append("(?:\\:\\d{1,5})?)") // plus option port number
+            .append("(\\/(?:(?:[a-zA-Z0-9\\;\\/\\?\\:\\@\\&\\=\\#\\~")  // plus option query params
+            .append("\\-\\.\\+\\!\\*\\'\\(\\)\\,\\_])|(?:\\%[a-fA-F0-9]{2}))*)?")
+            .append("(?:\\b|$)").toString());
 
     public static String getFrontThemeId(String thumb_link_action) {
         String[] arr = thumb_link_action.split("otelnowevent://");
