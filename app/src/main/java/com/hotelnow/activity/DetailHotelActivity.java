@@ -777,11 +777,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                                     View info_view = LayoutInflater.from(DetailHotelActivity.this).inflate(R.layout.layout_ticket_info, null);
                                     AutoLinkTextView title_sub = (AutoLinkTextView) info_view.findViewById(R.id.title_sub);
                                     TextView title = (TextView) info_view.findViewById(R.id.title);
-                                    title_sub.addAutoLinkMode(
-                                            AutoLinkMode.MODE_PHONE,
-                                            AutoLinkMode.MODE_URL);
-                                    title_sub.setPhoneModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.purple));
-                                    title_sub.setUrlModeColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.private_discount));
+                                    
                                     Spannable sp;
                                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                                         sp = new SpannableString(Html.fromHtml(infolist.get(i).getmMessage().replace("&nbsp;", "").replace("• ", "ㆍ").replace("\r\n", "")));
