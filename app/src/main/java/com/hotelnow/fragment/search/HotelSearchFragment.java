@@ -813,7 +813,7 @@ public class HotelSearchFragment extends Fragment {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
-                if(hid.getText() != null) {
+                if(hid != null) {
                     Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
                     intent.putExtra("sdate", ec_date);
