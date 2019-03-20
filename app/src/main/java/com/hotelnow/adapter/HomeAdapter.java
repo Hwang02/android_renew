@@ -431,18 +431,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.autoViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth() * 0.9) + "");
+//                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth() * 0.7) + "");
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
                     lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.9); //*0.8
+                    lparam.topMargin = Util.dptopixel(mHf.getActivity(), 7);
+                    lparam.bottomMargin = Util.dptopixel(mHf.getActivity(), 4);
                     holder.autoViewPager.setLayoutParams(lparam);
 
-//                    RelativeLayout.LayoutParams lparam2 = new RelativeLayout.LayoutParams(
-//                            RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//                    lparam2.topMargin = -(Util.dptopixel(mHf.getActivity(), 20) - lparam.height);
-//                    lparam2.rightMargin = Util.dptopixel(mHf.getActivity(), 24);
-//                    lparam2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//                    holder.page_view.setLayoutParams(lparam2);
                 }
             }, 100);
         }

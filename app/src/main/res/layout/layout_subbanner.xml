@@ -19,7 +19,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="7dp"
+            android:layout_height="6dp"
             android:background="@color/back_line" />
     </LinearLayout>
 
@@ -60,7 +60,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="7dp"
+            android:layout_height="6dp"
             android:background="@color/back_line" />
     </LinearLayout>
 
