@@ -149,7 +149,9 @@ public class FavoriteHotelFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     MainActivity.hideProgress();
-                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    if(isAdded()) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -269,7 +271,9 @@ public class FavoriteHotelFragment extends Fragment {
                     }, 500);
                 } catch (Exception e) {
                     MainActivity.hideProgress();
-                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    if(isAdded()) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

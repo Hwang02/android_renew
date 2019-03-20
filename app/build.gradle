@@ -35,8 +35,8 @@ android {
         applicationId "com.hotelnow"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 254
-        versionName "5.05"
+        versionCode 255
+        versionName "5.06"
         multiDexEnabled true
     }
     buildTypes {

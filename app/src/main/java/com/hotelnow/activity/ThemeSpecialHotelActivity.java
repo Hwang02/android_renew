@@ -180,7 +180,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                                 head.getString("subject"),
                                 "-1",
                                 head.getString("detail"),
-                                TextUtils.isEmpty(head.getString("notice")) ? "할인쿠폰은 선착순 진행되며 조기 마감될 수 있습니다." : head.getString("notice"),
+                                TextUtils.isEmpty(head.getString("notice")) ? "" : head.getString("notice"),
                                 "null",
                                 "null",
                                 "null",

@@ -1691,7 +1691,7 @@ public class DetailHotelActivity extends AppCompatActivity {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
 
-            if (data.getBooleanExtra("is_date", false)) {
+            if (data.getBooleanExtra("is_date", false) && data.getBooleanExtra("page", false)) {
                 Toast.makeText(this, Util.formatchange(ec_date) + "~" + Util.formatchange(ee_date) + " 으로 날짜 설정이 변경되었습니다.", Toast.LENGTH_SHORT).show();
             }
             cookie = _preferences.getString("userid", null);

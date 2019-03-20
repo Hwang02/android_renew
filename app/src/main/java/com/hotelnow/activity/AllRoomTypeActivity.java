@@ -127,6 +127,7 @@ public class AllRoomTypeActivity extends Activity {
                     intent.putExtra("ec_date", ec_date);
                     intent.putExtra("ee_date", ee_date);
                     intent.putExtra("is_date", true);
+                    intent.putExtra("page", true);
                     setResult(80, intent);
                 }
                 finish();
@@ -169,11 +170,17 @@ public class AllRoomTypeActivity extends Activity {
                         Toast.makeText(AllRoomTypeActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
+
                     room_list.removeAllViews();
                     final JSONObject hotel_data = obj.getJSONObject("hotel");
                     final JSONArray rdata = obj.getJSONArray("room_types");
                     final JSONArray avail_dates = obj.getJSONArray("avail_dates");
+
+                    if (ec_date == null && ee_date == null) {
+                        ec_date = avail_dates.get(0).toString();
+                        ee_date = Util.getNextDateStr(avail_dates.get(0).toString());
+                    }
+                    date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
                     hotel_name = hotel_data.getString("name");
                     city = hotel_data.getString("city_name");
                     selectList = new String[avail_dates.length()];
@@ -510,6 +517,7 @@ public class AllRoomTypeActivity extends Activity {
             intent.putExtra("ec_date", ec_date);
             intent.putExtra("ee_date", ee_date);
             intent.putExtra("is_date", true);
+            intent.putExtra("page", true);
             setResult(80, intent);
         } else if (isLogin) {
             Intent intent = new Intent();
@@ -525,9 +533,17 @@ public class AllRoomTypeActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 80 && requestCode == 80) {
+
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
-            is_date = true;
+
+            if (data.getBooleanExtra("is_date", false)) {
+                is_date = true;
+            }
+            cookie = _preferences.getString("userid", null);
+            if (cookie != null) {
+                isLogin = true;
+            }
             setDetailView();
         } else if (resultCode == 90 && requestCode == 90) {
             Intent intent = new Intent();

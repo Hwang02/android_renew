@@ -294,6 +294,7 @@ public class CalendarActivity extends Activity {
                 } else {
                     intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
                     intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
+                    intent.putExtra("is_date", true);
                     TuneWrap.Event("date_stay", Util.formatchange3(selected_checkin_date) + "/" + Util.formatchange3(selected_checkout_date));
                 }
                 intent.putExtra("city", TextUtils.isEmpty(city) ? "" : city);

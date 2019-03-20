@@ -295,7 +295,9 @@ public class ReservationHotelFragment extends Fragment {
 
                         MainActivity.hideProgress();
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        if(isAdded()) {
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        }
                         MainActivity.hideProgress();
                     }
                 }
