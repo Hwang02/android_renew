@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:textSize="13dp"
-        android:text="호텔나우에서만 만날 수 있는 단독 핫 특가\n최대 70% 할인된 가격으로 예약이 가능합니다"
+        android:text="호텔나우에서만 만날 수 있는 단독 특가\n최대 80% 할인된 가격으로 예약이 가능합니다"
         android:textColor="@color/termtext"
         android:background="@color/back_line"
         android:paddingLeft="16dp"
@@ -85,7 +85,7 @@
                 android:layout_toRightOf="@id/title_back"
                 android:textColor="@color/purple"
                 android:textSize="16dp"
-                android:text="단독 핫딜" />
+                android:text="NOW 핫딜" />
 
             <View
                 android:layout_width="match_parent"

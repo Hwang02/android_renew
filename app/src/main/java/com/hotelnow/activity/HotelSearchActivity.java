@@ -248,12 +248,14 @@ public class HotelSearchActivity extends Activity {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
-                Intent intent = new Intent(HotelSearchActivity.this, DetailHotelActivity.class);
-                intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("sdate", ec_date);
-                intent.putExtra("edate", ee_date);
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 50);
+                if(hid != null) {
+                    Intent intent = new Intent(HotelSearchActivity.this, DetailHotelActivity.class);
+                    intent.putExtra("hid", hid.getText().toString());
+                    intent.putExtra("sdate", ec_date);
+                    intent.putExtra("edate", ee_date);
+                    intent.putExtra("save", true);
+                    startActivityForResult(intent, 50);
+                }
             }
         });
 
@@ -736,7 +738,7 @@ public class HotelSearchActivity extends Activity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 1500);
+                }, 1000);
     }
 
     public void showIconToast(String msg, boolean is_fav) {

@@ -126,10 +126,12 @@ public class ActivitySearchActivity extends Activity {
             @Override
             public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView hid = (TextView) view.findViewById(R.id.hid);
-                Intent intent = new Intent(ActivitySearchActivity.this, DetailActivityActivity.class);
-                intent.putExtra("tid", hid.getText().toString());
-                intent.putExtra("save", true);
-                startActivityForResult(intent, 50);
+                if(hid != null) {
+                    Intent intent = new Intent(ActivitySearchActivity.this, DetailActivityActivity.class);
+                    intent.putExtra("tid", hid.getText().toString());
+                    intent.putExtra("save", true);
+                    startActivityForResult(intent, 50);
+                }
             }
         });
         tv_ecategory.setOnClickListener(new OnSingleClickListener() {

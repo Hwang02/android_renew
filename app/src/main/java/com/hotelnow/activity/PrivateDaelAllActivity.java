@@ -252,7 +252,7 @@ public class PrivateDaelAllActivity extends Activity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 1500);
+                }, 1000);
     }
 
     public void showIconToast(String msg, boolean is_fav) {

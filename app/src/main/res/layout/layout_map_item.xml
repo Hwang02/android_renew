@@ -27,7 +27,7 @@
                 android:layout_width="10dp"
                 android:layout_height="9dp"
                 android:background="@drawable/ico_starpoint_press"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/tv_score"

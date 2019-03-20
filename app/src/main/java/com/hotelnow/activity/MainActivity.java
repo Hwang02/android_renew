@@ -840,7 +840,7 @@ public class MainActivity extends FragmentActivity {
                     public void run() {
                         mbinding.toastLayout.setVisibility(View.GONE);
                     }
-                }, 1500);
+                }, 1000);
 
         moveTabRefresh2();
         moveTabRefresh3();

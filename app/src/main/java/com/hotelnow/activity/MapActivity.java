@@ -482,8 +482,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
                                 if (grade_score.equals("0")) {
                                     tv_score.setVisibility(View.GONE);
-                                    line_score.setVisibility(View.GONE);
-                                    img_score.setVisibility(View.INVISIBLE);
+                                    line_score.setVisibility(View.INVISIBLE);
+                                    img_score.setVisibility(View.GONE);
                                 } else {
                                     tv_score.setVisibility(View.VISIBLE);
                                     line_score.setVisibility(View.VISIBLE);

@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -352,11 +353,23 @@ public class ActivityMapActivity extends FragmentActivity implements OnMapReadyC
                     TextView tv_hotelname = (TextView) findViewById(R.id.tv_hotelname);
                     TextView tv_price = (TextView) findViewById(R.id.tv_price);
                     TextView detail_btn = (TextView) findViewById(R.id.detail_btn);
+                    TextView line_score = (TextView) findViewById(R.id.line_score);
+                    ImageView img_score = (ImageView) findViewById(R.id.img_score);
 
                     tv_catagory.setText(category);
                     tv_hotelname.setText(hotel_name);
                     tv_price.setText(Util.numberFormat(sale_price));
-                    tv_score.setText(grade_score);
+                    if(!grade_score.equals("0.0")) {
+                        tv_score.setVisibility(View.VISIBLE);
+                        line_score.setVisibility(View.VISIBLE);
+                        img_score.setVisibility(View.VISIBLE);
+                        tv_score.setText(grade_score);
+                    }
+                    else{
+                        tv_score.setVisibility(View.GONE);
+                        line_score.setVisibility(View.INVISIBLE);
+                        img_score.setVisibility(View.GONE);
+                    }
                     detail_btn.setText(Html.fromHtml(getResources().getString(R.string.map_detail2)));
 
                     detail_btn.setOnClickListener(new View.OnClickListener() {

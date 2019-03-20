@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.favorite;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -70,6 +71,14 @@ public class FavoriteHotelFragment extends Fragment {
     float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
     private NestedScrollView scroll;
 
+
+    public Activity mActivity;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.mActivity = activity;
+    }
 
     @Nullable
     @Override
@@ -380,7 +389,7 @@ public class FavoriteHotelFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            }, 500);
+            }, 700);
 
             _hasLoadedOnce = true;
         } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
@@ -390,7 +399,7 @@ public class FavoriteHotelFragment extends Fragment {
                 public void run() {
                     init();
                 }
-            }, 500);
+            }, 700);
         } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -400,7 +409,7 @@ public class FavoriteHotelFragment extends Fragment {
                         getFavorite();
                     }
                 }
-            }, 500);
+            }, 700);
         }
 
         if (isFragmentVisible_ && ((FavoriteFragment) getParentFragment()) != null) {
@@ -414,35 +423,36 @@ public class FavoriteHotelFragment extends Fragment {
 
     private void init() {
         // preference
-
-        TuneWrap.Event("favorite_stay");
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
+        if(isAdded()) {
+            TuneWrap.Event("favorite_stay");
+            _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+            dbHelper = new DbOpenHelper(mActivity);
 
 //        search_txt = getArguments().getString("search_txt");
 //        banner_id = getArguments().getString("banner_id");
 
-        mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-        scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
-        adapter = new FavoriteHotelAdapter(getActivity(), FavoriteHotelFragment.this, 0, mItems);
-        mlist.setAdapter(adapter);
-        btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
-        main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
-        btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView) view.findViewById(R.id.hid);
-                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
-                intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("hid", hid.getText().toString());
-                intent.putExtra("sdate", ec_date);
-                intent.putExtra("edate", ee_date);
-                startActivityForResult(intent, 70);
-            }
-        });
-        if (CONFIG.sel_fav == 0)
-            authCheck();
+            mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
+            scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
+            adapter = new FavoriteHotelAdapter(getActivity(), FavoriteHotelFragment.this, 0, mItems);
+            mlist.setAdapter(adapter);
+            btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
+            main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
+            btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
+            mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+                @Override
+                public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                    TextView hid = (TextView) view.findViewById(R.id.hid);
+                    Intent intent = new Intent(mActivity, DetailHotelActivity.class);
+                    intent.putExtra("hid", hid.getText().toString());
+                    intent.putExtra("hid", hid.getText().toString());
+                    intent.putExtra("sdate", ec_date);
+                    intent.putExtra("edate", ee_date);
+                    startActivityForResult(intent, 70);
+                }
+            });
+            if (CONFIG.sel_fav == 0)
+                authCheck();
+        }
     }
 
 }

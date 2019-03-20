@@ -349,7 +349,7 @@ public class RecentAllActivity extends Activity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1000);
     }
 
     private void showIconToast(String msg, boolean is_fav) {
@@ -369,7 +369,7 @@ public class RecentAllActivity extends Activity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 2000);
+                }, 1000);
     }
 
     @Override

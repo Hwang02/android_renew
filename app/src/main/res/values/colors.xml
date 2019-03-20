@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00BCD4</color>
-    <color name="colorPrimaryDark">#343B49</color>
-    <color name="colorActionMode">#353C50</color>
-    <color name="colorAccent">#F8A018</color>
+    <color name="colorPrimary">#4d267f</color>
+    <color name="colorPrimaryDark">#4d267f</color>
+    <color name="colorActionMode">#4d267f</color>
+    <color name="colorAccent">#4d267f</color>
     <color name="background">#FAFAFA</color>
     <color name="header_dark">#380f69</color>
     <color name="purple">#4d267f</color>

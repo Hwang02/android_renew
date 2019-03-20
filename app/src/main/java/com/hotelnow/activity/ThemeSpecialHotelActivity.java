@@ -317,7 +317,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                     public void run() {
                         toast_layout.setVisibility(View.GONE);
                     }
-                }, 1500);
+                }, 1000);
     }
 
     private void showIconToast(String msg, boolean is_fav) {
