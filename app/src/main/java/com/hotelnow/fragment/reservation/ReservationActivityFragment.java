@@ -212,7 +212,8 @@ public class ReservationActivityFragment extends Fragment {
                                         entry.getString("status_display"),
                                         entry.getString("review_writable_words_1"),
                                         entry.getString("review_writable_words_2"),
-                                        entry.getString("status_detail"))
+                                        entry.getString("status_detail"),
+                                        entry.getString("deal_id"))
                                 );
                             }
                             if (feed.length() > 1) {

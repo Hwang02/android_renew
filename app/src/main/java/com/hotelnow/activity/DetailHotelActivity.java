@@ -1229,7 +1229,7 @@ public class DetailHotelActivity extends AppCompatActivity {
                 } else if (rdata.getJSONObject(i).has("privatedeal_proposal_yn") && rdata.getJSONObject(i).getString("privatedeal_proposal_yn").equals("Y")) {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
                     btn_private.setText("제안완료");
-                    btn_private.setBackgroundResource(R.drawable.reservation_private_round);
+                    btn_private.setBackgroundResource(R.drawable.gray_round);
                     view_room.findViewById(R.id.line_private).setVisibility(View.INVISIBLE);
                 } else if (rdata.getJSONObject(i).getInt("privatedeal_inven_count") <= 0) {
                     view_room.findViewById(R.id.img_room_private).setVisibility(View.GONE);
@@ -1276,6 +1276,12 @@ public class DetailHotelActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         TuneWrap.Event("productdetail_stay_privatebutton", hid);
+
+                        //제안 완료일 경우
+                        if(btn_private.getText().equals("제안완료")){
+                            Toast.makeText(getApplicationContext(), "프라이빗딜은 객실 타입 당 1일 3회 제안이 가능합니다. 다른 객실로 시도해주세요.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (privatedeal_status == 1 || privatedeal_status == -1 || btn_private.getText().equals("예약하기")) {
 
                             String mUrl = CONFIG.PrivateUrl + "?hotel_id=" + hid + "&hotel_name=" + hotel_name + "&room_id=" + rid.getText() + "&room_name=" + tv_room_title.getText() + "&room_img=" + (String) img_room.getTag()

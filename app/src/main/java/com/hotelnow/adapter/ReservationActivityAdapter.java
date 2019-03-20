@@ -82,7 +82,7 @@ public class ReservationActivityAdapter extends ArrayAdapter<BookingQEntry> {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ReviewActivityWriteActivity.class);
                     intent.putExtra("booking_id", mlist.get(position).getId());
-                    intent.putExtra("deal_id", mlist.get(position).getId());
+                    intent.putExtra("deal_id", mlist.get(position).getDeal_id());
                     if(userId != null)
                         intent.putExtra("userid", AES256Chiper.AES_Decode(userId.replace("HN|", "")));
                     intent.putExtra("name", mlist.get(position).getDeal_name());

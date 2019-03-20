@@ -18,10 +18,11 @@ public class BookingQEntry {
     private String review_writable_words_1;
     private String review_writable_words_2;
     private String status_detail;
+    private String deal_id;
 
     public BookingQEntry(String id, String status, String deal_name, String created_at_format, String img_url, String is_review_writable,
                          int total_ticket_count, String not_used_ticket_count, String used_ticket_count, String cancel_ticket_count, String status_display,
-                         String review_writable_words_1, String review_writable_words_2, String status_detail) {
+                         String review_writable_words_1, String review_writable_words_2, String status_detail, String deal_id) {
         super();
         this.id = id;
         this.status = status;
@@ -37,8 +38,22 @@ public class BookingQEntry {
         this.review_writable_words_1 = review_writable_words_1;
         this.review_writable_words_2 = review_writable_words_2;
         this.status_detail = status_detail;
+        this.deal_id = deal_id;
+
     }
 
+
+    public void setStatus_detail(String status_detail) {
+        this.status_detail = status_detail;
+    }
+
+    public String getDeal_id() {
+        return deal_id;
+    }
+
+    public void setDeal_id(String deal_id) {
+        this.deal_id = deal_id;
+    }
 
     public String getStatus_detail() {
         return status_detail;
