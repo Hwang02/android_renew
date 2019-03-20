@@ -237,7 +237,7 @@
     <string name="reservemoney_status_withdraw">회수</string>
     <string name="event_need_login">이벤트 응모를 위해 로그인이 필요합니다.</string>
     <string name="sell_complete">판매 완료</string>
-    <string name="all_cancel"><u>전체삭제</u></string>
+    <string name="all_cancel"><u>전체취소</u></string>
     <string name="stay_go"><u>숙소 보러가기 ></u></string>
     <string name="activity_go"><u>액티비티 보러가기 ></u></string>
     <string name="activity_info">실제 사용하는 분의 이름과 연락처를 입력해주세요\n입장에 필요한 PIN번호 또는 바코드가 발송됩니다</string>
