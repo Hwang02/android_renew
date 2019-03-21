@@ -56,49 +56,4 @@ public class AES256Chiper {
         }
     }
 
-    private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
-
-    /**
-     * @description byte 배열을 16진수로 변환한다.
-     */
-    private static String toHexString(byte[] bytes) {
-
-        Formatter formatter = new Formatter();
-
-        for (byte b : bytes) {
-            formatter.format("%02x", b);
-        }
-
-        return formatter.toString();
-
-    }
-
-    /**
-     * @description byte 배열을 Base64로 인코딩한다.
-     */
-    public static String toBase64String(byte[] bytes){
-
-        String byteArray = Base64.encodeToString(bytes, Base64.NO_WRAP);
-        return new String(byteArray);
-
-    }
-
-    /**
-     * @description HmacSHA1로 암호화한다. (HmacSHA1은 hash algorism이라서 복호화는 불가능)
-     */
-    public static String encryption(String data, String key) throws SignatureException, NoSuchAlgorithmException, InvalidKeyException, MalformedURLException {
-
-        URL url = new URL(data);
-
-        data = url.getPath() + '?' + url.getQuery();
-
-        byte[] key2 = Base64.decode(key.replace('-', '+').replace('_', '/'), Base64.DEFAULT);
-        SecretKeySpec signingKey = new SecretKeySpec(key2, HMAC_SHA1_ALGORITHM);
-        Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
-        mac.init(signingKey);
-
-        return toBase64String(mac.doFinal(data.getBytes())).replace('+', '-').replace('/', '_');
-
-    }
-
 }

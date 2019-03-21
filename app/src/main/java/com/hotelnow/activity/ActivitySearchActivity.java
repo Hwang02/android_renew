@@ -3,10 +3,13 @@ package com.hotelnow.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -22,8 +25,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.hotelnow.BuildConfig;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchLeisureAdapter;
 import com.hotelnow.utils.Api;
@@ -34,7 +44,6 @@ import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
-import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
 
@@ -45,13 +54,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ActivitySearchActivity extends Activity {
+public class ActivitySearchActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private SharedPreferences _preferences;
     private ListView mlist;
     private View EmptyView;
     private View HeaderView;
-    private ImageView map_img;
     private TextView tv_review_count, tv_category, tv_location;
     private RelativeLayout btn_location, btn_category;
     private ArrayList<SearchResultItem> mItems = new ArrayList<>();
@@ -59,12 +67,20 @@ public class ActivitySearchActivity extends Activity {
     private String banner_id, search_txt;
     private int Page = 1;
     private int total_count;
-    private String s_position = "", theme_id = "", city = "";
+    private String theme_id = "", city = "";
     private DbOpenHelper dbHelper;
     private Button bt_scroll;
     RelativeLayout toast_layout, title_search;
     ImageView ico_favorite;
     TextView tv_toast, title_text, tv_ecategory, tv_elocation, empty_title, empty_sub;
+    // 구글 맵 참조변수 생성
+    private GoogleMap mMap;
+    private IconGenerator mainIconFactory;
+    private BitmapDrawable bitmapdraw = null;
+    private Bitmap b = null;
+    private Bitmap smallMarker = null;
+    private static final double EARTH_RADIOUS = 3958.75; // Earth radius;
+    private static final int METER_CONVERSION = 1609;
 
 
     @Override
@@ -91,7 +107,6 @@ public class ActivitySearchActivity extends Activity {
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
         btn_category = (RelativeLayout) HeaderView.findViewById(R.id.btn_category);
         tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
-        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
         tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
         bt_scroll = (Button) findViewById(R.id.bt_scroll);
@@ -99,7 +114,6 @@ public class ActivitySearchActivity extends Activity {
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         title_search = (RelativeLayout) findViewById(R.id.title_search);
-//        HeaderView.findViewById(R.id.tv_review_count).setVisibility(View.GONE);
         findViewById(R.id.count_view).setVisibility(View.GONE);
 
         mlist.addHeaderView(HeaderView);
@@ -190,7 +204,9 @@ public class ActivitySearchActivity extends Activity {
             }
         });
 
-        getSearch();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this); //getMapAsync must be called on the main thread.
+
     }
 
     public void getSearch() {
@@ -233,8 +249,9 @@ public class ActivitySearchActivity extends Activity {
 
                         final JSONArray list = obj.getJSONArray("lists");
                         JSONObject entry = null;
-                        if (Page == 1)
-                            s_position = "";
+                        if (Page == 1) {
+                            mMap.clear();
+                        }
 
                         final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
@@ -275,8 +292,9 @@ public class ActivitySearchActivity extends Activity {
                                     i == 0 ? true : false,
                                     0
                             ));
-                            if (Page == 1)
-                                s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181114_150606_DfU0o2DCag.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longitude");
+                            if (Page == 1) {
+                                setMainMarker(entry.getString("latitude"), entry.getString("longitude"));
+                            }
                         }
 
                         if (mItems.size() > 0) {
@@ -289,14 +307,11 @@ public class ActivitySearchActivity extends Activity {
                             empty_sub.setVisibility(View.VISIBLE);
                         }
 
-                        String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
-                                s_position +
-                                "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
-                        Ion.with(map_img).load(mapStr);
-
-                        map_img.setOnClickListener(new OnSingleClickListener() {
+                        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+                        {
                             @Override
-                            public void onSingleClick(View v) {
+                            public void onMapClick(LatLng arg0)
+                            {
                                 CONFIG.search_data = new ArrayList<>();
                                 CONFIG.search_data = mItems;
                                 Intent intent = new Intent(ActivitySearchActivity.this, MapAcvitityActivity.class);
@@ -312,6 +327,7 @@ public class ActivitySearchActivity extends Activity {
                         adapter.notifyDataSetChanged();
                         Page++;
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
+
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
@@ -321,6 +337,18 @@ public class ActivitySearchActivity extends Activity {
         } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
+    }
+
+    public double distanceFrom(double lat1, double lng1, double lat2, double lng2)
+    {
+        // Return distance between 2 points, stored as 2 pair location;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLng = Math.toRadians(lng2 - lng1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double dist = EARTH_RADIOUS * c;
+        return new Double(dist * METER_CONVERSION).floatValue();
     }
 
     public void setLike(final int position, final boolean islike) {
@@ -465,5 +493,34 @@ public class ActivitySearchActivity extends Activity {
         } else if (requestCode == 90 && responseCode == 4000) {
             finish();
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
+        getSearch();
+    }
+
+    private void setMainMarker(String lat, String lng) {
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
+        mainIconFactory = new IconGenerator(this);
+        mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
+        mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
+
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_activity);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
+
+        mMap.addMarker(markerOptions);
+
     }
 }

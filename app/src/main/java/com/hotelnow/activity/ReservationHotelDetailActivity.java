@@ -525,13 +525,6 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                         info_view.loadData("<div style='font-size:12px'>" + html + "</div>", "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
                     }
 
-                    // 지도 상세보기 정보 설정
-//                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + info.getString("latitude") + "%2C" + info.getString("longuitude") +
-//                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + info.getString("latitude") + "%2C" + info.getString("longuitude") +
-//                            "&scale=2&sensor=false&language=ko&size=360x220&zoom=" + info.getString("map_zoom") + "&key=" + BuildConfig.google_map_key2;
-//                    ImageView mapImg = (ImageView) findViewById(R.id.map_img);
-//                    Ion.with(mapImg).load(mapStr);
-
                     //지도
                     setMainMarker(info.getString("latitude"), info.getString("longuitude"));
                     mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
