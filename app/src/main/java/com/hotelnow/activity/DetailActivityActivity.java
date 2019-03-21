@@ -5,8 +5,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +41,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
@@ -77,7 +87,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DetailActivityActivity extends AppCompatActivity {
+public class DetailActivityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private Toolbar toolbar;
     private AppBarLayout app_bar;
@@ -106,7 +116,6 @@ public class DetailActivityActivity extends AppCompatActivity {
     private TextView tv_more, tv_product_info, tv_address;
     private ImageView img_more;
     private WebView webview;
-    private ImageView map_img;
     private String mAddress;
     private TextView tv_category, tv_hotelname,
             tv_minprice, tv_maxprice, tv_per, tv_review_rate, tv_review_count, review_message;
@@ -127,6 +136,12 @@ public class DetailActivityActivity extends AppCompatActivity {
     private ImageView ico_favorite;
     private TextView tv_toast;
     private boolean isLogin = false;
+    // 구글 맵 참조변수 생성
+    private GoogleMap mMap;
+    private IconGenerator mainIconFactory;
+    private BitmapDrawable bitmapdraw = null;
+    private Bitmap b = null;
+    private Bitmap smallMarker = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -212,8 +227,9 @@ public class DetailActivityActivity extends AppCompatActivity {
             }
         });
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this); //getMapAsync must be called on the main thread.
 
-        setDetailData();
     }
 
     private void setDetailData() {
@@ -282,7 +298,6 @@ public class DetailActivityActivity extends AppCompatActivity {
                     btn_more_detail = (LinearLayout) findViewById(R.id.btn_more_detail);
                     webview = (WebView) findViewById(R.id.webview);
                     tv_product_info = (TextView) findViewById(R.id.tv_product_info);
-                    map_img = (ImageView) findViewById(R.id.map_img);
                     tv_address = (TextView) findViewById(R.id.tv_address);
                     info_list = (LinearLayout) findViewById(R.id.info_list);
                     tv_category = (TextView) findViewById(R.id.tv_category);
@@ -737,12 +752,23 @@ public class DetailActivityActivity extends AppCompatActivity {
                         findViewById(R.id.product_info).setVisibility(View.GONE);
                     }
 
-                    // 지도
-                    // 주소
-                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + ticket_data.getString("latitude") + "%2C" + ticket_data.getString("longitude") +
-                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + ticket_data.getString("latitude") + "%2C" + ticket_data.getString("longitude") +
-                            "&scale=1&sensor=false&language=ko&size=" + 500 + "x" + 500 + "&zoom=15" + "&key=" + BuildConfig.google_map_key2;
-                    Ion.with(map_img).load(mapStr);
+                    //지도
+                    setMainMarker(ticket_data.getString("latitude"), ticket_data.getString("longitude"));
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+                    {
+                        @Override
+                        public void onMapClick(LatLng arg0)
+                        {
+                            Intent intent = new Intent(DetailActivityActivity.this, MapActivity.class);
+                            intent.putExtra("from", "pdetail");
+                            intent.putExtra("isTicket", true);
+                            intent.putExtra("tid", tid);
+                            intent.putExtra("lat", maplat);
+                            intent.putExtra("lng", maplon);
+                            intent.putExtra("deal_name", tname);
+                            startActivityForResult(intent, 81); // 81 지도보기
+                        }
+                    });
                     mAddress = ticket_data.getString("address");
                     tv_address.setText(mAddress);
 
@@ -760,20 +786,6 @@ public class DetailActivityActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // 주변보기
-                            Intent intent = new Intent(DetailActivityActivity.this, MapActivity.class);
-                            intent.putExtra("from", "pdetail");
-                            intent.putExtra("isTicket", true);
-                            intent.putExtra("tid", tid);
-                            intent.putExtra("lat", maplat);
-                            intent.putExtra("lng", maplon);
-                            intent.putExtra("deal_name", tname);
-                            startActivityForResult(intent, 81); // 81 지도보기
-                        }
-                    });
-
-                    map_img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
                             Intent intent = new Intent(DetailActivityActivity.this, MapActivity.class);
                             intent.putExtra("from", "pdetail");
                             intent.putExtra("isTicket", true);
@@ -1070,6 +1082,35 @@ public class DetailActivityActivity extends AppCompatActivity {
         m_countView.setText(1 + "/" + PAGES + "  + ");
 
         markPrevPosition = markNowPosition;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
+        //api 호출
+        setDetailData();
+    }
+
+    private void setMainMarker(String lat, String lng) {
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+        mainIconFactory = new IconGenerator(this);
+        mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
+        mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
+
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_stay_selected);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
+
+        mMap.addMarker(markerOptions);
     }
 
     private class TicketPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {

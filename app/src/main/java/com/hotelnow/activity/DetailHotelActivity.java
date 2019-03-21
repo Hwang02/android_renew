@@ -5,8 +5,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +44,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
@@ -81,14 +91,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 
-public class DetailHotelActivity extends AppCompatActivity {
+public class DetailHotelActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private ViewPagerCustom mViewPager;
     private TextView m_countView, m_img_title, tv_category, tv_hotelname,
             tv_minprice, tv_maxprice, tv_per, tv_review_rate, review_message,
             tv_review_count, tv_special_title, tv_checkin, tv_checkout, tv_total_count, tv_address;
     private String ec_date = null, ee_date = null, main_photo = "", hid, pid, evt;
-    private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5, map_img;
+    private ImageView sc_star1, sc_star2, sc_star3, sc_star4, sc_star5;
     private LinearLayout btn_more_review, coupon_list, room_list, btn_show_room,
             btn_more_view, bt_checkinout;
     private RelativeLayout rl_tv;
@@ -136,6 +146,12 @@ public class DetailHotelActivity extends AppCompatActivity {
     private LinearLayout hotel_check_list;
     private LinearLayout tv_main_discount;
     private DialogConfirm dialogConfirm;
+    // 구글 맵 참조변수 생성
+    private GoogleMap mMap;
+    private IconGenerator mainIconFactory;
+    private BitmapDrawable bitmapdraw = null;
+    private Bitmap b = null;
+    private Bitmap smallMarker = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,7 +248,8 @@ public class DetailHotelActivity extends AppCompatActivity {
             }
         });
 
-        setDetailView();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this); //getMapAsync must be called on the main thread.
     }
 
     // 프라이빗 딜
@@ -373,7 +390,6 @@ public class DetailHotelActivity extends AppCompatActivity {
                     filter5 = (LinearLayout) findViewById(R.id.filter5);
                     filter6 = (LinearLayout) findViewById(R.id.filter6);
                     filter7 = (LinearLayout) findViewById(R.id.filter7);
-                    map_img = (ImageView) findViewById(R.id.map_img);
                     tv_address = (TextView) findViewById(R.id.tv_address);
                     mViewPager = (ViewPagerCustom) findViewById(R.id.img_pager);
                     m_countView = (TextView) findViewById(R.id.page);
@@ -691,12 +707,25 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     setFacility(sel_FacilityList, false);
 
-                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
-                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
-                            "&scale=1&sensor=false&language=ko&size=" + 500 + "x" + 500 + "&zoom=15" + "&key=" + BuildConfig.google_map_key2;
-                    String s_map = mapStr+"&signature="+ AES256Chiper.encryption(mapStr, "tD-4dfbMI7t_gQcCwpe2iFmvo2M=");
+                    //지도
+                   setMainMarker(hotel_data.getString("latitude"), hotel_data.getString("longuitude"));
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+                    {
+                        @Override
+                        public void onMapClick(LatLng arg0)
+                        {
+                            TuneWrap.Event("around");
 
-                    Ion.with(map_img).load(s_map);
+                            Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
+                            intent.putExtra("from", "pdetail");
+                            intent.putExtra("title", hotel_name);
+                            intent.putExtra("hid", hid);
+                            intent.putExtra("ec_date", ec_date);
+                            intent.putExtra("ee_date", ee_date);
+                            startActivityForResult(intent, 81); // 81 지도보기
+                        }
+                    });
+
                     mAddress = hotel_data.getString("address_street");
                     tv_address.setText(mAddress);
 
@@ -715,21 +744,6 @@ public class DetailHotelActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             // 주변보기
 
-                            TuneWrap.Event("around");
-
-                            Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
-                            intent.putExtra("from", "pdetail");
-                            intent.putExtra("title", hotel_name);
-                            intent.putExtra("hid", hid);
-                            intent.putExtra("ec_date", ec_date);
-                            intent.putExtra("ee_date", ee_date);
-                            startActivityForResult(intent, 81); // 81 지도보기
-                        }
-                    });
-
-                    map_img.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
                             TuneWrap.Event("around");
 
                             Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
@@ -1596,6 +1610,36 @@ public class DetailHotelActivity extends AppCompatActivity {
             imgStar4.setBackgroundResource(R.drawable.ico_starpoint_press);
             imgStar5.setBackgroundResource(R.drawable.ico_starpoint_press);
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
+        //api 호출
+        setDetailView();
+    }
+
+    private void setMainMarker(String lat, String lng) {
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+        mainIconFactory = new IconGenerator(this);
+        mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
+        mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
+
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_stay_selected);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
+
+        mMap.addMarker(markerOptions);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {

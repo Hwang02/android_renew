@@ -1,6 +1,5 @@
 package com.hotelnow.activity;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -8,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -22,7 +24,6 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.util.Linkify;
-import android.util.Patterns;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -31,6 +32,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
@@ -42,7 +51,6 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.EndEventScrollView;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -54,7 +62,7 @@ import org.json.JSONObject;
 import java.util.Map;
 import java.util.regex.Matcher;
 
-public class ReservationActivityDetailActivity extends Activity {
+public class ReservationActivityDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     String bid, accnum, hotel_id, mAddress, lat, lon, h_name;
     TextView hotel_name, hotel_room_name, booking_status, tv_username, tv_usertel,
@@ -78,6 +86,12 @@ public class ReservationActivityDetailActivity extends Activity {
     boolean isEndScroll = false;
     DialogMarket dialogMarket;
     EndEventScrollView scrollview;
+    // 구글 맵 참조변수 생성
+    private GoogleMap mMap;
+    private IconGenerator mainIconFactory;
+    private BitmapDrawable bitmapdraw = null;
+    private Bitmap b = null;
+    private Bitmap smallMarker = null;
 
     private Handler mEndHandler = new Handler() {
         @Override
@@ -179,7 +193,8 @@ public class ReservationActivityDetailActivity extends Activity {
             }
         });
 
-        setData();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this); //getMapAsync must be called on the main thread.
     }
 
     private void setData() {
@@ -511,12 +526,23 @@ public class ReservationActivityDetailActivity extends Activity {
                         info_view.loadData(html, "text/html; charset=UTF-8", null); // Android 4.1 이상 버전
                     }
 
-                    // 지도 상세보기 정보 설정
-                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + info.getString("latitude") + "%2C" + info.getString("longitude") +
-                            "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + info.getString("latitude") + "%2C" + info.getString("longitude") +
-                            "&scale=2&sensor=false&language=ko&size=360x220&zoom=13" + "&key=" + BuildConfig.google_map_key2;
-                    ImageView mapImg = (ImageView) findViewById(R.id.map_img);
-                    Ion.with(mapImg).load(mapStr);
+                    //지도
+                    setMainMarker(info.getString("latitude"), info.getString("longitude"));
+                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
+                    {
+                        @Override
+                        public void onMapClick(LatLng arg0)
+                        {
+                            Intent intent = new Intent(ReservationActivityDetailActivity.this, StayMapActivity.class);
+                            intent.putExtra("isTicket", true);
+                            intent.putExtra("deal_name", h_name);
+                            intent.putExtra("lat", lat);
+                            intent.putExtra("lng", lon);
+                            intent.putExtra("from", "pdetail");
+                            startActivity(intent);
+                        }
+                    });
+
                     mAddress = info.getString("address");
                     tv_address.setText(mAddress);
 
@@ -624,19 +650,6 @@ public class ReservationActivityDetailActivity extends Activity {
                     findViewById(R.id.btn_address_near).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ReservationActivityDetailActivity.this, StayMapActivity.class);
-                            intent.putExtra("isTicket", true);
-                            intent.putExtra("deal_name", h_name);
-                            intent.putExtra("lat", lat);
-                            intent.putExtra("lng", lon);
-                            intent.putExtra("from", "pdetail");
-                            startActivity(intent);
-                        }
-                    });
-
-                    mapImg.setOnClickListener(new OnSingleClickListener() {
-                        @Override
-                        public void onSingleClick(View v) {
                             Intent intent = new Intent(ReservationActivityDetailActivity.this, StayMapActivity.class);
                             intent.putExtra("isTicket", true);
                             intent.putExtra("deal_name", h_name);
@@ -838,4 +851,31 @@ public class ReservationActivityDetailActivity extends Activity {
             info_view.destroy();
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
+        setData();
+    }
+
+    private void setMainMarker(String lat, String lng) {
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+        mainIconFactory = new IconGenerator(this);
+        mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
+        mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
+
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_stay_selected);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
+
+        mMap.addMarker(markerOptions);
+    }
 }
