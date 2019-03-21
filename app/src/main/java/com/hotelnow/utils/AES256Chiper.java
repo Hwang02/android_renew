@@ -3,6 +3,8 @@ package com.hotelnow.utils;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
@@ -84,14 +86,18 @@ public class AES256Chiper {
     /**
      * @description HmacSHA1로 암호화한다. (HmacSHA1은 hash algorism이라서 복호화는 불가능)
      */
-    public static String encryption(String data, String key) throws SignatureException, NoSuchAlgorithmException, InvalidKeyException {
+    public static String encryption(String data, String key) throws SignatureException, NoSuchAlgorithmException, InvalidKeyException, MalformedURLException {
+
+        URL url = new URL(data);
+
+        data = url.getPath() + '?' + url.getQuery();
 
         byte[] key2 = Base64.decode(key.replace('-', '+').replace('_', '/'), Base64.DEFAULT);
         SecretKeySpec signingKey = new SecretKeySpec(key2, HMAC_SHA1_ALGORITHM);
         Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
         mac.init(signingKey);
 
-        return toBase64String(mac.doFinal(data.getBytes()));
+        return toBase64String(mac.doFinal(data.getBytes())).replace('+', '-').replace('/', '_');
 
     }
 

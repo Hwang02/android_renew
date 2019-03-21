@@ -171,7 +171,7 @@ public class Api {
 
                                 _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
                                 SharedPreferences.Editor prefEditor = _preferences.edit();
-                                prefEditor.putString("cookie_val", Base64.encodeToString(h_sess.getBytes(), Base64.NO_WRAP));
+                                prefEditor.putString("cookie_val", Base64.encodeToString(h_sess.getBytes(), Base64.URL_SAFE));
                                 prefEditor.commit();
                                 LogUtil.e(CONFIG.TAG, "HEADER response.hecader h_sess: " + h_sess);
                             }

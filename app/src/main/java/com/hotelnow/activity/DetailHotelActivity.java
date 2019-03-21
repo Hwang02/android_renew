@@ -691,16 +691,11 @@ public class DetailHotelActivity extends AppCompatActivity {
 
                     setFacility(sel_FacilityList, false);
 
-                    // 주소
-//                    String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
-//                            "&scale=1&sensor=false&language=ko&size=" + 500 + "x" + 500 + "&zoom=15" + "&key=" + BuildConfig.google_map_key2;
                     String mapStr = "https://maps.googleapis.com/maps/api/staticmap?center=" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
                             "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C" + hotel_data.getString("latitude") + "%2C" + hotel_data.getString("longuitude") +
                             "&scale=1&sensor=false&language=ko&size=" + 500 + "x" + 500 + "&zoom=15" + "&key=" + BuildConfig.google_map_key2;
-//                    https://maps.googleapis.com/maps/api/staticmap?center=35.101270%2C129.024828&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C35.101270%2C129.024828&scale=1&sensor=false&language=ko&size=500x500&zoom=15&key=AIzaSyDtgyy2TXgeIH3CrPh_C-R2Cv2aLteK_ME&signatureK61WSqppiuC7hvHkdczkBlQZR5U=
-//                    https://maps.googleapis.com/maps/api/staticmap?center=35.101270%2C129.024828&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181012_180827_hozDzSdI4I.png%7C35.101270%2C129.024828&scale=1&sensor=false&language=ko&size=500x500&zoom=15&key=AIzaSyDtgyy2TXgeIH3CrPh_C-R2Cv2aLteK_ME&signature=G6GV_2VVT5xkzNZ_ujT7jneLNpA=
                     String s_map = mapStr+"&signature="+ AES256Chiper.encryption(mapStr, "tD-4dfbMI7t_gQcCwpe2iFmvo2M=");
-                    LogUtil.e("xxxxxx", s_map);
+
                     Ion.with(map_img).load(s_map);
                     mAddress = hotel_data.getString("address_street");
                     tv_address.setText(mAddress);
