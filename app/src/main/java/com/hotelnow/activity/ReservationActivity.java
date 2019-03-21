@@ -1788,7 +1788,7 @@ public class ReservationActivity extends Activity {
             params.put("imgstr", bmpStr);
             params.put("em", useremail.getText());
             params.put("privatedeal_bid", bid_id);
-            params.put("privatedeal_money", private_money);
+            params.put("privatedeal_money", -private_money);
             params.put("phone_auth", is_auth);
             String other_booker = is_other_user ? "Y" : "N";
             params.put("other_booker", other_booker);

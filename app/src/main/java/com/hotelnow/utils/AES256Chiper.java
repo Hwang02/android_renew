@@ -3,17 +3,14 @@ package com.hotelnow.utils;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.AlgorithmParameterSpec;
+import java.security.SignatureException;
+import java.util.Formatter;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.Mac;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AES256Chiper {
@@ -55,6 +52,47 @@ public class AES256Chiper {
         } else {
             return "";
         }
+    }
+
+    private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
+
+    /**
+     * @description byte 배열을 16진수로 변환한다.
+     */
+    private static String toHexString(byte[] bytes) {
+
+        Formatter formatter = new Formatter();
+
+        for (byte b : bytes) {
+            formatter.format("%02x", b);
+        }
+
+        return formatter.toString();
+
+    }
+
+    /**
+     * @description byte 배열을 Base64로 인코딩한다.
+     */
+    public static String toBase64String(byte[] bytes){
+
+        String byteArray = Base64.encodeToString(bytes, Base64.NO_WRAP);
+        return new String(byteArray);
+
+    }
+
+    /**
+     * @description HmacSHA1로 암호화한다. (HmacSHA1은 hash algorism이라서 복호화는 불가능)
+     */
+    public static String encryption(String data, String key) throws SignatureException, NoSuchAlgorithmException, InvalidKeyException {
+
+        byte[] key2 = Base64.decode(key.replace('-', '+').replace('_', '/'), Base64.DEFAULT);
+        SecretKeySpec signingKey = new SecretKeySpec(key2, HMAC_SHA1_ALGORITHM);
+        Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
+        mac.init(signingKey);
+
+        return toBase64String(mac.doFinal(data.getBytes()));
+
     }
 
 }
