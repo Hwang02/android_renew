@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -37,6 +38,7 @@ import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
+import com.tune.Tune;
 
 import org.json.JSONObject;
 
@@ -159,6 +161,21 @@ public class ActLoading extends Activity {
 //        params.putString("PAGE", "ActLoading-Start");
 //        params.putString("NAME", "HWANG");
 //        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Tune.getInstance().setReferralSources(this);
+        Tune.getInstance().measureSession();
+
+        try {
+            AppEventsLogger.activateApp(this, getResources().getString(R.string.facebook_app_id));
+        } catch (Exception e) {
+            Log.e(CONFIG.TAG, e.toString());
+        }
 
         checkSeverInfo();
     }
