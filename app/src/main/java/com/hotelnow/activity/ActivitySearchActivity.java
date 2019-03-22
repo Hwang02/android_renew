@@ -507,6 +507,9 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
         mMap.getUiSettings().setMapToolbarEnabled(false);
         mMap.getUiSettings().setAllGesturesEnabled(false);
 
+        LatLng position = new LatLng(37.506839, 127.066234);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 5));
+
         getSearch();
     }
 

@@ -604,6 +604,9 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
 
         mMap.getUiSettings().setMapToolbarEnabled(false);
         mMap.getUiSettings().setAllGesturesEnabled(false);
+
+        LatLng position = new LatLng(37.506839, 127.066234);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 5));
     }
 
     private void setMainMarker(String lat, String lng) {
