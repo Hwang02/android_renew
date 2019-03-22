@@ -241,31 +241,31 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
                                     0
                             ));
 
-                            if (Page == 1) {
+                            if (Page == 1 && !TextUtils.isEmpty(entry.getString("latitude")) && !TextUtils.isEmpty(entry.getString("longitude"))) {
                                 setMainMarker(entry.getString("latitude"), entry.getString("longitude"));
                             }
-                        }
-
-                        if(Page == 1){
-                            int padding = 50;
-                            /**create the bounds from latlngBuilder to set into map camera*/
-                            LatLngBounds bounds = mapbuilder.build();
-                            /**create the camera with bounds and padding to set into map*/
-                            cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                            /**call the map call back to know map is loaded or not*/
-                            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                                @Override
-                                public void onMapLoaded() {
-                                    /**set animated zoom camera into map*/
-                                    mMap.animateCamera(cu);
-
-                                }
-                            });
                         }
 
                         if (mItems.size() > 0) {
                             bt_scroll.setVisibility(View.VISIBLE);
                             empty_image.setVisibility(View.GONE);
+
+                            if(Page == 1){
+                                int padding = 50;
+                                /**create the bounds from latlngBuilder to set into map camera*/
+                                LatLngBounds bounds = mapbuilder.build();
+                                /**create the camera with bounds and padding to set into map*/
+                                cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                                /**call the map call back to know map is loaded or not*/
+                                mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                                    @Override
+                                    public void onMapLoaded() {
+                                        /**set animated zoom camera into map*/
+                                        mMap.animateCamera(cu);
+
+                                    }
+                                });
+                            }
                         } else {
                             bt_scroll.setVisibility(View.GONE);
                             empty_image.setVisibility(View.VISIBLE);
