@@ -22,6 +22,7 @@ public class AES256Chiper {
     public static String AES_Encode(String str) {
 
         byte[] encryptedText = null;
+        str = str.replace("-","+").replace("_","/");
         try {
             byte[] keyData = secretKey.getBytes();
             SecretKey ks = new SecretKeySpec(keyData, "AES");
@@ -46,7 +47,7 @@ public class AES256Chiper {
                 Cipher c = Cipher.getInstance("AES");
                 c.init(Cipher.DECRYPT_MODE, ks);
                 clearText = c.doFinal(Base64.decode(str, Base64.DEFAULT));
-                return new String(clearText, "UTF-8");
+                return new String(clearText, "UTF-8").replace("+","-").replace("/","_");
             } catch (Exception e) {
                 LogUtil.e("xxxx", e.toString() + "");
                 return "";
