@@ -25,6 +25,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -79,7 +81,8 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
     private BitmapDrawable bitmapdraw = null;
     private Bitmap b = null;
     private Bitmap smallMarker = null;
-
+    private LatLngBounds.Builder mapbuilder;
+    private CameraUpdate cu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -249,6 +252,7 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
                         JSONObject entry = null;
                         if (Page == 1) {
                             mMap.clear();
+                            mapbuilder = new LatLngBounds.Builder();
                         }
 
                         final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
@@ -293,6 +297,23 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
                             if (Page == 1) {
                                 setMainMarker(entry.getString("latitude"), entry.getString("longitude"));
                             }
+                        }
+
+                        if(Page == 1){
+                            int padding = 50;
+                            /**create the bounds from latlngBuilder to set into map camera*/
+                            LatLngBounds bounds = mapbuilder.build();
+                            /**create the camera with bounds and padding to set into map*/
+                            cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                            /**call the map call back to know map is loaded or not*/
+                            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                                @Override
+                                public void onMapLoaded() {
+                                    /**set animated zoom camera into map*/
+                                    mMap.animateCamera(cu);
+
+                                }
+                            });
                         }
 
                         if (mItems.size() > 0) {
@@ -492,7 +513,6 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
     private void setMainMarker(String lat, String lng) {
         LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
         mainIconFactory = new IconGenerator(this);
         mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
         mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
@@ -505,6 +525,7 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
                 icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
 
         mMap.addMarker(markerOptions);
+        mapbuilder.include(position);
 
     }
 }

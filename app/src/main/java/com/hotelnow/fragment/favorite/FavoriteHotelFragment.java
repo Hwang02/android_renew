@@ -288,10 +288,12 @@ public class FavoriteHotelFragment extends Fragment {
             ((MainActivity) getActivity()).setTapdelete("MYPAGE");
             CONFIG.TabLogin = true;
         } else if (requestCode == 70 && resultCode == 80) {
-            mItems.clear();
-            adapter.notifyDataSetChanged();
-            MainActivity.showProgress();
-            getFavorite();
+            if(adapter != null) {
+                mItems.clear();
+                adapter.notifyDataSetChanged();
+                MainActivity.showProgress();
+                getFavorite();
+            }
         }
     }
 

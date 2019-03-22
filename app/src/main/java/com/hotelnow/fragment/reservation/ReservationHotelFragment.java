@@ -317,12 +317,14 @@ public class ReservationHotelFragment extends Fragment {
             CONFIG.TabLogin = true;
             ((ReservationFragment) getParentFragment()).setInfobar();
         } else if (requestCode == 90 && resultCode == 0) {
-            mEntries.clear();
-            adapter.notifyDataSetChanged();
-            currentPage = 1;
-            isAdd = true;
-            MainActivity.showProgress();
-            getBookingList();
+            if(adapter != null) {
+                mEntries.clear();
+                adapter.notifyDataSetChanged();
+                currentPage = 1;
+                isAdd = true;
+                MainActivity.showProgress();
+                getBookingList();
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);

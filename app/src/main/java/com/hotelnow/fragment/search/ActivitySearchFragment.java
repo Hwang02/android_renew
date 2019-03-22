@@ -30,12 +30,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
@@ -97,6 +99,8 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
     private Bitmap smallMarker = null;
     private MapView mapView;
     private View clickmap;
+    private LatLngBounds.Builder mapbuilder;
+    private CameraUpdate cu;
 
     @Nullable
     @Override
@@ -201,6 +205,7 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
                         setPopular();
                         if (Page == 1) {
                             mMap.clear();
+                            mapbuilder = new LatLngBounds.Builder();
                         }
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);
@@ -239,6 +244,23 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
                             if (Page == 1) {
                                 setMainMarker(entry.getString("latitude"), entry.getString("longitude"));
                             }
+                        }
+
+                        if(Page == 1){
+                            int padding = 50;
+                            /**create the bounds from latlngBuilder to set into map camera*/
+                            LatLngBounds bounds = mapbuilder.build();
+                            /**create the camera with bounds and padding to set into map*/
+                            cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                            /**call the map call back to know map is loaded or not*/
+                            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                                @Override
+                                public void onMapLoaded() {
+                                    /**set animated zoom camera into map*/
+                                    mMap.animateCamera(cu);
+
+                                }
+                            });
                         }
 
                         if (mItems.size() > 0) {
@@ -600,6 +622,6 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
                 icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
 
         mMap.addMarker(markerOptions);
-
+        mapbuilder.include(position);
     }
 }

@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
@@ -126,6 +128,8 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
     private Bitmap smallMarker = null;
     private MapView mapView;
     private View clickmap;
+    private LatLngBounds.Builder mapbuilder;
+    private CameraUpdate cu;
 
     @Nullable
     @Override
@@ -311,6 +315,7 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                             setPopular();
                             if (Page == 1) {
                                 mMap.clear();
+                                mapbuilder = new LatLngBounds.Builder();
                             }
                             gapDay = Util.diffOfDate2(ec_date, ee_date);
 
@@ -350,6 +355,23 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                                 if (Page == 1){
                                     setMainMarker(entry.getString("latitude"), entry.getString("longuitude"));
                                 }
+                            }
+
+                            if(Page == 1){
+                                int padding = 50;
+                                /**create the bounds from latlngBuilder to set into map camera*/
+                                LatLngBounds bounds = mapbuilder.build();
+                                /**create the camera with bounds and padding to set into map*/
+                                cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                                /**call the map call back to know map is loaded or not*/
+                                mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                                    @Override
+                                    public void onMapLoaded() {
+                                        /**set animated zoom camera into map*/
+                                        mMap.animateCamera(cu);
+
+                                    }
+                                });
                             }
 
                             if (mItems.size() > 0) {
@@ -882,7 +904,6 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
     private void setMainMarker(String lat, String lng) {
         LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
         mainIconFactory = new IconGenerator(getActivity());
         mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
         mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
@@ -895,6 +916,6 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                 icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
 
         mMap.addMarker(markerOptions);
-
+        mapbuilder.include(position);
     }
 }

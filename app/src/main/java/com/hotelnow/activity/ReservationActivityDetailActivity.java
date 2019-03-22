@@ -742,8 +742,6 @@ public class ReservationActivityDetailActivity extends AppCompatActivity impleme
                                                             startActivity(intent);
                                                             finish();
                                                         } else {
-                                                            Intent returnIntent = new Intent();
-                                                            setResult(88, returnIntent);
                                                             finish();
                                                         }
 
