@@ -79,8 +79,6 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
     private BitmapDrawable bitmapdraw = null;
     private Bitmap b = null;
     private Bitmap smallMarker = null;
-    private static final double EARTH_RADIOUS = 3958.75; // Earth radius;
-    private static final int METER_CONVERSION = 1609;
 
 
     @Override
@@ -307,11 +305,9 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
                             empty_sub.setVisibility(View.VISIBLE);
                         }
 
-                        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
-                        {
+                        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                             @Override
-                            public void onMapClick(LatLng arg0)
-                            {
+                            public void onMapClick(LatLng arg0) {
                                 CONFIG.search_data = new ArrayList<>();
                                 CONFIG.search_data = mItems;
                                 Intent intent = new Intent(ActivitySearchActivity.this, MapAcvitityActivity.class);
@@ -337,18 +333,6 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
         } else {
             findViewById(R.id.wrapper).setVisibility(View.GONE);
         }
-    }
-
-    public double distanceFrom(double lat1, double lng1, double lat2, double lng2)
-    {
-        // Return distance between 2 points, stored as 2 pair location;
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLng = Math.toRadians(lng2 - lng1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double dist = EARTH_RADIOUS * c;
-        return new Double(dist * METER_CONVERSION).floatValue();
     }
 
     public void setLike(final int position, final boolean islike) {

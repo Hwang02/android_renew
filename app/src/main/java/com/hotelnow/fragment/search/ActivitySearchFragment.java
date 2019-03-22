@@ -3,6 +3,8 @@ package com.hotelnow.fragment.search;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -28,6 +30,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.activity.ActivityFilterActivity;
@@ -59,13 +69,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ActivitySearchFragment extends Fragment {
+public class ActivitySearchFragment extends Fragment implements OnMapReadyCallback {
 
     private SharedPreferences _preferences;
     private ListView mlist;
     private View EmptyView;
     private View HeaderView;
-    private ImageView map_img;
     private TextView tv_review_count, tv_category, tv_location, tv_location2, tv_category2;
     private RelativeLayout btn_location, btn_category, btn_location2, btn_category2;
     private ArrayList<SearchResultItem> mItems = new ArrayList<>();
@@ -80,6 +89,14 @@ public class ActivitySearchFragment extends Fragment {
     private List<KeyWordItem> mKeywordList = new ArrayList<>();
     private boolean _hasLoadedOnce = false; // your boolean field
     private LinearLayout empty_image, layout_popular;
+    // 구글 맵 참조변수 생성
+    private GoogleMap mMap;
+    private IconGenerator mainIconFactory;
+    private BitmapDrawable bitmapdraw = null;
+    private Bitmap b = null;
+    private Bitmap smallMarker = null;
+    private MapView mapView;
+    private View clickmap;
 
     @Nullable
     @Override
@@ -90,6 +107,19 @@ public class ActivitySearchFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
+        HeaderView = getLayoutInflater().inflate(R.layout.layout_fragment_search_map_filter_header2, null, false);
+        btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
+        btn_category = (RelativeLayout) HeaderView.findViewById(R.id.btn_category);
+        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
+        tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
+        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
+        clickmap = (View) HeaderView.findViewById(R.id.clickmap);
+
+        mapView = (MapView) HeaderView.findViewById(R.id.map);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
 
     }
 
@@ -169,7 +199,9 @@ public class ActivitySearchFragment extends Fragment {
                         }
 
                         setPopular();
-
+                        if (Page == 1) {
+                            mMap.clear();
+                        }
                         for (int i = 0; i < list.length(); i++) {
                             entry = list.getJSONObject(i);
                             mItems.add(new SearchResultItem(
@@ -204,8 +236,9 @@ public class ActivitySearchFragment extends Fragment {
                                     0
                             ));
 
-                            if (Page == 1)
-                                s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181114_150606_DfU0o2DCag.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longitude");
+                            if (Page == 1) {
+                                setMainMarker(entry.getString("latitude"), entry.getString("longitude"));
+                            }
                         }
 
                         if (mItems.size() > 0) {
@@ -216,12 +249,7 @@ public class ActivitySearchFragment extends Fragment {
                             empty_image.setVisibility(View.VISIBLE);
                         }
 
-                        String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
-                                s_position +
-                                "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
-                        Ion.with(map_img).load(mapStr);
-
-                        map_img.setOnClickListener(new OnSingleClickListener() {
+                        clickmap.setOnClickListener(new OnSingleClickListener() {
                             @Override
                             public void onSingleClick(View v) {
                                 CONFIG.search_data = new ArrayList<>();
@@ -379,6 +407,28 @@ public class ActivitySearchFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        mapView.onResume();
+        if(mMap != null) {
+            mMap.getUiSettings().setMapToolbarEnabled(false);
+            mMap.getUiSettings().setAllGesturesEnabled(false);
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
         if (responseCode == 90) {
@@ -450,13 +500,6 @@ public class ActivitySearchFragment extends Fragment {
         title_text = getArguments().getString("title_text");
 
         mlist = (ListView) getView().findViewById(R.id.h_list);
-        HeaderView = getLayoutInflater().inflate(R.layout.layout_search_map_filter_header2, null, false);
-        btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
-        btn_category = (RelativeLayout) HeaderView.findViewById(R.id.btn_category);
-        tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
-        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
-        tv_category = (TextView) HeaderView.findViewById(R.id.tv_category);
-        tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
         bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
 
         View empty = getLayoutInflater().inflate(R.layout.layout_search_empty2, null, false);
@@ -531,5 +574,32 @@ public class ActivitySearchFragment extends Fragment {
         });
 
         getSearch();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+    }
+
+    private void setMainMarker(String lat, String lng) {
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
+        mainIconFactory = new IconGenerator(getActivity());
+        mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
+        mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
+
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_activity);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
+
+        mMap.addMarker(markerOptions);
+
     }
 }

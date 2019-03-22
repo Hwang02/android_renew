@@ -3,11 +3,14 @@ package com.hotelnow.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -25,6 +28,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
@@ -52,13 +63,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-public class HotelSearchActivity extends Activity {
+public class HotelSearchActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private SharedPreferences _preferences;
     private ListView mlist;
     private View EmptyView;
     private View HeaderView;
-    private ImageView map_img;
     private TextView tv_review_count;
     private RelativeLayout btn_location, btn_date;
     private ArrayList<SearchResultItem> mItems = new ArrayList<>();
@@ -67,7 +77,7 @@ public class HotelSearchActivity extends Activity {
     private LinearLayout btn_filter;
     private int Page = 1;
     private int total_count;
-    private String s_position = "", city = "", sub_city = "";
+    private String city = "", sub_city = "";
     private DbOpenHelper dbHelper;
     private TextView tv_location, tv_date, page;
     private String ec_date = "", ee_date = "";
@@ -89,6 +99,12 @@ public class HotelSearchActivity extends Activity {
     private LinearLayout count_view;
     private TextView tv_count;
     private long gapDay = 0;
+    // 구글 맵 참조변수 생성
+    private GoogleMap mMap;
+    private IconGenerator mainIconFactory;
+    private BitmapDrawable bitmapdraw = null;
+    private Bitmap b = null;
+    private Bitmap smallMarker = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -122,7 +138,6 @@ public class HotelSearchActivity extends Activity {
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
         btn_date = (RelativeLayout) HeaderView.findViewById(R.id.btn_date);
         tv_review_count = (TextView) HeaderView.findViewById(R.id.tv_review_count);
-        map_img = (ImageView) HeaderView.findViewById(R.id.map_img);
         tv_location = (TextView) HeaderView.findViewById(R.id.tv_location);
         tv_date = (TextView) HeaderView.findViewById(R.id.tv_date);
         bannerview = (RelativeLayout) HeaderView.findViewById(R.id.bannerview);
@@ -283,7 +298,8 @@ public class HotelSearchActivity extends Activity {
             count_view.setVisibility(View.VISIBLE);
         }
 
-        getSearch();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this); //getMapAsync must be called on the main thread.
     }
 
     public void getSearch() {
@@ -359,7 +375,7 @@ public class HotelSearchActivity extends Activity {
                         JSONObject bannerentry = null;
 
                         if (Page == 1) {
-                            s_position = "";
+                            mMap.clear();
                         }
                         final String total_cnt = "총 " + Util.numberFormat(obj.getInt("total_count")) + "개의 상품이 검색되었습니다";
                         SpannableStringBuilder builder = new SpannableStringBuilder(total_cnt);
@@ -455,8 +471,9 @@ public class HotelSearchActivity extends Activity {
                                     i == 0 ? true : false,
                                     gapDay
                             ));
-                            if (Page == 1)
-                                s_position += "&markers=icon:http://hotelnow.s3.amazonaws.com/etc/20181101_173010_uXfZWjNIzK.png%7C" + entry.getString("latitude") + "%2C" + entry.getString("longuitude");
+                            if (Page == 1){
+                                setMainMarker(entry.getString("latitude"), entry.getString("longuitude"));
+                            }
                         }
 
                         if (mItems.size() > 0) {
@@ -485,14 +502,9 @@ public class HotelSearchActivity extends Activity {
                             }
                         }
 
-                        String mapStr = "https://maps.googleapis.com/maps/api/staticmap?" +
-                                s_position +
-                                "&scale=2&sensor=false&language=ko&size=360x130" + "&key=" + BuildConfig.google_map_key2;
-                        Ion.with(map_img).load(mapStr);
-
-                        map_img.setOnClickListener(new View.OnClickListener() {
+                        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onMapClick(LatLng arg0) {
                                 TuneWrap.Event("stay_list_map");
                                 CONFIG.search_data = new ArrayList<>();
                                 CONFIG.search_data = mItems;
@@ -759,6 +771,35 @@ public class HotelSearchActivity extends Activity {
                         toast_layout.setVisibility(View.GONE);
                     }
                 }, 1500);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
+        getSearch();
+    }
+
+    private void setMainMarker(String lat, String lng) {
+        LatLng position = new LatLng(Double.valueOf(lat), Double.valueOf(lng));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10));
+        mainIconFactory = new IconGenerator(this);
+        mainIconFactory.setColor(getResources().getColor(R.color.blacktxt));
+        mainIconFactory.setTextAppearance(R.style.iconGenTextMain);
+
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_stay);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        MarkerOptions markerOptions = new MarkerOptions().
+                icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
+
+        mMap.addMarker(markerOptions);
+
     }
 
 }
