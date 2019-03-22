@@ -50,6 +50,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             LogUtil.e(TAG, "newToken : " + token);
 
             Util.setPreferenceValues(_preferences, "gcm_registration_id", token);
+            if (!_preferences.getBoolean("flag_first_executed", false)) {
+                String regId = _preferences.getString("gcm_registration_id", null);
+                String userId = _preferences.getString("userid", null);
+                Util.setGcmToken(this, regId, userId, null);
+            }
         }
     }
 

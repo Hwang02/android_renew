@@ -161,7 +161,7 @@ public class ActLoading extends Activity {
 //        params.putString("PAGE", "ActLoading-Start");
 //        params.putString("NAME", "HWANG");
 //        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
-
+        checkSeverInfo();
     }
 
     @Override
@@ -177,7 +177,7 @@ public class ActLoading extends Activity {
             Log.e(CONFIG.TAG, e.toString());
         }
 
-        checkSeverInfo();
+
     }
 
     public boolean isDebugged() {
@@ -573,6 +573,9 @@ public class ActLoading extends Activity {
 //                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
 //                .check();
 
+        if (!_preferences.getBoolean("flag_first_executed", false)) {
+            Util.setPreferenceValues(_preferences, "flag_first_executed", true);
+        }
         MovePage();
     }
 
