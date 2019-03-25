@@ -228,7 +228,7 @@ public class Util {
     }
 
     public static String decode(String txt) throws UnsupportedEncodingException {
-        return new String(Base64.decode(txt, Base64.DEFAULT), "UTF-8");
+        return new String(Base64.decode(txt, Base64.URL_SAFE), "UTF-8");
     }
 
     // 월 일 에 0 붙임
