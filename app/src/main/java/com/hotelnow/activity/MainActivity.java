@@ -532,6 +532,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void setTapMove(int mPosition, boolean isMove) {
+        showProgress();
         transaction = getSupportFragmentManager().beginTransaction();
         switch (mPosition) {
             case SELECTPAGE: {
@@ -553,6 +554,7 @@ public class MainActivity extends FragmentActivity {
                         transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
+                        hideProgress();
                     }
 
                     if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
@@ -667,6 +669,7 @@ public class MainActivity extends FragmentActivity {
                     transaction.add(mbinding.screenContainer.getId(), new MypageFragment(), "MYPAGE");
                 } else {
                     transaction.show(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
+                    hideProgress();
                 }
 
                 if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
@@ -709,6 +712,7 @@ public class MainActivity extends FragmentActivity {
                         transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
+                        hideProgress();
                     }
 
                     if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
@@ -751,6 +755,7 @@ public class MainActivity extends FragmentActivity {
                         transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));
+                        hideProgress();
                     }
 
                     if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") != null) {

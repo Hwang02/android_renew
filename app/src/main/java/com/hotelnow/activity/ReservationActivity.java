@@ -473,7 +473,10 @@ public class ReservationActivity extends Activity {
                         ll_private.setVisibility(View.VISIBLE);
                         //프라이빗 할인금액
                         isPrivate = true;
-                        int private_sale_price = accepted_price - sale_price;
+                        int private_sale_price = 0;
+                        if(accepted_price > 0) {
+                            private_sale_price = accepted_price - sale_price;
+                        }
                         private_money = private_sale_price;
                         private_discount.setText(Util.numberFormat(private_money) + "원");
                         save_price = private_sale_price;

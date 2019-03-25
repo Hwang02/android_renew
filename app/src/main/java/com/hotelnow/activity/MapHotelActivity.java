@@ -146,27 +146,27 @@ public class MapHotelActivity extends AppCompatActivity {
             }
         });
 
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-//                Toast.makeText(MapHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(MapHotelActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-                finish();
-            }
-
-        };
-
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("지도를 사용하기 위해서는 권한이 필요합니다.")
-                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check();
+//        PermissionListener permissionlistener = new PermissionListener() {
+//            @Override
+//            public void onPermissionGranted() {
+////                Toast.makeText(MapHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+//                Toast.makeText(MapHotelActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//
+//        };
+//
+//        TedPermission.with(this)
+//                .setPermissionListener(permissionlistener)
+//                .setRationaleMessage("지도를 사용하기 위해서는 권한이 필요합니다.")
+//                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
+//                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+//                .check();
         setContents();
     }
 
@@ -357,17 +357,17 @@ public class MapHotelActivity extends AppCompatActivity {
 
     private void handleMap() {
         if (map != null) {
-            if (ActivityCompat.checkSelfPermission(MapHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            map.setMyLocationEnabled(true);
+//            if (ActivityCompat.checkSelfPermission(MapHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                // TODO: Consider calling
+//                //    ActivityCompat#requestPermissions
+//                // here to request the missing permissions, and then overriding
+//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                //                                          int[] grantResults)
+//                // to handle the case where the user grants the permission. See the documentation
+//                // for ActivityCompat#requestPermissions for more details.
+//                return;
+//            }
+//            map.setMyLocationEnabled(true);
 
             map.getUiSettings().setMapToolbarEnabled(false);
             map.getUiSettings().setZoomControlsEnabled(false);
