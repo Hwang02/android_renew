@@ -179,11 +179,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    app:elementSpacing="8dp"
+                    app:elementSpacing="7dp"
                     app:flowDirection="leftToRight"
                     app:lineSpacing="10dp"
                     app:paddingStart="15dp"
-                    app:paddingEnd="15dp" />
+                    app:paddingEnd="15dp"/>
             </LinearLayout>
 
             <View
