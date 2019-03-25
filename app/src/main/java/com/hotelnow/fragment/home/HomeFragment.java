@@ -315,7 +315,9 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        if(isAdded()) {
+                            Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        }
                         MainActivity.hideProgress();
                         return;
                     }
