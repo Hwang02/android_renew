@@ -693,7 +693,7 @@ public class Util {
                     linkContent = new ShareLinkContent.Builder()
 
                             .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
-                                    + "원을 드립니다." + "(추천인코드:" + Util.getRecommCode(Util.decode(_preferences.getString("userid", null).replace("HN|", ""))) + ")\n"
+                                    + "원을 드립니다." + "(추천인코드:" + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + ")\n"
                                     + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
                                     "추천인코드 : " + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + " 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!")
                             .setContentUrl(Uri.parse(CONFIG.marketUrl))

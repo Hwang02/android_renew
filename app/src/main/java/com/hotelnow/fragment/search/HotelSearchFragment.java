@@ -404,30 +404,32 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                                 public void onSingleClick(View v) {
                                     CONFIG.search_data = new ArrayList<>();
                                     CONFIG.search_data = mItems;
-                                    Intent intent = new Intent(getActivity(), MapHotelActivity.class);
+                                    if(mItems != null) {
+                                        Intent intent = new Intent(getActivity(), MapHotelActivity.class);
 
-                                    intent.putExtra("Page", Page);
-                                    intent.putExtra("total_count", total_count);
-                                    intent.putExtra("city", city);
-                                    intent.putExtra("city_name", tv_location.getText().toString());
-                                    intent.putExtra("sub_city", sub_city);
-                                    intent.putExtra("search_txt", search_txt);
-                                    intent.putExtra("banner_id", banner_id);
-                                    intent.putExtra("ec_date", ec_date);
-                                    intent.putExtra("ee_date", ee_date);
-                                    intent.putExtra("category", category);
-                                    intent.putExtra("facility", facility);
-                                    intent.putExtra("price_min", price_min);
-                                    intent.putExtra("person_count", person_count);
-                                    intent.putExtra("price_max", price_max);
-                                    intent.putExtra("score", score);
-                                    intent.putExtra("order_kind", order_kind);
-                                    intent.putExtra("title_text", title_text);
-                                    if (order_kind.equals("distance")) {
-                                        intent.putExtra("lat", CONFIG.lat);
-                                        intent.putExtra("lng", CONFIG.lng);
+                                        intent.putExtra("Page", Page);
+                                        intent.putExtra("total_count", total_count);
+                                        intent.putExtra("city", city);
+                                        intent.putExtra("city_name", tv_location.getText().toString());
+                                        intent.putExtra("sub_city", sub_city);
+                                        intent.putExtra("search_txt", search_txt);
+                                        intent.putExtra("banner_id", banner_id);
+                                        intent.putExtra("ec_date", ec_date);
+                                        intent.putExtra("ee_date", ee_date);
+                                        intent.putExtra("category", category);
+                                        intent.putExtra("facility", facility);
+                                        intent.putExtra("price_min", price_min);
+                                        intent.putExtra("person_count", person_count);
+                                        intent.putExtra("price_max", price_max);
+                                        intent.putExtra("score", score);
+                                        intent.putExtra("order_kind", order_kind);
+                                        intent.putExtra("title_text", title_text);
+                                        if (order_kind.equals("distance")) {
+                                            intent.putExtra("lat", CONFIG.lat);
+                                            intent.putExtra("lng", CONFIG.lng);
+                                        }
+                                        startActivityForResult(intent, 90);
                                     }
-                                    startActivityForResult(intent, 90);
                                 }
                             });
 

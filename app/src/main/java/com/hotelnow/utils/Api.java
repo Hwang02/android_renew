@@ -43,9 +43,6 @@ public class Api {
     private static OkHttpClient client = new OkHttpClient();
 
     public static void get(String url, HttpCallback cb) {
-//        Api api = new Api();
-//        api.call2("GET", url, null, cb);
-//        api = null;
         call("GET", url, null, cb);
     }
 
@@ -91,7 +88,7 @@ public class Api {
         String hsessVal = "";
 
         try {
-            hsessVal = Util.decode(_preferences.getString("cookie_val", ""));
+            hsessVal = Util.decode(_preferences.getString("cookie_val", "")).replace("+","-").replace("/","_");
             List<String> lists = Arrays.asList(hsessVal.split("\n"));
             for (int i = 0; i < lists.size(); i++) {
                 String list = lists.get(i);
@@ -171,6 +168,7 @@ public class Api {
 
                                 _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
                                 SharedPreferences.Editor prefEditor = _preferences.edit();
+                                h_sess = h_sess.replace("-","+").replace("_","/");
                                 prefEditor.putString("cookie_val", Base64.encodeToString(h_sess.getBytes(), Base64.URL_SAFE));
                                 prefEditor.commit();
                                 LogUtil.e(CONFIG.TAG, "HEADER response.hecader h_sess: " + h_sess);
@@ -242,7 +240,7 @@ public class Api {
         String hsessVal = "";
 
         try {
-            hsessVal = Util.decode(_preferences.getString("cookie_val", ""));
+            hsessVal = Util.decode(_preferences.getString("cookie_val", "")).replace("+","-").replace("/","_");
             List<String> lists = Arrays.asList(hsessVal.split("\n"));
             for (int i = 0; i < lists.size(); i++) {
                 String list = lists.get(i);
@@ -322,6 +320,7 @@ public class Api {
 
                                 _preferences = PreferenceManager.getDefaultSharedPreferences(HotelnowApplication.getAppContext());
                                 SharedPreferences.Editor prefEditor = _preferences.edit();
+                                h_sess = h_sess.replace("-","+").replace("_","/");
                                 prefEditor.putString("cookie_val", Base64.encodeToString(h_sess.getBytes(), Base64.NO_WRAP));
                                 prefEditor.commit();
                                 LogUtil.e(CONFIG.TAG, "HEADER response.hecader h_sess: " + h_sess);
