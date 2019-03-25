@@ -538,14 +538,13 @@ public class ReservationActivity extends Activity {
                     String username = null, hphoneTmp = null;
                     if (_preferences.getString("username", null) != null) {
                         username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
-                        hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
-                    }
-                    if (username != null && hphoneTmp != null) {
-                        hphone = hphoneTmp.split("-");
-
                         if (username != null) {
                             usernameInput.setText(username);
                         }
+                        hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
+                    }
+                    if (hphoneTmp != null) {
+                        hphone = hphoneTmp.split("-");
 
                         pnum2.setText(hphone[1]);
                         pnum3.setText(hphone[2]);
