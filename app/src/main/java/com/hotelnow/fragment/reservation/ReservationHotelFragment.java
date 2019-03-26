@@ -370,9 +370,12 @@ public class ReservationHotelFragment extends Fragment {
     private void init() {
         // preference
         if(isAdded()) {
-            TuneWrap.Event("booking_stay");
-
             _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+
+            if(!_preferences.getBoolean("booking_stay", false)) {
+                TuneWrap.Event("booking_stay");
+                Util.setPreferenceValues(_preferences,"booking_stay", true);
+            }
 
             mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
             scroll = (NestedScrollView) getView().findViewById(R.id.scroll);

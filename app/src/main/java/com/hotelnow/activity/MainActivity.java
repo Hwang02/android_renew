@@ -155,16 +155,19 @@ public class MainActivity extends FragmentActivity {
                 switch (tab.getPosition()) {
                     case 0: { // 추천
                         LogUtil.e("xxxxx", "111111");
+                        TuneWrap.Event("home_button");
                         setTapMove(SELECTPAGE, false);
                         break;
                     }
                     case 1: { // 호텔
                         LogUtil.e("xxxxx", "222222");
+                        TuneWrap.Event("stay_button");
                         setTapMove(HOTELPAGE, false);
                         break;
                     }
                     case 2: { // 엑티비티
                         LogUtil.e("xxxxx", "33333");
+                        TuneWrap.Event("activity_button");
                         setTapMove(LEISUREPAGE, false);
                         break;
                     }
@@ -195,13 +198,10 @@ public class MainActivity extends FragmentActivity {
                         int mPosition = 4;
                         if (mbinding.tabLayout.getSelectedTabPosition() == 0) {
                             mPosition = SELECTPAGE;
-                            TuneWrap.Event("home_button");
                         } else if (mbinding.tabLayout.getSelectedTabPosition() == 1) {
                             mPosition = HOTELPAGE;
-                            TuneWrap.Event("stay_button");
                         } else if (mbinding.tabLayout.getSelectedTabPosition() == 2) {
                             mPosition = LEISUREPAGE;
-                            TuneWrap.Event("activity_button");
                         }
 
                         setTapMove(mPosition, false);

@@ -102,6 +102,12 @@ public class ActLoading extends Activity {
         // preference 할당
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        Util.setPreferenceValues(_preferences, "favorite_stay", false);
+        Util.setPreferenceValues(_preferences, "favorite_activity", false);
+        Util.setPreferenceValues(_preferences, "myinfo", false);
+        Util.setPreferenceValues(_preferences, "booking_activity", false);
+        Util.setPreferenceValues(_preferences, "booking_stay", false);
+
         if (!BuildConfig.DEBUG && existRootingFile()) {
             dialogAlert = new DialogAlert("알림", "루팅된 단말입니다. 앱을 종료 합니다.", this, new View.OnClickListener() {
                 @Override
