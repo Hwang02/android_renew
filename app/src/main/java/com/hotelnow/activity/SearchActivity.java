@@ -212,6 +212,7 @@ public class SearchActivity extends Activity {
         lv_location.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                TuneWrap.Event("search_around");
                 if (!_preferences.getBoolean("sel_location", false)) {
                     dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
                             new View.OnClickListener() {
@@ -263,8 +264,6 @@ public class SearchActivity extends Activity {
                     locationListener = new LocationListener() {
                         @Override
                         public void onLocationChanged(Location location) {
-
-                            TuneWrap.Event("search_around");
                             locManager.removeUpdates(locationListener);
                             CONFIG.lat = location.getLatitude() + "";
                             CONFIG.lng = location.getLongitude() + "";

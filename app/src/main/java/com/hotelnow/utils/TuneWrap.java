@@ -36,9 +36,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(evt_name));
         }
-
-        tune.measureEvent(new TuneEvent(evt_name));
     }
 
     //  Event1
@@ -51,8 +51,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1));
         }
-        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1));
     }
 
     //  Event2
@@ -65,8 +66,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2));
         }
-        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2));
     }
 
     //  Event3
@@ -79,8 +81,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3));
         }
-        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3));
     }
 
     //  Event4
@@ -93,8 +96,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3).withAttribute4(depth4));
         }
-        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3).withAttribute4(depth4));
     }
 
     //  Event4
@@ -107,8 +111,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3).withAttribute4(depth4).withAttribute5(depth5));
         }
-        tune.measureEvent(new TuneEvent(evt_name).withAttribute1(depth1).withAttribute2(depth2).withAttribute3(depth3).withAttribute4(depth4).withAttribute5(depth5));
     }
 
     //  Login
@@ -123,7 +128,9 @@ public class TuneWrap {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tune.measureEvent(TuneEvent.LOGIN);
+        finally {
+            tune.measureEvent(TuneEvent.LOGIN);
+        }
     }
 
     //  Registration
@@ -137,8 +144,9 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(TuneEvent.REGISTRATION);
         }
-        tune.measureEvent(TuneEvent.REGISTRATION);
     }
 
     // Reservation
@@ -147,7 +155,6 @@ public class TuneWrap {
 
         Date ci = new Date();
         Date co = new Date();
-        int date_term = (int) Util.diffOfDate(checkin, checkout);
 
         try {
             SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -163,14 +170,16 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        tune.measureEvent(new TuneEvent(TuneEvent.RESERVATION)
+        }finally {
+            tune.measureEvent(new TuneEvent(TuneEvent.RESERVATION)
 //                .withRevenue(revenue)
-                .withCurrencyCode(currency)
-                .withDate1(ci)
-                .withDate2(co)
+                    .withCurrencyCode(currency)
+                    .withDate1(ci)
+                    .withDate2(co)
 //                .withAdvertiserRefId(booking_id)
-                .withQuantity(quantity));
+                    .withQuantity(quantity));
+        }
+
     }
 
     // Purchase
@@ -188,41 +197,43 @@ public class TuneWrap {
             tune.setUserId(user_id);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        String sel_type = "";
-        if (is_q) {
-            tune.measureEvent(new TuneEvent("purchase_activity")
+        } finally {
+            String sel_type = "";
+            if (is_q) {
+                tune.measureEvent(new TuneEvent("purchase_activity")
+                        .withRevenue(revenue)
+                        .withCurrencyCode(currency)
+                        .withAttribute1(eventItem.attribute1) // 시티
+                        .withAttribute2(eventItem.attribute2) // 상품id
+                        .withAttribute3(eventItem.attribute3) // 카테고리
+                        .withAttribute4(eventItem.attribute4) // 쿠폰명
+                        .withAttribute5(eventItem.attribute5) // 쿠폰아이디
+                        .withAdvertiserRefId(booking_id));
+                sel_type = "activity";
+            } else {
+                tune.measureEvent(new TuneEvent("purchase_stay")
+                        .withRevenue(revenue)
+                        .withCurrencyCode(currency)
+                        .withAttribute1(eventItem.attribute1) // 시티
+                        .withAttribute2(eventItem.attribute2) // 상품id
+                        .withAttribute3(Util.TuneCategory(HotelnowApplication.getAppContext(), eventItem.attribute3)) // 숙소등급
+                        .withAttribute4(eventItem.attribute4) // 쿠폰명
+                        .withAttribute5(eventItem.attribute5) // 쿠폰아이디
+                        .withAdvertiserRefId(booking_id));
+                sel_type = "stay";
+            }
+
+            tune.measureEvent(new TuneEvent(TuneEvent.PURCHASE)
                     .withRevenue(revenue)
                     .withCurrencyCode(currency)
                     .withAttribute1(eventItem.attribute1) // 시티
-                    .withAttribute2(eventItem.attribute2) // 상품id
-                    .withAttribute3(eventItem.attribute3) // 카테고리
+                    .withAttribute2(sel_type) // 타입
+                    .withAttribute3(eventItem.attribute2) // 상품id
                     .withAttribute4(eventItem.attribute4) // 쿠폰명
-                    .withAttribute5(eventItem.attribute5) // 쿠폰아이디
+                    .withAttribute5(eventItem.attribute5) // 쿠폰id
                     .withAdvertiserRefId(booking_id));
-            sel_type = "activity";
-        } else {
-            tune.measureEvent(new TuneEvent("purchase_stay")
-                    .withRevenue(revenue)
-                    .withCurrencyCode(currency)
-                    .withAttribute1(eventItem.attribute1) // 시티
-                    .withAttribute2(eventItem.attribute2) // 상품id
-                    .withAttribute3(Util.TuneCategory(HotelnowApplication.getAppContext(), eventItem.attribute3)) // 숙소등급
-                    .withAttribute4(eventItem.attribute4) // 쿠폰명
-                    .withAttribute5(eventItem.attribute5) // 쿠폰아이디
-                    .withAdvertiserRefId(booking_id));
-            sel_type = "stay";
         }
 
-        tune.measureEvent(new TuneEvent(TuneEvent.PURCHASE)
-                .withRevenue(revenue)
-                .withCurrencyCode(currency)
-                .withAttribute1(eventItem.attribute1) // 시티
-                .withAttribute2(sel_type) // 타입
-                .withAttribute3(eventItem.attribute2) // 상품id
-                .withAttribute4(eventItem.attribute4) // 쿠폰명
-                .withAttribute5(eventItem.attribute5) // 쿠폰id
-                .withAdvertiserRefId(booking_id));
     }
 
     // Search
@@ -236,8 +247,10 @@ public class TuneWrap {
             tune.setUserName(AES256Chiper.AES_Decode(_preferences.getString("username", "").replace("HN|", "")));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            tune.measureEvent(new TuneEvent(TuneEvent.SEARCH));
         }
-        tune.measureEvent(new TuneEvent(TuneEvent.SEARCH));
+
     }
 
 }
