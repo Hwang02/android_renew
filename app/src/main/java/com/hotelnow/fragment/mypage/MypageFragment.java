@@ -493,9 +493,10 @@ public class MypageFragment extends Fragment {
                         }
 
                         JSONObject data = obj.getJSONObject("data");
+                        JSONObject user = obj.getJSONObject("user");
 
-                        mMypageBinding.join.userName.setText(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")));
-                        mMypageBinding.join.userEmail.setText(AES256Chiper.AES_Decode(_preferences.getString("email", null).replace("HN|", "")));
+                        mMypageBinding.join.userName.setText(user.getString("username"));
+                        mMypageBinding.join.userEmail.setText(user.getString("useremail"));
                         save_money = Util.numberFormat(data.getInt("amount"));
                         mMypageBinding.join.tvUserSaveMoney.setText(save_money + "원");
                         mMypageBinding.join.tvUserCoupon.setText(data.getString("coupon_cnt_new") + "장");

@@ -537,11 +537,11 @@ public class ReservationActivity extends Activity {
                     other_pnum1.setAdapter(adapter);
                     String username = null, hphoneTmp = null;
                     if (_preferences.getString("username", null) != null) {
-                        username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
+                        username = data.getString("user_name");
                         if (username != null) {
                             usernameInput.setText(username);
                         }
-                        hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
+                        hphoneTmp = data.getString("phone");
                     }
                     if (hphoneTmp != null) {
                         hphone = hphoneTmp.split("-");

@@ -436,7 +436,6 @@ public class ActLoading extends Activity {
                     } else {
 
                         String uid = _preferences.getString("userid", null);
-                        String umi = _preferences.getString("moreinfo", null);
                         String uname = _preferences.getString("username", null);
                         String uemail = _preferences.getString("email", null);
                         String uphone = _preferences.getString("phone", null);
@@ -450,7 +449,7 @@ public class ActLoading extends Activity {
                             prefEditor.commit();
                         }
 
-                        if (uid != null && umi != null) {
+                        if (uid != null) {
                             authCheck();
                         } else {
                             SharedPreferences.Editor prefEditor = _preferences.edit();

@@ -460,30 +460,6 @@ public class ReservationActivityActivity extends Activity {
                         pnum1.setAdapter(adapter);
                         other_pnum1.setAdapter(adapter);
 
-                        // 이름, 전번
-                        String username = null, hphoneTmp = null;
-                        if (_preferences.getString("username", null) != null) {
-                            username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
-                            if (username != null) {
-                                usernameInput.setText(username);
-                            }
-                            hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
-                        }
-
-                        if (hphoneTmp != null) {
-                            hphone = hphoneTmp.split("-");
-
-                            pnum2.setText(hphone[1]);
-                            pnum3.setText(hphone[2]);
-
-                            for (int i = 0; i < phonePrefixs.length; i++) {
-                                if (hphone[0].equals(phonePrefixs[i])) {
-                                    pnum1.setSelection(i);
-                                    break;
-                                }
-                            }
-                        }
-
                         //번호인증
                         if (cookie == null) { // 비회원
                             findViewById(R.id.layout_auth).setVisibility(View.VISIBLE);
@@ -998,6 +974,30 @@ public class ReservationActivityActivity extends Activity {
                                 }
                             }
                         });
+
+                        // 이름, 전번
+                        String username = null, hphoneTmp = null;
+                        if (_preferences.getString("username", null) != null) {
+                            username = AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""));
+                            if (username != null) {
+                                usernameInput.setText(username);
+                            }
+                            hphoneTmp = AES256Chiper.AES_Decode(_preferences.getString("phone", null).replace("HN|", ""));
+                        }
+
+                        if (hphoneTmp != null) {
+                            hphone = hphoneTmp.split("-");
+
+                            pnum2.setText(hphone[1]);
+                            pnum3.setText(hphone[2]);
+
+                            for (int i = 0; i < phonePrefixs.length; i++) {
+                                if (hphone[0].equals(phonePrefixs[i])) {
+                                    pnum1.setSelection(i);
+                                    break;
+                                }
+                            }
+                        }
                     }
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                 } catch (Exception e) {

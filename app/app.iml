@@ -271,5 +271,9 @@
     <orderEntry type="module" module-name="map_lib" />
     <orderEntry type="module" module-name="calendar_lib" />
     <orderEntry type="module" module-name="map_lib" />
+    <orderEntry type="module" module-name="calendar_lib" />
+    <orderEntry type="module" module-name="map_lib" />
+    <orderEntry type="module" module-name="calendar_lib" />
+    <orderEntry type="module" module-name="map_lib" />
   </component>
 </module>
