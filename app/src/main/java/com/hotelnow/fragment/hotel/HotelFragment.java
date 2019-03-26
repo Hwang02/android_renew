@@ -135,8 +135,8 @@ public class HotelFragment extends Fragment {
             public void onRefresh() {
                 MainActivity.showProgress();
                 swipeView.setRefreshing(true);
-
                 objects.clear();
+                adapter.notifyDataSetChanged();
                 getObject();
                 allRefresh();
                 swipeView.setRefreshing(false);

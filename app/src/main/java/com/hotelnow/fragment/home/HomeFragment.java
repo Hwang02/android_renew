@@ -269,6 +269,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                             if (isStart) {
                                 // 리스트 호출
                                 objects.clear();
+                                adapter.notifyDataSetChanged();
 //                                adapter.allRefresh(false);
                                 getObject();
                                 CONFIG.isRecent = true;
@@ -292,8 +293,15 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             adapter.allRefresh(true);
             if (isStart || mRecentItem.size() == 0) {
                 mRecentListItem.clear();
-                objects.clear();
-                getObject();
+                if(objects.size() == 0) {
+                    objects.clear();
+                    adapter.notifyDataSetChanged();
+                    getObject();
+                }
+                else{
+                    adapter.notifyDataSetChanged();
+                    MainActivity.hideProgress();
+                }
             } else {
                 MainActivity.hideProgress();
             }

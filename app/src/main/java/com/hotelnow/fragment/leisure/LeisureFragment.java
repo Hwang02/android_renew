@@ -136,6 +136,7 @@ public class LeisureFragment extends Fragment {
                 MainActivity.showProgress();
                 swipeView.setRefreshing(true);
                 objects.clear();
+                adapter.notifyDataSetChanged();
                 getObject();
                 allRefresh();
                 swipeView.setRefreshing(false);
