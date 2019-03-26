@@ -1859,7 +1859,7 @@ public class ReservationActivity extends Activity {
                     int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
 
                     // Tune
-                    TuneWrap.Reservation(revenue, quantity, obj.getString("bid"), checkin_date, checkout_date);
+//                    TuneWrap.Reservation(revenue, quantity, obj.getString("bid"), checkin_date, checkout_date);
 
                     startActivityForResult(intent, 80);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);

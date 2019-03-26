@@ -714,8 +714,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                         @Override
                         public void onMapClick(LatLng arg0)
                         {
-                            TuneWrap.Event("around");
-
                             Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
                             intent.putExtra("from", "pdetail");
                             intent.putExtra("title", hotel_name);
@@ -743,9 +741,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                         @Override
                         public void onClick(View v) {
                             // 주변보기
-
-                            TuneWrap.Event("around");
-
                             Intent intent = new Intent(DetailHotelActivity.this, MapActivity.class);
                             intent.putExtra("from", "pdetail");
                             intent.putExtra("title", hotel_name);

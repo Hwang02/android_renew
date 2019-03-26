@@ -86,6 +86,17 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
             }
         });
 
+        // 사업자 정보확인
+        holder.term4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
+                intent.putExtra("url", CONFIG.setting_agree4);
+                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt4));
+                mHf.startActivity(intent);
+            }
+        });
+
         holder.bt_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +120,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView lv_more, bt_top;
-        TextView tv_companyinfo, tv_more, term1, term2, term3;
+        TextView tv_companyinfo, tv_more, term1, term2, term3, term4;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -122,6 +133,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
             term1 = (TextView) itemView.findViewById(R.id.term1);
             term2 = (TextView) itemView.findViewById(R.id.term2);
             term3 = (TextView) itemView.findViewById(R.id.term3);
+            term4 = (TextView) itemView.findViewById(R.id.term4);
         }
     }
 }

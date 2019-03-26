@@ -226,6 +226,17 @@ public class MypageFragment extends Fragment {
             }
         });
 
+        // 사업자 정보확인
+        mMypageBinding.footer.term4.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
+                intent.putExtra("url", CONFIG.setting_agree4);
+                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt4));
+                startActivity(intent);
+            }
+        });
+
         // 앱버전
         mMypageBinding.center.txtVer.setText("V" + Util.getAppVersionName(getActivity()));
 
