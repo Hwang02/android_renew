@@ -536,6 +536,7 @@ public class MainActivity extends FragmentActivity {
         transaction = getSupportFragmentManager().beginTransaction();
         switch (mPosition) {
             case SELECTPAGE: {
+                TuneWrap.Event("home");
                 tabStatus(true);
                 if (isMove) {
                     new Handler().postDelayed(
@@ -550,7 +551,6 @@ public class MainActivity extends FragmentActivity {
                             }, 100);
                 } else {
                     if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") == null) {
-                        TuneWrap.Event("home");
                         transaction.add(mbinding.screenContainer.getId(), new HomeFragment(), "SELECTPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -654,6 +654,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case MYPAGE: {
+                TuneWrap.Event("myinfo");
                 tabStatus(false);
                 if (isMove) {
                     new Handler().postDelayed(
@@ -695,6 +696,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case HOTELPAGE: {
+                TuneWrap.Event("stay");
                 if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
@@ -708,7 +710,6 @@ public class MainActivity extends FragmentActivity {
                             }, 100);
                 } else {
                     if (getSupportFragmentManager().findFragmentByTag("HOTELPAGE") == null) {
-                        TuneWrap.Event("stay");
                         transaction.add(mbinding.screenContainer.getId(), new HotelFragment(), "HOTELPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
@@ -738,6 +739,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             }
             case LEISUREPAGE: {
+                TuneWrap.Event("activity");
                 if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
@@ -751,7 +753,6 @@ public class MainActivity extends FragmentActivity {
                             }, 100);
                 } else {
                     if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") == null) {
-                        TuneWrap.Event("activity");
                         transaction.add(mbinding.screenContainer.getId(), new LeisureFragment(), "LEISUREPAGE");
                     } else {
                         transaction.show(getSupportFragmentManager().findFragmentByTag("LEISUREPAGE"));

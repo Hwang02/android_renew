@@ -527,8 +527,8 @@ public class HotelSearchActivity extends AppCompatActivity implements OnMapReady
                         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                             @Override
                             public void onMapClick(LatLng arg0) {
-                                TuneWrap.Event("stay_list_map");
                                 if(mItems != null) {
+                                    TuneWrap.Event("stay_list_map");
                                     CONFIG.search_data = new ArrayList<>();
                                     CONFIG.search_data = mItems;
                                     Intent intent = new Intent(HotelSearchActivity.this, MapHotelActivity.class);

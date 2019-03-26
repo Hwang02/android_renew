@@ -430,13 +430,8 @@ public class FavoriteHotelFragment extends Fragment {
     private void init() {
         // preference
         if(isAdded()) {
-
             _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
-
-            if(!_preferences.getBoolean("favorite_stay",false)) {
-                TuneWrap.Event("favorite_stay");
-                Util.setPreferenceValues(_preferences, "favorite_stay", true);
-            }
+            TuneWrap.Event("favorite_stay");
             dbHelper = new DbOpenHelper(mActivity);
 
 //        search_txt = getArguments().getString("search_txt");

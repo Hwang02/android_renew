@@ -345,10 +345,7 @@ public class ReservationActivityFragment extends Fragment {
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        if(!_preferences.getBoolean("booking_activity", false)) {
-            TuneWrap.Event("booking_activity");
-            Util.setPreferenceValues(_preferences,"booking_activity", true);
-        }
+        TuneWrap.Event("booking_activity");
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
         adapter = new ReservationActivityAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationActivityFragment.this);

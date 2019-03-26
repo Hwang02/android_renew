@@ -372,11 +372,7 @@ public class ReservationHotelFragment extends Fragment {
         if(isAdded()) {
             _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
 
-            if(!_preferences.getBoolean("booking_stay", false)) {
-                TuneWrap.Event("booking_stay");
-                Util.setPreferenceValues(_preferences,"booking_stay", true);
-            }
-
+            TuneWrap.Event("booking_stay");
             mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
             scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
             adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")), ReservationHotelFragment.this);

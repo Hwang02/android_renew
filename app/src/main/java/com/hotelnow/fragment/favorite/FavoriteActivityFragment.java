@@ -407,11 +407,7 @@ public class FavoriteActivityFragment extends Fragment {
     private void init() {
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        if(!_preferences.getBoolean("favorite_activity",false)) {
-            TuneWrap.Event("favorite_activity");
-            Util.setPreferenceValues(_preferences, "favorite_activity", true);
-        }
+        TuneWrap.Event("favorite_activity");
 
         dbHelper = new DbOpenHelper(getActivity());
 
