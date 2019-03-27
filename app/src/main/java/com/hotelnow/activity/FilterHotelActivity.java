@@ -273,7 +273,7 @@ public class FilterHotelActivity extends Activity {
 
         for (int i = 0; i < orderbyarr.length; i++) {
             CheckBox ch = new CheckBox(FilterHotelActivity.this);
-            ch.setId(i);
+//            ch.setId(i);
             ch.setTag(i);
             ch.setText(orderbyarr[i]);
             ch.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -333,7 +333,7 @@ public class FilterHotelActivity extends Activity {
 
         for (int i = 0; i < categorytextarr.length; i++) {
             CheckBox ch = new CheckBox(FilterHotelActivity.this);
-            ch.setId(i);
+//            ch.setId(i);
             ch.setTag(categorycodearr[i]);
             ch.setText(categorytextarr[i]);
             ch.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -372,7 +372,7 @@ public class FilterHotelActivity extends Activity {
 
         for (int i = 0; i < usepersonarr.length; i++) {
             CheckBox ch = new CheckBox(FilterHotelActivity.this);
-            ch.setId(i);
+//            ch.setId(i);
             ch.setTag(i);
             ch.setText(usepersonarr[i]);
             ch.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -438,7 +438,7 @@ public class FilterHotelActivity extends Activity {
 
         for (int i = 0; i < ratearr.length; i++) {
             View child = getLayoutInflater().inflate(R.layout.layout_rate_item, null);
-            child.setId(i);
+//            child.setId(i);
             child.setTag(i);
             TextView mTitle = (TextView) child.findViewById(R.id.rate_title);
             mTitle.setText(ratearr[i]);
@@ -485,7 +485,7 @@ public class FilterHotelActivity extends Activity {
 
         for (int i = 0; i < facilityarr.length; i++) {
             View child = getLayoutInflater().inflate(R.layout.layout_facility_item, null);
-            child.setId(i);
+//            child.setId(i);
             child.setTag(i);
             final TextView facility_title = (TextView) child.findViewById(R.id.facility_title);
             ImageView facility_icon = (ImageView) child.findViewById(R.id.facility_icon);
