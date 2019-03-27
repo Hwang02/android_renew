@@ -292,16 +292,10 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             mRecentListItem.clear();
             adapter.allRefresh(true);
             if (isStart || mRecentItem.size() == 0) {
-                mRecentListItem.clear();
-                if(objects.size() == 0) {
-                    objects.clear();
-                    adapter.notifyDataSetChanged();
-                    getObject();
-                }
-                else{
-                    adapter.notifyDataSetChanged();
-                    MainActivity.hideProgress();
-                }
+                objects.clear();
+                adapter.notifyDataSetChanged();
+                getObject();
+
             } else {
                 MainActivity.hideProgress();
             }
@@ -568,6 +562,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                 ft.add(frgpopup, null);
                                 ft.commitAllowingStateLoss();
+
                             }
                         }
                     } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
@@ -641,6 +636,7 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                                     ft.add(frgpopup, null);
                                     ft.commitAllowingStateLoss();
+
                                 }
                             }
                         }

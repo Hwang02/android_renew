@@ -76,6 +76,7 @@ public class DialogMainFragment extends DialogFragment {
 
         if (popup_data != null && popup_data.length() == 0) {
             Toast.makeText(getActivity(), "알림이 없습니다. 리스트 새로고침 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            getDialog().dismiss();
         }
 
         id = new String[popup_data.length()];
@@ -142,19 +143,14 @@ public class DialogMainFragment extends DialogFragment {
                     calendar.setTime(currentTime);
                     calendar.add(Calendar.DAY_OF_YEAR, 7);
 
-                    if (pf != null && pf.frgpopup != null)
-                        pf.frgpopup.dismiss();
-
                 } else {
                     // 닫기
                     Date currentTime = new Date();
                     calendar.setTime(currentTime);
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
-                    if (pf != null && pf.frgpopup != null) {
-                        pf.frgpopup.dismiss();
-                    }
                 }
 
+                getDialog().dismiss();
                 SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String checkdate = mSimpleDateFormat.format(calendar.getTime());
                 if (pf != null && pf._preferences != null) {
