@@ -423,6 +423,12 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     for (int i = 0; i < avail_dates.length(); i++) {
                         selectList[i] = avail_dates.get(i).toString();
                     }
+//                    selectList = new String[5];
+//                    selectList[0]="2019-03-28";
+//                    selectList[1]="2019-03-29";
+//                    selectList[2]="2019-03-30";
+//                    selectList[3]="2019-04-01";
+//                    selectList[4]="2019-04-04";
 
                     privatedeal_status = obj.getInt("privatedeal_booking_status");
                     lodge_type = hotel_data.getString("lodge_type");

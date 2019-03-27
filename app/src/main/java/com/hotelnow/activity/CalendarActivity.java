@@ -77,6 +77,9 @@ public class CalendarActivity extends Activity {
             } catch (Exception e) {
             }
         }
+        else{
+            dateObj = CONFIG.svr_date;
+        }
 
         SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
         Calendar todayCal = Calendar.getInstance();
@@ -84,13 +87,24 @@ public class CalendarActivity extends Activity {
         today = todayCal.getTime();
 
         final Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
-
         final Calendar lastYear = Calendar.getInstance();
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        nextYear.setTime(dateObj);
+        lastYear.setTime(dateObj);
+        start.setTime(dateObj);
+        end.setTime(dateObj);
+
         if (CurHourFormat.format(today).equals("00") || CurHourFormat.format(today).equals("01")) {
             lastYear.add(Calendar.DATE, -1);
+            nextYear.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate-1);
+            start.add(Calendar.DATE, -1);
+            end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate-1);
         } else {
             lastYear.add(Calendar.DATE, 0);
+            nextYear.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
+            start.add(Calendar.DATE, 0);
+            end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
         }
         calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
 
@@ -106,11 +120,6 @@ public class CalendarActivity extends Activity {
         city = intent.getStringExtra("city");
         city_code = intent.getStringExtra("city_code");
         subcity_code = intent.getStringExtra("subcity_code");
-
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        start.setTime(new Date());
-        end.add(Calendar.DAY_OF_MONTH, CONFIG.maxDate);
 
 //        선택안되는 날
         if (selectList != null) {
@@ -160,11 +169,15 @@ public class CalendarActivity extends Activity {
             e.printStackTrace();
         }
 
-        calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("yyyy년 MM월", Locale.getDefault()))
-                .inMode(CalendarPickerView.SelectionMode.RANGE)
-                .withSelectedDates(arrayList)
-                .withHighlightedDates(not_dates);
-
+        try {
+            calendar.init(lastYear.getTime(), nextYear.getTime(), new SimpleDateFormat("yyyy년 MM월", Locale.getDefault()))
+                    .inMode(CalendarPickerView.SelectionMode.RANGE)
+                    .withSelectedDates(arrayList)
+                    .withHighlightedDates(not_dates);
+        }
+        catch (Exception e){
+            Toast.makeText(CalendarActivity.this, "날짜 설정을 자동으로 변경해주세요", Toast.LENGTH_SHORT).show();
+        }
 
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override

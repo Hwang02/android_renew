@@ -59,6 +59,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
@@ -945,9 +946,9 @@ public class ReservationActivity extends Activity {
                     }
 
                     // 결제 하기
-                    btn_go_payment.setOnClickListener(new View.OnClickListener() {
+                    btn_go_payment.setOnClickListener(new OnSingleClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onSingleClick(View v) {
                             if (flag_btn_clicked == true)
                                 return;
                             else

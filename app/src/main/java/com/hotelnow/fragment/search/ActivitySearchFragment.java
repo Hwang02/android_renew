@@ -501,13 +501,13 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        TuneWrap.Event("search_list_activity");
                         init();
                     }
                 }, 500);
 
                 _hasLoadedOnce = true;
             }
+            TuneWrap.Event("search_list_activity");
         }
     }
 

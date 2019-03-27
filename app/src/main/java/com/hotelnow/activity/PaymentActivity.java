@@ -149,7 +149,7 @@ public class PaymentActivity extends Activity {
             url += "&is_payco=Y";
         }
 
-        Log.e(CONFIG.TAG, url);
+//        Log.e(CONFIG.TAG, url);
 
         webView.loadUrl(url);
     }
