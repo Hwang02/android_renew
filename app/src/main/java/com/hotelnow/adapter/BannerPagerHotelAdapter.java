@@ -51,12 +51,14 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
     private String mTitle;
     private SharedPreferences _preferences;
     private Activity mActivity;
+    private String haType ="";
 
-    public BannerPagerHotelAdapter(Context context, ArrayList<BannerItem> data) {
+    public BannerPagerHotelAdapter(Context context, ArrayList<BannerItem> data, String haType) {
         this.context = context;
         this.data = data;
         _preferences = PreferenceManager.getDefaultSharedPreferences(context);
         mActivity = (Activity) context;
+        this.haType = haType;
     }
 
     @Override
@@ -72,6 +74,13 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 mId = data.get((int) v.getTag()).getEvent_id();
+                if(!TextUtils.isEmpty(haType)) {
+                    if (haType.equals("H")) {
+                        TuneWrap.Event("stay_topbanner", mId);
+                    } else {
+                        TuneWrap.Event("activity_topbanner", mId);
+                    }
+                }
                 mTitle = data.get((int) v.getTag()).getTitle();
                 if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
                     frontType = data.get((int) v.getTag()).getEvt_type();
@@ -93,7 +102,6 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
                         url = obj.getString("param");
-
                         if (method.equals("move_near")) {
                             int fDayLimit = _preferences.getInt("future_day_limit", 180);
                             String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;

@@ -584,7 +584,7 @@ public class SearchActivity extends Activity {
             findViewById(R.id.underline2).setVisibility(View.VISIBLE);
             for (int i = 0; i < mKeywordList.size(); i++) {
                 TextView tv = new TextView(this);
-                tv.setId(i);
+//                tv.setId(i);
                 tv.setTag(i);
                 tv.setText(mKeywordList.get(i).getKeyword());
                 tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -597,6 +597,7 @@ public class SearchActivity extends Activity {
                 tv.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
+                        TuneWrap.Event("home_hotkeyword", mKeywordList.get((int) v.getTag()).getLink(), "", "search");
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                         intent.putExtra("banner_id", mKeywordList.get((int) v.getTag()).getId());
                         intent.putExtra("banner_name", mKeywordList.get((int) v.getTag()).getLink());

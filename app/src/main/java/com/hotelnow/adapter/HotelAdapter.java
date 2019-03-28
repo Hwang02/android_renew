@@ -252,7 +252,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private void BannerView(final BannerViewHolder holder, int type) {
         if (bannerAdapter == null) {
             PAGES = mHf.getPbannerData().size();
-            bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData());
+            bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData(), "H");
             holder.autoViewPager.setClipToPadding(false);
             holder.autoViewPager.setOffscreenPageLimit(0);
             holder.autoViewPager.setPageMargin(20);

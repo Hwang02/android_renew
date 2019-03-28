@@ -213,7 +213,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private void BannerView(final BannerViewHolder holder, int type) {
         if (bannerAdapter == null) {
             PAGES = mLf.getPbannerData().size();
-            bannerAdapter = new BannerPagerHotelAdapter(context, mLf.getPbannerData());
+            bannerAdapter = new BannerPagerHotelAdapter(context, mLf.getPbannerData(), "A");
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
             holder.autoViewPager.setPageMargin(20);
             holder.autoViewPager.setClipToPadding(false);
