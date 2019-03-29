@@ -276,7 +276,7 @@
     <string name="validator_tel_agreement">휴대폰 인증을 완료해 주세요.</string>
     <string name="validator_age_agreement">만 14세 이상인지 확인해 주세요.</string>
     <string name="validator_service_agreement">서비스 이용약관에 동의해 주세요.</string>
-    <string name="validator_userinfo_agreement">개인정보취급방침에 동의해 주세요.</string>
+    <string name="validator_userinfo_agreement">개인정보 수집 이용에 동의해 주세요.</string>
     <string name="validator_location_agreement">위치정보 이용약관에 동의해 주세요.</string>
     <string name="validator_user_not_match">이메일 또는 비밀번호가 일치하지 않습니다.</string>
     <string name="validator_user_birth">생년월일을 선택하세요.</string>

@@ -63,7 +63,7 @@ public class SignupActivity extends Activity {
     private EditText codeInput;
     private TextView codeResult;
     private LinearLayout auth_layout;
-    private String marketing_yn;
+    private String marketing_yn="", location_yn="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,8 +104,24 @@ public class SignupActivity extends Activity {
         agree_checkbox4 = (CheckBox) findViewById(R.id.agree_checkbox4);
 
         SpannableStringBuilder builder = new SpannableStringBuilder("할인 혜택 알림 수신동의(선택)");
-        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 14, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 13, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_checkbox4.setText(builder);
+
+        builder = new SpannableStringBuilder("위치정보 이용약관 동의(선택)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 12, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_checkbox3.setText(builder);
+
+        builder = new SpannableStringBuilder("개인정보 수집 이용 동의(필수)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 13, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_checkbox2.setText(builder);
+
+        builder = new SpannableStringBuilder("서비스 이용약관 동의(필수)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 11, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_checkbox1.setText(builder);
+
+        builder = new SpannableStringBuilder("만 14세 이상 확인(필수)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 11, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_checkbox0.setText(builder);
 
         Intent intent = getIntent();
         emailval = intent.getStringExtra("email") != null ? intent.getStringExtra("email") : "";
@@ -463,8 +479,9 @@ public class SignupActivity extends Activity {
                 }
 
                 if (agree_checkbox3.isChecked() != true) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.validator_location_agreement), Toast.LENGTH_SHORT).show();
-                    return;
+                    location_yn = "N";
+                } else {
+                    location_yn = "Y";
                 }
 
                 if (agree_checkbox4.isChecked() != true) {
@@ -489,6 +506,7 @@ public class SignupActivity extends Activity {
                     paramObj.put("useragent", Util.getUserAgent(SignupActivity.this));
                     paramObj.put("uuid", Util.getAndroidId(SignupActivity.this));
                     paramObj.put("phone_auth", is_auth);
+                    paramObj.put("location_yn", location_yn);
                     paramObj.put("marketing_yn", marketing_yn);
                 } catch (JSONException e) {
                 }
