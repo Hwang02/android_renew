@@ -46,7 +46,7 @@ public class ThemeLeisureAdapter extends RecyclerView.Adapter<ThemeLeisureAdapte
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.tv_hotelname.setText(data.get(position).getName());
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
-        Ion.with(holder.iv_image).load(data.get(position).getLandscape());
+        Ion.with(holder.iv_image).animateIn(R.anim.fadein).load(data.get(position).getLandscape());
 
         if (data.get(position).getTheme_flag().equals("H")) {
             if (dbHelper.selectAllFavoriteStayItem().size() > 0) {

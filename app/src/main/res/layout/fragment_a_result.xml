@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
+        android:overScrollMode="never"
         android:listSelector="@android:color/transparent"></ListView>
 
     <Button

@@ -40,7 +40,7 @@ public class KeyWordAdapter extends RecyclerView.Adapter<KeyWordAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.tv_keyword.setText(data.get(position).getKeyword());
-        Ion.with(holder.iv_image).load(data.get(position).getImage());
+        Ion.with(holder.iv_image).animateIn(R.anim.fadein).load(data.get(position).getImage());
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

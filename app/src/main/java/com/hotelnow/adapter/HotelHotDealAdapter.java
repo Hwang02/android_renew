@@ -49,7 +49,7 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
         holder.tv_score.setText(data.get(position).getGrade_score());
         holder.tv_hotelname.setText(data.get(position).getName());
         holder.tv_price.setText(Util.numberFormat(Integer.parseInt(data.get(position).getSale_price())));
-        Ion.with(holder.iv_image).load(data.get(position).getLandscape());
+        Ion.with(holder.iv_image).animateIn(R.anim.fadein).load(data.get(position).getLandscape());
 
         if (data.get(position).getGrade_score().equals("0.0")) {
             holder.tv_score.setVisibility(View.GONE);

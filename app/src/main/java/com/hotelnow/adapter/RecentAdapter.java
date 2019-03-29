@@ -91,7 +91,7 @@ public class RecentAdapter extends RecyclerView.Adapter<RecentAdapter.MyViewHold
             holder.iv_image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
 
-        Ion.with(holder.iv_image).load(data.get(position).getImg_url());
+        Ion.with(holder.iv_image).animateIn(R.anim.fadein).load(data.get(position).getImg_url());
 
         holder.btn_favorite.setTag(position);
         holder.btn_favorite.setOnClickListener(new View.OnClickListener() {
