@@ -223,7 +223,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size());
             } else {
                 holder.autoViewPager.canSwipe(true);
-                holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size() * 10);
+                holder.autoViewPager.setCurrentItem(mLf.getPbannerData().size() * 5);
             }
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override

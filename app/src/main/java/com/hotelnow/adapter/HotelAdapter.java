@@ -262,7 +262,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size());
             } else {
                 holder.autoViewPager.canSwipe(true);
-                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 5);
             }
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override

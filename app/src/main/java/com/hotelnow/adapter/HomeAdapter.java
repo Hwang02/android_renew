@@ -321,7 +321,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size());
             } else {
                 holder.autoViewPager.canSwipe(true);
-                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
+                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 5);
             }
 
             PAGES = mHf.getPbannerData().size();
@@ -336,7 +336,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size());
             } else {
                 holder.autoViewPager.canSwipe(true);
-                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 10);
+                holder.autoViewPager.setCurrentItem(mHf.getPbannerData().size() * 5);
             }
             holder.autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
@@ -402,7 +402,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size());
             } else {
                 holder.autoViewPager.canSwipe(true);
-                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 10);
+                holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size() * 5);
             }
             holder.autoViewPager.setAdapter(subbAdapter); //Auto Viewpager에 Adapter 장착
 

@@ -268,7 +268,7 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                                 autoViewPager.setOffscreenPageLimit(mBannerItems.size());
                                 autoViewPager.setPageMargin(20);
                                 autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
-                                autoViewPager.setCurrentItem(mBannerItems.size() * 10);
+                                autoViewPager.setCurrentItem(mBannerItems.size() * 5);
                                 autoViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                                     @Override
                                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
