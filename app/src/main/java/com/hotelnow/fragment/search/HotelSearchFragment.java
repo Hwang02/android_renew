@@ -738,160 +738,161 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
 
     private void init() {
         // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
+        if(isAdded()) {
+            _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            dbHelper = new DbOpenHelper(getActivity());
 
-        search_txt = getArguments().getString("search_txt");
-        banner_id = getArguments().getString("banner_id");
-        order_kind = getArguments().getString("order_kind");
-        if (order_kind.equals("distance")) {
-            filter_cnt = 1;
-        }
-        title_text = getArguments().getString("title_text");
-        mlist = (ListView) getView().findViewById(R.id.h_list);
-        btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
-        bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
-        count_view = (LinearLayout) getView().findViewById(R.id.count_view);
-        tv_count = (TextView) getView().findViewById(R.id.tv_count);
-
-        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
-        popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
-
-        tv_location2 = empty.findViewById(R.id.tv_location);
-        tv_date2 = empty.findViewById(R.id.tv_date);
-        btn_location2 = (RelativeLayout) empty.findViewById(R.id.btn_location);
-        btn_date2 = (RelativeLayout) empty.findViewById(R.id.btn_date);
-        empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
-        layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
-        h_filter = (RelativeLayout) getView().findViewById(R.id.h_filter);
-        ((ViewGroup) mlist.getParent()).addView(empty);
-        mlist.setEmptyView(empty);
-
-        ec_date = Util.setCheckinout().get(0);
-        ee_date = Util.setCheckinout().get(1);
-
-        long count = Util.diffOfDate2(ec_date, ee_date);
-        tv_date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + count + "박");
-        tv_date2.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + count + "박");
-
-        mlist.addHeaderView(HeaderView);
-        adapter = new SearchResultStayAdapter(getActivity(), 0, mItems, HotelSearchFragment.this, dbHelper);
-        mlist.setAdapter(adapter);
-        empty_image.setVisibility(View.GONE);
-        layout_popular.setVisibility(View.GONE);
-
-        btn_location.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
-                startActivityForResult(intent, 80);
+            search_txt = getArguments().getString("search_txt");
+            banner_id = getArguments().getString("banner_id");
+            order_kind = getArguments().getString("order_kind");
+            if (order_kind.equals("distance")) {
+                filter_cnt = 1;
             }
-        });
-        btn_date.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Api.get(CONFIG.server_time, new Api.HttpCallback() {
-                    @Override
-                    public void onFailure(Response response, Exception throwable) {
-                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+            title_text = getArguments().getString("title_text");
+            mlist = (ListView) getView().findViewById(R.id.h_list);
+            btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
+            bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
+            count_view = (LinearLayout) getView().findViewById(R.id.count_view);
+            tv_count = (TextView) getView().findViewById(R.id.tv_count);
 
-                    @Override
-                    public void onSuccess(Map<String, String> headers, String body) {
-                        try {
-                            JSONObject obj = new JSONObject(body);
-                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
-                                long time = obj.getInt("server_time") * (long) 1000;
-                                CONFIG.svr_date = new Date(time);
-                                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                                intent.putExtra("ec_date", ec_date);
-                                intent.putExtra("ee_date", ee_date);
-                                startActivityForResult(intent, 70);
-                            }
-                        } catch (Exception e) {
+            View empty = getLayoutInflater().inflate(R.layout.layout_search_empty, null, false);
+            popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
+
+            tv_location2 = empty.findViewById(R.id.tv_location);
+            tv_date2 = empty.findViewById(R.id.tv_date);
+            btn_location2 = (RelativeLayout) empty.findViewById(R.id.btn_location);
+            btn_date2 = (RelativeLayout) empty.findViewById(R.id.btn_date);
+            empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
+            layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
+            h_filter = (RelativeLayout) getView().findViewById(R.id.h_filter);
+            ((ViewGroup) mlist.getParent()).addView(empty);
+            mlist.setEmptyView(empty);
+
+            ec_date = Util.setCheckinout().get(0);
+            ee_date = Util.setCheckinout().get(1);
+
+            long count = Util.diffOfDate2(ec_date, ee_date);
+            tv_date.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + count + "박");
+            tv_date2.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date) + ", " + count + "박");
+
+            mlist.addHeaderView(HeaderView);
+            adapter = new SearchResultStayAdapter(getActivity(), 0, mItems, HotelSearchFragment.this, dbHelper);
+            mlist.setAdapter(adapter);
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
+
+            btn_location.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
+                    startActivityForResult(intent, 80);
+                }
+            });
+            btn_date.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                        @Override
+                        public void onFailure(Response response, Exception throwable) {
+                            Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                    }
-                });
-            }
-        });
-        btn_location2.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
-                startActivityForResult(intent, 80);
-            }
-        });
-        btn_date2.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Api.get(CONFIG.server_time, new Api.HttpCallback() {
-                    @Override
-                    public void onFailure(Response response, Exception throwable) {
-                        Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
 
-                    @Override
-                    public void onSuccess(Map<String, String> headers, String body) {
-                        try {
-                            JSONObject obj = new JSONObject(body);
-                            if (!TextUtils.isEmpty(obj.getString("server_time"))) {
-                                long time = obj.getInt("server_time") * (long) 1000;
-                                CONFIG.svr_date = new Date(time);
-                                Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                                intent.putExtra("ec_date", ec_date);
-                                intent.putExtra("ee_date", ee_date);
-                                startActivityForResult(intent, 70);
+                        @Override
+                        public void onSuccess(Map<String, String> headers, String body) {
+                            try {
+                                JSONObject obj = new JSONObject(body);
+                                if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                    long time = obj.getInt("server_time") * (long) 1000;
+                                    CONFIG.svr_date = new Date(time);
+                                    Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                                    intent.putExtra("ec_date", ec_date);
+                                    intent.putExtra("ee_date", ee_date);
+                                    startActivityForResult(intent, 70);
+                                }
+                            } catch (Exception e) {
                             }
-                        } catch (Exception e) {
                         }
-                    }
-                });
-            }
-        });
-        btn_filter.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
+                    });
+                }
+            });
+            btn_location2.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(getActivity(), AreaHotelActivity.class);
+                    startActivityForResult(intent, 80);
+                }
+            });
+            btn_date2.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                        @Override
+                        public void onFailure(Response response, Exception throwable) {
+                            Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        @Override
+                        public void onSuccess(Map<String, String> headers, String body) {
+                            try {
+                                JSONObject obj = new JSONObject(body);
+                                if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                    long time = obj.getInt("server_time") * (long) 1000;
+                                    CONFIG.svr_date = new Date(time);
+                                    Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                                    intent.putExtra("ec_date", ec_date);
+                                    intent.putExtra("ee_date", ee_date);
+                                    startActivityForResult(intent, 70);
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+                }
+            });
+            btn_filter.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
 //                Util.clearSearch();
-                if (order_kind != null && order_kind.equals("distance")) {
-                    CONFIG.sel_orderby = order_kind;
+                    if (order_kind != null && order_kind.equals("distance")) {
+                        CONFIG.sel_orderby = order_kind;
+                    }
+                    Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
+                    startActivityForResult(intent, 60);
                 }
-                Intent intent = new Intent(getActivity(), FilterHotelActivity.class);
-                startActivityForResult(intent, 60);
-            }
-        });
-        bt_scroll.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                mlist.setSelection(0);
-            }
-        });
+            });
+            bt_scroll.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    mlist.setSelection(0);
+                }
+            });
 
-        if (filter_cnt == 0) {
-            count_view.setVisibility(View.GONE);
-        } else {
-            count_view.setVisibility(View.VISIBLE);
+            if (filter_cnt == 0) {
+                count_view.setVisibility(View.GONE);
+            } else {
+                count_view.setVisibility(View.VISIBLE);
+            }
+            tv_count.setText(filter_cnt + "");
+
+            mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+                @Override
+                public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                    TextView hid = (TextView) view.findViewById(R.id.hid);
+                    if (hid != null) {
+                        Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                        intent.putExtra("hid", hid.getText().toString());
+                        intent.putExtra("sdate", ec_date);
+                        intent.putExtra("edate", ee_date);
+                        intent.putExtra("save", true);
+                        startActivityForResult(intent, 50);
+                    }
+                }
+            });
+
+            getSearch();
         }
-        tv_count.setText(filter_cnt + "");
-
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView) view.findViewById(R.id.hid);
-                if(hid != null) {
-                    Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
-                    intent.putExtra("hid", hid.getText().toString());
-                    intent.putExtra("sdate", ec_date);
-                    intent.putExtra("edate", ee_date);
-                    intent.putExtra("save", true);
-                    startActivityForResult(intent, 50);
-                }
-            }
-        });
-
-
-        getSearch();
     }
 
     @Override

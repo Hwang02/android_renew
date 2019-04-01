@@ -33,7 +33,8 @@ public class Api {
     private static final String COOKIE_PRE_FIX_REMEMBER = "remember_";
     private static final String COOKIE_PRE_FIX_SESS = "h_sess";
     private static SharedPreferences _preferences;
-    private static String finalBody;
+    private String finalBody="";
+    private static String finalBody2="";
 
     private Api() {
     }
@@ -194,7 +195,7 @@ public class Api {
                         }
 
                         cb.onSuccess(headers, finalBody);
-
+                        finalBody = "";
                     }
                 });
                 body = "";
@@ -203,7 +204,6 @@ public class Api {
         body = null;
         request = null;
     }
-
 
     private static void call(String method, String url, String data, final HttpCallback cb) {
         RequestBody body = null;
@@ -293,7 +293,8 @@ public class Api {
                     body = response.body().string();
                 }
 
-                finalBody = body;
+                finalBody2 = body;
+
                 mainHandler.post(new Runnable() {
 
                     @SuppressLint("LongLogTag")
@@ -338,14 +339,15 @@ public class Api {
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, "------------------------ API RETURN ----------------------");
-                            Log.e(CONFIG.TAG + " API - result : ", finalBody);
+                            Log.e(CONFIG.TAG + " API - result : ", finalBody2);
                             Log.e(CONFIG.TAG, "----------------------------------------------------------");
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
                             Log.e(CONFIG.TAG, " ");
                         }
 
-                        cb.onSuccess(headers, finalBody);
+                        cb.onSuccess(headers, finalBody2);
+                        finalBody2 = "";
                     }
                 });
                 body = "";

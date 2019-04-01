@@ -36,6 +36,7 @@ import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.fragment.mypage.MypageFragment;
 import com.hotelnow.fragment.reservation.ReservationFragment;
 import com.hotelnow.utils.AES256Chiper;
+import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FindDebugger;
@@ -43,6 +44,10 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -368,7 +373,7 @@ public class MainActivity extends FragmentActivity {
                     setTapMove(SELECTPAGE, false);
                     String[] recipeStr3 = recipeStr1.split("#");
                     try {
-                        Map<String, String> map = new HashMap<String, String>();
+                        final Map<String, String> map = new HashMap<String, String>();
                         for (String param : recipeStr3[0].split("&")) {
                             String pair[] = param.split("=");
                             String key = URLDecoder.decode(pair[0], "UTF-8");
@@ -378,11 +383,46 @@ public class MainActivity extends FragmentActivity {
                             }
                             map.put(key, value);
                         }
-                        Intent intentDetail = new Intent(this, DetailHotelActivity.class);
-                        intentDetail.putExtra("hid", map.get("hotel_id"));
-                        intentDetail.putExtra("evt", "N");
-                        intentDetail.putExtra("save", true);
-                        startActivityForResult(intentDetail, 80);
+
+                        int fDayLimit = _preferences.getInt("future_day_limit", 180);
+                        String checkurl = CONFIG.checkinDateUrl + "/" + map.get("hotel_id") + "/" + fDayLimit;
+
+                        Api.get(checkurl, new Api.HttpCallback() {
+                            @Override
+                            public void onFailure(Response response, Exception e) {
+                                Toast.makeText(MainActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            @Override
+                            public void onSuccess(Map<String, String> headers, String body) {
+                                try {
+                                    JSONObject obj = new JSONObject(body);
+                                    JSONArray aobj = obj.getJSONArray("data");
+
+                                    String checkin = "";
+                                    String checkout = "";
+                                    Intent intentDetail = new Intent(MainActivity.this, DetailHotelActivity.class);
+                                    intentDetail.putExtra("hid", map.get("hotel_id"));
+                                    if (aobj.length() > 0) {
+                                        checkin = aobj.getString(0);
+                                        checkout = Util.getNextDateStr(checkin);
+                                        intentDetail.putExtra("sdate", checkin);
+                                        intentDetail.putExtra("edate", checkout);
+                                    }
+                                    intentDetail.putExtra("evt", "N");
+                                    intentDetail.putExtra("save", true);
+                                    startActivityForResult(intentDetail, 80);
+
+                                } catch (Exception e) {
+                                    // Log.e(CONFIG.TAG, e.toString());
+                                    LogUtil.e("aobj.length() : ",e.getMessage()+"");
+                                    Toast.makeText(MainActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                            }
+                        });
                     } catch (Exception e) {
                         LogUtil.e(CONFIG.TAG, e.toString());
                     }

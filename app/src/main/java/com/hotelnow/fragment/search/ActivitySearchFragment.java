@@ -513,89 +513,91 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
 
     private void init() {
         // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dbHelper = new DbOpenHelper(getActivity());
+        if(isAdded()) {
+            _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            dbHelper = new DbOpenHelper(getActivity());
 
-        search_txt = getArguments().getString("search_txt");
-        banner_id = getArguments().getString("banner_id");
-        order_kind = getArguments().getString("order_kind");
-        title_text = getArguments().getString("title_text");
+            search_txt = getArguments().getString("search_txt");
+            banner_id = getArguments().getString("banner_id");
+            order_kind = getArguments().getString("order_kind");
+            title_text = getArguments().getString("title_text");
 
-        mlist = (ListView) getView().findViewById(R.id.h_list);
-        bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
+            mlist = (ListView) getView().findViewById(R.id.h_list);
+            bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
 
-        View empty = getLayoutInflater().inflate(R.layout.layout_search_empty2, null, false);
-        popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
+            View empty = getLayoutInflater().inflate(R.layout.layout_search_empty2, null, false);
+            popular_keyword = (FlowLayout) empty.findViewById(R.id.filter1);
 
-        tv_location2 = empty.findViewById(R.id.tv_location);
-        tv_category2 = empty.findViewById(R.id.tv_category);
-        btn_location2 = (RelativeLayout) empty.findViewById(R.id.btn_location);
-        btn_category2 = (RelativeLayout) empty.findViewById(R.id.btn_category);
-        empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
-        layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
+            tv_location2 = empty.findViewById(R.id.tv_location);
+            tv_category2 = empty.findViewById(R.id.tv_category);
+            btn_location2 = (RelativeLayout) empty.findViewById(R.id.btn_location);
+            btn_category2 = (RelativeLayout) empty.findViewById(R.id.btn_category);
+            empty_image = (LinearLayout) empty.findViewById(R.id.empty_image);
+            layout_popular = (LinearLayout) empty.findViewById(R.id.popular_keyword);
 
-        ((ViewGroup) mlist.getParent()).addView(empty);
-        mlist.setEmptyView(empty);
+            ((ViewGroup) mlist.getParent()).addView(empty);
+            mlist.setEmptyView(empty);
 
-        mlist.addHeaderView(HeaderView);
-        adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
-        mlist.setAdapter(adapter);
-        empty_image.setVisibility(View.GONE);
-        layout_popular.setVisibility(View.GONE);
+            mlist.addHeaderView(HeaderView);
+            adapter = new SearchResultActivityAdapter(getActivity(), 0, mItems, ActivitySearchFragment.this, dbHelper);
+            mlist.setAdapter(adapter);
+            empty_image.setVisibility(View.GONE);
+            layout_popular.setVisibility(View.GONE);
 
 
-        mlist.setOnItemClickListener(new OnSingleItemClickListener() {
-            @Override
-            public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView hid = (TextView) view.findViewById(R.id.hid);
-                if(hid != null) {
-                    Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
-                    intent.putExtra("tid", hid.getText().toString());
-                    intent.putExtra("save", true);
-                    startActivityForResult(intent, 50);
+            mlist.setOnItemClickListener(new OnSingleItemClickListener() {
+                @Override
+                public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
+                    TextView hid = (TextView) view.findViewById(R.id.hid);
+                    if (hid != null) {
+                        Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                        intent.putExtra("tid", hid.getText().toString());
+                        intent.putExtra("save", true);
+                        startActivityForResult(intent, 50);
+                    }
                 }
-            }
-        });
+            });
 
-        btn_location2.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
-                startActivityForResult(intent, 80);
-            }
-        });
-        btn_category2.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
-                intent.putExtra("tv_category", tv_category.getText().toString());
-                startActivityForResult(intent, 70);
-            }
-        });
+            btn_location2.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
+                    startActivityForResult(intent, 80);
+                }
+            });
+            btn_category2.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                    intent.putExtra("tv_category", tv_category.getText().toString());
+                    startActivityForResult(intent, 70);
+                }
+            });
 
-        btn_location.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
-                startActivityForResult(intent, 80);
-            }
-        });
-        btn_category.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
-                intent.putExtra("tv_category", tv_category.getText().toString());
-                startActivityForResult(intent, 70);
-            }
-        });
-        bt_scroll.setOnClickListener(new OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View v) {
-                mlist.setSelection(0);
-            }
-        });
+            btn_location.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(getActivity(), AreaActivityActivity.class);
+                    startActivityForResult(intent, 80);
+                }
+            });
+            btn_category.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Intent intent = new Intent(getActivity(), ActivityFilterActivity.class);
+                    intent.putExtra("tv_category", tv_category.getText().toString());
+                    startActivityForResult(intent, 70);
+                }
+            });
+            bt_scroll.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    mlist.setSelection(0);
+                }
+            });
 
-        getSearch();
+            getSearch();
+        }
     }
 
     @Override
