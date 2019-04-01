@@ -142,6 +142,9 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
+
         HeaderView = getLayoutInflater().inflate(R.layout.layout_fragment_search_map_filter_header, null, false);
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
         btn_date = (RelativeLayout) HeaderView.findViewById(R.id.btn_date);
@@ -605,20 +608,22 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
             getActivity().finish();
         }
         if (requestCode == 80 && responseCode == 80) {
-            tv_location.setText(data.getStringExtra("city"));
-            tv_location2.setText(data.getStringExtra("city"));
-            city = data.getStringExtra("city_code");
-            sub_city = data.getStringExtra("subcity_code");
-            if (city.equals(sub_city)) {
-                sub_city = "";
+            if(data != null) {
+                tv_location.setText(data.getStringExtra("city"));
+                tv_location2.setText(data.getStringExtra("city"));
+                city = data.getStringExtra("city_code");
+                sub_city = data.getStringExtra("subcity_code");
+                if (city.equals(sub_city)) {
+                    sub_city = "";
+                }
+                Page = 1;
+                total_count = 0;
+                mItems.clear();
+                adapter.notifyDataSetChanged();
+                empty_image.setVisibility(View.GONE);
+                layout_popular.setVisibility(View.GONE);
+                getSearch();
             }
-            Page = 1;
-            total_count = 0;
-            mItems.clear();
-            adapter.notifyDataSetChanged();
-            empty_image.setVisibility(View.GONE);
-            layout_popular.setVisibility(View.GONE);
-            getSearch();
         } else if (requestCode == 70 && responseCode == 80) {
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
@@ -739,8 +744,6 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
     private void init() {
         // preference
         if(isAdded()) {
-            _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            dbHelper = new DbOpenHelper(getActivity());
 
             search_txt = getArguments().getString("search_txt");
             banner_id = getArguments().getString("banner_id");

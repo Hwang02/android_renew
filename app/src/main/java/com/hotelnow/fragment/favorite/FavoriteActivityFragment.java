@@ -77,6 +77,9 @@ public class FavoriteActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
     }
 
     public void authCheck() {
@@ -406,13 +409,8 @@ public class FavoriteActivityFragment extends Fragment {
 
     private void init() {
         // preference
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         TuneWrap.Event("favorite_activity");
-
-        dbHelper = new DbOpenHelper(getActivity());
-
-//        search_txt = getArguments().getString("search_txt");
-//        banner_id = getArguments().getString("banner_id");
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         scroll = (NestedScrollView) getView().findViewById(R.id.scroll);

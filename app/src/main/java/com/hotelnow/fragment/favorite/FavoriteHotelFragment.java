@@ -70,8 +70,6 @@ public class FavoriteHotelFragment extends Fragment {
     boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
     float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
     private NestedScrollView scroll;
-
-
     public Activity mActivity;
 
     @Override
@@ -83,12 +81,17 @@ public class FavoriteHotelFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.e("zxxxx", 11111+"");
         return inflater.inflate(R.layout.fragment_favorite_h, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e("zxxxx", 123123+"");
+        _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+        dbHelper = new DbOpenHelper(mActivity);
+
     }
 
     public void authCheck() {
@@ -430,13 +433,8 @@ public class FavoriteHotelFragment extends Fragment {
     private void init() {
         // preference
         if(isAdded()) {
-            _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+
             TuneWrap.Event("favorite_stay");
-            dbHelper = new DbOpenHelper(mActivity);
-
-//        search_txt = getArguments().getString("search_txt");
-//        banner_id = getArguments().getString("banner_id");
-
             mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
             scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
             adapter = new FavoriteHotelAdapter(getActivity(), FavoriteHotelFragment.this, 0, mItems);

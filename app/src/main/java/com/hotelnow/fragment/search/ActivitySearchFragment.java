@@ -112,6 +112,8 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        dbHelper = new DbOpenHelper(getActivity());
 
         HeaderView = getLayoutInflater().inflate(R.layout.layout_fragment_search_map_filter_header2, null, false);
         btn_location = (RelativeLayout) HeaderView.findViewById(R.id.btn_location);
@@ -514,8 +516,6 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
     private void init() {
         // preference
         if(isAdded()) {
-            _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            dbHelper = new DbOpenHelper(getActivity());
 
             search_txt = getArguments().getString("search_txt");
             banner_id = getArguments().getString("banner_id");

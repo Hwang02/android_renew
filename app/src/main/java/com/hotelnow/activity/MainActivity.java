@@ -607,10 +607,10 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                        transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                        transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                        transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                        transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                     }
                     transaction.commitAllowingStateLoss();
                     if (is_refresh)
@@ -625,9 +625,6 @@ public class MainActivity extends FragmentActivity {
                 CONFIG.isRecent = true;
                 if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") == null) {
                     transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
-                } else {
-                    transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
-                    transaction.add(mbinding.screenContainer.getId(), new FavoriteFragment(), "FAVPAGE");
                 }
 
                 if (getSupportFragmentManager().findFragmentByTag("LEISUREPAGE") != null) {
@@ -640,7 +637,7 @@ public class MainActivity extends FragmentActivity {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -653,21 +650,7 @@ public class MainActivity extends FragmentActivity {
             }
             case RESERVPAGE: {
                 tabStatus(false);
-//                if(isMove) {
-//                    new Handler().postDelayed(
-//                            new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    setHide();
-//                                    mbinding.navigation.setCurrentItem(2);
-//                                    return;
-//                                }
-//                            }, 100);
-//                }
                 if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") == null) {
-                    transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
-                } else {
-                    transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                     transaction.add(mbinding.screenContainer.getId(), new ReservationFragment(), "RESERVPAGE");
                 }
 
@@ -681,7 +664,7 @@ public class MainActivity extends FragmentActivity {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -720,10 +703,10 @@ public class MainActivity extends FragmentActivity {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("HOTELPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                    transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                    transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                    transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                 }
                 if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                     transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -763,10 +746,10 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                        transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                        transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                        transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                        transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));
@@ -806,10 +789,10 @@ public class MainActivity extends FragmentActivity {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("MYPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("RESERVPAGE") != null) {
-                        transaction.hide(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
+                        transaction.remove(getSupportFragmentManager().findFragmentByTag("RESERVPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("FAVPAGE") != null) {
-                        transaction.hide(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
+                        transaction.remove(getSupportFragmentManager().findFragmentByTag("FAVPAGE"));
                     }
                     if (getSupportFragmentManager().findFragmentByTag("SELECTPAGE") != null) {
                         transaction.hide(getSupportFragmentManager().findFragmentByTag("SELECTPAGE"));

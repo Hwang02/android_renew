@@ -77,6 +77,8 @@ public class ReservationActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     }
 
     public void authCheck() {
@@ -342,8 +344,6 @@ public class ReservationActivityFragment extends Fragment {
 
     private void init() {
         // preference
-
-        _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         TuneWrap.Event("booking_activity");
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
