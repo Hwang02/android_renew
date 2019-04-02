@@ -127,7 +127,7 @@ public class DialogMainFragment extends DialogFragment {
         mViewPager.setClipToPadding(true);
 //        mViewPager.setPadding(5, 0, 5, 0);
 
-        mPagerAdapter = new PagerAdapter(getChildFragmentManager(), getActivity(), popup_data, mViewPager);
+        mPagerAdapter = new PagerAdapter(getChildFragmentManager(), getActivity(), popup_data.length());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(0, true);
         mViewPager.addOnPageChangeListener(mPagerAdapter);
@@ -163,13 +163,12 @@ public class DialogMainFragment extends DialogFragment {
     }
 
     private class PagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
-        private JSONArray pdata;
+        private int pdataSize;
         private ViewPagerCustom autoViewPager;
 
-        public PagerAdapter(FragmentManager fm, Context context, JSONArray data, ViewPagerCustom autoViewPager) {
+        public PagerAdapter(FragmentManager fm, Context context, int dataSize) {
             super(fm);
-            pdata = data;
-            this.autoViewPager = autoViewPager;
+            pdataSize = dataSize;
         }
 
         @Override
@@ -179,7 +178,7 @@ public class DialogMainFragment extends DialogFragment {
 
         @Override
         public int getCount() {
-            return pdata.length();
+            return pdataSize;
         }
 
         @Override
@@ -190,22 +189,11 @@ public class DialogMainFragment extends DialogFragment {
         public void onPageSelected(int position) {
 //            if(autoViewPager != null)
 //                resizePager(autoViewPager, position);
-            page.setText(position + 1 + " / " + popup_data.length());
+            page.setText(position + 1 + " / " + pdataSize);
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-        }
-
-        public void resizePager(ViewPagerCustom pager, int position) {
-            View view = pager.findViewWithTag(position);
-            if (view == null)
-                return;
-            view.measure(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            int width = view.getMeasuredWidth();
-            int height = view.getMeasuredHeight(); //The layout params must match the parent of the ViewPager
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, Util.dptopixel(getContext(), 435));
-            pager.setLayoutParams(params);
         }
     }
 

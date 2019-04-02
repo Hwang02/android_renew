@@ -49,7 +49,7 @@ public class ActivityImageFragment extends Fragment {
 
         hid = this.getArguments().getString("hid");
         idx = this.getArguments().getInt("pos");
-
+        this.getArguments().clear();
         return wrap;
     }
 

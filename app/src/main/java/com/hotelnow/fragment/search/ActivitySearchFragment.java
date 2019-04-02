@@ -455,14 +455,7 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if (responseCode == 90) {
-            if (data.getBooleanExtra("search_data", false)) {
-                mItems = (ArrayList<SearchResultItem>) data.getSerializableExtra("search_data");
-                ;
-                if (adapter != null)
-                    adapter.notifyDataSetChanged();
-            }
-        } else if (requestCode == 80 && responseCode == 80) {
+        if (requestCode == 80 && responseCode == 80) {
             city = data.getStringExtra("id");
             tv_location.setText(data.getStringExtra("name"));
             tv_location2.setText(data.getStringExtra("name"));
@@ -521,7 +514,7 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
             banner_id = getArguments().getString("banner_id");
             order_kind = getArguments().getString("order_kind");
             title_text = getArguments().getString("title_text");
-
+            getArguments().clear();
             mlist = (ListView) getView().findViewById(R.id.h_list);
             bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);
 

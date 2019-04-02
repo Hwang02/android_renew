@@ -462,13 +462,7 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onActivityResult(int requestCode, int responseCode, Intent data) {
         super.onActivityResult(requestCode, responseCode, data);
-        if (responseCode == 90) {
-            if (data.getBooleanExtra("search_data", false)) {
-                mItems = (ArrayList<SearchResultItem>) data.getSerializableExtra("search_data");
-                if (adapter != null)
-                    adapter.notifyDataSetChanged();
-            }
-        } else if (requestCode == 80 && responseCode == 80) {
+        if (requestCode == 80 && responseCode == 80) {
             city = data.getStringExtra("id");
             tv_location.setText(data.getStringExtra("name"));
             tv_elocation.setText(data.getStringExtra("name"));

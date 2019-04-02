@@ -752,6 +752,7 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                 filter_cnt = 1;
             }
             title_text = getArguments().getString("title_text");
+            getArguments().clear();
             mlist = (ListView) getView().findViewById(R.id.h_list);
             btn_filter = (LinearLayout) getView().findViewById(R.id.btn_filter);
             bt_scroll = (Button) getView().findViewById(R.id.bt_scroll);

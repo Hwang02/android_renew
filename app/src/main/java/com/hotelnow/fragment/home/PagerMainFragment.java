@@ -94,7 +94,7 @@ public class PagerMainFragment extends Fragment {
         mPopup_map = getArguments().getString("popup_map");
         mEvt_type = getArguments().getString("evt_type");
         mFront_img = getArguments().getString("front_img");
-
+        getArguments().clear();
         if (!TextUtils.isEmpty(mFront_img)) {
             frontType = mEvt_type;
             frontImg = mFront_img;
