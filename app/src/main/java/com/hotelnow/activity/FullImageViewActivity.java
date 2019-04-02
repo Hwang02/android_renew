@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,9 @@ import com.hotelnow.R;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.okhttp.Response;
@@ -163,6 +166,11 @@ public class FullImageViewActivity extends FragmentActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        LinearLayout.LayoutParams lparam = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lparam.height = Util.getListHeight(this);
+        pager.setLayoutParams(lparam);
 
         initPageMark();
         setPortraitMsg(idx);

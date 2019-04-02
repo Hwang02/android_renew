@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.fragment.detail.HotelFullImageFragment;
+import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -117,6 +118,11 @@ public class FullImageViewActivityActivity extends FragmentActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        LinearLayout.LayoutParams lparam = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lparam.height = Util.getListHeight(this);
+        pager.setLayoutParams(lparam);
 
         initPageMark();
     }
