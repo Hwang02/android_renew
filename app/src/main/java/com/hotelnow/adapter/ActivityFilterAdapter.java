@@ -19,12 +19,14 @@ import java.util.List;
 public class ActivityFilterAdapter extends ArrayAdapter<ActivityThemeItem> {
     private Context mContext;
     private String tv_category;
+    private int count = 0;
 
     public ActivityFilterAdapter(Context context, int textViewResourceId, List<ActivityThemeItem> objects, String tv_category) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
         this.tv_category = tv_category;
+        this.count = objects.size();
     }
 
     @NonNull
@@ -58,6 +60,10 @@ public class ActivityFilterAdapter extends ArrayAdapter<ActivityThemeItem> {
         return v;
     }
 
+    @Override
+    public int getCount() {
+        return count;
+    }
 
     private class ViewHolder {
         TextView tv_city, tv_id;

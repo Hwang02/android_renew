@@ -42,6 +42,11 @@ public class PrivateDealAllAdapter extends ArrayAdapter<SearchResultItem> {
     }
 
     @Override
+    public int getCount() {
+        return mlist.size();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
 

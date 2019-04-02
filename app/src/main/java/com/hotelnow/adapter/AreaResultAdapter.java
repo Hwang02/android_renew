@@ -16,11 +16,18 @@ import java.util.List;
 
 public class AreaResultAdapter extends ArrayAdapter<SubCityItem> {
     private Context mContext;
+    private List<SubCityItem> objects;
 
     public AreaResultAdapter(Context context, int textViewResourceId, List<SubCityItem> objects) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
+        this.objects = objects;
+    }
+
+    @Override
+    public int getCount() {
+        return objects.size();
     }
 
     @NonNull

@@ -69,6 +69,11 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
     }
 
     @Override
+    public int getCount() {
+        return data.size();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
 
@@ -109,7 +114,7 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
                 param.bottomMargin = Util.dptopixel(mContext, 10);
             holder.iv_img.setLayoutParams(param);
         }
-        Ion.with(holder.iv_img).load(entry.getImage());
+        Ion.with(holder.iv_img).animateIn(R.anim.fadein).load(entry.getImage());
         holder.iv_img.setTag(position);
         holder.iv_img.setOnClickListener(new View.OnClickListener() {
             @Override

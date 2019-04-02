@@ -40,6 +40,11 @@ public class ReservationHotelAdapter extends ArrayAdapter<BookingEntry> {
     }
 
     @Override
+    public int getCount() {
+        return mlist.size();
+    }
+
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
 

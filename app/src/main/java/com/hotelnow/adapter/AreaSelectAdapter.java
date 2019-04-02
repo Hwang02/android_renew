@@ -16,11 +16,18 @@ import java.util.List;
 
 public class AreaSelectAdapter extends ArrayAdapter<CityItem> {
     private Context mContext;
+    private int count = 0;
 
     public AreaSelectAdapter(Context context, int textViewResourceId, List<CityItem> objects) {
         super(context, textViewResourceId, objects);
 
         mContext = context;
+        this.count = objects.size();
+    }
+
+    @Override
+    public int getCount() {
+        return count;
     }
 
     @NonNull

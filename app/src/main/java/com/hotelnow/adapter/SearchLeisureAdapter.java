@@ -28,11 +28,12 @@ import java.util.List;
  */
 
 public class SearchLeisureAdapter extends ArrayAdapter<SearchResultItem> {
-    Context mContext;
-    String hotels = "";
-    DialogAlert dialogAlert;
-    List<SearchResultItem> mlist;
-    DbOpenHelper dbHelper;
+    private Context mContext;
+    private String hotels = "";
+    private DialogAlert dialogAlert;
+    private List<SearchResultItem> mlist;
+    private DbOpenHelper dbHelper;
+//    private int count = 0;
 
     public SearchLeisureAdapter(Context context, int textViewResourceId, List<SearchResultItem> objects, DbOpenHelper dbHelper) {
         super(context, textViewResourceId, objects);
@@ -40,6 +41,12 @@ public class SearchLeisureAdapter extends ArrayAdapter<SearchResultItem> {
         mContext = context;
         mlist = objects;
         this.dbHelper = dbHelper;
+//        this.count = objects.size();
+    }
+
+    @Override
+    public int getCount() {
+        return mlist.size();
     }
 
     @Override
