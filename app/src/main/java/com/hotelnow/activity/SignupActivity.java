@@ -428,11 +428,11 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
-                if (passwd.getText().toString().trim().length() < 4 || passwd.getText().toString().trim().length() > 20) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.validator_password_length), Toast.LENGTH_SHORT).show();
-                    passwd.requestFocus();
-                    return;
-                }
+//                if (passwd.getText().toString().trim().length() < 4 || passwd.getText().toString().trim().length() > 20) {
+//                    Toast.makeText(getApplicationContext(), getString(R.string.validator_password_length), Toast.LENGTH_SHORT).show();
+//                    passwd.requestFocus();
+//                    return;
+//                }
 
                 if (username.getText().toString().trim().length() < 2) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_name_length), Toast.LENGTH_SHORT).show();

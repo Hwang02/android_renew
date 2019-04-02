@@ -184,15 +184,15 @@ public class MapAcvitityActivity extends AppCompatActivity {
                 }
 
                 handleMap();
-                customMap.addCustomPin();
-                mapAdapter = new MapActivityAdapter(MapAcvitityActivity.this, latLngsArrayList, dbHelper);
-                event_pager.setAdapter(mapAdapter);
-                event_pager.setClipToPadding(false);
-                event_pager.setOffscreenPageLimit(0);
-
-                event_pager.setPageMargin(20);
-
-                customMap.addSelectedCustomPin(0);
+                if(latLngsArrayList != null) {
+                    customMap.addCustomPin();
+                    mapAdapter = new MapActivityAdapter(MapAcvitityActivity.this, latLngsArrayList, dbHelper);
+                    event_pager.setAdapter(mapAdapter);
+                    event_pager.setClipToPadding(false);
+                    event_pager.setOffscreenPageLimit(0);
+                    event_pager.setPageMargin(20);
+                    customMap.addSelectedCustomPin(0);
+                }
 
             }
         });

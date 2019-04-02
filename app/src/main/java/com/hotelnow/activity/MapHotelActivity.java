@@ -194,13 +194,14 @@ public class MapHotelActivity extends AppCompatActivity {
                 }
 
                 handleMap();
-                customMap.addCustomPin();
-                mapAdapter = new MapHotelAdapter(MapHotelActivity.this, latLngsArrayList, dbHelper);
-                event_pager.setAdapter(mapAdapter);
-                event_pager.setOffscreenPageLimit(4);
-                event_pager.setPageMargin(20);
-                customMap.addSelectedCustomPin(0);
-
+                if(latLngsArrayList != null) {
+                    customMap.addCustomPin();
+                    mapAdapter = new MapHotelAdapter(MapHotelActivity.this, latLngsArrayList, dbHelper);
+                    event_pager.setAdapter(mapAdapter);
+                    event_pager.setOffscreenPageLimit(4);
+                    event_pager.setPageMargin(20);
+                    customMap.addSelectedCustomPin(0);
+                }
             }
         });
 
