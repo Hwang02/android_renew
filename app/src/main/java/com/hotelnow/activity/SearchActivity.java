@@ -13,6 +13,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -79,12 +81,14 @@ public class SearchActivity extends Activity {
     private List<SearchAutoitem> mHotelAuto = new ArrayList<>();
     private List<SearchAutoitem> mActivityAuto = new ArrayList<>();
     private RelativeLayout ll_before, ll_result;
-    LocationManager locManager; // 위치 정보 프로바이더
-    LocationListener locationListener; // 위치 정보가 업데이트시 동작
-    String lat = "", lng = "";
-    ProgressDialog dialog;
+    private LocationManager locManager; // 위치 정보 프로바이더
+    private LocationListener locationListener; // 위치 정보가 업데이트시 동작
+    private String lat = "", lng = "";
+    private ProgressDialog dialog;
     private DialogConfirm dialogConfirm;
     private SharedPreferences _preferences;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable workRunnable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -152,7 +156,8 @@ public class SearchActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, final int count) {
-                et_search.postDelayed(new Runnable() {
+                handler.removeCallbacks(workRunnable);
+                workRunnable = new Runnable() {
                     @Override
                     public void run() {
                         if (count > 0 && !TextUtils.isEmpty(et_search.getText().toString())) {
@@ -176,7 +181,9 @@ public class SearchActivity extends Activity {
                             ll_before.setVisibility(View.VISIBLE);
                         }
                     }
-                }, 300);
+                };
+
+                handler.postDelayed(workRunnable, 500);
             }
 
             @Override
