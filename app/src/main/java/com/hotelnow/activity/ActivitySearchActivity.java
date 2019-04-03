@@ -359,6 +359,7 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
     public void setLike(final int position, final boolean islike) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
+        TuneWrap.Event("list_activity_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
@@ -395,7 +396,6 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
                 }
             });
         } else {// 성공
-            TuneWrap.Event("list_activity_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {

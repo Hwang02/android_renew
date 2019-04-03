@@ -369,6 +369,7 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
 
     public void setLike(final int position, final boolean islike) {
         final String sel_id = mItems.get(position).getId();
+        TuneWrap.Event("list_activity_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
@@ -402,7 +403,6 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
                 }
             });
         } else {// 성공
-            TuneWrap.Event("list_activity_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {

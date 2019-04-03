@@ -577,6 +577,7 @@ public class HotelSearchActivity extends AppCompatActivity implements OnMapReady
     public void setLike(final int position, final boolean islike) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
+        TuneWrap.Event("list_stay_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");
@@ -614,7 +615,6 @@ public class HotelSearchActivity extends AppCompatActivity implements OnMapReady
                 }
             });
         } else {// 성공
-            TuneWrap.Event("list_stay_favorite", sel_id);
             Api.post(CONFIG.like_like, paramObj.toString(), new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception throwable) {

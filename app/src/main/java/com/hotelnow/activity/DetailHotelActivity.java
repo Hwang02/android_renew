@@ -475,7 +475,7 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     icon_zzim.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("productdetail_stay_favorite");
+                            TuneWrap.Event("productdetail_stay_favorite", city, hid);
 
                             JSONObject paramObj = new JSONObject();
                             try {

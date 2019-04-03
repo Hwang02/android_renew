@@ -293,7 +293,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.autoViewPager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LogUtil.e("xxxxx", (holder.autoViewPager.getChildAt(0).getWidth() * 0.36) + "");
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
                     lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.36); //39
@@ -311,7 +310,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     lparam2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     holder.page_view.setLayoutParams(lparam2);
                 }
-            }, 100);
+            }, 150);
 
         }
     }
