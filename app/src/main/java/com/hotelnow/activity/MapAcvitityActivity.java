@@ -61,7 +61,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
     public static GoogleMap map;
     private SupportMapFragment supportMapFragment;
     private Marker previousSelectedMarker;
-    private static SmoothPager event_pager;
+    private SmoothPager event_pager;
     private MapActivityAdapter mapAdapter;
     private int prePosition = 0;
     private int Page = 1;

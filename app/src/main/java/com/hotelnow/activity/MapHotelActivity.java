@@ -60,7 +60,7 @@ public class MapHotelActivity extends AppCompatActivity {
     public static GoogleMap map;
     private SupportMapFragment supportMapFragment;
     private Marker previousSelectedMarker;
-    private static SmoothPager event_pager;
+    private SmoothPager event_pager;
     private MapHotelAdapter mapAdapter;
     private int prePosition = 0;
     CustomMap customMap;
