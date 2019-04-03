@@ -69,7 +69,7 @@ android {
             buildConfigField("String", "cardDomain", "\"http://54.178.165.97:7777\"")
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
             buildConfigField("String", "kcpCardDomain", "\"http://54.178.165.97:8009/order_app.php\"")
-            buildConfigField("String", "webUrl", "\"http://www.hotelnow.co.kr/ko\"")
+            buildConfigField("String", "webUrl", "\"https://www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
         }
         sync {
@@ -86,7 +86,7 @@ android {
             buildConfigField("String", "cardDomain", "\"http://13.114.248.114:7777\"")
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
             buildConfigField("String", "kcpCardDomain", "\"https://payment.dev.hotelnow.co.kr/order_app.php\"")
-            buildConfigField("String", "webUrl", "\"http://dev.www.hotelnow.co.kr/ko\"")
+            buildConfigField("String", "webUrl", "\"https://dev.www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
             buildConfigField("String", "test_jobkey", "\"FmYT/3QXuy1En/e5iIk4Ej/sgng=\"")
             buildConfigField("String", "jobkey", "\"1tNS+MHM9YsmYs8Tjhkd3ZKYmoM=\"")
@@ -106,7 +106,7 @@ android {
             buildConfigField("String", "cardDomain", "\"https://54.178.161.178:7777\"")
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
             buildConfigField("String", "kcpCardDomain", "\"http://payment.hotelnow.co.kr/order_app.php\"")
-            buildConfigField("String", "webUrl", "\"http://www.hotelnow.co.kr/ko\"")
+            buildConfigField("String", "webUrl", "\"https://www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyDtgyy2TXgeIH3CrPh_C-R2Cv2aLteK_ME\"")
             buildConfigField("String", "test_jobkey", "\"FmYT/3QXuy1En/e5iIk4Ej/sgng=\"")
             buildConfigField("String", "jobkey", "\"1tNS+MHM9YsmYs8Tjhkd3ZKYmoM=\"")

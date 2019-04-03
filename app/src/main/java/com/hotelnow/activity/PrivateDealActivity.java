@@ -146,11 +146,9 @@ public class PrivateDealActivity extends FragmentActivity {
         }
 
         @JavascriptInterface
-        public void proposalActivity() {
+        public void proposalTuneActivity() {
 //            프라이빗딜 제안하기
-//            api 호출
             TuneWrap.Event("stay_private_accept", hid);
-            setPrivateDealProposal();
         }
     }
 
@@ -182,14 +180,6 @@ public class PrivateDealActivity extends FragmentActivity {
         super.onBackPressed();
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK){
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -198,35 +188,5 @@ public class PrivateDealActivity extends FragmentActivity {
     @Override
     public void onStop() {
         super.onStop();
-    }
-
-    private void setPrivateDealProposal() {
-        JSONObject paramObj = new JSONObject();
-        try {
-            paramObj.put("room_id", bid);
-            paramObj.put("ec_date", ec_date);
-        } catch (Exception e) {
-            Log.e(CONFIG.TAG, e.toString());
-        }
-        Api.post(CONFIG.privateDeaProposalUrl, paramObj.toString(), new Api.HttpCallback() {
-            @Override
-            public void onFailure(Response response, Exception e) {
-                Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(Map<String, String> headers, String body) {
-                try {
-                    JSONObject obj = new JSONObject(body);
-                    if (!obj.getString("result").equals("success")) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }
