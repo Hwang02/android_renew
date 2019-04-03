@@ -106,8 +106,9 @@ public class Api {
                     }
                 }
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            hsessVal="";
         }
         // 삭제할 코드 .header("Cookie", hsessVal) 까지 나중에
 
@@ -257,8 +258,9 @@ public class Api {
                     }
                 }
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            hsessVal = "";
         }
         // 삭제할 코드 .header("Cookie", hsessVal) 까지 나중에
 
