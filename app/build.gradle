@@ -147,7 +147,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.3.0'
     implementation 'com.koushikdutta.ion:ion:2.2.1'
     implementation 'com.squareup.okhttp:okhttp:2.7.5'
-    implementation 'com.facebook.android:facebook-android-sdk:4.35.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.40.0'
     implementation 'com.tune:tune-marketing-console-sdk:4.15.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
