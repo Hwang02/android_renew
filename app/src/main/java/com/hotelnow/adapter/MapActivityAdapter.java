@@ -148,6 +148,8 @@ public class MapActivityAdapter extends PagerAdapter {
             ((MapAcvitityActivity) context).getSearch();
         }
 
+        itemView.setTag(position);
+
         return itemView;
     }
 
@@ -155,10 +157,5 @@ public class MapActivityAdapter extends PagerAdapter {
     public float getPageWidth(int position) {
         return 0.7f;
     }
-
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
-    }
-
 
 }

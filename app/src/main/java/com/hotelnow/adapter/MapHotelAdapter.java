@@ -145,6 +145,8 @@ public class MapHotelAdapter extends PagerAdapter {
             ((MapHotelActivity) context).getSearch();
         }
 
+        itemView.setTag(position);
+
         return itemView;
     }
 
@@ -152,10 +154,5 @@ public class MapHotelAdapter extends PagerAdapter {
     public float getPageWidth(int position) {
         return 0.7f;
     }
-
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
-    }
-
 
 }

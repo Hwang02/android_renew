@@ -215,7 +215,8 @@ public class MapAcvitityActivity extends AppCompatActivity {
                 latLngsArrayList.get(prePosition).setIsfocus(false);
 
                 customMap.addSelectedCustomPin(position);
-                mapAdapter.notifyDataSetChanged();
+                event_pager.findViewWithTag(prePosition).setBackgroundResource(R.drawable.style_round_map_item_default);
+                event_pager.findViewWithTag(position).setBackgroundResource(R.drawable.style_round_map_item);
                 prePosition = position;
 
             }
