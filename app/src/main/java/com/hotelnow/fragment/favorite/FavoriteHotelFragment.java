@@ -81,16 +81,15 @@ public class FavoriteHotelFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.e("zxxxx", 11111+"");
         return inflater.inflate(R.layout.fragment_favorite_h, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.e("zxxxx", 123123+"");
         _preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
         dbHelper = new DbOpenHelper(mActivity);
+        init();
 
     }
 
@@ -213,52 +212,6 @@ public class FavoriteHotelFragment extends Fragment {
                             ));
 
                             dbHelper.insertFavoriteItem(entry.getString("id"), "H");
-                        }
-                        // 상단 애니메이션을 위한 터치
-                        if (obj.getJSONArray("stay").length() > 1) {
-                            scroll.setOnTouchListener(new View.OnTouchListener() {
-                                @Override
-                                public boolean onTouch(View v, MotionEvent ev) {
-
-                                    switch (ev.getAction()) {
-                                        case MotionEvent.ACTION_MOVE:       //터치를 한 후 움직이고 있으면
-                                            dragFlag = true;
-                                            if (firstDragFlag) {     //터치후 계속 드래그 하고 있다면 ACTION_MOVE가 계속 일어날 것임으로 무브를 시작한 첫번째 터치만 값을 저장함
-                                                startYPosition = ev.getY(); //첫번째 터치의 Y(높이)를 저장
-                                                firstDragFlag = false;   //두번째 MOVE가 실행되지 못하도록 플래그 변경
-                                            }
-
-                                            break;
-
-                                        case MotionEvent.ACTION_UP:
-                                            endYPosition = ev.getY();
-                                            firstDragFlag = true;
-
-                                            if (dragFlag) {  //드래그를 하다가 터치를 실행
-
-                                                // 시작Y가 끝 Y보다 크다면 터치가 아래서 위로 이루어졌다는 것이고, 스크롤은 아래로내려갔다는 뜻이다.
-                                                // (startYPosition - endYPosition) > 10 은 터치로 이동한 거리가 10픽셀 이상은 이동해야 스크롤 이동으로 감지하겠다는 뜻임으로 필요하지 않으면 제거해도 된다.
-                                                if ((startYPosition > endYPosition) && (startYPosition - endYPosition) > 10) {
-                                                    //TODO 스크롤 다운 시 작업
-                                                    LogUtil.e("xxxxxxx", "down");
-                                                    ((FavoriteFragment) getParentFragment()).toolbarAnimateHide();
-                                                }
-                                                //시작 Y가 끝 보다 작다면 터치가 위에서 아래로 이러우졌다는 것이고, 스크롤이 올라갔다는 뜻이다.
-                                                else if ((startYPosition < endYPosition) && (endYPosition - startYPosition) > 10) {
-                                                    //TODO 스크롤 업 시 작업
-                                                    LogUtil.e("xxxxxxx", "up");
-                                                    ((FavoriteFragment) getParentFragment()).toolbarAnimateShow(0);
-                                                }
-                                            }
-
-                                            startYPosition = 0.0f;
-                                            endYPosition = 0.0f;
-                                            break;
-                                    }
-                                    return false;
-                                }
-
-                            });
                         }
                         ((FavoriteFragment) getParentFragment()).isdelete(true);
                     } else {
@@ -392,42 +345,42 @@ public class FavoriteHotelFragment extends Fragment {
     public void setUserVisibleHint(boolean isFragmentVisible_) {
         super.setUserVisibleHint(isFragmentVisible_);
         // we check that the fragment is becoming visible
-        if (isFragmentVisible_ && !_hasLoadedOnce) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    init();
-                }
-            }, 700);
-
-            _hasLoadedOnce = true;
-        } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
-            CONFIG.TabLogin = false;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    init();
-                }
-            }, 700);
-        } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (_preferences.getString("userid", null) != null) {
-                        mItems.clear();
-                        getFavorite();
-                    }
-                }
-            }, 700);
-        }
-
-        if (isFragmentVisible_ && ((FavoriteFragment) getParentFragment()) != null) {
-            if (adapter != null && adapter.getCount() > 0) {
-                ((FavoriteFragment) getParentFragment()).isdelete(true);
-            } else {
-                ((FavoriteFragment) getParentFragment()).isdelete(false);
-            }
-        }
+//        if (isFragmentVisible_ && !_hasLoadedOnce) {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    init();
+//                }
+//            }, 700);
+//
+//            _hasLoadedOnce = true;
+//        } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
+//            CONFIG.TabLogin = false;
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    init();
+//                }
+//            }, 700);
+//        } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (_preferences.getString("userid", null) != null) {
+//                        mItems.clear();
+//                        getFavorite();
+//                    }
+//                }
+//            }, 700);
+//        }
+//
+//        if (isFragmentVisible_ && ((FavoriteFragment) getParentFragment()) != null) {
+//            if (adapter != null && adapter.getCount() > 0) {
+//                ((FavoriteFragment) getParentFragment()).isdelete(true);
+//            } else {
+//                ((FavoriteFragment) getParentFragment()).isdelete(false);
+//            }
+//        }
     }
 
     private void init() {
@@ -436,7 +389,7 @@ public class FavoriteHotelFragment extends Fragment {
 
             TuneWrap.Event("favorite_stay");
             mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-            scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
+//            scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
             adapter = new FavoriteHotelAdapter(getActivity(), FavoriteHotelFragment.this, 0, mItems);
             mlist.setAdapter(adapter);
             btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
@@ -454,9 +407,12 @@ public class FavoriteHotelFragment extends Fragment {
                     startActivityForResult(intent, 70);
                 }
             });
-            if (CONFIG.sel_fav == 0)
+//            if (CONFIG.sel_fav == 0)
                 authCheck();
         }
     }
 
+    public static Fragment newInstance() {
+        return new FavoriteHotelFragment();
+    }
 }
