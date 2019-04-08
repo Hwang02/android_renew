@@ -288,8 +288,15 @@ public class MainActivity extends FragmentActivity {
                     startActivityForResult(intentDeal, 80);
 
                 } else if (push_type.equals("5")) {
-                    CONFIG.sel_reserv = 0;
-                    mbinding.navigation.setCurrentItem(RESERVPAGE);
+                    tabStatus(false);
+                    mbinding.navigation.setCurrentItem(MYPAGE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intentSave = new Intent(MainActivity.this, MySaveActivity.class);
+                            startActivity(intentSave);
+                        }
+                    }, 1000);
                 } else if (push_type.equals("6")) {
                     setTapMove(SELECTPAGE, false);
                     if (!evttag.equals(null) && evttag.equals("Q")) {
