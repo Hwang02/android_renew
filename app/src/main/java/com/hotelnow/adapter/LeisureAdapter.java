@@ -211,7 +211,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        if (bannerAdapter == null) {
+//        if (bannerAdapter == null) {
             PAGES = mLf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mLf.getPbannerData(), "A");
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
@@ -273,7 +273,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (mLf.getPbannerData().size() > 1) {
                 holder.autoViewPager.startAutoScroll();
             }
-        }
+//        }
     }
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {
@@ -423,6 +423,15 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         if (acitivityAdapter != null) {
             acitivityAdapter.notifyDataSetChanged();
+        }
+        if (footAdapter != null) {
+            footAdapter.notifyDataSetChanged();
+        }
+        if (themeAdapter != null) {
+            themeAdapter.notifyDataSetChanged();
+        }
+        if (themeSAdapter != null) {
+            themeSAdapter.notifyDataSetChanged();
         }
     }
 

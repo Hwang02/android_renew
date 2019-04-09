@@ -21,11 +21,12 @@ public class FacebookWrap {
     ViewedContent Event
     contentType : 화면
     */
-    public static void logViewedContentEvent(Context mContext, String contentType) {
+    public static void logViewedContentEvent(Context mContext, String contentType, String contentID) {
         AppEventsLogger logger = AppEventsLogger.newLogger(mContext);
 
         Bundle params = new Bundle();
         params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
+        params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentID);
         params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
         logger.logEvent(AppEventsConstants.EVENT_NAME_VIEWED_CONTENT, params);
     }

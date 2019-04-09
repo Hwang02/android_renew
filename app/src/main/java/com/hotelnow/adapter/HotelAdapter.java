@@ -250,7 +250,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        if (bannerAdapter == null) {
+//        if (bannerAdapter == null) {
             PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData(), "H");
             holder.autoViewPager.setClipToPadding(false);
@@ -312,7 +312,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
             }, 150);
 
-        }
+//        }
     }
 
     private void setPrivateDealView(HorizontalViewHolder holder, int type) {
@@ -464,6 +464,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
         if (privateAdapter != null) {
             privateAdapter.notifyDataSetChanged();
+        }
+        if (themeSAdapter != null) {
+            themeSAdapter.notifyDataSetChanged();
         }
     }
 

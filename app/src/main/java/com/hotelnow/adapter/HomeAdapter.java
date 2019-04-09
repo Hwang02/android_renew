@@ -315,7 +315,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-        if (bannerAdapter == null) {
+//        if (bannerAdapter == null) {
             if (mHf.getPbannerData().size() == 1) {
                 holder.autoViewPager.canSwipe(false);
                 holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size());
@@ -388,11 +388,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     holder.page_view.setLayoutParams(lparam2);
                 }
             }, 150);
-        }
+//        }
     }
 
     private void BannerSubView(final BannerViewHolder holder, int type) {
-        if (subbAdapter == null) {
+//        if (subbAdapter == null) {
             PAGES2 = mHf.getEbannerData().size();
             subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData(), mHf);
 
@@ -442,7 +442,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }, 100);
             }
-        }
+//        }
     }
 
     private void setPrivateDealView(HorizontalViewHolder holder, int type) {
