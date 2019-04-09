@@ -8,26 +8,23 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hotelnow.R;
+import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteHotelAdapter;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.fragment.model.FavoriteStayItem;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
@@ -38,7 +35,6 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -47,30 +43,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 public class FavoriteHotelFragment extends Fragment {
 
     private SharedPreferences _preferences;
     private NonScrollListView mlist;
-    private ImageView map_img;
-    private TextView tv_review_count;
-    private RelativeLayout btn_location, btn_date;
     private ArrayList<FavoriteStayItem> mItems = new ArrayList<>();
-    private String banner_id, search_txt;
-    private LinearLayout btn_filter;
     private FavoriteHotelAdapter adapter;
     private Button btn_go_login;
     private RelativeLayout main_view;
     private TextView btn_go_list;
-    private static String ee_date = null, ec_date = null;
+    private String ee_date = null, ec_date = null;
     private DbOpenHelper dbHelper;
-    private boolean _hasLoadedOnce = false; // your boolean field
-    boolean firstDragFlag = true;
-    boolean dragFlag = false;   //현재 터치가 드래그 인지 확인
-    float startYPosition = 0, endYPosition = 0;       //터치이벤트의 시작점의 Y(세로)위치
-    private NestedScrollView scroll;
-    public Activity mActivity;
+    private Activity mActivity;
+    private TextView tvDate, btnCancel, tvDateTitle;
+    private DialogConfirm dialogConfirm;
 
     @Override
     public void onAttach(Activity activity) {
@@ -133,7 +122,7 @@ public class FavoriteHotelFragment extends Fragment {
                                 startActivityForResult(intent, 80);
                             }
                         });
-                        ((FavoriteFragment) getParentFragment()).isdelete(false);
+                        isdelete(false);
                         MainActivity.hideProgress();
                     } else {
                         mlist.setEmptyView(getView().findViewById(R.id.empty_view));
@@ -213,10 +202,10 @@ public class FavoriteHotelFragment extends Fragment {
 
                             dbHelper.insertFavoriteItem(entry.getString("id"), "H");
                         }
-                        ((FavoriteFragment) getParentFragment()).isdelete(true);
+                        isdelete(true);
                     } else {
                         getView().findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-                        ((FavoriteFragment) getParentFragment()).isdelete(false);
+                        isdelete(false);
                     }
                     adapter.notifyDataSetChanged();
                     new Handler().postDelayed(new Runnable() {
@@ -239,6 +228,7 @@ public class FavoriteHotelFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 80) {
+            ((FavoriteFragment)getParentFragment()).setChildDelete(0);
             authCheck();
             ((MainActivity) getActivity()).setTitle();
             ((MainActivity) getActivity()).setTapdelete("MYPAGE");
@@ -250,16 +240,18 @@ public class FavoriteHotelFragment extends Fragment {
                 MainActivity.showProgress();
                 getFavorite();
             }
-        }
-    }
+        } else if(requestCode == 180){
+            ec_date = data.getStringExtra("ec_date");
+            ee_date = data.getStringExtra("ee_date");
+            tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
 
-    public void setDateRefresh(String ecc_date, String eee_date) {
-        ec_date = ecc_date;
-        ee_date = eee_date;
-        mItems.clear();
-        adapter.notifyDataSetChanged();
-        MainActivity.showProgress();
-        getFavorite();
+            if(adapter != null) {
+                mItems.clear();
+                adapter.notifyDataSetChanged();
+                MainActivity.showProgress();
+                getFavorite();
+            }
+        }
     }
 
     public void setLike(final int position) {
@@ -302,7 +294,7 @@ public class FavoriteHotelFragment extends Fragment {
     }
 
     public void setDeleteAll() {
-        MainActivity.showProgress();
+        ((MainActivity) mActivity).showProgress();
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("all_flag", "Y");
@@ -315,8 +307,8 @@ public class FavoriteHotelFragment extends Fragment {
         Api.post(CONFIG.like_unlike, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception throwable) {
-                MainActivity.hideProgress();
-                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                ((MainActivity) mActivity).hideProgress();
+                Toast.makeText(((MainActivity) mActivity), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -324,77 +316,40 @@ public class FavoriteHotelFragment extends Fragment {
                 try {
                     JSONObject obj = new JSONObject(body);
                     if (!obj.has("result") || !obj.getString("result").equals("success")) {
-                        ((MainActivity) getActivity()).showToast("로그인 후 이용해주세요");
+                        ((MainActivity) mActivity).showToast("로그인 후 이용해주세요");
                         return;
+                    }
+
+
+                    if(dbHelper == null) {
+                        dbHelper = new DbOpenHelper(mActivity);
                     }
 
                     dbHelper.deleteFavoriteItem(true, "", "H");
                     LogUtil.e("xxxx", "찜하기 전체 취소");
-                    ((MainActivity) getActivity()).showToast("관심 상품 삭제 완료");
+                    ((MainActivity) mActivity).showToast("관심 상품 삭제 완료");
+
                     mItems.clear();
                     getFavorite();
-                    MainActivity.hideProgress();
+                    ((MainActivity) mActivity).hideProgress();
                 } catch (JSONException e) {
-                    MainActivity.hideProgress();
+                    ((MainActivity) mActivity).hideProgress();
                 }
             }
         });
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isFragmentVisible_) {
-        super.setUserVisibleHint(isFragmentVisible_);
-        // we check that the fragment is becoming visible
-//        if (isFragmentVisible_ && !_hasLoadedOnce) {
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    init();
-//                }
-//            }, 700);
-//
-//            _hasLoadedOnce = true;
-//        } else if (isFragmentVisible_ && CONFIG.TabLogin && _hasLoadedOnce) {
-//            CONFIG.TabLogin = false;
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    init();
-//                }
-//            }, 700);
-//        } else if (isFragmentVisible_ && !CONFIG.TabLogin && _hasLoadedOnce) {
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (_preferences.getString("userid", null) != null) {
-//                        mItems.clear();
-//                        getFavorite();
-//                    }
-//                }
-//            }, 700);
-//        }
-//
-//        if (isFragmentVisible_ && ((FavoriteFragment) getParentFragment()) != null) {
-//            if (adapter != null && adapter.getCount() > 0) {
-//                ((FavoriteFragment) getParentFragment()).isdelete(true);
-//            } else {
-//                ((FavoriteFragment) getParentFragment()).isdelete(false);
-//            }
-//        }
-    }
-
     private void init() {
         // preference
         if(isAdded()) {
-
-            TuneWrap.Event("favorite_stay");
             mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
-//            scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
             adapter = new FavoriteHotelAdapter(getActivity(), FavoriteHotelFragment.this, 0, mItems);
             mlist.setAdapter(adapter);
             btn_go_login = (Button) getView().findViewById(R.id.btn_go_login);
             main_view = (RelativeLayout) getView().findViewById(R.id.main_view);
             btn_go_list = (TextView) getView().findViewById(R.id.btn_go_list);
+            ec_date = Util.setCheckinout().get(0);
+            ee_date = Util.setCheckinout().get(1);
             mlist.setOnItemClickListener(new OnSingleItemClickListener() {
                 @Override
                 public void onSingleClick(AdapterView<?> parent, View view, int position, long id) {
@@ -407,12 +362,84 @@ public class FavoriteHotelFragment extends Fragment {
                     startActivityForResult(intent, 70);
                 }
             });
-//            if (CONFIG.sel_fav == 0)
-                authCheck();
+
+            tvDate = (TextView) getView().findViewById(R.id.tv_date);
+            btnCancel = (TextView) getView().findViewById(R.id.btn_cancel);
+            tvDateTitle = (TextView) getView().findViewById(R.id.tv_date_title);
+            tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
+            btnCancel.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    allDelete();
+                }
+            });
+
+            getView().findViewById(R.id.btn_date).setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    Api.get(CONFIG.server_time, new Api.HttpCallback() {
+                        @Override
+                        public void onFailure(Response response, Exception throwable) {
+                            Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        @Override
+                        public void onSuccess(Map<String, String> headers, String body) {
+                            try {
+                                JSONObject obj = new JSONObject(body);
+                                if (!TextUtils.isEmpty(obj.getString("server_time"))) {
+                                    long time = obj.getInt("server_time") * (long) 1000;
+                                    CONFIG.svr_date = new Date(time);
+                                    Intent intent = new Intent(getContext(), CalendarActivity.class);
+                                    intent.putExtra("ec_date", ec_date);
+                                    intent.putExtra("ee_date", ee_date);
+                                    startActivityForResult(intent, 180);
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+                }
+            });
+
+            authCheck();
         }
     }
 
-    public static Fragment newInstance() {
-        return new FavoriteHotelFragment();
+    private void isdelete(boolean isdelete) {
+        boolean isuser = _preferences.getString("userid", null) != null ? true : false;
+        if (isuser) {
+            if (isdelete) {
+                tvDateTitle.setText("날짜 선택");
+                tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
+                tvDateTitle.setVisibility(View.VISIBLE);
+                btnCancel.setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.btn_date).setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.view_filter).setVisibility(View.VISIBLE);
+            } else {
+                btnCancel.setVisibility(View.GONE);
+            }
+        } else {
+            getView().findViewById(R.id.view_filter).setVisibility(View.GONE);
+        }
+    }
+
+    private void allDelete() {
+        dialogConfirm = new DialogConfirm("삭제", "전체 관심 저장 상품을 삭제하시겠습니까?", "취소", "확인", getActivity(), new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dialogConfirm.dismiss();
+            }
+        }, new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                getView().findViewById(R.id.view_filter).setVisibility(View.GONE);
+                setDeleteAll();
+                dialogConfirm.dismiss();
+            }
+        });
+
+        dialogConfirm.show();
     }
 }
