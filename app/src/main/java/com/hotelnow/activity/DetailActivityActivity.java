@@ -63,6 +63,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
@@ -339,12 +340,13 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                     TuneWrap.Event("ProductDetail_activity", mCity, tid, tv_category.getText().toString());
+                    FacebookWrap.logViewedContentEvent(DetailActivityActivity.this, "ProductDetail_activity", tid);
 
                     icon_zzim.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
                             TuneWrap.Event("productdetail_activity_favorite", mCity, tid);
-
+                            FacebookWrap.logAddCartEvent(DetailActivityActivity.this, "productdetail_activity_favorite", tid);
                             JSONObject paramObj = new JSONObject();
                             try {
                                 paramObj.put("type", "activity");

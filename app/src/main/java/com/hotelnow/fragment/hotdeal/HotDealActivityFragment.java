@@ -41,8 +41,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class HotDealActivityFragment extends Fragment {
 
     private SharedPreferences _preferences;
@@ -180,7 +178,7 @@ public class HotDealActivityFragment extends Fragment {
                     wrapper.setVisibility(View.GONE);
                 } catch (Exception e) {
                     if (isAdded()) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                         wrapper.setVisibility(View.GONE);
                     }
                 }

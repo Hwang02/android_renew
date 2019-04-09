@@ -29,6 +29,7 @@ import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -247,6 +248,8 @@ public class PaymentActivity extends Activity {
                                                     .withAttribute5(coupon_id);
                                             TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"), is_q);
 
+                                            FacebookWrap.logPurchasedEvent(PaymentActivity.this, obj.getString("bid"), obj.getInt("sale_price"), "activity");
+
                                         }
                                     } catch (Exception e) {
 //                        					Log.e("HOTELNOW_LOG : error ????",e.toString());
@@ -340,6 +343,7 @@ public class PaymentActivity extends Activity {
                                                     .withAttribute5(coupon_id);
                                             TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"), is_q);
 
+                                            FacebookWrap.logPurchasedEvent(PaymentActivity.this, obj.getString("bid"), obj.getInt("sale_price"), "stay");
                                         }
                                     } catch (Exception e) {
 //                        					Log.e("HOTELNOW_LOG : error ????",e.toString());

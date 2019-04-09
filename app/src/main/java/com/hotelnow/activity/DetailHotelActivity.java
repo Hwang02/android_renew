@@ -67,6 +67,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.CustomLinkMovementMethod;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
@@ -456,6 +457,7 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
 
                     TuneWrap.Event("productdetail_stay", city, hid, tv_category.getText().toString());
+                    FacebookWrap.logViewedContentEvent(DetailHotelActivity.this, "productdetail_stay", hid);
 
                     findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -476,7 +478,7 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                         @Override
                         public void onClick(View v) {
                             TuneWrap.Event("productdetail_stay_favorite", city, hid);
-
+                            FacebookWrap.logAddCartEvent(DetailHotelActivity.this, "productdetail_stay_favorite", hid);
                             JSONObject paramObj = new JSONObject();
                             try {
                                 paramObj.put("type", "stay");

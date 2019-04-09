@@ -34,6 +34,7 @@ import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
@@ -172,7 +173,7 @@ public class ActLoading extends Activity {
         Tune.getInstance().measureSession();
 
         try {
-            AppEventsLogger.activateApp(this, getResources().getString(R.string.facebook_app_id));
+            AppEventsLogger.activateApp(getApplication(), getResources().getString(R.string.facebook_app_id));
         } catch (Exception e) {
             Log.e(CONFIG.TAG, e.toString());
         }

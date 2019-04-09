@@ -82,8 +82,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class HotelSearchFragment extends Fragment implements OnMapReadyCallback {
 
     private SharedPreferences _preferences;
@@ -445,7 +443,7 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                         ((SearchResultActivity) getActivity()).hideprogress();
                     } catch (Exception e) {
                         if (isAdded()) {
-                            Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                             ((SearchResultActivity) getActivity()).hideprogress();
                         }
                     }

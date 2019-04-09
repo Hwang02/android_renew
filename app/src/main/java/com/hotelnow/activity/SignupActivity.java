@@ -36,6 +36,7 @@ import com.hotelnow.dialog.DialogRecommend;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -563,6 +564,8 @@ public class SignupActivity extends Activity {
                             // Tune
                             TuneWrap.Registration();
                             TuneWrap.Login();
+                            FacebookWrap.logViewedContentEvent2(SignupActivity.this, "registration");
+
                             body = "";
                         } catch (Exception e) {
                             Log.e(CONFIG.TAG, "expection is ", e);
