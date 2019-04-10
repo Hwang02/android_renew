@@ -274,8 +274,6 @@ public class ReservationActivityFragment extends Fragment {
 
     private void init() {
         // preference
-
-        TuneWrap.Event("booking_activity");
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         scroll = (NestedScrollView) getView().findViewById(R.id.scroll);
         adapter = new ReservationActivityAdapter(getActivity(), 0, mEntries, _preferences.getString("userid", ""), ReservationActivityFragment.this);

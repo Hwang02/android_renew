@@ -296,7 +296,7 @@ public class ReservationHotelFragment extends Fragment {
     private void init() {
         // preference
         if(isAdded()) {
-            TuneWrap.Event("booking_stay");
+
             mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
             adapter = new ReservationHotelAdapter(getActivity(), 0, mEntries, AES256Chiper.AES_Decode(_preferences.getString("userid", "").replace("HN|", "")), ReservationHotelFragment.this);
             mlist.setAdapter(adapter);
