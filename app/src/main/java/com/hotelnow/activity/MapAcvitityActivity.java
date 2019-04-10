@@ -216,7 +216,7 @@ public class MapAcvitityActivity extends AppCompatActivity {
 
                 customMap.addSelectedCustomPin(position);
                 event_pager.findViewWithTag(prePosition).setBackgroundResource(R.drawable.style_round_map_item_default);
-                event_pager.findViewWithTag(position).setBackgroundResource(R.drawable.style_round_map_item);
+                event_pager.findViewWithTag(position).setBackgroundResource(R.drawable.style_round_map_activity_item);
                 prePosition = position;
 
             }
