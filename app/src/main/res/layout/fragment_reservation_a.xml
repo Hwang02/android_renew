@@ -12,12 +12,44 @@
         android:layout_height="match_parent"
         android:overScrollMode="never">
 
-        <com.hotelnow.utils.NonScrollListView
-            android:id="@+id/h_list"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent"></com.hotelnow.utils.NonScrollListView>
+            android:descendantFocusability="blocksDescendants">
+
+            <LinearLayout
+                android:id="@+id/layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textSize="13dp"
+                    android:textColor="@color/termtext"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="16dp"
+                    android:text="@string/info_reservation"
+                    android:background="@color/white" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/info"
+                    android:background="@color/back_line" />
+            </LinearLayout>
+            <com.hotelnow.utils.NonScrollListView
+                android:id="@+id/h_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:layout_below="@+id/layout_info"
+                android:listSelector="@android:color/transparent"></com.hotelnow.utils.NonScrollListView>
+        </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <include

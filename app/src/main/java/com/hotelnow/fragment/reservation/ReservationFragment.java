@@ -1,7 +1,5 @@
 package com.hotelnow.fragment.reservation;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -10,28 +8,23 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.FrameLayout;
-
 import com.hotelnow.R;
-import com.hotelnow.adapter.ReservationAdapter;
 import com.hotelnow.databinding.FragmentReservationBinding;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
-import com.hotelnow.utils.Util;
-
-import java.util.ArrayList;
+import com.hotelnow.utils.LogUtil;
 
 public class ReservationFragment extends Fragment {
 
     private FragmentReservationBinding mReservationBinding;
-    private ArrayList<Object> objects = new ArrayList<>();
-    private ReservationAdapter reservationAdapter;
     private DbOpenHelper dbHelper;
     private SharedPreferences _preferences;
+    private FragmentTransaction childFt;
+    private Fragment fg;
 
     @Nullable
     @Override
@@ -50,32 +43,20 @@ public class ReservationFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        if (_preferences.getString("userid", null) != null) {
-            mReservationBinding.info.setVisibility(View.VISIBLE);
-            mReservationBinding.line.setVisibility(View.VISIBLE);
-        } else {
-            mReservationBinding.info.setVisibility(View.GONE);
-            mReservationBinding.line.setVisibility(View.GONE);
-        }
-
         dbHelper = new DbOpenHelper(getActivity());
-        // tabbar + subbar animation을 위한 뷰 높이 생
-        mReservationBinding.mainView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels + Util.dptopixel(getActivity(), 56)));
+
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("숙소"));
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("액티비티"));
         mReservationBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        reservationAdapter = new ReservationAdapter(getActivity(), getChildFragmentManager());
-        mReservationBinding.viewPager.setAdapter(reservationAdapter);
 
         if (CONFIG.sel_reserv == 0) {
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
                         public void run() {
-                            mReservationBinding.tabLayout.getTabAt(0).select();
-                            mReservationBinding.viewPager.setCurrentItem(0);
+                            fg = new ReservationHotelFragment();
+                            setChildFragment(fg, CONFIG.sel_reserv);
+
                         }
                     }, 100);
         } else {
@@ -83,9 +64,8 @@ public class ReservationFragment extends Fragment {
                     new Runnable() {
                         @Override
                         public void run() {
-                            mReservationBinding.tabLayout.getTabAt(1).select();
-                            mReservationBinding.viewPager.setCurrentItem(1);
-
+                            fg = new ReservationActivityFragment();
+                            setChildFragment(fg, CONFIG.sel_reserv);
                         }
                     }, 100);
 
@@ -94,9 +74,13 @@ public class ReservationFragment extends Fragment {
         mReservationBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                mReservationBinding.viewPager.setCurrentItem(tab.getPosition(), true);
-
-//                CONFIG.sel_reserv = tab.getPosition();
+                if (tab.getPosition() == 0) {
+                    fg = new ReservationHotelFragment();
+                }
+                else {
+                    fg = new ReservationActivityFragment();
+                }
+                setChildFragment(fg, tab.getPosition());
             }
 
             @Override
@@ -111,56 +95,57 @@ public class ReservationFragment extends Fragment {
         });
     }
 
-    public void setInfobar() {
-        if (_preferences.getString("userid", null) != null) {
-            mReservationBinding.info.setVisibility(View.VISIBLE);
-            mReservationBinding.line.setVisibility(View.VISIBLE);
-        } else {
-            mReservationBinding.info.setVisibility(View.GONE);
-            mReservationBinding.line.setVisibility(View.GONE);
+    private void setChildFragment(Fragment child, int tag) {
+        childFt = getChildFragmentManager().beginTransaction();
+
+        if(tag == 0){
+            if (getChildFragmentManager().findFragmentByTag("1Reservation") != null) {
+                childFt.hide(getChildFragmentManager().findFragmentByTag("1Reservation"));
+            }
+            if (getChildFragmentManager().findFragmentByTag("0Reservation") == null) {
+                childFt.add(R.id.view_pager, child, "0Reservation");
+                LogUtil.e("view", "hotel");
+            }
+            else{
+                childFt.show(getChildFragmentManager().findFragmentByTag("0Reservation"));
+                LogUtil.e("view", "hotel1");
+            }
         }
+        else{
+            if (getChildFragmentManager().findFragmentByTag("0Reservation") != null) {
+                childFt.hide(getChildFragmentManager().findFragmentByTag("0Reservation"));
+            }
+            if (getChildFragmentManager().findFragmentByTag("1Reservation") == null) {
+                childFt.add(R.id.view_pager, child, "1Reservation");
+                LogUtil.e("view", "activity");
+            } else {
+                childFt.show(getChildFragmentManager().findFragmentByTag("1Reservation"));
+                LogUtil.e("view", "activity1");
+            }
+        }
+        childFt.commitAllowingStateLoss();
     }
 
-    public void toolbarAnimateShow(final int verticalOffset) {
+    public void setChildDelete(int tag) {
+        childFt = getChildFragmentManager().beginTransaction();
 
-        mReservationBinding.aniView.animate()
-                .translationY(0)
-                .setInterpolator(new LinearInterpolator())
-                .setDuration(0)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mReservationBinding.viewPager.animate()
-                                .translationY(0)
-                                .setInterpolator(new LinearInterpolator())
-                                .setDuration(0);
-                    }
-                });
-    }
-
-    public void toolbarAnimateHide() {
-        mReservationBinding.aniView.animate()
-                .translationY(-mReservationBinding.aniView.getHeight())
-                .setInterpolator(new LinearInterpolator())
-                .setDuration(0)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        mReservationBinding.viewPager.animate()
-                                .translationY(-mReservationBinding.aniView.getHeight())
-                                .setInterpolator(new LinearInterpolator())
-                                .setDuration(0);
-                    }
-                });
+        if(tag == 0){
+            LogUtil.e("delete", "activity");
+            if (getChildFragmentManager().findFragmentByTag("1Reservation") != null) {
+                LogUtil.e("delete", "activity1");
+                childFt.remove(getChildFragmentManager().findFragmentByTag("1Reservation"));
+            }
+            LogUtil.e("delete", "activity2");
+        }
+        else{
+            LogUtil.e("delete", "hotel");
+            if (getChildFragmentManager().findFragmentByTag("0Reservation") != null) {
+                LogUtil.e("delete", "hotel1");
+                childFt.remove(getChildFragmentManager().findFragmentByTag("0Reservation"));
+            }
+            LogUtil.e("delete", "hotel2");
+        }
+        childFt.commitAllowingStateLoss();
     }
 
     @Override

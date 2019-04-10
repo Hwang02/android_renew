@@ -16,46 +16,6 @@
         android:background="@color/footerview">
 
         <LinearLayout
-            android:id="@+id/ani_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@id/title_bar"
-            android:background="@color/white">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_below="@id/title_bar"
-                app:tabBackground="@drawable/tab_color_selector"
-                app:tabTextColor="@color/detail_more_color"
-                app:tabSelectedTextColor="@color/purple"
-                app:tabIndicatorColor="@android:color/transparent"
-                app:tabIndicatorHeight="0dp"
-                android:background="@color/white"></android.support.design.widget.TabLayout>
-
-            <TextView
-                android:id="@+id/info"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:textSize="13dp"
-                android:textColor="@color/termtext"
-                android:gravity="center_vertical|left"
-                android:paddingLeft="16dp"
-                android:layout_below="@+id/tab_layout"
-                android:text="@string/info_reservation"
-                android:background="@color/white" />
-
-            <View
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/info"
-                android:background="@color/back_line" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,13 +37,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_background" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                app:tabBackground="@drawable/tab_color_selector"
+                app:tabTextColor="@color/detail_more_color"
+                app:tabSelectedTextColor="@color/purple"
+                app:tabIndicatorColor="@android:color/transparent"
+                app:tabIndicatorHeight="0dp"
+                android:background="@color/white"></android.support.design.widget.TabLayout>
         </LinearLayout>
 
-        <com.hotelnow.utils.NonSwipeableViewPager
-            android:id="@+id/view_pager"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_below="@+id/ani_view" />
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:layout_below="@+id/title_bar">
+
+            <FrameLayout
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
 </layout>

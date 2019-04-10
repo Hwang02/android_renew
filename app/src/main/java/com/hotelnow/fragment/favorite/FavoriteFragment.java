@@ -12,35 +12,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.hotelnow.R;
-import com.hotelnow.activity.CalendarActivity;
-import com.hotelnow.activity.CalendarSingleActivity;
-import com.hotelnow.activity.MainActivity;
-import com.hotelnow.adapter.FavoriteAdapter;
 import com.hotelnow.databinding.FragmentFavoriteBinding;
-import com.hotelnow.dialog.DialogConfirm;
-import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
-import com.hotelnow.utils.Util;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONObject;
-
-import java.util.Date;
-import java.util.Map;
 
 public class FavoriteFragment extends Fragment {
 
