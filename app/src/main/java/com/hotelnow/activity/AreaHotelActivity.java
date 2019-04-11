@@ -38,6 +38,7 @@ public class AreaHotelActivity extends Activity {
     private AreaResultAdapter mResultAdapter;
     private LinearLayout month_list;
     private String strdate, strdate2;
+    private String p_sel_cityko="", p_sel_cityco="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +81,9 @@ public class AreaHotelActivity extends Activity {
                     mSubCity.clear();
                     findViewById(R.id.layout_noarea).setVisibility(View.GONE);
                     result_view.setVisibility(View.VISIBLE);
+                    // tune tag 확인 위해 변경
+                    p_sel_cityko = mCity.get(position).getCity_ko();
+                    p_sel_cityco = mCity.get(position).getCity_code();
                     mSubCity.addAll(dbHelper.selectAllSubCity(mCity.get(position).getCity_code()));
                     mResultAdapter.notifyDataSetChanged();
                 }
@@ -92,19 +96,16 @@ public class AreaHotelActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int tabPostion = select_view.getCheckedItemPosition();
-                String cityCode = mCity.get(tabPostion).getCity_code();
-                String cityKo = mCity.get(tabPostion).getCity_ko();
                 String subCityCode = mSubCity.get(position).getSubcity_code();
                 String subCityKo = mSubCity.get(position).getSubcity_ko();
                 String option = "H";
-                dbHelper.insertRecentCity(cityCode, cityKo, subCityCode, subCityKo, option);
+                dbHelper.insertRecentCity(p_sel_cityco, p_sel_cityko, subCityCode, subCityKo, option);
 
-                TuneWrap.Event("city_stay", cityKo, subCityKo);
+                TuneWrap.Event("city_stay", p_sel_cityko, p_sel_cityco);
 
                 Intent intent = new Intent();
                 intent.putExtra("city", mSubCity.get(position).getSubcity_ko());
-                intent.putExtra("city_code", mCity.get(tabPostion).getCity_code());
+                intent.putExtra("city_code", p_sel_cityco);
                 intent.putExtra("subcity_code", mSubCity.get(position).getSubcity_code());
                 intent.putExtra("ec_date", TextUtils.isEmpty(strdate) ? "" : strdate);
                 intent.putExtra("ee_date", TextUtils.isEmpty(strdate2) ? "" : strdate2);
