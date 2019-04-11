@@ -101,7 +101,7 @@ public class AreaHotelActivity extends Activity {
                 String option = "H";
                 dbHelper.insertRecentCity(p_sel_cityco, p_sel_cityko, subCityCode, subCityKo, option);
 
-                TuneWrap.Event("city_stay", p_sel_cityko, p_sel_cityco);
+                TuneWrap.Event("city_stay", p_sel_cityko, subCityKo);
 
                 Intent intent = new Intent();
                 intent.putExtra("city", mSubCity.get(position).getSubcity_ko());
