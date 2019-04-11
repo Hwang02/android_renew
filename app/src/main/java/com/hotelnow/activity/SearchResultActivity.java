@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.adapter.SectionsPagerAdapter;
 import com.hotelnow.fragment.search.ActivitySearchFragment;
 import com.hotelnow.fragment.search.HotelSearchFragment;
 import com.hotelnow.utils.LogUtil;
@@ -27,7 +26,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private FrameLayout view_pager;
-//    private SectionsPagerAdapter mSectionsPagerAdapter;
     private int m_Selecttab = 0;
     private String search_txt, banner_id;
     private TextView title_text;
@@ -85,8 +83,6 @@ public class SearchResultActivity extends AppCompatActivity {
             title_text.setText("내 주변 바로보기");
         }
 
-//        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
-//        view_pager.setAdapter(mSectionsPagerAdapter);
         tabLayout.getTabAt(m_Selecttab).select();
         if (m_Selecttab == 0) {
             view_pager.postDelayed(new Runnable() {
