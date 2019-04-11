@@ -211,7 +211,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-//        if (bannerAdapter == null) {
+        if (mLf.getPbannerData().size() > 0) {
             PAGES = mLf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mLf.getPbannerData(), "A");
             holder.autoViewPager.setAdapter(bannerAdapter); //Auto Viewpager에 Adapter 장착
@@ -253,7 +253,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 public void run() {
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.36);
+                    lparam.height = (int) (holder.autoViewPager.getWidth() * 0.36);
                     lparam.topMargin = Util.dptopixel(mLf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mLf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mLf.getActivity(), 16);
@@ -268,12 +268,12 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     lparam2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     holder.page_view.setLayoutParams(lparam2);
                 }
-            }, 150);
+            }, 250);
 
             if (mLf.getPbannerData().size() > 1) {
                 holder.autoViewPager.startAutoScroll();
             }
-//        }
+        }
     }
 
     private void setActivityHotDealView(HorizontalViewHolder holder, int type) {

@@ -315,7 +315,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-//        if (bannerAdapter == null) {
+        if (mHf.getPbannerData().size() > 0) {
             if (mHf.getPbannerData().size() == 1) {
                 holder.autoViewPager.canSwipe(false);
                 holder.autoViewPager.setCurrentItem(mHf.getEbannerData().size());
@@ -373,26 +373,27 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void run() {
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.5); //*0.54
+                    lparam.height = (int) (holder.autoViewPager.getWidth() * 0.5); //*0.54
                     lparam.topMargin = Util.dptopixel(mHf.getActivity(), 15);
                     lparam.bottomMargin = Util.dptopixel(mHf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mHf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mHf.getActivity(), 16);
-                    holder.autoViewPager.setLayoutParams(lparam);
 
                     RelativeLayout.LayoutParams lparam2 = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     lparam2.topMargin = -(Util.dptopixel(mHf.getActivity(), 20) - lparam.height);
                     lparam2.rightMargin = Util.dptopixel(mHf.getActivity(), 24);
                     lparam2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+                    holder.autoViewPager.setLayoutParams(lparam);
                     holder.page_view.setLayoutParams(lparam2);
                 }
-            }, 150);
-//        }
+            }, 250);
+        }
     }
 
     private void BannerSubView(final BannerViewHolder holder, int type) {
-//        if (subbAdapter == null) {
+        if (mHf.getPbannerData().size() > 0) {
             PAGES2 = mHf.getEbannerData().size();
             subbAdapter = new SubBannerPagerAdapter(context, mHf.getEbannerData(), mHf);
 
@@ -442,7 +443,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }, 100);
             }
-//        }
+        }
     }
 
     private void setPrivateDealView(HorizontalViewHolder holder, int type) {

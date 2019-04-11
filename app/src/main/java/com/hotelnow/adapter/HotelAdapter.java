@@ -250,7 +250,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void BannerView(final BannerViewHolder holder, int type) {
-//        if (bannerAdapter == null) {
+        if (mHf.getPbannerData().size() > 0) {
             PAGES = mHf.getPbannerData().size();
             bannerAdapter = new BannerPagerHotelAdapter(context, mHf.getPbannerData(), "H");
             holder.autoViewPager.setClipToPadding(false);
@@ -295,7 +295,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void run() {
                     RelativeLayout.LayoutParams lparam = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    lparam.height = (int) (holder.autoViewPager.getChildAt(0).getWidth() * 0.36); //39
+                    lparam.height = (int) (holder.autoViewPager.getWidth() * 0.36); //39
                     lparam.topMargin = Util.dptopixel(mHf.getActivity(), 15);
                     lparam.leftMargin = Util.dptopixel(mHf.getActivity(), 16);
                     lparam.rightMargin = Util.dptopixel(mHf.getActivity(), 16);
@@ -310,9 +310,9 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     lparam2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                     holder.page_view.setLayoutParams(lparam2);
                 }
-            }, 150);
+            }, 250);
 
-//        }
+        }
     }
 
     private void setPrivateDealView(HorizontalViewHolder holder, int type) {
