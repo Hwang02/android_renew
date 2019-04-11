@@ -126,7 +126,7 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
         mapView = (MapView) HeaderView.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
+        init();
     }
 
     public void getSearch() {
@@ -483,26 +483,6 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
             adapter.notifyDataSetChanged();
         } else if (requestCode == 90 && responseCode == 4000) {
             getActivity().finish();
-        }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isFragmentVisible_) {
-        super.setUserVisibleHint(true);
-        if (this.isVisible()) {
-            // we check that the fragment is becoming visible
-            if (isFragmentVisible_ && !_hasLoadedOnce) {
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        init();
-                    }
-                }, 500);
-
-                _hasLoadedOnce = true;
-            }
-            TuneWrap.Event("search_list_activity");
         }
     }
 

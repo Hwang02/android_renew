@@ -158,6 +158,8 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
         mapView = (MapView) HeaderView.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+        init();
     }
 
     public void getSearch() {
@@ -721,25 +723,6 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
         }
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isFragmentVisible_) {
-        super.setUserVisibleHint(isFragmentVisible_);
-//        if (this.isVisible()) {
-        // we check that the fragment is becoming visible
-        if (isFragmentVisible_ && !_hasLoadedOnce) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    init();
-                }
-            }, 700);
-
-            _hasLoadedOnce = true;
-        }
-        TuneWrap.Event("search_list_stay");
-//        }
-    }
-
     private void init() {
         // preference
         if(isAdded()) {
@@ -747,7 +730,7 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
             search_txt = getArguments().getString("search_txt");
             banner_id = getArguments().getString("banner_id");
             order_kind = getArguments().getString("order_kind");
-            if (order_kind.equals("distance")) {
+            if (order_kind != null && order_kind.equals("distance")) {
                 filter_cnt = 1;
             }
             title_text = getArguments().getString("title_text");

@@ -49,6 +49,7 @@ public class ReservationFragment extends Fragment {
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("숙소"));
         mReservationBinding.tabLayout.addTab(mReservationBinding.tabLayout.newTab().setText("액티비티"));
         mReservationBinding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mReservationBinding.tabLayout.getTabAt(CONFIG.sel_reserv).select();
 
         if (CONFIG.sel_reserv == 0) {
             new Handler().postDelayed(

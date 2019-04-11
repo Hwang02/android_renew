@@ -1,35 +1,42 @@
 package com.hotelnow.activity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.SectionsPagerAdapter;
-import com.hotelnow.utils.NonSwipeableViewPager;
+import com.hotelnow.fragment.search.ActivitySearchFragment;
+import com.hotelnow.fragment.search.HotelSearchFragment;
+import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.TuneWrap;
 
 public class SearchResultActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    NonSwipeableViewPager view_pager;
-    SectionsPagerAdapter mSectionsPagerAdapter;
-    int m_Selecttab = 0;
-    String search_txt, banner_id;
-    TextView title_text;
-    RelativeLayout toast_layout;
-    ImageView ico_favorite;
-    TextView tv_toast;
-    String order_kind = "", page = "", banner_name = "";
-
+    private TabLayout tabLayout;
+    private FrameLayout view_pager;
+//    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private int m_Selecttab = 0;
+    private String search_txt, banner_id;
+    private TextView title_text;
+    private RelativeLayout toast_layout;
+    private ImageView ico_favorite;
+    private TextView tv_toast;
+    private String order_kind = "", page = "", banner_name = "";
+    private Bundle bundle;
+    private FragmentTransaction childFt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +66,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        view_pager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
+        view_pager = (FrameLayout) findViewById(R.id.view_pager);
         toast_layout = (RelativeLayout) findViewById(R.id.toast_layout);
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
@@ -78,24 +85,38 @@ public class SearchResultActivity extends AppCompatActivity {
             title_text.setText("내 주변 바로보기");
         }
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
-        view_pager.setAdapter(mSectionsPagerAdapter);
-
+//        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), search_txt, banner_id, order_kind, title_text.getText().toString());
+//        view_pager.setAdapter(mSectionsPagerAdapter);
+        tabLayout.getTabAt(m_Selecttab).select();
         if (m_Selecttab == 0) {
-            tabLayout.getTabAt(0).select();
             view_pager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    view_pager.setCurrentItem(0);
+                    TuneWrap.Event("search_list_stay");
+                    Fragment hotelSearchFragment = new HotelSearchFragment();
+                    bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수
+                    bundle.putString("search_txt", search_txt); // key , value
+                    bundle.putString("banner_id", banner_id); // key , value
+                    bundle.putString("order_kind", order_kind);
+                    bundle.putString("title_text", banner_name);
+                    hotelSearchFragment.setArguments(bundle);
+                    setChildFragment(hotelSearchFragment, m_Selecttab);
                 }
             }, 100);
 
         } else {
-            tabLayout.getTabAt(1).select();
             view_pager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    view_pager.setCurrentItem(1);
+                    TuneWrap.Event("search_list_activity");
+                    Fragment activitySearchFragment = new ActivitySearchFragment();
+                    bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수
+                    bundle.putString("search_txt", search_txt); // key , value
+                    bundle.putString("banner_id", banner_id); // key , value
+                    bundle.putString("order_kind", order_kind);
+                    bundle.putString("title_text", banner_name);
+                    activitySearchFragment.setArguments(bundle);
+                    setChildFragment(activitySearchFragment, m_Selecttab);
                 }
             }, 100);
         }
@@ -103,7 +124,22 @@ public class SearchResultActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                view_pager.setCurrentItem(tab.getPosition());
+                Fragment fg;
+                if (tab.getPosition() == 0) {
+                    TuneWrap.Event("search_list_stay");
+                    fg = new HotelSearchFragment();
+                }
+                else {
+                    TuneWrap.Event("search_list_activity");
+                    fg = new ActivitySearchFragment();
+                }
+                bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수
+                bundle.putString("search_txt", search_txt); // key , value
+                bundle.putString("banner_id", banner_id); // key , value
+                bundle.putString("order_kind", order_kind);
+                bundle.putString("title_text", banner_name);
+                fg.setArguments(bundle);
+                setChildFragment(fg, tab.getPosition());
             }
 
             @Override
@@ -135,6 +171,60 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setChildFragment(Fragment child, int tag) {
+        childFt = getSupportFragmentManager().beginTransaction();
+
+        if(tag == 0){
+            if (getSupportFragmentManager().findFragmentByTag("1Search") != null) {
+                childFt.hide(getSupportFragmentManager().findFragmentByTag("1Search"));
+            }
+            if (getSupportFragmentManager().findFragmentByTag("0Search") == null) {
+                childFt.add(R.id.view_pager, child, "0Search");
+                LogUtil.e("view", "hotel");
+            }
+            else{
+                childFt.show(getSupportFragmentManager().findFragmentByTag("0Search"));
+                LogUtil.e("view", "hotel1");
+            }
+        }
+        else{
+            if (getSupportFragmentManager().findFragmentByTag("0Search") != null) {
+                childFt.hide(getSupportFragmentManager().findFragmentByTag("0Search"));
+            }
+            if (getSupportFragmentManager().findFragmentByTag("1Search") == null) {
+                childFt.add(R.id.view_pager, child, "1Search");
+                LogUtil.e("view", "activity");
+            } else {
+                childFt.show(getSupportFragmentManager().findFragmentByTag("1Search"));
+                LogUtil.e("view", "activity1");
+            }
+        }
+        childFt.commitAllowingStateLoss();
+    }
+
+    public void setChildDelete(int tag) {
+        childFt = getSupportFragmentManager().beginTransaction();
+
+        if(tag == 0){
+            LogUtil.e("delete", "activity");
+            if (getSupportFragmentManager().findFragmentByTag("1Reservation") != null) {
+                LogUtil.e("delete", "activity1");
+                childFt.remove(getSupportFragmentManager().findFragmentByTag("1Reservation"));
+            }
+            LogUtil.e("delete", "activity2");
+        }
+        else{
+            LogUtil.e("delete", "hotel");
+            if (getSupportFragmentManager().findFragmentByTag("0Reservation") != null) {
+                LogUtil.e("delete", "hotel1");
+                childFt.remove(getSupportFragmentManager().findFragmentByTag("0Reservation"));
+            }
+            LogUtil.e("delete", "hotel2");
+        }
+        childFt.commitAllowingStateLoss();
+    }
+
 
     public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);

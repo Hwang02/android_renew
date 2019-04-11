@@ -57,6 +57,8 @@ public class FavoriteFragment extends Fragment {
 
         // 1번 탭 일때
         m_Selecttab = CONFIG.sel_fav;
+        mFavoriteBinding.tabLayout.getTabAt(m_Selecttab).select();
+
         if (m_Selecttab == 0) {
             TuneWrap.Event("favorite_stay");
             new Handler().postDelayed(
