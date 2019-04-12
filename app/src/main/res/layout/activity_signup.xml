@@ -58,51 +58,93 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/email"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:hint="@string/email"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textColorHint="@color/coupon_dis"
-                android:inputType="textEmailAddress"
-                android:maxLength="50"
-                android:textSize="15dp"
-                android:layout_marginTop="14dp"
-                android:singleLine="true"
-                android:theme="@style/EditTheme"
-                android:textColor="@color/blacktxt" />
-
-            <EditText
-                android:id="@+id/passwd"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:textSize="13dp"
+                    android:visibility="invisible"
+                    android:textColor="@color/purple"/>
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:hint="@string/email"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textColorHint="@color/coupon_dis"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"
+                    android:textSize="15dp"
+                    android:singleLine="true"
+                    android:theme="@style/EditTheme"
+                    android:padding="0dp"
+                    android:textColor="@color/blacktxt" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:hint="@string/login_pw"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="15dp"
-                android:textColorHint="@color/coupon_dis"
-                android:inputType="textPassword"
-                android:maxLength="20"
-                android:singleLine="true"
-                android:theme="@style/EditTheme"
-                android:textColor="@color/blacktxt" />
-
-            <EditText
-                android:id="@+id/username"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title_passwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_pw"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="13dp"
+                    android:visibility="invisible"
+                    android:textColor="@color/purple"/>
+                <EditText
+                    android:id="@+id/passwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:hint="@string/login_pw"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="15dp"
+                    android:textColorHint="@color/coupon_dis"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:theme="@style/EditTheme"
+                    android:textColor="@color/blacktxt" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:hint="@string/name"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="15dp"
-                android:textColorHint="@color/coupon_dis"
-                android:maxLength="8"
-                android:singleLine="true"
-                android:theme="@style/EditTheme"
-                android:textColor="@color/blacktxt" />
-
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="13dp"
+                    android:visibility="invisible"
+                    android:textColor="@color/purple"/>
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:hint="@string/name"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="15dp"
+                    android:textColorHint="@color/coupon_dis"
+                    android:maxLength="8"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:theme="@style/EditTheme"
+                    android:textColor="@color/blacktxt" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

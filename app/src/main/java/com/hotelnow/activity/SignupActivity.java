@@ -104,6 +104,35 @@ public class SignupActivity extends Activity {
         agree_checkbox3 = (CheckBox) findViewById(R.id.agree_checkbox3);
         agree_checkbox4 = (CheckBox) findViewById(R.id.agree_checkbox4);
 
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    findViewById(R.id.title_email).setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        passwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    findViewById(R.id.title_passwd).setVisibility(View.VISIBLE);
+                    passwd.setHint(R.string.login_pw2);
+                }
+            }
+        });
+
+        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    findViewById(R.id.title_username).setVisibility(View.VISIBLE);
+                    username.setHint(R.string.name_hint);
+                }
+            }
+        });
+
         SpannableStringBuilder builder = new SpannableStringBuilder("할인 혜택 알림 수신동의(선택)");
         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 13, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_checkbox4.setText(builder);
