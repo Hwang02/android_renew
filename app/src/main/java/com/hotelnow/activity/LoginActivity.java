@@ -548,7 +548,9 @@ public class LoginActivity extends Activity {
 
         // 키보드 숨김
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        if (getCurrentFocus() != null)
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
         finish();
 
