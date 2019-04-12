@@ -110,6 +110,13 @@ public class SignupActivity extends Activity {
                 if(hasFocus){
                     findViewById(R.id.title_email).setVisibility(View.VISIBLE);
                 }
+                else{
+                    if(email.length()>0){
+                        findViewById(R.id.title_email).setVisibility(View.VISIBLE);
+                    }else{
+                        findViewById(R.id.title_email).setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         });
 
@@ -120,6 +127,13 @@ public class SignupActivity extends Activity {
                     findViewById(R.id.title_passwd).setVisibility(View.VISIBLE);
                     passwd.setHint(R.string.login_pw2);
                 }
+                else{
+                    if(passwd.length()>0){
+                        findViewById(R.id.title_passwd).setVisibility(View.VISIBLE);
+                    }else{
+                        findViewById(R.id.title_passwd).setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         });
 
@@ -129,6 +143,13 @@ public class SignupActivity extends Activity {
                 if(hasFocus){
                     findViewById(R.id.title_username).setVisibility(View.VISIBLE);
                     username.setHint(R.string.name_hint);
+                }
+                else{
+                    if(username.length()>0){
+                        findViewById(R.id.title_username).setVisibility(View.VISIBLE);
+                    }else{
+                        findViewById(R.id.title_username).setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         });
