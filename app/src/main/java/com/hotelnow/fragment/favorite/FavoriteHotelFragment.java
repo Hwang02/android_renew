@@ -240,7 +240,7 @@ public class FavoriteHotelFragment extends Fragment {
                 MainActivity.showProgress();
                 getFavorite();
             }
-        } else if(requestCode == 180){
+        } else if(requestCode == 180 && resultCode == 80){
             ec_date = data.getStringExtra("ec_date");
             ee_date = data.getStringExtra("ee_date");
             tvDate.setText(Util.formatchange5(ec_date) + " - " + Util.formatchange5(ee_date));
