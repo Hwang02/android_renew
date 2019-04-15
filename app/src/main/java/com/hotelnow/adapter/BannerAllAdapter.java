@@ -119,7 +119,7 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
         holder.iv_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mId = data.get((int) v.getTag()).getId();
+                mId = data.get((int) v.getTag()).getEvent_id();
                 mTitle = data.get((int) v.getTag()).getTitle();
                 if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
                     frontType = data.get((int) v.getTag()).getEvt_type();
