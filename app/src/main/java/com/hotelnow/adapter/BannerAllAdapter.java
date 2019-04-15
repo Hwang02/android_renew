@@ -242,7 +242,7 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
                 } else {
                     Intent intentEvt = new Intent(mContext, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
-                    intentEvt.putExtra("title", frontTitle);
+                    intentEvt.putExtra("title", mTitle);
                     mContext.startActivity(intentEvt);
                 }
             }

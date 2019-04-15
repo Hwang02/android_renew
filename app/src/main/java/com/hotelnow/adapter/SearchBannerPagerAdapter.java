@@ -209,7 +209,7 @@ public class SearchBannerPagerAdapter extends PagerAdapter {
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
-                    intentEvt.putExtra("title", frontTitle);
+                    intentEvt.putExtra("title", mTitle);
                     context.startActivity(intentEvt);
                 }
             }
