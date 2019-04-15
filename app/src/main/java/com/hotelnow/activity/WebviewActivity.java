@@ -120,7 +120,13 @@ public class WebviewActivity extends AppCompatActivity {
 //            });
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webview != null) {
+            webview.destroy();
+        }
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

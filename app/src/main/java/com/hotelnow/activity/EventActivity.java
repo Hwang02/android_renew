@@ -351,7 +351,13 @@ public class EventActivity extends AppCompatActivity {
             }
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null) {
+            webView.destroy();
+        }
+    }
     @Override
     public void onBackPressed() {
 

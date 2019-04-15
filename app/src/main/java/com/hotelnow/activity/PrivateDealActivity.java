@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -124,7 +125,7 @@ public class PrivateDealActivity extends FragmentActivity {
         @JavascriptInterface
         public void openPurchaseActivity(int accepted_price) {
             TuneWrap.Event("stay_private_reservation", hid);
-            Log.e("webview", "accepted_price : " + accepted_price);
+            LogUtil.e("webview", "accepted_price : " + accepted_price);
             Intent intent = new Intent(PrivateDealActivity.this, ReservationActivity.class);
             intent.putExtra("page", "Private");
             intent.putExtra("pid", pid);
