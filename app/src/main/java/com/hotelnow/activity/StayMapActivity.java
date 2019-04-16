@@ -258,7 +258,11 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
 
         bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_activity_selected);
         b = bitmapdraw.getBitmap();
-        smallMarker = Bitmap.createScaledBitmap(b, m_width, m_height, false);
+
+        float scale = getResources().getDisplayMetrics().density;
+        int p = (int) (30 * scale + 0.5f);
+
+        smallMarker = Bitmap.createScaledBitmap(b, p, p, false);
 
         MarkerOptions markerOptions = new MarkerOptions().
                 icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
@@ -274,7 +278,11 @@ public class StayMapActivity extends FragmentActivity implements OnMapReadyCallb
 
         bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_stay_selected);
         b = bitmapdraw.getBitmap();
-        smallMarker = Bitmap.createScaledBitmap(b, m_width, m_height, false);
+
+        float scale = getResources().getDisplayMetrics().density;
+        int p = (int) (30 * scale + 0.5f);
+
+        smallMarker = Bitmap.createScaledBitmap(b, p, p, false);
 
         MarkerOptions markerOptions = new MarkerOptions().
                 icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);

@@ -594,7 +594,11 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
 
         bitmapdraw = (BitmapDrawable) getResources().getDrawable(com.thebrownarrow.customstyledmap.R.drawable.map_marker_activity);
         b = bitmapdraw.getBitmap();
-        smallMarker = Bitmap.createScaledBitmap(b, 95, 100, false);
+
+        float scale = getResources().getDisplayMetrics().density;
+        int p = (int) (24 * scale + 0.5f);
+
+        smallMarker = Bitmap.createScaledBitmap(b, p, p, false);
 
         MarkerOptions markerOptions = new MarkerOptions().
                 icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).position(position);
