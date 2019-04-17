@@ -1,8 +1,6 @@
 package com.thebrownarrow.model;
 
-import java.io.Serializable;
-
-public class SearchResultItem implements Serializable {
+public class SearchResultItem {
 
     private String id, hotel_id, name, address, category, street1, street2, privateDealYN, landscape, sale_price,
     normal_price, sale_rate, special_msg, review_score, grade_score, real_grade_score, distance, distance_real, normal_price_avg,

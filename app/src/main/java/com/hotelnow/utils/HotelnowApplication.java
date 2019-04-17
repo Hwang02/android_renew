@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.kakao.auth.KakaoSDK;
 import com.tune.Tune;
 
@@ -58,6 +60,9 @@ public class HotelnowApplication extends MultiDexApplication {
         if (_preferences.getBoolean("flag_first_executed", false) != false) {
             Tune.getInstance().setExistingUser(true);
         }
+
+        if(!FirebaseApp.getApps(context).isEmpty()) return;
+        FirebaseApp.initializeApp(context, FirebaseOptions.fromResource(context));
     }
 
     public static Context getAppContext() {
