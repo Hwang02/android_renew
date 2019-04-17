@@ -154,7 +154,7 @@ public class MainActivity extends FragmentActivity {
         //상단 toolbar
         setTitle();
 
-        wrapTabIndicatorToTitle(mbinding.tabLayout, 120,120);
+        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
         //상단 탭 화면 이동
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -162,21 +162,21 @@ public class MainActivity extends FragmentActivity {
                 mbinding.toolbar.setVisibility(View.VISIBLE);
                 switch (tab.getPosition()) {
                     case 0: { // 추천
-                        wrapTabIndicatorToTitle(mbinding.tabLayout, 120,120);
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
                         LogUtil.e("xxxxx", "111111");
                         TuneWrap.Event("home_button");
                         setTapMove(SELECTPAGE, false);
                         break;
                     }
                     case 1: { // 호텔
-                        wrapTabIndicatorToTitle(mbinding.tabLayout, 120,120);
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
                         LogUtil.e("xxxxx", "222222");
                         TuneWrap.Event("stay_button");
                         setTapMove(HOTELPAGE, false);
                         break;
                     }
                     case 2: { // 엑티비티
-                        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, 60,60);
                         LogUtil.e("xxxxx", "33333");
                         TuneWrap.Event("activity_button");
                         setTapMove(LEISUREPAGE, false);
@@ -338,6 +338,8 @@ public class MainActivity extends FragmentActivity {
                     setTapMove(HOTELPAGE, true);
                 } else if(push_type.equals("11")) {
                     setTapMove(LEISUREPAGE, true);
+                } else{
+                    setTapMove(SELECTPAGE, false);
                 }
             } else {
                 setTapMove(SELECTPAGE, false);
