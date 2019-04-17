@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -152,6 +154,7 @@ public class MainActivity extends FragmentActivity {
         //상단 toolbar
         setTitle();
 
+        wrapTabIndicatorToTitle(mbinding.tabLayout, 120,120);
         //상단 탭 화면 이동
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -159,18 +162,21 @@ public class MainActivity extends FragmentActivity {
                 mbinding.toolbar.setVisibility(View.VISIBLE);
                 switch (tab.getPosition()) {
                     case 0: { // 추천
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, 120,120);
                         LogUtil.e("xxxxx", "111111");
                         TuneWrap.Event("home_button");
                         setTapMove(SELECTPAGE, false);
                         break;
                     }
                     case 1: { // 호텔
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, 120,120);
                         LogUtil.e("xxxxx", "222222");
                         TuneWrap.Event("stay_button");
                         setTapMove(HOTELPAGE, false);
                         break;
                     }
                     case 2: { // 엑티비티
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
                         LogUtil.e("xxxxx", "33333");
                         TuneWrap.Event("activity_button");
                         setTapMove(LEISUREPAGE, false);
@@ -262,7 +268,7 @@ public class MainActivity extends FragmentActivity {
             sdate = getIntent().getStringExtra("sdate");
             edate = getIntent().getStringExtra("edate");
             evttag = getIntent().getStringExtra("evttag");
-            // 1 : 예약 상세|booking_id / 4: 리뷰|booking_id, 2 : 인덱스 페이지 이동|이벤트id, 3: 상품 상세|hotel_id, 5:적립금 확인, 6:테마리스트 이동
+            // 1 : 예약 상세|booking_id / 4: 리뷰|booking_id, 2 : 인덱스 페이지 이동|이벤트id, 3: 상품 상세|hotel_id, 5:적립금 확인, 6:테마리스트 이동 7:쿠폰 리스트 8: 티켓상세 10: 숙소탭 11: 액티비티탭
             if (push_type != null) {
                 if (push_type.equals("1") || push_type.equals("4")) {
                     setTapMove(SELECTPAGE, false);
@@ -328,6 +334,10 @@ public class MainActivity extends FragmentActivity {
                     intentticket.putExtra("tid", String.valueOf(evtidx));
                     intentticket.putExtra("save", true);
                     startActivity(intentticket);
+                } else if(push_type.equals("10")) {
+                    setTapMove(HOTELPAGE, true);
+                } else if(push_type.equals("11")) {
+                    setTapMove(LEISUREPAGE, true);
                 }
             } else {
                 setTapMove(SELECTPAGE, false);
@@ -1001,6 +1011,49 @@ public class MainActivity extends FragmentActivity {
             params.setScrollFlags(0);
             appBarLayoutParams.setBehavior(null);
             mbinding.appbar.setLayoutParams(appBarLayoutParams);
+        }
+    }
+
+    public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {
+        View tabStrip = tabLayout.getChildAt(0);
+        if (tabStrip instanceof ViewGroup) {
+            ViewGroup tabStripGroup = (ViewGroup) tabStrip;
+            int childCount = ((ViewGroup) tabStrip).getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                View tabView = tabStripGroup.getChildAt(i);
+                //set minimum width to 0 for instead for small texts, indicator is not wrapped as expected
+                tabView.setMinimumWidth(0);
+                // set padding to 0 for wrapping indicator as title
+                tabView.setPadding(0, tabView.getPaddingTop(), 0, tabView.getPaddingBottom());
+                // setting custom margin between tabs
+                if (tabView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) tabView.getLayoutParams();
+                    if (i == 0) {
+                        // left
+                        settingMargin(layoutParams, externalMargin, internalMargin);
+                    } else if (i == childCount - 1) {
+                        // right
+                        settingMargin(layoutParams, internalMargin, externalMargin);
+                    } else {
+                        // internal
+                        settingMargin(layoutParams, internalMargin, internalMargin);
+                    }
+                }
+            }
+
+            tabLayout.requestLayout();
+        }
+    }
+
+    private void settingMargin(ViewGroup.MarginLayoutParams layoutParams, int start, int end) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            layoutParams.setMarginStart(start);
+            layoutParams.setMarginEnd(end);
+            layoutParams.leftMargin = start;
+            layoutParams.rightMargin = end;
+        } else {
+            layoutParams.leftMargin = start;
+            layoutParams.rightMargin = end;
         }
     }
 }
