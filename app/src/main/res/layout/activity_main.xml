@@ -48,8 +48,7 @@
                     android:textSize="15dp"
                     app:tabTextColor="@color/unselecttab"
                     app:tabSelectedTextColor="@color/purple"
-                    app:tabIndicatorColor="@color/purple"
-                    app:tabMode="fixed" />
+                    app:tabIndicatorColor="@color/purple" />
 
                 <View
                     android:layout_width="match_parent"

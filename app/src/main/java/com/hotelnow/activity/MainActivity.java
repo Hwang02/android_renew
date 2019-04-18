@@ -154,7 +154,7 @@ public class MainActivity extends FragmentActivity {
         //상단 toolbar
         setTitle();
 
-        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
+        wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(this, 30), Util.dptopixel(this, 30));
         //상단 탭 화면 이동
         mbinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -162,21 +162,21 @@ public class MainActivity extends FragmentActivity {
                 mbinding.toolbar.setVisibility(View.VISIBLE);
                 switch (tab.getPosition()) {
                     case 0: { // 추천
-                        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(getApplicationContext(), 30), Util.dptopixel(getApplicationContext(), 30));
                         LogUtil.e("xxxxx", "111111");
                         TuneWrap.Event("home_button");
                         setTapMove(SELECTPAGE, false);
                         break;
                     }
                     case 1: { // 호텔
-                        wrapTabIndicatorToTitle(mbinding.tabLayout, 100,100);
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(getApplicationContext(), 30), Util.dptopixel(getApplicationContext(), 30));
                         LogUtil.e("xxxxx", "222222");
                         TuneWrap.Event("stay_button");
                         setTapMove(HOTELPAGE, false);
                         break;
                     }
                     case 2: { // 엑티비티
-                        wrapTabIndicatorToTitle(mbinding.tabLayout, 60,60);
+                        wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(getApplicationContext(), 20), Util.dptopixel(getApplicationContext(), 20));
                         LogUtil.e("xxxxx", "33333");
                         TuneWrap.Event("activity_button");
                         setTapMove(LEISUREPAGE, false);
