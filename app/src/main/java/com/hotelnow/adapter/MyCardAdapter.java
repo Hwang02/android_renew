@@ -14,7 +14,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.MyCardActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
-import com.hotelnow.fragment.model.CardEntry;
+import com.hotelnow.model.CardEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.squareup.okhttp.Response;

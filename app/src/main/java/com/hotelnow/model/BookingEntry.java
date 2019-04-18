@@ -1,4 +1,4 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
 /**
  * Created by susia on 15. 12. 21..

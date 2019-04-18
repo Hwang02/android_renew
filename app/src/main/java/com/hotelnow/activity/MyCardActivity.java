@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MyCardAdapter;
-import com.hotelnow.fragment.model.CardEntry;
+import com.hotelnow.model.CardEntry;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;

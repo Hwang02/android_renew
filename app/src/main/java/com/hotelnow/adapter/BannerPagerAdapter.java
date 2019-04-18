@@ -21,7 +21,7 @@ import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.BannerItem;
+import com.hotelnow.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;

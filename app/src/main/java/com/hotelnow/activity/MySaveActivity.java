@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.MySaveAdapter;
-import com.hotelnow.fragment.model.MySaveMoneyItem;
+import com.hotelnow.model.MySaveMoneyItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.Util;

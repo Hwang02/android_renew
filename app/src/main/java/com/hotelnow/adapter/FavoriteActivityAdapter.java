@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.fragment.favorite.FavoriteActivityFragment;
-import com.hotelnow.fragment.model.FavoriteStayItem;
+import com.hotelnow.model.FavoriteStayItem;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;

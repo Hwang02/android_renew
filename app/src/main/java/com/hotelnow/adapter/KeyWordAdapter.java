@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.SearchResultActivity;
-import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.model.KeyWordItem;
 import com.hotelnow.utils.TuneWrap;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;

@@ -1,33 +1,30 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
-public class ThemeSItem {
+public class FavoriteStayItem {
 
-    private String id, name, category, street1, street2, special_msg, sale_price, normal_price, sale_rate, landscape, grade_score, real_grade_score, is_private_deal, is_hot_deal, is_add_reserve, theme_listing_order, top_img, checkin, checkout;
+    private String id, name, category, street1, street2, landscape, sale_price,
+            sale_rate, special_msg, grade_score, real_grade_score,
+            is_private_deal, is_hot_deal, is_add_reserve;
     private int items_quantity, coupon_count;
 
-    public ThemeSItem(String id, String name, String category, String street1, String street2, String special_msg, String sale_price, String normal_price, String sale_rate,
-                      int items_quantity, String landscape, String grade_score, String real_grade_score, String is_private_deal, String is_hot_deal, String is_add_reserve, String theme_listing_order, String top_img, String checkin, String checkout, int coupon_count) {
+    public FavoriteStayItem(String id, String name, String category, String street1, String street2, String landscape, String sale_price,
+                            String sale_rate, int items_quantity, String special_msg, String grade_score, String real_grade_score,
+                            String is_private_deal, String is_hot_deal, String is_add_reserve, int coupon_count) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.street1 = street1;
         this.street2 = street2;
-        this.special_msg = special_msg;
-        this.sale_price = sale_price;
-        this.normal_price = normal_price;
+        this.landscape = landscape;
         this.sale_price = sale_price;
         this.sale_rate = sale_rate;
         this.items_quantity = items_quantity;
-        this.landscape = landscape;
+        this.special_msg = special_msg;
         this.grade_score = grade_score;
         this.real_grade_score = real_grade_score;
         this.is_private_deal = is_private_deal;
         this.is_hot_deal = is_hot_deal;
         this.is_add_reserve = is_add_reserve;
-        this.theme_listing_order = theme_listing_order;
-        this.top_img = top_img;
-        this.checkin = checkin;
-        this.checkout = checkout;
         this.coupon_count = coupon_count;
     }
 
@@ -37,22 +34,6 @@ public class ThemeSItem {
 
     public void setCoupon_count(int coupon_count) {
         this.coupon_count = coupon_count;
-    }
-
-    public String getCheckin() {
-        return checkin;
-    }
-
-    public void setCheckin(String checkin) {
-        this.checkin = checkin;
-    }
-
-    public String getCheckout() {
-        return checkout;
-    }
-
-    public void setCheckout(String checkout) {
-        this.checkout = checkout;
     }
 
     public String getId() {
@@ -95,12 +76,12 @@ public class ThemeSItem {
         this.street2 = street2;
     }
 
-    public String getSpecial_msg() {
-        return special_msg;
+    public String getLandscape() {
+        return landscape;
     }
 
-    public void setSpecial_msg(String special_msg) {
-        this.special_msg = special_msg;
+    public void setLandscape(String landscape) {
+        this.landscape = landscape;
     }
 
     public String getSale_price() {
@@ -109,14 +90,6 @@ public class ThemeSItem {
 
     public void setSale_price(String sale_price) {
         this.sale_price = sale_price;
-    }
-
-    public String getNormal_price() {
-        return normal_price;
-    }
-
-    public void setNormal_price(String normal_price) {
-        this.normal_price = normal_price;
     }
 
     public String getSale_rate() {
@@ -135,12 +108,12 @@ public class ThemeSItem {
         this.items_quantity = items_quantity;
     }
 
-    public String getLandscape() {
-        return landscape;
+    public String getSpecial_msg() {
+        return special_msg;
     }
 
-    public void setLandscape(String landscape) {
-        this.landscape = landscape;
+    public void setSpecial_msg(String special_msg) {
+        this.special_msg = special_msg;
     }
 
     public String getGrade_score() {
@@ -181,21 +154,5 @@ public class ThemeSItem {
 
     public void setIs_add_reserve(String is_add_reserve) {
         this.is_add_reserve = is_add_reserve;
-    }
-
-    public String getTheme_listing_order() {
-        return theme_listing_order;
-    }
-
-    public void setTheme_listing_order(String theme_listing_order) {
-        this.theme_listing_order = theme_listing_order;
-    }
-
-    public String getTop_img() {
-        return top_img;
-    }
-
-    public void setTop_img(String top_img) {
-        this.top_img = top_img;
     }
 }

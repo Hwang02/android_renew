@@ -26,7 +26,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.TicketSelEntry;
+import com.hotelnow.model.TicketSelEntry;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.fragment.leisure.LeisureFragment;
-import com.hotelnow.fragment.model.ActivityHotDealItem;
+import com.hotelnow.model.ActivityHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;

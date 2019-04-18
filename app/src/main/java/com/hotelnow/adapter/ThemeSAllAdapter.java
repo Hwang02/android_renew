@@ -14,7 +14,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.ThemeSAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
-import com.hotelnow.fragment.model.ThemeSpecialItem;
+import com.hotelnow.model.ThemeSpecialItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.koushikdutta.ion.Ion;
 

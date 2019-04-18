@@ -1,4 +1,4 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
 public class RecentCityItem {
     private String sel_city_id;

@@ -48,7 +48,7 @@ import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.MapAcvitityActivity;
 import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.adapter.SearchResultActivityAdapter;
-import com.hotelnow.fragment.model.KeyWordItem;
+import com.hotelnow.model.KeyWordItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;

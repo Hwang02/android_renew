@@ -13,7 +13,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.fragment.home.HomeFragment;
-import com.hotelnow.fragment.model.RecentListItem;
+import com.hotelnow.model.RecentListItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.ReviewDetailActivity;
-import com.hotelnow.fragment.model.ReviewItem;
+import com.hotelnow.model.ReviewItem;
 import com.hotelnow.utils.Util;
 
 import java.util.List;

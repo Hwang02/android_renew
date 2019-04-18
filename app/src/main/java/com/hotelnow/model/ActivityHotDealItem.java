@@ -1,4 +1,4 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
 public class ActivityHotDealItem {
     private String id, name, sale_price, sale_rate, latitude, longitude, benefit_text, img_url, location, category_code, category, review_score, grade_score, is_hot_deal, is_add_reserve;

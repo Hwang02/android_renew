@@ -17,7 +17,7 @@ import com.hotelnow.activity.CalendarActivity;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.HotelSearchActivity;
 import com.hotelnow.fragment.hotel.HotelFragment;
-import com.hotelnow.fragment.model.TopItem;
+import com.hotelnow.model.TopItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.OnSingleClickListener;

@@ -14,7 +14,7 @@ import com.hotelnow.activity.ActivityFilterActivity;
 import com.hotelnow.activity.ActivitySearchActivity;
 import com.hotelnow.activity.AreaActivityActivity;
 import com.hotelnow.fragment.leisure.LeisureFragment;
-import com.hotelnow.fragment.model.TopItem;
+import com.hotelnow.model.TopItem;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 

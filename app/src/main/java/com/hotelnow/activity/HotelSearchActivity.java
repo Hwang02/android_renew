@@ -43,7 +43,7 @@ import com.hotelnow.R;
 import com.hotelnow.adapter.SearchBannerPagerAdapter;
 import com.hotelnow.adapter.SearchStayAdapter;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.BannerItem;
+import com.hotelnow.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;

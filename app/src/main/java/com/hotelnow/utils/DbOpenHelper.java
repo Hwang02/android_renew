@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import com.hotelnow.fragment.model.ActivityThemeItem;
-import com.hotelnow.fragment.model.CityItem;
-import com.hotelnow.fragment.model.KeyWordItem;
-import com.hotelnow.fragment.model.RecentCityItem;
-import com.hotelnow.fragment.model.RecentItem;
-import com.hotelnow.fragment.model.SearchKeyWordItem;
-import com.hotelnow.fragment.model.SubCityItem;
+import com.hotelnow.model.ActivityThemeItem;
+import com.hotelnow.model.CityItem;
+import com.hotelnow.model.KeyWordItem;
+import com.hotelnow.model.RecentCityItem;
+import com.hotelnow.model.RecentItem;
+import com.hotelnow.model.SearchKeyWordItem;
+import com.hotelnow.model.SubCityItem;
 
 import java.util.ArrayList;
 import java.util.List;

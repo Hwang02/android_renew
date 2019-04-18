@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.ThemeSAllAdapter;
-import com.hotelnow.fragment.model.ThemeSpecialItem;
+import com.hotelnow.model.ThemeSpecialItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;

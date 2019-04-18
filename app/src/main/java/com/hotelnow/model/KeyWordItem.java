@@ -1,11 +1,10 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
+public class KeyWordItem {
 
-public class BannerItem {
+    private String id, order, category, image, keyword, type, evt_type, event_id, link, bannerable_id;
 
-    private String id, order, category, image, keyword, type, evt_type, event_id, link, title, sub_title;
-
-    public BannerItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String title, String sub_title) {
+    public KeyWordItem(String id, String order, String category, String image, String keyword, String type, String evt_type, String event_id, String link, String bannerable_id) {
         this.id = id;
         this.order = order;
         this.category = category;
@@ -15,25 +14,16 @@ public class BannerItem {
         this.evt_type = evt_type;
         this.event_id = event_id;
         this.link = link;
-        this.title = title;
-        this.sub_title = sub_title;
+        this.bannerable_id = bannerable_id;
 
     }
 
-    public String getSub_title() {
-        return sub_title;
+    public String getBannerable_id() {
+        return bannerable_id;
     }
 
-    public void setSub_title(String sub_title) {
-        this.sub_title = sub_title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBannerable_id(String bannerable_id) {
+        this.bannerable_id = bannerable_id;
     }
 
     public String getId() {

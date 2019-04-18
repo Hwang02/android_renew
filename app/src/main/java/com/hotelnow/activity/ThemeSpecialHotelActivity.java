@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.adapter.ThemeSpecialHotelAdapter;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.ThemeSItem;
+import com.hotelnow.model.ThemeSItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;

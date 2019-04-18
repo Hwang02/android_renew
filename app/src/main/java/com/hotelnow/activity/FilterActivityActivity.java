@@ -13,7 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.ActivityThemeItem;
+import com.hotelnow.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
 

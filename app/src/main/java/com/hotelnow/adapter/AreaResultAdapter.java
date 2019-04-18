@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.SubCityItem;
+import com.hotelnow.model.SubCityItem;
 
 import java.util.List;
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.ActivityFilterAdapter;
-import com.hotelnow.fragment.model.ActivityThemeItem;
+import com.hotelnow.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleItemClickListener;

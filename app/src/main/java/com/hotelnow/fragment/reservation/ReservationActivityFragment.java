@@ -29,7 +29,7 @@ import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.ReservationActivityDetailActivity;
 import com.hotelnow.adapter.ReservationActivityAdapter;
-import com.hotelnow.fragment.model.BookingQEntry;
+import com.hotelnow.model.BookingQEntry;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.DefaultItem;
+import com.hotelnow.model.DefaultItem;
 
 import java.util.ArrayList;
 

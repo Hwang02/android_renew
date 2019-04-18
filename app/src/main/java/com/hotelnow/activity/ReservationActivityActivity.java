@@ -52,7 +52,7 @@ import com.hotelnow.dialog.DialogBillingAlert;
 import com.hotelnow.dialog.DialogBookingCaution;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogFee;
-import com.hotelnow.fragment.model.TicketSelEntry;
+import com.hotelnow.model.TicketSelEntry;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;

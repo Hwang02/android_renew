@@ -28,7 +28,7 @@ import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.adapter.FavoriteActivityAdapter;
 import com.hotelnow.dialog.DialogConfirm;
-import com.hotelnow.fragment.model.FavoriteStayItem;
+import com.hotelnow.model.FavoriteStayItem;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;

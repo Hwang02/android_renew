@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.adapter.DetailReviewAdapter;
-import com.hotelnow.fragment.model.ReviewItem;
+import com.hotelnow.model.ReviewItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.TuneWrap;

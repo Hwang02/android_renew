@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.adapter.RecentAllAdapter;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.RecentItem;
+import com.hotelnow.model.RecentItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;

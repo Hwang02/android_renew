@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -30,18 +31,18 @@ import com.hotelnow.dialog.DialogFull;
 import com.hotelnow.dialog.DialogLogin;
 import com.hotelnow.dialog.DialogMainFragment;
 import com.hotelnow.dialog.DialogPush;
-import com.hotelnow.fragment.model.ActivityHotDealItem;
-import com.hotelnow.fragment.model.BannerItem;
-import com.hotelnow.fragment.model.DefaultItem;
-import com.hotelnow.fragment.model.KeyWordItem;
-import com.hotelnow.fragment.model.PrivateDealItem;
-import com.hotelnow.fragment.model.RecentCityItem;
-import com.hotelnow.fragment.model.RecentItem;
-import com.hotelnow.fragment.model.RecentListItem;
-import com.hotelnow.fragment.model.StayHotDealItem;
-import com.hotelnow.fragment.model.SubBannerItem;
-import com.hotelnow.fragment.model.ThemeItem;
-import com.hotelnow.fragment.model.ThemeSpecialItem;
+import com.hotelnow.model.ActivityHotDealItem;
+import com.hotelnow.model.BannerItem;
+import com.hotelnow.model.DefaultItem;
+import com.hotelnow.model.KeyWordItem;
+import com.hotelnow.model.PrivateDealItem;
+import com.hotelnow.model.RecentCityItem;
+import com.hotelnow.model.RecentItem;
+import com.hotelnow.model.RecentListItem;
+import com.hotelnow.model.StayHotDealItem;
+import com.hotelnow.model.SubBannerItem;
+import com.hotelnow.model.ThemeItem;
+import com.hotelnow.model.ThemeSpecialItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
@@ -180,8 +181,6 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             }
         }
 
-        getRecentData(true);
-
         final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) getView().findViewById(R.id.swipe);
         swipeView.setColorSchemeColors(R.color.purple, R.color.purple_cc, R.color.green);
         swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -194,6 +193,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                 swipeView.setRefreshing(false);
             }
         });
+
+        getRecentData(true);
     }
 
     public void getRecentData(final boolean isStart) {
@@ -225,8 +226,11 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
 
                     @Override
                     public void onFailure(Response response, Exception throwable) {
-                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         MainActivity.hideProgress();
+                        Activity activity = getActivity();
+                        if(activity != null && isAdded()) {
+                            Toast.makeText(activity, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -270,7 +274,6 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                 // 리스트 호출
                                 objects.clear();
                                 adapter.notifyDataSetChanged();
-//                                adapter.allRefresh(false);
                                 getObject();
                                 CONFIG.isRecent = true;
                             } else {

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.hotelnow.R;
 import com.hotelnow.activity.MySaveActivity;
-import com.hotelnow.fragment.model.MySaveMoneyItem;
+import com.hotelnow.model.MySaveMoneyItem;
 
 import java.text.NumberFormat;
 import java.util.List;

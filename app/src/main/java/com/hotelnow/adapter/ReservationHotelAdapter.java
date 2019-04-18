@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.hotelnow.R;
 import com.hotelnow.activity.ReviewHotelWriteActivity;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.fragment.model.BookingEntry;
+import com.hotelnow.model.BookingEntry;
 import com.hotelnow.fragment.reservation.ReservationHotelFragment;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Util;

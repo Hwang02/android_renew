@@ -1,4 +1,4 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
 import java.io.Serializable;
 

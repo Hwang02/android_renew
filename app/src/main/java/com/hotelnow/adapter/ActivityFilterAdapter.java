@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hotelnow.R;
-import com.hotelnow.fragment.model.ActivityThemeItem;
-import com.hotelnow.fragment.model.CityItem;
+import com.hotelnow.model.ActivityThemeItem;
+import com.hotelnow.model.CityItem;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.hotelnow.fragment.model;
+package com.hotelnow.model;
 
 public class TopItem {
     private String location, location_id, location_subid, ec_date, ee_date;
