@@ -144,7 +144,7 @@ public class CONFIG {
     //v3
     public final static String mainHome = domain + "/main";                                   // 메인 홈
     public final static String mainRecent = domain + "/recent";                         // 최근 본 상품
-    public final static String hotel_detail = domain + "/product";                            // 호텔상세
+    public final static String hotel_detail = domain + "/stay";                            // 호텔상세
     public final static String search_before = domain + "/search/keyword/before";             // 검색 진입시
     public final static String search_auto = domain + "/search/keyword?query=";               // 자동완성
     public final static String booking_save_point = domain + "api/booking/check_discount/";   // 예약시 받을 포인트, 쿠폰 자주 호출

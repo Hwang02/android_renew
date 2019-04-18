@@ -427,7 +427,7 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
                                         intent.putExtra("score", score);
                                         intent.putExtra("order_kind", order_kind);
                                         intent.putExtra("title_text", title_text);
-                                        if (order_kind.equals("distance")) {
+                                        if (order_kind != null && order_kind.equals("distance")) {
                                             intent.putExtra("lat", CONFIG.lat);
                                             intent.putExtra("lng", CONFIG.lng);
                                         }
