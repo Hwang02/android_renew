@@ -193,8 +193,10 @@ public class ReservationHotelFragment extends Fragment {
             Api.get(url, new Api.HttpCallback() {
                 @Override
                 public void onFailure(Response response, Exception e) {
-                    Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                     MainActivity.hideProgress();
+                    if(getActivity() != null) {
+                        Toast.makeText(getActivity(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
