@@ -135,8 +135,8 @@ public class FavoriteFragment extends Fragment {
                 childFt.show(getChildFragmentManager().findFragmentByTag("1favorite"));
                 LogUtil.e("view", "activity1");
             }
-
         }
+        childFt.addToBackStack(null);
         childFt.commitAllowingStateLoss();
     }
 
@@ -159,6 +159,7 @@ public class FavoriteFragment extends Fragment {
             }
             LogUtil.e("delete", "hotel2");
         }
+        childFt.addToBackStack(null);
         childFt.commitAllowingStateLoss();
     }
 

@@ -196,31 +196,9 @@ public class SearchResultActivity extends AppCompatActivity {
                 LogUtil.e("view", "activity1");
             }
         }
+        childFt.addToBackStack(null);
         childFt.commitAllowingStateLoss();
     }
-
-    public void setChildDelete(int tag) {
-        childFt = getSupportFragmentManager().beginTransaction();
-
-        if(tag == 0){
-            LogUtil.e("delete", "activity");
-            if (getSupportFragmentManager().findFragmentByTag("1Reservation") != null) {
-                LogUtil.e("delete", "activity1");
-                childFt.remove(getSupportFragmentManager().findFragmentByTag("1Reservation"));
-            }
-            LogUtil.e("delete", "activity2");
-        }
-        else{
-            LogUtil.e("delete", "hotel");
-            if (getSupportFragmentManager().findFragmentByTag("0Reservation") != null) {
-                LogUtil.e("delete", "hotel1");
-                childFt.remove(getSupportFragmentManager().findFragmentByTag("0Reservation"));
-            }
-            LogUtil.e("delete", "hotel2");
-        }
-        childFt.commitAllowingStateLoss();
-    }
-
 
     public void showToast(String msg) {
         toast_layout.setVisibility(View.VISIBLE);

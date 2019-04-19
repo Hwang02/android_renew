@@ -129,6 +129,7 @@ public class ReservationFragment extends Fragment {
                 LogUtil.e("view", "activity1");
             }
         }
+        childFt.addToBackStack(null);
         childFt.commitAllowingStateLoss();
     }
 
@@ -151,6 +152,7 @@ public class ReservationFragment extends Fragment {
             }
             LogUtil.e("delete", "hotel2");
         }
+        childFt.addToBackStack(null);
         childFt.commitAllowingStateLoss();
     }
 
