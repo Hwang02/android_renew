@@ -80,7 +80,7 @@ public class Api {
         try {
             Random oRandom = new Random();
             int rand = oRandom.nextInt(999999) + 1;
-            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext()) + " " + String.valueOf(rand);
+            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext()) + " " + Util.getAppVersionName(HotelnowApplication.getAppContext()) + " " + String.valueOf(rand);
         } catch (Exception e) {
         }
 
@@ -232,7 +232,7 @@ public class Api {
         try {
             Random oRandom = new Random();
             int rand = oRandom.nextInt(999999) + 1;
-            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext()) + " " + String.valueOf(rand);
+            userAgent += Util.getUserAgent(HotelnowApplication.getAppContext()) + " " + Util.getAppVersionName(HotelnowApplication.getAppContext()) + " " + String.valueOf(rand);
         } catch (Exception e) {
         }
 

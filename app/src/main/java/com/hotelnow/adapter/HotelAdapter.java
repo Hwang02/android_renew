@@ -236,7 +236,7 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
                         mHf.startActivityForResult(intent, 70);
-                    } else {
+                    } else if(mHf.getThemeData().get(0).getTheme_flag().equals("Q")){
                         Intent intent = new Intent(mHf.getContext(), ThemeSpecialActivityActivity.class);
                         intent.putExtra("tid", mHf.getThemeData().get(0).getTheme_id());
                         mHf.startActivityForResult(intent, 70);

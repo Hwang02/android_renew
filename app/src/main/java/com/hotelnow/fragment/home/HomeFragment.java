@@ -496,7 +496,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                                 mItems.getJSONObject(i).getString("normal_price")
                                         ));
                                     }
-                                } else {
+                                    objects.add(mThemeItem.get(0));
+                                } else if(mTheme.getString("theme_flag").equals("Q")) {
                                     for (int i = 0; i < mItems.length(); i++) {
                                         mThemeItem.add(new ThemeItem(
                                                 mItems.getJSONObject(i).getString("id"),
@@ -511,8 +512,8 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
                                                 mItems.getJSONObject(i).getString("normal_price")
                                         ));
                                     }
+                                    objects.add(mThemeItem.get(0));
                                 }
-                                objects.add(mThemeItem.get(0));
                             }
                         }
                     }

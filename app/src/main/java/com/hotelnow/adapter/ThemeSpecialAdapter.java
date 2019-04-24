@@ -52,7 +52,7 @@ public class ThemeSpecialAdapter extends RecyclerView.Adapter<ThemeSpecialAdapte
                     Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());
                     mHf.startActivityForResult(intent, 80);
-                } else {
+                } else if(data.get((int) v.getTag()).getTheme_flag().equals("Q")){
                     Intent intent = new Intent(mContext, ThemeSpecialActivityActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());
                     mHf.startActivityForResult(intent, 80);

@@ -197,7 +197,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         Intent intent = new Intent(mLf.getContext(), ThemeSpecialHotelActivity.class);
                         intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
                         mLf.startActivityForResult(intent, 70);
-                    } else {
+                    } else if(mLf.getThemeData().get(0).getTheme_flag().equals("Q")){
                         Intent intent = new Intent(mLf.getContext(), ThemeSpecialActivityActivity.class);
                         intent.putExtra("tid", mLf.getThemeData().get(0).getTheme_id());
                         mLf.startActivityForResult(intent, 70);
