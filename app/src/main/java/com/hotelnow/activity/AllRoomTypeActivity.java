@@ -107,7 +107,8 @@ public class AllRoomTypeActivity extends Activity {
                                 Intent intent = new Intent(AllRoomTypeActivity.this, CalendarActivity.class);
                                 intent.putExtra("ec_date", ec_date);
                                 intent.putExtra("ee_date", ee_date);
-                                intent.putExtra("selectList", selectList);
+                                CONFIG.selectList = selectList;
+//                                intent.putExtra("selectList", selectList);
                                 intent.putExtra("lodge_type", lodge_type);
                                 startActivityForResult(intent, 80);
                             }

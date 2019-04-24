@@ -177,6 +177,7 @@ public class CONFIG {
     public static int sel_fav = 0;
     public static boolean Mypage_Search = false;
     public static ArrayList<SearchResultItem> search_data = null;
+    public static String[] selectList = null;
 
     public static String TAG = "HOTELNOW LOGGING";
     public static String kakaotalkimg = "http://d2gxin9b07oiov.cloudfront.net/web/kakaotalk.png";

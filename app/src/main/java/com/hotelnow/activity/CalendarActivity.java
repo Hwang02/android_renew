@@ -113,7 +113,7 @@ public class CalendarActivity extends Activity {
 
         strdate = intent.getStringExtra("ec_date");
         strdate2 = intent.getStringExtra("ee_date");
-        selectList = intent.getStringArrayExtra("selectList");
+        selectList = CONFIG.selectList;
         lodge_type = intent.getStringExtra("lodge_type");
 
         //홈 - 호텔 page에서 진입시
@@ -334,5 +334,12 @@ public class CalendarActivity extends Activity {
         cal.setTime(sDate);
         cal.add(Calendar.DATE, i);
         return cal.getTime();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        CONFIG.selectList = null;
     }
 }
