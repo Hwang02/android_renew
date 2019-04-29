@@ -279,7 +279,8 @@ public class HotelFragment extends Fragment {
                                                 mItems.getJSONObject(i).getString("normal_price")
                                         ));
                                     }
-                                    objects.add(mThemeItem.get(0));
+                                    if(mThemeItem.size() > 0)
+                                        objects.add(mThemeItem.get(0));
                                 } else if(mTheme.getString("theme_flag").equals("Q")) {
                                     for (int i = 0; i < mItems.length(); i++) {
                                         mThemeItem.add(new ThemeItem(
@@ -295,7 +296,8 @@ public class HotelFragment extends Fragment {
                                                 mItems.getJSONObject(i).getString("normal_price")
                                         ));
                                     }
-                                    objects.add(mThemeItem.get(0));
+                                    if(mThemeItem.size() > 0)
+                                        objects.add(mThemeItem.get(0));
                                 }
                             }
                         }
