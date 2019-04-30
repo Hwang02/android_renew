@@ -50,7 +50,6 @@
         <activity android:name=".activity.DetailHotelActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.AreaHotelActivity"
             android:screenOrientation="portrait"/>

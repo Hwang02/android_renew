@@ -1134,37 +1134,38 @@ public class ReservationActivity extends Activity {
                     cancel_fee_str = data.getString("fee");
                     cancel_fee_str = cancel_fee_str + "\n\n- <font color=#ff0000>체크아웃</font> : " + Util.formatchange(checkout_date.substring(0, 10));
 
-                    agree_policy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if (isChecked) {
-
-                                dialogFee = new DialogFee(
-                                        getString(R.string.cancel_rule),
-                                        cancel_fee_str.replaceAll("\n", "<br>"),
-                                        getString(R.string.not_agree),
-                                        getString(R.string.agree),
-                                        ReservationActivity.this,
-                                        new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                agree_policy.setChecked(false);
-                                                dialogFee.dismiss();
-                                            }
-                                        },
-                                        new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                agree_policy.setChecked(true);
-                                                dialogFee.dismiss();
-                                            }
-                                        },
-                                        true);
-                                dialogFee.setCancelable(false);
-                                dialogFee.show();
-                            }
-                        }
-                    });
+                    // 예약 간편을 위해 팝업 미노풀
+//                    agree_policy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                        @Override
+//                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                            if (isChecked) {
+//
+//                                dialogFee = new DialogFee(
+//                                        getString(R.string.cancel_rule),
+//                                        cancel_fee_str.replaceAll("\n", "<br>"),
+//                                        getString(R.string.not_agree),
+//                                        getString(R.string.agree),
+//                                        ReservationActivity.this,
+//                                        new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                agree_policy.setChecked(false);
+//                                                dialogFee.dismiss();
+//                                            }
+//                                        },
+//                                        new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                agree_policy.setChecked(true);
+//                                                dialogFee.dismiss();
+//                                            }
+//                                        },
+//                                        true);
+//                                dialogFee.setCancelable(false);
+//                                dialogFee.show();
+//                            }
+//                        }
+//                    });
 
                     if (ll_private.getVisibility() == View.VISIBLE || ll_point.getVisibility() == View.VISIBLE || ll_coupon.getVisibility() == View.VISIBLE) {
                         findViewById(R.id.include_reservation_discount).setVisibility(View.VISIBLE);
