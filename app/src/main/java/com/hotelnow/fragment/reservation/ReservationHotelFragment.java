@@ -1,6 +1,7 @@
 package com.hotelnow.fragment.reservation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -63,12 +64,18 @@ public class ReservationHotelFragment extends Fragment {
     private int total_count = 0;
     private int currentPage = 1;
     private boolean isAdd = true;
-    public Activity mActivity;
+    public Context mActivity;
+
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        this.mActivity = activity;
+//    }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mActivity = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = context;
     }
 
     @Nullable

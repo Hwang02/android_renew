@@ -267,7 +267,5 @@
     <orderEntry type="module" module-name="calendar_lib" />
     <orderEntry type="module" module-name="map_lib" />
     <orderEntry type="library" name="Gradle: org.apache.http.legacy-android-27" level="project" />
-    <orderEntry type="module" module-name="calendar_lib" />
-    <orderEntry type="module" module-name="map_lib" />
   </component>
 </module>

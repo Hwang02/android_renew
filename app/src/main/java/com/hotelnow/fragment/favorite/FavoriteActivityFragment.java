@@ -1,6 +1,7 @@
 package com.hotelnow.fragment.favorite;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -59,11 +60,11 @@ public class FavoriteActivityFragment extends Fragment {
     private RelativeLayout main_view;
     private TextView btn_go_list, btnCancel;
     private DbOpenHelper dbHelper;
-    public Activity mActivity;
+    public Context mActivity;
     private DialogConfirm dialogConfirm;
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         this.mActivity = activity;
     }

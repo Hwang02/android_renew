@@ -1,6 +1,7 @@
 package com.hotelnow.fragment.favorite;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -57,12 +58,12 @@ public class FavoriteHotelFragment extends Fragment {
     private TextView btn_go_list;
     private String ee_date = null, ec_date = null;
     private DbOpenHelper dbHelper;
-    private Activity mActivity;
+    private Context mActivity;
     private TextView tvDate, btnCancel, tvDateTitle;
     private DialogConfirm dialogConfirm;
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         this.mActivity = activity;
     }
