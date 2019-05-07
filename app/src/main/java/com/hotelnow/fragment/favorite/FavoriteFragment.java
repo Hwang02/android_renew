@@ -109,6 +109,8 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void setChildFragment(Fragment child, int tag) {
+        getActivity().getSupportFragmentManager().popBackStack();
+
         childFt = getChildFragmentManager().beginTransaction();
 
         if(tag == 0){
