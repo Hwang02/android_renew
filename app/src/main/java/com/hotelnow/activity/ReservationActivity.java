@@ -1204,11 +1204,7 @@ public class ReservationActivity extends Activity {
                     }
 
                     booking_save_point.setVisibility(View.VISIBLE);
-                    String t_save_point = nf.format(obj.getInt("buy_reserve_money")) + "원 적립 예정(체크아웃 이후 지급)";
-                    SpannableStringBuilder builder = new SpannableStringBuilder(t_save_point);
-                    builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 0, nf.format(obj.getInt("buy_reserve_money")).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    tv_total_discount_point.setText(builder);
-
+                    tv_total_discount_point.setText(nf.format(obj.getInt("buy_reserve_money")));
 
                     // 쿠폰
                     if (obj.has("coupons")) {

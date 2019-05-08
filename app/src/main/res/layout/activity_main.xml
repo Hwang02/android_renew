@@ -12,7 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.CoordinatorLayout android:id="@+id/myCoordinator"
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/myCoordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="false"
@@ -29,13 +30,18 @@
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="72dp"
                     android:background="@drawable/style_top_bar"
                     app:layout_scrollFlags="scroll|enterAlways">
 
                     <include
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:id="@+id/layout_search"
-                        layout="@layout/layout_search_header" />
+                        layout="@layout/layout_search_header"
+                        android:layout_gravity="center_vertical"/>
 
                 </android.support.design.widget.CollapsingToolbarLayout>
 

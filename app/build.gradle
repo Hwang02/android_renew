@@ -77,9 +77,9 @@ android {
             resValue("string", "google_map_key", "AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc");
             resValue("string", "facebook_provider", "com.facebook.app.NativeAppCallContentProvider640301742734227");
 
-            buildConfigField("String", "domain", "\"https://api-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "domain2", "\"http://api-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "domainssl", "\"https://api-eb.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "domain", "\"https://api.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "domain2", "\"http://api.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "domainssl", "\"https://api.dev.hotelnow.co.kr\"")
             buildConfigField("String", "arsDomain", "\"https://payment-ars.dev.hotelnow.co.kr\"")
             buildConfigField("String", "billDomain", "\"https://payment.dev.hotelnow.co.kr\"")
             buildConfigField("String", "phonePayDomain", "\"https://payment-phone.dev.hotelnow.co.kr\"")

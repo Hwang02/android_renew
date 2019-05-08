@@ -52,6 +52,7 @@ import com.google.maps.android.ui.IconGenerator;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.dialog.DialogCoupon;
 import com.hotelnow.dialog.DialogShare;
 import com.hotelnow.dialog.DialogTicketShare;
@@ -143,6 +144,7 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
     private BitmapDrawable bitmapdraw = null;
     private Bitmap b = null;
     private Bitmap smallMarker = null;
+    private DialogConfirm dialogConfirm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -944,7 +946,26 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     @Override
                     public void onClick(View v) {
                         LogUtil.e("xxxx", v.getTag() + "");
-                        setCouponDown((int) v.getTag(), cdata);
+                        if (cookie == null) {
+                            dialogConfirm = new DialogConfirm("알림", "쿠폰은 로그인 또는 회원가입 후 다운로드 해주세요.", "취소", "로그인", DetailActivityActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogConfirm.dismiss();
+                                        }
+                                    },
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(DetailActivityActivity.this, LoginActivity.class);
+                                            startActivityForResult(intent, 90);
+                                            dialogConfirm.dismiss();
+                                        }
+                                    });
+                            dialogConfirm.show();
+                        } else {
+                            setCouponDown((int) v.getTag(), cdata);
+                        }
                     }
                 });
                 view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailActivityActivity.this, 54)));

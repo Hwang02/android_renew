@@ -59,6 +59,9 @@ public class CONFIG {
     public final static String signupUrl = domainssl + "/signup";                                //	signup
     public final static String signoutUrl = domainssl + "/signout";                            //	signout
     public final static String passresetUrl = domainssl + "/password/remind";                    //	비번 초기화
+    public final static String retireinfoUrl = domainssl + "/retire_info";                           //	탈퇴 정보
+    public final static String retirepwUrl = domainssl + "/check_password";                      //	탈퇴 비밀번호 입력
+    public final static String retireUrl = domainssl + "/retire";                            //	탈퇴 완료
 
     public final static String bookingListUrl = domain + "/api/booking";                        //	예약리스트 / booking/list/{page}/{per_page}
     public final static String bookingDetailUrl = domain + "/api/booking";                    //	예약상세 / booking/detail/{booking_id}

@@ -374,6 +374,26 @@ public class MypageFragment extends Fragment {
         else if(requestCode == 7000) {
             checkLogin();
         }
+        else if(requestCode == 91 && resultCode == 999){ // 회원탈퇴
+            SharedPreferences.Editor prefEditor = _preferences.edit();
+            prefEditor.putString("email", null);
+            prefEditor.putString("username", null);
+            prefEditor.putString("phone", null);
+            prefEditor.putString("userid", null);
+            prefEditor.putString("moreinfo", null);
+            prefEditor.putString("utype", null);
+            prefEditor.putString("cookie_val", "");
+            prefEditor.commit();
+
+            ((MainActivity) getActivity()).setTitle();
+            mMypageBinding.notJoin.rlNotJoin.setVisibility(View.VISIBLE);
+            mMypageBinding.join.rlJoin.setVisibility(View.GONE);
+
+            dbHelper.deleteFavoriteItem(true, "", "");
+            ((MainActivity) getActivity()).moveTabRefresh();
+            ((MainActivity) getActivity()).moveTabRefresh2();
+            ((MainActivity) getActivity()).moveTabRefresh3();
+        }
     }
 
     public void authCheck() {

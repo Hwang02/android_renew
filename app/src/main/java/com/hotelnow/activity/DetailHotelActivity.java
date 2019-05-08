@@ -1462,7 +1462,29 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     @Override
                     public void onClick(View v) {
                         LogUtil.e("xxxx", v.getTag() + "");
-                        setCouponDown((int) v.getTag(), cdata);
+                        if (cookie == null) {
+                            dialogConfirm = new DialogConfirm("알림", "쿠폰은 로그인 또는 회원가입 후 다운로드 해주세요.", "취소", "로그인", DetailHotelActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogConfirm.dismiss();
+                                        }
+                                    },
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
+                                            intent.putExtra("page", "Private");
+                                            intent.putExtra("sdate", ec_date);
+                                            intent.putExtra("edate", ee_date);
+                                            startActivityForResult(intent, 80);
+                                            dialogConfirm.dismiss();
+                                        }
+                                    });
+                            dialogConfirm.show();
+                        } else {
+                            setCouponDown((int) v.getTag(), cdata);
+                        }
                     }
                 });
                 view_coupon.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dptopixel(DetailHotelActivity.this, 54)));

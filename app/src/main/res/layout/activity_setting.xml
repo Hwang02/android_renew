@@ -217,6 +217,44 @@
                 android:visibility="gone"
                 android:text="@string/setting_message2" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/retire_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/back_line" />
+
+        <RelativeLayout
+            android:id="@+id/btn_retire"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 회원탈퇴 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="15dp"
+                android:textColor="@color/blacktxt"
+                android:text="@string/retire_txt1" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/ico_my_more"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/retire_line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/back_line" />
     </LinearLayout>
 
     <RelativeLayout

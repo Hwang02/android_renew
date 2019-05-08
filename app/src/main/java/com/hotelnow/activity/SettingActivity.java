@@ -21,6 +21,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -53,7 +54,16 @@ public class SettingActivity extends Activity {
         tv_email = (TextView) findViewById(R.id.tv_email);
         tv_sms = (TextView) findViewById(R.id.tv_sms);
         tv_push = (TextView) findViewById(R.id.tv_push);
-//        if(cookie == null){
+        if(cookie == null){
+            findViewById(R.id.btn_retire).setVisibility(View.GONE);
+            findViewById(R.id.retire_line).setVisibility(View.GONE);
+            findViewById(R.id.retire_line2).setVisibility(View.GONE);
+        }
+        else{
+            findViewById(R.id.btn_retire).setVisibility(View.VISIBLE);
+            findViewById(R.id.retire_line).setVisibility(View.VISIBLE);
+            findViewById(R.id.retire_line2).setVisibility(View.VISIBLE);
+        }
         findViewById(R.id.ll_sms).setVisibility(View.GONE);
         findViewById(R.id.v_sms).setVisibility(View.GONE);
         findViewById(R.id.v_email).setVisibility(View.GONE);
@@ -97,6 +107,15 @@ public class SettingActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 setPush();
+            }
+        });
+
+        // 탈퇴하기
+        findViewById(R.id.btn_retire).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, PwCheckActivity.class);
+                startActivityForResult(intent, 999);
             }
         });
 
@@ -331,5 +350,21 @@ public class SettingActivity extends Activity {
         setResult(91);
         finish();
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 999)
+        {
+            if(resultCode == 888){
+                finish();
+            }
+            else if(resultCode == 999){
+                setResult(999);
+                finish();
+            }
+        }
     }
 }
