@@ -947,7 +947,7 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     public void onClick(View v) {
                         LogUtil.e("xxxx", v.getTag() + "");
                         if (cookie == null) {
-                            dialogConfirm = new DialogConfirm("알림", "쿠폰은 로그인 또는 회원가입 후 다운로드 해주세요.", "취소", "로그인", DetailActivityActivity.this,
+                            dialogConfirm = new DialogConfirm("알림", "쿠폰은 로그인 또는 회원가입 후 다운로드 해주세요.", "취소", "로그인/회원가입", DetailActivityActivity.this,
                                     new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
