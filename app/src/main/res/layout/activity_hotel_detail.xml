@@ -196,14 +196,45 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/style_detail_top">
 
                 <include layout="@layout/layout_detail_hotel" />
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/bubble_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="74dp"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingRight="20dp"
+                    android:gravity="center_vertical"
+                    android:minWidth="140dp"
+                    android:visibility="gone"
+                    android:background="@drawable/combined_shape">
+
+                    <TextView
+                        android:id="@+id/cert_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="한국관광공사 인증"
+                        android:layout_marginLeft="29dp"
+                        android:textColor="@color/blacktxt"
+                        android:textSize="14dp"/>
+
+                    <TextView
+                        android:id="@+id/cert_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="한국관광공사 인증"
+                        android:layout_marginLeft="29dp"
+                        android:textColor="@color/graytxt"
+                        android:textSize="13dp"/>
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/view_detail_special"

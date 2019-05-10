@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -35,8 +36,10 @@ import android.util.Log;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,6 +74,7 @@ import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
@@ -153,6 +157,8 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
     private BitmapDrawable bitmapdraw = null;
     private Bitmap b = null;
     private Bitmap smallMarker = null;
+    private ImageView iv_kto_jta;
+    private LinearLayout bubble_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +174,8 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
         ico_favorite = (ImageView) findViewById(R.id.ico_favorite);
         tv_toast = (TextView) findViewById(R.id.tv_toast);
         scroll = (NestedScrollView) findViewById(R.id.scroll);
+        iv_kto_jta = (ImageView) findViewById(R.id.iv_kto_jta);
+        bubble_view = (LinearLayout) findViewById(R.id.bubble_view);
 
         dbHelper = new DbOpenHelper(DetailHotelActivity.this);
 
@@ -398,6 +406,34 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     bt_checkinout = (LinearLayout) findViewById(R.id.bt_checkinout);
                     hotel_check_list = (LinearLayout) findViewById(R.id.hotel_check_list);
                     tv_main_discount = (LinearLayout) findViewById(R.id.tv_main_discount);
+                    TextView cert_title = (TextView) findViewById(R.id.cert_title);
+                    TextView cert_day = (TextView) findViewById(R.id.cert_day);
+
+                    if(TextUtils.isEmpty(hotel_data.getString("certified_type")) || hotel_data.getString("certified_type").equals("01")){
+                        iv_kto_jta.setVisibility(View.GONE);
+                    }
+                    else if(hotel_data.getString("certified_type").equals("02")){
+                        iv_kto_jta.setBackgroundResource(R.drawable.ico_cert_kto);
+                        iv_kto_jta.setVisibility(View.VISIBLE);
+                        cert_title.setText("한국관광공사 인증");
+                        if(!TextUtils.isEmpty(hotel_data.getString("certified_date")))
+                            cert_day.setText("등급 결정일 "+hotel_data.getString("certified_date"));
+                    }
+                    else if(hotel_data.getString("certified_type").equals("03")){
+                        iv_kto_jta.setBackgroundResource(R.drawable.ico_cert_jta);
+                        iv_kto_jta.setVisibility(View.VISIBLE);
+                        cert_title.setText("제주특별자치도관광협회 인증");
+                        if(!TextUtils.isEmpty(hotel_data.getString("certified_date")))
+                            cert_day.setText("등급 결정일 "+hotel_data.getString("certified_date"));
+                    }
+
+                    iv_kto_jta.setOnClickListener(new OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View v) {
+                            if(iv_kto_jta.getVisibility() == View.VISIBLE)
+                                bubble_view.setVisibility(View.VISIBLE);
+                        }
+                    });
 
                     if (hotel_data.getString("is_private_deal").equals("Y")) {
                         findViewById(R.id.ico_private).setVisibility(View.VISIBLE);
@@ -1064,38 +1100,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
             findViewById(R.id.parent_filter).setVisibility(View.GONE);
         }
 
-//        filter.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//
-//                LogUtil.e("xxxx", lparam.width + "");
-//
-//                for(int i =0; i<filter.getChildCount(); i++) {
-//                    filter.getChildAt(i).setLayoutParams(lparam);
-//                }
-//                for(int i =0; i<filter2.getChildCount(); i++) {
-//                    filter2.getChildAt(i).setLayoutParams(lparam);
-//                }
-//                for(int i =0; i<filter3.getChildCount(); i++) {
-//                    filter3.getChildAt(i).setLayoutParams(lparam);
-//                }
-//                for(int i =0; i<filter4.getChildCount(); i++) {
-//                    filter4.getChildAt(i).setLayoutParams(lparam);
-//                }
-//                for(int i =0; i<filter5.getChildCount(); i++) {
-//                    filter5.getChildAt(i).setLayoutParams(lparam);
-//                }
-//                for(int i =0; i<filter6.getChildCount(); i++) {
-//                    filter6.getChildAt(i).setLayoutParams(lparam);
-//                }
-//                for(int i =0; i<filter7.getChildCount(); i++) {
-//                    filter7.getChildAt(i).setLayoutParams(lparam);
-//                }
-//
-//
-//            }
-//        }, 100);
     }
 
     private void setRoom(final JSONArray rdata) {
@@ -1797,5 +1801,13 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
             ee_date = data.getStringExtra("ee_date");
             setDetailView();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            bubble_view.setVisibility(View.GONE);
+        }
+        return super.dispatchTouchEvent(event);
     }
 }
