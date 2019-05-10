@@ -393,6 +393,8 @@ public class MypageFragment extends Fragment {
             ((MainActivity) getActivity()).moveTabRefresh();
             ((MainActivity) getActivity()).moveTabRefresh2();
             ((MainActivity) getActivity()).moveTabRefresh3();
+
+            ((MainActivity) getActivity()).setTapMove(4, true);
         }
     }
 

@@ -65,20 +65,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원탈퇴를 하시려면 안내 및 동의가 필요합니다."
+            android:text="회원탈퇴 주의사항 확인 및 동의를 위해\n본인확인이 진행됩니다."
+            android:gravity="center"
             android:textColor="@color/termtext"
-            android:gravity="center"
             android:textSize="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="정말로 회원탈퇴를 진행하시겠습니까?"
-            android:gravity="center"
-            android:textColor="@color/blacktxt"
-            android:textSize="15dp"
+            android:letterSpacing="-0.01"
+            android:lineSpacingExtra="9dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
 
