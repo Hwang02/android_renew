@@ -427,7 +427,7 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     else if(hotel_data.getString("certified_type").equals("03")){
                         iv_kto_jta.setBackgroundResource(R.drawable.ico_cert_jta);
                         iv_kto_jta.setVisibility(View.VISIBLE);
-                        cert_title.setText("제주특별자치도관광협회 인증");
+                        cert_title.setText("제주관광협회 인증");
                         if(!TextUtils.isEmpty(hotel_data.getString("certified_date"))) {
                             cert_day.setText("등급 결정일 " + hotel_data.getString("certified_date"));
                             cert_day.setVisibility(View.VISIBLE);
