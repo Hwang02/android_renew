@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class PwCheckActivity extends Activity {
 
     private EditText et_pw;
+    private DialogAlert dialogAlert;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,12 +44,14 @@ public class PwCheckActivity extends Activity {
                     catch (JSONException e){
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                         Toast.makeText(PwCheckActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                        et_pw.setText("");
                     }
                     Api.post(CONFIG.retirepwUrl, params.toString(), new Api.HttpCallback() {
                         @Override
                         public void onFailure(Response response, Exception throwable) {
                             findViewById(R.id.wrapper).setVisibility(View.GONE);
                             Toast.makeText(PwCheckActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                            et_pw.setText("");
                         }
 
                         @Override
@@ -56,7 +60,14 @@ public class PwCheckActivity extends Activity {
                                 JSONObject obj = new JSONObject(body);
 
                                 if (!obj.getString("result").equals("success")) {
-                                    Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                                    dialogAlert = new DialogAlert("알림", obj.getString("msg"), PwCheckActivity.this, new OnSingleClickListener() {
+                                        @Override
+                                        public void onSingleClick(View v) {
+                                            dialogAlert.dismiss();
+                                            et_pw.setText("");
+                                        }
+                                    });
+                                    dialogAlert.show();
                                     findViewById(R.id.wrapper).setVisibility(View.GONE);
                                     return;
                                 }
@@ -69,6 +80,7 @@ public class PwCheckActivity extends Activity {
                             } catch (Exception e) {
                                 findViewById(R.id.wrapper).setVisibility(View.GONE);
                                 Toast.makeText(PwCheckActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                et_pw.setText("");
                             }
                         }
                     });

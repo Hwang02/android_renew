@@ -1,20 +1,14 @@
 package com.hotelnow.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.preference.PreferenceManager;
-import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,8 +18,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
@@ -34,9 +26,9 @@ import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
-import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.LogUtil;
+import com.hotelnow.utils.BottomCropImageView;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.tune.Tune;
@@ -44,10 +36,7 @@ import com.tune.Tune;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ActLoading extends Activity {
@@ -65,11 +54,7 @@ public class ActLoading extends Activity {
     private String sdate = "";
     private String edate = "";
     private FirebaseAnalytics mFirebaseAnalytics;
-    private ImageView image2;
-    private float widthrate;
-    private float heightrate;
-    private float drawrate;
-    private int displaywidth;
+    private BottomCropImageView image2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,22 +68,8 @@ public class ActLoading extends Activity {
         dbHelper.close();
 
         //사람 이미지
-        image2 = (ImageView) findViewById(R.id.image2);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        displaywidth = metrics.widthPixels;
-        int displayheight = metrics.heightPixels;
-
-        widthrate = displaywidth / 1440f;
-        heightrate = displayheight / 2560f;
-        drawrate = (widthrate + heightrate) / 2f;
-
-        int width = (int) (displaywidth * 0.86f);
-        image2.getLayoutParams().width = width;
-        image2.getLayoutParams().height = (int) (width * 1.27f);
-        //사람 이미지
+        image2 = (BottomCropImageView) findViewById(R.id.image2);
+        image2.setScaleType(ImageView.ScaleType.MATRIX);
 
         // preference 할당
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
