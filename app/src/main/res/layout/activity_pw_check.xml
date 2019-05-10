@@ -65,7 +65,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원탈퇴 주의사항 확인 및 동의를 위해\n본인확인이 진행됩니다."
+            android:text="회원탈퇴 주의사항 확인 및 동의를 위해\n본인확인을 진행합니다."
             android:gravity="center"
             android:textColor="@color/termtext"
             android:textSize="15dp"
