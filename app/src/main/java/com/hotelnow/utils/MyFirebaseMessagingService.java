@@ -104,16 +104,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     } else {
                         evtidx = (tmpArr.length == 2) ? Integer.valueOf(tmpArr[1]) : 0;
                         if(pushType.equals("2")) {
-                            String subType = jsonObj.getString("tab_no"); // 1: 추천 2: 숙소 3: 액티비티
-                            String[] subTmpArr = subType.split("\\|");
-                            if(subTmpArr[0].equals("1")) {
-                                pushType = "2";
-                            }
-                            else if(subTmpArr[0].equals("2")) {
-                                pushType = "10";
-                            }
-                            else if(subTmpArr[0].equals("3")) {
-                                pushType = "11";
+                            if(jsonObj.has("tab_no")) {
+                                String subType = jsonObj.getString("tab_no"); // 1: 추천 2: 숙소 3: 액티비티
+                                String[] subTmpArr = subType.split("\\|");
+                                if (subTmpArr[0].equals("1")) {
+                                    pushType = "2";
+                                } else if (subTmpArr[0].equals("2")) {
+                                    pushType = "10";
+                                } else if (subTmpArr[0].equals("3")) {
+                                    pushType = "11";
+                                }
                             }
                         }
                     }
