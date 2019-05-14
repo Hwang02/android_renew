@@ -14,6 +14,7 @@ import com.tune.Tune;
 import java.net.CookieHandler;
 import java.net.CookiePolicy;
 
+import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import io.fabric.sdk.android.Fabric;
@@ -44,6 +45,7 @@ public class HotelnowApplication extends MultiDexApplication {
 
         obj = this;
         KakaoSDK.init(new KakaoSDKAdapter());
+        MultiDex.install(this);
 
         // enable cookies
         java.net.CookieManager cookieManager = new java.net.CookieManager();

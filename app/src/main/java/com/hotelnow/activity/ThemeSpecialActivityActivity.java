@@ -89,6 +89,7 @@ public class ThemeSpecialActivityActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if (!pid.getText().toString().equals("-1")) {
+                    TuneWrap.Event("theme_product", "activity", hid.getText().toString());
                     Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");

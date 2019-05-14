@@ -37,7 +37,6 @@ android {
         targetSdkVersion 27
         versionCode 263
         versionName "5.14"
-        multiDexEnabled true
     }
     buildTypes {
         release {

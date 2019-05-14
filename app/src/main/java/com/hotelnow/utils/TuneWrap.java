@@ -248,7 +248,7 @@ public class TuneWrap {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            tune.measureEvent(new TuneEvent(TuneEvent.SEARCH));
+            tune.measureEvent(new TuneEvent("searchmain"));
         }
 
     }

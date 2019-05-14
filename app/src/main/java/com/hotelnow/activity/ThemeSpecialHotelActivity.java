@@ -92,9 +92,7 @@ public class ThemeSpecialHotelActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if (!pid.getText().toString().equals("-1")) {
-
-                    TuneWrap.Event("theme_stay_product", hid.getText().toString());
-
+                    TuneWrap.Event("theme_product", "stay", hid.getText().toString());
                     Intent intent = new Intent(ThemeSpecialHotelActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
                     intent.putExtra("evt", "N");
