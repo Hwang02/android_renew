@@ -276,12 +276,14 @@ public class MainActivity extends FragmentActivity {
                     intentBooking.putExtra("from_push", true);
                     intentBooking.putExtra("bid", bid);
                     startActivityForResult(intentBooking, 80);
+                    TuneWrap.Event("PUSH", bid+"");
                 } else if (push_type.equals("2")) {
                     setTapMove(SELECTPAGE, false);
                     if (evtidx > 0) {
                         Intent intentEvt = new Intent(this, EventActivity.class);
                         intentEvt.putExtra("idx", evtidx);
                         startActivityForResult(intentEvt, 80);
+                        TuneWrap.Event("PUSH", evtidx+"");
                     }
                 } else if (push_type.equals("3")) {
                     setTapMove(SELECTPAGE, false);
@@ -292,7 +294,7 @@ public class MainActivity extends FragmentActivity {
                     intentDeal.putExtra("sdate", sdate);
                     intentDeal.putExtra("edate", edate);
                     startActivityForResult(intentDeal, 80);
-
+                    TuneWrap.Event("PUSH", hid);
                 } else if (push_type.equals("5")) {
                     tabStatus(false);
                     mbinding.navigation.setCurrentItem(MYPAGE);
@@ -301,6 +303,7 @@ public class MainActivity extends FragmentActivity {
                         public void run() {
                             Intent intentSave = new Intent(MainActivity.this, MySaveActivity.class);
                             startActivity(intentSave);
+                            TuneWrap.Event("PUSH", "mypoint");
                         }
                     }, 1000);
                 } else if (push_type.equals("6")) {
@@ -310,11 +313,13 @@ public class MainActivity extends FragmentActivity {
                         intentTheme.putExtra("tid", String.valueOf(evtidx));
                         intentTheme.putExtra("from", "evt");
                         startActivity(intentTheme);
+                        TuneWrap.Event("PUSH", evtidx+"");
                     } else {
                         Intent intentTheme = new Intent(this, ThemeSpecialHotelActivity.class);
                         intentTheme.putExtra("tid", String.valueOf(evtidx));
                         intentTheme.putExtra("from", "evt");
                         startActivity(intentTheme);
+                        TuneWrap.Event("PUSH", evtidx+"");
                     }
                 } else if (push_type.equals("7")) {
                     tabStatus(false);
@@ -324,6 +329,7 @@ public class MainActivity extends FragmentActivity {
                         public void run() {
                             Intent intentCoupon = new Intent(MainActivity.this, MyCouponActivity.class);
                             startActivity(intentCoupon);
+                            TuneWrap.Event("PUSH", "coupon");
                         }
                     }, 1000);
 
@@ -334,17 +340,21 @@ public class MainActivity extends FragmentActivity {
                     intentticket.putExtra("tid", String.valueOf(evtidx));
                     intentticket.putExtra("save", true);
                     startActivity(intentticket);
+                    TuneWrap.Event("PUSH", evtidx+"");
                 } else if(push_type.equals("10")) {
                     setTapMove(HOTELPAGE, true);
+                    TuneWrap.Event("PUSH", "staymain");
                 } else if(push_type.equals("11")) {
                     setTapMove(LEISUREPAGE, true);
+                    TuneWrap.Event("PUSH", "activitymain");
                 } else{
                     setTapMove(SELECTPAGE, false);
+                    TuneWrap.Event("PUSH", "mainpage");
                 }
             } else {
                 setTapMove(SELECTPAGE, false);
+                TuneWrap.Event("PUSH", "mainpage");
             }
-            TuneWrap.Event("PUSH");
         } else {
             String action = getIntent().getStringExtra("action");
             String data = getIntent().getStringExtra("data");
