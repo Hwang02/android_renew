@@ -325,9 +325,9 @@ public class Util {
     public static ArrayList<String> setCheckinout() {
         ArrayList<String> mIndout = new ArrayList<>();
         Date dateObj = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat formatterdt = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH");
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatterdt = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+        SimpleDateFormat CurHourFormat = new SimpleDateFormat("HH", Locale.KOREAN);
 
         // 서버타임있는지 확인하고 없으면 설정
         if (CONFIG.svr_date == null) {
