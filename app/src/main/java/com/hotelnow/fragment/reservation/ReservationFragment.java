@@ -1,5 +1,7 @@
 package com.hotelnow.fragment.reservation;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -26,6 +28,15 @@ public class ReservationFragment extends Fragment {
     private SharedPreferences _preferences;
     private FragmentTransaction childFt;
     private Fragment fg;
+    private Activity activity = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity)
+            activity = (Activity) context;
+    }
 
     @Nullable
     @Override
@@ -102,8 +113,9 @@ public class ReservationFragment extends Fragment {
     }
 
     private void setChildFragment(Fragment child, int tag) {
-        getActivity().getSupportFragmentManager().popBackStack();
-
+        if(activity != null) {
+            activity.getFragmentManager().popBackStack();
+        }
         childFt = getChildFragmentManager().beginTransaction();
 
         if(tag == 0){

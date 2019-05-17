@@ -1,12 +1,10 @@
 package com.hotelnow.model;
 
-import java.io.Serializable;
-
 /**
  * Created by idhwang on 2018. 4. 13..
  */
 
-public class TicketInfoEntry implements Serializable {
+public class TicketInfoEntry {
 
     private String mTitle;
     private String mMessage;

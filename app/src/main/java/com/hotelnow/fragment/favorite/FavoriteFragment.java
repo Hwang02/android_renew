@@ -2,6 +2,8 @@ package com.hotelnow.fragment.favorite;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -31,6 +33,15 @@ public class FavoriteFragment extends Fragment {
     private View inflate;
     private FragmentTransaction childFt;
     private Fragment fg;
+    private Activity activity = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity)
+            activity = (Activity) context;
+    }
 
     @Nullable
     @Override
@@ -109,7 +120,9 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void setChildFragment(Fragment child, int tag) {
-        getActivity().getSupportFragmentManager().popBackStack();
+        if(activity != null) {
+            activity.getFragmentManager().popBackStack();
+        }
 
         childFt = getChildFragmentManager().beginTransaction();
 

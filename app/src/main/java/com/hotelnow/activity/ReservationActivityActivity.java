@@ -282,7 +282,7 @@ public class ReservationActivityActivity extends Activity {
 
 
         Intent intent = getIntent();
-        sel_items = (ArrayList<TicketSelEntry>) intent.getSerializableExtra("sel_list");
+        sel_items = intent.getParcelableArrayListExtra("sel_list");
         t_id = intent.getStringExtra("tid");
         t_name = intent.getStringExtra("tname");
         if (sel_items == null) {

@@ -71,23 +71,18 @@ import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
-import com.koushikdutta.ion.Ion;
-import com.luseen.autolinklibrary.AutoLinkMode;
 import com.luseen.autolinklibrary.AutoLinkTextView;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DetailActivityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -112,7 +107,7 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
     private ViewPagerCustom mViewPager;
     private LinearLayout room_list, coupon_list, btn_more_detail, info_list, btn_more_review;
     private int ticket_count = 0;
-    private List<TicketSelEntry> sel_list = new ArrayList<TicketSelEntry>();
+    private ArrayList<TicketSelEntry> sel_list = new ArrayList<TicketSelEntry>();
     private int isAcoupon[];
     private String mCouponId[];
     private TextView tv_more, tv_product_info, tv_address;
@@ -872,14 +867,14 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                                 cookie = _preferences.getString("userid", null);
                                 if (cookie != null) {
                                     Intent intent = new Intent(DetailActivityActivity.this, ReservationActivityActivity.class);
-                                    intent.putExtra("sel_list", (Serializable) sel_list);
+                                    intent.putParcelableArrayListExtra("sel_list", sel_list);
                                     intent.putExtra("tid", tid);
                                     intent.putExtra("tname", tname);
                                     startActivityForResult(intent, 80);
                                 } else {
                                     Intent intent = new Intent(DetailActivityActivity.this, LoginActivity.class);
                                     intent.putExtra("from", "ticket_reservation");
-                                    intent.putExtra("sel_list", (Serializable) sel_list);
+                                    intent.putParcelableArrayListExtra("sel_list", sel_list);
                                     intent.putExtra("pid", tid);
                                     intent.putExtra("tname", tname);
                                     intent.putExtra("page", "detailA");

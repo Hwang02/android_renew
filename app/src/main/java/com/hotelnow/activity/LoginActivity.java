@@ -43,11 +43,8 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 import com.squareup.okhttp.Response;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -98,7 +95,7 @@ public class LoginActivity extends Activity {
         ec_date = intent.getStringExtra("ec_date");
         ee_date = intent.getStringExtra("ee_date");
         tname = intent.getStringExtra("tname");
-        sel_items = (ArrayList<TicketSelEntry>) intent.getSerializableExtra("sel_list");
+        sel_items = intent.getParcelableArrayListExtra("sel_list");
 
         // 회원가입
         Button btn_join = (Button) findViewById(R.id.btn_join);
@@ -326,7 +323,7 @@ public class LoginActivity extends Activity {
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
                     Intent intent = new Intent(LoginActivity.this, ReservationActivityActivity.class);
-                    intent.putExtra("sel_list", (Serializable) sel_items);
+                    intent.putParcelableArrayListExtra("sel_list",  sel_items);
                     intent.putExtra("tid", pid);
                     intent.putExtra("tname", tname);
                     startActivity(intent);
