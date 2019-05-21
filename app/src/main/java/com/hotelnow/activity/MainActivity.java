@@ -635,7 +635,12 @@ public class MainActivity extends FragmentActivity {
                 }
             } else {
                 if (getIntent().getBooleanExtra("reservation", false)) {
-                    mbinding.navigation.setCurrentItem(RESERVPAGE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mbinding.navigation.setCurrentItem(RESERVPAGE);
+                        }
+                    }, 500);
                 } else {
                     setTapMove(SELECTPAGE, false);
                 }
