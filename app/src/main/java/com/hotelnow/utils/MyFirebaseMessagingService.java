@@ -95,8 +95,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 } else if (pushType.equals("3")) {
                     hid = tmpArr[1];
                     isevt = (tmpArr.length == 3 && tmpArr[2].equals("Y")) ? "Y" : "N";
-                    check_in = (tmpArr.length == 5 && !TextUtils.isEmpty(tmpArr[3])) ? tmpArr[3] : "";
-                    check_out = (tmpArr.length == 5 && !TextUtils.isEmpty(tmpArr[4])) ? tmpArr[4] : "";
+                    check_in = (tmpArr.length == 5 && !TextUtils.isEmpty(tmpArr[3])) ? tmpArr[3] : null;
+                    check_out = (tmpArr.length == 5 && !TextUtils.isEmpty(tmpArr[4])) ? tmpArr[4] : null;
                 } else if (pushType.equals("2") || pushType.equals("6") || pushType.equals("8")) {
                     if (pushType.equals("6")) {
                         evtidx = (tmpArr.length == 3) ? Integer.valueOf(tmpArr[1]) : 0;

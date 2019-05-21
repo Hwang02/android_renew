@@ -51,8 +51,8 @@ public class ActLoading extends Activity {
     private String isevt;
     private int evtidx;
     private String evttag = "";
-    private String sdate = "";
-    private String edate = "";
+    private String sdate = null;
+    private String edate = null;
     private FirebaseAnalytics mFirebaseAnalytics;
     private BottomCropImageView image2;
 
@@ -575,6 +575,7 @@ public class ActLoading extends Activity {
             intent.putExtra("evttag", evttag);
             intent.putExtra("sdate", sdate);
             intent.putExtra("edate", edate);
+
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
