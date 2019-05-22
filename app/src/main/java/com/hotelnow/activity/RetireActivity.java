@@ -196,7 +196,7 @@ public class RetireActivity extends Activity {
                     TextView tv_booking = (TextView) findViewById(R.id.tv_booking);
                     TextView tv_qbooking = (TextView) findViewById(R.id.tv_qbooking);
 
-                    tv_reserve.setText(": "+ Util.numberFormat(info.getInt("reserve_money"))+"원");
+                    tv_reserve.setText(": "+ Util.numberFormat(info.getInt("reserve_money"))+"p");
                     tv_promotion.setText(": "+ info.getString("promotion_cnt")+"장");
                     tv_booking.setText(": "+ info.getString("booking_count")+"건");
                     tv_qbooking.setText(": "+ info.getString("q_booking_count")+"건");

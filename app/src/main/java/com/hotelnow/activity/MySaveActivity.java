@@ -89,7 +89,7 @@ public class MySaveActivity extends Activity {
 
                     JSONObject info = obj.getJSONObject("info");
                     NumberFormat nf = NumberFormat.getNumberInstance();
-                    ((TextView) header.findViewById(R.id.disable_money)).setText(nf.format(info.getInt("expire_amount")) + "원");
+                    ((TextView) header.findViewById(R.id.disable_money)).setText(nf.format(info.getInt("expire_amount")) + "p");
                     ((TextView) header.findViewById(R.id.my_money)).setText(nf.format(info.getInt("amount")));
 
                     JSONArray feed = obj.getJSONArray("data");

@@ -666,7 +666,7 @@ public class Util {
                                 .setDescrption("[호텔나우]\n"
                                         + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", ""))
                                         + "님이 호텔나우 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) +
-                                        "원 적립금을 드립니다!\n추천인코드 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!\n추천인코드:"
+                                        "원 포인트를 드립니다!\n추천인코드 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!\n추천인코드:"
                                         + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))))
                                 .build())
                         .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
@@ -698,9 +698,9 @@ public class Util {
                 try {
                     linkContent = new ShareLinkContent.Builder()
 
-                            .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
+                            .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 포인트 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money))
                                     + "원을 드립니다." + "(추천인코드:" + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + ")\n"
-                                    + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
+                                    + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 포인트 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
                                     "추천인코드 : " + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + " 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!")
                             .setContentUrl(Uri.parse(CONFIG.marketUrl))
                             //                        .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))
@@ -722,9 +722,9 @@ public class Util {
                         ShareLinkContent linkContent = null;
                         try {
                             linkContent = new ShareLinkContent.Builder()
-                                    .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다." + "(추천인코드:"
+                                    .setQuote(AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 포인트 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다." + "(추천인코드:"
                                             + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + ")\n"
-                                            + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 적립금 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
+                                            + AES256Chiper.AES_Decode(_preferences.getString("username", null).replace("HN|", "")) + "님이 호텔나우 포인트 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 드립니다. " +
                                             "추천인코드 : " + Util.getRecommCode(AES256Chiper.AES_Decode(_preferences.getString("userid", null).replace("HN|", ""))) + " 입력하고 " + Util.numberFormat(_preferences.getInt("reserve_money", CONFIG.default_reserve_money)) + "원을 바로 받아보세요!")
                                     .setContentUrl(Uri.parse(CONFIG.marketUrl))
                                     //                                .setImageUrl(Uri.parse("http://d2gxin9b07oiov.cloudfront.net/web/favicon_152.png"))

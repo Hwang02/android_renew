@@ -457,7 +457,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="적립금 사용액"
+                        android:text="포인트 사용액"
                         android:textSize="14dp"
                         android:textColor="@color/blacktxt"
                         android:gravity="left" />
@@ -919,7 +919,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="적립금"
+                            android:text="포인트"
                             android:textSize="14dp"
                             android:textColor="@color/blacktxt"
                             android:gravity="left" />

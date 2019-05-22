@@ -84,7 +84,7 @@
             android:gravity="left"
             android:textColor="@color/blacktxt"
             android:textSize="14dp"
-            tools:text="적립금" />
+            tools:text="포인트" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,7 +138,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="* 최소 1,000원부터 사용"
+            android:text="* 최소 1,000p부터 사용"
             android:layout_weight="1"
             android:gravity="left"
             android:textColor="@color/graytxt"

@@ -264,9 +264,9 @@ public class ReservationActivity extends Activity {
                     }
                 } else {
                     if (!TextUtils.isEmpty(point_discount.getText().toString()) && point_discount.getText().toString().length() <= 8 && Integer.parseInt(point_discount.getText().toString()) >= 1000) {
-                        Toast.makeText(ReservationActivity.this, "최소 1,000원부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReservationActivity.this, "최소 1,000p부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ReservationActivity.this, "적립금을 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReservationActivity.this, "포인트를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -288,7 +288,7 @@ public class ReservationActivity extends Activity {
                     point_discount.setText(reserve_money + "");
                     return;
                 } else if (reserve_money < 1000) {
-                    Toast.makeText(ReservationActivity.this, "최소 1,000원부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReservationActivity.this, "최소 1,000p부터 사용 가능합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -719,7 +719,7 @@ public class ReservationActivity extends Activity {
                         btn_point_total.setVisibility(View.VISIBLE);
 
                         tv_point_title = (TextView) findViewById(R.id.tv_point_title);
-                        String s_save_money = getResources().getString(R.string.reservation_point) + "(" + nf.format(reserve_money) + " 원)";
+                        String s_save_money = getResources().getString(R.string.reservation_point) + "(" + nf.format(reserve_money) + " p)";
                         SpannableStringBuilder builder = new SpannableStringBuilder(s_save_money);
                         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 3, s_save_money.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_point_title.append(builder);

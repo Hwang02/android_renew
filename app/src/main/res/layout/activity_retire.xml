@@ -131,7 +131,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="14dp"
                             android:textColor="@color/purple"
-                            android:text="- 보유 적립금"/>
+                            android:text="- 보유 포인트"/>
                         <TextView
                             android:id="@+id/tv_reserve"
                             android:layout_width="wrap_content"

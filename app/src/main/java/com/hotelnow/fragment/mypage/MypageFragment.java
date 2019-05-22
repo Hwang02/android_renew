@@ -515,11 +515,11 @@ public class MypageFragment extends Fragment {
                         mMypageBinding.join.userName.setText(user.getString("username"));
                         mMypageBinding.join.userEmail.setText(user.getString("useremail"));
                         save_money = Util.numberFormat(data.getInt("amount"));
-                        mMypageBinding.join.tvUserSaveMoney.setText(save_money + "원");
+                        mMypageBinding.join.tvUserSaveMoney.setText(save_money +"");
                         mMypageBinding.join.tvUserCoupon.setText(data.getString("coupon_cnt_new") + "장");
                         mMypageBinding.join.tvUserCard.setText(data.getString("card_cnt") + "장");
                         expire_money = Util.numberFormat(data.getInt("expire_amount"));
-                        mMypageBinding.join.disableMoney.setText(expire_money + "원");
+                        mMypageBinding.join.disableMoney.setText(expire_money + "p");
                         mMypageBinding.join.disableCoupon.setText(data.getInt("expire_coupon_cnt") + "장");
                         if (expire_money.equals("0")) {
                             mMypageBinding.join.layoutDiscountMoney.setVisibility(View.GONE);

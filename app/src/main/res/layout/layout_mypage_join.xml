@@ -137,7 +137,7 @@
                             android:layout_alignParentRight="true"
                             android:textColor="@color/redtext"
                             android:layout_marginRight="10dp"
-                            tools:text="1,170원" />
+                            tools:text="1,170p" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -181,7 +181,7 @@
                         android:layout_toLeftOf="@id/ico_marker"
                         android:textStyle="bold"
                         android:layout_marginRight="6dp"
-                        tools:text="12,740원" />
+                        tools:text="12,740" />
 
                 </RelativeLayout>
 

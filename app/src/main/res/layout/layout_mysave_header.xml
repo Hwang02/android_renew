@@ -80,16 +80,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="40dp"
                     android:textColor="@color/white"
-                    tools:text="12,740" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:textColor="@color/white"
                     android:layout_marginLeft="4dp"
-                    android:layout_marginTop="8dp"
-                    android:text="원" />
+                    tools:text="12,740" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

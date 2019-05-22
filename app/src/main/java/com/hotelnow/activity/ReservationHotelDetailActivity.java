@@ -443,7 +443,7 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                         tv_pay_type.setText("계좌이체");
                         tv_pay_bank_nm.setText(payment_info.getString("bank_name"));
                     } else if (payment_info.getString("pay_type").equals("RESERVE")) {
-                        tv_pay_type.setText("적립금결제");
+                        tv_pay_type.setText("포인트결제");
                     } else if (payment_info.getString("pay_type").equals("FREE")) {
                         tv_pay_type.setText("이벤트");
                     } else if (payment_info.getString("pay_type").equals("PHONE")) {
@@ -484,7 +484,7 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                     if (_preferences.getString("userid", null) != null) {
                         findViewById(R.id.ll_save_point).setVisibility(View.VISIBLE);
                         if (buy_reward.getInt("buy_reserve_monay") != 0) {
-                            tv_save_point.setText(Util.numberFormat(buy_reward.getInt("buy_reserve_monay")) + "원");
+                            tv_save_point.setText(Util.numberFormat(buy_reward.getInt("buy_reserve_monay")) + "p");
                         } else {
                             findViewById(R.id.ll_save_point).setVisibility(View.GONE);
                         }
