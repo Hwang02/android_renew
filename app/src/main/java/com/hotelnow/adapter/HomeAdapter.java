@@ -479,6 +479,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (themeSAdapter != null) {
             themeSAdapter.notifyDataSetChanged();
         }
+        if(keyAdapter != null) {
+            keyAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
