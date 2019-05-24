@@ -719,7 +719,7 @@ public class ReservationActivity extends Activity {
                         btn_point_total.setVisibility(View.VISIBLE);
 
                         tv_point_title = (TextView) findViewById(R.id.tv_point_title);
-                        String s_save_money = getResources().getString(R.string.reservation_point) + "(" + nf.format(reserve_money) + " p)";
+                        String s_save_money = getResources().getString(R.string.reservation_point) + "(" + nf.format(reserve_money) + "p)";
                         SpannableStringBuilder builder = new SpannableStringBuilder(s_save_money);
                         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.redtext)), 3, s_save_money.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         tv_point_title.append(builder);

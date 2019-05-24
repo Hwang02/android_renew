@@ -515,7 +515,7 @@ public class MypageFragment extends Fragment {
                         mMypageBinding.join.userName.setText(user.getString("username"));
                         mMypageBinding.join.userEmail.setText(user.getString("useremail"));
                         save_money = Util.numberFormat(data.getInt("amount"));
-                        mMypageBinding.join.tvUserSaveMoney.setText(save_money +"");
+                        mMypageBinding.join.tvUserSaveMoney.setText(save_money +"p");
                         mMypageBinding.join.tvUserCoupon.setText(data.getString("coupon_cnt_new") + "장");
                         mMypageBinding.join.tvUserCard.setText(data.getString("card_cnt") + "장");
                         expire_money = Util.numberFormat(data.getInt("expire_amount"));

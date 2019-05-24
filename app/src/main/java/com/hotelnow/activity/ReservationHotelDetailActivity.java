@@ -355,7 +355,7 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                         ll_reservation.setVisibility(View.GONE);
                     } else {
                         ll_reservation.setVisibility(View.VISIBLE);
-                        tv_reserve_price.setText("-" + Util.numberFormat(price_info.getInt("reserve_money")) + "원");
+                        tv_reserve_price.setText("-" + Util.numberFormat(price_info.getInt("reserve_money")) + "p");
                     }
 
                     if (price_info.getInt("promotion_money") <= 0) {

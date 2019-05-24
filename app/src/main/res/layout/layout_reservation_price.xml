@@ -166,7 +166,7 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="2dp"
             android:textColor="@color/termtext"
-            android:text="원 적립 예정" />
+            android:text="p 적립 예정" />
 
     </LinearLayout>
 
