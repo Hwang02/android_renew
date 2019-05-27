@@ -1122,6 +1122,15 @@ public class HomeFragment extends Fragment implements DialogMainFragment.onSubmi
             } else {
                 getRecentData(true);
             }
+
+            if (resultCode == 200){
+                // 프라이빗 딜 전체보기 후 호텔 탭 이동
+                ((MainActivity) getActivity()).setTapMove(5, true);
+            }
+        }
+        else if (requestCode == 200){
+            // 프라이빗 딜 전체보기 후 호텔 탭 이동
+            ((MainActivity) getActivity()).setTapMove(5, true);
         }
     }
 

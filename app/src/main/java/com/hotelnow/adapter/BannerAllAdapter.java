@@ -18,6 +18,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.EventActivity;
+import com.hotelnow.activity.PrivateDaelAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;
@@ -140,7 +141,9 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
                     try {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
-                        url = obj.getString("param");
+                        if(obj.has("param")) {
+                            url = obj.getString("param");
+                        }
 
                         if (method.equals("move_near")) {
                             int fDayLimit = _preferences.getInt("future_day_limit", 180);
@@ -236,6 +239,9 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
 
 //                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
 //                                TuneWrap.Event("EVENT", frontEvtId);
+                        }  else if (method.equals("move_privatedeal_all")){
+                            Intent intent = new Intent(mContext, PrivateDaelAllActivity.class);
+                            mActivity.startActivityForResult(intent, 200);
                         }
                     } catch (Exception e) {
                     }

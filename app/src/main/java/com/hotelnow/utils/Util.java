@@ -899,6 +899,7 @@ public class Util {
         CONFIG.Mypage_Search = false;
         CONFIG.search_data = null;
         CONFIG.selectList = null;
+        CONFIG.private_tag = false;
     }
 
     public static void setStatusColor(Activity activity) {

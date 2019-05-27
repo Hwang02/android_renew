@@ -89,6 +89,7 @@ public class PrivateDaelAllActivity extends Activity {
         findViewById(R.id.title_back).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
+                CONFIG.private_tag = true;
                 finished();
             }
         });
@@ -106,6 +107,7 @@ public class PrivateDaelAllActivity extends Activity {
         if (isLogin) {
             setResult(110);
         }
+        CONFIG.private_tag = true;
         finish();
     }
 

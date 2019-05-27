@@ -16,6 +16,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.EventActivity;
+import com.hotelnow.activity.PrivateDaelAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;
@@ -136,8 +137,9 @@ public class PagerMainFragment extends Fragment {
                     try {
                         JSONObject obj = new JSONObject(frontMethod);
                         method = obj.getString("method");
-                        url = obj.getString("param");
-
+                        if (obj.has("param")) {
+                            url = obj.getString("param");
+                        }
                         if (method.equals("move_near")) {
                             int fDayLimit = mPf._preferences.getInt("future_day_limit", 180);
                             String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
@@ -219,6 +221,9 @@ public class PagerMainFragment extends Fragment {
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 mPf.startActivity(intent);
                             }
+                        } else if (method.equals("move_privatedeal_all")){
+                            Intent intent = new Intent(mPf.getActivity(), PrivateDaelAllActivity.class);
+                            mPf.startActivityForResult(intent, 200);
                         }
                     } catch (Throwable t) {
                         Toast.makeText(mPf.getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();

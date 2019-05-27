@@ -40,7 +40,13 @@ public class BannerAllActivity extends Activity {
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(80);
+                if(CONFIG.private_tag){
+                    CONFIG.private_tag = false;
+                    setResult(200);
+                }
+                else {
+                    setResult(80);
+                }
                 finish();
             }
         });
@@ -104,7 +110,13 @@ public class BannerAllActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        setResult(80);
+        if(CONFIG.private_tag){
+            CONFIG.private_tag = false;
+            setResult(200);
+        }
+        else {
+            setResult(80);
+        }
         finish();
         super.onBackPressed();
     }
