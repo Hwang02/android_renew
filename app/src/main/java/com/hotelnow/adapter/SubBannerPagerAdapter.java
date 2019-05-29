@@ -204,7 +204,7 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", mTitle);
-                    context.startActivity(intentEvt);
+                    mHf.startActivityForResult(intentEvt, 200);
                 }
             }
         });

@@ -252,6 +252,11 @@ public class EventActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
 
+                        if (obj.getString("method").equals("move_privatedeal_all")){
+                            Intent intent = new Intent(EventActivity.this, PrivateDaelAllActivity.class);
+                            startActivityForResult(intent, 200);
+                        }
+
                         if (obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow")) {
                             view.loadUrl(obj.getString("param"));
                         } else if (obj.getString("method").equals("outer_link") && obj.getString("param").contains("hotelnow") == false) {
@@ -300,6 +305,11 @@ public class EventActivity extends AppCompatActivity {
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(CONFIG.private_tag){
+                    CONFIG.private_tag = false;
+                    setResult(200);
+                }
+
                 finish();
             }
         });
@@ -360,7 +370,10 @@ public class EventActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-
+        if(CONFIG.private_tag){
+            CONFIG.private_tag = false;
+            setResult(200);
+        }
         super.onBackPressed();
     }
 
