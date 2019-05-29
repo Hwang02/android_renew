@@ -76,15 +76,15 @@ android {
             resValue("string", "google_map_key", "AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc");
             resValue("string", "facebook_provider", "com.facebook.app.NativeAppCallContentProvider640301742734227");
 
-            buildConfigField("String", "domain", "\"https://api-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "domain2", "\"http://api-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "domainssl", "\"https://api-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "arsDomain", "\"https://payment-ars-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "billDomain", "\"https://payment-eb.dev.hotelnow.co.kr\"")
-            buildConfigField("String", "phonePayDomain", "\"https://payment-phone-eb.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "domain", "\"https://api.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "domain2", "\"http://api.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "domainssl", "\"https://api.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "arsDomain", "\"https://payment-ars.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "billDomain", "\"https://payment.dev.hotelnow.co.kr\"")
+            buildConfigField("String", "phonePayDomain", "\"https://payment-phone.dev.hotelnow.co.kr\"")
             buildConfigField("String", "cardDomain", "\"http://13.114.248.114:7777\"")
             buildConfigField("String", "googleProjectid", "\"369003584286\"")
-            buildConfigField("String", "kcpCardDomain", "\"https://payment-eb.dev.hotelnow.co.kr/order_app.php\"")
+            buildConfigField("String", "kcpCardDomain", "\"https://payment.dev.hotelnow.co.kr/order_app.php\"")
             buildConfigField("String", "webUrl", "\"https://www.dev.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
             buildConfigField("String", "test_jobkey", "\"FmYT/3QXuy1En/e5iIk4Ej/sgng=\"")
