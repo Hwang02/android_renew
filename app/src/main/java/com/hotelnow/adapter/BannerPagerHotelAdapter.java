@@ -48,7 +48,7 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
     private String method;
     private String url;
     private String frontTitle;
-    private static DialogAlert dialogAlert;
+    private DialogAlert dialogAlert;
     private String mTitle;
     private SharedPreferences _preferences;
     private Activity mActivity;

@@ -230,9 +230,7 @@ public class MypageFragment extends Fragment {
         mMypageBinding.footer.term4.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
-                intent.putExtra("url", CONFIG.setting_agree4);
-                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt4));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.setting_agree4));
                 startActivity(intent);
             }
         });

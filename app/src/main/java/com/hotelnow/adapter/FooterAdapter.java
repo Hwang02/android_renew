@@ -1,6 +1,7 @@
 package com.hotelnow.adapter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -90,10 +91,12 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
         holder.term4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
-                intent.putExtra("url", CONFIG.setting_agree4);
-                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt4));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(CONFIG.setting_agree4));
                 mHf.startActivity(intent);
+//                Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
+//                intent.putExtra("url", CONFIG.setting_agree4);
+//                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt4));
+//                mHf.startActivity(intent);
             }
         });
 
