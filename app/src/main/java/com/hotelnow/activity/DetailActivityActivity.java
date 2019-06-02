@@ -336,7 +336,7 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price")) + "원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-                    TuneWrap.Event("ProductDetail_activity", mCity, tid, tv_category.getText().toString());
+                    TuneWrap.Event("productdetail_activity", mCity, tid, tv_category.getText().toString());
                     FacebookWrap.logViewedContentEvent(DetailActivityActivity.this, "ProductDetail_activity", tid);
 
                     icon_zzim.setOnClickListener(new OnSingleClickListener() {
