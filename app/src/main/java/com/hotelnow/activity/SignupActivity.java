@@ -429,7 +429,7 @@ public class SignupActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(SignupActivity.this, WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree1);
-                intent.putExtra("title", getString(R.string.term_txt1));
+                intent.putExtra("title", getString(R.string.term_txt1_sub));
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }

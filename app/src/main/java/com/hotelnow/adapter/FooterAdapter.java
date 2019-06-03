@@ -60,7 +60,7 @@ public class FooterAdapter extends RecyclerView.Adapter<FooterAdapter.MyViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(HotelnowApplication.getAppContext(), WebviewActivity.class);
                 intent.putExtra("url", CONFIG.setting_agree1);
-                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt1));
+                intent.putExtra("title", HotelnowApplication.getAppContext().getString(R.string.term_txt1_sub));
                 mHf.startActivity(intent);
             }
         });

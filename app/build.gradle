@@ -35,8 +35,8 @@ android {
         applicationId "com.hotelnow"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 264
-        versionName "5.15"
+        versionCode 265
+        versionName "5.16"
     }
     buildTypes {
         release {
@@ -70,6 +70,8 @@ android {
             buildConfigField("String", "kcpCardDomain", "\"http://54.178.165.97:8009/order_app.php\"")
             buildConfigField("String", "webUrl", "\"https://www.hotelnow.co.kr/ko\"")
             buildConfigField("String", "google_map_key2", "\"AIzaSyCo1LHLkRDdudRWIhosRwO-VOxFfSvZbqc\"")
+            buildConfigField("String", "test_jobkey", "\"FmYT/3QXuy1En/e5iIk4Ej/sgng=\"")
+            buildConfigField("String", "jobkey", "\"1tNS+MHM9YsmYs8Tjhkd3ZKYmoM=\"")
         }
         sync {
             resValue("string", "app_name", "호텔나우-sync");
