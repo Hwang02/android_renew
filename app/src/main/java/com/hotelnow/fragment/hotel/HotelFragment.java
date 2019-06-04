@@ -205,31 +205,6 @@ public class HotelFragment extends Fragment {
                         }
                     }
 
-                    if (obj.has("private_deals")) {
-                        JSONArray mPrivate = new JSONArray(obj.getJSONArray("private_deals").toString());
-                        mPrivatedealItem.clear();
-                        if (mPrivate.length() > 0) {
-                            for (int i = 0; i < mPrivate.length(); i++) {
-                                mPrivatedealItem.add(new PrivateDealItem(
-                                        mPrivate.getJSONObject(i).getString("id"),
-                                        mPrivate.getJSONObject(i).getString("name"),
-                                        mPrivate.getJSONObject(i).getString("category_code"),
-                                        mPrivate.getJSONObject(i).getString("category"),
-                                        mPrivate.getJSONObject(i).getString("landscape"),
-                                        mPrivate.getJSONObject(i).getString("review_score"),
-                                        mPrivate.getJSONObject(i).getString("grade_score"),
-                                        mPrivate.getJSONObject(i).getString("sale_rate"),
-                                        mPrivate.getJSONObject(i).getString("sale_price"),
-                                        mPrivate.getJSONObject(i).getString("normal_price"),
-                                        mPrivate.getJSONObject(i).getString("is_hot_deal"),
-                                        mPrivate.getJSONObject(i).getString("is_add_reserve"),
-                                        mPrivate.getJSONObject(i).has("coupon_count") ? mPrivate.getJSONObject(i).getInt("coupon_count") : 0
-                                ));
-                            }
-                            objects.add(mPrivatedealItem.get(0));
-                        }
-                    }
-
                     if (obj.has("stay_hot_deals")) {
                         JSONArray mStay = new JSONArray(obj.getJSONObject("stay_hot_deals").getJSONArray("deals").toString());
                         mHotelItem.clear();
@@ -257,51 +232,77 @@ public class HotelFragment extends Fragment {
                             objects.add(mHotelItem.get(0));
                         }
                     }
-                    if (obj.has("theme_show")) {
-                        if (obj.getJSONObject("theme_show").length() > 0) {
-                            JSONObject mTheme_show = obj.getJSONObject("theme_show");
-                            if (mTheme_show.getJSONObject("theme") != null) {
-                                JSONObject mTheme = mTheme_show.getJSONObject("theme");
-                                JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
-                                mThemeItem.clear();
-                                if (mTheme.getString("theme_flag").equals("H")) { // 호텔일때
-                                    for (int i = 0; i < mItems.length(); i++) {
-                                        mThemeItem.add(new ThemeItem(
-                                                mItems.getJSONObject(i).getString("id"),
-                                                mItems.getJSONObject(i).getString("name"),
-                                                mItems.getJSONObject(i).getString("landscape"),
-                                                mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
-                                                mTheme.getString("id"),
-                                                mTheme.getString("theme_flag"),
-                                                mTheme.getString("theme_color"),
-                                                mTheme.getString("title"),
-                                                mItems.getJSONObject(i).getString("sale_price"),
-                                                mItems.getJSONObject(i).getString("normal_price")
-                                        ));
-                                    }
-                                    if(mThemeItem.size() > 0)
-                                        objects.add(mThemeItem.get(0));
-                                } else if(mTheme.getString("theme_flag").equals("Q")) {
-                                    for (int i = 0; i < mItems.length(); i++) {
-                                        mThemeItem.add(new ThemeItem(
-                                                mItems.getJSONObject(i).getString("id"),
-                                                mItems.getJSONObject(i).getString("name"),
-                                                mItems.getJSONObject(i).getString("landscape"),
-                                                mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
-                                                mTheme.getString("id"),
-                                                mTheme.getString("theme_flag"),
-                                                mTheme.getString("theme_color"),
-                                                mTheme.getString("title"),
-                                                mItems.getJSONObject(i).getString("sale_price"),
-                                                mItems.getJSONObject(i).getString("normal_price")
-                                        ));
-                                    }
-                                    if(mThemeItem.size() > 0)
-                                        objects.add(mThemeItem.get(0));
-                                }
+
+                    if (obj.has("private_deals")) {
+                        JSONArray mPrivate = new JSONArray(obj.getJSONArray("private_deals").toString());
+                        mPrivatedealItem.clear();
+                        if (mPrivate.length() > 0) {
+                            for (int i = 0; i < mPrivate.length(); i++) {
+                                mPrivatedealItem.add(new PrivateDealItem(
+                                        mPrivate.getJSONObject(i).getString("id"),
+                                        mPrivate.getJSONObject(i).getString("name"),
+                                        mPrivate.getJSONObject(i).getString("category_code"),
+                                        mPrivate.getJSONObject(i).getString("category"),
+                                        mPrivate.getJSONObject(i).getString("landscape"),
+                                        mPrivate.getJSONObject(i).getString("review_score"),
+                                        mPrivate.getJSONObject(i).getString("grade_score"),
+                                        mPrivate.getJSONObject(i).getString("sale_rate"),
+                                        mPrivate.getJSONObject(i).getString("sale_price"),
+                                        mPrivate.getJSONObject(i).getString("normal_price"),
+                                        mPrivate.getJSONObject(i).getString("is_hot_deal"),
+                                        mPrivate.getJSONObject(i).getString("is_add_reserve"),
+                                        mPrivate.getJSONObject(i).has("coupon_count") ? mPrivate.getJSONObject(i).getInt("coupon_count") : 0
+                                ));
                             }
+                            objects.add(mPrivatedealItem.get(0));
                         }
                     }
+                    //클릭율이 낮아서 삭제
+//                    if (obj.has("theme_show")) {
+//                        if (obj.getJSONObject("theme_show").length() > 0) {
+//                            JSONObject mTheme_show = obj.getJSONObject("theme_show");
+//                            if (mTheme_show.getJSONObject("theme") != null) {
+//                                JSONObject mTheme = mTheme_show.getJSONObject("theme");
+//                                JSONArray mItems = new JSONArray(mTheme_show.getJSONArray("lists").toString());
+//                                mThemeItem.clear();
+//                                if (mTheme.getString("theme_flag").equals("H")) { // 호텔일때
+//                                    for (int i = 0; i < mItems.length(); i++) {
+//                                        mThemeItem.add(new ThemeItem(
+//                                                mItems.getJSONObject(i).getString("id"),
+//                                                mItems.getJSONObject(i).getString("name"),
+//                                                mItems.getJSONObject(i).getString("landscape"),
+//                                                mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+//                                                mTheme.getString("id"),
+//                                                mTheme.getString("theme_flag"),
+//                                                mTheme.getString("theme_color"),
+//                                                mTheme.getString("title"),
+//                                                mItems.getJSONObject(i).getString("sale_price"),
+//                                                mItems.getJSONObject(i).getString("normal_price")
+//                                        ));
+//                                    }
+//                                    if(mThemeItem.size() > 0)
+//                                        objects.add(mThemeItem.get(0));
+//                                } else if(mTheme.getString("theme_flag").equals("Q")) {
+//                                    for (int i = 0; i < mItems.length(); i++) {
+//                                        mThemeItem.add(new ThemeItem(
+//                                                mItems.getJSONObject(i).getString("id"),
+//                                                mItems.getJSONObject(i).getString("name"),
+//                                                mItems.getJSONObject(i).getString("landscape"),
+//                                                mItems.getJSONObject(i).has("product_id") ? mItems.getJSONObject(i).getString("product_id") : "",
+//                                                mTheme.getString("id"),
+//                                                mTheme.getString("theme_flag"),
+//                                                mTheme.getString("theme_color"),
+//                                                mTheme.getString("title"),
+//                                                mItems.getJSONObject(i).getString("sale_price"),
+//                                                mItems.getJSONObject(i).getString("normal_price")
+//                                        ));
+//                                    }
+//                                    if(mThemeItem.size() > 0)
+//                                        objects.add(mThemeItem.get(0));
+//                                }
+//                            }
+//                        }
+//                    }
                     if (obj.has("theme_lists")) {
                         JSONArray mThemeS = new JSONArray(obj.getJSONArray("theme_lists").toString());
                         if (mThemeS.length() > 0) {

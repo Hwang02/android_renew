@@ -272,7 +272,7 @@ public class MainActivity extends FragmentActivity {
             // 1 : 예약 상세|booking_id / 4: 리뷰|booking_id, 2 : 인덱스 페이지 이동|이벤트id, 3: 상품 상세|hotel_id, 5:적립금 확인, 6:테마리스트 이동 7:쿠폰 리스트 8: 티켓상세 10: 숙소탭 11: 액티비티탭
             if (push_type != null) {
                 if (push_type.equals("1") || push_type.equals("4")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -284,7 +284,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
                 } else if (push_type.equals("2")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     if (evtidx > 0) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -297,7 +297,7 @@ public class MainActivity extends FragmentActivity {
                         }, 1000);
                     }
                 } else if (push_type.equals("3")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -323,7 +323,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
                 } else if (push_type.equals("6")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     if (!evttag.equals(null) && evttag.equals("Q")) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -360,7 +360,7 @@ public class MainActivity extends FragmentActivity {
                     }, 1000);
 
                 } else if (push_type.equals("8")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     // 티켓상세
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -383,8 +383,8 @@ public class MainActivity extends FragmentActivity {
                     TuneWrap.Event("PUSH", "mainpage");
                 }
             } else {
-                setTapMove(SELECTPAGE, false);
-                TuneWrap.Event("PUSH", "mainpage");
+                setTapMove(HOTELPAGE, true);
+                TuneWrap.Event("PUSH", "staymain");
             }
         } else {
             String action = getIntent().getStringExtra("action");
@@ -396,7 +396,7 @@ public class MainActivity extends FragmentActivity {
                 LogUtil.e("action", action);
                 LogUtil.e("data", data);
                 if (recipeStr1.contains("hotel_id") && recipeStr1.contains("date") && recipeStr1.contains("e_date") && recipeStr1.contains("is_event")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -436,7 +436,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
                 } else if (recipeStr1.contains("hotel_id")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -498,7 +498,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
                 } else if (recipeStr1.contains("ticket_id")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -525,7 +525,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
                 } else if (recipeStr1.contains("theme_id")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -556,7 +556,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 1000);
                 } else if (recipeStr1.contains("event_id")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -603,7 +603,7 @@ public class MainActivity extends FragmentActivity {
                     CONFIG.sel_fav = 1;
                     mbinding.navigation.setCurrentItem(FAVPAGE);
                 } else if (recipeStr1.contains("move_theme_list")) {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, false);
                     Intent intent = new Intent(this, ThemeSAllActivity.class);
                     startActivityForResult(intent, 80);
                 } else if (recipeStr1.contains("move_booking_list")) {
@@ -628,10 +628,10 @@ public class MainActivity extends FragmentActivity {
                         mbinding.navigation.setCurrentItem(RESERVPAGE);
                     } catch (Exception e) {
                         LogUtil.e(CONFIG.TAG, e.toString());
-                        setTapMove(SELECTPAGE, false);
+                        setTapMove(HOTELPAGE, true);
                     }
                 } else {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                 }
             } else {
                 if (getIntent().getBooleanExtra("reservation", false)) {
@@ -642,7 +642,7 @@ public class MainActivity extends FragmentActivity {
                         }
                     }, 500);
                 } else {
-                    setTapMove(SELECTPAGE, false);
+                    setTapMove(HOTELPAGE, true);
                 }
             }
         }
