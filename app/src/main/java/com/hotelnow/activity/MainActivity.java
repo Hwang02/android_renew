@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -31,6 +32,8 @@ import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogFull;
+import com.hotelnow.dialog.DialogLogin;
+import com.hotelnow.dialog.DialogMainFragment;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.hotel.HotelFragment;
@@ -42,6 +45,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FindDebugger;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
@@ -49,13 +53,17 @@ import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements DialogMainFragment.onSubmitListener {
     private static ActivityMainBinding mbinding;
     private FragmentTransaction transaction;
     private final int FAVPAGE = 1;
@@ -65,7 +73,7 @@ public class MainActivity extends FragmentActivity {
     private final int HOTELPAGE = 5;
     private final int LEISUREPAGE = 6;
     private static Context mContext;
-    private SharedPreferences _preferences;
+    public SharedPreferences _preferences;
     private boolean is_refresh = false;
     private DbOpenHelper dbHelper;
     private int myPosition = 0;
@@ -82,6 +90,11 @@ public class MainActivity extends FragmentActivity {
     private String sdate = null;
     private String edate = null;
     private String recipeStr1 = null;
+    public DialogFull dialogFull;
+    public DialogLogin dialoglogin;
+    public static DialogMainFragment frgpopup = null;
+    private JSONArray mPopups;
+    private String important_pop_up_iamge, important_pop_up_link;
 
     public boolean isDebugged() {
         LogUtil.e("MainActivity", "Checking for debuggers...");
@@ -125,13 +138,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         Util.setStatusColor(this);
-
-//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-//        Bundle params = new Bundle();
-//        params.putString("PAGE", "MainActivity-Start");
-//        params.putString("NAME", "HWANG");
-//        mFirebaseAnalytics.logEvent("Screen_view2", params);
 
         mbinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContext = this;
@@ -259,6 +265,176 @@ public class MainActivity extends FragmentActivity {
         // facebook
         callbackManager = CallbackManager.Factory.create();
 
+        String url = CONFIG.mainHome + "/home";
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    if (!obj.has("result") || !obj.getString("result").equals("success")) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    important_pop_up_link = obj.has("important_pop_up_link") ? obj.getString("important_pop_up_link") : "";
+                    important_pop_up_iamge = obj.has("important_pop_up_iamge") ? obj.getString("important_pop_up_iamge") : "";
+
+                    if (obj.has("pop_ups")) {
+                        mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
+
+                        if (_preferences.getBoolean("user_first_app", true)) {
+                            // 동의팝업
+                            mainPopup();
+                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
+                            importantPopup();
+                            // 회원가입팝업
+                        } else {
+                            if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                                frgpopup = new DialogMainFragment();
+                                frgpopup.mListener = MainActivity.this;
+                                frgpopup.popup_data = mPopups;
+                                frgpopup.pf = MainActivity.this;
+                                frgpopup.setCancelable(false);
+
+                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                ft.add(frgpopup, null);
+                                ft.commitAllowingStateLoss();
+
+                            }
+                        }
+                    } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
+                        importantPopup();
+
+                    }
+
+                    deepAndPush();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void mainPopup() {
+        if (_preferences.getBoolean("user_first_app", true)) {
+            dialogFull = new DialogFull(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Util.setPreferenceValues(_preferences, "user_first_app", false);
+                    dialogFull.dismiss();
+                    importantPopup();
+                }
+            });
+            dialogFull.show();
+            dialogFull.setCancelable(false);
+        }
+    }
+
+    public void importantPopup() {
+        if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))) {
+            dialoglogin = new DialogLogin(this,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Calendar calendar = Calendar.getInstance();
+                            if (((CheckBox) dialoglogin.findViewById(R.id.left)).isChecked()) {
+                                // 오늘 하루 닫기
+                                Date currentTime = new Date();
+                                calendar.setTime(currentTime);
+                                calendar.add(Calendar.DAY_OF_YEAR, 14);
+                            } else {
+                                // 닫기
+                                Date currentTime = new Date();
+                                calendar.setTime(currentTime);
+                                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                            }
+
+                            SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            String checkdate = mSimpleDateFormat.format(calendar.getTime());
+                            if (_preferences != null) {
+                                Util.setPreferenceValues(_preferences, "info_date", checkdate);
+                            }
+                            dialoglogin.dismiss();
+                            if (mPopups.length() > 0 && !_preferences.getBoolean("today_start_app", false)) {
+                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                                    frgpopup = new DialogMainFragment();
+                                    frgpopup.mListener = MainActivity.this;
+                                    frgpopup.popup_data = mPopups;
+                                    frgpopup.pf = MainActivity.this;
+                                    frgpopup.setCancelable(false);
+
+                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                    ft.add(frgpopup, null);
+                                    ft.commitAllowingStateLoss();
+
+                                }
+                            }
+                        }
+                    },
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
+                            intent.putExtra("url", important_pop_up_link);
+                            intent.putExtra("title", "공지");
+                            startActivity(intent);
+
+                            Calendar calendar = Calendar.getInstance();
+                            Date currentTime = new Date();
+                            calendar.setTime(currentTime);
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);
+                            SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            String checkdate = mSimpleDateFormat.format(calendar.getTime());
+                            if (_preferences != null) {
+                                Util.setPreferenceValues(_preferences, "info_date", checkdate);
+                            }
+                            dialoglogin.dismiss();
+
+                            if (mPopups.length() > 0 && !_preferences.getBoolean("today_start_app", false)) {
+                                if ((_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+                                    frgpopup = new DialogMainFragment();
+                                    frgpopup.mListener = MainActivity.this;
+                                    frgpopup.popup_data = mPopups;
+                                    frgpopup.pf = MainActivity.this;
+                                    frgpopup.setCancelable(false);
+
+                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                    ft.add(frgpopup, null);
+                                    ft.commitAllowingStateLoss();
+                                }
+                            }
+                        }
+                    },
+                    important_pop_up_iamge, important_pop_up_link, "info");
+            dialoglogin.setCancelable(false);
+            dialoglogin.show();
+        } else {
+            setPopup();
+        }
+    }
+
+    public void setPopup() {
+        if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+            frgpopup = new DialogMainFragment();
+            frgpopup.mListener = MainActivity.this;
+            frgpopup.popup_data = mPopups;
+            frgpopup.pf = MainActivity.this;
+            frgpopup.setCancelable(false);
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(frgpopup, null);
+            ft.commitAllowingStateLoss();
+        }
+    }
+
+    private void deepAndPush(){
         // 딥링크, push
         if (getIntent().getStringExtra("push_type") != null) {
             push_type = getIntent().getStringExtra("push_type");
@@ -276,11 +452,11 @@ public class MainActivity extends FragmentActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                                Intent intentBooking = new Intent(MainActivity.this, ReservationHotelDetailActivity.class);
-                                intentBooking.putExtra("from_push", true);
-                                intentBooking.putExtra("bid", bid);
-                                startActivityForResult(intentBooking, 80);
-                                TuneWrap.Event("PUSH", bid + "");
+                            Intent intentBooking = new Intent(MainActivity.this, ReservationHotelDetailActivity.class);
+                            intentBooking.putExtra("from_push", true);
+                            intentBooking.putExtra("bid", bid);
+                            startActivityForResult(intentBooking, 80);
+                            TuneWrap.Event("PUSH", bid + "");
                         }
                     }, 1000);
                 } else if (push_type.equals("2")) {
@@ -1015,10 +1191,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void HomePopup() {
-        HomeFragment fm = (HomeFragment) getSupportFragmentManager().findFragmentByTag("SELECTPAGE");
-        if (fm != null) {
-            fm.setPopup();
-        }
+        setPopup();
     }
 
     public void moveTabRefresh2() {
@@ -1129,5 +1302,10 @@ public class MainActivity extends FragmentActivity {
             layoutParams.leftMargin = start;
             layoutParams.rightMargin = end;
         }
+    }
+
+    @Override
+    public void setOnSubmitListener(int idx) {
+
     }
 }

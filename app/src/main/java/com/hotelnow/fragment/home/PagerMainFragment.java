@@ -16,6 +16,7 @@ import com.hotelnow.R;
 import com.hotelnow.activity.DetailActivityActivity;
 import com.hotelnow.activity.DetailHotelActivity;
 import com.hotelnow.activity.EventActivity;
+import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.PrivateDaelAllActivity;
 import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
@@ -62,9 +63,9 @@ public class PagerMainFragment extends Fragment {
     private String frontEvtId;
     //    static Tracker t;
     private static DialogAlert dialogAlert;
-    private static HomeFragment mPf;
+    private static MainActivity mPf;
 
-    public static PagerMainFragment create(HomeFragment pf, String id, String title, String thumb_img, String thumb_link_action, String popup_img, String response_wh, String popup_map, String evt_type, String front_img) {
+    public static PagerMainFragment create(MainActivity pf, String id, String title, String thumb_img, String thumb_link_action, String popup_img, String response_wh, String popup_map, String evt_type, String front_img) {
         PagerMainFragment fragment = new PagerMainFragment();
         Bundle args = new Bundle();
 
@@ -147,7 +148,7 @@ public class PagerMainFragment extends Fragment {
                             Api.get(checkurl, new Api.HttpCallback() {
                                 @Override
                                 public void onFailure(Response response, Exception e) {
-                                    Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mPf, mPf.getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                     return;
                                 }
 
@@ -161,7 +162,7 @@ public class PagerMainFragment extends Fragment {
                                             dialogAlert = new DialogAlert(
                                                     getActivity().getString(R.string.alert_notice),
                                                     "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
-                                                    mPf.getActivity(),
+                                                    mPf,
                                                     new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
@@ -176,7 +177,7 @@ public class PagerMainFragment extends Fragment {
                                         String checkin = aobj.getString(0);
                                         String checkout = Util.getNextDateStr(checkin);
 
-                                        Intent intent = new Intent(mPf.getActivity(), DetailHotelActivity.class);
+                                        Intent intent = new Intent(mPf, DetailHotelActivity.class);
                                         intent.putExtra("hid", url);
                                         intent.putExtra("evt", "N");
                                         intent.putExtra("save", true);
@@ -187,7 +188,7 @@ public class PagerMainFragment extends Fragment {
 
                                     } catch (Exception e) {
                                         // Log.e(CONFIG.TAG, e.toString());
-                                        Toast.makeText(mPf.getActivity(), mPf.getActivity().getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mPf, mPf.getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                                         return;
                                     }
 
@@ -195,24 +196,24 @@ public class PagerMainFragment extends Fragment {
                             });
 
                         } else if (method.equals("move_theme")) {
-                            Intent intent = new Intent(mPf.getActivity(), ThemeSpecialHotelActivity.class);
+                            Intent intent = new Intent(mPf, ThemeSpecialHotelActivity.class);
                             intent.putExtra("tid", url);
 
                             mPf.startActivityForResult(intent, 80);
                         } else if (method.equals("move_theme_ticket")) {
-                            Intent intent = new Intent(mPf.getActivity(), ThemeSpecialActivityActivity.class);
+                            Intent intent = new Intent(mPf, ThemeSpecialActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mPf.startActivityForResult(intent, 80);
                         } else if (method.equals("move_ticket_detail")) {
-                            Intent intent = new Intent(mPf.getActivity(), DetailActivityActivity.class);
+                            Intent intent = new Intent(mPf, DetailActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mPf.startActivityForResult(intent, 80);
                         } else if (method.equals("outer_link")) {
                             if (url.contains("hotelnow")) {
                                 frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
-                                Intent intent = new Intent(mPf.getActivity(), WebviewActivity.class);
+                                Intent intent = new Intent(mPf, WebviewActivity.class);
                                 intent.putExtra("url", url);
                                 intent.putExtra("title", frontTitle);
                                 mPf.startActivityForResult(intent, 80);
@@ -222,15 +223,15 @@ public class PagerMainFragment extends Fragment {
                                 mPf.startActivity(intent);
                             }
                         } else if (method.equals("move_privatedeal_all")){
-                            Intent intent = new Intent(mPf.getActivity(), PrivateDaelAllActivity.class);
+                            Intent intent = new Intent(mPf, PrivateDaelAllActivity.class);
                             mPf.startActivityForResult(intent, 200);
                         }
                     } catch (Throwable t) {
-                        Toast.makeText(mPf.getActivity(), "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mPf, "올바른 형식의 주소가 아닙니다.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
-                    Intent intentEvt = new Intent(mPf.getActivity(), EventActivity.class);
+                    Intent intentEvt = new Intent(mPf, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
                     intentEvt.putExtra("title", frontTitle);
                     mPf.startActivityForResult(intentEvt, 80);

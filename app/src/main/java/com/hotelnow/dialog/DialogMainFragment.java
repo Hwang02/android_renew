@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.activity.MainActivity;
 import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.fragment.home.PagerMainFragment;
 import com.hotelnow.utils.TuneWrap;
@@ -43,7 +44,7 @@ public class DialogMainFragment extends DialogFragment {
     //    public Button mButton;
     public onSubmitListener mListener;
     public JSONArray popup_data = new JSONArray();
-    public HomeFragment pf;
+    public MainActivity pf;
     private PagerAdapter mPagerAdapter;
     private String[] id;
     private String[] title;
