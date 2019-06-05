@@ -308,22 +308,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="14dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@color/bg_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:paddingBottom="20dp"
-                android:background="@color/footerview">
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="10dp"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp">
+                    android:gravity="center">
 
                     <CheckBox
                         android:id="@+id/agree_checkbox0"
@@ -332,132 +335,330 @@
                         android:layout_weight="0.7"
                         android:paddingLeft="12dp"
                         android:text="만 14세 이상 확인(필수)"
-                        android:textSize="13dp"
-                        android:textColor="@color/blacktxt"
+                        android:textSize="14dp"
+                        android:textColor="@color/termtext"
                         android:button="@drawable/checkbox_icon" />
                 </LinearLayout>
 
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+
+                <RelativeLayout
+                    android:id="@+id/agree_layout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginLeft="10dp">
 
                     <CheckBox
                         android:id="@+id/agree_checkbox1"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
-                        android:paddingLeft="12dp"
-                        android:textSize="13dp"
-                        android:text="서비스 이용약관 동의(필수)"
-                        android:textColor="@color/blacktxt"
+                        android:layout_centerVertical="true"
                         android:button="@drawable/checkbox_icon" />
 
-                    <TextView
-                        android:id="@+id/show_agreement1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:clickable="true"
-                        android:gravity="right"
-                        android:text="@string/message_show"
-                        android:textColor="@color/graytxt"
-                        android:textSize="12dp" />
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/agree_checkbox1"
+                        android:layout_toLeftOf="@id/agree_img1"
+                        android:orientation="vertical">
 
-                <LinearLayout
+                        <TextView
+                            android:id="@+id/agree_txt1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서비스 이용약관 동의 (필수)"
+                            android:textColor="@color/termtext"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/show_agreement1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="광고성 정보 수신동의 포함"
+                            android:textColor="@color/graytxt"
+                            android:layout_marginTop="6dp"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/agree_img1"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ico_viewmore_open"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp">
-
-                    <CheckBox
-                        android:id="@+id/agree_checkbox2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
-                        android:paddingLeft="12dp"
-                        android:textSize="13dp"
-                        android:text="개인정보 수집 이용 동의(필수)"
-                        android:textColor="@color/blacktxt"
-                        android:button="@drawable/checkbox_icon" />
-
-                    <TextView
-                        android:id="@+id/show_agreement2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:clickable="true"
-                        android:gravity="right"
-                        android:text="@string/message_show"
-                        android:textColor="@color/graytxt"
-                        android:textSize="12dp" />
-                </LinearLayout>
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp">
-
-                    <CheckBox
-                        android:id="@+id/agree_checkbox3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
-                        android:paddingLeft="12dp"
-                        android:textSize="13dp"
-                        android:text="위치정보 이용약관 동의(선택)"
-                        android:textColor="@color/blacktxt"
-                        android:button="@drawable/checkbox_icon" />
-
-                    <TextView
-                        android:id="@+id/show_agreement3"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
-                        android:clickable="true"
-                        android:gravity="right"
-                        android:text="@string/message_show"
-                        android:textColor="@color/graytxt"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <LinearLayout
+                    android:id="@+id/layout_agree1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="16dp">
+                    android:visibility="gone"
+                    tools:ignore="WebViewLayout">
+
+                    <WebView
+                        android:id="@+id/agree_web1"
+                        android:layout_width="match_parent"
+                        android:layout_height="183dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/bg_background" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/agree_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp">
+
+                    <CheckBox
+                        android:id="@+id/agree_checkbox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:button="@drawable/checkbox_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/agree_checkbox2"
+                        android:layout_toLeftOf="@id/agree_img2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/agree_txt2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="개인 정보 수집 이용 동의 (필수)"
+                            android:textColor="@color/termtext"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/show_agreement2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="예약 및 서비스 이용을 위한 필수 개인정보 수집"
+                            android:textColor="@color/graytxt"
+                            android:layout_marginTop="6dp"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/agree_img2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ico_viewmore_open"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+
+                <LinearLayout
+                    android:id="@+id/layout_agree2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:ignore="WebViewLayout">
+
+                    <WebView
+                        android:id="@+id/agree_web2"
+                        android:layout_width="match_parent"
+                        android:layout_height="183dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/bg_background" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/agree_layout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp">
+
+                    <CheckBox
+                        android:id="@+id/agree_checkbox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:button="@drawable/checkbox_icon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/agree_checkbox3"
+                        android:layout_toLeftOf="@id/agree_img3"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/agree_txt3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="개인 정보 수집 이용 동의 (선택)"
+                            android:textColor="@color/termtext"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/show_agreement3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서비스 혜택 동의 정보 제공을 위한 개인정보 수집"
+                            android:textColor="@color/graytxt"
+                            android:layout_marginTop="6dp"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/agree_img3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ico_viewmore_open"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+
+                <LinearLayout
+                    android:id="@+id/layout_agree3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:ignore="WebViewLayout">
+
+                    <WebView
+                        android:id="@+id/agree_web3"
+                        android:layout_width="match_parent"
+                        android:layout_height="183dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/bg_background" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/agree_layout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
 
                     <CheckBox
                         android:id="@+id/agree_checkbox4"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="12dp"
-                        android:textSize="13dp"
-                        android:text="할인 혜택 알림 수신동의(선택)"
-                        android:textColor="@color/blacktxt"
+                        android:layout_centerVertical="true"
                         android:button="@drawable/checkbox_icon" />
 
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/agree_checkbox4"
+                        android:layout_toLeftOf="@id/agree_img4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/agree_txt4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="위치 정보 서비스 이용 약관 (선택)"
+                            android:textColor="@color/termtext"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/show_agreement4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="위치정보를 통한 내 주변 숙소 정보 제공"
+                            android:textColor="@color/graytxt"
+                            android:layout_marginTop="6dp"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/agree_img4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ico_viewmore_open"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg_background" />
+
+                <LinearLayout
+                    android:id="@+id/layout_agree4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:ignore="WebViewLayout">
+
+                    <WebView
+                        android:id="@+id/agree_web4"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:gravity="left"
-                        android:text="이메일 / SMS / MMS"
-                        android:layout_marginLeft="36dp"
-                        android:textColor="@color/graytxt"
-                        android:textSize="12dp" />
+                        android:layout_height="183dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/bg_background" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="※ 선택 약관에 동의하지 않으셔도 계속 가입을 진행하실 수있습니다."
+                    android:letterSpacing="-0.02"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/graytxt"
+                    android:textSize="13dp"/>
+
             </LinearLayout>
 
             <Button

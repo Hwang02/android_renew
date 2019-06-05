@@ -106,7 +106,6 @@ public class WebviewActivity extends AppCompatActivity {
             super.onPageFinished(view, url);
 
         }
-
     }
 
     // 404 새로고침

@@ -35,10 +35,12 @@ import com.hotelnow.R;
 import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.hotelnow.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
+import com.hotelnow.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,20 +55,21 @@ public class FilterHotelActivity extends Activity {
     private LinearLayout btn_refresh;
     private String mOrderby = "";
     private LinearLayout filter6_1, filter6_2, filter6_3, filter6_4, filter6_5, filter6_6, filter6_7;
-    List<String> categories = new ArrayList<String>();
-    List<String> configCategories = new ArrayList<String>();
-    List<String> facilities = new ArrayList<String>();
-    List<String> configFacilities = new ArrayList<String>();
-    List<String> usepersons = new ArrayList<String>();
-    List<String> configUsepersons = new ArrayList<String>();
-    String minVal = "0";
-    String maxVal = "600000";
-    String mRate = "";
-    LocationManager locManager; // 위치 정보 프로바이더
-    LocationListener locationListener; // 위치 정보가 업데이트시 동작
-    String lat = "", lng = "";
-    ProgressDialog dialog;
+    private List<String> categories = new ArrayList<String>();
+    private List<String> configCategories = new ArrayList<String>();
+    private List<String> facilities = new ArrayList<String>();
+    private List<String> configFacilities = new ArrayList<String>();
+    private List<String> usepersons = new ArrayList<String>();
+    private List<String> configUsepersons = new ArrayList<String>();
+    private String minVal = "0";
+    private String maxVal = "600000";
+    private String mRate = "";
+    private LocationManager locManager; // 위치 정보 프로바이더
+    private LocationListener locationListener; // 위치 정보가 업데이트시 동작
+    private String lat = "", lng = "";
+    private ProgressDialog dialog;
     private boolean is_reset = false;
+    private DialogConfirm dialogConfirm;
 
 
     @Override
@@ -583,7 +586,7 @@ public class FilterHotelActivity extends Activity {
     }
 
     private void getMyLocation() {
-        PermissionListener permissionlistener = new PermissionListener() {
+       final PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
 //                Toast.makeText(FilterHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
@@ -619,11 +622,25 @@ public class FilterHotelActivity extends Activity {
             }
         };
 
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("현재 위치값을 얻어오기 위해 권한이 필요합니다.")
-                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check();
+        //팝업 추가
+        dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", FilterHotelActivity.this,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogConfirm.dismiss();
+                    }
+                },
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogConfirm.dismiss();
+                        TedPermission.with(FilterHotelActivity.this)
+                                .setPermissionListener(permissionlistener)
+                                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                                .check();
+                    }
+                });
+        dialogConfirm.show();
     }
 }

@@ -94,7 +94,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
     public DialogLogin dialoglogin;
     public static DialogMainFragment frgpopup = null;
     private JSONArray mPopups;
-    private String important_pop_up_iamge, important_pop_up_link;
+    private String important_pop_up_image, important_pop_up_link;
 
     public boolean isDebugged() {
         LogUtil.e("MainActivity", "Checking for debuggers...");
@@ -283,7 +283,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     }
 
                     important_pop_up_link = obj.has("important_pop_up_link") ? obj.getString("important_pop_up_link") : "";
-                    important_pop_up_iamge = obj.has("important_pop_up_iamge") ? obj.getString("important_pop_up_iamge") : "";
+                    important_pop_up_image = obj.has("important_pop_up_image") ? obj.getString("important_pop_up_image") : "";
 
                     if (obj.has("pop_ups")) {
                         mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
@@ -291,7 +291,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                         if (_preferences.getBoolean("user_first_app", true)) {
                             // 동의팝업
                             mainPopup();
-                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
+                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
                             importantPopup();
                             // 회원가입팝업
                         } else {
@@ -308,7 +308,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
 
                             }
                         }
-                    } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
+                    } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
                         importantPopup();
 
                     }
@@ -338,7 +338,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
     }
 
     public void importantPopup() {
-        if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_iamge) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))) {
+        if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (Util.showFrontPopup(_preferences.getString("info_date", "")) || TextUtils.isEmpty(_preferences.getString("info_date", "")))) {
             dialoglogin = new DialogLogin(this,
                     new View.OnClickListener() {
                         @Override
@@ -412,7 +412,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             }
                         }
                     },
-                    important_pop_up_iamge, important_pop_up_link, "info");
+                    important_pop_up_image, important_pop_up_link, "info");
             dialoglogin.setCancelable(false);
             dialoglogin.show();
         } else {

@@ -43,7 +43,7 @@
                 android:layout_toRightOf="@id/title_back"
                 android:textColor="@color/purple"
                 android:textSize="16dp"
-                android:text="설정하기" />
+                android:text="위치 서비스 이용 (선택)" />
 
             <View
                 android:layout_width="match_parent"
@@ -59,40 +59,40 @@
         android:layout_below="@+id/toolbar"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:textSize="14dp"
-            android:text="서비스이용, 알림 설정"
-            android:textColor="@color/purple"
-            android:background="@color/back_line"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:gravity="center_vertical" />
-
         <RelativeLayout
-            android:id="@+id/btn_push"
+            android:id="@+id/ll_location"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center">
 
-            <!-- 푸시 -->
             <TextView
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:text="@string/setting_agree2"
                 android:textSize="15dp"
-                android:textColor="@color/blacktxt"
-                android:text="할인 혜택 알림 받기(Push)" />
+                android:textColor="@color/blacktxt" />
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:background="@drawable/ico_my_more"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:gravity="center|center_horizontal">
 
+                <CheckBox
+                    android:id="@+id/accept_location"
+                    android:layout_width="50dp"
+                    android:layout_height="26dp"
+                    android:button="@null"
+                    android:clickable="true"
+                    android:background="@drawable/push_checkbox_icon"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+
+            </LinearLayout>
         </RelativeLayout>
 
         <View
@@ -100,30 +100,31 @@
             android:layout_height="1dp"
             android:background="@color/back_line" />
 
-        <RelativeLayout
-            android:id="@+id/btn_agree1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
 
-            <!-- 개인 정보 수집 및 이용 (선택) -->
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_webgo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="15dp"
-                android:textColor="@color/blacktxt"
-                android:text="@string/setting_agree1" />
+                android:textSize="14dp"
+                android:textColor="@color/termtext"
+                android:text="" />
 
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:background="@drawable/ico_my_more"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
-
-        </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 내 위치 주변 호텔/액티비티 바로보기\nㆍ 검색 시 내 주변과 가까운순으로 상품정렬 "
+                android:layout_marginTop="10dp"
+                android:textSize="14dp"
+                android:textColor="@color/termtext"/>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -131,37 +132,7 @@
             android:background="@color/back_line" />
 
         <RelativeLayout
-            android:id="@+id/btn_agree2"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
-
-            <!-- 위치 서비스 이용 (선택) -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="15dp"
-                android:textColor="@color/blacktxt"
-                android:text="@string/setting_agree2" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:background="@drawable/ico_my_more"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/back_line" />
-
-        <RelativeLayout
-            android:id="@+id/btn_retire"
+            android:id="@+id/btn_authority"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
@@ -170,9 +141,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="6dp"
                 android:background="@color/back_line"/>
-            <!-- 회원탈퇴 -->
+            <!-- 앱 권한 -->
 
             <TextView
+                android:id="@+id/txt_authority"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -181,7 +153,7 @@
                 android:gravity="center"
                 android:textSize="15dp"
                 android:textColor="@color/blacktxt"
-                android:text="@string/retire_txt1" />
+                android:text="앱 권한 (위치)" />
 
             <ImageView
                 android:layout_width="12dp"
@@ -194,10 +166,11 @@
         </RelativeLayout>
 
         <View
-            android:id="@+id/retire_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="15dp"
             android:background="@color/back_line" />
+
     </LinearLayout>
 
     <RelativeLayout

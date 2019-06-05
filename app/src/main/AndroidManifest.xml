@@ -147,6 +147,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SettingAlarmActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LocationAgreeActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.PwCheckActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"/>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -21,11 +22,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +42,7 @@ import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FacebookWrap;
+import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
@@ -46,6 +52,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import java.util.Random;
 
 public class SignupActivity extends Activity {
 
@@ -56,6 +63,9 @@ public class SignupActivity extends Activity {
     private Button btn_auth;
     private EditText auth_string, email, passwd, username, phone_num_2, phone_num_3;
     private CheckBox all_checkbox, agree_checkbox0, agree_checkbox1, agree_checkbox2, agree_checkbox3, agree_checkbox4;
+    private TextView agree_text1, agree_text2, agree_text3, agree_text4;
+    private ImageView agree_img1, agree_img2, agree_img3, agree_img4;
+    private WebView agree_web1, agree_web2, agree_web3, agree_web4;
     private CountDownTimer countDownTimer;
     private final int MILLISINFUTURE = 180 * 1000; //총 시간 (300초 = 5분)
     private final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
@@ -103,6 +113,14 @@ public class SignupActivity extends Activity {
         agree_checkbox2 = (CheckBox) findViewById(R.id.agree_checkbox2);
         agree_checkbox3 = (CheckBox) findViewById(R.id.agree_checkbox3);
         agree_checkbox4 = (CheckBox) findViewById(R.id.agree_checkbox4);
+        agree_text1 = (TextView) findViewById(R.id.agree_txt1);
+        agree_text2 = (TextView) findViewById(R.id.agree_txt2);
+        agree_text3 = (TextView) findViewById(R.id.agree_txt3);
+        agree_text4 = (TextView) findViewById(R.id.agree_txt4);
+        agree_img1 = (ImageView) findViewById(R.id.agree_img1);
+        agree_img2 = (ImageView) findViewById(R.id.agree_img2);
+        agree_img3 = (ImageView) findViewById(R.id.agree_img3);
+        agree_img4 = (ImageView) findViewById(R.id.agree_img4);
 
         email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -154,24 +172,24 @@ public class SignupActivity extends Activity {
             }
         });
 
-        SpannableStringBuilder builder = new SpannableStringBuilder("할인 혜택 알림 수신동의(선택)");
-        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 13, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        agree_checkbox4.setText(builder);
+        SpannableStringBuilder builder = new SpannableStringBuilder("서비스 이용약관 동의 (필수)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 11, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_text1.setText(builder);
 
-        builder = new SpannableStringBuilder("위치정보 이용약관 동의(선택)");
-        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 12, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        agree_checkbox3.setText(builder);
+        builder = new SpannableStringBuilder("개인 정보 수집 이용 동의 (필수)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 14, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_text2.setText(builder);
 
-        builder = new SpannableStringBuilder("개인정보 수집 이용 동의(필수)");
-        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 13, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        agree_checkbox2.setText(builder);
+        builder = new SpannableStringBuilder("개인 정보 수집 이용 동의 (선택)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.graytxt)), 14, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_text3.setText(builder);
 
-        builder = new SpannableStringBuilder("서비스 이용약관 동의(필수)");
-        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 11, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        agree_checkbox1.setText(builder);
+        builder = new SpannableStringBuilder("위치 정보 서비스 이용 약관 (선택)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.graytxt)), 16, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        agree_text4.setText(builder);
 
-        builder = new SpannableStringBuilder("만 14세 이상 확인(필수)");
-        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 11, 15, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder = new SpannableStringBuilder("만 14세 이상 확인 (필수)");
+        builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 12, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_checkbox0.setText(builder);
 
         Intent intent = getIntent();
@@ -422,42 +440,67 @@ public class SignupActivity extends Activity {
             }
         });
 
-        // 서비스 이용약관 동의
-        TextView show_agreement1 = (TextView) findViewById(R.id.show_agreement1);
-        show_agreement1.setOnClickListener(new View.OnClickListener() {
+        Random oRandom = new Random();
+        int rand = oRandom.nextInt(999999) + 1;
+
+        // 수정 필요함 url
+        // 서비스 이용약관 동의(필수)
+        agree_web1 = (WebView) findViewById(R.id.agree_web1);
+        agree_web1.getSettings().setJavaScriptEnabled(true);
+        agree_web1.getSettings().setUserAgentString(agree_web1.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
+        agree_web1.setWebViewClient(new webViewClient());
+        agree_web1.setWebChromeClient(new WebChromeClient());
+        agree_web1.loadUrl(CONFIG.setting_agree1);
+        agree_web1.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupActivity.this, WebviewActivity.class);
-                intent.putExtra("url", CONFIG.setting_agree1);
-                intent.putExtra("title", getString(R.string.term_txt1_sub));
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+            public boolean onTouch(View v, MotionEvent event) {
+                agree_web1.requestDisallowInterceptTouchEvent(true);
+                return SignupActivity.super.onTouchEvent(event);
             }
         });
 
-        // 개인정보 취급방침 동의
-        TextView show_agreement2 = (TextView) findViewById(R.id.show_agreement2);
-        show_agreement2.setOnClickListener(new View.OnClickListener() {
+        // 개인정보 취급방침 동의(필수)
+        agree_web2 = (WebView) findViewById(R.id.agree_web2);
+        agree_web2.getSettings().setJavaScriptEnabled(true);
+        agree_web2.getSettings().setUserAgentString(agree_web2.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
+        agree_web2.setWebViewClient(new webViewClient());
+        agree_web2.setWebChromeClient(new WebChromeClient());
+        agree_web2.loadUrl(CONFIG.setting_agree2);
+        agree_web2.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupActivity.this, WebviewActivity.class);
-                intent.putExtra("url", CONFIG.setting_agree2);
-                intent.putExtra("title", getString(R.string.term_txt2));
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+            public boolean onTouch(View v, MotionEvent event) {
+                agree_web2.requestDisallowInterceptTouchEvent(true);
+                return SignupActivity.super.onTouchEvent(event);
+            }
+        });
+
+        // 개인정보 취급방침 동의(선택)
+        agree_web3 = (WebView) findViewById(R.id.agree_web3);
+        agree_web3.getSettings().setJavaScriptEnabled(true);
+        agree_web3.getSettings().setUserAgentString(agree_web3.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
+        agree_web3.setWebViewClient(new webViewClient());
+        agree_web3.setWebChromeClient(new WebChromeClient());
+        agree_web3.loadUrl(CONFIG.setting_agree2);
+        agree_web3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                agree_web3.requestDisallowInterceptTouchEvent(true);
+                return SignupActivity.super.onTouchEvent(event);
             }
         });
 
         // 위치기반서비스 이용약관 동의
-        TextView show_agreement3 = (TextView) findViewById(R.id.show_agreement3);
-        show_agreement3.setOnClickListener(new View.OnClickListener() {
+        agree_web4 = (WebView) findViewById(R.id.agree_web4);
+        agree_web4.getSettings().setJavaScriptEnabled(true);
+        agree_web4.getSettings().setUserAgentString(agree_web4.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
+        agree_web4.setWebViewClient(new webViewClient());
+        agree_web4.setWebChromeClient(new WebChromeClient());
+        agree_web4.loadUrl(CONFIG.setting_agree3);
+        agree_web4.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupActivity.this, WebviewActivity.class);
-                intent.putExtra("url", CONFIG.setting_agree3);
-                intent.putExtra("title", getString(R.string.term_txt3));
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+            public boolean onTouch(View v, MotionEvent event) {
+                agree_web4.requestDisallowInterceptTouchEvent(true);
+                return SignupActivity.super.onTouchEvent(event);
             }
         });
 
@@ -514,6 +557,7 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
+                // 수정 예정
                 if (agree_checkbox0.isChecked() != true) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_age_agreement), Toast.LENGTH_SHORT).show();
                     return;
@@ -540,7 +584,7 @@ public class SignupActivity extends Activity {
                 } else {
                     marketing_yn = "Y";
                 }
-
+                // 수정 예정
 
                 String phone_num_1 = (String) (phone_first.getSelectedItem() != null ? phone_first.getSelectedItem() : phone_prefixs[0]);
                 phone_number = phone_num_1 + "-" + phone_num_2.getText().toString() + "-" + phone_num_3.getText().toString();
@@ -635,6 +679,74 @@ public class SignupActivity extends Activity {
             }
         });
 
+        findViewById(R.id.agree_layout1).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(findViewById(R.id.layout_agree1).getVisibility() == View.GONE) {
+                    setWebviewClose();
+                    findViewById(R.id.layout_agree1).setVisibility(View.VISIBLE);
+                    agree_img1.setBackgroundResource(R.drawable.ico_viewmore_close);
+                }
+                else{
+                    findViewById(R.id.layout_agree1).setVisibility(View.GONE);
+                    agree_img1.setBackgroundResource(R.drawable.ico_viewmore_open);
+                }
+            }
+        });
+        findViewById(R.id.agree_layout2).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(findViewById(R.id.layout_agree2).getVisibility() == View.GONE) {
+                    setWebviewClose();
+                    findViewById(R.id.layout_agree2).setVisibility(View.VISIBLE);
+                    agree_img2.setBackgroundResource(R.drawable.ico_viewmore_close);
+                }
+                else{
+                    findViewById(R.id.layout_agree2).setVisibility(View.GONE);
+                    agree_img2.setBackgroundResource(R.drawable.ico_viewmore_open);
+                }
+            }
+        });
+        findViewById(R.id.agree_layout3).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(findViewById(R.id.layout_agree3).getVisibility() == View.GONE) {
+                    setWebviewClose();
+                    findViewById(R.id.layout_agree3).setVisibility(View.VISIBLE);
+                    agree_img3.setBackgroundResource(R.drawable.ico_viewmore_close);
+                }
+                else{
+                    findViewById(R.id.layout_agree3).setVisibility(View.GONE);
+                    agree_img3.setBackgroundResource(R.drawable.ico_viewmore_open);
+                }
+            }
+        });
+        findViewById(R.id.agree_layout4).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if(findViewById(R.id.layout_agree4).getVisibility() == View.GONE) {
+                    setWebviewClose();
+                    findViewById(R.id.layout_agree4).setVisibility(View.VISIBLE);
+                    agree_img4.setBackgroundResource(R.drawable.ico_viewmore_close);
+                }
+                else{
+                    findViewById(R.id.layout_agree4).setVisibility(View.GONE);
+                    agree_img4.setBackgroundResource(R.drawable.ico_viewmore_open);
+                }
+            }
+        });
+
+    }
+
+    private void setWebviewClose(){
+        findViewById(R.id.layout_agree1).setVisibility(View.GONE);
+        agree_img1.setBackgroundResource(R.drawable.ico_viewmore_open);
+        findViewById(R.id.layout_agree2).setVisibility(View.GONE);
+        agree_img2.setBackgroundResource(R.drawable.ico_viewmore_open);
+        findViewById(R.id.layout_agree3).setVisibility(View.GONE);
+        agree_img3.setBackgroundResource(R.drawable.ico_viewmore_open);
+        findViewById(R.id.layout_agree4).setVisibility(View.GONE);
+        agree_img4.setBackgroundResource(R.drawable.ico_viewmore_open);
     }
 
     private void setUseableSpinner(Spinner sp, boolean useable) {
@@ -800,5 +912,47 @@ public class SignupActivity extends Activity {
 
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    private class webViewClient extends WebViewClient {
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            view.loadUrl("file:///android_asset/404.html");
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.contains("plusfriend")) {
+                // 옐로우 아이디 처리
+                Util.kakaoYelloId(SignupActivity.this);
+                finish();
+                return true;
+
+            } else if (url.startsWith("tel:")) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+                startActivity(intent);
+                return true;
+
+            } else if (url.startsWith("mailto:")) {
+                Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse(url));
+                startActivity(i);
+                return true;
+
+            } else if (url.contains("www.hotelnow.co.kr")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+
+                return true;
+            } else {
+                view.loadUrl(url);
+                return false;
+            }
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+
+        }
     }
 }
