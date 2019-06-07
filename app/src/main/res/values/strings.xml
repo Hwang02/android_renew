@@ -327,5 +327,5 @@
 
     <string name="setting_agree1">개인 정보 수집 및 이용 <font fgcolor="#999999">(선택)</font></string>
     <string name="setting_agree2">위치 서비스 이용 <font fgcolor="#999999">(선택)</font></string>
-
+    <string name="setting_agree_user_popup"><u>개인 정보 수집 및 이용 (선택)</u></string>
 </resources>

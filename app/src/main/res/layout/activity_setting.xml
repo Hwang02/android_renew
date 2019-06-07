@@ -163,7 +163,7 @@
         <RelativeLayout
             android:id="@+id/btn_retire"
             android:layout_width="match_parent"
-            android:layout_height="52dp">
+            android:layout_height="58dp">
 
             <View
                 android:id="@+id/line"

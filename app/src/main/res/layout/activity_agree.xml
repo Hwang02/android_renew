@@ -131,16 +131,17 @@
             android:layout_height="1dp"
             android:background="@color/back_line" />
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/back_line"/>
+
         <RelativeLayout
             android:id="@+id/btn_authority"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
-            <View
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:background="@color/back_line"/>
             <!-- 앱 권한 -->
 
             <TextView
@@ -148,7 +149,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_below="@id/line"
                 android:layout_marginLeft="20dp"
                 android:gravity="center"
                 android:textSize="15dp"
@@ -168,7 +168,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="15dp"
             android:background="@color/back_line" />
 
     </LinearLayout>

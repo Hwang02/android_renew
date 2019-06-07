@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogAgreeUser;
 import com.hotelnow.dialog.DialogDiscountAlert;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
@@ -35,6 +36,7 @@ public class SettingActivity extends Activity {
 
     private SharedPreferences _preferences;
     private String cookie = "";
+    private DialogAgreeUser dialogAgreeUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class SettingActivity extends Activity {
             findViewById(R.id.btn_retire).setVisibility(View.VISIBLE);
             findViewById(R.id.retire_line).setVisibility(View.VISIBLE);
         }
-
+        // 알림 받기
         findViewById(R.id.btn_push).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
@@ -62,6 +64,32 @@ public class SettingActivity extends Activity {
             }
         });
 
+        // 개인정보 수집
+        findViewById(R.id.btn_agree1).setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dialogAgreeUser = new DialogAgreeUser(SettingActivity.this,
+                        new OnSingleClickListener() {
+                            @Override
+                            public void onSingleClick(View v) {
+                                // api 호출
+                                dialogAgreeUser.dismiss();
+                            }
+                        },
+                        new OnSingleClickListener() {
+                            @Override
+                            public void onSingleClick(View v) {
+                                // api 호출
+                                dialogAgreeUser.dismiss();
+                            }
+                        });
+                dialogAgreeUser.setCancelable(false);
+                dialogAgreeUser.show();
+            }
+        });
+
+
+        // 위치서비스
         findViewById(R.id.btn_agree2).setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {

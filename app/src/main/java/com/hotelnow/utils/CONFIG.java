@@ -165,6 +165,8 @@ public class CONFIG {
     public final static String hotdeal_list = domain + "/deallist";                       // 핫딜
     public final static String maketing_check = domain + "/marketing/change";             // 마켓팅 동의
     public final static String server_time = domain + "/servertime";                      // 서버시간
+    public final static String maketing_agree = domain +"/api/agree";                      // 마켓팅 수신 동의 api
+    public final static String maketing_agree_change = domain +"/api/agree/change";     // 약관 동의
     public static Boolean isRecent = false;                                           // 최근 상품이 없다 생겼을때 유무
     // 앱 종료시 초기화
     public static String sel_orderby = null;                                                // 검색가테고리

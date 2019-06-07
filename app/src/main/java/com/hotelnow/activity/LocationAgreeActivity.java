@@ -58,5 +58,13 @@ public class LocationAgreeActivity extends Activity {
                 startActivity(appDetail);
             }
         });
+
+        findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(91);
+                finish();
+            }
+        });
     }
 }
