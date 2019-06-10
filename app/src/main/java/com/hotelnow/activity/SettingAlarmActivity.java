@@ -62,22 +62,6 @@ public class SettingAlarmActivity extends Activity {
 
         setUserBenefit();
 
-//        findViewById(R.id.ll_sms).setVisibility(View.GONE);
-//        findViewById(R.id.v_sms).setVisibility(View.GONE);
-//        findViewById(R.id.v_email).setVisibility(View.GONE);
-//        findViewById(R.id.ll_email).setVisibility(View.GONE);
-
-//        Intent intent = getIntent();
-//
-//        cb_push.setChecked(intent.getBooleanExtra("isPush", false));
-//        tv_push.setSelected(intent.getBooleanExtra("isPush", false));
-//
-//        cb_email.setChecked(intent.getStringExtra("isEmail").equals("Y"));
-//        tv_email.setSelected(intent.getStringExtra("isEmail").equals("Y"));
-//
-//        cb_sms.setChecked(intent.getStringExtra("isSms").equals("Y"));
-//        tv_sms.setSelected(intent.getStringExtra("isSms").equals("Y"));
-
         if(cookie == null) {
             cb_sms.setEnabled(false);
             cb_email.setEnabled(false);
@@ -120,7 +104,7 @@ public class SettingAlarmActivity extends Activity {
         if(uuid != null && !TextUtils.isEmpty(uuid)){
             url += "?uuid="+uuid;
         }
-        url +="&types[]=marketing_receive";
+        url +="&marketing_receive_push&marketing_receive_sms&marketing_receive_email";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -144,19 +128,19 @@ public class SettingAlarmActivity extends Activity {
                         // push
                         if(obj.getJSONObject("marketing_receive").has("push")){
 
-                            if(!NotificationManagerCompat.from(SettingAlarmActivity.this).areNotificationsEnabled()){
+//                            if(!NotificationManagerCompat.from(SettingAlarmActivity.this).areNotificationsEnabled()){
+//                                cb_push.setChecked(false);
+//                                cb_push.setEnabled(false);
+//                            }
+//                            else {
+                            cb_push.setEnabled(true);
+                            if(obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_yn").equals("Y")) {
+                                cb_push.setChecked(true);
+                            }
+                            else{
                                 cb_push.setChecked(false);
-                                cb_push.setEnabled(false);
                             }
-                            else {
-                                cb_push.setEnabled(true);
-                                if(obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_yn").equals("Y")) {
-                                    cb_push.setChecked(true);
-                                }
-                                else{
-                                    cb_push.setChecked(false);
-                                }
-                            }
+//                            }
                         }
 
                         // push
@@ -218,125 +202,6 @@ public class SettingAlarmActivity extends Activity {
         });
     }
 
-//    private void setCheckMaketing(final String type, String flag) {
-//        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
-//        JSONObject paramObj = new JSONObject();
-//
-//        try {
-//            paramObj.put("yn", flag);
-//
-//        } catch (JSONException e) {
-//            findViewById(R.id.wrapper).setVisibility(View.GONE);
-//        }
-//
-//        Api.post(CONFIG.maketing_check + "/" + type, paramObj.toString(), new Api.HttpCallback() {
-//            @Override
-//            public void onFailure(Response response, Exception throwable) {
-//                findViewById(R.id.wrapper).setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onSuccess(Map<String, String> headers, String body) {
-//
-//                try {
-//                    JSONObject obj = new JSONObject(body);
-//
-//                    if (!obj.getString("result").equals("success")) {
-//                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
-//                        findViewById(R.id.wrapper).setVisibility(View.GONE);
-//                        return;
-//                    }
-//
-//                    if (obj.has("marketing_info")) {
-//                        if (discountAlert != null && discountAlert.isShowing()) {
-//                            discountAlert.dismiss();
-//                        }
-//                        if (obj.getJSONObject("marketing_info").getString("category").equals("email")) {
-//                            tv_email.setSelected((obj.getJSONObject("marketing_info").getString("yn").equals("Y")));
-//                            if (tv_email.isSelected()) {
-//                                discountAlert = new DialogDiscountAlert(
-//                                        "할인 혜택 알림 수신 동의 안내",
-//                                        "이메일 (동의)",
-//                                        "수신 동의 일시 : " + obj.getJSONObject("marketing_info").getString("datetime").substring(0, 16),
-//                                        "위의 내용으로 호텔나우 혜택 알림 수신에 동의 하셨습니다.",
-//                                        "특가 정보, 이벤트, 할인쿠폰 소식 받고 즐거운 여행을 떠나세요!",
-//                                        SettingAlarmActivity.this,
-//                                        new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                discountAlert.dismiss();
-//                                            }
-//                                        }
-//                                );
-//
-//                                discountAlert.show();
-//                            } else {
-//                                discountAlert = new DialogDiscountAlert(
-//                                        "할인 혜택 알림 수신 미동의 안내",
-//                                        "이메일 (미동의)",
-//                                        "수신 동의 일시 : " + obj.getJSONObject("marketing_info").getString("datetime").substring(0, 16),
-//                                        "위의 내용으로 호텔나우 혜택 알림 수신에 미동의 하셨습니다.",
-//                                        "특가 정보, 이벤트, 할인 쿠폰 소식이 궁금하다면 언제든지 푸시 알림을 허용해주세요!",
-//                                        SettingAlarmActivity.this,
-//                                        new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                discountAlert.dismiss();
-//                                            }
-//                                        }
-//                                );
-//
-//                                discountAlert.show();
-//                            }
-//                        } else {
-//                            tv_sms.setSelected((obj.getJSONObject("marketing_info").getString("yn").equals("Y")));
-//                            if (tv_sms.isSelected()) {
-//                                discountAlert = new DialogDiscountAlert(
-//                                        "할인 혜택 알림 수신 동의 안내",
-//                                        "SMS / MMS (동의)",
-//                                        "수신 동의 일시 : " + obj.getJSONObject("marketing_info").getString("datetime").substring(0, 16),
-//                                        "위의 내용으로 호텔나우 혜택 알림 수신에 동의 하셨습니다.",
-//                                        "특가 정보, 이벤트, 할인쿠폰 소식 받고 즐거운 여행을 떠나세요!",
-//                                        SettingAlarmActivity.this,
-//                                        new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                discountAlert.dismiss();
-//                                            }
-//                                        }
-//                                );
-//
-//                                discountAlert.show();
-//                            } else {
-//                                discountAlert = new DialogDiscountAlert(
-//                                        "할인 혜택 알림 수신 미동의 안내",
-//                                        "SMS / MMS (미동의)",
-//                                        "수신 동의 일시 : " + obj.getJSONObject("marketing_info").getString("datetime").substring(0, 16),
-//                                        "위의 내용으로 호텔나우 혜택 알림 수신에 미동의 하셨습니다.",
-//                                        "특가 정보, 이벤트, 할인 쿠폰 소식이 궁금하다면 언제든지 푸시 알림을 허용해주세요!",
-//                                        SettingAlarmActivity.this,
-//                                        new View.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                discountAlert.dismiss();
-//                                            }
-//                                        }
-//                                );
-//
-//                                discountAlert.show();
-//                            }
-//                        }
-//                    }
-//                    findViewById(R.id.wrapper).setVisibility(View.GONE);
-//
-//                } catch (Exception e) {
-//                    findViewById(R.id.wrapper).setVisibility(View.GONE);
-//                }
-//            }
-//        });
-//
-//    }
-
     private void setMaketing(int type, boolean ischeck) {
         // 푸시 수신 상태값 저장
         String regId = _preferences.getString("gcm_registration_id", null);
@@ -360,19 +225,16 @@ public class SettingAlarmActivity extends Activity {
             paramObj.put("uuid", androidId);
             paramObj.put("push_token", regId);
             paramObj.put("ver", Util.getAppVersionName(context));
-            JSONObject obj=new JSONObject();
-            JSONObject obj2=new JSONObject();
+
             if(type == val_p) {
-                obj.put("marketing_receive", obj2.put("push", ((flag == true) ? "Y" : "N")));
+                paramObj.put("marketing_receive_push", ((flag == true) ? "Y" : "N"));
             }
             else if(type == val_e){
-                obj.put("marketing_receive", obj2.put("email", ((flag == true) ? "Y" : "N")));
+                paramObj.put("marketing_receive_email", ((flag == true) ? "Y" : "N"));
             }
             else{
-                obj.put("marketing_receive", obj2.put("sms", ((flag == true) ? "Y" : "N")));
+                paramObj.put("marketing_receive_sms", ((flag == true) ? "Y" : "N"));
             }
-
-            paramObj.put("types", obj);
 
         } catch (JSONException e) {; }
 
@@ -522,11 +384,15 @@ public class SettingAlarmActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 100)
-        {
-            if(!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-                cb_push.setChecked(false);
-            }
-        }
+//        if(requestCode == 100)
+//        {
+//            if(!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+//                cb_push.setChecked(false);
+//                cb_push.setEnabled(false);
+//            }
+//            else{
+//                cb_push.setEnabled(true);
+//            }
+//        }
     }
 }

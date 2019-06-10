@@ -165,7 +165,7 @@
     <string name="paytype4">가상계좌</string>
     <string name="paytype5">PAYCO</string>
     <string name="fee_title">주의사항 및 취소규정</string>
-    <string name="caution_agreement_checkbox">주의사항 및 개인정보 제3자 제공 동의</string>
+    <string name="caution_agreement_checkbox">주의사항 및 개인정보 제 3자 제공 동의</string>
     <string name="caution_agreement_view"><u>내용보기</u></string>
     <string name="map_detail"><u>상세보기</u></string>
     <string name="map_detail2"><u>상세보기</u></string>

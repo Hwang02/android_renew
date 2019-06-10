@@ -275,7 +275,15 @@ public class MypageFragment extends Fragment {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Api.get(CONFIG.logoutUrl, new Api.HttpCallback() {
+                                JSONObject params = new JSONObject();
+                                try {
+                                    params.put("ver", Util.getAppVersionName(getActivity()));
+                                    params.put("uuid", Util.getAndroidId(getActivity()));
+                                    params.put("os", "a");
+                                    params.put("push_token", _preferences.getString("gcm_registration_id", ""));
+                                }catch (JSONException e){;}
+
+                                Api.post(CONFIG.logoutUrl, params.toString(), new Api.HttpCallback() {
                                     @Override
                                     public void onFailure(Response response, Exception e) {
                                         Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();

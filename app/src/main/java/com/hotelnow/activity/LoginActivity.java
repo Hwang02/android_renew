@@ -172,6 +172,8 @@ public class LoginActivity extends Activity {
                     params.put("useragent", Util.getUserAgent(LoginActivity.this));
                     String androidId = Util.getAndroidId(LoginActivity.this);
                     params.put("uuid", androidId);
+                    params.put("os","a");
+                    params.put("push_token", _preferences.getString("gcm_registration_id", ""));
                 } catch (JSONException e) {
                 }
 

@@ -30,6 +30,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hotelnow.BuildConfig;
 import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
+import com.hotelnow.dialog.DialogAgreeAll;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogFull;
 import com.hotelnow.dialog.DialogLogin;
@@ -92,6 +93,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
     private String recipeStr1 = null;
     public DialogFull dialogFull;
     public DialogLogin dialoglogin;
+    private DialogAgreeAll dialogAgreeAll;
     public static DialogMainFragment frgpopup = null;
     private JSONArray mPopups;
     private String important_pop_up_image, important_pop_up_link;
@@ -288,26 +290,26 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     if (obj.has("pop_ups")) {
                         mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
 
-                        if (_preferences.getBoolean("user_first_app", true)) {
+//                        if (_preferences.getBoolean("user_first_app", true)) {
                             // 동의팝업
                             mainPopup();
-                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
-                            importantPopup();
-                            // 회원가입팝업
-                        } else {
-                            if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
-                                frgpopup = new DialogMainFragment();
-                                frgpopup.mListener = MainActivity.this;
-                                frgpopup.popup_data = mPopups;
-                                frgpopup.pf = MainActivity.this;
-                                frgpopup.setCancelable(false);
-
-                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                                ft.add(frgpopup, null);
-                                ft.commitAllowingStateLoss();
-
-                            }
-                        }
+//                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
+//                            importantPopup();
+//                            // 회원가입팝업
+//                        } else {
+//                            if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
+//                                frgpopup = new DialogMainFragment();
+//                                frgpopup.mListener = MainActivity.this;
+//                                frgpopup.popup_data = mPopups;
+//                                frgpopup.pf = MainActivity.this;
+//                                frgpopup.setCancelable(false);
+//
+//                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                                ft.add(frgpopup, null);
+//                                ft.commitAllowingStateLoss();
+//
+//                            }
+//                        }
                     } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
                         importantPopup();
 
@@ -329,12 +331,138 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 public void onClick(View v) {
                     Util.setPreferenceValues(_preferences, "user_first_app", false);
                     dialogFull.dismiss();
-                    importantPopup();
+                    if(_preferences.getString("userid", null) != null) {
+                        if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("user_agree_check", false)) {
+                            AgreementPopup();
+                        }
+                        else{
+                            importantPopup();
+                        }
+                    } else {
+                        if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("no_user_agree_check", false)) {
+                            AgreementPopup();
+                        }
+                        else{
+                            importantPopup();
+                        }
+                    }
                 }
             });
             dialogFull.show();
             dialogFull.setCancelable(false);
         }
+        else {
+            if(_preferences.getString("userid", null) != null) {
+                if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("user_agree_check", false)) {
+                    AgreementPopup();
+                }
+                else{
+                    importantPopup();
+                }
+            } else {
+                if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("no_user_agree_check", false)) {
+                    AgreementPopup();
+                }
+                else{
+                    importantPopup();
+                }
+            }
+        }
+    }
+
+    public void AgreementPopup(){
+        dialogAgreeAll = new DialogAgreeAll(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 필수
+                if (!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox1)).isChecked()) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_service_agreement), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //필수
+                if(!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox2)).isChecked()) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_userinfo_agreement), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //선택
+                String user_check ="N";
+                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox3)).isChecked()) {
+                    user_check = "Y";
+                }
+                //선택
+                String location_check = "N";
+                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox4)).isChecked()) {
+                    location_check = "Y";
+                }
+
+                if(_preferences.getString("userid", null) == null) {
+                    Util.setPreferenceValues(_preferences, "no_user_agree_check", true);
+                }
+                else{
+                    Util.setPreferenceValues(_preferences, "user_agree_check", true);
+                }
+                setMaketing(user_check, location_check);
+            }
+        });
+        dialogAgreeAll.show();
+        dialogAgreeAll.setCancelable(false);
+    }
+
+    private void setMaketing(String user_check, String location_check) {
+        // 푸시 수신 상태값 저장
+        String regId = _preferences.getString("gcm_registration_id", null);
+
+        LogUtil.e("xxxxx", regId);
+        if (regId != null) {
+            setMaketingSend(this, regId, user_check, location_check);
+        }
+    }
+
+    // GCM TOKEN
+    public void setMaketingSend(final Context context, String regId, String user_check, String location_check) {
+        String androidId = Util.getAndroidId(context);
+
+        JSONObject paramObj = new JSONObject();
+
+        try {
+            paramObj.put("os", "a");
+            paramObj.put("uuid", androidId);
+            paramObj.put("push_token", regId);
+            paramObj.put("ver", Util.getAppVersionName(context));
+            paramObj.put("marketing_use", user_check);
+            paramObj.put("location", location_check);
+            paramObj.put("personal_info", "Y");
+            paramObj.put("marketing_receive_push", "Y");
+            paramObj.put("marketing_receive_sms", "Y");
+            paramObj.put("marketing_receive_email", "Y");
+
+        } catch (JSONException e) {; }
+
+        Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(dialogAgreeAll != null) {
+                        dialogAgreeAll.dismiss();
+                    }
+
+                    importantPopup();
+
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 
     public void importantPopup() {

@@ -2,31 +2,28 @@ package com.hotelnow.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.hotelnow.R;
-import com.hotelnow.activity.SignupActivity;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.Util;
-
 import java.util.Random;
 
 public class DialogAgreeUser extends Dialog {
 
     private View.OnClickListener mOkClickListener;
     private View.OnClickListener mCancelClickListener;
+    private CompoundButton.OnCheckedChangeListener mCheckedListener;
     private WebView webview;
+    private boolean agreed_yn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +46,9 @@ public class DialogAgreeUser extends Dialog {
         webview.setWebViewClient(new webViewClient());
         webview.setWebChromeClient(new WebChromeClient());
         webview.loadUrl(CONFIG.setting_agree2);
+        CheckBox agree_checkbox1 = (CheckBox) findViewById(R.id.agree_checkbox1);
+
+        agree_checkbox1.setChecked(agreed_yn);
 
         findViewById(R.id.tv_title).setOnClickListener(new OnSingleClickListener() {
             @Override
@@ -63,16 +63,18 @@ public class DialogAgreeUser extends Dialog {
             }
         });
 
-        mOkButton.setOnClickListener(mCancelClickListener);
-        mCancelButton.setOnClickListener(mOkClickListener);
-
+        mOkButton.setOnClickListener(mOkClickListener);
+        mCancelButton.setOnClickListener(mCancelClickListener);
+        agree_checkbox1.setOnCheckedChangeListener(mCheckedListener);
     }
 
-    public DialogAgreeUser( Context context, View.OnClickListener ok, View.OnClickListener cancel) {
+    public DialogAgreeUser( Context context, View.OnClickListener ok, View.OnClickListener cancel, String agreed_yn, CompoundButton.OnCheckedChangeListener check) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         this.mOkClickListener = ok;
         this.mCancelClickListener = cancel;
+        this.mCheckedListener = check;
+        this.agreed_yn = agreed_yn.equals("Y") ? true :false;
     }
 
     private class webViewClient extends WebViewClient {

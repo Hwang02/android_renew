@@ -138,14 +138,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@color/bg_background" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="59dp"
+                android:layout_height="64dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@color/footerview">
+                android:background="@color/white">
 
                 <CheckBox
                     android:id="@+id/agree_policy"
@@ -155,7 +157,7 @@
                     android:text="@string/caution_agreement_checkbox"
                     android:button="@drawable/checkbox_icon"
                     android:paddingLeft="12dp"
-                    android:textColor="@color/termtext"
+                    android:textColor="@color/blacktxt"
                     android:layout_alignParentLeft="true"
                     android:textSize="13dp" />
 

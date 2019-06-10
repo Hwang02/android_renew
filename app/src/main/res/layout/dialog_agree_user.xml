@@ -126,9 +126,9 @@
                     android:textColor="@color/termtext"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="10dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center_horizontal"
                     android:layout_below="@id/webview"
-                    android:text="할인, 혜택 정보는 개인정보 수집 및 이용 (선택) 항목에 동의하셔야 받을 수 있습니다." />
+                    android:text="할인, 혜택 정보는 개인정보 수집 및 이용(선택) 항목에 동의하셔야 받을 수 있습니다." />
 
                 <RelativeLayout
                     android:id="@+id/layout_message"
@@ -146,7 +146,7 @@
                         android:gravity="center"
                         android:layout_marginLeft="31dp"
                         android:layout_marginRight="29dp"
-                        android:text=" ※  &apos;개인 정보 수집 및 이용&apos;에 동의하지 않으시면  할인 혜택 소식 받기를 설정하여도 관련 소식을 전해드릴 수 없습니다.\n 개인 정보 수집 및 이용과 할인 혜택 소식 받기를 모두 ‘동의’로 설정해주세요." />
+                        android:text=" ※  &apos;개인 정보 수집 및 이용&apos;에 동의하지 않으시면 할인 혜택 소식 받기를 설정하여도 관련 소식을 전해드릴 수 없습니다.\n 개인 정보 수집 및 이용과 할인 혜택 소식 받기를 모두 ‘동의’로 설정해주세요." />
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>

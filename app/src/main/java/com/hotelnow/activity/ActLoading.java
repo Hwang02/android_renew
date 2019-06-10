@@ -191,7 +191,9 @@ public class ActLoading extends Activity {
     }
 
     private void checkSeverInfo() {
-        Api.get(CONFIG.loadingUrl, new Api.HttpCallback() {
+
+        String url = CONFIG.loadingUrl+"?uuid="+Util.getAndroidId(ActLoading.this)+"&os=a"+"&ver="+Util.getAppVersionName(ActLoading.this)+"&push_token="+_preferences.getString("gcm_registration_id", "");
+        Api.get(url, new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
@@ -341,6 +343,8 @@ public class ActLoading extends Activity {
                     if (data.has("search_bg_text_q")) //단발성 이벤트 티켓 검색 힌트문구
                         CONFIG.search_bg_text_q = data.getString("search_bg_text_q");
 
+                    if (data.has("marketing_use")) // 개인정보 수집 (선택)
+                        CONFIG.maketing_agree_use = data.getString("marketing_use");
 
                     // 업데이트 메시지
                     String updateMsg = data.has("update_msg") ? data.getString("update_msg") : "";

@@ -1,8 +1,10 @@
 package com.hotelnow.activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -47,6 +49,7 @@ public class RetireActivity extends Activity {
     private DialogAlert dialogAlert;
     private CheckBox agree_policy;
     private DialogRetire dialogRetire;
+    private SharedPreferences _preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class RetireActivity extends Activity {
 
         setContentView(R.layout.activity_retire);
 
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         retire_spinner = (Spinner) findViewById(R.id.sel_retire);
         ed_etc = (EditText)findViewById(R.id.ed_etc);
         retire_message_4 = (TextView)findViewById(R.id.retire_message_4);
@@ -80,6 +84,11 @@ public class RetireActivity extends Activity {
                 findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
                 final JSONObject params = new JSONObject();
                 try {
+                    params.put("ver", Util.getAppVersionName(RetireActivity.this));
+                    params.put("uuid", Util.getAndroidId(RetireActivity.this));
+                    params.put("os","a");
+                    params.put("push_token", _preferences.getString("gcm_registration_id", ""));
+
                     if (sel_message.equals("기타")) {
                         if (ed_etc.getText().toString().length() > 10) {
                             params.put("retired_reason", ed_etc.getText().toString());

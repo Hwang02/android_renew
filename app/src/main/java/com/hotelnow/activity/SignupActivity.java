@@ -557,34 +557,35 @@ public class SignupActivity extends Activity {
                     return;
                 }
 
-                // 수정 예정
+                // 14세
                 if (agree_checkbox0.isChecked() != true) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_age_agreement), Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                // 서비스 이용약관
                 if (agree_checkbox1.isChecked() != true) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_service_agreement), Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                // 개인 정보 필수
                 if (agree_checkbox2.isChecked() != true) {
                     Toast.makeText(getApplicationContext(), getString(R.string.validator_userinfo_agreement), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                // 개인정보 선택
                 if (agree_checkbox3.isChecked() != true) {
-                    location_yn = "N";
-                } else {
-                    location_yn = "Y";
-                }
-
-                if (agree_checkbox4.isChecked() != true) {
                     marketing_yn = "N";
                 } else {
                     marketing_yn = "Y";
                 }
-                // 수정 예정
+
+                // 위치 정보
+                if (agree_checkbox4.isChecked() != true) {
+                    location_yn = "N";
+                } else {
+                    location_yn = "Y";
+                }
 
                 String phone_num_1 = (String) (phone_first.getSelectedItem() != null ? phone_first.getSelectedItem() : phone_prefixs[0]);
                 phone_number = phone_num_1 + "-" + phone_num_2.getText().toString() + "-" + phone_num_3.getText().toString();
@@ -602,7 +603,11 @@ public class SignupActivity extends Activity {
                     paramObj.put("uuid", Util.getAndroidId(SignupActivity.this));
                     paramObj.put("phone_auth", is_auth);
                     paramObj.put("location_yn", location_yn);
-                    paramObj.put("marketing_yn", marketing_yn);
+                    paramObj.put("marketing_yn", "Y");
+                    paramObj.put("marketing_use", marketing_yn);
+                    paramObj.put("personal_info", "Y");
+                    paramObj.put("os","a");
+                    paramObj.put("push_token", _preferences.getString("gcm_registration_id", ""));
                 } catch (JSONException e) {
                 }
 
