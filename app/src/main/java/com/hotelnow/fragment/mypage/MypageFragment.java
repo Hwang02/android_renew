@@ -1,5 +1,6 @@
 package com.hotelnow.fragment.mypage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -8,34 +9,47 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.hotelnow.R;
+import com.hotelnow.activity.DetailActivityActivity;
+import com.hotelnow.activity.DetailHotelActivity;
+import com.hotelnow.activity.EventActivity;
 import com.hotelnow.activity.LoginActivity;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.MyCardActivity;
 import com.hotelnow.activity.MyCouponActivity;
 import com.hotelnow.activity.MySaveActivity;
+import com.hotelnow.activity.PrivateDaelAllActivity;
 import com.hotelnow.activity.SettingActivity;
 import com.hotelnow.activity.SignupActivity;
+import com.hotelnow.activity.ThemeSpecialActivityActivity;
+import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.databinding.FragmentMypageBinding;
+import com.hotelnow.dialog.DialogAgreeAll;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogConfirm;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
+import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
+import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +66,9 @@ public class MypageFragment extends Fragment {
     private String expire_money, save_money;
     private DbOpenHelper dbHelper;
     private boolean isPush = false;
+    private DialogAgreeAll dialogAgreeAll;
+    private DialogAlert dialogAlert;
+    private String url_link = "";
 
     @Nullable
     @Override
@@ -80,8 +97,6 @@ public class MypageFragment extends Fragment {
             public void onSingleClick(View v) {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 intent.putExtra("isPush", isPush);
-                intent.putExtra("isEmail", _preferences.getString("marketing_email_yn", "N"));
-                intent.putExtra("isSms", _preferences.getString("marketing_sms_yn", "N"));
                 startActivityForResult(intent, 91);
             }
         });
@@ -325,6 +340,7 @@ public class MypageFragment extends Fragment {
                                             } catch (Exception e) {
                                             }
 
+                                            setUserBenefit(true);
                                         } catch (Exception e) {
                                         }
                                     }
@@ -363,8 +379,276 @@ public class MypageFragment extends Fragment {
             }
         });
 
-
         authCheck();
+    }
+    // flag : 베너 정보
+    private void setUserBenefit(final boolean flag){
+        String url = CONFIG.maketing_agree;
+        String uuid = Util.getAndroidId(getActivity());
+
+        if(uuid != null && !TextUtils.isEmpty(uuid)){
+            url += "?uuid="+uuid;
+        }
+        url +="&marketing_use";
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(getActivity(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(flag &&!obj.has("marketing_use")){
+                        AgreementPopup();
+                    }
+                    else {
+                        if(obj.has("event_banners")){
+                            mMypageBinding.layoutBanner.setVisibility(View.VISIBLE);
+                            Ion.with(mMypageBinding.myBanner).load(obj.getJSONArray("event_banners").getJSONObject(0).getString("image"));
+                            final String id = obj.getJSONArray("event_banners").getJSONObject(0).getString("event_id");
+                            final String evt_type = obj.getJSONArray("event_banners").getJSONObject(0).getString("evt_type");
+                            final String link = obj.getJSONArray("event_banners").getJSONObject(0).getString("link");
+                            final String title = obj.getJSONArray("event_banners").getJSONObject(0).getString("title");
+                            mMypageBinding.layoutBanner.setOnClickListener(new OnSingleClickListener() {
+                                @Override
+                                public void onSingleClick(View v) {
+                                    setEventCheck(id, evt_type, link, title);
+                                }
+                            });
+                        }
+                        else{
+                            mMypageBinding.layoutBanner.setVisibility(View.GONE);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setEventCheck(String id, String type, String link, String title){
+
+        String[] arr = link.split("hotelnowevent://");
+        String frontMethod = "";
+        String frontTitle = "";
+        String frontEvtId = "";
+        String method = "";
+
+        if (arr.length > 1) {
+            frontMethod = arr[1];
+            frontMethod = Util.stringToHTMLString(frontMethod);
+            frontTitle = title != "" ? title : "무료 숙박 이벤트";
+        }
+        if (!type.equals("a")) {
+            frontEvtId = id;
+        } else {
+            frontEvtId = Util.getFrontThemeId(link);
+        }
+
+        if (type.equals("a") && !type.equals("")) {
+            try {
+                JSONObject obj = new JSONObject(frontMethod);
+                method = obj.getString("method");
+                if(obj.has("param")) {
+                    url_link = obj.getString("param");
+                }
+
+                if (method.equals("move_near")) {
+                    int fDayLimit = _preferences.getInt("future_day_limit", 180);
+                    String checkurl = CONFIG.checkinDateUrl + "/" + url_link + "/" + fDayLimit;
+
+                    Api.get(checkurl, new Api.HttpCallback() {
+                        @Override
+                        public void onFailure(Response response, Exception e) {
+                            Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        @Override
+                        public void onSuccess(Map<String, String> headers, String body) {
+                            try {
+                                JSONObject obj = new JSONObject(body);
+                                JSONArray aobj = obj.getJSONArray("data");
+
+                                if (aobj.length() == 0) {
+                                    dialogAlert = new DialogAlert(
+                                            getString(R.string.alert_notice),
+                                            "해당 숙소는 현재 예약 가능한 객실이 없습니다.",
+                                            getActivity(),
+                                            new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialogAlert.dismiss();
+                                                }
+                                            });
+                                    dialogAlert.setCancelable(false);
+                                    dialogAlert.show();
+                                    return;
+                                }
+
+                                String checkin = aobj.getString(0);
+                                String checkout = Util.getNextDateStr(checkin);
+
+                                Intent intent = new Intent(getActivity(), DetailHotelActivity.class);
+                                intent.putExtra("hid", url_link);
+                                intent.putExtra("evt", "N");
+                                intent.putExtra("sdate", checkin);
+                                intent.putExtra("edate", checkout);
+
+                                startActivityForResult(intent, 80);
+
+                            } catch (Exception e) {
+                                // Log.e(CONFIG.TAG, e.toString());
+                                Toast.makeText(getActivity(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                        }
+                    });
+                } else if (method.equals("move_theme")) {
+                    Intent intent = new Intent(getActivity(), ThemeSpecialHotelActivity.class);
+                    intent.putExtra("tid", url_link);
+
+                    startActivityForResult(intent, 80);
+
+                } else if (method.equals("move_theme_ticket")) {
+                    Intent intent = new Intent(getActivity(), ThemeSpecialActivityActivity.class);
+                    intent.putExtra("tid", url_link);
+
+                    startActivityForResult(intent, 80);
+
+                } else if (method.equals("move_ticket_detail")) {
+                    Intent intent = new Intent(getActivity(), DetailActivityActivity.class);
+                    intent.putExtra("tid", url_link);
+
+                    startActivityForResult(intent, 80);
+
+                } else if (method.equals("outer_link")) {
+                    if (url_link.contains("hotelnow")) {
+                        frontTitle = title != "" ? title : "무료 숙박 이벤트";
+                        Intent intent = new Intent(getActivity(), WebviewActivity.class);
+                        intent.putExtra("url", url_link);
+                        intent.putExtra("title", frontTitle);
+                        startActivityForResult(intent, 80);
+
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url_link));
+                        startActivity(intent);
+                    }
+                } else if (method.equals("move_privatedeal_all")){
+                    Intent intent = new Intent(getActivity(), PrivateDaelAllActivity.class);
+                    startActivityForResult(intent, 200);
+                }
+            } catch (Exception e) {
+            }
+        } else {
+            frontTitle = title != "" ? title : "무료 숙박 이벤트";
+            Intent intentEvt = new Intent(getActivity(), EventActivity.class);
+            intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));
+            intentEvt.putExtra("title", frontTitle);
+            startActivityForResult(intentEvt, 200);
+        }
+    }
+
+    public void AgreementPopup(){
+        dialogAgreeAll = new DialogAgreeAll(getActivity(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 필수
+                if (!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox1)).isChecked()) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_service_agreement), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //필수
+                if(!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox2)).isChecked()) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_userinfo_agreement), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //선택
+                String user_check ="N";
+                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox3)).isChecked()) {
+                    user_check = "Y";
+                }
+                //선택
+                String location_check = "N";
+                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox4)).isChecked()) {
+                    location_check = "Y";
+                }
+
+                if(_preferences.getString("userid", null) == null) {
+                    Util.setPreferenceValues(_preferences, "no_user_agree_check", true);
+                }
+                setMaketing(user_check, location_check);
+            }
+        }, _preferences.getString("userid", null) == null ? false : true);
+        dialogAgreeAll.show();
+        dialogAgreeAll.setCancelable(false);
+    }
+
+    private void setMaketing(String user_check, String location_check) {
+        // 푸시 수신 상태값 저장
+        String regId = _preferences.getString("gcm_registration_id", null);
+
+        LogUtil.e("xxxxx", regId);
+        if (regId != null) {
+            setMaketingSend(getActivity(), regId, user_check, location_check);
+        }
+    }
+
+    // GCM TOKEN
+    public void setMaketingSend(final Context context, String regId, String user_check, String location_check) {
+        String androidId = Util.getAndroidId(context);
+
+        JSONObject paramObj = new JSONObject();
+
+        try {
+            paramObj.put("os", "a");
+            paramObj.put("uuid", androidId);
+            paramObj.put("push_token", regId);
+            paramObj.put("ver", Util.getAppVersionName(context));
+            paramObj.put("marketing_use", user_check);
+            paramObj.put("location", location_check);
+            paramObj.put("personal_info", "Y");
+            paramObj.put("marketing_receive_push", "Y");
+            paramObj.put("marketing_receive_sms", "Y");
+            paramObj.put("marketing_receive_email", "Y");
+
+        } catch (JSONException e) {; }
+
+        Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(dialogAgreeAll != null) {
+                        dialogAgreeAll.dismiss();
+                    }
+
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 
     @Override
@@ -437,7 +721,7 @@ public class MypageFragment extends Fragment {
                         prefEditor.commit();
 
                     }
-
+                    setUserBenefit(false);
                     checkLogin();
 
                 } catch (Exception e) {
@@ -538,12 +822,6 @@ public class MypageFragment extends Fragment {
                         } else {
                             mMypageBinding.join.layoutDisableCoupon.setVisibility(View.VISIBLE);
                         }
-
-
-                        SharedPreferences.Editor prefEditor = _preferences.edit();
-                        prefEditor.putString("marketing_email_yn", obj.getString("marketing_email_yn"));
-                        prefEditor.putString("marketing_sms_yn", obj.getString("marketing_sms_yn"));
-                        prefEditor.commit();
 
                         // 푸시 사용설정
                         if (obj.getString("status").toUpperCase().equals("Y"))

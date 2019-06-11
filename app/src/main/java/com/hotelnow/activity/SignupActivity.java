@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
@@ -641,16 +642,12 @@ public class SignupActivity extends Activity {
                             prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(username));
                             prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(phone));
                             prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
-                            prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
-                            prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
-
                             prefEditor.commit();
                             passwd.setText("");
 
                             // 디바이스 정보 서버에 있는지 체크 후 적립금 띄우든가 말든가
                             if (obj.getString("device_exist").equals("Y")) {
-                                Toast.makeText(getApplicationContext(), getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
-                                finishSignup();
+                                setUserBenefit();
                             } else {
                                 DialogRecommend dialog = new DialogRecommend(SignupActivity.this, skipClickListener, okClickListener);
                                 dialog.setCancelable(false);
@@ -741,6 +738,51 @@ public class SignupActivity extends Activity {
             }
         });
 
+    }
+
+    private void setUserBenefit(){
+        String url = CONFIG.maketing_agree;
+        String uuid = Util.getAndroidId(this);
+
+        if(uuid != null && !TextUtils.isEmpty(uuid)){
+            url += "?uuid="+uuid;
+        }
+        url +="&marketing_use";
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(SignupActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(SignupActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String agreed_yn = "N";
+                    if(obj.has("marketing_use")){
+                        agreed_yn = obj.getJSONObject("marketing_use").getString("agreed_yn");
+                    }
+                    String msg ="";
+                    if(agreed_yn.equals("Y")){
+                        msg += getString(R.string.signup_success)+obj.getJSONObject("marketing_use").getString("agreed_at").substring(0,10)+"이용약관(광고성 정보 수신 포함) 동의 처리 되었습니다.";
+                    }
+                    else{
+                        msg += getString(R.string.signup_success)+obj.getJSONObject("marketing_use").getString("agreed_at").substring(0,10)+"이용약관(광고성 정보 수신 포함) 미동의 처리 되었습니다.";
+                    }
+
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    finishSignup();
+
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 
     private void setWebviewClose(){
@@ -842,8 +884,7 @@ public class SignupActivity extends Activity {
     private View.OnClickListener skipClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), getString(R.string.signup_success), Toast.LENGTH_SHORT).show();
-            finishSignup();
+            setUserBenefit();
         }
     };
 
@@ -875,8 +916,7 @@ public class SignupActivity extends Activity {
                             Toast.makeText(SignupActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
                             return;
                         } else {
-                            Toast.makeText(getApplicationContext(), getString(R.string.signup_recommend_success), Toast.LENGTH_SHORT).show();
-                            finishSignup();
+                            setUserBenefit();
                         }
                     } catch (Exception e) {
                         Log.e(CONFIG.TAG, "expection is ", e);

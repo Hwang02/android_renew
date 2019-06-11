@@ -343,8 +343,8 @@ public class ActLoading extends Activity {
                     if (data.has("search_bg_text_q")) //단발성 이벤트 티켓 검색 힌트문구
                         CONFIG.search_bg_text_q = data.getString("search_bg_text_q");
 
-                    if (data.has("marketing_use")) // 개인정보 수집 (선택)
-                        CONFIG.maketing_agree_use = data.getString("marketing_use");
+                    if (obj.has("marketing_use")) // 개인정보 수집 (선택)
+                        CONFIG.maketing_agree_use = obj.getJSONObject("marketing_use").getString("agreed_yn");
 
                     // 업데이트 메시지
                     String updateMsg = data.has("update_msg") ? data.getString("update_msg") : "";

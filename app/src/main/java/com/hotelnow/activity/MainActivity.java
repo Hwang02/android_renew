@@ -332,7 +332,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     Util.setPreferenceValues(_preferences, "user_first_app", false);
                     dialogFull.dismiss();
                     if(_preferences.getString("userid", null) != null) {
-                        if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("user_agree_check", false)) {
+                        if (CONFIG.maketing_agree_use == null) {
                             AgreementPopup();
                         }
                         else{
@@ -353,7 +353,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
         }
         else {
             if(_preferences.getString("userid", null) != null) {
-                if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("user_agree_check", false)) {
+                if (CONFIG.maketing_agree_use == null) {
                     AgreementPopup();
                 }
                 else{
@@ -398,12 +398,9 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 if(_preferences.getString("userid", null) == null) {
                     Util.setPreferenceValues(_preferences, "no_user_agree_check", true);
                 }
-                else{
-                    Util.setPreferenceValues(_preferences, "user_agree_check", true);
-                }
                 setMaketing(user_check, location_check);
             }
-        });
+        }, _preferences.getString("userid", null) == null ? false : true);
         dialogAgreeAll.show();
         dialogAgreeAll.setCancelable(false);
     }
@@ -457,6 +454,14 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                         dialogAgreeAll.dismiss();
                     }
 
+                    if(obj.has("marketing_use")) {
+                        if(obj.getJSONObject("marketing_use").getString("agreed_yn").equals("Y")) {
+                            Toast.makeText(HotelnowApplication.getAppContext(), "[호텔나우]" + obj.getJSONObject("marketing_use").getString("agreed_at").substring(0, 10) + "이용약관(광고성 정보 수신 포함) 동의 처리 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(HotelnowApplication.getAppContext(), "[호텔나우]" + obj.getJSONObject("marketing_use").getString("agreed_at").substring(0, 10) + "이용약관(광고성 정보 수신 포함) 미동의 처리 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     importantPopup();
 
                 } catch (Exception e) {

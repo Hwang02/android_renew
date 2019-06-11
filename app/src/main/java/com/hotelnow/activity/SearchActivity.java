@@ -35,6 +35,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,6 +55,7 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.FlowLayout;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.TuneWrap;
@@ -61,6 +63,7 @@ import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -89,6 +92,7 @@ public class SearchActivity extends Activity {
     private SharedPreferences _preferences;
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable workRunnable;
+    private boolean move_page = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -220,83 +224,7 @@ public class SearchActivity extends Activity {
             @Override
             public void onSingleClick(View v) {
                 TuneWrap.Event("search_around");
-                if (!_preferences.getBoolean("sel_location", false)) {
-                    dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialogConfirm.dismiss();
-                                }
-                            },
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                                    locationListener = new LocationListener() {
-                                        @Override
-                                        public void onLocationChanged(Location location) {
-                                            locManager.removeUpdates(locationListener);
-                                            CONFIG.lat = location.getLatitude() + "";
-                                            CONFIG.lng = location.getLongitude() + "";
-                                            dialog.dismiss();
-                                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                                            intent.putExtra("order_kind", "distance");
-                                            startActivityForResult(intent, 80);
-                                        }
-
-                                        @Override
-                                        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                                        }
-
-                                        @Override
-                                        public void onProviderEnabled(String provider) {
-
-                                        }
-
-                                        @Override
-                                        public void onProviderDisabled(String provider) {
-
-                                        }
-                                    };
-                                    getMyLocation();
-                                    dialogConfirm.dismiss();
-                                    Util.setPreferenceValues(_preferences, "sel_location", true);
-                                }
-                            });
-
-                    dialogConfirm.show();
-                } else {
-                    locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                    locationListener = new LocationListener() {
-                        @Override
-                        public void onLocationChanged(Location location) {
-                            locManager.removeUpdates(locationListener);
-                            CONFIG.lat = location.getLatitude() + "";
-                            CONFIG.lng = location.getLongitude() + "";
-                            dialog.dismiss();
-                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                            intent.putExtra("order_kind", "distance");
-                            startActivityForResult(intent, 80);
-                        }
-
-                        @Override
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                        }
-
-                        @Override
-                        public void onProviderEnabled(String provider) {
-
-                        }
-
-                        @Override
-                        public void onProviderDisabled(String provider) {
-
-                        }
-                    };
-                    getMyLocation();
-                }
+                setUserBenefit();
             }
         });
 
@@ -333,6 +261,181 @@ public class SearchActivity extends Activity {
 
 
         setData();
+    }
+
+    private void setUserBenefit(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
+        String url = CONFIG.maketing_agree;
+        String uuid = Util.getAndroidId(this);
+
+        if(uuid != null && !TextUtils.isEmpty(uuid)){
+            url += "?uuid="+uuid;
+        }
+        url +="&location";
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
+                Toast.makeText(SearchActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(SearchActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if(obj.has("location")){
+                        if(!obj.getJSONObject("location").getString("agreed_yn").equals("Y")){
+                            dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", SearchActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogConfirm.dismiss();
+                                            setMaketing(false);
+                                        }
+                                    },
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            //동의
+                                            setMaketing(true);
+                                        }
+                                    });
+
+                            dialogConfirm.show();
+                        } else {
+                            locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                            locationListener = new LocationListener() {
+                                @Override
+                                public void onLocationChanged(Location location) {
+                                    locManager.removeUpdates(locationListener);
+                                    CONFIG.lat = location.getLatitude() + "";
+                                    CONFIG.lng = location.getLongitude() + "";
+                                    dialog.dismiss();
+
+                                    if(!move_page) {
+                                        Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                                        intent.putExtra("order_kind", "distance");
+                                        startActivityForResult(intent, 80);
+                                        move_page = true;
+                                    }
+                                }
+
+                                @Override
+                                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                                }
+
+                                @Override
+                                public void onProviderEnabled(String provider) {
+
+                                }
+
+                                @Override
+                                public void onProviderDisabled(String provider) {
+
+                                }
+                            };
+                            getMyLocation();
+                        }
+                    }
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
+
+                } catch (Exception e) {
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void setMaketing(boolean ischeck) {
+        // 푸시 수신 상태값 저장
+        String regId = _preferences.getString("gcm_registration_id", null);
+
+        LogUtil.e("xxxxx", regId);
+        if (regId != null) {
+            setMaketingSend(this, regId, ischeck);
+        }
+    }
+
+    // GCM TOKEN
+    public void setMaketingSend(final Context context, String regId, final Boolean flag) {
+        String androidId = Util.getAndroidId(context);
+
+        JSONObject paramObj = new JSONObject();
+
+        try {
+            paramObj.put("os", "a");
+            paramObj.put("uuid", androidId);
+            paramObj.put("push_token", regId);
+            paramObj.put("ver", Util.getAppVersionName(context));
+            paramObj.put("location", (flag == true) ? "Y" : "N");
+
+        } catch (JSONException e) {; }
+
+        Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                    locationListener = new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            locManager.removeUpdates(locationListener);
+                            CONFIG.lat = location.getLatitude() + "";
+                            CONFIG.lng = location.getLongitude() + "";
+                            dialog.dismiss();
+                            Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                            intent.putExtra("order_kind", "distance");
+                            startActivityForResult(intent, 80);
+                        }
+
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String provider) {
+
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String provider) {
+
+                        }
+                    };
+
+                    getMyLocation();
+
+                    if(dialogConfirm != null) {
+                        dialogConfirm.dismiss();
+                    }
+
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 
     private void setResultData() {
@@ -784,6 +887,7 @@ public class SearchActivity extends Activity {
 
                 locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                         2000, 0, locationListener);
+                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
                 CONFIG.lat = "37.506839";
                 CONFIG.lng = "127.066234";
 

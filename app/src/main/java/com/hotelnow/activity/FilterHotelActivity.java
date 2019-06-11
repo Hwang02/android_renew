@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
@@ -36,14 +38,21 @@ import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.hotelnow.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.hotelnow.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.hotelnow.dialog.DialogConfirm;
+import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FlowLayout;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class FilterHotelActivity extends Activity {
 
@@ -70,13 +79,15 @@ public class FilterHotelActivity extends Activity {
     private ProgressDialog dialog;
     private boolean is_reset = false;
     private DialogConfirm dialogConfirm;
-
+    private SharedPreferences _preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_hotel_filter);
+
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         filter1 = (FlowLayout) findViewById(R.id.filter1); // 정렬
         filter2 = (FlowLayout) findViewById(R.id.filter2); // 호텔등급 및 그외 유형
@@ -300,8 +311,7 @@ public class FilterHotelActivity extends Activity {
                         mOrderby = "recommendation";
                     else if ((int) v.getTag() == 1) {
                         mOrderby = "distance";
-                        getMyLocation();
-
+                        setUserBenefit();
                     } else if ((int) v.getTag() == 2)
                         mOrderby = "rate";
                     else if ((int) v.getTag() == 3)
@@ -585,62 +595,180 @@ public class FilterHotelActivity extends Activity {
         }
     }
 
-    private void getMyLocation() {
-       final PermissionListener permissionlistener = new PermissionListener() {
+    private void setUserBenefit(){
+        findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
+        String url = CONFIG.maketing_agree;
+        String uuid = Util.getAndroidId(this);
+
+        if(uuid != null && !TextUtils.isEmpty(uuid)){
+            url += "?uuid="+uuid;
+        }
+        url +="&location";
+
+        Api.get(url, new Api.HttpCallback() {
             @Override
-            public void onPermissionGranted() {
-//                Toast.makeText(FilterHotelActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
-                if (ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+            public void onFailure(Response response, Exception throwable) {
+                findViewById(R.id.wrapper).setVisibility(View.GONE);
+                Toast.makeText(FilterHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(FilterHotelActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if(obj.has("location")){
+                        if(!obj.getJSONObject("location").getString("agreed_yn").equals("Y")){
+                            //팝업 추가
+                            // 동의 없을때
+                            dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", FilterHotelActivity.this,
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogConfirm.dismiss();
+                                            setMaketing(false);
+                                            // 거부 했을 때
+                                            filter1.getChildAt(0).setSelected(true);
+                                            filter1.getChildAt(1).setSelected(false);
+                                            mOrderby = "recommendation";
+                                        }
+                                    },
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            setMaketing(true);
+                                        }
+                                    });
+                            dialogConfirm.show();
+                        } else {
+                            locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                            locationListener = new LocationListener() {
+                                @Override
+                                public void onLocationChanged(Location location) {
+                                    locManager.removeUpdates(locationListener);
+                                    CONFIG.lat = location.getLatitude() + "";
+                                    CONFIG.lng = location.getLongitude() + "";
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                                }
+
+                                @Override
+                                public void onProviderEnabled(String provider) {
+
+                                }
+
+                                @Override
+                                public void onProviderDisabled(String provider) {
+
+                                }
+                            };
+                        }
+                    }
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
+
+                } catch (Exception e) {
+                    findViewById(R.id.wrapper).setVisibility(View.GONE);
                 }
+            }
+        });
+    }
 
-                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                        2000, 0, locationListener);
-                CONFIG.lat = "37.506839";
-                CONFIG.lng = "127.066234";
+    private void setMaketing(boolean ischeck) {
+        // 푸시 수신 상태값 저장
+        String regId = _preferences.getString("gcm_registration_id", null);
 
-                dialog = new ProgressDialog(FilterHotelActivity.this);
-                dialog.setMessage(getString(R.string.location_loading));
-                dialog.setIndeterminate(true);
-                dialog.setCancelable(true);
-                dialog.show();
+        LogUtil.e("xxxxx", regId);
+        if (regId != null) {
+            setMaketingSend(this, regId, ischeck);
+        }
+    }
+
+    // GCM TOKEN
+    public void setMaketingSend(final Context context, String regId, final Boolean flag) {
+        String androidId = Util.getAndroidId(context);
+
+        JSONObject paramObj = new JSONObject();
+
+        try {
+            paramObj.put("os", "a");
+            paramObj.put("uuid", androidId);
+            paramObj.put("push_token", regId);
+            paramObj.put("ver", Util.getAppVersionName(context));
+            paramObj.put("location", (flag == true) ? "Y" : "N");
+
+        } catch (JSONException e) {; }
+
+        Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                Toast.makeText(FilterHotelActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
-                CONFIG.lat = "37.506839";
-                CONFIG.lng = "127.066234";
-            }
-        };
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
 
-        //팝업 추가
-        dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", FilterHotelActivity.this,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(obj.getJSONObject("location").getString("agreed_yn").equals("Y")) {
+                        final PermissionListener permissionlistener = new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                if (ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                                        && ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                    // TODO: Consider calling
+                                    //    ActivityCompat#requestPermissions
+                                    // here to request the missing permissions, and then overriding
+                                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                    //                                          int[] grantResults)
+                                    // to handle the case where the user grants the permission. See the documentation
+                                    // for ActivityCompat#requestPermissions for more details.
+                                    return;
+                                }
+
+                                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                                        2000, 0, locationListener);
+                                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
+                                CONFIG.lat = "37.506839";
+                                CONFIG.lng = "127.066234";
+
+                                dialog = new ProgressDialog(FilterHotelActivity.this);
+                                dialog.setMessage(getString(R.string.location_loading));
+                                dialog.setIndeterminate(true);
+                                dialog.setCancelable(true);
+                                dialog.show();
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                                Toast.makeText(FilterHotelActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
+                                CONFIG.lat = "37.506839";
+                                CONFIG.lng = "127.066234";
+                            }
+                        };
+                    }
+
+                    if(dialogConfirm != null) {
                         dialogConfirm.dismiss();
                     }
-                },
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogConfirm.dismiss();
-                        TedPermission.with(FilterHotelActivity.this)
-                                .setPermissionListener(permissionlistener)
-                                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                                .check();
-                    }
-                });
-        dialogConfirm.show();
+
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 }

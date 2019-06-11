@@ -112,7 +112,7 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.MyViewHold
             public void onSingleClick(View v) {
 
                 TuneWrap.Event("stay_search");
-
+                Util.clearSearch();
                 Intent intent = new Intent(fm.getActivity(), HotelSearchActivity.class);
                 intent.putExtra("ec_date", data.get(0).getEc_date());
                 intent.putExtra("ee_date", data.get(0).getEe_date());

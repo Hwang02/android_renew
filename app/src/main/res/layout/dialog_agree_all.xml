@@ -58,7 +58,7 @@
                     android:layout_height="50dp"
                     android:layout_weight=".5"
                     android:gravity="center"
-                    android:text="@string/alert_confrim"
+                    android:text="시작"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:background="@drawable/gray_round"

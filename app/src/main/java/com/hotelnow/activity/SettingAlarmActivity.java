@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogAgreeUser;
 import com.hotelnow.dialog.DialogDiscountAlert;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
@@ -41,7 +42,10 @@ public class SettingAlarmActivity extends Activity {
     private SharedPreferences _preferences;
     private String cookie = "";
     private DialogDiscountAlert discountAlert;
-    private final int val_p=1,val_m=2, val_e=3;
+    private final int val_p=1,val_m=2, val_e=3, val_market=4;
+    private String val_marketing="";
+    private DialogAgreeUser dialogAgreeUser;
+    private boolean Sel_check = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,7 +108,7 @@ public class SettingAlarmActivity extends Activity {
         if(uuid != null && !TextUtils.isEmpty(uuid)){
             url += "?uuid="+uuid;
         }
-        url +="&marketing_receive_push&marketing_receive_sms&marketing_receive_email";
+        url +="&marketing_receive_push&marketing_receive_sms&marketing_receive_email&marketing_use";
 
         Api.get(url, new Api.HttpCallback() {
             @Override
@@ -147,7 +151,11 @@ public class SettingAlarmActivity extends Activity {
 
                         // sms
                         if(obj.getJSONObject("marketing_receive").has("sms")){
-                            if(obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_yn").equals("Y")) {
+                            if(cookie == null){
+                                cb_sms.setChecked(false);
+                                tv_sms.setSelected(false);
+                            }
+                            else if(obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_yn").equals("Y")) {
                                 cb_sms.setChecked(true);
                                 tv_sms.setSelected(true);
                             }
@@ -160,16 +168,26 @@ public class SettingAlarmActivity extends Activity {
 
                         // email
                         if(obj.getJSONObject("marketing_receive").has("email")){
-                            if(obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_yn").equals("Y")) {
+                            if(cookie == null){
+                                cb_email.setChecked(false);
+                                tv_email.setSelected(false);
+                            }
+                            else if(obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_yn").equals("Y")) {
                                 cb_email.setChecked(true);
                                 tv_email.setSelected(true);
                             }
                             else{
                                 cb_email.setChecked(false);
                                 tv_email.setSelected(true);
+
                             }
                         }
                         // email
+
+                        // marketing_use
+                        if(obj.has("marketing_use")){
+                            val_marketing = obj.getJSONObject("marketing_use").getString("agreed_yn");
+                        }
                     }
 
                     cb_push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -232,8 +250,11 @@ public class SettingAlarmActivity extends Activity {
             else if(type == val_e){
                 paramObj.put("marketing_receive_email", ((flag == true) ? "Y" : "N"));
             }
-            else{
+            else if(type == val_m){
                 paramObj.put("marketing_receive_sms", ((flag == true) ? "Y" : "N"));
+            }
+            else {
+                paramObj.put("marketing_use", (flag == true) ? "Y" : "N");
             }
 
         } catch (JSONException e) {; }
@@ -269,10 +290,12 @@ public class SettingAlarmActivity extends Activity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     discountAlert.dismiss();
+                                                    if(val_marketing.equals("N")){
+                                                        setAgreedPopup(val_marketing);
+                                                    }
                                                 }
                                             }
                                     );
-
 
                                 } else {
                                     discountAlert = new DialogDiscountAlert(
@@ -307,6 +330,9 @@ public class SettingAlarmActivity extends Activity {
                                             @Override
                                             public void onClick(View v) {
                                                 discountAlert.dismiss();
+                                                if(val_marketing.equals("N")){
+                                                    setAgreedPopup(val_marketing);
+                                                }
                                             }
                                         }
                                     );
@@ -329,7 +355,7 @@ public class SettingAlarmActivity extends Activity {
                                 discountAlert.show();
                             }
                         }
-                        else{
+                        else if(type == val_m){
                             if (obj.getJSONObject("marketing_receive").has("sms")) {
                                 if (cb_sms.isChecked() && obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_yn").equals("Y")) {
                                     discountAlert = new DialogDiscountAlert(
@@ -343,6 +369,9 @@ public class SettingAlarmActivity extends Activity {
                                                 @Override
                                                 public void onClick(View v) {
                                                     discountAlert.dismiss();
+                                                    if(val_marketing.equals("N")){
+                                                        setAgreedPopup(val_marketing);
+                                                    }
                                                 }
                                             }
                                     );
@@ -365,12 +394,40 @@ public class SettingAlarmActivity extends Activity {
                                 discountAlert.show();
                             }
                         }
+                        else{
+
+                        }
                     }
                 } catch (Exception e) {
                     cb_push.setChecked(false);
                 }
             }
         });
+    }
+
+    private void setAgreedPopup(String value){
+        dialogAgreeUser = new DialogAgreeUser(SettingAlarmActivity.this,
+                new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        // api 호출
+                        setMaketing(val_market, Sel_check);
+                        dialogAgreeUser.dismiss();
+                    }
+                },
+                new OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        dialogAgreeUser.dismiss();
+                    }
+                }, value, new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Sel_check = isChecked;
+            }
+        });
+        dialogAgreeUser.setCancelable(false);
+        dialogAgreeUser.show();
     }
 
     @Override

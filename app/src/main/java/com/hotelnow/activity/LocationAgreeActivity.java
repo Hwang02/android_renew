@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.text.Spannable;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
 import android.view.View;
@@ -77,6 +78,7 @@ public class LocationAgreeActivity extends Activity {
             }
         }, start, end, 0);
         tv_webgo.setText(span);
+        tv_webgo.setMovementMethod(LinkMovementMethod.getInstance());
 
         findViewById(R.id.btn_authority).setOnClickListener(new OnSingleClickListener() {
             @Override

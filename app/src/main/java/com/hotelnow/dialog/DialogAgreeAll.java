@@ -40,6 +40,7 @@ public class DialogAgreeAll extends Dialog {
     private ImageView agree_img1, agree_img2, agree_img3, agree_img4;
     private WebView agree_web1, agree_web2, agree_web3, agree_web4;
     private Button mOkButton;
+    private boolean isuser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,12 @@ public class DialogAgreeAll extends Dialog {
         spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         title.setText(spannable);
 
+        if(!isuser) {
+            findViewById(R.id.sub_title).setVisibility(View.INVISIBLE);
+        }
+        else{
+            findViewById(R.id.sub_title).setVisibility(View.VISIBLE);
+        }
         all_checkbox = (CheckBox) findViewById(R.id.all_checkbox);
         agree_checkbox1 = (CheckBox) findViewById(R.id.agree_checkbox1);
         agree_checkbox2 = (CheckBox) findViewById(R.id.agree_checkbox2);
@@ -227,18 +234,6 @@ public class DialogAgreeAll extends Dialog {
                 selCheck();
             }
         });
-        agree_checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                selCheck();
-            }
-        });
-        agree_checkbox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                selCheck();
-            }
-        });
 
 
         mOkButton = (Button) findViewById(R.id.ok);
@@ -247,7 +242,7 @@ public class DialogAgreeAll extends Dialog {
 
     private void selCheck(){
         mOkButton.setBackgroundResource(R.drawable.gray_round);
-        if(agree_checkbox1.isChecked() && agree_checkbox2.isChecked() && agree_checkbox3.isChecked() && agree_checkbox4.isChecked()){
+        if(agree_checkbox1.isChecked() && agree_checkbox2.isChecked()){
             mOkButton.setBackgroundResource(R.drawable.purple_2round);
         }
     }
@@ -263,10 +258,11 @@ public class DialogAgreeAll extends Dialog {
         agree_img4.setBackgroundResource(R.drawable.ico_viewmore_open);
     }
 
-    public DialogAgreeAll(Context context, View.OnClickListener ok) {
+    public DialogAgreeAll(Context context, View.OnClickListener ok, boolean isuser) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         mContext = context;
         this.mOkClickListener = ok;
+        this.isuser = isuser;
     }
 
     private class webViewClient extends WebViewClient {

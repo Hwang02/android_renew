@@ -8,11 +8,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,11 +29,13 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.hotelnow.R;
+import com.hotelnow.dialog.DialogAgreeAll;
 import com.hotelnow.model.TicketSelEntry;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
+import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
@@ -65,12 +70,15 @@ public class LoginActivity extends Activity {
     private TextView btn_nocookie;
     private DbOpenHelper dbHelper;
     private ArrayList<TicketSelEntry> sel_items;
+    private DialogAgreeAll dialogAgreeAll;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_login);
+
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Util.setStatusColor(this);
 
@@ -201,21 +209,18 @@ public class LoginActivity extends Activity {
                             String userid = info.getString("id");
                             String moreinfo = (info.has("more_info") == true) ? info.getString("more_info") : "";
 
-                            _preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                             SharedPreferences.Editor prefEditor = _preferences.edit();
                             prefEditor.putString("email", "HN|" + AES256Chiper.AES_Encode(email.getText().toString()));
                             prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(username));
                             prefEditor.putString("phone", "HN|" + AES256Chiper.AES_Encode(phone));
                             prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("moreinfo", moreinfo);
-                            prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
-                            prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
                             prefEditor.commit();
 
                             // Tune
                             TuneWrap.Login();
 
-                            Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
                             passwd.setText("");
 
                             // 키보드 숨김
@@ -456,7 +461,6 @@ public class LoginActivity extends Activity {
                     String emailval = new String(Base64.decode(info.getString("email"), 0));
                     String moreinfo = (info.has("more_info") == true) ? info.getString("more_info") : "";
 
-                    _preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                     SharedPreferences.Editor prefEditor = _preferences.edit();
                     prefEditor.putString("email", "HN|" + AES256Chiper.AES_Encode(emailval));
                     prefEditor.putString("username", "HN|" + AES256Chiper.AES_Encode(username));
@@ -464,14 +468,12 @@ public class LoginActivity extends Activity {
                     prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
-                    prefEditor.putString("marketing_email_yn", info.getString("marketing_email_yn"));
-                    prefEditor.putString("marketing_sms_yn", info.getString("marketing_sms_yn"));
                     prefEditor.commit();
 
                     // Tune
                     TuneWrap.Login();
 
-                    Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
 
                     // 키보드 숨김
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -522,6 +524,157 @@ public class LoginActivity extends Activity {
                         }
                     }
 
+                    setUserBenefit();
+
+                } catch (Exception e) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setUserBenefit(){
+        String url = CONFIG.maketing_agree;
+        String uuid = Util.getAndroidId(this);
+
+        if(uuid != null && !TextUtils.isEmpty(uuid)){
+            url += "?uuid="+uuid;
+        }
+        url +="&marketing_use";
+
+        Api.get(url, new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception throwable) {
+                Toast.makeText(LoginActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(LoginActivity.this, obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(!obj.has("marketing_use")){
+                        AgreementPopup();
+                    }
+                    else {
+                        if (page.equals("detailH")) {
+                            setResult(90);
+                            finish();
+                        } else if (page.equals("Private")) {
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("sdate", ec_date);
+                            returnIntent.putExtra("edate", ee_date);
+                            setResult(80, returnIntent);
+                            finish();
+                        } else {
+                            setResult(90, new Intent());
+                            finish();
+                        }
+                    }
+
+                } catch (Exception e) {
+                }
+            }
+        });
+    }
+
+    public void AgreementPopup(){
+        dialogAgreeAll = new DialogAgreeAll(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 필수
+                if (!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox1)).isChecked()) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_service_agreement), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //필수
+                if(!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox2)).isChecked()) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_userinfo_agreement), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //선택
+                String user_check ="N";
+                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox3)).isChecked()) {
+                    user_check = "Y";
+                }
+                //선택
+                String location_check = "N";
+                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox4)).isChecked()) {
+                    location_check = "Y";
+                }
+
+                if(_preferences.getString("userid", null) == null) {
+                    Util.setPreferenceValues(_preferences, "no_user_agree_check", true);
+                }
+                setMaketing(user_check, location_check);
+            }
+        }, _preferences.getString("userid", null) == null ? false : true);
+        dialogAgreeAll.show();
+        dialogAgreeAll.setCancelable(false);
+    }
+
+    private void setMaketing(String user_check, String location_check) {
+        // 푸시 수신 상태값 저장
+        String regId = _preferences.getString("gcm_registration_id", null);
+
+        LogUtil.e("xxxxx", regId);
+        if (regId != null) {
+            setMaketingSend(this, regId, user_check, location_check);
+        }
+    }
+
+    // GCM TOKEN
+    public void setMaketingSend(final Context context, String regId, String user_check, String location_check) {
+        String androidId = Util.getAndroidId(context);
+
+        JSONObject paramObj = new JSONObject();
+
+        try {
+            paramObj.put("os", "a");
+            paramObj.put("uuid", androidId);
+            paramObj.put("push_token", regId);
+            paramObj.put("ver", Util.getAppVersionName(context));
+            paramObj.put("marketing_use", user_check);
+            paramObj.put("location", location_check);
+            paramObj.put("personal_info", "Y");
+            paramObj.put("marketing_receive_push", "Y");
+            paramObj.put("marketing_receive_sms", "Y");
+            paramObj.put("marketing_receive_email", "Y");
+
+        } catch (JSONException e) {; }
+
+        Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
+            @Override
+            public void onFailure(Response response, Exception e) {
+
+            }
+
+            @Override
+            public void onSuccess(Map<String, String> headers, String body) {
+                try {
+                    JSONObject obj = new JSONObject(body);
+
+                    if (!obj.getString("result").equals("success")) {
+                        Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(dialogAgreeAll != null) {
+                        dialogAgreeAll.dismiss();
+                    }
+
+                    if(obj.has("marketing_use")) {
+                        if(obj.getJSONObject("marketing_use").getString("agreed_yn").equals("Y")) {
+                            Toast.makeText(HotelnowApplication.getAppContext(), "[호텔나우]" + obj.getJSONObject("marketing_use").getString("agreed_at").substring(0, 10) + "이용약관(광고성 정보 수신 포함) 동의 처리 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(HotelnowApplication.getAppContext(), "[호텔나우]" + obj.getJSONObject("marketing_use").getString("agreed_at").substring(0, 10) + "이용약관(광고성 정보 수신 포함) 미동의 처리 되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     if (page.equals("detailH")) {
                         setResult(90);
                         finish();
@@ -535,8 +688,8 @@ public class LoginActivity extends Activity {
                         setResult(90, new Intent());
                         finish();
                     }
+
                 } catch (Exception e) {
-                    Toast.makeText(LoginActivity.this, getString(R.string.error_try_again), Toast.LENGTH_SHORT).show();
                 }
             }
         });

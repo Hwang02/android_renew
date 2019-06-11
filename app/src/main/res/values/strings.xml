@@ -123,7 +123,7 @@
     <string name="btn_close">닫기</string>
     <string name="recommend_title">추천이유</string>
     <string name="recommend_input_title">추천인 코드 입력</string>
-    <string name="signup_success">호텔나우 회원이 되신 것을 축하합니다!\n특가 알림 / 할인 쿠폰 / 프라이빗딜 등 호텔나우에서만 만나보실 수 있는 서비스를 지금 경험하세요!</string>
+    <string name="signup_success">호텔나우에 가입해주셔서 감사합니다!\n [호텔나우]</string>
     <string name="recommend_hint">추천인 코드를 입력해주세요.</string>
     <string name="more_title">더보기</string>
     <string name="more_close_title">접기</string>

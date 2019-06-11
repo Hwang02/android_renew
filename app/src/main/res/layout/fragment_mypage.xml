@@ -52,10 +52,27 @@
                     android:id="@+id/join"
                     layout="@layout/layout_mypage_join" />
 
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/layout_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:background="@drawable/btn_screenup"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg_background" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:background="@color/back_line" />
+                    <ImageView
+                        android:id="@+id/my_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:visibility="visible"
+                        android:scaleType="fitXY"/>
+                </LinearLayout>
 
                 <include
                     android:id="@+id/center"
