@@ -410,7 +410,7 @@ public class MypageFragment extends Fragment {
                     if(flag &&!obj.has("marketing_use")){
                         AgreementPopup();
                     }
-                    else {
+                    else if(!flag) {
                         if(obj.has("event_banners")){
                             mMypageBinding.layoutBanner.setVisibility(View.VISIBLE);
                             Ion.with(mMypageBinding.myBanner).load(obj.getJSONArray("event_banners").getJSONObject(0).getString("image"));

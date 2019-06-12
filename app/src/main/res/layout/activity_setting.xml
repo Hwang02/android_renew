@@ -59,13 +59,38 @@
         android:layout_below="@+id/toolbar"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/layout_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/my_banner"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:visibility="visible"
+                android:scaleType="fitXY"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_background" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@color/back_line" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:textSize="14dp"
             android:text="서비스이용, 알림 설정"
             android:textColor="@color/purple"
-            android:background="@color/back_line"
+            android:background="@color/footerview"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:gravity="center_vertical" />
