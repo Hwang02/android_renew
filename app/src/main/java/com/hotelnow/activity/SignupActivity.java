@@ -612,10 +612,12 @@ public class SignupActivity extends Activity {
                 } catch (JSONException e) {
                 }
 
+                findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
                 Api.post(CONFIG.signupUrl, paramObj.toString(), new Api.HttpCallback() {
                     @Override
                     public void onFailure(Response response, Exception e) {
                         Log.e(CONFIG.TAG, "expection is ", e);
+                        findViewById(R.id.wrapper).setVisibility(View.GONE);
                         Toast.makeText(SignupActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                     }
 
@@ -663,7 +665,9 @@ public class SignupActivity extends Activity {
                             FacebookWrap.logViewedContentEvent2(SignupActivity.this, "registration");
 
                             body = "";
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                         } catch (Exception e) {
+                            findViewById(R.id.wrapper).setVisibility(View.GONE);
                             Log.e(CONFIG.TAG, "expection is ", e);
                             Toast.makeText(SignupActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
                         }

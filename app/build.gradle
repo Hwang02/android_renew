@@ -22,7 +22,7 @@ android {
         hotelnow {
             keyAlias 'hotelnow'
             keyPassword 'now13579'
-            storeFile file('/Users/susia/AndroidStudioProjects/HOTELNOW/hotelnow.android.keystore')
+            storeFile file('/Users/idhwang/Desktop/android_renew/hotelnow.android.keystore')
             storePassword 'now13579'
         }
     }
