@@ -451,7 +451,7 @@ public class SignupActivity extends Activity {
         agree_web1.getSettings().setUserAgentString(agree_web1.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
         agree_web1.setWebViewClient(new webViewClient());
         agree_web1.setWebChromeClient(new WebChromeClient());
-        agree_web1.loadUrl(CONFIG.setting_agree1);
+        agree_web1.loadUrl(CONFIG.setting_agree1+"?remove_tab=Y");
         agree_web1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
