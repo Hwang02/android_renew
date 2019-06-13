@@ -246,7 +246,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_below="@id/txt_push"
-                android:text="앱 설정 페이지 이동\n앱 푸시 설정에서 '사용 안함'으로 설정하시면, 모든 호텔나우 소식 및 할인 혜택 정보를 받으실 수 없으니 '사용함'으로 설정해주세요."/>
+                android:text="앱 푸시 설정에서 '사용 안함'으로 설정하시면, 모든 호텔나우 소식 및 할인 혜택 정보를 받으실 수 없으니 '사용함'으로 설정해주세요."/>
 
             <View
                 android:layout_width="match_parent"

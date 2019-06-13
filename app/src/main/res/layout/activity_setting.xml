@@ -69,8 +69,9 @@
             <ImageView
                 android:id="@+id/my_banner"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="wrap_content"
                 android:visibility="visible"
+                android:adjustViewBounds="true"
                 android:scaleType="fitXY"/>
 
             <View
@@ -88,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:textSize="14dp"
-            android:text="서비스이용, 알림 설정"
+            android:text="고객 동의, 알림 설정"
             android:textColor="@color/purple"
             android:background="@color/footerview"
             android:paddingLeft="20dp"

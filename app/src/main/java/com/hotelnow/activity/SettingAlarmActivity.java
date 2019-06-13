@@ -64,7 +64,7 @@ public class SettingAlarmActivity extends Activity {
         tv_push = (TextView) findViewById(R.id.tv_push);
         tv_push.setSelected(true);
 
-        setUserBenefit();
+        setUserBenefit(false);
 
         if(cookie == null) {
             cb_sms.setEnabled(false);
@@ -100,7 +100,7 @@ public class SettingAlarmActivity extends Activity {
         });
     }
 
-    private void setUserBenefit(){
+    private void setUserBenefit(final boolean isMarketing){
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.maketing_agree;
         String uuid = Util.getAndroidId(this);
@@ -127,90 +127,96 @@ public class SettingAlarmActivity extends Activity {
                         findViewById(R.id.wrapper).setVisibility(View.GONE);
                         return;
                     }
-
-                    if(obj.has("marketing_receive")){
-                        // push
-                        if(obj.getJSONObject("marketing_receive").has("push")){
+                    if(!isMarketing) {
+                        if (obj.has("marketing_receive")) {
+                            // push
+                            if (obj.getJSONObject("marketing_receive").has("push")) {
 
 //                            if(!NotificationManagerCompat.from(SettingAlarmActivity.this).areNotificationsEnabled()){
 //                                cb_push.setChecked(false);
 //                                cb_push.setEnabled(false);
 //                            }
 //                            else {
-                            cb_push.setEnabled(true);
-                            if(obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_yn").equals("Y")) {
-                                cb_push.setChecked(true);
-                            }
-                            else{
-                                cb_push.setChecked(false);
-                            }
+                                cb_push.setEnabled(true);
+                                if (obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_yn").equals("Y")) {
+                                    cb_push.setChecked(true);
+                                } else {
+                                    cb_push.setChecked(false);
+                                }
 //                            }
+                            }
+
+                            // push
+
+                            // sms
+                            if (obj.getJSONObject("marketing_receive").has("sms")) {
+                                if (cookie == null) {
+                                    cb_sms.setChecked(false);
+                                    tv_sms.setSelected(false);
+                                } else if (obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_yn").equals("Y")) {
+                                    cb_sms.setChecked(true);
+                                    tv_sms.setSelected(true);
+                                } else {
+                                    cb_sms.setChecked(false);
+                                    tv_sms.setSelected(true);
+                                }
+                            }
+                            // sms
+
+                            // email
+                            if (obj.getJSONObject("marketing_receive").has("email")) {
+                                if (cookie == null) {
+                                    cb_email.setChecked(false);
+                                    tv_email.setSelected(false);
+                                } else if (obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_yn").equals("Y")) {
+                                    cb_email.setChecked(true);
+                                    tv_email.setSelected(true);
+                                } else {
+                                    cb_email.setChecked(false);
+                                    tv_email.setSelected(true);
+
+                                }
+                            }
+                            // email
+
+                            // marketing_use
+                            if (obj.has("marketing_use")) {
+                                val_marketing = obj.getJSONObject("marketing_use").getString("agreed_yn");
+                            }
                         }
 
-                        // push
+                        cb_push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                setMaketing(val_p, cb_push.isChecked());
+                            }
+                        });
 
-                        // sms
-                        if(obj.getJSONObject("marketing_receive").has("sms")){
-                            if(cookie == null){
-                                cb_sms.setChecked(false);
-                                tv_sms.setSelected(false);
+                        cb_email.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                setMaketing(val_e, isChecked);
                             }
-                            else if(obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_yn").equals("Y")) {
-                                cb_sms.setChecked(true);
-                                tv_sms.setSelected(true);
-                            }
-                            else{
-                                cb_sms.setChecked(false);
-                                tv_sms.setSelected(true);
-                            }
-                        }
-                        // sms
+                        });
 
-                        // email
-                        if(obj.getJSONObject("marketing_receive").has("email")){
-                            if(cookie == null){
-                                cb_email.setChecked(false);
-                                tv_email.setSelected(false);
+                        cb_sms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                setMaketing(val_m, isChecked);
                             }
-                            else if(obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_yn").equals("Y")) {
-                                cb_email.setChecked(true);
-                                tv_email.setSelected(true);
+                        });
+                    }
+                    else{
+                        if (obj.has("marketing_receive")) {
+                            // marketing_use
+                            if (obj.has("marketing_use")) {
+                                val_marketing = obj.getJSONObject("marketing_use").getString("agreed_yn");
+                                if(val_marketing.equals("N")) {
+                                    setAgreedPopup(val_marketing);
+                                }
                             }
-                            else{
-                                cb_email.setChecked(false);
-                                tv_email.setSelected(true);
-
-                            }
-                        }
-                        // email
-
-                        // marketing_use
-                        if(obj.has("marketing_use")){
-                            val_marketing = obj.getJSONObject("marketing_use").getString("agreed_yn");
                         }
                     }
-
-                    cb_push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            setMaketing(val_p, cb_push.isChecked());
-                        }
-                    });
-
-                    cb_email.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            setMaketing(val_e, isChecked);
-                        }
-                    });
-
-                    cb_sms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            setMaketing(val_m, isChecked);
-                        }
-                    });
-
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
                 } catch (Exception e) {
@@ -291,7 +297,7 @@ public class SettingAlarmActivity extends Activity {
                                                 public void onClick(View v) {
                                                     discountAlert.dismiss();
                                                     if(val_marketing.equals("N")){
-                                                        setAgreedPopup(val_marketing);
+                                                        setUserBenefit(true);
                                                     }
                                                 }
                                             }
@@ -331,7 +337,7 @@ public class SettingAlarmActivity extends Activity {
                                             public void onClick(View v) {
                                                 discountAlert.dismiss();
                                                 if(val_marketing.equals("N")){
-                                                    setAgreedPopup(val_marketing);
+                                                    setUserBenefit(true);
                                                 }
                                             }
                                         }
@@ -370,7 +376,7 @@ public class SettingAlarmActivity extends Activity {
                                                 public void onClick(View v) {
                                                     discountAlert.dismiss();
                                                     if(val_marketing.equals("N")){
-                                                        setAgreedPopup(val_marketing);
+                                                        setUserBenefit(true);
                                                     }
                                                 }
                                             }
@@ -393,9 +399,6 @@ public class SettingAlarmActivity extends Activity {
                                 }
                                 discountAlert.show();
                             }
-                        }
-                        else{
-
                         }
                     }
                 } catch (Exception e) {

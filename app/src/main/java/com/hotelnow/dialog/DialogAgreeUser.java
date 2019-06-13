@@ -45,7 +45,7 @@ public class DialogAgreeUser extends Dialog {
         webview.getSettings().setUserAgentString(webview.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
         webview.setWebViewClient(new webViewClient());
         webview.setWebChromeClient(new WebChromeClient());
-        webview.loadUrl(CONFIG.setting_agree2);
+        webview.loadUrl(CONFIG.setting_agree6);
         CheckBox agree_checkbox1 = (CheckBox) findViewById(R.id.agree_checkbox1);
 
         agree_checkbox1.setChecked(agreed_yn);

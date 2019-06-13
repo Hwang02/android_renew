@@ -71,7 +71,7 @@
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/setting_agree2"
+                android:text="@string/setting_agree2_sub"
                 android:textSize="15dp"
                 android:textColor="@color/blacktxt" />
 

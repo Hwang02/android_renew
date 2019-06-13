@@ -110,26 +110,6 @@ public class DialogAgreeAll extends Dialog {
             }
         });
 
-        agree_checkbox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
-                    isOneCheck = isChecked;
-                    all_checkbox.setChecked(isChecked);
-                }
-            }
-        });
-
-        agree_checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
-                    isOneCheck = isChecked;
-                    all_checkbox.setChecked(isChecked);
-                }
-            }
-        });
-
         agree_checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -176,7 +156,7 @@ public class DialogAgreeAll extends Dialog {
         agree_web2.getSettings().setUserAgentString(agree_web2.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
         agree_web2.setWebViewClient(new webViewClient());
         agree_web2.setWebChromeClient(new WebChromeClient());
-        agree_web2.loadUrl(CONFIG.setting_agree2);
+        agree_web2.loadUrl(CONFIG.setting_agree6);
         agree_web2.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -191,7 +171,7 @@ public class DialogAgreeAll extends Dialog {
         agree_web3.getSettings().setUserAgentString(agree_web3.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
         agree_web3.setWebViewClient(new webViewClient());
         agree_web3.setWebChromeClient(new WebChromeClient());
-        agree_web3.loadUrl(CONFIG.setting_agree2);
+        agree_web3.loadUrl(CONFIG.setting_agree5);
         agree_web3.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -276,12 +256,20 @@ public class DialogAgreeAll extends Dialog {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 selCheck();
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
             }
         });
         agree_checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 selCheck();
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
             }
         });
 
