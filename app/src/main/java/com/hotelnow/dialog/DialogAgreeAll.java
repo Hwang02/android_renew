@@ -41,6 +41,7 @@ public class DialogAgreeAll extends Dialog {
     private WebView agree_web1, agree_web2, agree_web3, agree_web4;
     private Button mOkButton;
     private boolean isuser = false;
+    private boolean isOneCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +93,60 @@ public class DialogAgreeAll extends Dialog {
         all_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    isOneCheck = true;
+                }
                 all_checkbox.setChecked(isChecked);
-                agree_checkbox1.setChecked(isChecked);
-                agree_checkbox2.setChecked(isChecked);
-                agree_checkbox3.setChecked(isChecked);
-                agree_checkbox4.setChecked(isChecked);
+                if(isOneCheck) {
+                    agree_checkbox1.setChecked(isChecked);
+                    agree_checkbox2.setChecked(isChecked);
+                    agree_checkbox3.setChecked(isChecked);
+                    agree_checkbox4.setChecked(isChecked);
+                    isOneCheck = true;
+                }
+                else{
+                    isOneCheck = true;
+                }
+            }
+        });
+
+        agree_checkbox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+
+        agree_checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+
+        agree_checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+
+        agree_checkbox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
             }
         });
 

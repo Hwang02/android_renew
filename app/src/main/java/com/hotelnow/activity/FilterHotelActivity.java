@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
@@ -647,32 +648,29 @@ public class FilterHotelActivity extends Activity {
                                     });
                             dialogConfirm.show();
                         } else {
-                            locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                            locationListener = new LocationListener() {
-                                @Override
-                                public void onLocationChanged(Location location) {
-                                    locManager.removeUpdates(locationListener);
-                                    CONFIG.lat = location.getLatitude() + "";
-                                    CONFIG.lng = location.getLongitude() + "";
-                                    dialog.dismiss();
-                                }
-
-                                @Override
-                                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                                }
-
-                                @Override
-                                public void onProviderEnabled(String provider) {
-
-                                }
-
-                                @Override
-                                public void onProviderDisabled(String provider) {
-
-                                }
-                            };
+                            setLocation();
                         }
+                    }
+                    else {
+                        dialogConfirm = new DialogConfirm("위치정보 이용동의", "주변에 위치한 업체 검색 및 거리 표시를 위해 위치 정보 이용에 동의해 주세요.", "취소", "동의", FilterHotelActivity.this,
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogConfirm.dismiss();
+                                        setMaketing(false);
+                                        // 거부 했을 때
+                                        filter1.getChildAt(0).setSelected(true);
+                                        filter1.getChildAt(1).setSelected(false);
+                                        mOrderby = "recommendation";
+                                    }
+                                },
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        setMaketing(true);
+                                    }
+                                });
+                        dialogConfirm.show();
                     }
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
@@ -725,41 +723,7 @@ public class FilterHotelActivity extends Activity {
                     }
 
                     if(obj.getJSONObject("location").getString("agreed_yn").equals("Y")) {
-                        final PermissionListener permissionlistener = new PermissionListener() {
-                            @Override
-                            public void onPermissionGranted() {
-                                if (ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                                        && ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                    // TODO: Consider calling
-                                    //    ActivityCompat#requestPermissions
-                                    // here to request the missing permissions, and then overriding
-                                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                    //                                          int[] grantResults)
-                                    // to handle the case where the user grants the permission. See the documentation
-                                    // for ActivityCompat#requestPermissions for more details.
-                                    return;
-                                }
-
-                                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                                        2000, 0, locationListener);
-                                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
-                                CONFIG.lat = "37.506839";
-                                CONFIG.lng = "127.066234";
-
-                                dialog = new ProgressDialog(FilterHotelActivity.this);
-                                dialog.setMessage(getString(R.string.location_loading));
-                                dialog.setIndeterminate(true);
-                                dialog.setCancelable(true);
-                                dialog.show();
-                            }
-
-                            @Override
-                            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                                Toast.makeText(FilterHotelActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
-                                CONFIG.lat = "37.506839";
-                                CONFIG.lng = "127.066234";
-                            }
-                        };
+                        setLocation();
                     }
 
                     if(dialogConfirm != null) {
@@ -770,5 +734,82 @@ public class FilterHotelActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void setLocation(){
+        if(Util.chkLocationService(this)) {
+            PermissionListener permissionlistener = new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    if (ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(FilterHotelActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+
+                    locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                            2000, 0, locationListener);
+                    locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
+                    CONFIG.lat = "37.506839";
+                    CONFIG.lng = "127.066234";
+
+                    dialog = new ProgressDialog(FilterHotelActivity.this);
+                    dialog.setMessage(getString(R.string.location_loading));
+                    dialog.setIndeterminate(true);
+                    dialog.setCancelable(true);
+                    dialog.show();
+                }
+
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                    Toast.makeText(FilterHotelActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
+                    CONFIG.lat = "37.506839";
+                    CONFIG.lng = "127.066234";
+                }
+            };
+            TedPermission.with(this)
+                    .setPermissionListener(permissionlistener)
+                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                    .check();
+        }
+        else{
+            dialogConfirm = new DialogConfirm("알림", "휴대폰 위치 서비스(GPS)를 켠 후 이용해주세요.", "취소", "확인", this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    filter1.getChildAt(0).setSelected(true);
+                    filter1.getChildAt(1).setSelected(false);
+                    mOrderby = "recommendation";
+                    dialogConfirm.dismiss();
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent, 1000);
+                    dialogConfirm.dismiss();
+                }
+            });
+
+            dialogConfirm.show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000 && Util.chkLocationService(this)){
+            setLocation();
+        }
+        else{
+            filter1.getChildAt(0).setSelected(true);
+            filter1.getChildAt(1).setSelected(false);
+            mOrderby = "recommendation";
+        }
     }
 }

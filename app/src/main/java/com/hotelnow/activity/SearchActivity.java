@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
@@ -101,6 +102,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
 
         TuneWrap.Search();
+        Util.clearSearch();
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         et_search = (EditText) findViewById(R.id.et_search);
@@ -866,50 +868,72 @@ public class SearchActivity extends Activity {
             setResult(80);
             finish();
         }
+        else if(requestCode == 1000 && Util.chkLocationService(this)){
+            getMyLocation();
+        }
     }
 
     private void getMyLocation() {
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
+        if(Util.chkLocationService(this)) {
+            PermissionListener permissionlistener = new PermissionListener() {
+                @Override
+                public void onPermissionGranted() {
 //                Toast.makeText(SearchActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
-                if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+                    if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+
+                    locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                            2000, 0, locationListener);
+                    locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
+                    CONFIG.lat = "37.506839";
+                    CONFIG.lng = "127.066234";
+
+                    dialog = new ProgressDialog(SearchActivity.this);
+                    dialog.setMessage(getString(R.string.location_loading));
+                    dialog.setIndeterminate(true);
+                    dialog.setCancelable(true);
+                    dialog.show();
                 }
 
-                locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                        2000, 0, locationListener);
-                locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
-                CONFIG.lat = "37.506839";
-                CONFIG.lng = "127.066234";
-
-                dialog = new ProgressDialog(SearchActivity.this);
-                dialog.setMessage(getString(R.string.location_loading));
-                dialog.setIndeterminate(true);
-                dialog.setCancelable(true);
-                dialog.show();
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                @Override
+                public void onPermissionDenied(ArrayList<String> deniedPermissions) {
 //                Toast.makeText(SearchActivity.this, "권한 거부", Toast.LENGTH_SHORT).show();
-                CONFIG.lat = "37.506839";
-                CONFIG.lng = "127.066234";
-            }
-        };
+                    CONFIG.lat = "37.506839";
+                    CONFIG.lng = "127.066234";
+                }
+            };
 
-        TedPermission.with(this)
-                .setPermissionListener(permissionlistener)
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check();
+            TedPermission.with(this)
+                    .setPermissionListener(permissionlistener)
+                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                    .check();
+        }
+        else{
+            dialogConfirm = new DialogConfirm("알림", "휴대폰 위치 서비스(GPS)를 켠 후 이용해주세요.", "취소", "확인", SearchActivity.this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogConfirm.dismiss();
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent, 1000);
+                    dialogConfirm.dismiss();
+                }
+            });
+
+            dialogConfirm.show();
+        }
     }
 
     @Override

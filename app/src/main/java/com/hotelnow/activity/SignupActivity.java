@@ -76,6 +76,7 @@ public class SignupActivity extends Activity {
     private TextView codeResult;
     private LinearLayout auth_layout;
     private String marketing_yn="", location_yn="";
+    private boolean isOneCheck = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -205,15 +206,69 @@ public class SignupActivity extends Activity {
         all_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked) {
+                    isOneCheck = true;
+                }
                 all_checkbox.setChecked(isChecked);
-                agree_checkbox0.setChecked(isChecked);
-                agree_checkbox1.setChecked(isChecked);
-                agree_checkbox2.setChecked(isChecked);
-                agree_checkbox3.setChecked(isChecked);
-                agree_checkbox4.setChecked(isChecked);
+                if(isOneCheck) {
+                    agree_checkbox0.setChecked(isChecked);
+                    agree_checkbox1.setChecked(isChecked);
+                    agree_checkbox2.setChecked(isChecked);
+                    agree_checkbox3.setChecked(isChecked);
+                    agree_checkbox4.setChecked(isChecked);
+                    isOneCheck = true;
+                }
+                else{
+                    isOneCheck = true;
+                }
             }
         });
-
+        agree_checkbox0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+        agree_checkbox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+        agree_checkbox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+        agree_checkbox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
+        agree_checkbox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    isOneCheck = isChecked;
+                    all_checkbox.setChecked(isChecked);
+                }
+            }
+        });
         btn_auth.setClickable(false);
         auth_ok.setClickable(false);
 
