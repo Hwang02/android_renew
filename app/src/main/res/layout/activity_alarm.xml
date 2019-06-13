@@ -113,7 +113,7 @@
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="e-mail"
+                android:text="E-mail"
                 android:textSize="15dp"
                 android:textColor="@color/select_setting_txt" />
 
@@ -154,7 +154,7 @@
                 android:id="@+id/tv_push"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PUSH"
+                android:text="Push"
                 android:textSize="15dp"
                 android:textColor="@color/select_setting_txt" />
 
@@ -246,7 +246,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_below="@id/txt_push"
-                android:text="앱 푸시 설정에서 '사용 안함'으로 설정하시면, 모든 호텔나우 소식 및 할인 혜택 정보를 받으실 수 없으니 '사용함'으로 설정해주세요."/>
+                android:text="앱 푸시 설정에서 '사용 안함'으로 설정하시면, 공지사항 및 할인 혜택 등 호텔나우의 소식이 전달되지 않습니다. '사용함'으로 설정하여 이용해보세요."/>
 
             <View
                 android:layout_width="match_parent"

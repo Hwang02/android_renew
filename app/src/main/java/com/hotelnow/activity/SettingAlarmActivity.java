@@ -287,7 +287,7 @@ public class SettingAlarmActivity extends Activity {
                                 if (cb_push.isChecked() && obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_yn").equals("Y")) {
                                     discountAlert = new DialogDiscountAlert(
                                             "할인 혜택 알림 수신 동의 안내",
-                                            "앱 PUSH (동의)",
+                                            "Push (동의)",
                                             "수신 동의 일시 : " + obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_at").substring(0, 16),
                                             "위의 내용으로 호텔나우 혜택 알림 수신에 동의 하셨습니다.",
                                             "특가 정보, 이벤트, 할인쿠폰 소식 받고 즐거운 여행을 떠나세요!",
@@ -306,7 +306,7 @@ public class SettingAlarmActivity extends Activity {
                                 } else {
                                     discountAlert = new DialogDiscountAlert(
                                             "할인 혜택 알림 수신 미동의 안내",
-                                            "앱 PUSH (미동의)",
+                                            "Push (미동의)",
                                             "수신 동의 일시 : " + obj.getJSONObject("marketing_receive").getJSONObject("push").getString("agreed_at").substring(0, 16),
                                             "위의 내용으로 호텔나우 혜택 알림 수신에 미동의 하셨습니다.",
                                             "특가 정보, 이벤트, 할인 쿠폰 소식이 궁금하다면 언제든지 푸시 알림을 허용해주세요!",
@@ -327,7 +327,7 @@ public class SettingAlarmActivity extends Activity {
                                 if (cb_email.isChecked() && obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_yn").equals("Y")) {
                                     discountAlert = new DialogDiscountAlert(
                                         "할인 혜택 알림 수신 동의 안내",
-                                        "이메일 (동의)",
+                                        "E-mail (동의)",
                                         "수신 동의 일시 : " + obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_at").substring(0, 16),
                                         "위의 내용으로 호텔나우 혜택 알림 수신에 동의 하셨습니다.",
                                         "특가 정보, 이벤트, 할인쿠폰 소식 받고 즐거운 여행을 떠나세요!",
@@ -345,7 +345,7 @@ public class SettingAlarmActivity extends Activity {
                                 } else {
                                     discountAlert = new DialogDiscountAlert(
                                         "할인 혜택 알림 수신 미동의 안내",
-                                        "이메일 (미동의)",
+                                        "E-mail (미동의)",
                                         "수신 동의 일시 : " + obj.getJSONObject("marketing_receive").getJSONObject("email").getString("agreed_at").substring(0, 16),
                                         "위의 내용으로 호텔나우 혜택 알림 수신에 미동의 하셨습니다.",
                                         "특가 정보, 이벤트, 할인 쿠폰 소식이 궁금하다면 언제든지 푸시 알림을 허용해주세요!",
@@ -366,7 +366,7 @@ public class SettingAlarmActivity extends Activity {
                                 if (cb_sms.isChecked() && obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_yn").equals("Y")) {
                                     discountAlert = new DialogDiscountAlert(
                                             "할인 혜택 알림 수신 동의 안내",
-                                            "SMS / MMS (동의)",
+                                            "SMS (동의)",
                                             "수신 동의 일시 : " + obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_at").substring(0, 16),
                                             "위의 내용으로 호텔나우 혜택 알림 수신에 동의 하셨습니다.",
                                             "특가 정보, 이벤트, 할인쿠폰 소식 받고 즐거운 여행을 떠나세요!",
@@ -384,7 +384,7 @@ public class SettingAlarmActivity extends Activity {
                                 } else {
                                     discountAlert = new DialogDiscountAlert(
                                             "할인 혜택 알림 수신 미동의 안내",
-                                            "SMS / MMS (미동의)",
+                                            "SMS (미동의)",
                                             "수신 동의 일시 : " + obj.getJSONObject("marketing_receive").getJSONObject("sms").getString("agreed_at").substring(0, 16),
                                             "위의 내용으로 호텔나우 혜택 알림 수신에 미동의 하셨습니다.",
                                             "특가 정보, 이벤트, 할인 쿠폰 소식이 궁금하다면 언제든지 푸시 알림을 허용해주세요!",

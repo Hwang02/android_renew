@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAgreeUser;
@@ -38,6 +39,7 @@ public class SettingActivity extends Activity {
     private ImageView my_banner;
     private DialogAlert dialogAlert;
     private String url_link = "";
+    private TextView tv_alarm_setting;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,12 +50,14 @@ public class SettingActivity extends Activity {
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         cookie = _preferences.getString("userid", null);
         my_banner = (ImageView) findViewById(R.id.my_banner);
-
+        tv_alarm_setting = (TextView) findViewById(R.id.tv_alarm_setting);
         if(cookie == null){
+            tv_alarm_setting.setText("할인 혜택 알림 받기(Push)");
             findViewById(R.id.btn_retire).setVisibility(View.GONE);
             findViewById(R.id.retire_line).setVisibility(View.GONE);
         }
         else{
+            tv_alarm_setting.setText("할인 혜택 알림 받기(SMS,E-mail,Push)");
             findViewById(R.id.btn_retire).setVisibility(View.VISIBLE);
             findViewById(R.id.retire_line).setVisibility(View.VISIBLE);
         }
