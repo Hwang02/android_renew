@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAgreeUser;
+import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.dialog.DialogDiscountAlert;
 import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
@@ -46,6 +47,7 @@ public class SettingAlarmActivity extends Activity {
     private String val_marketing="";
     private DialogAgreeUser dialogAgreeUser;
     private boolean Sel_check = false;
+    private DialogAlert dialogAlert;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,7 +190,22 @@ public class SettingAlarmActivity extends Activity {
                         cb_push.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                setMaketing(val_p, cb_push.isChecked());
+                                if(isChecked && !NotificationManagerCompat.from(SettingAlarmActivity.this).areNotificationsEnabled()){
+                                    dialogAlert = new DialogAlert("알림", "앱의 알림이 차단된 상태입니다.\n사용중으로 설정하러가기", SettingAlarmActivity.this, new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                                            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+                                            startActivityForResult(intent, 100);
+                                            dialogAlert.dismiss();
+                                        }
+                                    });
+                                    dialogAlert.show();
+                                    cb_push.setChecked(false);
+                                }
+                                else {
+                                    setMaketing(val_p, cb_push.isChecked());
+                                }
                             }
                         });
 

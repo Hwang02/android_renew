@@ -137,10 +137,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@color/bg_background" />
+                android:background="@color/back_line" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -172,7 +172,7 @@
                     android:gravity="center"
                     android:text="@string/caution_agreement_view"
                     android:textSize="12dp"
-                    android:textColor="@color/graytxt" />
+                    android:textColor="@color/purple" />
             </RelativeLayout>
 
             <LinearLayout

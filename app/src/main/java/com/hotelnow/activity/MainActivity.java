@@ -417,6 +417,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
 
     // GCM TOKEN
     public void setMaketingSend(final Context context, String regId, String user_check, String location_check) {
+        showProgress();
         String androidId = Util.getAndroidId(context);
 
         JSONObject paramObj = new JSONObject();
@@ -438,12 +439,13 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
         Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-
+                hideProgress();
             }
 
             @Override
             public void onSuccess(Map<String, String> headers, String body) {
                 try {
+                    hideProgress();
                     JSONObject obj = new JSONObject(body);
 
                     if (!obj.getString("result").equals("success")) {
@@ -465,6 +467,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     importantPopup();
 
                 } catch (Exception e) {
+                    hideProgress();
                 }
             }
         });

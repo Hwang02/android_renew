@@ -73,35 +73,42 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/layout_btn">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:textSize="18dp"
-            android:textColor="@color/purple"
-            android:text="@string/setting_agree_user_popup"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"/>
-
         <LinearLayout
+            android:id="@+id/layout_title"
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginLeft="9dp"
-            android:layout_toRightOf="@id/tv_title">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/title_icon"
+            <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ico_more_open"
-                android:layout_gravity="center"/>
+                android:layout_height="72dp"
+                android:textSize="18dp"
+                android:textColor="@color/purple"
+                android:text="@string/setting_agree_user_popup"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"/>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@id/tv_title">
+
+                <ImageView
+                    android:id="@+id/title_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ico_more_open"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
         </LinearLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tv_title"
+            android:layout_below="@id/layout_title"
             android:overScrollMode="never"
             android:fillViewport="true">
 
@@ -119,7 +126,8 @@
                 <TextView
                     android:id="@+id/tv_sub_title"
                     android:layout_width="match_parent"
-                    android:layout_height="63dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="63dp"
                     android:layout_marginLeft="31dp"
                     android:layout_marginRight="29dp"
                     android:textSize="15dp"
@@ -128,7 +136,7 @@
                     android:lineSpacingExtra="10dp"
                     android:gravity="center_horizontal"
                     android:layout_below="@id/webview"
-                    android:text="개인 정보 수집 이용 동의에 동의하시고, 호텔나우의 특가, 이벤트, 할인쿠폰 정보를 받아보세요!" />
+                    android:text="개인 정보 수집 이용 동의에 동의하시고 특가, 이벤트, 할인쿠폰 정보를 받으세요!" />
 
                 <RelativeLayout
                     android:id="@+id/layout_message"
