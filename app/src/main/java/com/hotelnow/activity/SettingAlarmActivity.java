@@ -445,7 +445,7 @@ public class SettingAlarmActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Sel_check = isChecked;
             }
-        });
+        }, cookie == null ? false : true);
         dialogAgreeUser.setCancelable(false);
         dialogAgreeUser.show();
     }

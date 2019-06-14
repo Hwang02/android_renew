@@ -24,6 +24,7 @@ public class DialogAgreeUser extends Dialog {
     private CompoundButton.OnCheckedChangeListener mCheckedListener;
     private WebView webview;
     private boolean agreed_yn;
+    private boolean isuser =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,11 @@ public class DialogAgreeUser extends Dialog {
         webview.getSettings().setUserAgentString(webview.getSettings().getUserAgentString() + " / HOTELNOW_APP_ANDROID / " + String.valueOf(rand));
         webview.setWebViewClient(new webViewClient());
         webview.setWebChromeClient(new WebChromeClient());
-        webview.loadUrl(CONFIG.setting_agree5);
+        String marketing_use = CONFIG.setting_agree5;
+        if(isuser) {
+            marketing_use += "?is_auth=Y";
+        }
+        webview.loadUrl(marketing_use);
         CheckBox agree_checkbox1 = (CheckBox) findViewById(R.id.agree_checkbox1);
 
         agree_checkbox1.setChecked(agreed_yn);
@@ -68,13 +73,14 @@ public class DialogAgreeUser extends Dialog {
         agree_checkbox1.setOnCheckedChangeListener(mCheckedListener);
     }
 
-    public DialogAgreeUser( Context context, View.OnClickListener ok, View.OnClickListener cancel, String agreed_yn, CompoundButton.OnCheckedChangeListener check) {
+    public DialogAgreeUser( Context context, View.OnClickListener ok, View.OnClickListener cancel, String agreed_yn, CompoundButton.OnCheckedChangeListener check, boolean isuser) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
 
         this.mOkClickListener = ok;
         this.mCancelClickListener = cancel;
         this.mCheckedListener = check;
         this.agreed_yn = agreed_yn.equals("Y") ? true :false;
+        this.isuser = isuser;
     }
 
     private class webViewClient extends WebViewClient {
