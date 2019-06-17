@@ -915,9 +915,15 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     CONFIG.sel_fav = 1;
                     mbinding.navigation.setCurrentItem(FAVPAGE);
                 } else if (recipeStr1.contains("move_theme_list")) {
-                    setTapMove(HOTELPAGE, false);
-                    Intent intent = new Intent(this, ThemeSAllActivity.class);
-                    startActivityForResult(intent, 80);
+                    setTapMove(HOTELPAGE,  true);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(MainActivity.this, ThemeSAllActivity.class);
+                            startActivityForResult(intent, 80);
+                        }
+                    }, 1000);
+
                 } else if (recipeStr1.contains("move_booking_list")) {
                     String[] recipeStr4 = recipeStr1.split("#");
                     try {
