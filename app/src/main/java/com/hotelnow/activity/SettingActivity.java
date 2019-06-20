@@ -142,7 +142,7 @@ public class SettingActivity extends Activity {
                     if(flag) {
                         setAgreedPopup(agreed_yn);
                     }else{
-                        if(obj.has("event_banners")){
+                        if(obj.has("event_banners") && obj.getJSONArray("event_banners").length() >0){
                             findViewById(R.id.layout_banner).setVisibility(View.VISIBLE);
                             Ion.with(my_banner).load(obj.getJSONArray("event_banners").getJSONObject(0).getString("image"));
                             final String id = obj.getJSONArray("event_banners").getJSONObject(0).getString("event_id");

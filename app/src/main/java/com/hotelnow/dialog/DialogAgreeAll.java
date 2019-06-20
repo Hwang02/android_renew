@@ -179,8 +179,7 @@ public class DialogAgreeAll extends Dialog {
         if(isuser) {
             marketing_use += "?is_auth=Y";
         }
-        agree_web2.loadUrl(marketing_use);
-        agree_web3.loadUrl(CONFIG.setting_agree5);
+        agree_web3.loadUrl(marketing_use);
         agree_web3.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

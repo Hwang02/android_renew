@@ -86,6 +86,8 @@ public class SettingAlarmActivity extends Activity {
             public void onSingleClick(View v) {
 
                 Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                intent.putExtra("app_package", getPackageName());
+                intent.putExtra("app_uid", getApplicationInfo().uid);
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
                 startActivityForResult(intent, 100);
 
@@ -195,6 +197,8 @@ public class SettingAlarmActivity extends Activity {
                                         @Override
                                         public void onClick(View v) {
                                             Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                                            intent.putExtra("app_package", getPackageName());
+                                            intent.putExtra("app_uid", getApplicationInfo().uid);
                                             intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
                                             startActivityForResult(intent, 100);
                                             dialogAlert.dismiss();
