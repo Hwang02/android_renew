@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13dp"
                 android:textColor="@color/termtext"
-                android:text="※ 개인 정보 수집 이용 동의 및 할인 혜택 알림 수신에 동의하시고 누구보다 빠르게 최대 80% 혜택을 받으세요!" />
+                android:text="※ 개인 정보 수집 및 이용, 할인 혜택 알림 수신에 동의하시고 누구보다 빠르게 최대 80% 혜택을 받으세요!" />
         </LinearLayout>
 
         <View

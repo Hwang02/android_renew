@@ -216,7 +216,7 @@
                                 android:id="@+id/agree_txt2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="개인 정보 수집 이용 동의 (필수)"
+                                android:text="개인 정보 수집 및 이용 동의 (필수)"
                                 android:textColor="@color/termtext"
                                 android:textSize="14dp" />
 
@@ -292,7 +292,7 @@
                                 android:id="@+id/agree_txt3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="개인 정보 수집 이용 동의 (선택)"
+                                android:text="개인 정보 수집 및 이용 동의 (선택)"
                                 android:textColor="@color/termtext"
                                 android:textSize="14dp" />
 

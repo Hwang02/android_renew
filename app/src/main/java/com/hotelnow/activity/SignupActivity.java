@@ -178,11 +178,11 @@ public class SignupActivity extends Activity {
         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 11, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_text1.setText(builder);
 
-        builder = new SpannableStringBuilder("개인 정보 수집 이용 동의 (필수)");
+        builder = new SpannableStringBuilder("개인 정보 수집 및 이용 동의 (필수)");
         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.purple)), 14, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_text2.setText(builder);
 
-        builder = new SpannableStringBuilder("개인 정보 수집 이용 동의 (선택)");
+        builder = new SpannableStringBuilder("개인 정보 수집 및 이용 동의 (선택)");
         builder.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.graytxt)), 14, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_text3.setText(builder);
 

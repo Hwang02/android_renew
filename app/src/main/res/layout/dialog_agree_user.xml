@@ -136,7 +136,7 @@
                     android:lineSpacingExtra="10dp"
                     android:gravity="center_horizontal"
                     android:layout_below="@id/webview"
-                    android:text="개인 정보 수집 이용 동의에 동의하시고 특가, 이벤트, 할인쿠폰 정보를 받으세요!" />
+                    android:text="개인 정보 수집 및 이용에 동의하시고 특가, 이벤트, 할인쿠폰 정보를 받으세요!" />
 
                 <RelativeLayout
                     android:id="@+id/layout_message"
