@@ -79,11 +79,11 @@ public class DialogAgreeAll extends Dialog {
         agree_text1.setText(builder);
 
         builder = new SpannableStringBuilder("개인 정보 수집 및 이용 동의 (필수)");
-        builder.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.purple)), 14, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.purple)), 16, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_text2.setText(builder);
 
         builder = new SpannableStringBuilder("개인 정보 수집 및 이용 동의 (선택)");
-        builder.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.graytxt)), 14, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.graytxt)), 16, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         agree_text3.setText(builder);
 
         builder = new SpannableStringBuilder("위치 정보 서비스 이용 약관 (선택)");
