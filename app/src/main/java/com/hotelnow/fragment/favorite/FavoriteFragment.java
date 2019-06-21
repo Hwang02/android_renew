@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class FavoriteFragment extends Fragment {
     private FragmentTransaction childFt;
     private Fragment fg;
     private Activity activity = null;
+    private FragmentManager childFragMang;
 
     @Override
     public void onAttach(Context context) {
@@ -51,6 +53,8 @@ public class FavoriteFragment extends Fragment {
 
         mFavoriteBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
         inflate = mFavoriteBinding.getRoot();
+
+        childFragMang= getChildFragmentManager();
 
         return inflate;
     }
@@ -124,30 +128,30 @@ public class FavoriteFragment extends Fragment {
             activity.getFragmentManager().popBackStack();
         }
 
-        childFt = getChildFragmentManager().beginTransaction();
+        childFt = childFragMang.beginTransaction();
 
         if(tag == 0){
-            if (getChildFragmentManager().findFragmentByTag("1favorite") != null) {
-                childFt.hide(getChildFragmentManager().findFragmentByTag("1favorite"));
+            if (childFragMang.findFragmentByTag("1favorite") != null) {
+                childFt.hide(childFragMang.findFragmentByTag("1favorite"));
             }
-            if (getChildFragmentManager().findFragmentByTag("0favorite") == null) {
+            if (childFragMang.findFragmentByTag("0favorite") == null) {
                 childFt.add(R.id.view_pager, child, "0favorite");
                 LogUtil.e("view", "hotel");
             }
             else{
-                childFt.show(getChildFragmentManager().findFragmentByTag("0favorite"));
+                childFt.show(childFragMang.findFragmentByTag("0favorite"));
                 LogUtil.e("view", "hotel1");
             }
         }
         else{
-            if (getChildFragmentManager().findFragmentByTag("0favorite") != null) {
-                childFt.hide(getChildFragmentManager().findFragmentByTag("0favorite"));
+            if (childFragMang.findFragmentByTag("0favorite") != null) {
+                childFt.hide(childFragMang.findFragmentByTag("0favorite"));
             }
-            if (getChildFragmentManager().findFragmentByTag("1favorite") == null) {
+            if (childFragMang.findFragmentByTag("1favorite") == null) {
                 childFt.add(R.id.view_pager, child, "1favorite");
                 LogUtil.e("view", "activity");
             } else {
-                childFt.show(getChildFragmentManager().findFragmentByTag("1favorite"));
+                childFt.show(childFragMang.findFragmentByTag("1favorite"));
                 LogUtil.e("view", "activity1");
             }
         }
@@ -156,21 +160,21 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void setChildDelete(int tag) {
-        childFt = getChildFragmentManager().beginTransaction();
+        childFt = childFragMang.beginTransaction();
 
         if(tag == 0){
             LogUtil.e("delete", "activity");
-            if (getChildFragmentManager().findFragmentByTag("1favorite") != null) {
+            if (childFragMang.findFragmentByTag("1favorite") != null) {
                 LogUtil.e("delete", "activity1");
-                childFt.remove(getChildFragmentManager().findFragmentByTag("1favorite"));
+                childFt.remove(childFragMang.findFragmentByTag("1favorite"));
             }
             LogUtil.e("delete", "activity2");
         }
         else{
             LogUtil.e("delete", "hotel");
-            if (getChildFragmentManager().findFragmentByTag("0favorite") != null) {
+            if (childFragMang.findFragmentByTag("0favorite") != null) {
                 LogUtil.e("delete", "hotel1");
-                childFt.remove(getChildFragmentManager().findFragmentByTag("0favorite"));
+                childFt.remove(childFragMang.findFragmentByTag("0favorite"));
             }
             LogUtil.e("delete", "hotel2");
         }

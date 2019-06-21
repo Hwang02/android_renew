@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class ReservationFragment extends Fragment {
     private FragmentTransaction childFt;
     private Fragment fg;
     private Activity activity = null;
+    private FragmentManager childFragMang;
 
     @Override
     public void onAttach(Context context) {
@@ -46,6 +48,8 @@ public class ReservationFragment extends Fragment {
 
         mReservationBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_reservation, container, false);
         View inflate = mReservationBinding.getRoot();
+
+        childFragMang= getChildFragmentManager();
 
         return inflate;
     }
@@ -116,30 +120,30 @@ public class ReservationFragment extends Fragment {
         if(activity != null) {
             activity.getFragmentManager().popBackStack();
         }
-        childFt = getChildFragmentManager().beginTransaction();
+        childFt = childFragMang.beginTransaction();
 
         if(tag == 0){
-            if (getChildFragmentManager().findFragmentByTag("1Reservation") != null) {
-                childFt.hide(getChildFragmentManager().findFragmentByTag("1Reservation"));
+            if (childFragMang.findFragmentByTag("1Reservation") != null) {
+                childFt.hide(childFragMang.findFragmentByTag("1Reservation"));
             }
-            if (getChildFragmentManager().findFragmentByTag("0Reservation") == null) {
+            if (childFragMang.findFragmentByTag("0Reservation") == null) {
                 childFt.add(R.id.view_pager, child, "0Reservation");
                 LogUtil.e("view", "hotel");
             }
             else{
-                childFt.show(getChildFragmentManager().findFragmentByTag("0Reservation"));
+                childFt.show(childFragMang.findFragmentByTag("0Reservation"));
                 LogUtil.e("view", "hotel1");
             }
         }
         else{
-            if (getChildFragmentManager().findFragmentByTag("0Reservation") != null) {
-                childFt.hide(getChildFragmentManager().findFragmentByTag("0Reservation"));
+            if (childFragMang.findFragmentByTag("0Reservation") != null) {
+                childFt.hide(childFragMang.findFragmentByTag("0Reservation"));
             }
-            if (getChildFragmentManager().findFragmentByTag("1Reservation") == null) {
+            if (childFragMang.findFragmentByTag("1Reservation") == null) {
                 childFt.add(R.id.view_pager, child, "1Reservation");
                 LogUtil.e("view", "activity");
             } else {
-                childFt.show(getChildFragmentManager().findFragmentByTag("1Reservation"));
+                childFt.show(childFragMang.findFragmentByTag("1Reservation"));
                 LogUtil.e("view", "activity1");
             }
         }
@@ -148,21 +152,21 @@ public class ReservationFragment extends Fragment {
     }
 
     public void setChildDelete(int tag) {
-        childFt = getChildFragmentManager().beginTransaction();
+        childFt = childFragMang.beginTransaction();
 
         if(tag == 0){
             LogUtil.e("delete", "activity");
-            if (getChildFragmentManager().findFragmentByTag("1Reservation") != null) {
+            if (childFragMang.findFragmentByTag("1Reservation") != null) {
                 LogUtil.e("delete", "activity1");
-                childFt.remove(getChildFragmentManager().findFragmentByTag("1Reservation"));
+                childFt.remove(childFragMang.findFragmentByTag("1Reservation"));
             }
             LogUtil.e("delete", "activity2");
         }
         else{
             LogUtil.e("delete", "hotel");
-            if (getChildFragmentManager().findFragmentByTag("0Reservation") != null) {
+            if (childFragMang.findFragmentByTag("0Reservation") != null) {
                 LogUtil.e("delete", "hotel1");
-                childFt.remove(getChildFragmentManager().findFragmentByTag("0Reservation"));
+                childFt.remove(childFragMang.findFragmentByTag("0Reservation"));
             }
             LogUtil.e("delete", "hotel2");
         }
