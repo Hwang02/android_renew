@@ -20,6 +20,9 @@
         android:usesCleartextTraffic="true"
         android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
         android:theme="@style/AppTheme">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <activity android:name="com.hotelnow.activity.ActLoading"
             android:screenOrientation="portrait"
             android:resizeableActivity="true"
