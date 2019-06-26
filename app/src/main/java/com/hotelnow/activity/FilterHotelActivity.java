@@ -690,7 +690,7 @@ public class FilterHotelActivity extends Activity {
             setMaketingSend(this, regId, ischeck);
         }
         else {
-            Toast.makeText(FilterHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            Toast.makeText(FilterHotelActivity.this, "앱을 종료 후 다시 시작해주세요", Toast.LENGTH_SHORT).show();
             if(dialogConfirm != null) {
                 dialogConfirm.dismiss();
                 // 거부 했을 때
@@ -754,6 +754,13 @@ public class FilterHotelActivity extends Activity {
                     }
 
                 } catch (Exception e) {
+                    Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                    if(dialogConfirm != null) {
+                        dialogConfirm.dismiss();
+                        filter1.getChildAt(0).setSelected(true);
+                        filter1.getChildAt(1).setSelected(false);
+                        mOrderby = "recommendation";
+                    }
                 }
             }
         });
