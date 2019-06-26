@@ -689,6 +689,16 @@ public class FilterHotelActivity extends Activity {
         if (regId != null) {
             setMaketingSend(this, regId, ischeck);
         }
+        else {
+            Toast.makeText(FilterHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+            if(dialogConfirm != null) {
+                dialogConfirm.dismiss();
+                // 거부 했을 때
+                filter1.getChildAt(0).setSelected(true);
+                filter1.getChildAt(1).setSelected(false);
+                mOrderby = "recommendation";
+            }
+        }
     }
 
     // GCM TOKEN
@@ -709,7 +719,14 @@ public class FilterHotelActivity extends Activity {
         Api.post(CONFIG.maketing_agree_change, paramObj.toString(), new Api.HttpCallback() {
             @Override
             public void onFailure(Response response, Exception e) {
-
+                Toast.makeText(FilterHotelActivity.this, getString(R.string.error_connect_problem), Toast.LENGTH_SHORT).show();
+                if(dialogConfirm != null) {
+                    dialogConfirm.dismiss();
+                    // 거부 했을 때
+                    filter1.getChildAt(0).setSelected(true);
+                    filter1.getChildAt(1).setSelected(false);
+                    mOrderby = "recommendation";
+                }
             }
 
             @Override
@@ -719,6 +736,12 @@ public class FilterHotelActivity extends Activity {
 
                     if (!obj.getString("result").equals("success")) {
                         Toast.makeText(HotelnowApplication.getAppContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                        if(dialogConfirm != null) {
+                            dialogConfirm.dismiss();
+                            filter1.getChildAt(0).setSelected(true);
+                            filter1.getChildAt(1).setSelected(false);
+                            mOrderby = "recommendation";
+                        }
                         return;
                     }
 
