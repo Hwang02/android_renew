@@ -339,7 +339,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             importantPopup();
                         }
                     } else {
-                        if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("no_user_agree_check", false)) {
+                        if (CONFIG.maketing_agree_use == null || !_preferences.getBoolean("no_user_agree_check", false)) {
                             AgreementPopup();
                         }
                         else{
@@ -360,7 +360,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     importantPopup();
                 }
             } else {
-                if (CONFIG.maketing_agree_use == null && !_preferences.getBoolean("no_user_agree_check", false)) {
+                if (CONFIG.maketing_agree_use == null || !_preferences.getBoolean("no_user_agree_check", false)) {
                     AgreementPopup();
                 }
                 else{
