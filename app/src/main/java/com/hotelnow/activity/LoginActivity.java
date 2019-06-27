@@ -114,7 +114,7 @@ public class LoginActivity extends Activity {
                 // 키보드 숨김
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (getCurrentFocus() != null)
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 intent.putExtra("page", page);
@@ -133,7 +133,7 @@ public class LoginActivity extends Activity {
                 // 키보드 숨김
                 final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (getCurrentFocus() != null)
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 Intent intent = new Intent(LoginActivity.this, WebviewActivity.class);
                 intent.putExtra("url", CONFIG.passresetUrl);
@@ -225,7 +225,7 @@ public class LoginActivity extends Activity {
 
                             // 키보드 숨김
                             final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                            imm.hideSoftInputFromWindow(passwd.getWindowToken(), 0);
 
                             CONFIG.MYLOGIN = true;
                             getFavorite();
@@ -310,7 +310,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     Intent intent = new Intent(LoginActivity.this, ReservationActivity.class);
                     intent.putExtra("pid", pid);
@@ -327,7 +327,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     Intent intent = new Intent(LoginActivity.this, ReservationActivityActivity.class);
                     intent.putParcelableArrayListExtra("sel_list",  sel_items);
@@ -344,7 +344,7 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     CONFIG.Mypage_Search = true;
                     setResult(90, new Intent());
                     finish();
@@ -477,7 +477,7 @@ public class LoginActivity extends Activity {
 
                     // 키보드 숨김
                     final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
 
                     CONFIG.MYLOGIN = true;
                     getFavorite();

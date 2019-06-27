@@ -339,7 +339,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             importantPopup();
                         }
                     } else {
-                        if (CONFIG.maketing_agree_use == null || !_preferences.getBoolean("no_user_agree_check", false)) {
+                        if (CONFIG.maketing_agree_use == null) {
                             AgreementPopup();
                         }
                         else{
@@ -348,8 +348,13 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     }
                 }
             });
-            dialogFull.show();
-            dialogFull.setCancelable(false);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialogFull.show();
+                    dialogFull.setCancelable(false);
+                }
+            });
         }
         else {
             if(_preferences.getString("userid", null) != null) {
@@ -360,7 +365,7 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     importantPopup();
                 }
             } else {
-                if (CONFIG.maketing_agree_use == null || !_preferences.getBoolean("no_user_agree_check", false)) {
+                if (CONFIG.maketing_agree_use == null) {
                     AgreementPopup();
                 }
                 else{
@@ -401,8 +406,13 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 setMaketing(user_check, location_check);
             }
         }, _preferences.getString("userid", null) == null ? false : true);
-        dialogAgreeAll.show();
-        dialogAgreeAll.setCancelable(false);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialogAgreeAll.show();
+                dialogAgreeAll.setCancelable(false);
+            }
+        });
     }
 
     private void setMaketing(String user_check, String location_check) {
