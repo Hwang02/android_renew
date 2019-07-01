@@ -137,6 +137,7 @@ public class SettingActivity extends Activity {
                     String agreed_yn = "N";
                     if(obj.has("marketing_use")){
                         agreed_yn = obj.getJSONObject("marketing_use").getString("agreed_yn");
+                        Sel_check = obj.getJSONObject("marketing_use").getString("agreed_yn").equals("Y")? true : false;
                     }
 
                     if(flag) {
