@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.res.ResourcesCompat;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -81,9 +84,9 @@ public class CustomMap {
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
 
         if(ishotel) {
-            bitmapdraw = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.map_marker_stay);
+            bitmapdraw = (BitmapDrawable) ResourcesCompat.getDrawable(mContext.getResources(),R.drawable.map_marker_stay, null);
         } else {
-            bitmapdraw = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.map_marker_activity);
+            bitmapdraw = (BitmapDrawable) ResourcesCompat.getDrawable(mContext.getResources(),R.drawable.map_marker_activity, null);
         }
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
@@ -99,9 +102,9 @@ public class CustomMap {
 
         if (position == selectedPosition) {
             if(ishotel) {
-                bitmapdraw = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.map_marker_stay_selected);
+                bitmapdraw = (BitmapDrawable) ResourcesCompat.getDrawable(mContext.getResources(),R.drawable.map_marker_stay_selected, null);
             } else {
-                bitmapdraw = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.map_marker_activity_selected);
+                bitmapdraw = (BitmapDrawable) ResourcesCompat.getDrawable(mContext.getResources(),R.drawable.map_marker_activity_selected, null);
             }
             b=bitmapdraw.getBitmap();
             sel_smallMarker = Bitmap.createScaledBitmap(b, m_width, m_height, false);
@@ -113,10 +116,10 @@ public class CustomMap {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationPoint, 12));
         } else {
             if(ishotel) {
-                bitmapdraw = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.map_marker_stay);
+                bitmapdraw = (BitmapDrawable) ResourcesCompat.getDrawable(mContext.getResources(),R.drawable.map_marker_stay, null);
             }
             else {
-                bitmapdraw = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.map_marker_activity);
+                bitmapdraw = (BitmapDrawable) ResourcesCompat.getDrawable(mContext.getResources(),R.drawable.map_marker_activity, null);
             }
             b=bitmapdraw.getBitmap();
             smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
