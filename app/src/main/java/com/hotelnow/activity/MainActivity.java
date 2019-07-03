@@ -325,12 +325,36 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
     }
 
     public void mainPopup() {
-        if (_preferences.getBoolean("user_first_app", true)) {
-            dialogFull = new DialogFull(this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Util.setPreferenceValues(_preferences, "user_first_app", false);
-                    dialogFull.dismiss();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (_preferences.getBoolean("user_first_app", true)) {
+
+                    dialogFull = new DialogFull(MainActivity.this, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Util.setPreferenceValues(_preferences, "user_first_app", false);
+                            dialogFull.dismiss();
+                            if (_preferences.getString("userid", null) != null) {
+                                if (CONFIG.maketing_agree_use == null) {
+                                    AgreementPopup();
+                                } else {
+                                    importantPopup();
+                                }
+                            } else {
+                                if (CONFIG.maketing_agree_use == null) {
+                                    AgreementPopup();
+                                } else {
+                                    importantPopup();
+                                }
+                            }
+                        }
+                    });
+                    dialogFull.show();
+                    dialogFull.setCancelable(false);
+
+                }
+                else {
                     if(_preferences.getString("userid", null) != null) {
                         if (CONFIG.maketing_agree_use == null) {
                             AgreementPopup();
@@ -347,36 +371,12 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                         }
                     }
                 }
-            });
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    dialogFull.show();
-                    dialogFull.setCancelable(false);
-                }
-            });
-        }
-        else {
-            if(_preferences.getString("userid", null) != null) {
-                if (CONFIG.maketing_agree_use == null) {
-                    AgreementPopup();
-                }
-                else{
-                    importantPopup();
-                }
-            } else {
-                if (CONFIG.maketing_agree_use == null) {
-                    AgreementPopup();
-                }
-                else{
-                    importantPopup();
-                }
             }
-        }
+        });
     }
 
     public void AgreementPopup(){
-        dialogAgreeAll = new DialogAgreeAll(this, new View.OnClickListener() {
+        dialogAgreeAll = new DialogAgreeAll(MainActivity.this, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 필수
@@ -385,34 +385,30 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     return;
                 }
                 //필수
-                if(!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox2)).isChecked()) {
+                if (!((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox2)).isChecked()) {
                     Toast.makeText(HotelnowApplication.getAppContext(), getString(R.string.validator_userinfo_agreement), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 //선택
-                String user_check ="N";
-                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox3)).isChecked()) {
+                String user_check = "N";
+                if (((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox3)).isChecked()) {
                     user_check = "Y";
                 }
                 //선택
                 String location_check = "N";
-                if(((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox4)).isChecked()) {
+                if (((CheckBox) dialogAgreeAll.findViewById(R.id.agree_checkbox4)).isChecked()) {
                     location_check = "Y";
                 }
 
-                if(_preferences.getString("userid", null) == null) {
+                if (_preferences.getString("userid", null) == null) {
                     Util.setPreferenceValues(_preferences, "no_user_agree_check", true);
                 }
                 setMaketing(user_check, location_check);
             }
         }, _preferences.getString("userid", null) == null ? false : true);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                dialogAgreeAll.show();
-                dialogAgreeAll.setCancelable(false);
-            }
-        });
+
+        dialogAgreeAll.show();
+        dialogAgreeAll.setCancelable(false);
     }
 
     private void setMaketing(String user_check, String location_check) {
