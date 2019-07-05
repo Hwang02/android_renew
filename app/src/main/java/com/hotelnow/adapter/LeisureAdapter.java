@@ -50,7 +50,7 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final int HEADER = 0; // 하단
     private final int BANNER = 1; // viewpager
     private final int HOTDEAL_ACTIVITY = 2; // 엑티비티 핫딜
-    private final int PROMOTION = 3; // 변경되는 프로모션 horizontal
+//    private final int PROMOTION = 3; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 4; // 변경되는 프로모션 vertical
     private final int FOOTER = 5; // 변경되는 프로모션 vertical
     private BannerPagerHotelAdapter bannerAdapter = null;
@@ -80,10 +80,10 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = inflater.inflate(R.layout.layout_hotel_banner, parent, false);
                 holder = new LeisureAdapter.BannerViewHolder(view, BANNER);
                 break;
-            case PROMOTION:
-                view = inflater.inflate(R.layout.layout_theme_horizontal, parent, false);
-                holder = new LeisureAdapter.HorizontalThemeViewHolder(view, PROMOTION);
-                break;
+//            case PROMOTION:
+//                view = inflater.inflate(R.layout.layout_theme_horizontal, parent, false);
+//                holder = new LeisureAdapter.HorizontalThemeViewHolder(view, PROMOTION);
+//                break;
             case SPECIAL:
                 view = inflater.inflate(R.layout.layout_vertical, parent, false);
                 holder = new LeisureAdapter.VerticalViewHolder(view, SPECIAL);
@@ -114,9 +114,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case BANNER:
                 BannerView((LeisureAdapter.BannerViewHolder) holder, holder.getItemViewType());
                 break;
-            case PROMOTION:
-                setThemeView((LeisureAdapter.HorizontalThemeViewHolder) holder, holder.getItemViewType());
-                break;
+//            case PROMOTION:
+//                setThemeView((LeisureAdapter.HorizontalThemeViewHolder) holder, holder.getItemViewType());
+//                break;
             case SPECIAL:
                 setThemeSpecialView((LeisureAdapter.VerticalViewHolder) holder, holder.getItemViewType());
                 break;
@@ -140,8 +140,8 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             return SPECIAL;
         if (items.get(position) instanceof DefaultItem)
             return FOOTER;
-        if (items.get(position) instanceof ThemeItem)
-            return PROMOTION;
+//        if (items.get(position) instanceof ThemeItem)
+//            return PROMOTION;
         if (items.get(position) instanceof TopItem)
             return HEADER;
         if (items.get(position) instanceof ActivityHotDealItem)
@@ -427,9 +427,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (footAdapter != null) {
             footAdapter.notifyDataSetChanged();
         }
-        if (themeAdapter != null) {
-            themeAdapter.notifyDataSetChanged();
-        }
+//        if (themeAdapter != null) {
+//            themeAdapter.notifyDataSetChanged();
+//        }
         if (themeSAdapter != null) {
             themeSAdapter.notifyDataSetChanged();
         }
@@ -441,9 +441,9 @@ public class LeisureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case BANNER:
                     title.setText("베너");
                     break;
-                case PROMOTION:
-                    title.setText("제목 받아서");
-                    break;
+//                case PROMOTION:
+//                    title.setText("제목 받아서");
+//                    break;
                 case SPECIAL:
                     title.setText("호텔나우 추천 테마");
                     break;

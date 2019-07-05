@@ -57,7 +57,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int BANNER_MINI = 4; // viewpager
     private final int HOTDEAL_HOTEL = 5; // 호텔 핫딜 horizontal
     private final int HOTDEAL_ACTIVITY = 6; // 엑티비티 핫딜 horizontal
-    private final int PROMOTION = 7; // 변경되는 프로모션 horizontal
+//    private final int PROMOTION = 7; // 변경되는 프로모션 horizontal
     private final int SPECIAL = 8; // 변경되는 프로모션 vertical
     private final int PRIVATEDEAL = 9; // 프라이빗딜
     private DbOpenHelper dbHelper;
@@ -113,10 +113,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 view = inflater.inflate(R.layout.layout_horizontal, parent, false);
                 holder = new HorizontalViewHolder(view, HOTDEAL_ACTIVITY);
                 break;
-            case PROMOTION:
-                view = inflater.inflate(R.layout.layout_theme_horizontal, parent, false);
-                holder = new HorizontalThemeViewHolder(view, PROMOTION);
-                break;
+//            case PROMOTION:
+//                view = inflater.inflate(R.layout.layout_theme_horizontal, parent, false);
+//                holder = new HorizontalThemeViewHolder(view, PROMOTION);
+//                break;
             case SPECIAL:
                 view = inflater.inflate(R.layout.layout_vertical, parent, false);
                 holder = new VerticalViewHolder(view, SPECIAL);
@@ -158,9 +158,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case HOTDEAL_ACTIVITY:
                 setActivityHotDealView((HorizontalViewHolder) holder, holder.getItemViewType());
                 break;
-            case PROMOTION:
-                setThemeView((HorizontalThemeViewHolder) holder, holder.getItemViewType());
-                break;
+//            case PROMOTION:
+//                setThemeView((HorizontalThemeViewHolder) holder, holder.getItemViewType());
+//                break;
             case SPECIAL:
                 setThemeSpecialView((VerticalViewHolder) holder, holder.getItemViewType());
                 break;
@@ -473,9 +473,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (hotelAdapter != null) {
             hotelAdapter.notifyDataSetChanged();
         }
-        if (themeAdapter != null) {
-            themeAdapter.notifyDataSetChanged();
-        }
+//        if (themeAdapter != null) {
+//            themeAdapter.notifyDataSetChanged();
+//        }
         if (themeSAdapter != null) {
             themeSAdapter.notifyDataSetChanged();
         }
@@ -512,8 +512,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return HOTDEAL_ACTIVITY;
         if (items.get(position) instanceof DefaultItem)
             return FOOTER;
-        if (items.get(position) instanceof ThemeItem)
-            return PROMOTION;
+//        if (items.get(position) instanceof ThemeItem)
+//            return PROMOTION;
         if (items.get(position) instanceof SubBannerItem)
             return BANNER_MINI;
         if (items.get(position) instanceof PrivateDealItem)

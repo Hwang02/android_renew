@@ -78,7 +78,7 @@ public class ThemeLeisureAdapter extends RecyclerView.Adapter<ThemeLeisureAdapte
             holder.sel_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("stay_colortheme", data.get((int) v.getTag()).getTheme_id(), data.get((int) v.getTag()).getId());
+//                    TuneWrap.Event("stay_colortheme", data.get((int) v.getTag()).getTheme_id(), data.get((int) v.getTag()).getId());
                     LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                     Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                     intent.putExtra("hid", data.get((int) v.getTag()).getId() + "");
@@ -116,7 +116,7 @@ public class ThemeLeisureAdapter extends RecyclerView.Adapter<ThemeLeisureAdapte
             holder.sel_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("activity_colortheme", data.get((int) v.getTag()).getTheme_id(), data.get((int) v.getTag()).getId());
+//                    TuneWrap.Event("activity_colortheme", data.get((int) v.getTag()).getTheme_id(), data.get((int) v.getTag()).getId());
                     LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                     Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId() + "");
