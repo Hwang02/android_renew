@@ -93,6 +93,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 
@@ -128,7 +129,7 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
     private SharedPreferences _preferences;
     private String cookie;
     private String[] selectList;
-    private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
     private String lodge_type;
     private int privatedeal_status = -1;
     private DialogAlert dialogAlert = null;
