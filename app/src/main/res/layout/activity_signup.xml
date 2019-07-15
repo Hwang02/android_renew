@@ -654,7 +654,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="※ 선택 약관에 동의하지 않으셔도 계속 가입을 진행하실 수있습니다."
+                    android:text="※ 선택 항목에 동의하지 않으셔도 계속 가입을 진행하실 수있습니다."
                     android:letterSpacing="-0.02"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/graytxt"
