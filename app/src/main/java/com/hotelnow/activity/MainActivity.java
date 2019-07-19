@@ -336,13 +336,13 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             Util.setPreferenceValues(_preferences, "user_first_app", false);
                             dialogFull.dismiss();
                             if (_preferences.getString("userid", null) != null) {
-                                if (CONFIG.maketing_agree_use == null) {
+                                if (_preferences.getString("maketing_agree_use", null) == null) {
                                     AgreementPopup();
                                 } else {
                                     importantPopup();
                                 }
                             } else {
-                                if (CONFIG.maketing_agree_use == null) {
+                                if (_preferences.getString("maketing_agree_use", null) == null) {
                                     AgreementPopup();
                                 } else {
                                     importantPopup();
@@ -356,14 +356,14 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 }
                 else {
                     if(_preferences.getString("userid", null) != null) {
-                        if (CONFIG.maketing_agree_use == null) {
+                        if (_preferences.getString("maketing_agree_use", null) == null) {
                             AgreementPopup();
                         }
                         else{
                             importantPopup();
                         }
                     } else {
-                        if (CONFIG.maketing_agree_use == null) {
+                        if (_preferences.getString("maketing_agree_use", null) == null) {
                             AgreementPopup();
                         }
                         else{
@@ -414,10 +414,12 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
     private void setMaketing(String user_check, String location_check) {
         // 푸시 수신 상태값 저장
         String regId = _preferences.getString("gcm_registration_id", null);
-
-        LogUtil.e("xxxxx", regId);
         if (regId != null) {
+            LogUtil.e("xxxxx", regId);
             setMaketingSend(this, regId, user_check, location_check);
+        }
+        else{
+            setMaketingSend(this, "", user_check, location_check);
         }
     }
 

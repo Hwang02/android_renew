@@ -622,9 +622,12 @@ public class LoginActivity extends Activity {
         // 푸시 수신 상태값 저장
         String regId = _preferences.getString("gcm_registration_id", null);
 
-        LogUtil.e("xxxxx", regId);
         if (regId != null) {
+            LogUtil.e("xxxxx", regId);
             setMaketingSend(this, regId, user_check, location_check);
+        }
+        else{
+            setMaketingSend(this, "", user_check, location_check);
         }
     }
 

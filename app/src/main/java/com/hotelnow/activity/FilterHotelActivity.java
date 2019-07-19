@@ -685,19 +685,12 @@ public class FilterHotelActivity extends Activity {
         // 푸시 수신 상태값 저장
         String regId = _preferences.getString("gcm_registration_id", null);
 
-        LogUtil.e("xxxxx", regId);
         if (regId != null) {
+            LogUtil.e("xxxxx", regId);
             setMaketingSend(this, regId, ischeck);
         }
         else {
-            Toast.makeText(FilterHotelActivity.this, "앱을 종료 후 다시 시작해주세요", Toast.LENGTH_SHORT).show();
-            if(dialogConfirm != null) {
-                dialogConfirm.dismiss();
-                // 거부 했을 때
-                filter1.getChildAt(0).setSelected(true);
-                filter1.getChildAt(1).setSelected(false);
-                mOrderby = "recommendation";
-            }
+            setMaketingSend(this, "", ischeck);
         }
     }
 

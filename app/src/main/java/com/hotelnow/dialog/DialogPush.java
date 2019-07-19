@@ -102,9 +102,13 @@ public class DialogPush extends Dialog {
         String regId = _preferences.getString("gcm_registration_id", null);
         String userId = _preferences.getString("userid", null);
 
-        LogUtil.e("xxxxx", regId);
-        if (regId != null)
+        if (regId != null) {
+            LogUtil.e("xxxxx", regId);
             setGcmToken(getContext(), regId, userId, true);
+        }
+        else{
+            setGcmToken(getContext(), "", userId, true);
+        }
     }
 
     // GCM TOKEN
