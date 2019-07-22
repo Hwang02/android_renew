@@ -122,7 +122,8 @@ public class FilterHotelActivity extends Activity {
                 locManager.removeUpdates(locationListener);
                 CONFIG.lat = location.getLatitude() + "";
                 CONFIG.lng = location.getLongitude() + "";
-                dialog.dismiss();
+                if(dialog != null && dialog.isShowing())
+                    dialog.dismiss();
             }
 
             @Override
