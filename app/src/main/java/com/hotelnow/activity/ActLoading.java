@@ -545,12 +545,12 @@ public class ActLoading extends Activity {
             String action = intentLink.getAction();
             String data = intentLink.getDataString();
             Intent intent = null;
-//            if(_preferences.getBoolean("user_first_app", true)) {
+            if(_preferences.getBoolean("user_first_app", true)) {
                 intent = new Intent(this, DialogFullActivity.class);
-//            }
-//            else {
-//                intent = new Intent(ActLoading.this, MainActivity.class);
-//            }
+            }
+            else {
+                intent = new Intent(ActLoading.this, MainActivity.class);
+            }
             intent.putExtra("action", action);
             intent.putExtra("data", data);
             intent.putExtra("push_type", push_type);
