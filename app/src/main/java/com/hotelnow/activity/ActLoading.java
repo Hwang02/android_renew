@@ -521,38 +521,14 @@ public class ActLoading extends Activity {
     }
 
     private void startHandler() {
-//        //권한 예제권한 후 동작 진행
-//        PermissionListener permissionlistener = new PermissionListener() {
-//            @Override
-//            public void onPermissionGranted() {
-////                Toast.makeText(ActLoading.this, "권한 허가", Toast.LENGTH_SHORT).show();
-//
-//                MovePage();
-//
-//                Util.setPreferenceValues(_preferences, "flag_use_location", true);
-//            }
-//
-//            @Override
-//            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-////                Toast.makeText(ActLoading.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-//
-//                MovePage();
-//
-//                Util.setPreferenceValues(_preferences, "flag_use_location", false);
-//            }
-//        };
-//
-//        TedPermission.with(this)
-//                .setPermissionListener(permissionlistener)
-//                .setRationaleMessage("위치 권한이 필요합니다.")
-//                .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
-//                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-//                .check();
 
         if (!_preferences.getBoolean("flag_first_executed", false)) {
             Util.setPreferenceValues(_preferences, "flag_first_executed", true);
         }
+
+        // 메인 페이지
         MovePage();
+
     }
 
     private void MovePage() {
@@ -568,8 +544,13 @@ public class ActLoading extends Activity {
             evttag = intentLink.getStringExtra("evttag");
             String action = intentLink.getAction();
             String data = intentLink.getDataString();
-
-            Intent intent = new Intent(ActLoading.this, MainActivity.class);
+            Intent intent = null;
+//            if(_preferences.getBoolean("user_first_app", true)) {
+                intent = new Intent(this, DialogFullActivity.class);
+//            }
+//            else {
+//                intent = new Intent(ActLoading.this, MainActivity.class);
+//            }
             intent.putExtra("action", action);
             intent.putExtra("data", data);
             intent.putExtra("push_type", push_type);

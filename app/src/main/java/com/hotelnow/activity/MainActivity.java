@@ -32,7 +32,6 @@ import com.hotelnow.R;
 import com.hotelnow.databinding.ActivityMainBinding;
 import com.hotelnow.dialog.DialogAgreeAll;
 import com.hotelnow.dialog.DialogAlert;
-import com.hotelnow.dialog.DialogFull;
 import com.hotelnow.dialog.DialogLogin;
 import com.hotelnow.dialog.DialogMainFragment;
 import com.hotelnow.fragment.favorite.FavoriteFragment;
@@ -91,7 +90,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
     private String sdate = null;
     private String edate = null;
     private String recipeStr1 = null;
-    public DialogFull dialogFull;
     public DialogLogin dialoglogin;
     private DialogAgreeAll dialogAgreeAll;
     public static DialogMainFragment frgpopup = null;
@@ -290,26 +288,8 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     if (obj.has("pop_ups")) {
                         mPopups = new JSONArray(obj.getJSONArray("pop_ups").toString());
 
-//                        if (_preferences.getBoolean("user_first_app", true)) {
-                            // 동의팝업
-                            mainPopup();
-//                        } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
-//                            importantPopup();
-//                            // 회원가입팝업
-//                        } else {
-//                            if (mPopups.length() > 0 && (_preferences.getString("front_popup_date", "").equals("") || Util.showFrontPopup(_preferences.getString("front_popup_date", "")))) {
-//                                frgpopup = new DialogMainFragment();
-//                                frgpopup.mListener = MainActivity.this;
-//                                frgpopup.popup_data = mPopups;
-//                                frgpopup.pf = MainActivity.this;
-//                                frgpopup.setCancelable(false);
-//
-//                                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                                ft.add(frgpopup, null);
-//                                ft.commitAllowingStateLoss();
-//
-//                            }
-//                        }
+                        mainPopup();
+
                     } else if (!TextUtils.isEmpty(important_pop_up_link) && !TextUtils.isEmpty(important_pop_up_image) && (TextUtils.isEmpty(_preferences.getString("info_date", "")) || Util.showFrontPopup(_preferences.getString("info_date", "")))) {
                         importantPopup();
 
@@ -328,50 +308,23 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (_preferences.getBoolean("user_first_app", true)) {
-
-                    dialogFull = new DialogFull(MainActivity.this, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Util.setPreferenceValues(_preferences, "user_first_app", false);
-                            dialogFull.dismiss();
-                            if (_preferences.getString("userid", null) != null) {
-                                if (_preferences.getString("maketing_agree_use", null) == null) {
-                                    AgreementPopup();
-                                } else {
-                                    importantPopup();
-                                }
-                            } else {
-                                if (_preferences.getString("maketing_agree_use", null) == null) {
-                                    AgreementPopup();
-                                } else {
-                                    importantPopup();
-                                }
-                            }
-                        }
-                    });
-                    dialogFull.show();
-                    dialogFull.setCancelable(false);
-
-                }
-                else {
-                    if(_preferences.getString("userid", null) != null) {
-                        if (_preferences.getString("maketing_agree_use", null) == null) {
-                            AgreementPopup();
-                        }
-                        else{
-                            importantPopup();
-                        }
-                    } else {
-                        if (_preferences.getString("maketing_agree_use", null) == null) {
-                            AgreementPopup();
-                        }
-                        else{
-                            importantPopup();
-                        }
+                if(_preferences.getString("userid", null) != null) {
+                    if (_preferences.getString("maketing_agree_use", null) == null) {
+                        AgreementPopup();
+                    }
+                    else{
+                        importantPopup();
+                    }
+                } else {
+                    if (_preferences.getString("maketing_agree_use", null) == null) {
+                        AgreementPopup();
+                    }
+                    else{
+                        importantPopup();
                     }
                 }
             }
+
         });
     }
 
