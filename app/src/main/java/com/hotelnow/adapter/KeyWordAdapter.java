@@ -13,7 +13,6 @@ import com.hotelnow.R;
 import com.hotelnow.activity.MainActivity;
 import com.hotelnow.activity.SearchResultActivity;
 import com.hotelnow.model.KeyWordItem;
-import com.hotelnow.utils.TuneWrap;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -44,7 +43,6 @@ public class KeyWordAdapter extends RecyclerView.Adapter<KeyWordAdapter.MyViewHo
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("home_hotkeyword", data.get(position).getLink(), "home");
                 Intent intent = new Intent(mContext, SearchResultActivity.class);
                 intent.putExtra("banner_id", data.get(position).getId());
                 intent.putExtra("banner_name", data.get(position).getLink());

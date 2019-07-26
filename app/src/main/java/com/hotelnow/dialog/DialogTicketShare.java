@@ -130,7 +130,6 @@ public class DialogTicketShare extends Dialog {
 //                        kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, mContext);
 //
 //                        t.send(new HitBuilders.EventBuilder().setCategory("SHARE").setAction("KAKAO").build());
-//                        TuneWrap.Event("SHARE", "KAKAO");
 
                 dismiss();
 //                    } catch (KakaoParameterException e) {
@@ -185,8 +184,6 @@ public class DialogTicketShare extends Dialog {
 //                sendIntent.setType("vnd.android-dir/mms-sms");
 //                mContext.startActivity(sendIntent);
 
-//                t.send(new HitBuilders.EventBuilder().setCategory("SHARE").setAction("SMS").build());
-//                TuneWrap.Event("SHARE", "SMS");
 
                 dismiss();
             }
@@ -199,9 +196,6 @@ public class DialogTicketShare extends Dialog {
                 ClipData clip = ClipData.newPlainText("label", linkUrl);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(mContext, "링크 메시지가 클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
-
-//                t.send(new HitBuilders.EventBuilder().setCategory("SHARE").setAction("LINK_COPY").build());
-//                TuneWrap.Event("SHARE", "LINK_COPY");
 
                 dismiss();
             }

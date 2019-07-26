@@ -25,7 +25,6 @@ import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.model.BannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -75,13 +74,6 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 mId = data.get((int) v.getTag()).getEvent_id();
-                if(!TextUtils.isEmpty(haType)) {
-                    if (haType.equals("H")) {
-                        TuneWrap.Event("stay_topbanner", mId);
-                    } else {
-                        TuneWrap.Event("activity_topbanner", mId);
-                    }
-                }
                 mTitle = data.get((int) v.getTag()).getTitle();
                 if (!TextUtils.isEmpty(data.get((int) v.getTag()).getImage())) {
                     frontType = data.get((int) v.getTag()).getEvt_type();
@@ -157,33 +149,21 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
 
                                 }
                             });
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_theme")) {
                             Intent intent = new Intent(context, ThemeSpecialHotelActivity.class);
                             intent.putExtra("tid", url);
 
                             mActivity.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_theme_ticket")) {
                             Intent intent = new Intent(context, ThemeSpecialActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mActivity.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_ticket_detail")) {
                             Intent intent = new Intent(context, DetailActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mActivity.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("outer_link")) {
                             if (url.contains("hotelnow")) {
                                 frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
@@ -196,9 +176,6 @@ public class BannerPagerHotelAdapter extends PagerAdapter {
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 mActivity.startActivity(intent);
                             }
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         }  else if (method.equals("move_privatedeal_all")){
                             Intent intent = new Intent(context, PrivateDaelAllActivity.class);
                             mActivity.startActivityForResult(intent, 200);

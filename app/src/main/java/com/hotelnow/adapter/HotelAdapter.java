@@ -36,7 +36,6 @@ import com.hotelnow.model.TopItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 
@@ -213,7 +212,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.mMoreView.setOnClickListener(new OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    TuneWrap.Event("themelist");
                     Intent intent = new Intent(mHf.getContext(), ThemeSAllActivity.class);
                     intent.putExtra("page", "H");
                     mHf.startActivityForResult(intent, 70);
@@ -329,7 +327,6 @@ public class HotelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder.mMoreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TuneWrap.Event("stay_private_list");
                     Intent intent = new Intent(mHf.getContext(), PrivateDaelAllActivity.class);
                     mHf.startActivityForResult(intent, 70);
                 }

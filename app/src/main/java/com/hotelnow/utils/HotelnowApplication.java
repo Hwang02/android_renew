@@ -9,7 +9,6 @@ import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.kakao.auth.KakaoSDK;
-import com.tune.Tune;
 
 import java.net.CookieHandler;
 import java.net.CookiePolicy;
@@ -52,16 +51,9 @@ public class HotelnowApplication extends MultiDexApplication {
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         CookieHandler.setDefault(cookieManager);
 
-        // TUNE
-        Tune.init(this, "192489", "22923c1467a436aad7b62d3ccbad4f52");
-
         //  구글플레이로 배포되므로 생략해도 되는부분
         HotelnowApplication.context = getApplicationContext();
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        if (_preferences.getBoolean("flag_first_executed", false) != false) {
-            Tune.getInstance().setExistingUser(true);
-        }
 
         if(!FirebaseApp.getApps(context).isEmpty()) return;
         FirebaseApp.initializeApp(context, FirebaseOptions.fromResource(context));

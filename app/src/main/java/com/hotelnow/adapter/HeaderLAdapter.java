@@ -16,7 +16,6 @@ import com.hotelnow.activity.AreaActivityActivity;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.model.TopItem;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 
 import java.util.ArrayList;
 
@@ -68,8 +67,6 @@ public class HeaderLAdapter extends RecyclerView.Adapter<HeaderLAdapter.MyViewHo
         holder.btn_search.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                TuneWrap.Event("activity_search");
-
                 Intent intent = new Intent(fm.getActivity(), ActivitySearchActivity.class);
                 intent.putExtra("location", data.get(0).getLocation());
                 intent.putExtra("location_id", data.get(0).getLocation_id());

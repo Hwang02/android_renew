@@ -25,7 +25,6 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -89,7 +88,6 @@ public class ThemeSpecialActivityActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if (!pid.getText().toString().equals("-1")) {
-                    TuneWrap.Event("theme_product", "activity", hid.getText().toString());
                     Intent intent = new Intent(ThemeSpecialActivityActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");
@@ -136,8 +134,6 @@ public class ThemeSpecialActivityActivity extends Activity {
     public void getHotelList() {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         String url = CONFIG.special_theme_list + "/" + tid + "/A";
-
-        TuneWrap.Event("theme", "activity", tid);
 
         Api.get(url, new Api.HttpCallback() {
             @Override

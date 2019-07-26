@@ -1,6 +1,5 @@
 package com.hotelnow.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -50,7 +49,6 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -119,8 +117,6 @@ public class HotelSearchActivity extends AppCompatActivity implements OnMapReady
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         dbHelper = new DbOpenHelper(this);
-
-        TuneWrap.Event("stay_list");
 
         Intent intent = getIntent();
         ec_date = intent.getStringExtra("ec_date");
@@ -528,7 +524,6 @@ public class HotelSearchActivity extends AppCompatActivity implements OnMapReady
                             @Override
                             public void onMapClick(LatLng arg0) {
                                 if(mItems != null) {
-                                    TuneWrap.Event("stay_list_map");
                                     CONFIG.search_data = new ArrayList<>();
                                     CONFIG.search_data = mItems;
                                     Intent intent = new Intent(HotelSearchActivity.this, MapHotelActivity.class);
@@ -577,7 +572,6 @@ public class HotelSearchActivity extends AppCompatActivity implements OnMapReady
     public void setLike(final int position, final boolean islike) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
-        TuneWrap.Event("list_stay_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");

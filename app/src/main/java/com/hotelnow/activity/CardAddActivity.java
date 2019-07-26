@@ -140,7 +140,6 @@ public class CardAddActivity extends Activity {
 //                                    dialogAlert.dismiss();
 //
 //                                    finish();
-//                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 //                                }
 //                            });
 //                    dialogAlert.setCancelable(false);
@@ -188,7 +187,6 @@ public class CardAddActivity extends Activity {
                             dialogConfirm.dismiss();
 
                             finish();
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                             dialogConfirm.dismiss();
                         }
                     });

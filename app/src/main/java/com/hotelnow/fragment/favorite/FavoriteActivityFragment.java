@@ -39,7 +39,6 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.NonScrollListView;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -324,8 +323,6 @@ public class FavoriteActivityFragment extends Fragment {
 
     private void init() {
         // preference
-
-        TuneWrap.Event("favorite_activity");
 
         mlist = (NonScrollListView) getView().findViewById(R.id.h_list);
         adapter = new FavoriteActivityAdapter(getActivity(), FavoriteActivityFragment.this, 0, mItems);

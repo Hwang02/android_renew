@@ -25,7 +25,6 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -96,7 +95,6 @@ public class RecentAllActivity extends Activity {
                 TextView hname = (TextView) v.findViewById(R.id.hotel_name);
 
                 if (mItems.get(position - 1).getHotel_id().equals("stay")) {
-                    TuneWrap.Event("recentlysee", "stay", hid.getText().toString());
                     Intent intent = new Intent(RecentAllActivity.this, DetailHotelActivity.class);
                     intent.putExtra("hid", hid.getText().toString());
                     intent.putExtra("evt", "N");
@@ -105,7 +103,6 @@ public class RecentAllActivity extends Activity {
                     intent.putExtra("edate", edate.getText().toString());
                     startActivityForResult(intent, 80);
                 } else {
-                    TuneWrap.Event("recentlysee", "activity", hid.getText().toString());
                     Intent intent = new Intent(RecentAllActivity.this, DetailActivityActivity.class);
                     intent.putExtra("tid", hid.getText().toString());
                     intent.putExtra("evt", "N");

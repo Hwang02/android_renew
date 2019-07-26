@@ -37,7 +37,6 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.Session;
@@ -216,9 +215,6 @@ public class LoginActivity extends Activity {
                             prefEditor.putString("userid", "HN|" + AES256Chiper.AES_Encode(userid));
                             prefEditor.putString("moreinfo", moreinfo);
                             prefEditor.commit();
-
-                            // Tune
-                            TuneWrap.Login();
 
 //                            Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
                             passwd.setText("");
@@ -469,9 +465,6 @@ public class LoginActivity extends Activity {
                     prefEditor.putString("moreinfo", moreinfo);
                     prefEditor.putString("utype", utype);
                     prefEditor.commit();
-
-                    // Tune
-                    TuneWrap.Login();
 
 //                    Toast.makeText(getApplicationContext(), getString(R.string.login_complete), Toast.LENGTH_SHORT).show();
 

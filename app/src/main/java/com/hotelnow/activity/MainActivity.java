@@ -48,7 +48,6 @@ import com.hotelnow.utils.FindDebugger;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -179,21 +178,18 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                     case 0: { // 추천
                         wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(getApplicationContext(), 30), Util.dptopixel(getApplicationContext(), 30));
                         LogUtil.e("xxxxx", "111111");
-                        TuneWrap.Event("home_button");
                         setTapMove(SELECTPAGE, false);
                         break;
                     }
                     case 1: { // 호텔
                         wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(getApplicationContext(), 30), Util.dptopixel(getApplicationContext(), 30));
                         LogUtil.e("xxxxx", "222222");
-                        TuneWrap.Event("stay_button");
                         setTapMove(HOTELPAGE, false);
                         break;
                     }
                     case 2: { // 엑티비티
                         wrapTabIndicatorToTitle(mbinding.tabLayout, Util.dptopixel(getApplicationContext(), 20), Util.dptopixel(getApplicationContext(), 20));
                         LogUtil.e("xxxxx", "33333");
-                        TuneWrap.Event("activity_button");
                         setTapMove(LEISUREPAGE, false);
                         break;
                     }
@@ -553,7 +549,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             intentBooking.putExtra("from_push", true);
                             intentBooking.putExtra("bid", bid);
                             startActivityForResult(intentBooking, 80);
-                            TuneWrap.Event("PUSH", bid + "");
                         }
                     }, 1000);
                 } else if (push_type.equals("2")) {
@@ -565,7 +560,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                                 Intent intentEvt = new Intent(MainActivity.this, EventActivity.class);
                                 intentEvt.putExtra("idx", evtidx);
                                 startActivityForResult(intentEvt, 80);
-                                TuneWrap.Event("PUSH", evtidx+"");
                             }
                         }, 1000);
                     }
@@ -581,7 +575,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             intentDeal.putExtra("sdate", sdate);
                             intentDeal.putExtra("edate", edate);
                             startActivityForResult(intentDeal, 80);
-                            TuneWrap.Event("PUSH", hid);
                         }
                     }, 1000);
                 } else if (push_type.equals("5")) {
@@ -592,7 +585,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                         public void run() {
                             Intent intentSave = new Intent(MainActivity.this, MySaveActivity.class);
                             startActivity(intentSave);
-                            TuneWrap.Event("PUSH", "mypoint");
                         }
                     }, 1000);
                 } else if (push_type.equals("6")) {
@@ -605,7 +597,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                                 intentTheme.putExtra("tid", String.valueOf(evtidx));
                                 intentTheme.putExtra("from", "evt");
                                 startActivity(intentTheme);
-                                TuneWrap.Event("PUSH", evtidx+"");
                             }
                         }, 1000);
                     } else {
@@ -616,7 +607,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                                 intentTheme.putExtra("tid", String.valueOf(evtidx));
                                 intentTheme.putExtra("from", "evt");
                                 startActivity(intentTheme);
-                                TuneWrap.Event("PUSH", evtidx+"");
                             }
                         }, 1000);
                     }
@@ -628,7 +618,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                         public void run() {
                             Intent intentCoupon = new Intent(MainActivity.this, MyCouponActivity.class);
                             startActivity(intentCoupon);
-                            TuneWrap.Event("PUSH", "coupon");
                         }
                     }, 1000);
 
@@ -642,22 +631,18 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                             intentticket.putExtra("tid", String.valueOf(evtidx));
                             intentticket.putExtra("save", true);
                             startActivity(intentticket);
-                            TuneWrap.Event("PUSH", evtidx+"");
+
                         }
                     }, 1000);
                 } else if(push_type.equals("10")) {
                     setTapMove(HOTELPAGE, true);
-                    TuneWrap.Event("PUSH", "staymain");
                 } else if(push_type.equals("11")) {
                     setTapMove(LEISUREPAGE, true);
-                    TuneWrap.Event("PUSH", "activitymain");
                 } else{
                     setTapMove(SELECTPAGE, false);
-                    TuneWrap.Event("PUSH", "mainpage");
                 }
             } else {
                 setTapMove(HOTELPAGE, true);
-                TuneWrap.Event("PUSH", "staymain");
             }
         } else {
             String action = getIntent().getStringExtra("action");
@@ -946,7 +931,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
         transaction = getSupportFragmentManager().beginTransaction();
         switch (mPosition) {
             case SELECTPAGE: {
-                TuneWrap.Event("home");
                 tabStatus(true);
                 if (isMove) {
                     new Handler().postDelayed(
@@ -1047,7 +1031,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 break;
             }
             case MYPAGE: {
-                TuneWrap.Event("myinfo");
                 tabStatus(false);
                 if (isMove) {
                     new Handler().postDelayed(
@@ -1089,7 +1072,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 break;
             }
             case HOTELPAGE: {
-                TuneWrap.Event("stay");
                 if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {
@@ -1132,7 +1114,6 @@ public class MainActivity extends FragmentActivity implements DialogMainFragment
                 break;
             }
             case LEISUREPAGE: {
-                TuneWrap.Event("activity");
                 if (isMove) {
                     new Handler().postDelayed(
                             new Runnable() {

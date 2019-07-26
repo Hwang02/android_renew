@@ -16,7 +16,6 @@ import com.hotelnow.model.ActivityThemeItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 
 import java.util.List;
 
@@ -46,8 +45,6 @@ public class ActivityFilterActivity extends Activity {
 
                 TextView tv_id = (TextView) view.findViewById(R.id.tv_id);
                 TextView tv_city = (TextView) view.findViewById(R.id.tv_city);
-
-                TuneWrap.Event("category_activity", tv_city.getText().toString());
 
                 Intent intent = new Intent();
                 intent.putExtra("id", tv_id.getText().toString());

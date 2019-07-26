@@ -24,7 +24,6 @@ import com.hotelnow.activity.WebviewActivity;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -249,11 +248,6 @@ public class PagerMainFragment extends Fragment {
                     Util.setPreferenceValues(mPf._preferences, "front_popup_date", checkdate);
 
                     mPf.frgpopup.dismiss();
-                }
-                if (!TextUtils.isEmpty(mId)) {
-                    TuneWrap.Event("popup_pre_confirm", mId);
-                } else {
-                    TuneWrap.Event("popup_pre_confirm");
                 }
             }
         });

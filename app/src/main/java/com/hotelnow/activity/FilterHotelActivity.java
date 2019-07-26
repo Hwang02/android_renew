@@ -44,7 +44,6 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -169,7 +168,6 @@ public class FilterHotelActivity extends Activity {
                     useper = CONFIG.sel_useperson.replace("|", ",");
                 }
 
-                TuneWrap.Event("filter", cate, CONFIG.sel_min + "~" + CONFIG.sel_max, useper, CONFIG.sel_rate);
 //                if(is_reset)
 //                    intent.putExtra("is_reset", is_reset);
                 setResult(80, intent);

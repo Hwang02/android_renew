@@ -33,7 +33,6 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -81,8 +80,6 @@ public class AllRoomTypeActivity extends Activity {
         hid = intent.getStringExtra("hid");
         pid = intent.getStringExtra("pid");
         evt = intent.getStringExtra("evt");
-
-        TuneWrap.Event("productdetail_stay_more", hid);
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(AllRoomTypeActivity.this);
         cookie = _preferences.getString("userid", null);
@@ -335,7 +332,7 @@ public class AllRoomTypeActivity extends Activity {
                         btn_private.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                TuneWrap.Event("productdetail_stay_privatebutton", hid);
+
                                 if(btn_private.getText().equals("제안완료")){
                                     Toast.makeText(getApplicationContext(), "프라이빗딜은 객실 타입 당 1일 3회 제안이 가능합니다. 다른 객실로 시도해주세요.", Toast.LENGTH_SHORT).show();
                                     return;
@@ -380,7 +377,7 @@ public class AllRoomTypeActivity extends Activity {
                         btn_reservation.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                TuneWrap.Event("productdetail_stay_reservationbutton", hid);
+
                                 if (cookie == null) {
                                     Intent intent = new Intent(AllRoomTypeActivity.this, LoginActivity.class);
                                     intent.putExtra("ec_date", ec_date);
@@ -404,7 +401,6 @@ public class AllRoomTypeActivity extends Activity {
                             @Override
                             public void onClick(View v) {
                                 if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
-                                    TuneWrap.Event("productdetail_stay_roomtype");
                                     room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                                     view_room.findViewById(R.id.line).setVisibility(View.GONE);
                                     ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
@@ -472,7 +468,6 @@ public class AllRoomTypeActivity extends Activity {
                     if (!obj.getString("result").equals("success")) {
                         return;
                     }
-                    TuneWrap.Event("stay_private_detail", hid);
                     String fullLinkUrl = linkUrl + "&bid_id=" + obj.getJSONObject("data").getString("id") + "&refKey=" + obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(AllRoomTypeActivity.this, PrivateDealActivity.class);
                     intent.putExtra("pid", mProduct_Id);

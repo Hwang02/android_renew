@@ -44,7 +44,6 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -86,8 +85,6 @@ public class SignupActivity extends Activity {
 
         Util.setStatusColor(this);
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        TuneWrap.Event("Signup");
 
         // 휴대폰 앞번호
         phone_prefixs = getResources().getStringArray(R.array.phone_prefix);
@@ -715,9 +712,6 @@ public class SignupActivity extends Activity {
                                 codeResult = (TextView) dialog.findViewById(R.id.recommend_result);
                             }
 
-                            // Tune
-                            TuneWrap.Registration();
-                            TuneWrap.Login();
                             FacebookWrap.logViewedContentEvent2(SignupActivity.this, "registration");
 
                             body = "";

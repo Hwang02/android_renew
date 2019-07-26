@@ -30,20 +30,21 @@ class DialogFullActivity : Activity(){
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.dialog_full)
-        _preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this@DialogFullActivity)
 
         val intentLink = intent
-        push_type = intentLink.getStringExtra("push_type")
-        bid = intentLink.getStringExtra("bid")
-        hid = intentLink.getStringExtra("hid")
-        isevt = intentLink.getStringExtra("isevt")
-        evtidx = intentLink.getIntExtra("evtidx", 0)
-        sdate = intentLink.getStringExtra("sdate")
-        edate = intentLink.getStringExtra("edate")
-        evttag = intentLink.getStringExtra("evttag")
-        action = intentLink.action
-        data = intentLink.dataString
-
+        intentLink?.let {
+            push_type = it.getStringExtra("push_type")
+            bid = it.getStringExtra("bid")
+            hid = it.getStringExtra("hid")
+            isevt = it.getStringExtra("isevt")
+            evtidx = it.getIntExtra("evtidx", 0)
+            sdate = it.getStringExtra("sdate")
+            edate = it.getStringExtra("edate")
+            evttag = it.getStringExtra("evttag")
+            action = it.action
+            data = it.dataString
+        }
 
         val spannable = SpannableString(title_main.text)
         spannable.setSpan(StyleSpan(Typeface.BOLD), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -52,23 +53,25 @@ class DialogFullActivity : Activity(){
         ok.setOnClickListener {
             Util.setPreferenceValues(_preferences, "user_first_app", false)
             val intent = Intent(this@DialogFullActivity, MainActivity::class.java)
-            intent.putExtra("action", action)
-            intent.putExtra("data", data)
-            intent.putExtra("push_type", push_type)
-            intent.putExtra("bid", bid)
-            intent.putExtra("hid", hid)
-            intent.putExtra("isevt", isevt)
-            intent.putExtra("evtidx", evtidx)
-            intent.putExtra("evttag", evttag)
-            intent.putExtra("sdate", sdate)
-            intent.putExtra("edate", edate)
+            intent?.let {
+                it.putExtra("action", action)
+                it.putExtra("data", data)
+                it.putExtra("push_type", push_type)
+                it.putExtra("bid", bid)
+                it.putExtra("hid", hid)
+                it.putExtra("isevt", isevt)
+                it.putExtra("evtidx", evtidx)
+                it.putExtra("evttag", evttag)
+                it.putExtra("sdate", sdate)
+                it.putExtra("edate", edate)
 
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                it.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(it)
+                finish()
+            }
         }
     }
 

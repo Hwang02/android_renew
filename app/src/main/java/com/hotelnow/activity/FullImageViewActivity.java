@@ -18,7 +18,6 @@ import com.hotelnow.fragment.detail.HotelFullImageFragment;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -62,9 +61,6 @@ public class FullImageViewActivity extends FragmentActivity {
         hid = intent.getStringExtra("hid");
         idx = intent.getIntExtra("idx", 0);
         name = intent.getStringExtra("name");
-
-        TuneWrap.Event("productdetail_stay_portraitview", hid);
-
         tv_title_hotel.setText(name);
 
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {

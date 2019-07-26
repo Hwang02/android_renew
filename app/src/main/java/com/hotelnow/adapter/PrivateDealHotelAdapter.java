@@ -15,7 +15,6 @@ import com.hotelnow.fragment.hotel.HotelFragment;
 import com.hotelnow.model.PrivateDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -104,7 +103,6 @@ public class PrivateDealHotelAdapter extends RecyclerView.Adapter<PrivateDealHot
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("stay_private", data.get((int) v.getTag()).getId());
                 LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", data.get((int) v.getTag()).getId());

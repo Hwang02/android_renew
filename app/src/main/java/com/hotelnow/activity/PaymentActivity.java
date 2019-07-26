@@ -30,10 +30,8 @@ import com.hotelnow.utils.AES256Chiper;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.FacebookWrap;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
-import com.tune.TuneEventItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,13 +70,6 @@ public class PaymentActivity extends Activity {
         setContentView(R.layout.activity_payment_webview);
 
         Util.setStatusColor(this);
-
-//        Tracker t = ((HotelnowApplication)getApplication()).getTracker(HotelnowApplication.TrackerName.APP_TRACKER);
-//        t.setScreenName("Payment");
-//        t.send(new HitBuilders.AppViewBuilder().build());
-//
-//        TuneWrap.ScreenName("Payment");
-//        FacebookWrap.logViewedContentEvent(this, "Payment");
 
         Intent intent = getIntent();
         int paytype = intent.getIntExtra("paytype", 1);
@@ -176,7 +167,6 @@ public class PaymentActivity extends Activity {
 
                                         uid = "";
                                         finish();
-                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                     }
                                 });
                         dialogAlert.setCancelable(false);
@@ -221,7 +211,6 @@ public class PaymentActivity extends Activity {
                                                         dialogAlert.dismiss();
                                                         uid = "";
                                                         finish();
-                                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                                     }
                                                 });
                                         dialogAlert.setCancelable(false);
@@ -235,18 +224,6 @@ public class PaymentActivity extends Activity {
 
                                             float revenue = obj.has("revenue") ? (float) obj.getInt("revenue") : 0;
                                             int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
-
-                                            // Tune
-                                            TuneEventItem eventItem = new TuneEventItem(hotel_name)
-                                                    .withQuantity(quantity)
-                                                    .withUnitPrice(obj.getInt("sale_price"))
-                                                    .withRevenue(revenue)
-                                                    .withAttribute1(city)
-                                                    .withAttribute2(ptune)
-                                                    .withAttribute3(obj.getString("category"))
-                                                    .withAttribute4(coupon_name)
-                                                    .withAttribute5(coupon_id);
-                                            TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"), is_q);
 
                                             FacebookWrap.logPurchasedEvent(PaymentActivity.this, obj.getString("bid"), obj.getInt("sale_price"), "activity");
 
@@ -289,7 +266,6 @@ public class PaymentActivity extends Activity {
                                     Toast.makeText(getApplicationContext(), "결제를 성공했지만 예약 처리가 되지 않았습니다. 호텔 나우로 연락 부탁드립니다.", Toast.LENGTH_LONG).show();
                                     uid = "";
                                     finish();
-                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                 }
                             }
                         });
@@ -317,7 +293,6 @@ public class PaymentActivity extends Activity {
                                                         dialogAlert.dismiss();
 
                                                         finish();
-                                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                                     }
                                                 });
                                         dialogAlert.setCancelable(false);
@@ -330,18 +305,6 @@ public class PaymentActivity extends Activity {
                                         if (obj.has("hotel_id") && obj.has("room_id") && obj.has("sale_price") && obj.has("category")) {
                                             float revenue = obj.has("revenue") ? (float) obj.getInt("revenue") : 0;
                                             int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
-
-                                            // Tune
-                                            TuneEventItem eventItem = new TuneEventItem(hotel_name)
-                                                    .withQuantity(quantity)
-                                                    .withUnitPrice(obj.getInt("sale_price"))
-                                                    .withRevenue(revenue)
-                                                    .withAttribute1(city)
-                                                    .withAttribute2(ptune)
-                                                    .withAttribute3(obj.getString("category"))
-                                                    .withAttribute4(coupon_name)
-                                                    .withAttribute5(coupon_id);
-                                            TuneWrap.Purchase(eventItem, (float) obj.getInt("sale_price"), obj.getString("bid"), is_q);
 
                                             FacebookWrap.logPurchasedEvent(PaymentActivity.this, obj.getString("bid"), obj.getInt("sale_price"), "stay");
                                         }
@@ -379,7 +342,6 @@ public class PaymentActivity extends Activity {
                                     Toast.makeText(getApplicationContext(), "결제를 성공했지만 예약 처리가 되지 않았습니다. 호텔 나우로 연락 부탁드립니다.", Toast.LENGTH_LONG).show();
                                     uid = "";
                                     finish();
-                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                                 }
                             }
                         });
@@ -522,7 +484,6 @@ public class PaymentActivity extends Activity {
                             dialogConfirm.dismiss();
 
                             finish();
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                             dialogConfirm.dismiss();
                         }
                     });

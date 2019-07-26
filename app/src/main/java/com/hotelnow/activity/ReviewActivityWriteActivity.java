@@ -19,7 +19,6 @@ import com.hotelnow.R;
 import com.hotelnow.dialog.DialogAlert;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.TuneWrap;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;

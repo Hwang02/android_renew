@@ -75,7 +75,6 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.HtmlTagHandler;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -294,7 +293,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
 
                     findViewById(R.id.wrapper).setVisibility(View.GONE);
 
-                    TuneWrap.Event("stay_private_detail", hid);
                     String fullLinkUrl = linkUrl + "&bid_id=" + obj.getJSONObject("data").getString("id") + "&refKey=" + obj.getJSONObject("data").getString("refKey");
                     Intent intent = new Intent(DetailHotelActivity.this, PrivateDealActivity.class);
                     intent.putExtra("pid", mProduct_Id);
@@ -503,13 +501,11 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     tv_hotelname.setText(hotel_name);
                     tv_minprice.setText(Util.numberFormat(hotel_data.getInt("sale_price")));
 
-                    TuneWrap.Event("productdetail_stay", city, hid, tv_category.getText().toString());
                     FacebookWrap.logViewedContentEvent(DetailHotelActivity.this, "productdetail_stay", hid);
 
                     findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("productdetail_stay_share", city, hid);
 
                             dialogShare = new DialogShare(DetailHotelActivity.this, hid, main_photo, hotel_name, ec_date, ee_date, mAvg, new View.OnClickListener() {
                                 @Override
@@ -524,7 +520,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     icon_zzim.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("productdetail_stay_favorite", city, hid);
                             FacebookWrap.logAddCartEvent(DetailHotelActivity.this, "productdetail_stay_favorite", hid);
                             JSONObject paramObj = new JSONObject();
                             try {
@@ -810,7 +805,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     findViewById(R.id.btn_kakao).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("productdetail_kakao");
                             Util.kakaoYelloId2(DetailHotelActivity.this);
                         }
                     });
@@ -818,7 +812,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     findViewById(R.id.room_select).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("productdetail_stay_all", hid);
                             Intent intent = new Intent(DetailHotelActivity.this, AllRoomTypeActivity.class);
                             intent.putExtra("sdate", ec_date);
                             intent.putExtra("edate", ee_date);
@@ -1310,7 +1303,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                 btn_private.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TuneWrap.Event("productdetail_stay_privatebutton", hid);
 
                         //제안 완료일 경우
                         if(btn_private.getText().equals("제안완료")){
@@ -1356,7 +1348,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                 btn_reservation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TuneWrap.Event("productdetail_stay_reservationbutton", hid);
 
                         if (cookie == null) {
                             Intent intent = new Intent(DetailHotelActivity.this, LoginActivity.class);
@@ -1383,7 +1374,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     @Override
                     public void onClick(View v) {
                         if (room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).getVisibility() == View.VISIBLE) {
-                            TuneWrap.Event("productdetail_stay_roomtype");
                             room_list.getChildAt((int) v.getTag()).findViewById(R.id.more_view).setVisibility(View.GONE);
                             view_room.findViewById(R.id.line).setVisibility(View.GONE);
                             ((TextView) room_list.getChildAt((int) v.getTag()).findViewById(R.id.room_detail_close)).setText(R.string.btn_more2);
@@ -1538,8 +1528,6 @@ public class DetailHotelActivity extends AppCompatActivity implements OnMapReady
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailHotelActivity.this, R.color.coupon_dis));
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
-
-                    TuneWrap.Event("productdetail_stay_coupon", city, hid, tv_category.getText().toString(), tv_coupon_title.getText().toString() + "(" + tv_coupon_price.getText().toString() + ")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     isLogin = true;

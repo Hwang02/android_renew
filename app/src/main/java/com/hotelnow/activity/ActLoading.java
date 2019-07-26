@@ -31,8 +31,6 @@ import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.BottomCropImageView;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
-import com.tune.Tune;
-
 import org.json.JSONObject;
 
 import java.io.File;
@@ -139,9 +137,6 @@ public class ActLoading extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
-        Tune.getInstance().setReferralSources(this);
-        Tune.getInstance().measureSession();
 
         try {
             AppEventsLogger.activateApp(getApplication(), getResources().getString(R.string.facebook_app_id));
@@ -545,12 +540,12 @@ public class ActLoading extends Activity {
             String action = intentLink.getAction();
             String data = intentLink.getDataString();
             Intent intent = null;
-//            if(_preferences.getBoolean("user_first_app", true)) {
+            if(_preferences.getBoolean("user_first_app", true)) {
                 intent = new Intent(this, DialogFullActivity.class);
-//            }
-//            else {
-//                intent = new Intent(ActLoading.this, MainActivity.class);
-//            }
+            }
+            else {
+                intent = new Intent(ActLoading.this, MainActivity.class);
+            }
             intent.putExtra("action", action);
             intent.putExtra("data", data);
             intent.putExtra("push_type", push_type);

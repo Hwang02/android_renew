@@ -58,7 +58,6 @@ import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -152,8 +151,6 @@ public class ReservationActivityActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_activity);
-
-        TuneWrap.Event("reservation_activity");
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(ReservationActivityActivity.this);
         point_discount = (EditText) findViewById(R.id.point_discount);
@@ -341,7 +338,6 @@ public class ReservationActivityActivity extends Activity {
             public void onFailure(Response response, Exception e) {
                 Toast.makeText(ReservationActivityActivity.this, "다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                 finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
             }
 
             @Override
@@ -1475,7 +1471,6 @@ public class ReservationActivityActivity extends Activity {
                     int quantity = obj.has("quantity") ? obj.getInt("quantity") : 0;
 
                     startActivityForResult(intent, 80);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 } catch (JSONException e) {
                     Log.e(CONFIG.TAG, e.toString());
 

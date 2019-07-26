@@ -20,7 +20,6 @@ import com.hotelnow.databinding.FragmentReservationBinding;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 
 public class ReservationFragment extends Fragment {
 
@@ -71,7 +70,6 @@ public class ReservationFragment extends Fragment {
                     new Runnable() {
                         @Override
                         public void run() {
-                            TuneWrap.Event("booking_stay");
                             fg = new ReservationHotelFragment();
                             setChildFragment(fg, CONFIG.sel_reserv);
 
@@ -82,7 +80,6 @@ public class ReservationFragment extends Fragment {
                     new Runnable() {
                         @Override
                         public void run() {
-                            TuneWrap.Event("booking_activity");
                             fg = new ReservationActivityFragment();
                             setChildFragment(fg, CONFIG.sel_reserv);
                         }
@@ -94,11 +91,9 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    TuneWrap.Event("booking_stay");
                     fg = new ReservationHotelFragment();
                 }
                 else {
-                    TuneWrap.Event("booking_activity");
                     fg = new ReservationActivityFragment();
                 }
                 setChildFragment(fg, tab.getPosition());

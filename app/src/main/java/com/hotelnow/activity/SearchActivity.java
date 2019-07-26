@@ -59,7 +59,6 @@ import com.hotelnow.utils.FlowLayout;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -101,7 +100,6 @@ public class SearchActivity extends Activity {
 
         setContentView(R.layout.activity_search);
 
-        TuneWrap.Search();
         Util.clearSearch();
 
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -142,8 +140,6 @@ public class SearchActivity extends Activity {
                     dbHelper.insertKeyword(et_search.getText().toString(), "x");
                     mSearchList.clear();
                     getRecentData();
-
-                    TuneWrap.Event("search_text", et_search.getText().toString());
 
                     // 리스트 화면 이동
                     Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
@@ -225,7 +221,6 @@ public class SearchActivity extends Activity {
         lv_location.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                TuneWrap.Event("search_around");
                 setUserBenefit();
             }
         });
@@ -237,7 +232,6 @@ public class SearchActivity extends Activity {
                 mSearchList.clear();
                 getRecentData();
 
-                TuneWrap.Event("search_text", et_search.getText().toString());
                 // 리스트 화면 이동
                 Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                 intent.putExtra("search", et_search.getText().toString());
@@ -711,7 +705,6 @@ public class SearchActivity extends Activity {
                 tv.setOnClickListener(new OnSingleClickListener() {
                     @Override
                     public void onSingleClick(View v) {
-                        TuneWrap.Event("home_hotkeyword", mKeywordList.get((int) v.getTag()).getLink(), "", "search");
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                         intent.putExtra("banner_id", mKeywordList.get((int) v.getTag()).getId());
                         intent.putExtra("banner_name", mKeywordList.get((int) v.getTag()).getLink());
@@ -837,15 +830,11 @@ public class SearchActivity extends Activity {
                     public void onSingleClick(View v) {
                         Intent intent = null;
                         if (mHotelActivity.get((int) v.getTag()).getCategory().equals("popular_product_stay")) {
-                            TuneWrap.Event("search_recommend", "stay", mHotelActivity.get((int) v.getTag()).getHotel_id());
-
                             intent = new Intent(SearchActivity.this, DetailHotelActivity.class);
                             intent.putExtra("hid", mHotelActivity.get((int) v.getTag()).getHotel_id());
                             intent.putExtra("save", true);
                             startActivityForResult(intent, 80);
                         } else {
-                            TuneWrap.Event("search_recommend", "activity", mHotelActivity.get((int) v.getTag()).getHotel_id());
-
                             intent = new Intent(SearchActivity.this, DetailActivityActivity.class);
                             intent.putExtra("tid", mHotelActivity.get((int) v.getTag()).getDeal_id());
                             intent.putExtra("save", true);

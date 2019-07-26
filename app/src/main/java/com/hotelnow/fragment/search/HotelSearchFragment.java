@@ -66,7 +66,6 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.koushikdutta.ion.Ion;
@@ -518,7 +517,6 @@ public class HotelSearchFragment extends Fragment implements OnMapReadyCallback 
     public void setLike(final int position, final boolean islike) {
         final String sel_id = mItems.get(position).getId();
 
-        TuneWrap.Event("list_stay_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "stay");

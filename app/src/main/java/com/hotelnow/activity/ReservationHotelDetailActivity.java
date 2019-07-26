@@ -53,7 +53,6 @@ import com.hotelnow.utils.EndEventScrollView;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -583,7 +582,6 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                                             @Override
                                             public void onClick(View v) {
                                                 startActivity(new Intent("android.intent.action.DIAL", Uri.parse("tel:" + hotel_phone_number)));
-                                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                                                 dialogConfirm.dismiss();
                                             }
                                         });
@@ -623,8 +621,6 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                                                 startActivity(intent);
 
                                                 Toast.makeText(getApplicationContext(), "카카오내비를 구동합니다.", Toast.LENGTH_SHORT).show();
-//                                                t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("KIMGISA").setLabel("BOOKING").build());
-//                                                TuneWrap.Event("BOOKING", "KIMGISA", "BOOKING");
                                             } catch (Exception e) {
                                                 try {
                                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + strAppPackage));
@@ -633,8 +629,6 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + strAppPackage));
                                                     startActivity(intent);
                                                 }
-//                                                t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("KIMGISA").setLabel("INSTALL").build());
-//                                                TuneWrap.Event("BOOKING", "KIMGISA", "INSTALL");
                                             }
                                             dialogConfirm.dismiss();
                                         }
@@ -746,9 +740,6 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
                                                 }
                                             });
 
-//                                            t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("HIDE").build());
-//                                            TuneWrap.Event("BOOKING", "HIDE");
-
                                             dialogConfirm.dismiss();
                                         }
                                     });
@@ -807,9 +798,6 @@ public class ReservationHotelDetailActivity extends AppCompatActivity implements
 //                                                    wrapper.setVisibility(View.GONE);
                                                 }
                                             });
-
-//                                            t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("RECEIPT").build());
-//                                            TuneWrap.Event("BOOKING", "RECEIPT");
 
                                             dialogConfirm.dismiss();
                                         }

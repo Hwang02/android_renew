@@ -26,7 +26,6 @@ import com.hotelnow.model.BannerItem;
 import com.hotelnow.model.SubBannerItem;
 import com.hotelnow.utils.Api;
 import com.hotelnow.utils.CONFIG;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -96,8 +95,6 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                             url = obj.getString("param");
                         }
 
-                        TuneWrap.Event("middlebanner", url);
-
                         if (method.equals("move_near")) {
                             int fDayLimit = mHf._preferences.getInt("future_day_limit", 180);
                             String checkurl = CONFIG.checkinDateUrl + "/" + url + "/" + fDayLimit;
@@ -151,32 +148,21 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                                 }
                             });
 
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_theme")) {
                             Intent intent = new Intent(context, ThemeSpecialHotelActivity.class);
                             intent.putExtra("tid", url);
 
                             mHf.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_theme_ticket")) {
                             Intent intent = new Intent(context, ThemeSpecialActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mHf.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_ticket_detail")) {
                             Intent intent = new Intent(context, DetailActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mHf.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("outer_link")) {
                             if (url.contains("hotelnow")) {
                                 frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
@@ -189,9 +175,6 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 mHf.startActivity(intent);
                             }
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_privatedeal_all")){
                             Intent intent = new Intent(context, PrivateDaelAllActivity.class);
                             mHf.startActivityForResult(intent, 200);
@@ -199,7 +182,6 @@ public class SubBannerPagerAdapter extends PagerAdapter {
                     } catch (Exception e) {
                     }
                 } else {
-                    TuneWrap.Event("middlebanner", frontEvtId);
                     frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
                     Intent intentEvt = new Intent(context, EventActivity.class);
                     intentEvt.putExtra("idx", Integer.valueOf(frontEvtId));

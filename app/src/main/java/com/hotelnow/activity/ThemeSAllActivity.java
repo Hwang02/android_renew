@@ -14,7 +14,6 @@ import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 
@@ -50,8 +49,6 @@ public class ThemeSAllActivity extends Activity {
         if (page == null) {
             page = "";
         }
-
-        TuneWrap.Event("themelist");
 
         findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override

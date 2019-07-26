@@ -68,7 +68,6 @@ import com.hotelnow.utils.FacebookWrap;
 import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.hotelnow.utils.ViewPagerCustom;
 import com.luseen.autolinklibrary.AutoLinkTextView;
@@ -336,13 +335,11 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     tv_maxprice.setText(Util.numberFormat(ticket_data.getInt("normal_price")) + "원");
                     tv_maxprice.setPaintFlags(tv_maxprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-                    TuneWrap.Event("productdetail_activity", mCity, tid, tv_category.getText().toString());
                     FacebookWrap.logViewedContentEvent(DetailActivityActivity.this, "ProductDetail_activity", tid);
 
                     icon_zzim.setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
-                            TuneWrap.Event("productdetail_activity_favorite", mCity, tid);
                             FacebookWrap.logAddCartEvent(DetailActivityActivity.this, "productdetail_activity_favorite", tid);
                             JSONObject paramObj = new JSONObject();
                             try {
@@ -413,9 +410,6 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     findViewById(R.id.btn_share).setOnClickListener(new OnSingleClickListener() {
                         @Override
                         public void onSingleClick(View v) {
-
-                            TuneWrap.Event("productdetail_activity_share", mCity, tid);
-
                             dialogTicketShare = new DialogTicketShare(DetailActivityActivity.this, tid, PagerImgs[0], tname, mAvg, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -855,7 +849,6 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     btn_reservation.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            TuneWrap.Event("productdetail_activity_reservationbutton");
                             boolean is_sel = false;
                             for (int i = 0; i < sel_list.size(); i++) {
                                 if (sel_list.get(i).getmCnt() != 0) {
@@ -1003,8 +996,6 @@ public class DetailActivityActivity extends AppCompatActivity implements OnMapRe
                     tv_coupon_title.setTextColor(ContextCompat.getColor(DetailActivityActivity.this, R.color.coupon_dis));
                     icon_coupon.setBackgroundResource(R.drawable.ico_coupon_dis);
                     icon_download.setBackgroundResource(R.drawable.ico_download_dis);
-
-                    TuneWrap.Event("productdetail_activity_coupon", mCity, tid, tv_coupon_title.getText().toString() + "(" + tv_coupon_price.getText().toString() + ")", mCouponId[position]);
 
                     showCouponDialog(obj.getString("msg"));
                     findViewById(R.id.wrapper).setVisibility(View.GONE);

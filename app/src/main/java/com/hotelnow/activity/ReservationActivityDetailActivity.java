@@ -585,7 +585,6 @@ public class ReservationActivityDetailActivity extends AppCompatActivity impleme
                                             @Override
                                             public void onClick(View v) {
                                                 startActivity(new Intent("android.intent.action.DIAL", Uri.parse("tel:" + hotel_phone_number)));
-                                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                                                 dialogConfirm.dismiss();
                                             }
                                         });
@@ -625,8 +624,6 @@ public class ReservationActivityDetailActivity extends AppCompatActivity impleme
                                                 startActivity(intent);
 
                                                 Toast.makeText(getApplicationContext(), "카카오내비를 구동합니다.", Toast.LENGTH_SHORT).show();
-//                                                t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("KIMGISA").setLabel("BOOKING").build());
-//                                                TuneWrap.Event("BOOKING", "KIMGISA", "BOOKING");
                                             } catch (Exception e) {
                                                 try {
                                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + strAppPackage));
@@ -635,8 +632,6 @@ public class ReservationActivityDetailActivity extends AppCompatActivity impleme
                                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + strAppPackage));
                                                     startActivity(intent);
                                                 }
-//                                                t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("KIMGISA").setLabel("INSTALL").build());
-//                                                TuneWrap.Event("BOOKING", "KIMGISA", "INSTALL");
                                             }
                                             dialogConfirm.dismiss();
                                         }
@@ -809,9 +804,6 @@ public class ReservationActivityDetailActivity extends AppCompatActivity impleme
 //                                                    wrapper.setVisibility(View.GONE);
                                                 }
                                             });
-
-//                                            t.send(new HitBuilders.EventBuilder().setCategory("BOOKING").setAction("RECEIPT").build());
-//                                            TuneWrap.Event("BOOKING", "RECEIPT");
 
                                             dialogConfirm.dismiss();
                                         }

@@ -16,7 +16,6 @@ import com.hotelnow.fragment.home.HomeFragment;
 import com.hotelnow.model.StayHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -107,7 +106,6 @@ public class HotelHotDealAdapter extends RecyclerView.Adapter<HotelHotDealAdapte
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("home_hotdeal_stay", data.get((int) v.getTag()).getId());
                 LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailHotelActivity.class);
                 intent.putExtra("hid", data.get((int) v.getTag()).getId());

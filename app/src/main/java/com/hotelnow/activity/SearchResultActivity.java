@@ -20,7 +20,6 @@ import com.hotelnow.R;
 import com.hotelnow.fragment.search.ActivitySearchFragment;
 import com.hotelnow.fragment.search.HotelSearchFragment;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 
 public class SearchResultActivity extends AppCompatActivity {
 
@@ -88,7 +87,6 @@ public class SearchResultActivity extends AppCompatActivity {
             view_pager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    TuneWrap.Event("search_list_stay");
                     Fragment hotelSearchFragment = new HotelSearchFragment();
                     bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수
                     bundle.putString("search_txt", search_txt); // key , value
@@ -104,7 +102,6 @@ public class SearchResultActivity extends AppCompatActivity {
             view_pager.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    TuneWrap.Event("search_list_activity");
                     Fragment activitySearchFragment = new ActivitySearchFragment();
                     bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수
                     bundle.putString("search_txt", search_txt); // key , value
@@ -122,11 +119,9 @@ public class SearchResultActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 Fragment fg;
                 if (tab.getPosition() == 0) {
-                    TuneWrap.Event("search_list_stay");
                     fg = new HotelSearchFragment();
                 }
                 else {
-                    TuneWrap.Event("search_list_activity");
                     fg = new ActivitySearchFragment();
                 }
                 bundle = new Bundle(4); // 파라미터는 전달할 데이터 개수

@@ -57,7 +57,6 @@ import com.hotelnow.utils.HotelnowApplication;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.squareup.okhttp.Response;
@@ -369,7 +368,6 @@ public class ActivitySearchFragment extends Fragment implements OnMapReadyCallba
 
     public void setLike(final int position, final boolean islike) {
         final String sel_id = mItems.get(position).getId();
-        TuneWrap.Event("list_activity_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");

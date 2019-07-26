@@ -15,7 +15,6 @@ import com.hotelnow.activity.ThemeSpecialActivityActivity;
 import com.hotelnow.activity.ThemeSpecialHotelActivity;
 import com.hotelnow.fragment.leisure.LeisureFragment;
 import com.hotelnow.model.ThemeSpecialItem;
-import com.hotelnow.utils.TuneWrap;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
@@ -47,7 +46,6 @@ public class ThemeSpecialLeisureAdapter extends RecyclerView.Adapter<ThemeSpecia
         holder.sel_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TuneWrap.Event("activity_themebanner", data.get((int) v.getTag()).getId());
                 if (data.get((int) v.getTag()).getTheme_flag().equals("H")) {
                     Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                     intent.putExtra("tid", data.get((int) v.getTag()).getId());

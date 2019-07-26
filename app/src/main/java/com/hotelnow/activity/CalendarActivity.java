@@ -17,7 +17,6 @@ import com.hotelnow.R;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.savvi.rangedatepicker.CalendarPickerView;
 
@@ -303,12 +302,10 @@ public class CalendarActivity extends Activity {
                 if (TextUtils.isEmpty(selected_checkin_date) || TextUtils.isEmpty(selected_checkout_date)) {
                     intent.putExtra("ec_date", strdate);
                     intent.putExtra("ee_date", strdate2);
-                    TuneWrap.Event("date_stay", strdate + "/" + strdate2);
                 } else {
                     intent.putExtra("ec_date", Util.formatchange3(selected_checkin_date));
                     intent.putExtra("ee_date", Util.formatchange3(selected_checkout_date));
                     intent.putExtra("is_date", true);
-                    TuneWrap.Event("date_stay", Util.formatchange3(selected_checkin_date) + "/" + Util.formatchange3(selected_checkout_date));
                 }
                 intent.putExtra("city", TextUtils.isEmpty(city) ? "" : city);
                 intent.putExtra("city_code", TextUtils.isEmpty(city_code) ? "" : city_code);

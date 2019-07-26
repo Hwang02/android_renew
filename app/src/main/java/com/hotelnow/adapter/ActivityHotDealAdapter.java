@@ -16,7 +16,6 @@ import com.hotelnow.model.ActivityHotDealItem;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.koushikdutta.ion.Ion;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -108,7 +107,6 @@ public class ActivityHotDealAdapter extends RecyclerView.Adapter<ActivityHotDeal
         holder.sel_item.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                TuneWrap.Event("home_hotdeal_activity", data.get((int) v.getTag()).getId());
                 LogUtil.e("vvvvvv", data.get((int) v.getTag()).getId() + "");
                 Intent intent = new Intent(hf.getActivity(), DetailActivityActivity.class);
                 intent.putExtra("tid", data.get((int) v.getTag()).getId() + "");

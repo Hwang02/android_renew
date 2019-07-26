@@ -23,7 +23,6 @@ import com.hotelnow.databinding.FragmentFavoriteBinding;
 import com.hotelnow.utils.CONFIG;
 import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
-import com.hotelnow.utils.TuneWrap;
 
 public class FavoriteFragment extends Fragment {
 
@@ -75,7 +74,6 @@ public class FavoriteFragment extends Fragment {
         mFavoriteBinding.tabLayout.getTabAt(m_Selecttab).select();
 
         if (m_Selecttab == 0) {
-            TuneWrap.Event("favorite_stay");
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -85,7 +83,6 @@ public class FavoriteFragment extends Fragment {
                         }
                     }, 100);
         } else {
-            TuneWrap.Event("favorite_activity");
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -100,11 +97,9 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void onTabSelected(final TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    TuneWrap.Event("favorite_stay");
                     fg = new FavoriteHotelFragment();
                 }
                 else {
-                    TuneWrap.Event("favorite_activity");
                     fg = new FavoriteActivityFragment();
                 }
 

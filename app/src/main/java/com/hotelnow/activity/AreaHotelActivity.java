@@ -23,7 +23,6 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +99,6 @@ public class AreaHotelActivity extends Activity {
                 String subCityKo = mSubCity.get(position).getSubcity_ko();
                 String option = "H";
                 dbHelper.insertRecentCity(p_sel_cityco, p_sel_cityko, subCityCode, subCityKo, option);
-
-                TuneWrap.Event("city_stay", p_sel_cityko, subCityKo);
 
                 Intent intent = new Intent();
                 intent.putExtra("city", mSubCity.get(position).getSubcity_ko());

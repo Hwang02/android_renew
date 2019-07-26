@@ -197,33 +197,21 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
 
                                 }
                             });
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_theme")) {
                             Intent intent = new Intent(mContext, ThemeSpecialHotelActivity.class);
                             intent.putExtra("tid", url);
 
                             mActivity.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_theme_ticket")) {
                             Intent intent = new Intent(mContext, ThemeSpecialActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mActivity.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("move_ticket_detail")) {
                             Intent intent = new Intent(mContext, DetailActivityActivity.class);
                             intent.putExtra("tid", url);
 
                             mActivity.startActivityForResult(intent, 80);
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("banner").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         } else if (method.equals("outer_link")) {
                             if (url.contains("hotelnow")) {
                                 frontTitle = mTitle != "" ? mTitle : "무료 숙박 이벤트";
@@ -236,9 +224,6 @@ public class BannerAllAdapter extends ArrayAdapter<BannerItem> {
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                 mActivity.startActivity(intent);
                             }
-
-//                                t.send(new HitBuilders.EventBuilder().setCategory("EVENT").setAction(frontEvtId).setLabel("popup").build());
-//                                TuneWrap.Event("EVENT", frontEvtId);
                         }  else if (method.equals("move_privatedeal_all")){
                             Intent intent = new Intent(mContext, PrivateDaelAllActivity.class);
                             mActivity.startActivityForResult(intent, 200);

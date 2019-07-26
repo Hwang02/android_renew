@@ -44,7 +44,6 @@ import com.hotelnow.utils.DbOpenHelper;
 import com.hotelnow.utils.LogUtil;
 import com.hotelnow.utils.OnSingleClickListener;
 import com.hotelnow.utils.OnSingleItemClickListener;
-import com.hotelnow.utils.TuneWrap;
 import com.hotelnow.utils.Util;
 import com.squareup.okhttp.Response;
 import com.thebrownarrow.model.SearchResultItem;
@@ -89,8 +88,6 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_ha_search);
-
-        TuneWrap.Event("activity_list");
         // preference
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         dbHelper = new DbOpenHelper(this);
@@ -359,7 +356,6 @@ public class ActivitySearchActivity extends AppCompatActivity implements OnMapRe
     public void setLike(final int position, final boolean islike) {
         findViewById(R.id.wrapper).setVisibility(View.VISIBLE);
         final String sel_id = mItems.get(position).getId();
-        TuneWrap.Event("list_activity_favorite", sel_id);
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("type", "activity");
