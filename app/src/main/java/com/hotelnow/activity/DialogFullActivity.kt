@@ -53,25 +53,26 @@ class DialogFullActivity : Activity(){
         ok.setOnClickListener {
             Util.setPreferenceValues(_preferences, "user_first_app", false)
             val intent = Intent(this@DialogFullActivity, MainActivity::class.java)
-            intent?.let {
-                it.putExtra("action", action)
-                it.putExtra("data", data)
-                it.putExtra("push_type", push_type)
-                it.putExtra("bid", bid)
-                it.putExtra("hid", hid)
-                it.putExtra("isevt", isevt)
-                it.putExtra("evtidx", evtidx)
-                it.putExtra("evttag", evttag)
-                it.putExtra("sdate", sdate)
-                it.putExtra("edate", edate)
+            intent.apply {
+                putExtra("action", action)
+                putExtra("data", data)
+                putExtra("push_type", push_type)
+                putExtra("bid", bid)
+                putExtra("hid", hid)
+                putExtra("isevt", isevt)
+                putExtra("evtidx", evtidx)
+                putExtra("evttag", evttag)
+                putExtra("sdate", sdate)
+                putExtra("edate", edate)
 
-                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                it.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(it)
-                finish()
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
+
+            startActivity(intent)
+            finish()
         }
     }
 

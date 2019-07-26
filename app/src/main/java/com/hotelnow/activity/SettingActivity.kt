@@ -169,15 +169,15 @@ class SettingActivity : Activity() {
 
     private fun setMaketing(ischeck: Boolean) {
         // 푸시 수신 상태값 저장
-        var regId: String = ""
+        var regId: String? = null
         _preferences?.let{
             regId = it.getString("gcm_registration_id", null)
         }
 
-        if (regId != null) {
-            LogUtil.e("xxxxx", regId)
-            setMaketingSend(this, regId, ischeck)
-        } else {
+        regId?.let {
+            LogUtil.e("xxxxx", it)
+            setMaketingSend(this, it, ischeck)
+        }.let {
             setMaketingSend(this, "", ischeck)
         }
     }
@@ -224,10 +224,10 @@ class SettingActivity : Activity() {
     private fun setEventCheck(id: String, type: String, link: String, title: String) {
 
         val arr = link.split("hotelnowevent://".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        var frontMethod = ""
-        var frontTitle = ""
-        var frontEvtId = ""
-        var method = ""
+        var frontMethod: String? = ""
+        var frontTitle: String?
+        var frontEvtId: String?
+        var method: String?
 
         if (arr.size > 1) {
             frontMethod = arr[1]
@@ -261,8 +261,8 @@ class SettingActivity : Activity() {
 
                         override fun onSuccess(headers: Map<String, String>, body: String) {
                             try {
-                                val obj = JSONObject(body)
-                                val aobj = obj.getJSONArray("data")
+                                val _obj = JSONObject(body)
+                                val aobj = _obj.getJSONArray("data")
 
                                 if (aobj.length() == 0) {
                                     dialogAlert = DialogAlert(
@@ -281,12 +281,13 @@ class SettingActivity : Activity() {
                                 val checkout = Util.getNextDateStr(checkin)
 
                                 val intent = Intent(this@SettingActivity, DetailHotelActivity::class.java)
-                                intent?.let {
-                                    it.putExtra("hid", url_link)
-                                    it.putExtra("evt", "N")
-                                    it.putExtra("sdate", checkin)
-                                    it.putExtra("edate", checkout)
-                                    startActivity(it) }
+                                intent.apply {
+                                    putExtra("hid", url_link)
+                                    putExtra("evt", "N")
+                                    putExtra("sdate", checkin)
+                                    putExtra("edate", checkout)
+                                }
+                                startActivity(intent)
 
                             } catch (e: Exception) {
                                 // Log.e(CONFIG.TAG, e.toString());
@@ -298,32 +299,32 @@ class SettingActivity : Activity() {
                     })
                 } else if (method == "move_theme") {
                     val intent = Intent(this@SettingActivity, ThemeSpecialHotelActivity::class.java)
-                    intent?.let {
-                        it.putExtra("tid", url_link)
-                        startActivity(it)
+                    intent.apply {
+                        putExtra("tid", url_link)
                     }
+                    startActivity(intent)
 
                 } else if (method == "move_theme_ticket") {
                     val intent = Intent(this@SettingActivity, ThemeSpecialActivityActivity::class.java)
-                    intent?.let {
-                        it.putExtra("tid", url_link)
-                        startActivity(it)
+                    intent.apply {
+                        putExtra("tid", url_link)
                     }
+                    startActivity(intent)
                 } else if (method == "move_ticket_detail") {
                     val intent = Intent(this@SettingActivity, DetailActivityActivity::class.java)
-                    intent?.let {
-                        it.putExtra("tid", url_link)
-                        startActivity(it)
+                    intent.apply {
+                        putExtra("tid", url_link)
                     }
+                    startActivity(intent)
                 } else if (method == "outer_link") {
                     if (url_link.contains("hotelnow")) {
                         frontTitle = if (title !== "") title else "무료 숙박 이벤트"
                         val intent = Intent(this@SettingActivity, WebviewActivity::class.java)
-                        intent?.let {
-                            it.putExtra("url", url_link)
-                            it.putExtra("title", frontTitle)
-                            startActivity(it)
+                        intent.apply {
+                            putExtra("url", url_link)
+                            putExtra("title", frontTitle)
                         }
+                        startActivity(intent)
                     } else {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url_link))
                         startActivity(intent)
@@ -338,10 +339,11 @@ class SettingActivity : Activity() {
         } else {
             frontTitle = if (title !== "") title else "무료 숙박 이벤트"
             val intentEvt = Intent(this@SettingActivity, EventActivity::class.java)
-            intentEvt?.let {
-                it.putExtra("idx", Integer.valueOf(frontEvtId))
-                it.putExtra("title", frontTitle)
-                startActivity(it) }
+            intentEvt.apply {
+                frontEvtId?.let { intentEvt.putExtra("idx", Integer.valueOf(frontEvtId)) }
+                putExtra("title", frontTitle)
+            }
+            startActivity(intentEvt)
         }
     }
 
