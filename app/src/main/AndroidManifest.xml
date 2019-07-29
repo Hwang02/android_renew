@@ -175,12 +175,6 @@
             </intent-filter>
         </service>
 
-        <receiver android:name="com.tune.TuneTracker">
-            <intent-filter android:priority="300" >
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="@string/facebook_provider"
