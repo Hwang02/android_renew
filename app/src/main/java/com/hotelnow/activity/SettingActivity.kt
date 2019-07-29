@@ -159,7 +159,7 @@ class SettingActivity : Activity() {
                     override fun onSingleClick(v: View) {
                         dialogAgreeUser?.dismiss()
                     }
-                }, value, CompoundButton.OnCheckedChangeListener { buttonView, isChecked -> Sel_check = isChecked }, if (cookie == null) false else true)
+                }, value, CompoundButton.OnCheckedChangeListener { _: CompoundButton, isChecked -> Sel_check = isChecked }, if (cookie == null) false else true)
 
         dialogAgreeUser?.let {
             it.setCancelable(false)
@@ -189,12 +189,12 @@ class SettingActivity : Activity() {
         val paramObj = JSONObject()
 
         try {
-            paramObj?.let {
-                it.put("os", "a")
-                it.put("uuid", androidId)
-                it.put("push_token", regId)
-                it.put("ver", Util.getAppVersionName(context))
-                it.put("marketing_use", if (flag == true) "Y" else "N")
+            paramObj.apply {
+                put("os", "a")
+                put("uuid", androidId)
+                put("push_token", regId)
+                put("ver", Util.getAppVersionName(context))
+                put("marketing_use", if (flag == true) "Y" else "N")
             }
 
         } catch (e: JSONException) {
